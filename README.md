@@ -17,7 +17,7 @@ $ helm repo add harness https://harness.github.io/helm-charts
 ## Installing the chart
 Create a namespace for your installation
 ```
-kubectl create namespace <namespace>
+$ kubectl create namespace <namespace>
 ```
 Download the override.yaml file from https://github.com/harness/helm-charts/override.yaml and put relevant configurations in it.
 
@@ -30,11 +30,11 @@ Please refer the following documentation: https://docs.harness.io/article/gqoqin
 ## Upgrading the chart
 Find out the release-name using
 ```
-helm ls -n <namespace>
+$ helm ls -n <namespace>
 ```
 Get the data from previous release
 ```
-helm get values my-release > old_values.yaml
+$ helm get values my-release > old_values.yaml
 ```
 Then change the fields in old_values.yaml file as required. Now update the chart using
 Helm Upgrade
