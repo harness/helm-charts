@@ -22,11 +22,11 @@ Download the override.yaml file from https://github.com/harness/helm-charts/blob
 
 Installing the helm chart
 ```
-$  helm install my-release harness/harness-demo -n test -f override.yaml 
+$  helm install my-release harness/harness-demo -n <namespace> -f override.yaml 
 ```
 or
 ```
-$  helm install my-release harness/harness-prod -n test -f override.yaml 
+$  helm install my-release harness/harness-prod -n <namespace> -f override.yaml 
 ```
 
 ### Accessing the application
