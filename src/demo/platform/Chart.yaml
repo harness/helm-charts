@@ -65,8 +65,8 @@ dependencies:
     repository: "https://harness.github.io/helm-log-service/charts"
 
   - name: minio
-    version: 8.0.10
-    repository: https://helm.min.io/
+    version: 4.0.9
+    repository: https://charts.min.io/
 
   - name: mongo
     version: 0.1.0

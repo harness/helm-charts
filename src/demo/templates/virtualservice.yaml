@@ -13,21 +13,6 @@ spec:
     {{- range .Values.istio.VirtualService.hosts }}
     - {{ . }}
     {{- end }}
-  tcp:
-  - match:
-    - port: 9000
-    route:
-    - destination:
-        host: log-service-minio
-        port:
-          number: 9000
-  - match:
-    - port: 9879
-    route:
-    - destination:
-        host: harness-manager
-        port:
-          number: 9879
   http:
   - name: ng-manager
     match:
@@ -110,10 +95,10 @@ spec:
     route:
     - destination:
         port:
-          number: 9000
+          number: 9001
         host: minio
 
-  - name: log-serivce-minio
+  - name: minio
     match:
     - uri:
         prefix: "/logs/"

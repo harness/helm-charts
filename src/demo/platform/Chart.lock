@@ -30,8 +30,8 @@ dependencies:
   repository: https://harness.github.io/helm-log-service/charts
   version: 0.1.0
 - name: minio
-  repository: https://helm.min.io/
-  version: 8.0.10
+  repository: https://charts.min.io/
+  version: 4.0.9
 - name: mongo
   repository: https://harness.github.io/helm-mongo/charts
   version: 0.1.0
@@ -65,5 +65,5 @@ dependencies:
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb/charts
   version: 0.1.0
-digest: sha256:e71ffbe6da53b813d1ddf0b78075e51e185ac0bd100b62a17d1977b6b70b1b02
-generated: "2022-08-17T13:51:19.150946-04:00"
+digest: sha256:a1d76d89997dd574891d443368bc849f2c34f1da1ec826890675e75bc00fd6bd
+generated: "2022-08-18T00:55:18.055442+05:30"
