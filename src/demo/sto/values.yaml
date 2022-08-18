@@ -5,6 +5,6 @@ sto-core:
 sto-manager:
   autoscaling:
     enabled: false
-  
+
 postgresql:
-  fullnameOverride: "postgres" 
+  fullnameOverride: "postgres"
