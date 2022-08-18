@@ -11,6 +11,8 @@ Once Helm is set up properly, add the repo as follows:
 ```console
 $ helm repo add harness https://harness.github.io/helm-charts
 ```
+## Requirements
+* Istio installed within kubernetes, for reference: https://istio.io/latest/docs/setup/getting-started/
 
 ## Installing the chart
 Create a namespace for your installation
