@@ -130,12 +130,18 @@ log-service:
     enabled: false
 
 minio:
-  fullnameOverride: minio
-  defaultBuckets: "logs"
-  auth:
-    existingSecret: minio
-  autoscaling:
-    enabled: false
+  fullnameOverride: "minio"
+  mode: standalone
+  rootUser: ""
+  rootPassword: ""
+  buckets:
+  - name: logs
+    policy: none
+    purge: false
+  makeBucketJob:
+    exitCommand: "curl -sf -XPOST http://127.0.0.1:15020/quitquitquit"
+  makeUserJob:
+    exitCommand: "curl -sf -XPOST http://127.0.0.1:15020/quitquitquit"
 
 mongo:
   image:
