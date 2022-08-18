@@ -48,7 +48,7 @@ jobs:
       #     fi
 
       - name: Run chart-testing (lint)
-        working-directory: ./src
+        working-directory: ./src/demo
         run: ct lint --target-branch=develop --charts=. --chart-repos=harness-common=https://harness.github.io/helm-common/charts,common=https://charts.bitnami.com/bitnami --validate-maintainers=false
 
       # - name: Create kind cluster/search
