@@ -1,6 +1,5 @@
 # Helm Charts for Harness
-This repository consists of Harness Helm charts for On-premise Customers.
-
+This repository consists of Helm charts for Harness platform.
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.
@@ -25,6 +24,11 @@ Installing the helm chart
 ```
 $  helm install my-release harness/harness-demo -n test -f override.yaml 
 ```
+or
+```
+$  helm install my-release harness/harness-prod -n test -f override.yaml 
+```
+
 ### Accessing the application
 Please refer the following documentation: https://docs.harness.io/article/gqoqinkhck-install-harness-self-managed-enterprise-edition-with-helm#create_your_harness_account 
 ## Upgrading the chart
@@ -39,7 +43,7 @@ $ helm get values my-release > old_values.yaml
 Then change the fields in old_values.yaml file as required. Now update the chart using
 Helm Upgrade
 ```
-$ helm upgrade my-release demo/ -n <namespace> -f old_values.yaml
+$ helm upgrade my-release harness/harness-demo -n <namespace> -f old_values.yaml
 ```
 
 ## Uninstalling the Chart
@@ -64,5 +68,3 @@ The command removes all the Kubernetes components associated with the chart and 
 | `global.loadbalancerURL`  | Fully qualified name of cluster                 | `""`  |
 | `global.mongoSSL` | Global setting for mongoSSL                             | `[]`  |
 | `global.storageClassName` | Global StorageClass for Persistent Volume(s)    | `""`  |
-
-
