@@ -3,6 +3,28 @@ entries:
   harness-demo:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-08-18T13:09:23.411383572Z"
+    dependencies:
+    - name: platform
+      repository: file://platform
+      version: 0.1.0
+    - condition: sto.enabled
+      name: sto
+      repository: file://sto
+      version: 0.1.0
+    - condition: ci.enabled
+      name: ci
+      repository: file://ci
+      version: 0.1.0
+    description: Helm Chart for deploying Harness in Demo configuration
+    digest: c0a3844cabdc08f44636fed8d1594edabcda620fedcfad6b09e859be6b92c833
+    name: harness-demo
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-demo-0.2.1/harness-demo-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-08-18T12:44:33.280424566Z"
     dependencies:
     - name: platform
@@ -23,4 +45,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/harness-demo-0.2.0/harness-demo-0.2.0.tgz
     version: 0.2.0
-generated: "2022-08-18T12:44:33.280441766Z"
+generated: "2022-08-18T13:09:23.411396372Z"
