@@ -21,7 +21,7 @@ Download the override.yaml file from https://github.com/harness/helm-charts/over
 
 Installing the helm chart
 ```
-$ helm install harness/harness-demo -n <namespace> -f override.yaml
+$  helm install my-release harness/harness-demo -n test -f override.yaml 
 ```
 ### Accessing the application
 Please refer the following documentation: https://docs.harness.io/article/gqoqinkhck-install-harness-self-managed-enterprise-edition-with-helm#create_your_harness_account 
