@@ -351,4 +351,3 @@ timescaledb:
     capacity: 100Gi
   autoscaling:
     enabled: false
-

@@ -1,0 +1,60 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events for specified branches
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.9.2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      # Chart testing command docs https://github.com/helm/chart-testing#usage
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.2.1
+
+      # - name: Run chart-testing (list-changed)
+      #   working-directory: ./src
+      #   id: list-changed
+      #   run: |
+      #     changed=$(ct list-changed --target-branch=develop)
+      #     if [[ -n "$changed" ]]; then
+      #       echo "::set-output name=changed::true"
+      #     fi
+
+      - name: Run chart-testing (lint)
+        working-directory: ./src/demo
+        run: ct lint --target-branch=develop --charts=. --chart-repos=harness-common=https://harness.github.io/helm-common/charts,common=https://charts.bitnami.com/bitnami --validate-maintainers=false
+
+      # - name: Create kind cluster/search
+      #   uses: helm/kind-action@v1.2.0
+      #   if: steps.list-changed.outputs.changed == 'true'
+
+      # - name: Run chart-testing (install)
+      #   working-directory: ./src
+      #   run: ct install --target-branch=develop --charts=. --chart-repos=harness-common=https://harness.github.io/helm-common/charts,common=https://charts.bitnami.com/bitnami

@@ -1,5 +1,5 @@
 apiVersion: v2
-name: platform 
+name: platform
 description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -38,7 +38,7 @@ dependencies:
 
   - name: cv-nextgen
     version: 0.1.0
-    repository: "https://harness.github.io/helm-cv-nextgen/charts"  
+    repository: "https://harness.github.io/helm-cv-nextgen/charts"
 
   - name: gateway
     version: 0.1.0
@@ -58,7 +58,7 @@ dependencies:
 
   - name: le-nextgen
     version: 0.1.0
-    repository: "https://harness.github.io/helm-le-nextgen/charts"  
+    repository: "https://harness.github.io/helm-le-nextgen/charts"
 
   - name: log-service
     version: 0.1.0
@@ -111,6 +111,3 @@ dependencies:
   - name: timescaledb
     version: 0.1.0
     repository: "https://harness.github.io/helm-timescaledb/charts"
-
-
-
