@@ -1,0 +1,10 @@
+sto-core:
+  autoscaling:
+    enabled: false
+
+sto-manager:
+  autoscaling:
+    enabled: false
+
+postgresql:
+  fullnameOverride: "postgres"
