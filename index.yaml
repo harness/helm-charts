@@ -3,6 +3,28 @@ entries:
   harness-demo:
   - apiVersion: v2
     appVersion: 1.0.76019
+    created: "2022-08-19T11:11:52.571396288Z"
+    dependencies:
+    - name: platform
+      repository: file://platform
+      version: 0.1.1
+    - condition: sto.enabled
+      name: sto
+      repository: file://sto
+      version: 0.1.0
+    - condition: ci.enabled
+      name: ci
+      repository: file://ci
+      version: 0.1.0
+    description: elm Chart for deploying Harness in Demo configuration
+    digest: 5a9e224ef13e03be9268cad002b62c44ccba8321179f3405422f2b1541968a0f
+    name: harness-demo
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-demo-0.2.6/harness-demo-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v2
+    appVersion: 1.0.76019
     created: "2022-08-18T15:03:23.648251888Z"
     dependencies:
     - name: platform
@@ -114,6 +136,28 @@ entries:
   harness-prod:
   - apiVersion: v2
     appVersion: 1.0.76019
+    created: "2022-08-19T11:11:52.811814951Z"
+    dependencies:
+    - name: platform
+      repository: file://platform
+      version: 0.1.1
+    - condition: sto.enabled
+      name: sto
+      repository: file://sto
+      version: 0.1.0
+    - condition: ci.enabled
+      name: ci
+      repository: file://ci
+      version: 0.1.0
+    description: Helm Chart for deploying Harness in Prod configuration
+    digest: 19e50aa3ec3a7f0379b32915159329dd41ee3760de3df087c5380c2424a8175c
+    name: harness-prod
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.6/harness-prod-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v2
+    appVersion: 1.0.76019
     created: "2022-08-18T15:24:58.965534656Z"
     dependencies:
     - name: platform
@@ -178,4 +222,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.2/harness-prod-0.2.2.tgz
     version: 0.2.2
-generated: "2022-08-18T15:24:58.965562458Z"
+generated: "2022-08-19T11:11:52.811858054Z"
