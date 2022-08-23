@@ -4,9 +4,9 @@ dependencies:
   version: 0.1.2
 - name: sto
   repository: file://sto
-  version: 0.1.1
+  version: 0.1.2
 - name: ci
   repository: file://ci
   version: 0.1.1
-digest: sha256:c15bb0c9498fdc18358a450af55dc08d856ba731465c9378095097219edbc615
-generated: "2022-08-22T21:43:00.857376-04:00"
+digest: sha256:d912f614baa962ae54832e872bc3063e6b53e2b978d2377bc85298a247512119
+generated: "2022-08-23T07:06:59.179623-04:00"
