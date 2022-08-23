@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.1
+version: 0.1.2
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -29,85 +29,85 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
 
   - name: access-control
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-access-control/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-access-control"
 
   - name: change-data-capture
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-change-data-capture/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-change-data-capture"
 
   - name: cv-nextgen
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-cv-nextgen/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-cv-nextgen"
 
   - name: gateway
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-gateway/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-gateway"
 
   - name: harness-secrets
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-harness-secrets/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-harness-secrets"
 
   - name: harness-manager
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-harness-manager/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-harness-manager"
 
   - name: delegate-proxy
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-delegate-proxy/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-delegate-proxy"
 
   - name: le-nextgen
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-le-nextgen/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-le-nextgen"
 
   - name: log-service
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-log-service/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-log-service"
 
   - name: minio
     version: 4.0.9
     repository: https://charts.min.io/
 
   - name: mongo
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-mongo/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-mongo"
 
   - name: next-gen-ui
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-next-gen-ui/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-next-gen-ui"
 
   - name: ng-auth-ui
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-ng-auth-ui/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-ng-auth-ui"
 
   - name: ng-manager
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-ng-manager/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-ng-manager"
 
   - name: pipeline-service
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-pipeline-service/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-pipeline-service"
 
   - name: platform-service
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-platform-service/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-platform-service"
 
   - name: redis
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-redis/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-redis"
 
   - name: scm-service
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-scm-service/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-scm-service"
 
   - name: template-service
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-template-service/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-template-service"
 
   - name: ti-service
-    version: 0.1.1
-    repository: "https://harness.github.io/helm-ti-service/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-ti-service"
 
   - name: timescaledb
-    version: 0.1.0
-    repository: "https://harness.github.io/helm-timescaledb/charts"
+    version: 0.2.0
+    repository: "https://harness.github.io/helm-timescaledb"

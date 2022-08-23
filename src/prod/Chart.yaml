@@ -25,15 +25,15 @@ appVersion: "1.0.76019"
 
 dependencies:
   - name: platform
-    version: 0.1.1
+    version: 0.1.x
     repository: "file://platform"
 
   - name: sto
     condition: sto.enabled
-    version: "0.1.0"
+    version: 0.1.x
     repository: "file://sto"
 
   - name: ci
     condition: ci.enabled
-    version: "0.1.0"
+    version: 0.1.x
     repository: "file://ci"

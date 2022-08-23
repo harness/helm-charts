@@ -1,12 +1,12 @@
 dependencies:
 - name: platform
   repository: file://platform
-  version: 0.1.1
+  version: 0.1.2
 - name: sto
   repository: file://sto
-  version: 0.1.0
+  version: 0.1.1
 - name: ci
   repository: file://ci
-  version: 0.1.0
-digest: sha256:0e316b730857b1385b88ca1b6ffb2223dc9b7b021ed750785ead6f8d1ff00194
-generated: "2022-08-19T07:01:02.327623-04:00"
+  version: 0.1.1
+digest: sha256:c15bb0c9498fdc18358a450af55dc08d856ba731465c9378095097219edbc615
+generated: "2022-08-22T21:43:00.857376-04:00"
