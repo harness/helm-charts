@@ -14,6 +14,7 @@ spec:
     {{- range .Values.istio.virtualService.gateways }}
     - {{ . }}
     {{- end }}
+    {{- end }}
   hosts:
     {{- range .Values.istio.virtualService.hosts }}
     - {{ . }}
