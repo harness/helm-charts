@@ -10,7 +10,7 @@ dependencies:
   version: 0.2.0
 - name: cv-nextgen
   repository: https://harness.github.io/helm-cv-nextgen
-  version: 0.2.0
+  version: 0.2.2
 - name: gateway
   repository: https://harness.github.io/helm-gateway
   version: 0.2.0
@@ -19,7 +19,7 @@ dependencies:
   version: 0.2.0
 - name: harness-manager
   repository: https://harness.github.io/helm-harness-manager
-  version: 0.2.0
+  version: 0.2.4
 - name: delegate-proxy
   repository: https://harness.github.io/helm-delegate-proxy
   version: 0.2.0
@@ -28,10 +28,10 @@ dependencies:
   version: 0.2.0
 - name: log-service
   repository: https://harness.github.io/helm-log-service
-  version: 0.2.0
+  version: 0.2.4
 - name: minio
-  repository: https://charts.min.io/
-  version: 4.0.9
+  repository: https://charts.bitnami.com/bitnami
+  version: 11.9.1
 - name: mongo
   repository: https://harness.github.io/helm-mongo
   version: 0.2.0
@@ -43,13 +43,13 @@ dependencies:
   version: 0.2.0
 - name: ng-manager
   repository: https://harness.github.io/helm-ng-manager
-  version: 0.2.0
+  version: 0.2.3
 - name: pipeline-service
   repository: https://harness.github.io/helm-pipeline-service
-  version: 0.2.0
+  version: 0.2.2
 - name: platform-service
   repository: https://harness.github.io/helm-platform-service
-  version: 0.2.0
+  version: 0.2.2
 - name: redis
   repository: https://harness.github.io/helm-redis
   version: 0.2.0
@@ -58,12 +58,12 @@ dependencies:
   version: 0.2.0
 - name: template-service
   repository: https://harness.github.io/helm-template-service
-  version: 0.2.0
+  version: 0.2.2
 - name: ti-service
   repository: https://harness.github.io/helm-ti-service
-  version: 0.2.0
+  version: 0.2.1
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.0
-digest: sha256:e6d74cceee9dea5cf8bf8e5cb51200bceb928b254b3a9e3ada74356c24829aec
-generated: "2022-08-22T21:41:37.342054-04:00"
+digest: sha256:308f46679953c9e9968faefabfd7407f9fe6e41913cdbc2802b9c8c6fdba16d4
+generated: "2022-08-23T19:28:11.808848+05:30"

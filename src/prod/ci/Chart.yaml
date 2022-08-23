@@ -25,5 +25,5 @@ appVersion: "1.16.0"
 
 dependencies:
 - name: ci-manager
-  version: 0.2.0
+  version: 0.2.x
   repository: "https://harness.github.io/helm-ci-manager"

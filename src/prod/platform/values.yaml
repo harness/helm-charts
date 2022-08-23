@@ -79,7 +79,10 @@ gateway:
     enabled: false
 
 harness-manager:
-  delegate_docker_image: harness/delegate:latest
+  delegate_docker_image:
+    image: 
+      repository: harness/delegate
+      tag: latest
   external_graphql_rate_limit: "500"
   autoscaling:
     enabled: false
@@ -132,16 +135,10 @@ log-service:
 minio:
   fullnameOverride: "minio"
   mode: standalone
-  rootUser: ""
-  rootPassword: ""
-  buckets:
-  - name: logs
-    policy: none
-    purge: false
-  makeBucketJob:
-    exitCommand: "curl -sf -XPOST http://127.0.0.1:15020/quitquitquit"
-  makeUserJob:
-    exitCommand: "curl -sf -XPOST http://127.0.0.1:15020/quitquitquit"
+  auth:
+    rootUser: ""
+    rootPassword: ""
+  defaultBuckets: "logs"
 
 mongo:
   image:
