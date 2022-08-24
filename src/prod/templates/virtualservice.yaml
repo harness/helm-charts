@@ -8,13 +8,13 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   gateways:
-    # {{- if .Values.istio.gateway.create -}}
+    {{- if .Values.istio.gateway.create }}
     - istio-system/public
-    # {{- else -}}
-    # {{- range .Values.istio.virtualService.gateways }}
-    # - {{ . }}
-    # {{- end }}
-    # {{- end }}
+    {{- else }}
+    {{- range .Values.istio.virtualService.gateways }}
+    - {{ . }}
+    {{- end }}
+    {{- end }}
   hosts:
     {{- range .Values.istio.virtualService.hosts }}
     - {{ . }}
