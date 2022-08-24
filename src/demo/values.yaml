@@ -82,6 +82,6 @@ istio:
     credentialName:
     minProtocolVersion: TLSV1_2
     mode: SIMPLE
-  VirtualService:
+  virtualService:
     hosts:
       - ""
