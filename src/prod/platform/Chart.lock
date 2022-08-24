@@ -7,7 +7,7 @@ dependencies:
   version: 0.2.2
 - name: change-data-capture
   repository: https://harness.github.io/helm-change-data-capture
-  version: 0.2.4
+  version: 0.2.5
 - name: cv-nextgen
   repository: https://harness.github.io/helm-cv-nextgen
   version: 0.2.7
@@ -43,10 +43,10 @@ dependencies:
   version: 0.2.0
 - name: ng-manager
   repository: https://harness.github.io/helm-ng-manager
-  version: 0.2.8
+  version: 0.2.10
 - name: pipeline-service
   repository: https://harness.github.io/helm-pipeline-service
-  version: 0.2.5
+  version: 0.2.6
 - name: platform-service
   repository: https://harness.github.io/helm-platform-service
   version: 0.2.4
@@ -58,12 +58,12 @@ dependencies:
   version: 0.2.0
 - name: template-service
   repository: https://harness.github.io/helm-template-service
-  version: 0.2.4
+  version: 0.2.5
 - name: ti-service
   repository: https://harness.github.io/helm-ti-service
   version: 0.2.2
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.1
-digest: sha256:cb5e9d6974e3b5f4d22181a080279ba709f74de37ba54b76c57fa3a2640593b9
-generated: "2022-08-24T16:35:47.35211-04:00"
+digest: sha256:86fbee13e21e71142c7cab0cd62475be89626cd510e0c364a8806b9cdca7f76b
+generated: "2022-08-24T17:25:30.281071-04:00"
