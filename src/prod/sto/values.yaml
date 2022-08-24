@@ -8,3 +8,5 @@ sto-manager:
 
 postgresql:
   fullnameOverride: "postgres"
+  commonLabels:
+    app: postgres
