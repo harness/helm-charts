@@ -1,12 +1,12 @@
 dependencies:
 - name: sto-core
   repository: https://harness.github.io/helm-sto-core
-  version: 0.2.1
+  version: 0.2.2
 - name: sto-manager
   repository: https://harness.github.io/helm-sto-manager
-  version: 0.2.2
+  version: 0.2.4
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 11.6.16
-digest: sha256:ac592226e07c981eac37cc4076e28d4fc1e165958f3af699f141f7d7e5e9cd5a
-generated: "2022-08-23T23:26:50.416358+05:30"
+digest: sha256:ac4c5318a4bfe7bf2ecae1bd0f47d6f590dab5ef3c9df47377a9254fab1676c9
+generated: "2022-08-24T16:35:37.247456-04:00"
