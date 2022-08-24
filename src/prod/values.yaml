@@ -33,13 +33,11 @@ platform:
       secretAccessKey: ""
 
   minio:
-    accessKey: ""
-    secretKey: ""
-    defaultBucket:
-      enabled: true
-      name: logs
-      policy: none
-      purge: false
+    fullnameOverride: "minio"
+    mode: standalone
+    auth:
+      rootUser: ""
+      rootPassword: ""
 
   mongo:
     secrets:
@@ -108,7 +106,8 @@ istio:
     minProtocolVersion: TLSV1_2
     mode: SIMPLE
   virtualService:
-    gateways: []
+    gateways:
+      - ""
     hosts:
       - ""
 sto:
