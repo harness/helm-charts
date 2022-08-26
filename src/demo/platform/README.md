@@ -104,6 +104,8 @@ A Helm chart for Kubernetes
 | log-service.resources.limits.memory | string | `"3072Mi"` |  |
 | log-service.resources.requests.cpu | int | `1` |  |
 | log-service.resources.requests.memory | string | `"3072Mi"` |  |
+| minio.auth.rootPassword | string | `""` |  |
+| minio.auth.rootUser | string | `""` |  |
 | minio.defaultBuckets | string | `"logs"` |  |
 | minio.fullnameOverride | string | `"minio"` |  |
 | minio.mode | string | `"standalone"` |  |

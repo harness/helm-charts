@@ -16,7 +16,6 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| postgresql.commonLabels.app | string | `"postgres"` |  |
 | postgresql.fullnameOverride | string | `"postgres"` |  |
 | sto-core.autoscaling.enabled | bool | `false` |  |
 | sto-manager.autoscaling.enabled | bool | `false` |  |
