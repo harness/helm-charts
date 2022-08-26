@@ -1,6 +1,6 @@
 # harness-prod
 
-![Version: 0.2.15](https://img.shields.io/badge/Version-0.2.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
+![Version: 0.2.16](https://img.shields.io/badge/Version-0.2.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Prod configuration
 
@@ -16,10 +16,9 @@ Helm Chart for deploying Harness in Prod configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ci.enabled | bool | `true` |  |
-| global.airgap | string | `"false"` |  |
+| ci.enabled | bool | `true` | Enable to install CI |
+| global.airgap | bool | `false` | Enable for complete airgap environment |
 | global.ha | bool | `false` |  |
-| global.host_name | string | `""` | Hostname of Harness deployment |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |

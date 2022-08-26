@@ -11,6 +11,7 @@ global:
   storageClassName: ""
 
 ci:
+  # -- Enable to install CI
   enabled: true
 
 sto:
