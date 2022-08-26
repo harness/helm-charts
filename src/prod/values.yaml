@@ -1,6 +1,7 @@
 ## Global Settings
 global:
-  airgap: "false"
+  # -- Enable for complete airgap environment
+  airgap: false
   ha: false
   # -- Global Docker image registry
   imageRegistry: ""
