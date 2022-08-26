@@ -19,9 +19,9 @@ Helm Chart for deploying Harness in Prod configuration
 | ci.enabled | bool | `true` |  |
 | global.airgap | string | `"false"` |  |
 | global.ha | bool | `false` |  |
-| global.host_name | string | `""` | - Hostname of Harness deployment |
-| global.imageRegistry | string | `""` | - Global Docker image registry |
-| global.loadbalancerURL | string | `""` | - Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
+| global.host_name | string | `""` | Hostname of Harness deployment |
+| global.imageRegistry | string | `""` | Global Docker image registry |
+| global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.storageClassName | string | `""` |  |
 | istio.enabled | bool | `true` |  |
@@ -34,7 +34,7 @@ Helm Chart for deploying Harness in Prod configuration
 | istio.tls.mode | string | `"SIMPLE"` |  |
 | istio.virtualService.gateways[0] | string | `""` |  |
 | istio.virtualService.hosts[0] | string | `""` |  |
-| platform.features | string | `""` | - Feature list to enable within platform.  Contact Harness for value |
+| platform.features | string | `""` | Feature list to enable within platform.  Contact Harness for value |
 | sto.enabled | bool | `true` |  |
 
 ----------------------------------------------
