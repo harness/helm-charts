@@ -80,7 +80,7 @@ gateway:
 
 harness-manager:
   delegate_docker_image:
-    image: 
+    image:
       repository: harness/delegate
       tag: latest
   external_graphql_rate_limit: "500"

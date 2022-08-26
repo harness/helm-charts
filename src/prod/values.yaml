@@ -25,6 +25,7 @@ platform:
 istio:
   enabled: true
   gateway:
+    # -- Enable to create istio-system gateway
     create: true
     port: 443
     protocol: HTTPS
@@ -39,4 +40,3 @@ istio:
       - ""
     hosts:
       - ""
-
