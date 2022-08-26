@@ -1,8 +1,12 @@
+## Global Settings
 global:
   airgap: "false"
   ha: false
+  # --- Hostname of Harness deployment
   host_name: ""
-  imageRegistryOverride: ""
+  # --- Global Docker image registry
+  imageRegistry: ""
+  # --- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
   loadbalancerURL: ""
   mongoSSL: false
   storageClassName: ""
@@ -12,6 +16,11 @@ ci:
 
 sto:
   enabled: true
+
+## Platform Settings
+platform:
+  # --- Feature list to enable within platform.  Contact Harness for value
+  features: ""
 
 istio:
   enabled: true
