@@ -25,6 +25,7 @@ $ kubectl create namespace <namespace>
 
 Create your override.yaml file with your envirionment settings:
 
+```
 ## Global Settings
 global:
   # -- Enable for complete airgap environment
@@ -67,6 +68,8 @@ istio:
       - ""
     hosts:
       - ""
+
+```
 
 Installing the helm chart
 ```
