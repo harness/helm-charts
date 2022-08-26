@@ -135,9 +135,6 @@ log-service:
 minio:
   fullnameOverride: "minio"
   mode: standalone
-  auth:
-    rootUser: ""
-    rootPassword: ""
   defaultBuckets: "logs"
 
 mongo:
