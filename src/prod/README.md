@@ -103,14 +103,6 @@ $ helm uninstall my-release -n <namespace>
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
-## Requirements
-
-| Repository | Name | Version |
-|------------|------|---------|
-| file://ci | ci | 0.1.x |
-| file://platform | platform | 0.1.x |
-| file://sto | sto | 0.1.x |
-
 ## Values
 
 | Key | Type | Default | Description |
