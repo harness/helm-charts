@@ -26,7 +26,7 @@ $ kubectl create namespace <namespace>
 Create your override.yaml file with your envirionment settings:
 
 ```
-{{ .Files.Get "values.yaml" }}
+{{ .Files.Get "override.yaml" }}
 ```
 
 Installing the helm chart
