@@ -1,1 +1,1 @@
-src/prod/README.md
+src/main/README.md
