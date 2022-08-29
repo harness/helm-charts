@@ -10,18 +10,328 @@ global:
   mongoSSL: false
   storageClassName: ""
 
-ci:
-  # -- Enable to install CI
-  enabled: true
-
-sto:
-  enabled: true
-
 ## Platform Settings
-platform:
-  # -- Feature list to enable within platform.  Contact Harness for value
-  harness-manager:
-    features: ""
+harness-main:
+  platform:
+    # -- Feature list to enable within platform.  Contact Harness for value
+    access-control:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      appLogLevel: INFO
+      java:
+        memory: 512m
+      resources:
+        limits:
+          cpu: 1
+          memory: 4096Mi
+        requests:
+          cpu: 1
+          memory: 4096Mi
+
+    change-data-capture:
+      appLogLevel: INFO
+      java:
+        memory: 2048
+      resources:
+        limits:
+          cpu: 1
+          memory: 2880Mi
+        requests:
+          cpu: 1
+          memory: 2880Mi
+      autoscaling:
+        enabled: false
+        minReplicas: 2
+
+    cv-nextgen:
+      java:
+        memory: 2048
+      resources:
+        limits:
+          cpu: 1
+          memory: 3000Mi
+        requests:
+          cpu: 1
+          memory: 3000Mi
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+
+    delegate-proxy:
+      resources:
+        limits:
+          cpu: 200m
+          memory: 100Mi
+        requests:
+          cpu: 200m
+          memory: 100Mi
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+
+    gateway:
+      java:
+        memory: 2048
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 3072Mi
+        requests:
+          cpu: 0.5
+          memory: 3072Mi
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+
+    harness-manager:
+      external_graphql_rate_limit: "500"
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      java:
+        memory: "2048"
+      resources:
+        limits:
+          cpu: 2
+          memory: 3000Mi
+        requests:
+          cpu: 2
+          memory: 3000Mi
+
+    le-nextgen:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      resources:
+        limits:
+          cpu: 4
+          memory: 6132Mi
+        requests:
+          cpu: 4
+          memory: 6132Mi
+
+    log-service:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 1
+          memory: 3072Mi
+        requests:
+          cpu: 1
+          memory: 3072Mi
+    minio:
+      fullnameOverride: "minio"
+      mode: standalone
+      defaultBuckets: "logs"
+      persistence:
+        size: 200Gi
+
+    mongodb:
+      replicaCount: 3
+      resources:
+        limits:
+          cpu: 4
+          memory: 8192Mi
+        requests:
+          cpu: 4
+          memory: 8192Mi
+      persistence:
+        size: 200Gi
+
+    next-gen-ui:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 512Mi
+        requests:
+          cpu: 0.5
+          memory: 512Mi
+
+    ng-auth-ui:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 512Mi
+        requests:
+          cpu: 0.5
+          memory: 512Mi
+
+    ng-manager:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      java:
+        memory: "4096m"
+      resources:
+        limits:
+          cpu: 2
+          memory: 6144Mi
+        requests:
+          cpu: 2
+          memory: 6144Mi
+
+    pipeline-service:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      java:
+        memory: "4096m"
+      resources:
+        limits:
+          cpu: 1
+          memory: 6144Mi
+        requests:
+          cpu: 1
+          memory: 6144Mi
+
+    platform-service:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      java:
+        memory: "3072m"
+      resources:
+        limits:
+          cpu: 1
+          memory: 4096Mi
+        requests:
+          cpu: 1
+          memory: 4096Mi
+
+    redis:
+      redis:
+        resources:
+          limits:
+            cpu: 1
+            memory: 2048Mi
+          requests:
+            cpu: 1
+            memory: 2048Mi
+      replicaCount: 3
+      sentinel:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+      volumeClaimTemplate:
+        resources:
+          requests:
+            storage: 10Gi
+
+    scm-service:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 0.1
+          memory: 512Mi
+        requests:
+          cpu: 0.1
+          memory: 512Mi
+
+    template-service:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      java:
+        memory: "2048m"
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 3000Mi
+        requests:
+          cpu: 0.5
+          memory: 3000Mi
+
+    ti-service:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      jobresources:
+        limits:
+          cpu: 1
+          memory: 3072Mi
+        requests:
+          cpu: 1
+          memory: 3072Mi
+      resources:
+        limits:
+          cpu: 1
+          memory: 3072Mi
+        requests:
+          cpu: 1
+          memory: 3072Mi
+
+    timescaledb:
+      autoscaling:
+        enabled: false
+      replicaCount: 2
+      resources:
+        limits:
+          cpu: 1
+          memory: 2048Mi
+        requests:
+          cpu: 1
+          memory: 2048Mi
+      storage:
+        capacity: 120Gi
+
+  ci:
+  # -- Enable to install CI
+    enabled: true
+    ci-manager:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      java:
+        memory: "4096m"
+      resources:
+        limits:
+          cpu: 1
+          memory: 6192Mi
+        requests:
+          cpu: 1
+          memory: 6192Mi
+
+  sto:
+  # -- Enable to install STO
+    enabled: true
+    sto-core:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      resources:
+        limits:
+          cpu: 500m
+          memory: 500Mi
+        requests:
+          cpu: 500m
+          memory: 500Mi
+    sto-manager:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      resources:
+        limits:
+          cpu: 1
+          memory: 3072Mi
+        requests:
+          cpu: 1
+          memory: 3072Mi
 
 
 istio:
