@@ -2,7 +2,7 @@
 global:
   # -- Enable for complete airgap environment
   airgap: false
-  ha: false
+  ha: true
   # -- Global Docker image registry
   imageRegistry: ""
   # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
@@ -20,7 +20,9 @@ sto:
 ## Platform Settings
 platform:
   # -- Feature list to enable within platform.  Contact Harness for value
-  features: ""
+  harness-manager:
+    features: ""
+
 
 istio:
   enabled: true

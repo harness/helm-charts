@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness in Prod configuration
 
-![Version: 0.2.16](https://img.shields.io/badge/Version-0.2.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
+![Version: 0.2.17](https://img.shields.io/badge/Version-0.2.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
 
 ## Usage
 
@@ -30,7 +30,7 @@ Create your override.yaml file with your envirionment settings:
 global:
   # -- Enable for complete airgap environment
   airgap: false
-  ha: false
+  ha: true
   # -- Global Docker image registry
   imageRegistry: ""
   # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
@@ -48,7 +48,8 @@ sto:
 ## Platform Settings
 platform:
   # -- Feature list to enable within platform.  Contact Harness for value
-  features: ""
+  harness-manager:
+    features: ""
 
 istio:
   enabled: true
@@ -109,7 +110,7 @@ The command removes all the Kubernetes components associated with the chart and 
 |-----|------|---------|-------------|
 | ci.enabled | bool | `true` | Enable to install CI |
 | global.airgap | bool | `false` | Enable for complete airgap environment |
-| global.ha | bool | `false` |  |
+| global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
@@ -124,6 +125,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | istio.tls.mode | string | `"SIMPLE"` |  |
 | istio.virtualService.gateways[0] | string | `""` |  |
 | istio.virtualService.hosts[0] | string | `""` |  |
-| platform.features | string | `""` | Feature list to enable within platform.  Contact Harness for value |
+| platform.harness-manager | object | `{"features":""}` | Feature list to enable within platform.  Contact Harness for value |
 | sto.enabled | bool | `true` |  |
 

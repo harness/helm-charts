@@ -137,30 +137,30 @@ minio:
   mode: standalone
   defaultBuckets: "logs"
 
-mongo:
+mongodb:
+  architecture: replicaset
+  fullnameOverride: "mongodb-replicaset-chart"
   image:
+    registry: docker.io
+    repository: bitnami/mongodb
     tag: 4.2.19
-  initContainers:
-    copyConfig:
-      image:
-        tag: 1.35.0
-    install:
-      image:
-        tag: 0.8
-    bootstrap:
-      image:
-        tag: 4.2.19
-  mongoStorageCapacity: 200Gi
+  replicaCount: 3
+  arbiter:
+    enabled: false
+  service:
+    nameOverride: "mongodb-replicaset-chart"
+  auth:
+    rootUser: "admin"
+  podLabels: { app: mongodb-replicaset }
   resources:
     limits:
-      cpu: 2
-      memory: 4096Mi
+      cpu: 4
+      memory: 8192Mi
     requests:
-      cpu: 2
-      memory: 4096Mi
-  autoscaling:
-    enabled: false
-  wiredTigerCacheSizeGB: 1
+      cpu: 4
+      memory: 8192Mi
+  persistence:
+    size: 200Gi
 
 next-gen-ui:
   image:
