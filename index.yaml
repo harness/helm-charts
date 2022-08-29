@@ -180,6 +180,28 @@ entries:
   harness-main:
   - apiVersion: v2
     appVersion: 1.0.76019
+    created: "2022-08-29T17:43:43.655413064Z"
+    dependencies:
+    - name: platform
+      repository: file://platform
+      version: 0.1.x
+    - condition: sto.enabled
+      name: sto
+      repository: file://sto
+      version: 0.1.x
+    - condition: ci.enabled
+      name: ci
+      repository: file://ci
+      version: 0.1.x
+    description: Helm Chart for deploying Harness.
+    digest: e90dab14123fe316f55309854f159868e150cb40c96aef79db83160710b0e295
+    name: harness-main
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-main-0.2.18/harness-main-0.2.18.tgz
+    version: 0.2.18
+  - apiVersion: v2
+    appVersion: 1.0.76019
     created: "2022-08-29T16:52:32.666029646Z"
     dependencies:
     - name: platform
@@ -465,4 +487,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.2/harness-prod-0.2.2.tgz
     version: 0.2.2
-generated: "2022-08-29T16:52:33.150286792Z"
+generated: "2022-08-29T17:43:43.655646265Z"
