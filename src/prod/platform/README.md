@@ -10,6 +10,7 @@ A Helm chart for Kubernetes
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | common | 1.16.1 |
 | https://charts.bitnami.com/bitnami | minio | 11.9.1 |
+| https://charts.bitnami.com/bitnami | mongodb | 13.1.2 |
 | https://harness.github.io/helm-access-control | access-control | 0.2.x |
 | https://harness.github.io/helm-change-data-capture | change-data-capture | 0.2.x |
 | https://harness.github.io/helm-cv-nextgen | cv-nextgen | 0.2.x |
@@ -19,7 +20,6 @@ A Helm chart for Kubernetes
 | https://harness.github.io/helm-harness-secrets | harness-secrets | 0.2.x |
 | https://harness.github.io/helm-le-nextgen | le-nextgen | 0.2.x |
 | https://harness.github.io/helm-log-service | log-service | 0.2.x |
-| https://harness.github.io/helm-mongo | mongo | 0.2.x |
 | https://harness.github.io/helm-next-gen-ui | next-gen-ui | 0.2.x |
 | https://harness.github.io/helm-ng-auth-ui | ng-auth-ui | 0.2.x |
 | https://harness.github.io/helm-ng-manager | ng-manager | 0.2.x |
@@ -107,17 +107,22 @@ A Helm chart for Kubernetes
 | minio.defaultBuckets | string | `"logs"` |  |
 | minio.fullnameOverride | string | `"minio"` |  |
 | minio.mode | string | `"standalone"` |  |
-| mongo.autoscaling.enabled | bool | `false` |  |
-| mongo.image.tag | string | `"4.2.19"` |  |
-| mongo.initContainers.bootstrap.image.tag | string | `"4.2.19"` |  |
-| mongo.initContainers.copyConfig.image.tag | string | `"1.35.0"` |  |
-| mongo.initContainers.install.image.tag | float | `0.8` |  |
-| mongo.mongoStorageCapacity | string | `"200Gi"` |  |
-| mongo.resources.limits.cpu | int | `2` |  |
-| mongo.resources.limits.memory | string | `"4096Mi"` |  |
-| mongo.resources.requests.cpu | int | `2` |  |
-| mongo.resources.requests.memory | string | `"4096Mi"` |  |
-| mongo.wiredTigerCacheSizeGB | int | `1` |  |
+| mongodb.arbiter.enabled | bool | `false` |  |
+| mongodb.architecture | string | `"replicaset"` |  |
+| mongodb.args[0] | string | `"--wiredTigerCacheSizeGB=3"` |  |
+| mongodb.auth.rootUser | string | `"admin"` |  |
+| mongodb.fullnameOverride | string | `"mongodb-replicaset-chart"` |  |
+| mongodb.image.registry | string | `"docker.io"` |  |
+| mongodb.image.repository | string | `"bitnami/mongodb"` |  |
+| mongodb.image.tag | string | `"4.2.19"` |  |
+| mongodb.persistence.size | string | `"200Gi"` |  |
+| mongodb.podLabels.app | string | `"mongodb-replicaset"` |  |
+| mongodb.replicaCount | int | `3` |  |
+| mongodb.resources.limits.cpu | int | `4` |  |
+| mongodb.resources.limits.memory | string | `"8192Mi"` |  |
+| mongodb.resources.requests.cpu | int | `4` |  |
+| mongodb.resources.requests.memory | string | `"8192Mi"` |  |
+| mongodb.service.nameOverride | string | `"mongodb-replicaset-chart"` |  |
 | next-gen-ui.autoscaling.enabled | bool | `false` |  |
 | next-gen-ui.image.tag | string | `"0.312.15"` |  |
 | next-gen-ui.replicaCount | int | `1` |  |

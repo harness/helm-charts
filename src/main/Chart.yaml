@@ -1,6 +1,6 @@
 apiVersion: v2
-name: harness-prod
-description: Helm Chart for deploying Harness in Prod configuration
+name: harness-main
+description: Helm Chart for deploying Harness.
 
 # A chart can be either an 'application' or a 'library' chart.
 #

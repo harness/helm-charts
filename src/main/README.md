@@ -1,6 +1,6 @@
 ## Harness Helm Charts
 
-Helm Chart for deploying Harness in Prod configuration
+Helm Chart for deploying Harness.
 
 ![Version: 0.2.17](https://img.shields.io/badge/Version-0.2.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
 
