@@ -4,25 +4,25 @@ dependencies:
   version: 1.16.1
 - name: access-control
   repository: https://harness.github.io/helm-access-control
-  version: 0.2.4
+  version: 0.2.5
 - name: change-data-capture
   repository: https://harness.github.io/helm-change-data-capture
   version: 0.2.7
 - name: cv-nextgen
   repository: https://harness.github.io/helm-cv-nextgen
-  version: 0.2.8
+  version: 0.2.9
 - name: gateway
   repository: https://harness.github.io/helm-gateway
-  version: 0.2.5
+  version: 0.2.6
 - name: harness-secrets
   repository: https://harness.github.io/helm-harness-secrets
   version: 0.2.0
 - name: harness-manager
   repository: https://harness.github.io/helm-harness-manager
-  version: 0.2.9
+  version: 0.2.10
 - name: delegate-proxy
   repository: https://harness.github.io/helm-delegate-proxy
-  version: 0.2.0
+  version: 0.2.1
 - name: le-nextgen
   repository: https://harness.github.io/helm-le-nextgen
   version: 0.2.0
@@ -43,27 +43,27 @@ dependencies:
   version: 0.2.0
 - name: ng-manager
   repository: https://harness.github.io/helm-ng-manager
-  version: 0.2.12
+  version: 0.2.13
 - name: pipeline-service
   repository: https://harness.github.io/helm-pipeline-service
-  version: 0.2.7
+  version: 0.2.8
 - name: platform-service
   repository: https://harness.github.io/helm-platform-service
-  version: 0.2.6
+  version: 0.2.7
 - name: redis
   repository: https://harness.github.io/helm-redis
   version: 0.2.0
 - name: scm-service
   repository: https://harness.github.io/helm-scm-service
-  version: 0.2.0
+  version: 0.2.1
 - name: template-service
   repository: https://harness.github.io/helm-template-service
-  version: 0.2.8
+  version: 0.2.9
 - name: ti-service
   repository: https://harness.github.io/helm-ti-service
   version: 0.2.3
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.1
-digest: sha256:2e765cab725473a5cf2484c4d24879974e50fd2d3fc2726045d3ac03e70cff64
-generated: "2022-08-29T17:36:54.559367+05:30"
+digest: sha256:8f93680ae7e3994881f4706964954e861544723f05dce601fb893204c2661dde
+generated: "2022-08-29T16:10:35.70443-04:00"
