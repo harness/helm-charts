@@ -1,0 +1,31 @@
+global:
+  airgap: "false"
+  ha: false
+  host_name: "myhostname.foo.bar"
+  imageRegistryOverride: ""
+  loadbalancerURL: https://myhostname.foo.bar
+  mongoSSL: false
+  storageClassName: ""
+
+
+harness:
+  platform:
+    harness-manager:
+      ## --- fil in features from Harness
+      features: xxxxx
+
+istio:
+  enabled: true
+  gateway:
+    create: true
+    port: 443
+    protocol: HTTPS
+  hosts:
+    - '*'
+  tls:
+    credentialName: mycert
+    minProtocolVersion: TLSV1_2
+    mode: SIMPLE
+  virtualService:
+    hosts:
+      - "myhostname.foo.bar"
