@@ -11,7 +11,7 @@ global:
   storageClassName: ""
 
 ## Platform Settings
-harness-main:
+harness:
   platform:
     # -- Feature list to enable within platform.  Contact Harness for value
     access-control:
