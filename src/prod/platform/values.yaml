@@ -161,6 +161,8 @@ mongodb:
       memory: 8192Mi
   persistence:
     size: 200Gi
+  args:
+    - "--wiredTigerCacheSizeGB=3"
 
 next-gen-ui:
   image:

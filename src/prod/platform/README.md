@@ -109,6 +109,7 @@ A Helm chart for Kubernetes
 | minio.mode | string | `"standalone"` |  |
 | mongodb.arbiter.enabled | bool | `false` |  |
 | mongodb.architecture | string | `"replicaset"` |  |
+| mongodb.args[0] | string | `"--wiredTigerCacheSizeGB=3"` |  |
 | mongodb.auth.rootUser | string | `"admin"` |  |
 | mongodb.fullnameOverride | string | `"mongodb-replicaset-chart"` |  |
 | mongodb.image.registry | string | `"docker.io"` |  |
