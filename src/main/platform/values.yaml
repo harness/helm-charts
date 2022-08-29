@@ -1,0 +1,44 @@
+## Global Settings
+global:
+  # -- Enable for complete airgap environment
+  airgap: false
+  ha: true
+  # -- Global Docker image registry
+  imageRegistry: ""
+  # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
+  loadbalancerURL: ""
+  mongoSSL: false
+  storageClassName: ""
+
+ci:
+  # -- Enable to install CI
+  enabled: true
+
+sto:
+  enabled: true
+
+## Platform Settings
+platform:
+  # -- Feature list to enable within platform.  Contact Harness for value
+  harness-manager:
+    features: ""
+
+
+istio:
+  enabled: true
+  gateway:
+    # -- Enable to create istio-system gateway
+    create: true
+    port: 443
+    protocol: HTTPS
+  hosts:
+    - '*'
+  tls:
+    credentialName:
+    minProtocolVersion: TLSV1_2
+    mode: SIMPLE
+  virtualService:
+    gateways:
+      - ""
+    hosts:
+      - ""
