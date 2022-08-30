@@ -31,7 +31,7 @@ global:
   ha: false
   host_name: "myhostname.foo.bar"
 
-  # -- Private Docker Image registry
+  # -- Private Docker Image registry, will override all registries defined in subcharts
   imageRegistry: ""
 
   loadbalancerURL: https://myhostname.foo.bar
@@ -39,10 +39,133 @@ global:
   storageClassName: ""
 
 harness:
+  ci:
+    ci-manager:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
   platform:
+    # -- Access control settings (taints, tolerations, etc)
+    access-control:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- change-data-capture settings (taints, tolerations, etc)
+    change-data-capture:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- cv-nextgen settings (taints, tolerations, etc)
+    cv-nextgen:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- delegate proxy settings (taints, tolerations, etc)
+    delegate-proxy:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- gateway settings (taints, tolerations, etc)
+    gateway:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- harness-manager (taints, tolerations, etc)
     harness-manager:
-      ## --- fill in features from Harness
+      # -- fill in features from Harness
       features: xxxxx
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- le-nextgen (taints, tolerations, etc)
+    le-nextgen:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- log-service (taints, tolerations, etc)
+    log-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- minio (taints, tolerations, etc )
+    minio:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    mongodb:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    next-gen-ui:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    ng-auth-ui:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    ng-manager:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    pipeline-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    platform-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    redis:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    scm-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    template-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    ti-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    timescaledb:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  sto:
+    sto-core:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+    sto-manager:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
 
 istio:
   enabled: true
