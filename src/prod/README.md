@@ -30,7 +30,10 @@ global:
   airgap: "false"
   ha: false
   host_name: "myhostname.foo.bar"
-  imageRegistryOverride: ""
+
+  # -- Private Docker Image registry
+  imageRegistry: ""
+
   loadbalancerURL: https://myhostname.foo.bar
   mongoSSL: false
   storageClassName: ""
