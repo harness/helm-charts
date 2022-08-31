@@ -54,8 +54,6 @@ harness:
 
     # -- harness-manager (taints, tolerations, etc)
     harness-manager:
-      # -- fill in features from Harness
-      features: xxxxx
       affinity: {}
       nodeSelector: {}
       tolerations: []
