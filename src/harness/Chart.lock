@@ -1,4 +1,7 @@
 dependencies:
+- name: infra
+  repository: file://infra
+  version: 0.1.0
 - name: platform
   repository: file://platform
   version: 0.1.4
@@ -8,5 +11,5 @@ dependencies:
 - name: ci
   repository: file://ci
   version: 0.1.2
-digest: sha256:3da9da0a3b23fedecff78078cdfbe96501140bbe1e6940f27335d3d2e67813fd
-generated: "2022-08-24T23:24:17.710781+05:30"
+digest: sha256:8f198a5e5ffe4e847bf90cf2ec173d2a944599502d92e9abdfb2d306a6e240bc
+generated: "2022-08-31T07:47:40.350094-04:00"

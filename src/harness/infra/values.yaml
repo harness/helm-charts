@@ -1,0 +1,4 @@
+postgresql:
+  fullnameOverride: "postgres"
+  commonLabels:
+    app: postgres

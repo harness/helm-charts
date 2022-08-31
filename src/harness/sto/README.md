@@ -8,7 +8,6 @@ A Helm chart for Kubernetes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 11.6.16 |
 | https://harness.github.io/helm-sto-core | sto-core | 0.2.x |
 | https://harness.github.io/helm-sto-manager | sto-manager | 0.2.x |
 
@@ -16,8 +15,6 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| postgresql.commonLabels.app | string | `"postgres"` |  |
-| postgresql.fullnameOverride | string | `"postgres"` |  |
 | sto-core.autoscaling.enabled | bool | `false` |  |
 | sto-manager.autoscaling.enabled | bool | `false` |  |
 
