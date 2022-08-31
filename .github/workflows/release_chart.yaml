@@ -38,4 +38,5 @@ jobs:
         with:
           charts_dir: src
         env:
+          CR_SKIP_EXISTING: true
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
