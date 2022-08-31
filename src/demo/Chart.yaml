@@ -24,6 +24,6 @@ version: 0.2.18
 appVersion: "1.0.76019"
 
 dependencies:
-  - name: harness-main
-    version: 0.2.18
+  - name: harness
+    version: 0.2.20
     repository: https://harness.github.io/helm-charts
