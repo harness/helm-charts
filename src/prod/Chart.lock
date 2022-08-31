@@ -1,6 +1,6 @@
 dependencies:
 - name: harness
   repository: https://harness.github.io/helm-charts
-  version: 0.2.20
-digest: sha256:d491e33af5db9c442cede56935450ee77985e21179e9ea738b3b2483a4d70c0d
-generated: "2022-08-29T16:15:51.176728-04:00"
+  version: 0.2.22
+digest: sha256:8856c5fd4f89ef6b1aaf5edc7c6d0cb7297b864ce3da44c0e8394f93e81c421d
+generated: "2022-08-31T11:20:52.932703-04:00"
