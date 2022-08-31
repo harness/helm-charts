@@ -6,7 +6,3 @@ sto-manager:
   autoscaling:
     enabled: false
 
-postgresql:
-  fullnameOverride: "postgres"
-  commonLabels:
-    app: postgres

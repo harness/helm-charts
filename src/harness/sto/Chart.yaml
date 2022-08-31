@@ -31,7 +31,3 @@ dependencies:
   - name: sto-manager
     version: 0.2.x
     repository: "https://harness.github.io/helm-sto-manager"
-
-  - name: postgresql
-    version: 11.6.16
-    repository: https://charts.bitnami.com/bitnami

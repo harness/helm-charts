@@ -15,6 +15,7 @@ ci:
   enabled: true
 
 sto:
+  # -- Enable to install STO
   enabled: true
 
 ## Platform Settings

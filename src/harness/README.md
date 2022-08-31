@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.20](https://img.shields.io/badge/Version-0.2.20-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
+![Version: 0.2.21](https://img.shields.io/badge/Version-0.2.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
 
 ## Usage
 
@@ -43,6 +43,7 @@ ci:
   enabled: true
 
 sto:
+  # -- Enable to install STO
   enabled: true
 
 ## Platform Settings
@@ -126,5 +127,5 @@ The command removes all the Kubernetes components associated with the chart and 
 | istio.virtualService.gateways[0] | string | `""` |  |
 | istio.virtualService.hosts[0] | string | `""` |  |
 | platform.harness-manager | object | `{"features":""}` | Feature list to enable within platform.  Contact Harness for value |
-| sto.enabled | bool | `true` |  |
+| sto.enabled | bool | `true` | Enable to install STO |
 
