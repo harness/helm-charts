@@ -1,7 +1,4 @@
 dependencies:
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  version: 1.16.1
 - name: access-control
   repository: https://harness.github.io/helm-access-control
   version: 0.2.6
@@ -65,5 +62,5 @@ dependencies:
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.2
-digest: sha256:f4fd03287bfcd01b9ec6e6af345c4c1d9564732973c2c09f7adfbcfb36358191
-generated: "2022-09-01T18:34:21.438624+05:30"
+digest: sha256:4d5cb21873e412bffe60f7b70c62909e0a736147d4776f5122ce40d0e6c47442
+generated: "2022-09-01T10:06:53.023001-04:00"
