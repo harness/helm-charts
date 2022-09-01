@@ -3,6 +3,35 @@ entries:
   harness:
   - apiVersion: v2
     appVersion: 1.0.76019
+    created: "2022-09-01T19:31:40.530352641Z"
+    dependencies:
+    - name: infra
+      repository: file://infra
+      version: 0.1.x
+    - name: platform
+      repository: file://platform
+      version: 0.1.x
+    - condition: sto.enabled
+      name: sto
+      repository: file://sto
+      version: 0.1.x
+    - condition: ci.enabled
+      name: ci
+      repository: file://ci
+      version: 0.1.x
+    - condition: global.ingress.enabled
+      name: ingress
+      repository: https://harness.github.io/helm-ingress
+      version: 0.2.x
+    description: Helm Chart for deploying Harness.
+    digest: eacaef0ef78df49ad947a70e8ac27590d897b657652f57fc70f2eb2f580c40c2
+    name: harness
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-0.2.25/harness-0.2.25.tgz
+    version: 0.2.25
+  - apiVersion: v2
+    appVersion: 1.0.76019
     created: "2022-09-01T14:14:10.999786619Z"
     dependencies:
     - name: infra
@@ -810,4 +839,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.2/harness-prod-0.2.2.tgz
     version: 0.2.2
-generated: "2022-09-01T19:09:00.668878962Z"
+generated: "2022-09-01T19:31:40.530504544Z"
