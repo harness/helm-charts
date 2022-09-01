@@ -352,3 +352,12 @@ istio:
       - ""
     hosts:
       - ""
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - 'my-host.example.org'
+  tls:
+    enabled: true
+    secretName: harness-ssl
