@@ -29,7 +29,6 @@ Create your override.yaml file with your envirionment settings:
 global:
   airgap: "false"
   ha: false
-  host_name: "myhostname.foo.bar"
 
   # -- Private Docker Image registry, will override all registries defined in subcharts
   imageRegistry: ""
@@ -42,6 +41,7 @@ global:
   # --- Enabling ingress create kubernetes Ingress Objects for nginx.
   ingress:
     enabled: false
+    hostname: "myhostname.foo.bar"
 
 harness:
   ci:
