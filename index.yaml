@@ -366,6 +366,20 @@ entries:
   harness-prod:
   - apiVersion: v2
     appVersion: 1.0.76019
+    created: "2022-09-01T17:30:39.530484576Z"
+    dependencies:
+    - name: harness
+      repository: https://harness.github.io/helm-charts
+      version: 0.2.24
+    description: Helm Chart for deploying Harness in Prod configuration
+    digest: fe5c61a7984d6d6b28802cd88f834891375275b8a12557d7fc1a5279435a296b
+    name: harness-prod
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.27/harness-prod-0.2.27.tgz
+    version: 0.2.27
+  - apiVersion: v2
+    appVersion: 1.0.76019
     created: "2022-09-01T17:23:13.478997964Z"
     dependencies:
     - name: harness
@@ -740,4 +754,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.2/harness-prod-0.2.2.tgz
     version: 0.2.2
-generated: "2022-09-01T17:23:13.479157462Z"
+generated: "2022-09-01T17:30:39.530820178Z"
