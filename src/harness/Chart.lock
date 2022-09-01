@@ -11,5 +11,8 @@ dependencies:
 - name: ci
   repository: file://ci
   version: 0.1.2
-digest: sha256:8f198a5e5ffe4e847bf90cf2ec173d2a944599502d92e9abdfb2d306a6e240bc
-generated: "2022-08-31T07:47:40.350094-04:00"
+- name: ingress
+  repository: https://harness.github.io/helm-ingress
+  version: 0.2.2
+digest: sha256:9c01f3df7672e2c4ba05c359937bfbc4e695aa9da9349783470c6f2ee2940cc1
+generated: "2022-09-01T19:25:23.21913+05:30"

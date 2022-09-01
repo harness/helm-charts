@@ -1,78 +1,344 @@
+## Global Settings
 global:
-  ### S
-  airgap: "false"
-  ### HA not available in demo
-  ha: false
-  ### Global Docker image registry
+  # -- Enable for complete airgap environment
+  airgap: false
+  ha: true
+  # -- Global Docker image registry
   imageRegistry: ""
-  ### Fully qualified name of cluster eg. https://abc.def
+  # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
   loadbalancerURL: ""
-  ### Flag for setting mongo SSL
   mongoSSL: false
-  ### Global StorageClass for Persistent Volume
   storageClassName: ""
 
-platform:
-  harness-manager:
-    ### Feature Flags for enabling components
-    features: SECURITY,SECURITY_STAGE,STO_CI_PIPELINE_SECURITY,STO_API_V2,LDAP_SSO_PROVIDER,ASYNC_ARTIFACT_COLLECTION,JIRA_INTEGRATION,AUDIT_TRAIL_UI,GDS_TIME_SERIES_SAVE_PER_MINUTE,STACKDRIVER_SERVICEGUARD,BATCH_SECRET_DECRYPTION,TIME_SERIES_SERVICEGUARD_V2,TIME_SERIES_WORKFLOW_V2,CUSTOM_DASHBOARD,GRAPHQL,CV_FEEDBACKS,LOGS_V2_247,UPGRADE_JRE,CDNG_ENABLED,NEXT_GEN_ENABLED,LOG_STREAMING_INTEGRATION,CING_ENABLED,NG_HARNESS_APPROVAL,GIT_SYNC_NG,NG_SHOW_DELEGATE,NG_CG_TASK_ASSIGNMENT_ISOLATION,CI_OVERVIEW_PAGE,AZURE_CLOUD_PROVIDER_VALIDATION_ON_DELEGATE,TERRAFORM_AWS_CP_AUTHENTICATION,NG_TEMPLATES,NEW_DEPLOYMENT_FREEZE,HELM_CHART_AS_ARTIFACT,RESOLVE_DEPLOYMENT_TAGS_BEFORE_EXECUTION,WEBHOOK_TRIGGER_AUTHORIZATION,GITHUB_WEBHOOK_AUTHENTICATION,CUSTOM_MANIFEST,GIT_ACCOUNT_SUPPORT,AZURE_WEBAPP,PRUNE_KUBERNETES_RESOURCES,LDAP_GROUP_SYNC_JOB_ITERATOR,POLLING_INTERVAL_CONFIGURABLE,APPLICATION_DROPDOWN_MULTISELECT,USER_GROUP_AS_EXPRESSION,RESOURCE_CONSTRAINT_SCOPE_PIPELINE_ENABLED,ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM
+## Platform Settings
+harness:
+  platform:
+    # -- Feature list to enable within platform.  Contact Harness for value
+    access-control:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      appLogLevel: INFO
+      java:
+        memory: 512m
+      resources:
+        limits:
+          cpu: 1
+          memory: 4096Mi
+        requests:
+          cpu: 1
+          memory: 4096Mi
 
-  ### Set passwords for internal services "" equals auto-generated
-  harness-secrets:
+    change-data-capture:
+      appLogLevel: INFO
+      java:
+        memory: 2048
+      resources:
+        limits:
+          cpu: 1
+          memory: 2880Mi
+        requests:
+          cpu: 1
+          memory: 2880Mi
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+
+    cv-nextgen:
+      java:
+        memory: 1024
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 1440Mi
+        requests:
+          cpu: 0.5
+          memory: 1440Mi
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+
+    delegate-proxy:
+      resources:
+        limits:
+          cpu: 200m
+          memory: 100Mi
+        requests:
+          cpu: 200m
+          memory: 100Mi
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+
+    gateway:
+      java:
+        memory: 1024
+      resources:
+        limits:
+          cpu: 0.2
+          memory: 1300Mi
+        requests:
+          cpu: 0.2
+          memory: 1300Mi
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+
+    harness-manager:
+      external_graphql_rate_limit: "500"
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      java:
+        memory: "2048"
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 3000Mi
+        requests:
+          cpu: 0.5
+          memory: 3000Mi
+
+    le-nextgen:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 512Mi
+        requests:
+          cpu: 0.5
+          memory: 512Mi
+
+    log-service:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 1400Mi
+        requests:
+          cpu: 0.5
+          memory: 1400Mi
+    minio:
+      fullnameOverride: "minio"
+      mode: standalone
+      defaultBuckets: "logs"
+      persistence:
+        size: 10Gi
+
     mongodb:
-      password: ""
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 1024Mi
+        requests:
+          cpu: 0.5
+          memory: 1024Mi
+      persistence:
+        size: 20Gi
+      args:
+        - "--wiredTigerCacheSizeGB=0.2"
+
+    next-gen-ui:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 0.2
+          memory: 200Mi
+        requests:
+          cpu: 0.2
+          memory: 200Mi
+
+    ng-auth-ui:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 0.2
+          memory: 200Mi
+        requests:
+          cpu: 0.2
+          memory: 200Mi
+
+    ng-manager:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      java:
+        memory: "4096m"
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 6144Mi
+        requests:
+          cpu: 0.5
+          memory: 6144Mi
+
+    pipeline-service:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      java:
+        memory: "1024m"
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 1400Mi
+        requests:
+          cpu: 0.5
+          memory: 1400Mi
+
+    platform-service:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      java:
+        memory: "2048m"
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 3000Mi
+        requests:
+          cpu: 0.5
+          memory: 3000Mi
+
+    redis:
+      redis:
+        resources:
+          limits:
+            cpu: 1
+            memory: 2048Mi
+          requests:
+            cpu: 1
+            memory: 2048Mi
+      replicaCount: 3
+      sentinel:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+      volumeClaimTemplate:
+        resources:
+          requests:
+            storage: 10Gi
+
+    scm-service:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 0.1
+          memory: 512Mi
+        requests:
+          cpu: 0.1
+          memory: 512Mi
+
+    template-service:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      java:
+        memory: "1024m"
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 1500Mi
+        requests:
+          cpu: 0.5
+          memory: 1500Mi
+
+    ti-service:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      jobresources:
+        limits:
+          cpu: 0.5
+          memory: 1400Mi
+        requests:
+          cpu: 0.5
+          memory: 1400Mi
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 1400Mi
+        requests:
+          cpu: 1
+          memory: 1400Mi
+
     timescaledb:
-      adminPassword: ""
-      postgresPassword: ""
-      standbyPassword: ""
-    postgresdb:
-      adminPassword: ""
-    sto:
-      appHarnessToken: ""
-      AppAuditJWTSecret: ""
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 0.3
+          memory: 512Mi
+        requests:
+          cpu: 0.3
+          memory: 512Mi
+      storage:
+        capacity: 10Gi
 
-  log-service:
+  ci:
+  # -- Enable to install CI
+    enabled: true
+    ci-manager:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      java:
+        memory: "2048m"
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 3000Mi
+        requests:
+          cpu: 0.5
+          memory: 3000Mi
 
-    s3:
-      endpoint: ""
-      bucketName: ""
-      region: ""
-      ### Set S3 Bucket access informations, "" equals connections to MinIO
-      accessKeyId: ""
-      secretAccessKey: ""
+  sto:
+  # -- Enable to install STO
+    enabled: true
+    sto-core:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 500m
+          memory: 500Mi
+        requests:
+          cpu: 500m
+          memory: 500Mi
+    sto-manager:
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 1
+          memory: 3072Mi
+        requests:
+          cpu: 1
+          memory: 3072Mi
 
-  minio:
-    ### Mode: standalone or distributed
-    mode: standalone
-    ### Set Minio Credentials
-    rootUser: ""
-    rootPassword: ""
-
-  mongo:
-    ###
-    secrets:
-      ca_pem: ""
-      mongodb_pem: ""
-      client_pem: ""
-
-  platform-service:
-    ###
-    smtp:
-      host: ""
-      port: ""
-      password: ""
-      user: ""
-      ssl: true
-
-ci:
-  enabled: true
-
-sto:
-  enabled: true
 
 istio:
   enabled: true
   gateway:
+    # -- Enable to create istio-system gateway
     create: true
     port: 443
     protocol: HTTPS
@@ -83,5 +349,7 @@ istio:
     minProtocolVersion: TLSV1_2
     mode: SIMPLE
   virtualService:
+    gateways:
+      - ""
     hosts:
       - ""

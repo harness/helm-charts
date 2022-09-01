@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.22](https://img.shields.io/badge/Version-0.2.22-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
+![Version: 0.2.23](https://img.shields.io/badge/Version-0.2.23-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
 
 ## Usage
 
@@ -37,6 +37,8 @@ global:
   loadbalancerURL: ""
   mongoSSL: false
   storageClassName: ""
+  ingress:
+    enabled: false
 
 ci:
   # -- Enable to install CI
@@ -113,6 +115,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | global.airgap | bool | `false` | Enable for complete airgap environment |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
+| global.ingress.enabled | bool | `false` |  |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.storageClassName | string | `""` |  |
