@@ -58,9 +58,9 @@ dependencies:
   version: 0.2.10
 - name: ti-service
   repository: https://harness.github.io/helm-ti-service
-  version: 0.2.4
+  version: 0.2.5
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
-  version: 0.2.2
-digest: sha256:4d5cb21873e412bffe60f7b70c62909e0a736147d4776f5122ce40d0e6c47442
-generated: "2022-09-01T10:06:53.023001-04:00"
+  version: 0.2.3
+digest: sha256:f383e1e1754bdb3e8804e8fd476ba6df0d971bdf0c444d753926b14392ebb295
+generated: "2022-09-01T15:25:07.660177-04:00"
