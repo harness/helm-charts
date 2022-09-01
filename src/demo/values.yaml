@@ -161,15 +161,15 @@ harness:
       replicaCount: 1
       resources:
         limits:
-          cpu: 0.5
-          memory: 1024Mi
+          cpu: 2
+          memory: 2048Mi
         requests:
-          cpu: 0.5
-          memory: 1024Mi
+          cpu: 1
+          memory: 2048Mi
       persistence:
         size: 20Gi
       args:
-        - "--wiredTigerCacheSizeGB=0.2"
+        - "--wiredTigerCacheSizeGB=0.5"
 
     next-gen-ui:
       autoscaling:

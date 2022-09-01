@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.26](https://img.shields.io/badge/Version-0.2.26-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
+![Version: 0.2.27](https://img.shields.io/badge/Version-0.2.27-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -8,7 +8,7 @@ Helm Chart for deploying Harness in Demo configuration
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://harness.github.io/helm-charts | harness | 0.2.24 |
+| https://harness.github.io/helm-charts | harness | 0.2.25 |
 
 ## Values
 
@@ -81,13 +81,13 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.platform.minio.fullnameOverride | string | `"minio"` |  |
 | harness.platform.minio.mode | string | `"standalone"` |  |
 | harness.platform.minio.persistence.size | string | `"10Gi"` |  |
-| harness.platform.mongodb.args[0] | string | `"--wiredTigerCacheSizeGB=0.2"` |  |
+| harness.platform.mongodb.args[0] | string | `"--wiredTigerCacheSizeGB=0.5"` |  |
 | harness.platform.mongodb.persistence.size | string | `"20Gi"` |  |
 | harness.platform.mongodb.replicaCount | int | `1` |  |
-| harness.platform.mongodb.resources.limits.cpu | float | `0.5` |  |
-| harness.platform.mongodb.resources.limits.memory | string | `"1024Mi"` |  |
-| harness.platform.mongodb.resources.requests.cpu | float | `0.5` |  |
-| harness.platform.mongodb.resources.requests.memory | string | `"1024Mi"` |  |
+| harness.platform.mongodb.resources.limits.cpu | int | `2` |  |
+| harness.platform.mongodb.resources.limits.memory | string | `"2048Mi"` |  |
+| harness.platform.mongodb.resources.requests.cpu | int | `1` |  |
+| harness.platform.mongodb.resources.requests.memory | string | `"2048Mi"` |  |
 | harness.platform.next-gen-ui.autoscaling.enabled | bool | `false` |  |
 | harness.platform.next-gen-ui.replicaCount | int | `1` |  |
 | harness.platform.next-gen-ui.resources.limits.cpu | float | `0.2` |  |
