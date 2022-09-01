@@ -9,6 +9,8 @@ global:
   loadbalancerURL: ""
   mongoSSL: false
   storageClassName: ""
+  ingress:
+    enabled: false
 
 ci:
   # -- Enable to install CI
