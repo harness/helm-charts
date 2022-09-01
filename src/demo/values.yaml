@@ -302,7 +302,7 @@ harness:
           cpu: 0.5
           memory: 1400Mi
         requests:
-          cpu: 1
+          cpu: 0.5
           memory: 1400Mi
 
     timescaledb:
