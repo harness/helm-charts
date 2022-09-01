@@ -607,8 +607,6 @@ kind: Ingress
 metadata:
   name: harness-manager-api
   namespace: {{ .Release.Namespace }}
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
@@ -639,8 +637,6 @@ kind: Ingress
 metadata:
   name: harness-manager-stream
   namespace: {{ .Release.Namespace }}
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:

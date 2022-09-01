@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.24](https://img.shields.io/badge/Version-0.2.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
+![Version: 0.2.25](https://img.shields.io/badge/Version-0.2.25-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -174,7 +174,12 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.sto.sto-manager.resources.limits.memory | string | `"3072Mi"` |  |
 | harness.sto.sto-manager.resources.requests.cpu | int | `1` |  |
 | harness.sto.sto-manager.resources.requests.memory | string | `"3072Mi"` |  |
-| istio.enabled | bool | `true` |  |
+| ingress.className | string | `"nginx"` |  |
+| ingress.enabled | bool | `false` |  |
+| ingress.hosts[0] | string | `"my-host.example.org"` |  |
+| ingress.tls.enabled | bool | `false` |  |
+| ingress.tls.secretName | string | `"harness-ssl"` |  |
+| istio.enabled | bool | `false` |  |
 | istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
 | istio.gateway.port | int | `443` |  |
 | istio.gateway.protocol | string | `"HTTPS"` |  |
