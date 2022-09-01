@@ -10,6 +10,35 @@ global:
   mongoSSL: false
   storageClassName: ""
 
+istio:
+  enabled: false
+  gateway:
+    # -- Enable to create istio-system gateway
+    create: true
+    port: 443
+    protocol: HTTPS
+  hosts:
+    - '*'
+  tls:
+    credentialName:
+    minProtocolVersion: TLSV1_2
+    mode: SIMPLE
+  virtualService:
+    gateways:
+      - ""
+    hosts:
+      - ""
+
+ingress:
+  enabled: false
+  className: "nginx"
+  hosts:
+    - 'my-host.example.org'
+  tls:
+    enabled: true
+    secretName: harness-ssl
+
+
 ## Platform Settings
 harness:
   platform:
@@ -336,21 +365,3 @@ harness:
           memory: 3072Mi
 
 
-istio:
-  enabled: true
-  gateway:
-    # -- Enable to create istio-system gateway
-    create: true
-    port: 443
-    protocol: HTTPS
-  hosts:
-    - '*'
-  tls:
-    credentialName:
-    minProtocolVersion: TLSV1_2
-    mode: SIMPLE
-  virtualService:
-    gateways:
-      - ""
-    hosts:
-      - ""

@@ -9,11 +9,33 @@ global:
   mongoSSL: false
   storageClassName: ""
 
-  ## Do not have ingress enabled and istio enabled at the same time.
-  # --- Enabling ingress create kubernetes Ingress Objects for nginx.
-  ingress:
-    enabled: false
-    hostname: "myhostname.foo.bar"
+## !! Do not have ingress enabled and istio enabled at the same time.
+# --- Enabling ingress create kubernetes Ingress Objects for nginx.
+ingress:
+  enabled: false
+  className: "nginx"
+  hosts:
+    - 'myhost.foo.bar'
+  tls:
+    enabled: true
+    secretName: mycert
+
+# -- Istio Ingress Settings
+istio:
+  enabled: true
+  gateway:
+    create: true
+    port: 443
+    protocol: HTTPS
+  hosts:
+    - '*'
+  tls:
+    credentialName: mycert
+    minProtocolVersion: TLSV1_2
+    mode: SIMPLE
+  virtualService:
+    hosts:
+      - "myhostname.foo.bar"
 
 harness:
   ci:
@@ -149,18 +171,4 @@ harness:
       nodeSelector: {}
       tolerations: []
 
-istio:
-  enabled: true
-  gateway:
-    create: true
-    port: 443
-    protocol: HTTPS
-  hosts:
-    - '*'
-  tls:
-    credentialName: mycert
-    minProtocolVersion: TLSV1_2
-    mode: SIMPLE
-  virtualService:
-    hosts:
-      - "myhostname.foo.bar"
+
