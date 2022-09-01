@@ -35,7 +35,7 @@ ingress:
   hosts:
     - 'my-host.example.org'
   tls:
-    enabled: true
+    enabled: false
     secretName: harness-ssl
 
 

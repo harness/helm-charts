@@ -10,9 +10,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -21,8 +19,10 @@ spec:
                   number: 7090
             path: /ng/api(/|$)(.*)
             pathType: ImplementationSpecific
-    {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+    {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+    {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -42,9 +42,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -55,6 +53,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -74,9 +75,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -87,6 +86,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -106,9 +108,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -119,6 +119,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -138,9 +141,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -151,6 +152,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -170,9 +174,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -183,6 +185,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -200,9 +205,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -213,6 +216,9 @@ spec:
             pathType: Prefix
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -230,9 +236,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -243,6 +247,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -262,9 +269,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -275,6 +280,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -294,9 +302,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -307,6 +313,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -326,9 +335,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -339,6 +346,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -358,9 +368,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -371,6 +379,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -390,9 +401,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -403,6 +412,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -420,9 +432,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -433,6 +443,9 @@ spec:
             pathType: Prefix
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -452,9 +465,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -465,6 +476,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+   {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -484,9 +498,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -497,6 +509,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -516,9 +531,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -529,6 +542,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -548,9 +564,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -561,6 +575,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -580,9 +597,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -593,6 +608,9 @@ spec:
             pathType: Prefix
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -612,9 +630,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -625,6 +641,9 @@ spec:
             pathType: Prefix
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -644,9 +663,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -657,6 +674,9 @@ spec:
             pathType: Prefix
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -676,9 +696,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -689,6 +707,9 @@ spec:
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}
@@ -706,9 +727,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
+    - http:
         paths:
           - backend:
               service:
@@ -719,6 +738,9 @@ spec:
             pathType: Prefix
     {{- end }}
   {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
   tls:
     - hosts:
         {{- range .Values.ingress.hosts }}

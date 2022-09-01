@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness in Prod configuration
 
-![Version: 0.2.25](https://img.shields.io/badge/Version-0.2.25-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
+![Version: 0.2.26](https://img.shields.io/badge/Version-0.2.26-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
 
 ## Usage
 
@@ -400,7 +400,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | ingress.className | string | `"nginx"` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hosts[0] | string | `"my-host.example.org"` |  |
-| ingress.tls.enabled | bool | `true` |  |
+| ingress.tls.enabled | bool | `false` |  |
 | ingress.tls.secretName | string | `"harness-ssl"` |  |
 | istio.enabled | bool | `false` |  |
 | istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
