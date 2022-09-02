@@ -104,6 +104,12 @@ dependencies:
     version: 0.2.x
     repository: "https://harness.github.io/helm-ti-service"
 
+  - name: timescaledb-single
+    condition: timescaledb-single.enabled
+    version: 0.x.x
+    repository: "https://harness.github.io/helm-timescaledb"
+
   - name: timescaledb
-    version: 0.2.x
+    condition: timescaledb.enabled
+    version: 0.2.3
     repository: "https://harness.github.io/helm-timescaledb"
