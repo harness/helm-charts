@@ -149,6 +149,21 @@ harness:
       nodeSelector: {}
       tolerations: []
 
+  et:
+    # -- Enabled will deploy ET to your cluster
+    enabled: true
+    enable-receivers: false
+
+    et-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-collector:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
 istio:
   enabled: true
   gateway:

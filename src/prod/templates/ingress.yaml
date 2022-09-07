@@ -99,6 +99,70 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: et-collector
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: {{ .Values.ingress.className | quote }}
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: et-collector
+                port:
+                  number: 6070
+            path: /et-collector(/|$)(.*)
+            pathType: ImplementationSpecific
+  {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
+  tls:
+    - hosts:
+        {{- range .Values.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: et-service
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: {{ .Values.ingress.className | quote }}
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: et-service
+                port:
+                  number: 9191
+            path: /et(/|$)(.*)
+            pathType: ImplementationSpecific
+  {{- if .Values.ingress.tls.enabled }}
+  {{- range .Values.ingress.hosts }}
+      host: {{ . | quote }}
+  {{- end }}
+  tls:
+    - hosts:
+        {{- range .Values.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
   name: next-gen-ui
   namespace: {{ .Release.Namespace }}
   annotations:

@@ -48,6 +48,35 @@ spec:
         port:
           number: 7090
         host: ng-manager
+
+  - name: et-collector
+    match:
+    - uri:
+        prefix: /et-collector/
+    - uri:
+        prefix: /et-collector
+    rewrite:
+      uri: /
+    route:
+    - destination:
+      port:
+        number: 6070
+      host: et-collector
+
+  - name: et-service
+    match:
+    - uri:
+        prefix: /et/
+    - uri:
+        prefix: /et
+    rewrite:
+      uri: /
+    route:
+    - destination:
+      port:
+        number: 9191
+      host: et-service
+
   - name: sto
     match:
     - uri:

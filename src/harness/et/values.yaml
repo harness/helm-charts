@@ -1,0 +1,9 @@
+enable-receivers: false
+
+et-service:
+  autoscaling:
+    enabled: false
+
+et-collector:
+  autoscaling:
+    enabled: false

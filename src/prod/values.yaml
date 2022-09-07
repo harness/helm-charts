@@ -367,4 +367,109 @@ harness:
           cpu: 1
           memory: 3072Mi
 
-
+  et:
+  # -- Enable to install ET
+    enabled: true
+    enable-receivers: true
+    et-service:
+      et:
+        java:
+          heapSize: "6400m"
+        redis:
+          enabled: true
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 2
+          memory: 8Gi
+        requests:
+          cpu: 500m
+          memory: 8Gi
+    et-collector:
+      et:
+        java:
+          heapSize: "1600m"
+      autoscaling:
+        # Need to enable SessionAffinty
+        # Before enabling collector HPA
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 100m
+          memory: 2Gi
+    et-receiver-hit:
+      name: et-receiver-hit
+      et:
+        redisQueue:
+          type: hit
+        java:
+          heapSize: "1600m"
+      autoscaling:
+        enabled: true
+      replicaCount: 1
+      maxReplicas: 3
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 100m
+          memory: 2Gi
+    et-receiver-decompile:
+      name: et-receiver-decompile
+      et:
+        redisQueue:
+          type: decompile
+        java:
+          heapSize: "1600m"
+      autoscaling:
+        enabled: true
+      replicaCount: 1
+      maxReplicas: 3
+      resources:
+        limits:
+          cpu: 2
+          memory: 2Gi
+        requests:
+          cpu: 100m
+          memory: 2Gi
+    et-receiver-agent:
+      name: et-receiver-agent
+      et:
+        redisQueue:
+          type: agent
+        java:
+          heapSize: "1600m"
+      autoscaling:
+        enabled: true
+      replicaCount: 1
+      maxReplicas: 3
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 100m
+          memory: 2Gi
+    et-receiver-sql:
+      name: et-receiver-sql
+      et:
+        redisQueue:
+          type: sql
+        java:
+          heapSize: "1600m"
+      autoscaling:
+        enabled: true
+      replicaCount: 1
+      maxReplicas: 3
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 100m
+          memory: 2Gi
