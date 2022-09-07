@@ -28,8 +28,7 @@ A Helm chart for Kubernetes
 | https://harness.github.io/helm-scm-service | scm-service | 0.2.x |
 | https://harness.github.io/helm-template-service | template-service | 0.2.x |
 | https://harness.github.io/helm-ti-service | ti-service | 0.2.x |
-| https://harness.github.io/helm-timescaledb | timescaledb | 0.2.3 |
-| https://harness.github.io/helm-timescaledb | timescaledb-single | 0.x.x |
+| https://harness.github.io/helm-timescaledb | timescaledb | 0.2.x |
 
 ## Values
 
@@ -211,7 +210,6 @@ A Helm chart for Kubernetes
 | ti-service.resources.limits.memory | string | `"3072Mi"` |  |
 | ti-service.resources.requests.cpu | int | `1` |  |
 | ti-service.resources.requests.memory | string | `"3072Mi"` |  |
-| timescaledb-single.enabled | bool | `false` |  |
 | timescaledb.autoscaling.enabled | bool | `false` |  |
 | timescaledb.enabled | bool | `true` |  |
 | timescaledb.image.tag | string | `"pg13-ts2.6-oss-latest"` |  |
