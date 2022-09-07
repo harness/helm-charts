@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.28](https://img.shields.io/badge/Version-0.2.28-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
+![Version: 0.2.29](https://img.shields.io/badge/Version-0.2.29-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76019](https://img.shields.io/badge/AppVersion-1.0.76019-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -53,7 +53,7 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.platform.gateway.autoscaling.enabled | bool | `false` |  |
 | harness.platform.gateway.java.memory | int | `1024` |  |
 | harness.platform.gateway.replicaCount | int | `1` |  |
-| harness.platform.gateway.resources.limits.cpu | float | `0.2` |  |
+| harness.platform.gateway.resources.limits.cpu | float | `0.5` |  |
 | harness.platform.gateway.resources.limits.memory | string | `"1300Mi"` |  |
 | harness.platform.gateway.resources.requests.cpu | float | `0.2` |  |
 | harness.platform.gateway.resources.requests.memory | string | `"1300Mi"` |  |
