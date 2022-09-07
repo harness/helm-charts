@@ -103,7 +103,7 @@ harness:
         memory: 1024
       resources:
         limits:
-          cpu: 0.2
+          cpu: 0.5
           memory: 1300Mi
         requests:
           cpu: 0.2
