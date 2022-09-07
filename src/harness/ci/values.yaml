@@ -12,5 +12,6 @@ helm-harness-secrets:
     user: ""
     password: ""
 
-ci:
-  enabled: true
+ci-manager:
+  image:
+    tag: "76519"
