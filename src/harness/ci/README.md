@@ -14,7 +14,7 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ci.enabled | bool | `true` |  |
+| ci-manager.image.tag | string | `"76519"` |  |
 | helm-harness-secrets.minio.password | string | `""` |  |
 | helm-harness-secrets.minio.user | string | `""` |  |
 | helm-harness-secrets.mongodb.password | string | `""` |  |
