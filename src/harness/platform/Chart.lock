@@ -19,7 +19,7 @@ dependencies:
   version: 0.2.12
 - name: delegate-proxy
   repository: https://harness.github.io/helm-delegate-proxy
-  version: 0.2.4
+  version: 0.2.5
 - name: le-nextgen
   repository: https://harness.github.io/helm-le-nextgen
   version: 0.2.3
@@ -34,10 +34,10 @@ dependencies:
   version: 13.1.2
 - name: next-gen-ui
   repository: https://harness.github.io/helm-next-gen-ui
-  version: 0.2.4
+  version: 0.2.5
 - name: ng-auth-ui
   repository: https://harness.github.io/helm-ng-auth-ui
-  version: 0.2.1
+  version: 0.2.2
 - name: ng-manager
   repository: https://harness.github.io/helm-ng-manager
   version: 0.2.14
@@ -62,5 +62,5 @@ dependencies:
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.5
-digest: sha256:2b5dc80713beeb0eee60565ced6178f6c753bb49010945200d828fdf4101e0a0
-generated: "2022-09-07T08:37:33.551852-04:00"
+digest: sha256:06c6daa8435411d58f03143aad604b4c60204088db47f4b95c8b43806552a0cb
+generated: "2022-09-08T00:56:57.164238+05:30"
