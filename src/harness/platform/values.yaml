@@ -336,9 +336,6 @@ ti-service:
   autoscaling:
     enabled: false
 
-timescaledb-single:
-  enabled: false
-
 timescaledb:
   enabled: true
   image:
