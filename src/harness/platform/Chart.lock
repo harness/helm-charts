@@ -61,6 +61,6 @@ dependencies:
   version: 0.2.5
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
-  version: 0.2.5
-digest: sha256:06c6daa8435411d58f03143aad604b4c60204088db47f4b95c8b43806552a0cb
-generated: "2022-09-08T00:56:57.164238+05:30"
+  version: 0.2.6
+digest: sha256:1ab87be6987d60bf3ee82d2f9b851759db59a648c4aabdbb043a23f297a8efc5
+generated: "2022-09-08T13:08:57.92754-04:00"
