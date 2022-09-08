@@ -311,7 +311,7 @@ harness:
       enabled: true
       autoscaling:
         enabled: false
-      replicaCount: 2
+      replicaCount: 1
       resources:
         limits:
           cpu: 1

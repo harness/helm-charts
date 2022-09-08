@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness in Prod configuration
 
-![Version: 0.2.35](https://img.shields.io/badge/Version-0.2.35-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
+![Version: 0.2.36](https://img.shields.io/badge/Version-0.2.36-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
 
 ## Usage
 
@@ -379,7 +379,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | harness.platform.ti-service.resources.requests.memory | string | `"3072Mi"` |  |
 | harness.platform.timescaledb.autoscaling.enabled | bool | `false` |  |
 | harness.platform.timescaledb.enabled | bool | `true` |  |
-| harness.platform.timescaledb.replicaCount | int | `2` |  |
+| harness.platform.timescaledb.replicaCount | int | `1` |  |
 | harness.platform.timescaledb.resources.limits.cpu | int | `1` |  |
 | harness.platform.timescaledb.resources.limits.memory | string | `"2048Mi"` |  |
 | harness.platform.timescaledb.resources.requests.cpu | int | `1` |  |
