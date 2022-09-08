@@ -173,8 +173,8 @@ harness:
 
   et:
     # -- Enabled will deploy ET to your cluster
-    enabled: true
-    enable-receivers: true
+    enabled: false
+    enable-receivers: false
 
     et-service:
       affinity: {}

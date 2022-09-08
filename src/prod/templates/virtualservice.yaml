@@ -59,9 +59,9 @@ spec:
       uri: /
     route:
     - destination:
-      port:
-        number: 6070
-      host: et-collector
+        port:
+          number: 6070
+        host: et-collector
 
   - name: et-service
     match:
@@ -73,9 +73,9 @@ spec:
       uri: /
     route:
     - destination:
-      port:
-        number: 9191
-      host: et-service
+        port:
+          number: 9191
+        host: et-service
 
   - name: sto
     match:

@@ -311,7 +311,7 @@ harness:
       enabled: true
       autoscaling:
         enabled: false
-      replicaCount: 2
+      replicaCount: 1
       resources:
         limits:
           cpu: 1
@@ -410,8 +410,8 @@ harness:
           heapSize: "1600m"
       autoscaling:
         enabled: true
+        maxReplicas: 3
       replicaCount: 1
-      maxReplicas: 3
       resources:
         limits:
           cpu: 1
@@ -428,8 +428,8 @@ harness:
           heapSize: "1600m"
       autoscaling:
         enabled: true
+        maxReplicas: 3
       replicaCount: 1
-      maxReplicas: 3
       resources:
         limits:
           cpu: 2
@@ -446,8 +446,8 @@ harness:
           heapSize: "1600m"
       autoscaling:
         enabled: true
+        maxReplicas: 3
       replicaCount: 1
-      maxReplicas: 3
       resources:
         limits:
           cpu: 1
@@ -464,8 +464,8 @@ harness:
           heapSize: "1600m"
       autoscaling:
         enabled: true
+        maxReplicas: 3
       replicaCount: 1
-      maxReplicas: 3
       resources:
         limits:
           cpu: 1
