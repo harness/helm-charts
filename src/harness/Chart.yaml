@@ -41,3 +41,8 @@ dependencies:
     condition: ci.enabled
     version: 0.1.x
     repository: "file://ci"
+
+  - name: et
+    condition: et.enabled
+    version: 0.1.x
+    repository: "file://et"
