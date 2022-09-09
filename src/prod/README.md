@@ -1,29 +1,30 @@
 ## Harness Helm Charts
 
-Helm Chart for deploying Harness in Prod configuration
+This readme provides the basic instructions you need to deploy Harness using a Helm chart. The Helm chart deploys Harness in a production configuration. 
 
 ![Version: 0.2.36](https://img.shields.io/badge/Version-0.2.36-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
 
 ## Usage
 
-[Helm](https://helm.sh) must be installed to use the charts.
-Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
+Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, see the [Helm documentation](https://helm.sh/docs/).
 
-Once Helm is set up properly, add the repo as follows:
+Use the following command to add the Harness chart repository to your Helm installation:
 
 ```console
 $ helm repo add harness https://harness.github.io/helm-charts
 ```
 ## Requirements
-* Istio installed within kubernetes, for reference: https://istio.io/latest/docs/setup/getting-started/
+* [Istio](https://istio.io). This Helm chart includes Istio service mesh as an optional dependency and requires its installation. For information about how to download and install Istio into your Kubernetes clusters, see https://istio.io/latest/docs/setup/getting-started/.
 
-## Installing the chart
-Create a namespace for your installation
+## Install the chart
+Use the following process to install the Helm chart.
+
+1. Create a namespace for your installation:
 ```
 $ kubectl create namespace <namespace>
 ```
 
-Create your override.yaml file with your envirionment settings:
+2. Create the override.yaml file using your environment settings:
 
 ```
 global:
@@ -201,46 +202,51 @@ harness:
 
 ```
 
-Installing the helm chart
+Install the Helm chart:
 ```
 $  helm install my-release harness/harness-prod -n <namespace> -f override.yaml
 ```
 
-### Accessing the application
-Please refer the following documentation: https://docs.harness.io/article/gqoqinkhck-install-harness-self-managed-enterprise-edition-with-helm#create_your_harness_account
-## Upgrading the chart
-Find out the release-name using
+### Access the application
+Verify your installation by accessing the Harness application and creating your Harness account. For basic instructions, see: https://docs.harness.io/article/gqoqinkhck-install-harness-self-managed-enterprise-edition-with-helm#create_your_harness_account.
+
+## Upgrade the chart
+Use the following instructions to upgrade Harness Helm chart to a later version.
+
+1. Obtain the `release-name` that identifies the installed release: 
 ```
 $ helm ls -n <namespace>
 ```
-Get the data from previous release
+2. Retrieve configuration information for the installed release from the old-values.yaml file: 
 ```
 $ helm get values my-release > old_values.yaml
 ```
-Then change the fields in old_values.yaml file as required. Now update the chart using
-Helm Upgrade
+3. Modify the values of the old_values.yaml file as your configuration requires. 
+
+4. Use the `helm upgrade` command to update the chart:
 ```
 $ helm upgrade my-release harness/harness-demo -n <namespace> -f old_values.yaml
 ```
 
-## Uninstalling the Chart
+## Uninstall the chart
+The following process uninstalls the Helm chart and removes your Harness deployment.
 
-To uninstall/delete the `my-release` deployment:
+* Uninstall and delete the `my-release` deployment:
 
 ```console
 $ helm uninstall my-release -n <namespace>
 ```
 
-The command removes all the Kubernetes components associated with the chart and deletes the release.
+This command removes the Kubernetes components that are associated with the chart and deletes the release.
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.airgap | bool | `false` | Enable for complete airgap environment |
+| global.airgap | bool | `false` | Enable for installation into an air-gapped environment |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
-| global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
+| global.loadbalancerURL | string | `""` | The fully qualified URL of your load balancer (ex: https://www.example.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `true` |  |
@@ -251,7 +257,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | harness.ci.ci-manager.resources.requests.cpu | int | `1` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"6192Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
-| harness.platform.access-control | object | `{"appLogLevel":"INFO","autoscaling":{"enabled":true,"minReplicas":2},"java":{"memory":"512m"},"resources":{"limits":{"cpu":1,"memory":"4096Mi"},"requests":{"cpu":1,"memory":"4096Mi"}}}` | Feature list to enable within platform.  Contact Harness for value |
+| harness.platform.access-control | object | `{"appLogLevel":"INFO","autoscaling":{"enabled":true,"minReplicas":2},"java":{"memory":"512m"},"resources":{"limits":{"cpu":1,"memory":"4096Mi"},"requests":{"cpu":1,"memory":"4096Mi"}}}` | The feature list to enable in the Platform. Contact Harness for value |
 | harness.platform.change-data-capture.appLogLevel | string | `"INFO"` |  |
 | harness.platform.change-data-capture.autoscaling.enabled | bool | `false` |  |
 | harness.platform.change-data-capture.autoscaling.minReplicas | int | `2` |  |
@@ -404,7 +410,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | ingress.tls.enabled | bool | `false` |  |
 | ingress.tls.secretName | string | `"harness-ssl"` |  |
 | istio.enabled | bool | `false` |  |
-| istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
+| istio.gateway.create | bool | `true` | Enable to create the istio-system gateway |
 | istio.gateway.port | int | `443` |  |
 | istio.gateway.protocol | string | `"HTTPS"` |  |
 | istio.hosts[0] | string | `"*"` |  |
