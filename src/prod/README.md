@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness in Prod configuration
 
-![Version: 0.2.36](https://img.shields.io/badge/Version-0.2.36-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
+![Version: 0.2.37](https://img.shields.io/badge/Version-0.2.37-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
 
 ## Usage
 
@@ -199,6 +199,41 @@ harness:
       nodeSelector: {}
       tolerations: []
 
+  et:
+    # -- Enabled will deploy ET to your cluster
+    enabled: false
+    enable-receivers: false
+
+    et-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-collector:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-decompile:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-hit:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-sql:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-agent:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
 ```
 
 Installing the helm chart
@@ -251,6 +286,62 @@ The command removes all the Kubernetes components associated with the chart and 
 | harness.ci.ci-manager.resources.requests.cpu | int | `1` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"6192Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
+| harness.et.enable-receivers | bool | `true` |  |
+| harness.et.enabled | bool | `true` | Enable to install ET |
+| harness.et.et-collector.autoscaling.enabled | bool | `false` |  |
+| harness.et.et-collector.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-collector.replicaCount | int | `1` |  |
+| harness.et.et-collector.resources.limits.cpu | int | `1` |  |
+| harness.et.et-collector.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-collector.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-collector.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-agent.autoscaling.enabled | bool | `true` |  |
+| harness.et.et-receiver-agent.autoscaling.maxReplicas | int | `3` |  |
+| harness.et.et-receiver-agent.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-receiver-agent.et.redisQueue.type | string | `"agent"` |  |
+| harness.et.et-receiver-agent.name | string | `"et-receiver-agent"` |  |
+| harness.et.et-receiver-agent.replicaCount | int | `1` |  |
+| harness.et.et-receiver-agent.resources.limits.cpu | int | `1` |  |
+| harness.et.et-receiver-agent.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-agent.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-receiver-agent.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-decompile.autoscaling.enabled | bool | `true` |  |
+| harness.et.et-receiver-decompile.autoscaling.maxReplicas | int | `3` |  |
+| harness.et.et-receiver-decompile.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-receiver-decompile.et.redisQueue.type | string | `"decompile"` |  |
+| harness.et.et-receiver-decompile.name | string | `"et-receiver-decompile"` |  |
+| harness.et.et-receiver-decompile.replicaCount | int | `1` |  |
+| harness.et.et-receiver-decompile.resources.limits.cpu | int | `2` |  |
+| harness.et.et-receiver-decompile.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-decompile.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-receiver-decompile.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-hit.autoscaling.enabled | bool | `true` |  |
+| harness.et.et-receiver-hit.autoscaling.maxReplicas | int | `3` |  |
+| harness.et.et-receiver-hit.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-receiver-hit.et.redisQueue.type | string | `"hit"` |  |
+| harness.et.et-receiver-hit.name | string | `"et-receiver-hit"` |  |
+| harness.et.et-receiver-hit.replicaCount | int | `1` |  |
+| harness.et.et-receiver-hit.resources.limits.cpu | int | `1` |  |
+| harness.et.et-receiver-hit.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-hit.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-receiver-hit.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-sql.autoscaling.enabled | bool | `true` |  |
+| harness.et.et-receiver-sql.autoscaling.maxReplicas | int | `3` |  |
+| harness.et.et-receiver-sql.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-receiver-sql.et.redisQueue.type | string | `"sql"` |  |
+| harness.et.et-receiver-sql.name | string | `"et-receiver-sql"` |  |
+| harness.et.et-receiver-sql.replicaCount | int | `1` |  |
+| harness.et.et-receiver-sql.resources.limits.cpu | int | `1` |  |
+| harness.et.et-receiver-sql.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-sql.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-receiver-sql.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-service.et.java.heapSize | string | `"6400m"` |  |
+| harness.et.et-service.et.redis.enabled | bool | `true` |  |
+| harness.et.et-service.replicaCount | int | `1` |  |
+| harness.et.et-service.resources.limits.cpu | int | `2` |  |
+| harness.et.et-service.resources.limits.memory | string | `"8Gi"` |  |
+| harness.et.et-service.resources.requests.cpu | string | `"500m"` |  |
+| harness.et.et-service.resources.requests.memory | string | `"8Gi"` |  |
 | harness.platform.access-control | object | `{"appLogLevel":"INFO","autoscaling":{"enabled":true,"minReplicas":2},"java":{"memory":"512m"},"resources":{"limits":{"cpu":1,"memory":"4096Mi"},"requests":{"cpu":1,"memory":"4096Mi"}}}` | Feature list to enable within platform.  Contact Harness for value |
 | harness.platform.change-data-capture.appLogLevel | string | `"INFO"` |  |
 | harness.platform.change-data-capture.autoscaling.enabled | bool | `false` |  |
@@ -398,9 +489,11 @@ The command removes all the Kubernetes components associated with the chart and 
 | harness.sto.sto-manager.resources.limits.memory | string | `"3072Mi"` |  |
 | harness.sto.sto-manager.resources.requests.cpu | int | `1` |  |
 | harness.sto.sto-manager.resources.requests.memory | string | `"3072Mi"` |  |
-| ingress.className | string | `"nginx"` |  |
+| ingress.className | string | `"harness"` |  |
+| ingress.createNginxIngressController | bool | `false` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hosts[0] | string | `"my-host.example.org"` |  |
+| ingress.loadBalancerIP | string | `"10.10.10.10"` |  |
 | ingress.tls.enabled | bool | `false` |  |
 | ingress.tls.secretName | string | `"harness-ssl"` |  |
 | istio.enabled | bool | `false` |  |

@@ -31,7 +31,9 @@ istio:
 
 ingress:
   enabled: false
-  className: "nginx"
+  createNginxIngressController: false
+  loadBalancerIP: '10.10.10.10'
+  className: "harness"
   hosts:
     - 'my-host.example.org'
   tls:

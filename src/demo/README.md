@@ -28,6 +28,23 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.ci.ci-manager.resources.requests.cpu | float | `0.5` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"3000Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
+| harness.et.enable-receivers | bool | `false` |  |
+| harness.et.enabled | bool | `false` | Enable to install ET |
+| harness.et.et-collector.autoscaling.enabled | bool | `false` |  |
+| harness.et.et-collector.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-collector.replicaCount | int | `1` |  |
+| harness.et.et-collector.resources.limits.cpu | string | `"500m"` |  |
+| harness.et.et-collector.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-collector.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-collector.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-service.autoscaling.enabled | bool | `false` |  |
+| harness.et.et-service.et.java.heapSize | string | `"2048m"` |  |
+| harness.et.et-service.et.redis.enabled | bool | `false` |  |
+| harness.et.et-service.replicaCount | int | `1` |  |
+| harness.et.et-service.resources.limits.cpu | int | `1` |  |
+| harness.et.et-service.resources.limits.memory | string | `"3Gi"` |  |
+| harness.et.et-service.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-service.resources.requests.memory | string | `"3Gi"` |  |
 | harness.platform.access-control | object | `{"appLogLevel":"INFO","autoscaling":{"enabled":false},"java":{"memory":"512m"},"replicaCount":1,"resources":{"limits":{"cpu":1,"memory":"4096Mi"},"requests":{"cpu":1,"memory":"4096Mi"}}}` | Feature list to enable within platform.  Contact Harness for value |
 | harness.platform.change-data-capture.appLogLevel | string | `"INFO"` |  |
 | harness.platform.change-data-capture.autoscaling.enabled | bool | `false` |  |
