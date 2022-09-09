@@ -49,7 +49,7 @@ jobs:
 
       - name: Run chart-testing (lint)
         working-directory: ./src/demo
-        run: ct lint --target-branch=develop --charts=. --chart-repos=harness-main=https://harness.github.io/helm-charts,harness-common=https://harness.github.io/helm-common/charts,common=https://charts.bitnami.com/bitnami --validate-maintainers=false
+        run: ct lint --target-branch=develop --charts=. --chart-repos=harness-main=https://harness.github.io/helm-charts,harness-common=https://harness.github.io/helm-common,common=https://charts.bitnami.com/bitnami --validate-maintainers=false
 
       # - name: Create kind cluster/search
       #   uses: helm/kind-action@v1.2.0
@@ -57,4 +57,4 @@ jobs:
 
       # - name: Run chart-testing (install)
       #   working-directory: ./src
-      #   run: ct install --target-branch=develop --charts=. --chart-repos=https://harness.github.io/helm-charts,harness-common=https://harness.github.io/helm-common/charts,common=https://charts.bitnami.com/bitnami
+      #   run: ct install --target-branch=develop --charts=. --chart-repos=https://harness.github.io/helm-charts,harness-common=https://harness.github.io/helm-common,common=https://charts.bitnami.com/bitnami
