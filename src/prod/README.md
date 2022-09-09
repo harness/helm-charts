@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness in Prod configuration
 
-![Version: 0.2.37](https://img.shields.io/badge/Version-0.2.37-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
+![Version: 0.2.38](https://img.shields.io/badge/Version-0.2.38-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
 
 ## Usage
 
@@ -490,10 +490,20 @@ The command removes all the Kubernetes components associated with the chart and 
 | harness.sto.sto-manager.resources.requests.cpu | int | `1` |  |
 | harness.sto.sto-manager.resources.requests.memory | string | `"3072Mi"` |  |
 | ingress.className | string | `"harness"` |  |
-| ingress.createNginxIngressController | bool | `false` |  |
-| ingress.enabled | bool | `false` |  |
+| ingress.createNginxIngressController | bool | `true` |  |
+| ingress.defaultbackend.image.digest | string | `""` |  |
+| ingress.defaultbackend.image.pullPolicy | string | `"IfNotPresent"` |  |
+| ingress.defaultbackend.image.registry | string | `"k8s.gcr.io"` |  |
+| ingress.defaultbackend.image.repository | string | `"defaultbackend-amd64"` |  |
+| ingress.defaultbackend.image.tag | string | `"1.5"` |  |
+| ingress.enabled | bool | `true` |  |
 | ingress.hosts[0] | string | `"my-host.example.org"` |  |
 | ingress.loadBalancerIP | string | `"10.10.10.10"` |  |
+| ingress.nginx.image.digest | string | `""` |  |
+| ingress.nginx.image.pullPolicy | string | `"IfNotPresent"` |  |
+| ingress.nginx.image.registry | string | `"us.gcr.io"` |  |
+| ingress.nginx.image.repository | string | `"k8s-artifacts-prod/ingress-nginx/controller"` |  |
+| ingress.nginx.image.tag | string | `"v0.47.0"` |  |
 | ingress.tls.enabled | bool | `false` |  |
 | ingress.tls.secretName | string | `"harness-ssl"` |  |
 | istio.enabled | bool | `false` |  |
