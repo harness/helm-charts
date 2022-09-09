@@ -171,4 +171,37 @@ harness:
       nodeSelector: {}
       tolerations: []
 
+  et:
+    # -- Enabled will deploy ET to your cluster
+    enabled: false
+    enable-receivers: false
 
+    et-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-collector:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-decompile:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-hit:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-sql:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-agent:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []

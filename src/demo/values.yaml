@@ -361,3 +361,39 @@ harness:
         requests:
           cpu: 1
           memory: 3072Mi
+
+  et:
+  # -- Enable to install ET
+    enabled: false
+    enable-receivers: false
+    et-service:
+      et:
+        java:
+          heapSize: "2048m"
+        redis:
+          enabled: false
+
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 1
+          memory: 3Gi
+        requests:
+          cpu: 100m
+          memory: 3Gi
+    et-collector:
+      et:
+        java:
+          heapSize: "1600m"
+      autoscaling:
+        enabled: false
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 500m
+          memory: 2Gi
+        requests:
+          cpu: 100m
+          memory: 2Gi

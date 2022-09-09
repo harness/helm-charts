@@ -1,0 +1,29 @@
+enable-receivers: false
+
+et-service:
+  image:
+    tag: "5.3.0"
+  autoscaling:
+    enabled: false
+
+et-collector:
+  image:
+    tag: "5.0.7"
+  autoscaling:
+    enabled: false
+
+et-receiver-agent:
+  image:
+    tag: "5.3.0"
+
+et-receiver-decompile:
+  image:
+    tag: "5.3.0"
+
+et-receiver-hit:
+  image:
+    tag: "5.3.0"
+
+et-receiver-sql:
+  image:
+    tag: "5.3.0"
