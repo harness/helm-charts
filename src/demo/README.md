@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.31](https://img.shields.io/badge/Version-0.2.31-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
+![Version: 0.2.33](https://img.shields.io/badge/Version-0.2.33-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -9,6 +9,7 @@ Helm Chart for deploying Harness in Demo configuration
 | Repository | Name | Version |
 |------------|------|---------|
 | https://harness.github.io/helm-charts | harness | 0.2.30 |
+| https://harness.github.io/helm-common | harness-common | 1.x.x |
 
 ## Values
 
@@ -28,6 +29,23 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.ci.ci-manager.resources.requests.cpu | float | `0.5` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"3000Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
+| harness.et.enable-receivers | bool | `false` |  |
+| harness.et.enabled | bool | `false` | Enable to install ET |
+| harness.et.et-collector.autoscaling.enabled | bool | `false` |  |
+| harness.et.et-collector.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-collector.replicaCount | int | `1` |  |
+| harness.et.et-collector.resources.limits.cpu | string | `"500m"` |  |
+| harness.et.et-collector.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-collector.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-collector.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-service.autoscaling.enabled | bool | `false` |  |
+| harness.et.et-service.et.java.heapSize | string | `"2048m"` |  |
+| harness.et.et-service.et.redis.enabled | bool | `false` |  |
+| harness.et.et-service.replicaCount | int | `1` |  |
+| harness.et.et-service.resources.limits.cpu | int | `1` |  |
+| harness.et.et-service.resources.limits.memory | string | `"3Gi"` |  |
+| harness.et.et-service.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-service.resources.requests.memory | string | `"3Gi"` |  |
 | harness.platform.access-control | object | `{"appLogLevel":"INFO","autoscaling":{"enabled":false},"java":{"memory":"512m"},"replicaCount":1,"resources":{"limits":{"cpu":1,"memory":"4096Mi"},"requests":{"cpu":1,"memory":"4096Mi"}}}` | Feature list to enable within platform.  Contact Harness for value |
 | harness.platform.change-data-capture.appLogLevel | string | `"INFO"` |  |
 | harness.platform.change-data-capture.autoscaling.enabled | bool | `false` |  |
@@ -174,9 +192,21 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.sto.sto-manager.resources.limits.memory | string | `"3072Mi"` |  |
 | harness.sto.sto-manager.resources.requests.cpu | int | `1` |  |
 | harness.sto.sto-manager.resources.requests.memory | string | `"3072Mi"` |  |
-| ingress.className | string | `"nginx"` |  |
+| ingress.className | string | `"harness"` |  |
+| ingress.createNginxIngressController | bool | `false` |  |
+| ingress.defaultbackend.image.digest | string | `""` |  |
+| ingress.defaultbackend.image.pullPolicy | string | `"IfNotPresent"` |  |
+| ingress.defaultbackend.image.registry | string | `"k8s.gcr.io"` |  |
+| ingress.defaultbackend.image.repository | string | `"defaultbackend-amd64"` |  |
+| ingress.defaultbackend.image.tag | string | `"1.5"` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hosts[0] | string | `"my-host.example.org"` |  |
+| ingress.loadBalancerIP | string | `"10.10.10.10"` |  |
+| ingress.nginx.image.digest | string | `""` |  |
+| ingress.nginx.image.pullPolicy | string | `"IfNotPresent"` |  |
+| ingress.nginx.image.registry | string | `"us.gcr.io"` |  |
+| ingress.nginx.image.repository | string | `"k8s-artifacts-prod/ingress-nginx/controller"` |  |
+| ingress.nginx.image.tag | string | `"v0.47.0"` |  |
 | ingress.tls.enabled | bool | `false` |  |
 | ingress.tls.secretName | string | `"harness-ssl"` |  |
 | istio.enabled | bool | `false` |  |

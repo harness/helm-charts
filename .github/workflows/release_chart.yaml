@@ -31,7 +31,7 @@ jobs:
       - name: Add Helm repos
         run: |
           helm repo add harness-helm https://harness.github.io/helm-charts
-          helm repo add harness-ingress https://harness.github.io/helm-ingress
+          helm repo add harness-common https://harness.github.io/helm-common
           helm repo add bitnami https://charts.bitnami.com/bitnami
 
       - name: Run Chart Releaser
