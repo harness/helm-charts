@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.32](https://img.shields.io/badge/Version-0.2.32-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
+![Version: 0.2.33](https://img.shields.io/badge/Version-0.2.33-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -193,7 +193,7 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.sto.sto-manager.resources.requests.cpu | int | `1` |  |
 | harness.sto.sto-manager.resources.requests.memory | string | `"3072Mi"` |  |
 | ingress.className | string | `"harness"` |  |
-| ingress.createNginxIngressController | bool | `true` |  |
+| ingress.createNginxIngressController | bool | `false` |  |
 | ingress.defaultbackend.image.digest | string | `""` |  |
 | ingress.defaultbackend.image.pullPolicy | string | `"IfNotPresent"` |  |
 | ingress.defaultbackend.image.registry | string | `"k8s.gcr.io"` |  |
