@@ -411,9 +411,9 @@ harness:
         java:
           heapSize: "1600m"
       autoscaling:
-        # Need to enable SessionAffinty
-        # Before enabling collector HPA
-        enabled: false
+        enabled: true
+        maxReplicas: 3
+
       replicaCount: 1
       resources:
         limits:
