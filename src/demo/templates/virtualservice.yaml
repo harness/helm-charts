@@ -1,4 +1,4 @@
-{{- if .Values.istio.enabled }}
+{{- if .Values.global.istio.enabled }}
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
@@ -8,15 +8,15 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   gateways:
-    {{- if .Values.istio.gateway.create }}
+    {{- if .Values.global.istio.gateway.create }}
     - istio-system/public
     {{- else }}
-    {{- range .Values.istio.virtualService.gateways }}
+    {{- range .Values.global.istio.virtualService.gateways }}
     - {{ . }}
     {{- end }}
     {{- end }}
   hosts:
-    {{- range .Values.istio.virtualService.hosts }}
+    {{- range .Values.global.istio.virtualService.hosts }}
     - {{ . }}
     {{- end }}
   tcp:
