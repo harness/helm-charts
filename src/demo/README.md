@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.35](https://img.shields.io/badge/Version-0.2.35-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
+![Version: 0.2.36](https://img.shields.io/badge/Version-0.2.36-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -18,6 +18,33 @@ Helm Chart for deploying Harness in Demo configuration
 | global.airgap | bool | `false` | Enable for complete airgap environment |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
+| global.ingress.className | string | `"harness"` |  |
+| global.ingress.createNginxIngressController | bool | `false` |  |
+| global.ingress.defaultbackend.image.digest | string | `""` |  |
+| global.ingress.defaultbackend.image.pullPolicy | string | `"IfNotPresent"` |  |
+| global.ingress.defaultbackend.image.registry | string | `"k8s.gcr.io"` |  |
+| global.ingress.defaultbackend.image.repository | string | `"defaultbackend-amd64"` |  |
+| global.ingress.defaultbackend.image.tag | string | `"1.5"` |  |
+| global.ingress.enabled | bool | `false` |  |
+| global.ingress.hosts[0] | string | `"my-host.example.org"` |  |
+| global.ingress.loadBalancerIP | string | `"10.10.10.10"` |  |
+| global.ingress.nginx.image.digest | string | `""` |  |
+| global.ingress.nginx.image.pullPolicy | string | `"IfNotPresent"` |  |
+| global.ingress.nginx.image.registry | string | `"us.gcr.io"` |  |
+| global.ingress.nginx.image.repository | string | `"k8s-artifacts-prod/ingress-nginx/controller"` |  |
+| global.ingress.nginx.image.tag | string | `"v0.47.0"` |  |
+| global.ingress.tls.enabled | bool | `false` |  |
+| global.ingress.tls.secretName | string | `"harness-ssl"` |  |
+| global.istio.enabled | bool | `false` |  |
+| global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
+| global.istio.gateway.port | int | `443` |  |
+| global.istio.gateway.protocol | string | `"HTTPS"` |  |
+| global.istio.hosts[0] | string | `"*"` |  |
+| global.istio.tls.credentialName | string | `nil` |  |
+| global.istio.tls.minProtocolVersion | string | `"TLSV1_2"` |  |
+| global.istio.tls.mode | string | `"SIMPLE"` |  |
+| global.istio.virtualService.gateways[0] | string | `""` |  |
+| global.istio.virtualService.hosts[0] | string | `""` |  |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.storageClassName | string | `""` |  |
@@ -179,7 +206,7 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.platform.timescaledb.resources.requests.cpu | float | `0.3` |  |
 | harness.platform.timescaledb.resources.requests.memory | string | `"512Mi"` |  |
 | harness.platform.timescaledb.storage.capacity | string | `"10Gi"` |  |
-| harness.sto.enabled | bool | `true` | Enable to install STO |
+| harness.sto.enabled | bool | `false` | Enable to install STO |
 | harness.sto.sto-core.autoscaling.enabled | bool | `false` |  |
 | harness.sto.sto-core.replicaCount | int | `1` |  |
 | harness.sto.sto-core.resources.limits.cpu | string | `"500m"` |  |
@@ -192,31 +219,4 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.sto.sto-manager.resources.limits.memory | string | `"3072Mi"` |  |
 | harness.sto.sto-manager.resources.requests.cpu | int | `1` |  |
 | harness.sto.sto-manager.resources.requests.memory | string | `"3072Mi"` |  |
-| ingress.className | string | `"harness"` |  |
-| ingress.createNginxIngressController | bool | `false` |  |
-| ingress.defaultbackend.image.digest | string | `""` |  |
-| ingress.defaultbackend.image.pullPolicy | string | `"IfNotPresent"` |  |
-| ingress.defaultbackend.image.registry | string | `"k8s.gcr.io"` |  |
-| ingress.defaultbackend.image.repository | string | `"defaultbackend-amd64"` |  |
-| ingress.defaultbackend.image.tag | string | `"1.5"` |  |
-| ingress.enabled | bool | `false` |  |
-| ingress.hosts[0] | string | `"my-host.example.org"` |  |
-| ingress.loadBalancerIP | string | `"10.10.10.10"` |  |
-| ingress.nginx.image.digest | string | `""` |  |
-| ingress.nginx.image.pullPolicy | string | `"IfNotPresent"` |  |
-| ingress.nginx.image.registry | string | `"us.gcr.io"` |  |
-| ingress.nginx.image.repository | string | `"k8s-artifacts-prod/ingress-nginx/controller"` |  |
-| ingress.nginx.image.tag | string | `"v0.47.0"` |  |
-| ingress.tls.enabled | bool | `false` |  |
-| ingress.tls.secretName | string | `"harness-ssl"` |  |
-| istio.enabled | bool | `false` |  |
-| istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
-| istio.gateway.port | int | `443` |  |
-| istio.gateway.protocol | string | `"HTTPS"` |  |
-| istio.hosts[0] | string | `"*"` |  |
-| istio.tls.credentialName | string | `nil` |  |
-| istio.tls.minProtocolVersion | string | `"TLSV1_2"` |  |
-| istio.tls.mode | string | `"SIMPLE"` |  |
-| istio.virtualService.gateways[0] | string | `""` |  |
-| istio.virtualService.hosts[0] | string | `""` |  |
 

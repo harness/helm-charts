@@ -1,4 +1,4 @@
-{{- if .Values.ingress.enabled -}}
+{{- if .Values.global.ingress.enabled -}}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -8,7 +8,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -19,16 +19,16 @@ spec:
                   number: 7090
             path: /ng/api(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-    {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+    {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
     {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -40,7 +40,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -51,16 +51,16 @@ spec:
                   number: 4000
             path: /sto/(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -72,7 +72,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -83,16 +83,16 @@ spec:
                   number: 7090
             path: /sto-manager/(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -104,7 +104,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -115,16 +115,16 @@ spec:
                   number: 6070
             path: /et-collector(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -136,7 +136,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -147,16 +147,16 @@ spec:
                   number: 9191
             path: /et(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -168,7 +168,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -179,16 +179,16 @@ spec:
                   number: 80
             path: /ng(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -200,7 +200,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -211,16 +211,16 @@ spec:
                   number: 7090
             path: /ci(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -232,7 +232,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -243,16 +243,16 @@ spec:
                   number: 6060
             path: /cv(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -262,7 +262,7 @@ metadata:
   name: minio-ui
   namespace: {{ .Release.Namespace }}
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -273,16 +273,16 @@ spec:
                   number: 9000
             path: /minio
             pathType: Prefix
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -292,7 +292,7 @@ metadata:
   name: logs-service-minio
   namespace: {{ .Release.Namespace }}
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -303,16 +303,16 @@ spec:
                   number: 9000
             path: /logs/
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -324,7 +324,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -335,16 +335,16 @@ spec:
                   number: 8079
             path: /log-service(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -356,7 +356,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -367,16 +367,16 @@ spec:
                   number: 80
             path: /gateway(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -388,7 +388,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -399,16 +399,16 @@ spec:
                   number: 9006
             path: /authz(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -420,7 +420,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -431,16 +431,16 @@ spec:
                   number: 8078
             path: /ti-service(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -452,7 +452,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -463,16 +463,16 @@ spec:
                   number: 15002
             path: /template(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -482,7 +482,7 @@ metadata:
   name: delegate-proxy
   namespace: {{ .Release.Namespace }}
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -493,16 +493,16 @@ spec:
                   number: 80
             path: /storage
             pathType: Prefix
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -514,7 +514,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -525,16 +525,16 @@ spec:
                   number: 12001
             path: /pipeline(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-   {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+   {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -546,7 +546,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -557,16 +557,16 @@ spec:
                   number: 9005
             path: /notifications(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -578,7 +578,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -589,16 +589,16 @@ spec:
                   number: 9005
             path: /audit(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -610,7 +610,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -621,16 +621,16 @@ spec:
                   number: 9005
             path: /resourcegroup(/|$)(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -642,7 +642,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -653,16 +653,16 @@ spec:
                   number: 7070
             path: /verification
             pathType: Prefix
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -672,7 +672,7 @@ metadata:
   name: harness-manager-api
   namespace: {{ .Release.Namespace }}
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -683,16 +683,16 @@ spec:
                   number: 9090
             path: /api
             pathType: Prefix
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -702,7 +702,7 @@ metadata:
   name: harness-manager-stream
   namespace: {{ .Release.Namespace }}
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -713,16 +713,16 @@ spec:
                   number: 9090
             path: /stream
             pathType: Prefix
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -734,7 +734,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -745,16 +745,16 @@ spec:
                   number: 80
             path: /auth(.*)
             pathType: ImplementationSpecific
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 ---
@@ -764,7 +764,7 @@ metadata:
   name: harness-ui
   namespace: {{ .Release.Namespace }}
 spec:
-  ingressClassName: {{ .Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
     - http:
         paths:
@@ -775,16 +775,16 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
-  {{- if .Values.ingress.tls.enabled }}
-  {{- range .Values.ingress.hosts }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  {{- range .Values.global.ingress.hosts }}
       host: {{ . | quote }}
   {{- end }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range .Values.global.ingress.hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 
 {{- end }}

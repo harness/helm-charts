@@ -1,4 +1,4 @@
-{{- if .Values.ingress.createNginxIngressController -}}
+{{- if and .Values.global.ingress.enabled .Values.global.ingress.createNginxIngressController -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -8,7 +8,7 @@ spec:
   selector:
     app: harness-ingress-controller
   type: 'LoadBalancer'
-  loadBalancerIP: {{ .Values.ingress.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.global.ingress.loadBalancerIP }}
   externalTrafficPolicy: 'Cluster'
   ports:
   - name: http
@@ -87,7 +87,7 @@ rules:
 - apiGroups:
   - ""
   resourceNames:
-  - ingress-controller-leader-{{ .Values.ingress.className }}
+  - ingress-controller-leader-{{ .Values.global.ingress.className }}
   resources:
   - configmaps
   verbs:
@@ -164,7 +164,7 @@ spec:
       securityContext:
         runAsUser: 101
       containers:
-      - image: {{ include "common.images.image" (dict "imageRoot" .Values.ingress.nginx.image "global" .Values.global) }}
+      - image: {{ include "common.images.image" (dict "imageRoot" .Values.global.ingress.nginx.image "global" .Values.global) }}
         name: nginx-ingress-controller
         imagePullPolicy: IfNotPresent
         envFrom:
@@ -206,7 +206,7 @@ spec:
               fieldPath: metadata.namespace
         args:
         - /nginx-ingress-controller
-        - --ingress-class={{ .Values.ingress.className }}
+        - --ingress-class={{ .Values.global.ingress.className }}
         - --default-backend-service=$(POD_NAMESPACE)/default-backend
         - --election-id=ingress-controller-leader
         - --watch-namespace=$(POD_NAMESPACE)
