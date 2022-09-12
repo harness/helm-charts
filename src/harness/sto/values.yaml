@@ -5,4 +5,3 @@ sto-core:
 sto-manager:
   autoscaling:
     enabled: false
-

@@ -1,0 +1,219 @@
+{{- if .Values.ingress.createNginxIngressController -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: harness-ingress-controller
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: harness-ingress-controller
+  type: 'LoadBalancer'
+  loadBalancerIP: {{ .Values.ingress.loadBalancerIP }}
+  externalTrafficPolicy: 'Cluster'
+  ports:
+  - name: http
+    nodePort: 32500
+    port: 80
+    protocol: TCP
+    targetPort: http
+  - name: https
+    nodePort: 32505
+    port: 443
+    protocol: TCP
+    targetPort: https
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: harness-ingress-controller
+  namespace: {{ .Release.Namespace }}
+data:
+  proxy-body-size: 1024m
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: harness-serviceaccount
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: harness-role
+  namespace: {{ .Release.Namespace }}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - pods
+  - secrets
+  - endpoints
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - get
+  - list
+  - update
+  - watch
+- apiGroups:
+  - extensions
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  - networking.k8s.io
+  resources:
+  - ingresses/status
+  verbs:
+  - update
+- apiGroups:
+  - ""
+  resourceNames:
+  - ingress-controller-leader-{{ .Values.ingress.className }}
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  verbs:
+  - create
+  - get
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: harness-role-hsa-binding
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: harness-role
+subjects:
+  - kind: ServiceAccount
+    name: harness-serviceaccount
+    namespace: {{ .Release.Namespace }}
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: harness-ingress-controller
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: harness-ingress-controller
+  progressDeadlineSeconds: 300
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: "harness-ingress-controller"
+    spec:
+#
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: "harness-ingress-controller"
+              topologyKey: kubernetes.io/hostname
+#
+      serviceAccountName: harness-serviceaccount
+      terminationGracePeriodSeconds: 60
+      securityContext:
+        runAsUser: 101
+      containers:
+      - image: {{ include "common.images.image" (dict "imageRoot" .Values.ingress.nginx.image "global" .Values.global) }}
+        name: nginx-ingress-controller
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: harness-ingress-controller
+        resources:
+          limits:
+            cpu: '0.5'
+            memory: '512Mi'
+          requests:
+            cpu: '0.5'
+            memory: '512Mi'
+        ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+          - name: https
+            containerPort: 8443
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 10254
+            scheme: HTTP
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        args:
+        - /nginx-ingress-controller
+        - --ingress-class={{ .Values.ingress.className }}
+        - --default-backend-service=$(POD_NAMESPACE)/default-backend
+        - --election-id=ingress-controller-leader
+        - --watch-namespace=$(POD_NAMESPACE)
+        - --update-status=true
+        - --configmap=$(POD_NAMESPACE)/harness-ingress-controller
+        - --http-port=8080
+        - --https-port=8443
+        - --default-ssl-certificate=$(POD_NAMESPACE)/harness-wildcard
+        - --publish-service=$(POD_NAMESPACE)/harness-ingress-controller
+{{- end }}
