@@ -1,4 +1,4 @@
-{{- if and .Values.global.ingress.enabled .Values.global.ingress.createNginxIngressController }}
+{{- if and .Values.global.ingress.enabled .Values.global.ingress.createDefaultBackend }}
 kind: Deployment
 apiVersion: apps/v1
 metadata:

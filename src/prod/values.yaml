@@ -33,7 +33,8 @@ global:
   # --- Enable Nginx ingress controller gateway
   ingress:
     enabled: false
-    createNginxIngressController: true
+    createNginxIngressController: false
+    createDefaultBackend: false
     loadBalancerIP: '10.10.10.10'
     className: "harness"
     nginx:
