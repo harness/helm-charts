@@ -19,6 +19,7 @@ Helm Chart for deploying Harness in Demo configuration
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.ingress.className | string | `"harness"` |  |
+| global.ingress.createDefaultBackend | bool | `false` |  |
 | global.ingress.createNginxIngressController | bool | `false` |  |
 | global.ingress.defaultbackend.image.digest | string | `""` |  |
 | global.ingress.defaultbackend.image.pullPolicy | string | `"IfNotPresent"` |  |
@@ -27,7 +28,7 @@ Helm Chart for deploying Harness in Demo configuration
 | global.ingress.defaultbackend.image.tag | string | `"1.5"` |  |
 | global.ingress.enabled | bool | `false` |  |
 | global.ingress.hosts[0] | string | `"my-host.example.org"` |  |
-| global.ingress.loadBalancerIP | string | `"10.10.10.10"` |  |
+| global.ingress.loadBalancerIP | string | `"0.0.0.0"` |  |
 | global.ingress.nginx.image.digest | string | `""` |  |
 | global.ingress.nginx.image.pullPolicy | string | `"IfNotPresent"` |  |
 | global.ingress.nginx.image.registry | string | `"us.gcr.io"` |  |

@@ -13,10 +13,11 @@ global:
   # --- Enabling ingress create kubernetes Ingress Objects for nginx.
   ingress:
     enabled: false
-    hostname: "myhostname.foo.bar"
     createNginxIngressController: false
-    loadBalancerIP: '10.10.10.10'
+    createDefaultBackend: false
+    loadBalancerIP: '0.0.0.0'
     className: "harness"
+    hostname: "myhostname.foo.bar"
 
 harness:
   ci:

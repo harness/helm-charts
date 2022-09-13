@@ -41,7 +41,10 @@ global:
   # --- Enabling ingress create kubernetes Ingress Objects for nginx.
   ingress:
     enabled: false
-    className: "nginx"
+    createNginxIngressController: false
+    createDefaultBackend: false
+    loadBalancerIP: '0.0.0.0'
+    className: "harness"
     hosts:
       - 'myhost.example.com'
     tls:
@@ -324,7 +327,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | global.airgap | bool | `false` | Enable for complete airgap environment |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
-| global.ingress | object | `{"className":"harness","createDefaultBackend":false,"createNginxIngressController":false,"defaultbackend":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["my-host.example.org"],"loadBalancerIP":"10.10.10.10","nginx":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v0.47.0"}},"tls":{"enabled":false,"secretName":"harness-ssl"}}` | - Enable Nginx ingress controller gateway |
+| global.ingress | object | `{"className":"harness","createDefaultBackend":false,"createNginxIngressController":false,"defaultbackend":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["my-host.example.org"],"loadBalancerIP":"0.0.0.0","nginx":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v0.47.0"}},"tls":{"enabled":false,"secretName":"harness-ssl"}}` | - Enable Nginx ingress controller gateway |
 | global.istio | object | `{"enabled":false,"gateway":{"create":true,"port":443,"protocol":"HTTPS"},"hosts":["*"],"tls":{"credentialName":null,"minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[""],"hosts":[""]}}` | - Enable Istio Gateway |
 | global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
