@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness in Production environment
 
-![Version: 0.2.45](https://img.shields.io/badge/Version-0.2.45-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.46](https://img.shields.io/badge/Version-0.2.46-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -38,6 +38,14 @@ global:
   loadbalancerURL: https://myhostname.example.com
   mongoSSL: false
   storageClassName: ""
+
+  # -- Enabled will deploy STO to your cluster
+  sto:
+    enabled: false
+
+  # -- Enabled will deploy ET to your cluster
+  et:
+    enabled: false
 
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
@@ -81,10 +89,7 @@ harness:
       tolerations: []
 
   sto:
-    # -- Enabled will deploy STO to your cluster
-    enabled: true
-
-    sto-core:
+   sto-core:
       affinity: {}
       nodeSelector: {}
       tolerations: []
@@ -95,7 +100,6 @@ harness:
       tolerations: []
 
   et:
-    # -- Enabled will deploy ET to your cluster
     enabled: false
     enable-receivers: false
 
@@ -334,6 +338,7 @@ This command removes the Kubernetes components that are associated with the char
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
+| global.et | object | `{"enabled":false}` | - Enable to install Error Tracking |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.ingress | object | `{"className":"harness","createDefaultBackend":false,"createNginxIngressController":false,"defaultbackend":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["my-host.example.org"],"loadBalancerIP":"0.0.0.0","nginx":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v0.47.0"}},"tls":{"enabled":false,"secretName":"harness-ssl"}}` | - Enable Nginx ingress controller gateway |
@@ -341,6 +346,7 @@ This command removes the Kubernetes components that are associated with the char
 | global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
+| global.sto | object | `{"enabled":false}` | - Enable to install STO |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `true` |  |
 | harness.ci.ci-manager.autoscaling.minReplicas | int | `2` |  |
@@ -351,7 +357,6 @@ This command removes the Kubernetes components that are associated with the char
 | harness.ci.ci-manager.resources.requests.memory | string | `"6192Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
 | harness.et.enable-receivers | bool | `true` |  |
-| harness.et.enabled | bool | `false` | Enable to install ET |
 | harness.et.et-collector.autoscaling.enabled | bool | `true` |  |
 | harness.et.et-collector.autoscaling.maxReplicas | int | `3` |  |
 | harness.et.et-collector.et.java.heapSize | string | `"1600m"` |  |
@@ -541,7 +546,6 @@ This command removes the Kubernetes components that are associated with the char
 | harness.platform.timescaledb.resources.requests.cpu | int | `1` |  |
 | harness.platform.timescaledb.resources.requests.memory | string | `"2048Mi"` |  |
 | harness.platform.timescaledb.storage.capacity | string | `"120Gi"` |  |
-| harness.sto.enabled | bool | `false` | Enable to install STO |
 | harness.sto.sto-core.autoscaling.enabled | bool | `true` |  |
 | harness.sto.sto-core.autoscaling.minReplicas | int | `2` |  |
 | harness.sto.sto-core.resources.limits.cpu | string | `"500m"` |  |
