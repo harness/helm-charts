@@ -8,7 +8,7 @@ Helm Chart for deploying Harness in Demo configuration
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../harness | harness | 0.2.34 |
+| file://../harness | harness | 0.2.35 |
 | https://harness.github.io/helm-common | harness-common | 1.x.x |
 
 ## Values
@@ -176,6 +176,7 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.platform.redis.sentinel.resources.limits.memory | string | `"200Mi"` |  |
 | harness.platform.redis.sentinel.resources.requests.cpu | string | `"100m"` |  |
 | harness.platform.redis.sentinel.resources.requests.memory | string | `"200Mi"` |  |
+| harness.platform.redis.useAntiAffinity | bool | `false` |  |
 | harness.platform.redis.volumeClaimTemplate.resources.requests.storage | string | `"10Gi"` |  |
 | harness.platform.scm-service.autoscaling.enabled | bool | `false` |  |
 | harness.platform.scm-service.replicaCount | int | `1` |  |
