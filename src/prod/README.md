@@ -338,7 +338,7 @@ This command removes the Kubernetes components that are associated with the char
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
-| global.et | object | `{"enabled":false}` | - Enable to install Error Tracking |
+| global.et.enabled | bool | `false` | Enable to install Error Tracking |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.ingress | object | `{"className":"harness","createDefaultBackend":false,"createNginxIngressController":false,"defaultbackend":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["my-host.example.org"],"loadBalancerIP":"0.0.0.0","nginx":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v0.47.0"}},"tls":{"enabled":false,"secretName":"harness-ssl"}}` | - Enable Nginx ingress controller gateway |
@@ -346,7 +346,7 @@ This command removes the Kubernetes components that are associated with the char
 | global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
-| global.sto | object | `{"enabled":false}` | - Enable to install STO |
+| global.sto.enabled | bool | `false` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `true` |  |
 | harness.ci.ci-manager.autoscaling.minReplicas | int | `2` |  |
