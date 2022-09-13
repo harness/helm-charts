@@ -35,7 +35,7 @@ global:
     enabled: false
     createNginxIngressController: false
     createDefaultBackend: false
-    loadBalancerIP: '10.10.10.10'
+    loadBalancerIP: '0.0.0.0'
     className: "harness"
     nginx:
       image:
