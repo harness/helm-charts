@@ -1,44 +1,46 @@
 ## Harness Helm Charts
 
+This readme provides the basic instructions you need to deploy Harness using a Helm chart. The Helm chart deploys Harness in a production configuration.
+
 Helm Chart for deploying Harness in Prod configuration
 
 ![Version: 0.2.44](https://img.shields.io/badge/Version-0.2.44-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
-[Helm](https://helm.sh) must be installed to use the charts.
-Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
+Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, see the [Helm documentation](https://helm.sh/docs/) to get started.
 
-Once Helm is set up properly, add the repo as follows:
+Use the following command to add the Harness chart repository to your Helm installation:
 
 ```console
 $ helm repo add harness https://harness.github.io/helm-charts
 ```
 ## Requirements
-* Istio installed within kubernetes, for reference: https://istio.io/latest/docs/setup/getting-started/
+* [Istio](https://isio/io). This Helm chart includes Istio service mesh as an optional dependency and requires its installation. For information about how to download and install Istio into your Kubernetes clusters, see https://istio.io/latest/docs/setup/getting-started/
 
-## Installing the chart
-Create a namespace for your installation
+## Install the chart
+Use the following process to install the Helm chart.
+1. Create a namespace for your installation.
 ```
 $ kubectl create namespace <namespace>
 ```
 
-Create your override.yaml file with your envirionment settings:
+2. Create the override.yaml file using your envirionment settings:
 
 ```
 global:
   airgap: "false"
   ha: false
 
-  # -- Private Docker Image registry, will override all registries defined in subcharts
+  # -- This private Docker image registry will override any registries that are defined in subcharts.
   imageRegistry: ""
 
   loadbalancerURL: https://myhostname.example.com
   mongoSSL: false
   storageClassName: ""
 
-  ## !! Do not have ingress enabled and istio enabled at the same time.
-  # --- Enabling ingress create kubernetes Ingress Objects for nginx.
+  ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
+  # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
     enabled: false
     createNginxIngressController: false
@@ -70,7 +72,7 @@ global:
 
 harness:
   ci:
-    # -- Enabled will deploy CI to your cluster
+    # -- Enable to deploy CI to your cluster.
     enabled: true
 
     ci-manager:
@@ -128,55 +130,55 @@ harness:
       tolerations: []
 
   platform:
-    # -- Access control settings (taints, tolerations, etc)
+    # -- Access control settings (taints, tolerations, and so on)
     access-control:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- change-data-capture settings (taints, tolerations, etc)
+    # -- change-data-capture settings (taints, tolerations, and so on)
     change-data-capture:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- cv-nextgen settings (taints, tolerations, etc)
+    # -- cv-nextgen settings (taints, tolerations, and so on)
     cv-nextgen:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- delegate proxy settings (taints, tolerations, etc)
+    # -- delegate proxy settings (taints, tolerations, and so on)
     delegate-proxy:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- gateway settings (taints, tolerations, etc)
+    # -- gateway settings (taints, tolerations, and so on)
     gateway:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- harness-manager (taints, tolerations, etc)
+    # -- harness-manager (taints, tolerations, and so on)
     harness-manager:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- le-nextgen (taints, tolerations, etc)
+    # -- le-nextgen (taints, tolerations, and so on)
     le-nextgen:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- log-service (taints, tolerations, etc)
+    # -- log-service (taints, tolerations, and so on)
     log-service:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- minio (taints, tolerations, etc )
+    # -- minio (taints, tolerations, and so on)
     minio:
       affinity: {}
       nodeSelector: {}
@@ -238,7 +240,7 @@ harness:
       tolerations: []
 
   sto:
-    # -- Enabled will deploy STO to your cluster
+    # -- Enable to deploy STO to your cluster.
     enabled: true
 
     sto-core:
@@ -252,7 +254,7 @@ harness:
       tolerations: []
 
   et:
-    # -- Enabled will deploy ET to your cluster
+    # -- Enable to deploy ET to your cluster.
     enabled: false
     enable-receivers: false
 
@@ -288,37 +290,44 @@ harness:
 
 ```
 
-Installing the helm chart
+Install the Helm chart:
 ```
 $  helm install my-release harness/harness-prod -n <namespace> -f override.yaml
 ```
 
-### Accessing the application
-Please refer the following documentation: https://docs.harness.io/article/gqoqinkhck-install-harness-self-managed-enterprise-edition-with-helm#create_your_harness_account
-## Upgrading the chart
-Find out the release-name using
+### Access the application
+Verify your installation by accessing the Harness application and creating your Harness account. For basic instructions, see https://docs.harness.io/article/gqoqinkhck-install-harness-self-managed-enterprise-edition-with-helm#create_your_harness_account.
+
+## Upgrade the chart
+Use the following instructions to upgrade Harness Helm chart to a later version.
+
+1. Obtain the `release-name` that identifies the installed release:
 ```
 $ helm ls -n <namespace>
 ```
-Get the data from previous release
+2. Retrieve configuration information for the installed release from the old-values.yaml file
 ```
 $ helm get values my-release > old_values.yaml
 ```
-Then change the fields in old_values.yaml file as required. Now update the chart using
+3. Modify the values of the old_values.yaml file as your configuration requires.
+
+4. Use the `helm upgrade` command to update the chart:
 Helm Upgrade
 ```
 $ helm upgrade my-release harness/harness-demo -n <namespace> -f old_values.yaml
 ```
 
-## Uninstalling the Chart
+## Uninstall the Chart
 
-To uninstall/delete the `my-release` deployment:
+The following process uninstalls the Helm chart and removes your Harness deployment.
+
+Uninstall and delete the `my-release` deployment:
 
 ```console
 $ helm uninstall my-release -n <namespace>
 ```
 
-The command removes all the Kubernetes components associated with the chart and deletes the release.
+This command removes the Kubernetes components that are associated with the chart and deletes the release.
 
 ## Values
 
@@ -343,7 +352,8 @@ The command removes all the Kubernetes components associated with the chart and 
 | harness.ci.enabled | bool | `true` | Enable to install CI |
 | harness.et.enable-receivers | bool | `true` |  |
 | harness.et.enabled | bool | `false` | Enable to install ET |
-| harness.et.et-collector.autoscaling.enabled | bool | `false` |  |
+| harness.et.et-collector.autoscaling.enabled | bool | `true` |  |
+| harness.et.et-collector.autoscaling.maxReplicas | int | `3` |  |
 | harness.et.et-collector.et.java.heapSize | string | `"1600m"` |  |
 | harness.et.et-collector.replicaCount | int | `1` |  |
 | harness.et.et-collector.resources.limits.cpu | int | `1` |  |
@@ -545,3 +555,5 @@ The command removes all the Kubernetes components associated with the chart and 
 | harness.sto.sto-manager.resources.requests.cpu | int | `1` |  |
 | harness.sto.sto-manager.resources.requests.memory | string | `"3072Mi"` |  |
 
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
