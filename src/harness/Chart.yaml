@@ -33,7 +33,7 @@ dependencies:
     repository: "file://platform"
 
   - name: sto
-    condition: sto.enabled
+    condition: global.sto.enabled
     version: 0.1.x
     repository: "file://sto"
 
@@ -43,6 +43,6 @@ dependencies:
     repository: "file://ci"
 
   - name: et
-    condition: et.enabled
+    condition: global.et.enabled
     version: 0.1.x
     repository: "file://et"
