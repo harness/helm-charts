@@ -89,7 +89,7 @@ harness:
       tolerations: []
 
   sto:
-   sto-core:
+    sto-core:
       affinity: {}
       nodeSelector: {}
       tolerations: []
