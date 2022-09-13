@@ -401,6 +401,23 @@ entries:
   harness-demo:
   - apiVersion: v2
     appVersion: 1.0.76620
+    created: "2022-09-13T20:41:28.019208794Z"
+    dependencies:
+    - name: harness
+      repository: https://harness.github.io/helm-charts
+      version: 0.2.36
+    - name: harness-common
+      repository: https://harness.github.io/helm-common
+      version: 1.x.x
+    description: Helm Chart for deploying Harness in Demo configuration
+    digest: fd5d173183108f4f620b6bce8e1b9d5970d40d8de80e92039ca55a88203770e0
+    name: harness-demo
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-demo-0.2.40/harness-demo-0.2.40.tgz
+    version: 0.2.40
+  - apiVersion: v2
+    appVersion: 1.0.76620
     created: "2022-09-13T13:56:24.490463326Z"
     dependencies:
     - name: harness
@@ -863,6 +880,23 @@ entries:
     - https://github.com/harness/helm-charts/releases/download/harness-main-0.2.17/harness-main-0.2.17.tgz
     version: 0.2.17
   harness-prod:
+  - apiVersion: v2
+    appVersion: 1.0.76620
+    created: "2022-09-13T20:41:28.239069051Z"
+    dependencies:
+    - name: harness
+      repository: https://harness.github.io/helm-charts
+      version: 0.2.36
+    - name: harness-common
+      repository: https://harness.github.io/helm-common
+      version: 1.x.x
+    description: Helm Chart for deploying Harness in Production environment
+    digest: 5ff81ba045c81dc4fba9932f4146647962ad00f3c0daf59632b5290c56903203
+    name: harness-prod
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.46/harness-prod-0.2.46.tgz
+    version: 0.2.46
   - apiVersion: v2
     appVersion: 1.0.76620
     created: "2022-09-13T13:56:24.721323156Z"
@@ -1498,4 +1532,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.2/harness-prod-0.2.2.tgz
     version: 0.2.2
-generated: "2022-09-13T19:41:17.710918636Z"
+generated: "2022-09-13T20:41:28.239573656Z"
