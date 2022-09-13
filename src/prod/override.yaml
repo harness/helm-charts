@@ -215,9 +215,6 @@ harness:
       tolerations: []
 
   sto:
-    # -- Enable to deploy STO to your cluster.
-    enabled: true
-
     sto-core:
       affinity: {}
       nodeSelector: {}
@@ -229,8 +226,6 @@ harness:
       tolerations: []
 
   et:
-    # -- Enable to deploy ET to your cluster.
-    enabled: false
     enable-receivers: false
 
     et-service:
