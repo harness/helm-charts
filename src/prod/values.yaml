@@ -10,33 +10,54 @@ global:
   mongoSSL: false
   storageClassName: ""
 
-istio:
-  enabled: false
-  gateway:
-    # -- Enable to create istio-system gateway
-    create: true
-    port: 443
-    protocol: HTTPS
-  hosts:
-    - '*'
-  tls:
-    credentialName:
-    minProtocolVersion: TLSV1_2
-    mode: SIMPLE
-  virtualService:
-    gateways:
-      - ""
-    hosts:
-      - ""
-
-ingress:
-  enabled: false
-  className: "nginx"
-  hosts:
-    - 'my-host.example.org'
-  tls:
+  # --- Enable Istio Gateway
+  istio:
     enabled: false
-    secretName: harness-ssl
+    gateway:
+      # -- Enable to create istio-system gateway
+      create: true
+      port: 443
+      protocol: HTTPS
+    hosts:
+      - '*'
+    tls:
+      credentialName:
+      minProtocolVersion: TLSV1_2
+      mode: SIMPLE
+    virtualService:
+      gateways:
+        - ""
+      hosts:
+        - ""
+
+  # --- Enable Nginx ingress controller gateway
+  ingress:
+    enabled: false
+    createNginxIngressController: false
+    createDefaultBackend: false
+    loadBalancerIP: '0.0.0.0'
+    className: "harness"
+    nginx:
+      image:
+        registry:  us.gcr.io
+        repository: k8s-artifacts-prod/ingress-nginx/controller
+        pullPolicy: IfNotPresent
+        # Overrides the image tag whose default is the chart appVersion.
+        tag: "v0.47.0"
+        digest: ""
+    defaultbackend:
+      image:
+        registry: k8s.gcr.io
+        repository: defaultbackend-amd64
+        pullPolicy: IfNotPresent
+        # Overrides the image tag whose default is the chart appVersion.
+        tag: "1.5"
+        digest: ""
+    hosts:
+      - 'my-host.example.org'
+    tls:
+      enabled: false
+      secretName: harness-ssl
 
 
 ## Platform Settings
@@ -343,7 +364,7 @@ harness:
 
   sto:
   # -- Enable to install STO
-    enabled: true
+    enabled: false
     sto-core:
       autoscaling:
         enabled: true
@@ -369,7 +390,7 @@ harness:
 
   et:
   # -- Enable to install ET
-    enabled: true
+    enabled: false
     enable-receivers: true
     et-service:
       et:

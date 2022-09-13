@@ -4,19 +4,19 @@ dependencies:
   version: 0.2.6
 - name: change-data-capture
   repository: https://harness.github.io/helm-change-data-capture
-  version: 0.2.8
+  version: 0.2.10
 - name: cv-nextgen
   repository: https://harness.github.io/helm-cv-nextgen
-  version: 0.2.11
+  version: 0.2.12
 - name: gateway
   repository: https://harness.github.io/helm-gateway
-  version: 0.2.7
+  version: 0.2.9
 - name: harness-secrets
   repository: https://harness.github.io/helm-harness-secrets
   version: 0.2.1
 - name: harness-manager
   repository: https://harness.github.io/helm-harness-manager
-  version: 0.2.12
+  version: 0.2.13
 - name: delegate-proxy
   repository: https://harness.github.io/helm-delegate-proxy
   version: 0.2.5
@@ -34,16 +34,16 @@ dependencies:
   version: 13.1.2
 - name: next-gen-ui
   repository: https://harness.github.io/helm-next-gen-ui
-  version: 0.2.5
+  version: 0.2.6
 - name: ng-auth-ui
   repository: https://harness.github.io/helm-ng-auth-ui
   version: 0.2.2
 - name: ng-manager
   repository: https://harness.github.io/helm-ng-manager
-  version: 0.2.15
+  version: 0.2.16
 - name: pipeline-service
   repository: https://harness.github.io/helm-pipeline-service
-  version: 0.2.9
+  version: 0.2.10
 - name: platform-service
   repository: https://harness.github.io/helm-platform-service
   version: 0.2.8
@@ -58,9 +58,9 @@ dependencies:
   version: 0.2.10
 - name: ti-service
   repository: https://harness.github.io/helm-ti-service
-  version: 0.2.5
+  version: 0.2.7
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.8
-digest: sha256:d8b82b2d176c6abfdc8d17d219c273cecc8575c74efffb6d3be47a5027d56894
-generated: "2022-09-08T17:04:13.981979-04:00"
+digest: sha256:569e406d20b233182bf867fb6b861fb7cb1a9308189171174f0d37fedb20f83d
+generated: "2022-09-12T11:42:28.956221-04:00"

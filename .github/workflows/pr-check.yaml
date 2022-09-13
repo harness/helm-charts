@@ -46,10 +46,10 @@ jobs:
       #     if [[ -n "$changed" ]]; then
       #       echo "::set-output name=changed::true"
       #     fi
-
-      - name: Run chart-testing (lint)
-        working-directory: ./src/demo
-        run: ct lint --target-branch=develop --charts=. --chart-repos=harness-main=https://harness.github.io/helm-charts,harness-common=https://harness.github.io/helm-common,common=https://charts.bitnami.com/bitnami --validate-maintainers=false
+      
+#      - name: Run chart-testing (lint)
+#        working-directory: ./src/demo
+#        run: ct lint --target-branch=develop --charts=. --chart-repos=harness-main=https://harness.github.io/helm-charts,harness-common=https://harness.github.io/helm-common,common=https://charts.bitnami.com/bitnami --validate-maintainers=false
 
       # - name: Create kind cluster/search
       #   uses: helm/kind-action@v1.2.0

@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness in Prod configuration
 
-![Version: 0.2.36](https://img.shields.io/badge/Version-0.2.36-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
+![Version: 0.2.43](https://img.shields.io/badge/Version-0.2.43-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76519](https://img.shields.io/badge/AppVersion-1.0.76519-informational?style=flat-square)
 
 ## Usage
 
@@ -33,37 +33,40 @@ global:
   # -- Private Docker Image registry, will override all registries defined in subcharts
   imageRegistry: ""
 
-  loadbalancerURL: https://myhostname.foo.bar
+  loadbalancerURL: https://myhostname.example.com
   mongoSSL: false
   storageClassName: ""
 
-## !! Do not have ingress enabled and istio enabled at the same time.
-# --- Enabling ingress create kubernetes Ingress Objects for nginx.
-ingress:
-  enabled: false
-  className: "nginx"
-  hosts:
-    - 'myhost.foo.bar'
-  tls:
-    enabled: true
-    secretName: mycert
-
-# -- Istio Ingress Settings
-istio:
-  enabled: true
-  gateway:
-    create: true
-    port: 443
-    protocol: HTTPS
-  hosts:
-    - '*'
-  tls:
-    credentialName: mycert
-    minProtocolVersion: TLSV1_2
-    mode: SIMPLE
-  virtualService:
+  ## !! Do not have ingress enabled and istio enabled at the same time.
+  # --- Enabling ingress create kubernetes Ingress Objects for nginx.
+  ingress:
+    enabled: false
+    createNginxIngressController: false
+    createDefaultBackend: false
+    loadBalancerIP: '0.0.0.0'
+    className: "harness"
     hosts:
-      - "myhostname.foo.bar"
+      - 'myhost.example.com'
+    tls:
+      enabled: true
+      secretName: mycert
+
+  # -- Istio Ingress Settings
+  istio:
+    enabled: true
+    gateway:
+      create: true
+      port: 443
+      protocol: HTTPS
+    hosts:
+      - '*'
+    tls:
+      credentialName: mycert
+      minProtocolVersion: TLSV1_2
+      mode: SIMPLE
+    virtualService:
+      hosts:
+        - "myhostname.example.com"
 
 harness:
   ci:
@@ -71,6 +74,55 @@ harness:
     enabled: true
 
     ci-manager:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  sto:
+    # -- Enabled will deploy STO to your cluster
+    enabled: true
+
+    sto-core:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    sto-manager:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  et:
+    # -- Enabled will deploy ET to your cluster
+    enabled: false
+    enable-receivers: false
+
+    et-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-collector:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-decompile:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-hit:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-sql:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-agent:
       affinity: {}
       nodeSelector: {}
       tolerations: []
@@ -199,6 +251,41 @@ harness:
       nodeSelector: {}
       tolerations: []
 
+  et:
+    # -- Enabled will deploy ET to your cluster
+    enabled: false
+    enable-receivers: false
+
+    et-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-collector:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-decompile:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-hit:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-sql:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-agent:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
 ```
 
 Installing the helm chart
@@ -240,6 +327,9 @@ The command removes all the Kubernetes components associated with the chart and 
 | global.airgap | bool | `false` | Enable for complete airgap environment |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
+| global.ingress | object | `{"className":"harness","createDefaultBackend":false,"createNginxIngressController":false,"defaultbackend":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["my-host.example.org"],"loadBalancerIP":"0.0.0.0","nginx":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v0.47.0"}},"tls":{"enabled":false,"secretName":"harness-ssl"}}` | - Enable Nginx ingress controller gateway |
+| global.istio | object | `{"enabled":false,"gateway":{"create":true,"port":443,"protocol":"HTTPS"},"hosts":["*"],"tls":{"credentialName":null,"minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[""],"hosts":[""]}}` | - Enable Istio Gateway |
+| global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.storageClassName | string | `""` |  |
@@ -251,6 +341,62 @@ The command removes all the Kubernetes components associated with the chart and 
 | harness.ci.ci-manager.resources.requests.cpu | int | `1` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"6192Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
+| harness.et.enable-receivers | bool | `true` |  |
+| harness.et.enabled | bool | `false` | Enable to install ET |
+| harness.et.et-collector.autoscaling.enabled | bool | `false` |  |
+| harness.et.et-collector.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-collector.replicaCount | int | `1` |  |
+| harness.et.et-collector.resources.limits.cpu | int | `1` |  |
+| harness.et.et-collector.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-collector.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-collector.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-agent.autoscaling.enabled | bool | `true` |  |
+| harness.et.et-receiver-agent.autoscaling.maxReplicas | int | `3` |  |
+| harness.et.et-receiver-agent.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-receiver-agent.et.redisQueue.type | string | `"agent"` |  |
+| harness.et.et-receiver-agent.name | string | `"et-receiver-agent"` |  |
+| harness.et.et-receiver-agent.replicaCount | int | `1` |  |
+| harness.et.et-receiver-agent.resources.limits.cpu | int | `1` |  |
+| harness.et.et-receiver-agent.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-agent.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-receiver-agent.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-decompile.autoscaling.enabled | bool | `true` |  |
+| harness.et.et-receiver-decompile.autoscaling.maxReplicas | int | `3` |  |
+| harness.et.et-receiver-decompile.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-receiver-decompile.et.redisQueue.type | string | `"decompile"` |  |
+| harness.et.et-receiver-decompile.name | string | `"et-receiver-decompile"` |  |
+| harness.et.et-receiver-decompile.replicaCount | int | `1` |  |
+| harness.et.et-receiver-decompile.resources.limits.cpu | int | `2` |  |
+| harness.et.et-receiver-decompile.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-decompile.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-receiver-decompile.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-hit.autoscaling.enabled | bool | `true` |  |
+| harness.et.et-receiver-hit.autoscaling.maxReplicas | int | `3` |  |
+| harness.et.et-receiver-hit.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-receiver-hit.et.redisQueue.type | string | `"hit"` |  |
+| harness.et.et-receiver-hit.name | string | `"et-receiver-hit"` |  |
+| harness.et.et-receiver-hit.replicaCount | int | `1` |  |
+| harness.et.et-receiver-hit.resources.limits.cpu | int | `1` |  |
+| harness.et.et-receiver-hit.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-hit.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-receiver-hit.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-sql.autoscaling.enabled | bool | `true` |  |
+| harness.et.et-receiver-sql.autoscaling.maxReplicas | int | `3` |  |
+| harness.et.et-receiver-sql.et.java.heapSize | string | `"1600m"` |  |
+| harness.et.et-receiver-sql.et.redisQueue.type | string | `"sql"` |  |
+| harness.et.et-receiver-sql.name | string | `"et-receiver-sql"` |  |
+| harness.et.et-receiver-sql.replicaCount | int | `1` |  |
+| harness.et.et-receiver-sql.resources.limits.cpu | int | `1` |  |
+| harness.et.et-receiver-sql.resources.limits.memory | string | `"2Gi"` |  |
+| harness.et.et-receiver-sql.resources.requests.cpu | string | `"100m"` |  |
+| harness.et.et-receiver-sql.resources.requests.memory | string | `"2Gi"` |  |
+| harness.et.et-service.et.java.heapSize | string | `"6400m"` |  |
+| harness.et.et-service.et.redis.enabled | bool | `true` |  |
+| harness.et.et-service.replicaCount | int | `1` |  |
+| harness.et.et-service.resources.limits.cpu | int | `2` |  |
+| harness.et.et-service.resources.limits.memory | string | `"8Gi"` |  |
+| harness.et.et-service.resources.requests.cpu | string | `"500m"` |  |
+| harness.et.et-service.resources.requests.memory | string | `"8Gi"` |  |
 | harness.platform.access-control | object | `{"appLogLevel":"INFO","autoscaling":{"enabled":true,"minReplicas":2},"java":{"memory":"512m"},"resources":{"limits":{"cpu":1,"memory":"4096Mi"},"requests":{"cpu":1,"memory":"4096Mi"}}}` | Feature list to enable within platform.  Contact Harness for value |
 | harness.platform.change-data-capture.appLogLevel | string | `"INFO"` |  |
 | harness.platform.change-data-capture.autoscaling.enabled | bool | `false` |  |
@@ -385,7 +531,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | harness.platform.timescaledb.resources.requests.cpu | int | `1` |  |
 | harness.platform.timescaledb.resources.requests.memory | string | `"2048Mi"` |  |
 | harness.platform.timescaledb.storage.capacity | string | `"120Gi"` |  |
-| harness.sto.enabled | bool | `true` | Enable to install STO |
+| harness.sto.enabled | bool | `false` | Enable to install STO |
 | harness.sto.sto-core.autoscaling.enabled | bool | `true` |  |
 | harness.sto.sto-core.autoscaling.minReplicas | int | `2` |  |
 | harness.sto.sto-core.resources.limits.cpu | string | `"500m"` |  |
@@ -398,19 +544,4 @@ The command removes all the Kubernetes components associated with the chart and 
 | harness.sto.sto-manager.resources.limits.memory | string | `"3072Mi"` |  |
 | harness.sto.sto-manager.resources.requests.cpu | int | `1` |  |
 | harness.sto.sto-manager.resources.requests.memory | string | `"3072Mi"` |  |
-| ingress.className | string | `"nginx"` |  |
-| ingress.enabled | bool | `false` |  |
-| ingress.hosts[0] | string | `"my-host.example.org"` |  |
-| ingress.tls.enabled | bool | `false` |  |
-| ingress.tls.secretName | string | `"harness-ssl"` |  |
-| istio.enabled | bool | `false` |  |
-| istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
-| istio.gateway.port | int | `443` |  |
-| istio.gateway.protocol | string | `"HTTPS"` |  |
-| istio.hosts[0] | string | `"*"` |  |
-| istio.tls.credentialName | string | `nil` |  |
-| istio.tls.minProtocolVersion | string | `"TLSV1_2"` |  |
-| istio.tls.mode | string | `"SIMPLE"` |  |
-| istio.virtualService.gateways[0] | string | `""` |  |
-| istio.virtualService.hosts[0] | string | `""` |  |
 

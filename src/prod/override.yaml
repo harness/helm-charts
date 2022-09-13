@@ -9,33 +9,36 @@ global:
   mongoSSL: false
   storageClassName: ""
 
-## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
-# --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
-ingress:
-  enabled: false
-  className: "nginx"
-  hosts:
-    - 'myhost.example.com'
-  tls:
-    enabled: true
-    secretName: mycert
-
-# -- Istio ingress settings
-istio:
-  enabled: true
-  gateway:
-    create: true
-    port: 443
-    protocol: HTTPS
-  hosts:
-    - '*'
-  tls:
-    credentialName: mycert
-    minProtocolVersion: TLSV1_2
-    mode: SIMPLE
-  virtualService:
+  ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
+  # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
+  ingress:
+    enabled: false
+    createNginxIngressController: false
+    createDefaultBackend: false
+    loadBalancerIP: '0.0.0.0'
+    className: "harness"
     hosts:
-      - "myhostname.example.com"
+      - 'myhost.example.com'
+    tls:
+      enabled: true
+      secretName: mycert
+
+  # -- Istio Ingress Settings
+  istio:
+    enabled: true
+    gateway:
+      create: true
+      port: 443
+      protocol: HTTPS
+    hosts:
+      - '*'
+    tls:
+      credentialName: mycert
+      minProtocolVersion: TLSV1_2
+      mode: SIMPLE
+    virtualService:
+      hosts:
+        - "myhostname.example.com"
 
 harness:
   ci:
@@ -46,6 +49,56 @@ harness:
       affinity: {}
       nodeSelector: {}
       tolerations: []
+
+  sto:
+    # -- Enabled will deploy STO to your cluster
+    enabled: true
+
+    sto-core:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    sto-manager:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  et:
+    # -- Enabled will deploy ET to your cluster
+    enabled: false
+    enable-receivers: false
+
+    et-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-collector:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-decompile:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-hit:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-sql:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-agent:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
 
   platform:
     # -- Access control settings (taints, tolerations, and so on)
