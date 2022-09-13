@@ -70,7 +70,6 @@ harness:
       tolerations: []
 
   et:
-    enabled: false
     enable-receivers: false
 
     et-service:
