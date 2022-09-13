@@ -257,6 +257,7 @@ harness:
           memory: 3000Mi
 
     redis:
+      useAntiAffinity: false
       redis:
         resources:
           limits:
