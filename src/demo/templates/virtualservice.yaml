@@ -61,7 +61,7 @@ spec:
     - destination:
         port:
           number: 6070
-        host: et-collector
+        host: et-collector.{{ .Release.Namespace }}.svc.cluster.local
 
   - name: et-service
     match:
