@@ -14,4 +14,4 @@ helm-harness-secrets:
 
 ci-manager:
   image:
-    tag: "76519"
+    tag: "400"
