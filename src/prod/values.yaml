@@ -10,6 +10,14 @@ global:
   mongoSSL: false
   storageClassName: ""
 
+  sto:
+    # -- Enable to install STO
+    enabled: false
+
+  et:
+    # -- Enable to install Error Tracking
+    enabled: false
+
   # --- Enable Istio Gateway
   istio:
     enabled: false
@@ -363,8 +371,6 @@ harness:
           memory: 6192Mi
 
   sto:
-  # -- Enable to install STO
-    enabled: false
     sto-core:
       autoscaling:
         enabled: true
@@ -389,8 +395,6 @@ harness:
           memory: 3072Mi
 
   et:
-  # -- Enable to install ET
-    enabled: false
     enable-receivers: true
     et-service:
       et:

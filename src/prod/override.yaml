@@ -9,6 +9,14 @@ global:
   mongoSSL: false
   storageClassName: ""
 
+  # -- Enabled will deploy STO to your cluster
+  sto:
+    enabled: false
+
+  # -- Enabled will deploy ET to your cluster
+  et:
+    enabled: false
+
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
@@ -51,9 +59,6 @@ harness:
       tolerations: []
 
   sto:
-    # -- Enabled will deploy STO to your cluster
-    enabled: true
-
     sto-core:
       affinity: {}
       nodeSelector: {}
@@ -65,8 +70,6 @@ harness:
       tolerations: []
 
   et:
-    # -- Enabled will deploy ET to your cluster
-    enabled: false
     enable-receivers: false
 
     et-service:
@@ -211,9 +214,6 @@ harness:
       tolerations: []
 
   sto:
-    # -- Enable to deploy STO to your cluster.
-    enabled: true
-
     sto-core:
       affinity: {}
       nodeSelector: {}
@@ -225,8 +225,6 @@ harness:
       tolerations: []
 
   et:
-    # -- Enable to deploy ET to your cluster.
-    enabled: false
     enable-receivers: false
 
     et-service:

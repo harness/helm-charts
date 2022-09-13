@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.39](https://img.shields.io/badge/Version-0.2.39-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.40](https://img.shields.io/badge/Version-0.2.40-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -8,7 +8,7 @@ Helm Chart for deploying Harness in Demo configuration
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../harness | harness | 0.2.35 |
+| https://harness.github.io/helm-charts | harness | 0.2.36 |
 | https://harness.github.io/helm-common | harness-common | 1.x.x |
 
 ## Values
@@ -16,6 +16,7 @@ Helm Chart for deploying Harness in Demo configuration
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
+| global.et.enabled | bool | `false` | Enable to install Error Tracking |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.ingress.className | string | `"harness"` |  |
@@ -48,6 +49,7 @@ Helm Chart for deploying Harness in Demo configuration
 | global.istio.virtualService.hosts[0] | string | `""` |  |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
+| global.sto.enabled | bool | `false` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `false` |  |
 | harness.ci.ci-manager.java.memory | string | `"2048m"` |  |
@@ -58,7 +60,6 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.ci.ci-manager.resources.requests.memory | string | `"3000Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
 | harness.et.enable-receivers | bool | `false` |  |
-| harness.et.enabled | bool | `false` | Enable to install ET |
 | harness.et.et-collector.autoscaling.enabled | bool | `false` |  |
 | harness.et.et-collector.et.java.heapSize | string | `"1600m"` |  |
 | harness.et.et-collector.replicaCount | int | `1` |  |
@@ -208,7 +209,6 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.platform.timescaledb.resources.requests.cpu | float | `0.3` |  |
 | harness.platform.timescaledb.resources.requests.memory | string | `"512Mi"` |  |
 | harness.platform.timescaledb.storage.capacity | string | `"10Gi"` |  |
-| harness.sto.enabled | bool | `false` | Enable to install STO |
 | harness.sto.sto-core.autoscaling.enabled | bool | `false` |  |
 | harness.sto.sto-core.replicaCount | int | `1` |  |
 | harness.sto.sto-core.resources.limits.cpu | string | `"500m"` |  |
