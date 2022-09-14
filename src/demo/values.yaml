@@ -10,14 +10,6 @@ global:
   mongoSSL: false
   storageClassName: ""
 
-  sto:
-    # -- Enable to install STO
-    enabled: false
-
-  et:
-    # -- Enable to install Error Tracking
-    enabled: false
-
   istio:
     enabled: false
     gateway:
@@ -43,13 +35,14 @@ global:
     createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
     className: "harness"
+    loadBalancerEnabled: false
     nginx:
       image:
         registry:  us.gcr.io
         repository: k8s-artifacts-prod/ingress-nginx/controller
         pullPolicy: IfNotPresent
         # Overrides the image tag whose default is the chart appVersion.
-        tag: "v0.47.0"
+        tag: "v1.0.0-alpha.2"
         digest: ""
     defaultbackend:
       image:
@@ -365,6 +358,8 @@ harness:
           memory: 3000Mi
 
   sto:
+  # -- Enable to install STO
+    enabled: false
     sto-core:
       autoscaling:
         enabled: false
@@ -389,6 +384,8 @@ harness:
           memory: 3072Mi
 
   et:
+  # -- Enable to install ET
+    enabled: false
     enable-receivers: false
     et-service:
       et:
