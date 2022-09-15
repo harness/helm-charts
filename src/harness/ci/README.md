@@ -15,11 +15,4 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ci-manager.image.tag | string | `"400"` |  |
-| helm-harness-secrets.minio.password | string | `""` |  |
-| helm-harness-secrets.minio.user | string | `""` |  |
-| helm-harness-secrets.mongodb.password | string | `""` |  |
-| helm-harness-secrets.timescaledb.adminPassword | string | `""` |  |
-| helm-harness-secrets.timescaledb.postgresPassword | string | `""` |  |
-| helm-harness-secrets.timescaledb.standbyPassword | string | `""` |  |
-| istio.enabled | bool | `false` |  |
 
