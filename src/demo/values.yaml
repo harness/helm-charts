@@ -366,8 +366,6 @@ harness:
           memory: 3000Mi
 
   sto:
-  # -- Enable to install STO
-    enabled: false
     sto-core:
       autoscaling:
         enabled: false
@@ -392,8 +390,6 @@ harness:
           memory: 3072Mi
 
   et:
-  # -- Enable to install ET
-    enabled: false
     enable-receivers: false
     et-service:
       et:
@@ -401,7 +397,6 @@ harness:
           heapSize: "2048m"
         redis:
           enabled: false
-
       autoscaling:
         enabled: false
       replicaCount: 1
