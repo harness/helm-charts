@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.36](https://img.shields.io/badge/Version-0.2.36-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.37](https://img.shields.io/badge/Version-0.2.37-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -46,28 +46,7 @@ global:
   et:
     enabled: false
 
-  ingress:
-    enabled: false
-  istio:
-    enabled: true
-    strict: true
-    gateway:
-      # -- Enable to create istio-system gateway
-      create: true
-      port: 443
-      protocol: HTTPS
-    hosts:
-      - '*'
-    tls:
-      credentialName:
-      minProtocolVersion: TLSV1_2
-      mode: SIMPLE
-    virtualService:
-      gateways:
-        - ""
-      hosts:
-        - ""
-
+### Release tags
 ci:
   # -- Enable to install CI
   enabled: true
@@ -115,18 +94,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | global.et | object | `{"enabled":false}` | Enable to install Error Tracking |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
-| global.ingress.enabled | bool | `false` |  |
-| global.istio.enabled | bool | `true` |  |
-| global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
-| global.istio.gateway.port | int | `443` |  |
-| global.istio.gateway.protocol | string | `"HTTPS"` |  |
-| global.istio.hosts[0] | string | `"*"` |  |
-| global.istio.strict | bool | `true` |  |
-| global.istio.tls.credentialName | string | `nil` |  |
-| global.istio.tls.minProtocolVersion | string | `"TLSV1_2"` |  |
-| global.istio.tls.mode | string | `"SIMPLE"` |  |
-| global.istio.virtualService.gateways[0] | string | `""` |  |
-| global.istio.virtualService.hosts[0] | string | `""` |  |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |

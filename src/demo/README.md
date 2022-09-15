@@ -29,12 +29,13 @@ Helm Chart for deploying Harness in Demo configuration
 | global.ingress.defaultbackend.image.tag | string | `"1.5"` |  |
 | global.ingress.enabled | bool | `false` |  |
 | global.ingress.hosts[0] | string | `"my-host.example.org"` |  |
+| global.ingress.loadBalancerEnabled | bool | `false` |  |
 | global.ingress.loadBalancerIP | string | `"0.0.0.0"` |  |
 | global.ingress.nginx.image.digest | string | `""` |  |
 | global.ingress.nginx.image.pullPolicy | string | `"IfNotPresent"` |  |
 | global.ingress.nginx.image.registry | string | `"us.gcr.io"` |  |
 | global.ingress.nginx.image.repository | string | `"k8s-artifacts-prod/ingress-nginx/controller"` |  |
-| global.ingress.nginx.image.tag | string | `"v0.47.0"` |  |
+| global.ingress.nginx.image.tag | string | `"v1.0.0-alpha.2"` |  |
 | global.ingress.tls.enabled | bool | `false` |  |
 | global.ingress.tls.secretName | string | `"harness-ssl"` |  |
 | global.istio.enabled | bool | `false` |  |

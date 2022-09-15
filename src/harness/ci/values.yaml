@@ -1,17 +1,3 @@
-istio:
-  enabled: false
-
-helm-harness-secrets:
-  mongodb:
-    password: ""
-  timescaledb:
-    adminPassword: ""
-    postgresPassword: ""
-    standbyPassword: ""
-  minio:
-    user: ""
-    password: ""
-
 ci-manager:
   image:
     tag: "400"

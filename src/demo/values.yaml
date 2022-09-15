@@ -43,13 +43,14 @@ global:
     createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
     className: "harness"
+    loadBalancerEnabled: false
     nginx:
       image:
         registry:  us.gcr.io
         repository: k8s-artifacts-prod/ingress-nginx/controller
         pullPolicy: IfNotPresent
         # Overrides the image tag whose default is the chart appVersion.
-        tag: "v0.47.0"
+        tag: "v1.0.0-alpha.2"
         digest: ""
     defaultbackend:
       image:
@@ -396,7 +397,6 @@ harness:
           heapSize: "2048m"
         redis:
           enabled: false
-
       autoscaling:
         enabled: false
       replicaCount: 1
