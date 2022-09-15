@@ -10,6 +10,14 @@ global:
   mongoSSL: false
   storageClassName: ""
 
+  sto:
+    # -- Enable to install STO
+    enabled: false
+
+  et:
+    # -- Enable to install Error Tracking
+    enabled: false
+
   istio:
     enabled: false
     gateway:

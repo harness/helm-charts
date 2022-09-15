@@ -16,6 +16,7 @@ Helm Chart for deploying Harness in Demo configuration
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
+| global.et.enabled | bool | `false` | Enable to install Error Tracking |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.ingress.className | string | `"harness"` |  |
@@ -49,6 +50,7 @@ Helm Chart for deploying Harness in Demo configuration
 | global.istio.virtualService.hosts[0] | string | `""` |  |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
+| global.sto.enabled | bool | `false` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `false` |  |
 | harness.ci.ci-manager.java.memory | string | `"2048m"` |  |
