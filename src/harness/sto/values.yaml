@@ -5,3 +5,5 @@ sto-core:
 sto-manager:
   autoscaling:
     enabled: false
+  image:
+    tag: "76700-000"
