@@ -37,6 +37,8 @@ global:
   loadbalancerURL: ""
   mongoSSL: false
   storageClassName: ""
+  ingress:
+    useSelfSignedCert: false
 
   # -- Enable to install STO
   sto:
@@ -94,6 +96,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | global.et | object | `{"enabled":false}` | Enable to install Error Tracking |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
+| global.ingress.useSelfSignedCert | bool | `false` |  |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |

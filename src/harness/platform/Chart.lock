@@ -16,7 +16,7 @@ dependencies:
   version: 0.2.1
 - name: harness-manager
   repository: https://harness.github.io/helm-harness-manager
-  version: 0.2.15
+  version: 0.2.16
 - name: delegate-proxy
   repository: https://harness.github.io/helm-delegate-proxy
   version: 0.2.5
@@ -25,7 +25,7 @@ dependencies:
   version: 0.2.3
 - name: log-service
   repository: https://harness.github.io/helm-log-service
-  version: 0.2.8
+  version: 0.2.9
 - name: minio
   repository: https://charts.bitnami.com/bitnami
   version: 11.9.1
@@ -43,7 +43,7 @@ dependencies:
   version: 0.2.16
 - name: pipeline-service
   repository: https://harness.github.io/helm-pipeline-service
-  version: 0.2.10
+  version: 0.2.11
 - name: platform-service
   repository: https://harness.github.io/helm-platform-service
   version: 0.2.8
@@ -62,5 +62,5 @@ dependencies:
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.8
-digest: sha256:5cf106ab2f0fd26f327e1e8323d541f40f135653d4cf5719f6be66870c4c494f
-generated: "2022-09-15T06:55:30.56984-04:00"
+digest: sha256:0aab44e64307c496467792f14d291bdf78b8e0d1ff32910cd741ff0dd08a4fea
+generated: "2022-09-20T23:35:53.030169+05:30"

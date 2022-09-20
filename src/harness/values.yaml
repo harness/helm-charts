@@ -9,6 +9,8 @@ global:
   loadbalancerURL: ""
   mongoSSL: false
   storageClassName: ""
+  ingress:
+    useSelfSignedCert: false
 
   # -- Enable to install STO
   sto:
