@@ -18,6 +18,7 @@ global:
     loadBalancerIP: '0.0.0.0'
     className: "harness"
     hostname: "myhostname.foo.bar"
+    useSelfSignedCert: false
 
 harness:
   ci:

@@ -25,6 +25,7 @@ global:
     createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
     className: "harness"
+    useSelfSignedCert: false
     hosts:
       - 'myhost.example.com'
     tls:
