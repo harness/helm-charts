@@ -51,6 +51,7 @@ Helm Chart for deploying Harness in Demo configuration
 | global.istio.virtualService.hosts[0] | string | `""` |  |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
+| global.ngcustomdashboard.enabled | bool | `true` | Enabled Custom Dashboard |
 | global.sto.enabled | bool | `false` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `false` |  |

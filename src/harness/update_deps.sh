@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dirs=("infra" "platform" "sto" "et")
+dirs=("infra" "platform" "sto" "et" "ngcustomdashboard")
 for dir in "${dirs[@]}"; do
   (
     cd "$dir"
