@@ -20,6 +20,9 @@ global:
   et:
     enabled: false
 
+  ngcustomdashboard:
+    enabled: false
+
 ### Release tags
 ci:
   # -- Enable to install CI
