@@ -460,7 +460,7 @@ This command removes the Kubernetes components that are associated with the char
 | harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.clientId.name | string | `"harness-secrets"` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.clientSecret.key | string | `"lookerSdkClientSecret"` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.clientSecret.name | string | `"harness-secrets"` |  |
-| harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.secret.key | string | `"lookerEmdedSecret"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.secret.key | string | `"lookerEmbedSecret"` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.secret.name | string | `"harness-secrets"` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.resources.limits.cpu | int | `2` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.resources.limits.memory | string | `"1Gi"` |  |

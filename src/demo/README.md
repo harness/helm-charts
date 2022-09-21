@@ -117,7 +117,7 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.clientId.name | string | `"harness-secrets"` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.clientSecret.key | string | `"lookerSdkClientSecret"` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.clientSecret.name | string | `"harness-secrets"` |  |
-| harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.secret.key | string | `"lookerEmdedSecret"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.secret.key | string | `"lookerEmbedSecret"` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.secret.name | string | `"harness-secrets"` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.resources.limits.cpu | int | `1` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.resources.limits.memory | string | `"600Mi"` |  |

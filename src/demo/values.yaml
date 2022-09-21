@@ -524,4 +524,4 @@ harness:
           key: lookerSdkClientSecret
         secret:
           name: harness-secrets
-          key: lookerEmdedSecret
+          key: lookerEmbedSecret
