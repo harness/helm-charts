@@ -17,6 +17,9 @@ global:
   et:
     enabled: false
 
+  ngcustomdashboard:
+    enabled: false
+
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
@@ -103,6 +106,15 @@ harness:
       nodeSelector: {}
       tolerations: []
 
+  ngcustomdashboard:
+    looker:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+    ng-custom-dashboard:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
 
   platform:
     # -- Access control settings (taints, tolerations, and so on)
