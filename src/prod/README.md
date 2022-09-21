@@ -47,6 +47,9 @@ global:
   et:
     enabled: false
 
+  ngcustomdashboard:
+    enabled: false
+
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
@@ -129,6 +132,16 @@ harness:
       tolerations: []
 
     et-receiver-agent:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  ngcustomdashboard:
+    looker:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+    ng-custom-dashboard:
       affinity: {}
       nodeSelector: {}
       tolerations: []
@@ -341,6 +354,7 @@ This command removes the Kubernetes components that are associated with the char
 | global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
+| global.ngcustomdashboard.enabled | bool | `false` |  |
 | global.sto.enabled | bool | `false` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `true` |  |
@@ -407,6 +421,51 @@ This command removes the Kubernetes components that are associated with the char
 | harness.et.et-service.resources.limits.memory | string | `"8Gi"` |  |
 | harness.et.et-service.resources.requests.cpu | string | `"500m"` |  |
 | harness.et.et-service.resources.requests.memory | string | `"8Gi"` |  |
+| harness.ngcustomdashboard.looker.config.clientId | string | `""` | id used by initial setup user for authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
+| harness.ngcustomdashboard.looker.config.email | string | `""` | email address of the support user, required for initial signup and support |
+| harness.ngcustomdashboard.looker.config.firstName | string | `"Harness"` | name of the user who performs setup and support tasks |
+| harness.ngcustomdashboard.looker.config.lastName | string | `"Support"` | last name of the user who performs setup and support tasks |
+| harness.ngcustomdashboard.looker.config.projectName | string | `"Harness"` | name of the looker project which will be created |
+| harness.ngcustomdashboard.looker.config.timescaleConnectionName | string | `"qa-timescale"` | timescale connection name, must match model connection name |
+| harness.ngcustomdashboard.looker.config.timescaleDatabase | string | `""` | timescale database name |
+| harness.ngcustomdashboard.looker.config.timescaleHost | string | `""` | timescale hostname |
+| harness.ngcustomdashboard.looker.config.timescalePort | string | `""` | timescale port |
+| harness.ngcustomdashboard.looker.config.timescaleUser | string | `""` | timescale user |
+| harness.ngcustomdashboard.looker.ingress.host | string | `""` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
+| harness.ngcustomdashboard.looker.ingress.tls.secretName | string | `""` |  |
+| harness.ngcustomdashboard.looker.lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` | name of secret containing the client secret used for initial setup, generate a 24-byte key, e.g. openssl rand -hex 12 |
+| harness.ngcustomdashboard.looker.lookerSecrets.clientSecret.name | string | `"harness-secrets"` |  |
+| harness.ngcustomdashboard.looker.lookerSecrets.licenseKey.key | string | `"lookerLicenseKey"` | name of secret containing the looker license key which will be provided by Harness |
+| harness.ngcustomdashboard.looker.lookerSecrets.licenseKey.name | string | `"harness-secrets"` |  |
+| harness.ngcustomdashboard.looker.lookerSecrets.masterKey.key | string | `"lookerMasterKey"` | name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32 |
+| harness.ngcustomdashboard.looker.lookerSecrets.masterKey.name | string | `"harness-secrets"` |  |
+| harness.ngcustomdashboard.looker.resources.limits.cpu | int | `4` |  |
+| harness.ngcustomdashboard.looker.resources.limits.memory | string | `"8Gi"` |  |
+| harness.ngcustomdashboard.looker.resources.requests.cpu | int | `2` |  |
+| harness.ngcustomdashboard.looker.resources.requests.memory | string | `"4Gi"` |  |
+| harness.ngcustomdashboard.looker.timescaleSecrets.password.key | string | `"lookerTimescalePassword"` | name of secret containing the timescale password |
+| harness.ngcustomdashboard.looker.timescaleSecrets.password.name | string | `"harness-secrets"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.customerFolderId | string | `"6"` | folder ID of the 'CUSTOMER' folder in looker |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.lookerApiVersion | string | `"4.0"` | looker sdk param |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.lookerHost | string | `""` | hostname of your looker install |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.lookerPort | string | `"80"` | port of your looker install |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.lookerScheme | string | `"https"` | scheme used for your looker install, http or https |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.lookerTimeout | string | `"120"` | looker sdk param |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.lookerVerifySsl | string | `"false"` | looker sdk param |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.modelPrefix | string | `""` | if you have configured Looker models with a prefix enter it here |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.ootbFolderId | string | `"7"` | folder ID of the 'OOTB' folder in looker |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.redisHost | string | `""` | hostname of your redis install |
+| harness.ngcustomdashboard.ng-custom-dashboard.config.redisPort | string | `"6379"` | port of your redis install |
+| harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.clientId.key | string | `"lookerSdkClientId"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.clientId.name | string | `"harness-secrets"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.clientSecret.key | string | `"lookerSdkClientSecret"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.clientSecret.name | string | `"harness-secrets"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.secret.key | string | `"lookerEmbedSecret"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.lookerSecrets.secret.name | string | `"harness-secrets"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.resources.limits.cpu | int | `2` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.resources.limits.memory | string | `"1Gi"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.resources.requests.cpu | int | `1` |  |
+| harness.ngcustomdashboard.ng-custom-dashboard.resources.requests.memory | string | `"500Mi"` |  |
 | harness.platform.access-control | object | `{"appLogLevel":"INFO","autoscaling":{"enabled":true,"minReplicas":2},"java":{"memory":"512m"},"resources":{"limits":{"cpu":1,"memory":"4096Mi"},"requests":{"cpu":1,"memory":"4096Mi"}}}` | Feature list to enable within platform.  Contact Harness for value |
 | harness.platform.change-data-capture.appLogLevel | string | `"INFO"` |  |
 | harness.platform.change-data-capture.autoscaling.enabled | bool | `false` |  |

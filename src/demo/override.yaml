@@ -9,6 +9,15 @@ global:
   mongoSSL: false
   storageClassName: ""
 
+  sto:
+    enabled: false
+
+  # -- Enabled will deploy ET to your cluster
+  et:
+    enabled: false
+
+  ngcustomdashboard:
+    enabled: false
   ## Do not have ingress enabled and istio enabled at the same time.
   # --- Enabling ingress create kubernetes Ingress Objects for nginx.
   ingress:
@@ -165,6 +174,16 @@ harness:
       tolerations: []
 
     et-collector:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  ngcustomdashboard:
+    looker:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+    ng-custom-dashboard:
       affinity: {}
       nodeSelector: {}
       tolerations: []
