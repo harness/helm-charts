@@ -48,6 +48,9 @@ global:
   et:
     enabled: false
 
+  ngcustomdashboard:
+    enabled: false
+
 ### Release tags
 ci:
   # -- Enable to install CI
@@ -99,6 +102,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | global.ingress.useSelfSignedCert | bool | `false` |  |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
+| global.ngcustomdashboard.enabled | bool | `false` |  |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 

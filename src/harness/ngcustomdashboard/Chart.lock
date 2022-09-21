@@ -1,0 +1,9 @@
+dependencies:
+- name: ng-custom-dashboards
+  repository: https://harness.github.io/helm-ng-custom-dashboards
+  version: 0.1.1
+- name: looker
+  repository: https://harness.github.io/helm-looker
+  version: 0.1.2
+digest: sha256:27a42ecf44f0cdd2e67a5137e36f0ebc46809786cdf36cb6dadc7767d83fd59d
+generated: "2022-09-21T16:26:55.341796+05:30"

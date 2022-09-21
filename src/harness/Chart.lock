@@ -14,5 +14,8 @@ dependencies:
 - name: et
   repository: file://et
   version: 0.1.0
-digest: sha256:2ecb586b4104aeeb3bab7c24d7064d0c6630f4750dc4b9d6235048ae158f06e6
-generated: "2022-09-13T15:27:17.56629-04:00"
+- name: ngcustomdashboard
+  repository: file://ngcustomdashboard
+  version: 0.1.0
+digest: sha256:08969b81c06607a25ba869f6afd814750783c12f103b0f47d2037c0c8be0e835
+generated: "2022-09-21T16:13:04.876521+05:30"

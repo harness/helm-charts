@@ -1,6 +1,6 @@
 apiVersion: v2
-name: harness
-description: Helm Chart for deploying Harness.
+name: ng-custom-dashboard
+description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.2.39
+version: 0.1.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -24,30 +24,9 @@ version: 0.2.39
 appVersion: "1.0.76620"
 
 dependencies:
-  - name: infra
-    version: 0.1.x
-    repository: "file://infra"
-
-  - name: platform
-    version: 0.1.x
-    repository: "file://platform"
-
-  - name: sto
-    condition: global.sto.enabled
-    version: 0.1.x
-    repository: "file://sto"
-
-  - name: ci
-    condition: ci.enabled
-    version: 0.1.x
-    repository: "file://ci"
-
-  - name: et
-    condition: global.et.enabled
-    version: 0.1.x
-    repository: "file://et"
-
-  - name: ngcustomdashboard
-    condition: global.ngcustomdashboard.enabled
-    version: 0.1.x
-    repository: "file://ngcustomdashboard"
+- name: ng-custom-dashboards
+  version: 0.1.x
+  repository: "https://harness.github.io/helm-ng-custom-dashboards"
+- name: looker
+  version: 0.1.x
+  repository: "https://harness.github.io/helm-looker"
