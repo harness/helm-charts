@@ -18,6 +18,10 @@ global:
     # -- Enable to install Error Tracking
     enabled: false
 
+  ngcustomdashboard:
+    # --  Enabled Custom Dashboard
+    enabled: true
+
   istio:
     enabled: false
     gateway:
