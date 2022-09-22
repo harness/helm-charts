@@ -3,6 +3,39 @@ entries:
   harness:
   - apiVersion: v2
     appVersion: 1.0.76620
+    created: "2022-09-22T15:59:28.470208104Z"
+    dependencies:
+    - name: infra
+      repository: file://infra
+      version: 0.1.x
+    - name: platform
+      repository: file://platform
+      version: 0.1.x
+    - condition: global.sto.enabled
+      name: sto
+      repository: file://sto
+      version: 0.1.x
+    - condition: ci.enabled
+      name: ci
+      repository: file://ci
+      version: 0.1.x
+    - condition: global.et.enabled
+      name: et
+      repository: file://et
+      version: 0.1.x
+    - condition: global.ngcustomdashboard.enabled
+      name: ngcustomdashboard
+      repository: file://ngcustomdashboard
+      version: 0.1.x
+    description: Helm Chart for deploying Harness.
+    digest: 8759f2d367924025a766201fa662c0ad8ed41e3e79cc471f0c89ad52a328f732
+    name: harness
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-0.2.42/harness-0.2.42.tgz
+    version: 0.2.42
+  - apiVersion: v2
+    appVersion: 1.0.76620
     created: "2022-09-21T11:13:07.757074402Z"
     dependencies:
     - name: infra
@@ -1771,4 +1804,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.2/harness-prod-0.2.2.tgz
     version: 0.2.2
-generated: "2022-09-21T13:49:23.513902209Z"
+generated: "2022-09-22T15:59:28.470978514Z"
