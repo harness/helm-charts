@@ -1,6 +1,6 @@
 ng-custom-dashboard:
   image:
-    tag: "v1.52.12-afe14ef"
+    tag: "v1.52.19"
 looker:
   image:
     tag: "22.14.61.2"
