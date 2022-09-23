@@ -1,0 +1,6 @@
+ff-service:
+  image:
+    tag: "1.546.0"
+ff-pushpin-service:
+  image:
+    tag: "1.546.0"
