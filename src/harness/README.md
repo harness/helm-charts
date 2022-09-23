@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.43](https://img.shields.io/badge/Version-0.2.43-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.44](https://img.shields.io/badge/Version-0.2.44-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -46,6 +46,9 @@ global:
 
   # -- Enable to install Error Tracking
   et:
+    enabled: false
+
+  ff:
     enabled: false
 
   ngcustomdashboard:
@@ -97,6 +100,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | ci.enabled | bool | `true` | Enable to install CI |
 | global.airgap | bool | `false` | Enable for complete airgap environment |
 | global.et | object | `{"enabled":false}` | Enable to install Error Tracking |
+| global.ff.enabled | bool | `false` |  |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.ingress.useSelfSignedCert | bool | `false` |  |
