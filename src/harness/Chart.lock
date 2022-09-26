@@ -19,6 +19,6 @@ dependencies:
   version: 0.1.2
 - name: ff
   repository: file://ff
-  version: 0.1.0
-digest: sha256:18c59c0b52ee1aa56b951f7357e22097891655eec0489decc18d6aaa510d51ea
-generated: "2022-09-23T19:57:46.277088+05:30"
+  version: 0.1.1
+digest: sha256:8e7c158a089d0d9f46f445d859427818c3899d05c965a37d36f0ec66d46b68df
+generated: "2022-09-26T22:07:38.494142+05:30"
