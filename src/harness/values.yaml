@@ -20,6 +20,9 @@ global:
   et:
     enabled: false
 
+  ff:
+    enabled: false
+
   ngcustomdashboard:
     enabled: false
 
