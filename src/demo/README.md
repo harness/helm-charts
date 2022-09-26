@@ -8,7 +8,7 @@ Helm Chart for deploying Harness in Demo configuration
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://harness.github.io/helm-charts | harness | 0.2.44 |
+| https://harness.github.io/helm-charts | harness | 0.2.46 |
 | https://harness.github.io/helm-common | harness-common | 1.x.x |
 
 ## Values
