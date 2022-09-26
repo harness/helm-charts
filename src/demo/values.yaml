@@ -19,7 +19,11 @@ global:
     enabled: false
 
   ngcustomdashboard:
-    # --  Enabled Custom Dashboard
+    # -- Enabled will deploy NG Customer Dashboards
+    enabled: false
+
+  ff:
+    # -- Enabled will deploy Feature Flags Component
     enabled: false
 
   istio:

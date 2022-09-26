@@ -16,8 +16,14 @@ global:
   et:
     enabled: false
 
+  # -- Enabled will deploy NG Customer Dashboards
   ngcustomdashboard:
     enabled: false
+
+  # -- Enabled will deploy Feature Flags Component
+  ff:
+    enabled: false
+
   ## Do not have ingress enabled and istio enabled at the same time.
   # --- Enabling ingress create kubernetes Ingress Objects for nginx.
   ingress:
@@ -25,6 +31,7 @@ global:
     createNginxIngressController: false
     createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
+    loadBalancerEnabled: false
     className: "harness"
     hostname: "myhostname.foo.bar"
     useSelfSignedCert: false

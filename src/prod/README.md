@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness in Production environment
 
-![Version: 0.2.51](https://img.shields.io/badge/Version-0.2.51-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.52](https://img.shields.io/badge/Version-0.2.52-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -47,7 +47,12 @@ global:
   et:
     enabled: false
 
+  # -- Enabled will deploy NG Customer Dashboards
   ngcustomdashboard:
+    enabled: false
+
+  # -- Enabled will deploy Feature Flags Component
+  ff:
     enabled: false
 
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
@@ -57,6 +62,7 @@ global:
     createNginxIngressController: false
     createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
+    loadBalancerEnabled: false
     className: "harness"
     useSelfSignedCert: false
     hosts:
@@ -347,6 +353,7 @@ This command removes the Kubernetes components that are associated with the char
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
 | global.et.enabled | bool | `false` | Enable to install Error Tracking |
+| global.ff.enabled | bool | `false` | Enabled will deploy Feature Flags Component |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.ingress | object | `{"className":"harness","createDefaultBackend":false,"createNginxIngressController":false,"defaultbackend":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["my-host.example.org"],"loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"}},"tls":{"enabled":false,"secretName":"harness-ssl"},"useSelfSignedCert":false}` | - Enable Nginx ingress controller gateway |
@@ -354,7 +361,7 @@ This command removes the Kubernetes components that are associated with the char
 | global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
-| global.ngcustomdashboard.enabled | bool | `false` |  |
+| global.ngcustomdashboard.enabled | bool | `false` | Enabled will deploy NG Customer Dashboards |
 | global.sto.enabled | bool | `false` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `true` |  |

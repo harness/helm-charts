@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.47](https://img.shields.io/badge/Version-0.2.47-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.48](https://img.shields.io/badge/Version-0.2.48-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -8,7 +8,7 @@ Helm Chart for deploying Harness in Demo configuration
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://harness.github.io/helm-charts | harness | 0.2.43 |
+| https://harness.github.io/helm-charts | harness | 0.2.44 |
 | https://harness.github.io/helm-common | harness-common | 1.x.x |
 
 ## Values
@@ -17,6 +17,7 @@ Helm Chart for deploying Harness in Demo configuration
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
 | global.et.enabled | bool | `false` | Enable to install Error Tracking |
+| global.ff.enabled | bool | `false` | Enabled will deploy Feature Flags Component |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.ingress.className | string | `"harness"` |  |
@@ -51,7 +52,7 @@ Helm Chart for deploying Harness in Demo configuration
 | global.istio.virtualService.hosts[0] | string | `""` |  |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
-| global.ngcustomdashboard.enabled | bool | `false` | Enabled Custom Dashboard |
+| global.ngcustomdashboard.enabled | bool | `false` | Enabled will deploy NG Customer Dashboards |
 | global.sto.enabled | bool | `false` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `false` |  |
