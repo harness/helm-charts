@@ -1,0 +1,391 @@
+global:
+  airgap: "false"
+  ha: false
+
+  # -- Private Docker Image registry, will override all registries defined in subcharts
+  imageRegistry: ""
+
+  loadbalancerURL: https://helm-test2.qa.harness.io
+  mongoSSL: false
+  storageClassName: ""
+
+  sto:
+    # -- Enable to install STO
+    enabled: false
+
+  et:
+    # -- Enable to install Error Tracking
+    enabled: false
+
+  ngcustomdashboard:
+    # --  Enabled Custom Dashboard
+    enabled: false
+
+  ff:
+    enabled: false
+
+  ## !! Do not have ingress enabled and istio enabled at the same time.
+  # --- Enabling ingress create kubernetes Ingress Objects for nginx.
+  ingress:
+    enabled: true
+    className: "harness"
+    createNginxIngressController: true
+    createDefaultBackend: true
+    loadBalancerIP: '34.134.41.205'
+    loadBalancerEnabled: true
+    useSelfSignedCert: true
+    hosts:
+      - 'helm-test2.qa.harness.io'
+    tls:
+      enabled: true
+      secretName: harness-wildcard
+
+  # -- Istio Ingress Settings
+  istio:
+    enabled: false
+    gateway:
+      create: true
+      port: 443
+      protocol: HTTPS
+    hosts:
+      - '*'
+    tls:
+      credentialName: harness-wildcard-istio
+      minProtocolVersion: TLSV1_2
+      mode: SIMPLE
+    virtualService:
+      hosts:
+        - "helm-test.qa.harness.io"
+
+harness:
+  ci:
+    # -- Enabled will deploy CI to your cluster
+    enabled: true
+
+    ci-manager:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  sto:
+    # -- Enabled will deploy STO to your cluster
+    enabled: true
+
+    sto-core:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    sto-manager:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  et:
+    # -- Enabled will deploy ET to your cluster
+    enabled: false
+    enable-receivers: false
+
+    et-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-collector:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-decompile:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-hit:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-sql:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-agent:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+
+  platform:
+    # -- Access control settings (taints, tolerations, etc)
+    access-control:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- change-data-capture settings (taints, tolerations, etc)
+    change-data-capture:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- cv-nextgen settings (taints, tolerations, etc)
+    cv-nextgen:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- delegate proxy settings (taints, tolerations, etc)
+    delegate-proxy:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- gateway settings (taints, tolerations, etc)
+    gateway:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- harness-manager (taints, tolerations, etc)
+    harness-manager:
+      affinity: {}
+      imagePullSecrets:
+        - name: regcred
+      image:
+        repository: harness/manager
+        tag: "76805"
+      nodeSelector: {}
+      tolerations: []
+
+    # -- le-nextgen (taints, tolerations, etc)
+    le-nextgen:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- log-service (taints, tolerations, etc)
+    log-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    # -- minio (taints, tolerations, etc )
+    minio:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    mongodb:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    next-gen-ui:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    ng-auth-ui:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    ng-manager:
+      license:
+        enabled: true
+        licensekey: 'TRhFZMT4oMqmkwBuTQRTG8jl4g4ioFW14WugKAV49U3PNKMfxDJUw8FI5/laZsiOJrJA0m0toWXUz1tvOUeBTvOxskLlllyYYWPbaj9KeBIoROG3MLLUg/az2fuEvtgoRNlbEj7G1vYYlyGI4Ay9WfJ0JwGoBZHPQ2aft7O86e+PoZBx7372/JZoEJH+TkkmzVJHhScn/OuoJHmd+F56wXe1JvFM0U4xMVKfcEfbGcJJ0bUqHxhmRvz2zgQztyT7bwyxOV+sKDgQ1JvQcAIB1FOBWLa8lCXY+HvMiXxhqaSf2vAs3bti++fNIUnO1W9w2qiEDweDV0cBDRksfd0yhjbrPi0BoJuXnWP/Ynd09AhumxHyoVQT8wWidkojg6iYDzo7xrtM82yzEWH3aQ3lIWVwQJpC2/8Ao8ajqSsSpxvioPdCyn3EmYajGvuVmT4DD0t2/rL424ZBnwO/SugaC/0vfG+UgQxHsB5O3ptzZhfjwXhYjpJGpxO6i3q0i1M8UTWATIUHrnYLzTuSPHBYbkwvUimfFJea5FapxkEcPk/gzOvHggQ2HfbFGy8pSBn7lSgY4UpFrVsmMlz9frOkn6NNi6B9/PXQJisY+GY2idkqzoQEICgna4iC5Ef0sjd/djcldaBFaEGt+PkZ3+GyjMdmIuFQMaJF2voSF8tjr5tsh57kXZSFUmedEZq1epT13N5SX895Yp/2yPFKR/2eAUaSvJO7YFgT52eqEg/8w8VklG/BrjHFf+iWOvQ3rF0et+yYLnYntNoAj3Xxx7ZhBZ17/E7NwvTblFgyIXHSUT2G3LVdocDKVoF6lx3ckMD+NraJSVIK7lRogtDiUmX0f06lPqBHRLFcICZEqMdwr5UqNTvd1olXS2y0DFlvZqATV5cBC6GhMh5EBBQ6cINr3BVVhvI4CBJDAO8mPH/KwN2DgnascF9pHEtbrCGXdkDEGUqLp1Xx/xTjUHcvE5pAezZAvJn2Y66U4iWThcMKMVRJ5HnrAwLMjiQYybasXp4Qu0g38tZ5XG4K5AS/NqKCSsObL9PHXdhq9TYXwoF9CfBMPZgOE73Ie561Mq/W8NqDWIXfzWBbI5cShpw34a25v3pHQUp+7wfvKNlwFmhm6CX2bPBRuvFz0tNxbEj8GtCXWxkdTW2UXEvwsvEy/AjlyVCA/aW/W/yAIQU3esUQqA=='
+      imagePullSecrets:
+        - name: regcred
+      image:
+        repository: harness/ng-manager
+        tag: "76805"
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    pipeline-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    platform-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    redis:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    scm-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    template-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    ti-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    timescaledb:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  sto:
+    # -- Enabled will deploy STO to your cluster
+    enabled: true
+
+    sto-core:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    sto-manager:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  et:
+    # -- Enabled will deploy ET to your cluster
+    enabled: false
+    enable-receivers: false
+
+    et-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-collector:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-decompile:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-hit:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-sql:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-agent:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+  ngcustomdashboard:
+    looker:
+      config:
+        # -- name of the user who performs setup and support tasks
+        firstName: Harness
+        # -- last name of the user who performs setup and support tasks
+        lastName: Support
+        # -- email address of the support user, required for initial signup and support
+        email: 'arya.haldar@harness.io'
+        # -- id used by initial setup user for authentication, generate a 20-byte key, e.g. openssl rand -hex 10
+        clientId: 'b6fa75dbc50260901f27'
+        # -- timescale connection name, must match model connection name
+        timescaleConnectionName: 'qa-timescale'
+        # -- timescale hostname
+        timescaleHost: 'timescaledb-single-chart.harness'
+        # -- timescale port
+        timescalePort: '5432'
+        # -- timescale database name
+        timescaleDatabase: 'harness'
+        # -- timescale user
+        timescaleUser: 'postgres'
+        # -- name of the looker project which will be created
+        projectName: 'Harness'
+
+      lookerSecrets:
+        licenseKey:
+          name: harness-secrets
+          # -- name of secret containing the looker license key which will be provided by Harness
+          key: lookerLicenseKey
+        masterKey:
+          name: harness-secrets
+          # -- name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32
+          key: lookerMasterKey
+        clientSecret:
+          name: harness-secrets
+          # -- name of secret containing the client secret used for initial setup, generate a 24-byte key, e.g. openssl rand -hex 12
+          key: lookerClientSecret
+
+      timescaleSecrets:
+        password:
+          name: harness-secrets
+          # -- name of secret containing the timescale password
+          key: timescaledbPostgresPassword
+
+      ingress:
+        # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
+        host: "helm-test2-looker.qa.harness.io"
+        tls:
+          secretName: harness-wildcard
+    ng-custom-dashboard:
+      config:
+        # -- scheme used for your looker install, http or https
+        lookerScheme: 'https'
+        # -- hostname of your looker install
+        lookerHost: 'helm-test2-looker.qa.harness.io'
+        # -- port of your looker install
+        lookerPort: '443'
+        # -- folder ID of the 'CUSTOMER' folder in looker
+        customerFolderId: '6'
+        # -- folder ID of the 'OOTB' folder in looker
+        ootbFolderId: '7'
+        # -- hostname of your redis install
+        redisHost: 'redis-sentinel-harness-announce-0.harness'
+        # -- port of your redis install
+        redisPort: '6379'
+        # -- if you have configured Looker models with a prefix enter it here
+        modelPrefix: ''
+        # -- looker sdk param
+        lookerApiVersion: '4.0'
+        # -- looker sdk param
+        lookerTimeout: '120'
+        # -- looker sdk param
+        lookerVerifySsl: 'false'
+
+      lookerSecrets:
+        clientId:
+          name: harness-secrets
+          key: LOOKERSDK_CLIENT_ID
+        clientSecret:
+          name: harness-secrets
+          key: LOOKERSDK_CLIENT_SECRET
+        secret:
+          name: harness-secrets
+          key: SECRET
+
+      authSecrets:
+        acl:
+          name: harness-secrets
+          key: AUTH_ACCESS_CONTROL_SECRET
+        ccm:
+          name: harness-secrets
+          key: AUTH_CCM_SECRET
+        cgManager:
+          name: harness-secrets
+          key: AUTH_CG_MANAGER_SECRET
+        ngManager:
+          name: harness-secrets
+          key: AUTH_NG_MANAGER_SECRET
+        identityService:
+          name: harness-secrets
+          key: AUTH_IDENTITY_SERVICE_SECRET

@@ -1,9 +1,9 @@
 dependencies:
 - name: ff-service
   repository: https://harness.github.io/helm-ff-service
-  version: 0.2.7
+  version: 0.2.8
 - name: ff-pushpin-service
   repository: https://harness.github.io/helm-ff-pushpin-service
   version: 0.2.7
-digest: sha256:e700efd752642769286e93e3edef7202ad5ce2e6632fcfe1bad46f8166ff5623
-generated: "2022-09-26T22:18:33.147704+05:30"
+digest: sha256:44a7b0e0151bab4cdc991823a45b4602cecbe2b450f107f62d8becf0196c8f79
+generated: "2022-09-27T13:51:10.609906+05:30"
