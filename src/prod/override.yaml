@@ -1,6 +1,6 @@
 global:
   airgap: "false"
-  ha: false
+  ha: true
 
   # -- This private Docker image registry will override any registries that are defined in subcharts.
   imageRegistry: ""

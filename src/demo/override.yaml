@@ -2,13 +2,14 @@ global:
   airgap: "false"
   ha: false
 
-  # -- Private Docker Image registry, will override all registries defined in subcharts
+  # -- This private Docker image registry will override any registries that are defined in subcharts.
   imageRegistry: ""
 
-  loadbalancerURL: https://myhostname.foo.bar
+  loadbalancerURL: https://myhostname.example.com
   mongoSSL: false
   storageClassName: ""
 
+  # -- Enabled will deploy STO to your cluster
   sto:
     enabled: false
 
@@ -24,8 +25,8 @@ global:
   ff:
     enabled: false
 
-  ## Do not have ingress enabled and istio enabled at the same time.
-  # --- Enabling ingress create kubernetes Ingress Objects for nginx.
+  ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
+  # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
     enabled: false
     createNginxIngressController: false
@@ -40,9 +41,26 @@ global:
       enabled: true
       secretName: mycert
 
+  # -- Istio Ingress Settings
+  istio:
+    enabled: true
+    gateway:
+      create: true
+      port: 443
+      protocol: HTTPS
+    hosts:
+      - '*'
+    tls:
+      credentialName: mycert
+      minProtocolVersion: TLSV1_2
+      mode: SIMPLE
+    virtualService:
+      hosts:
+        - "myhostname.example.com"
+
 harness:
   ci:
-    # -- Enabled will deploy CI to your cluster
+    # -- Enable to deploy CI to your cluster.
     enabled: true
 
     ci-manager:
@@ -50,56 +68,110 @@ harness:
       nodeSelector: {}
       tolerations: []
 
+  sto:
+    sto-core:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    sto-manager:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  et:
+    enable-receivers: false
+
+    et-service:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-collector:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-decompile:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-hit:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-sql:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-agent:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+  ngcustomdashboard:
+    looker:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+    ng-custom-dashboard:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
   platform:
-    # -- Access control settings (taints, tolerations, etc)
+    # -- Access control settings (taints, tolerations, and so on)
     access-control:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- change-data-capture settings (taints, tolerations, etc)
+    # -- change-data-capture settings (taints, tolerations, and so on)
     change-data-capture:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- cv-nextgen settings (taints, tolerations, etc)
+    # -- cv-nextgen settings (taints, tolerations, and so on)
     cv-nextgen:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- delegate proxy settings (taints, tolerations, etc)
+    # -- delegate proxy settings (taints, tolerations, and so on)
     delegate-proxy:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- gateway settings (taints, tolerations, etc)
+    # -- gateway settings (taints, tolerations, and so on)
     gateway:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- harness-manager (taints, tolerations, etc)
+    # -- harness-manager (taints, tolerations, and so on)
     harness-manager:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- le-nextgen (taints, tolerations, etc)
+    # -- le-nextgen (taints, tolerations, and so on)
     le-nextgen:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- log-service (taints, tolerations, etc)
+    # -- log-service (taints, tolerations, and so on)
     log-service:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-    # -- minio (taints, tolerations, etc )
+    # -- minio (taints, tolerations, and so on)
     minio:
       affinity: {}
       nodeSelector: {}
@@ -161,9 +233,6 @@ harness:
       tolerations: []
 
   sto:
-    # -- Enabled will deploy STO to your cluster
-    enabled: true
-
     sto-core:
       affinity: {}
       nodeSelector: {}
@@ -175,8 +244,6 @@ harness:
       tolerations: []
 
   et:
-    # -- Enabled will deploy ET to your cluster
-    enabled: false
     enable-receivers: false
 
     et-service:
@@ -189,28 +256,22 @@ harness:
       nodeSelector: {}
       tolerations: []
 
-  ngcustomdashboard:
-    looker:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-    ng-custom-dashboard:
+    et-receiver-decompile:
       affinity: {}
       nodeSelector: {}
       tolerations: []
 
-istio:
-  enabled: true
-  gateway:
-    create: true
-    port: 443
-    protocol: HTTPS
-  hosts:
-    - '*'
-  tls:
-    credentialName: mycert
-    minProtocolVersion: TLSV1_2
-    mode: SIMPLE
-  virtualService:
-    hosts:
-      - "myhostname.foo.bar"
+    et-receiver-hit:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-sql:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+
+    et-receiver-agent:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
