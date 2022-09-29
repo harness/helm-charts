@@ -106,7 +106,7 @@ A Helm chart for Kubernetes
 | minio.defaultBuckets | string | `"logs"` |  |
 | minio.fullnameOverride | string | `"minio"` |  |
 | minio.mode | string | `"standalone"` |  |
-| mongodb.arbiter.enabled | bool | `false` |  |
+| mongodb.arbiter.enabled | bool | `true` |  |
 | mongodb.architecture | string | `"replicaset"` |  |
 | mongodb.auth.rootUser | string | `"admin"` |  |
 | mongodb.fullnameOverride | string | `"mongodb-replicaset-chart"` |  |

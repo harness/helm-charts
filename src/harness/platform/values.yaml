@@ -146,7 +146,7 @@ mongodb:
     tag: 4.2.19
   replicaCount: 3
   arbiter:
-    enabled: false
+    enabled: true
   service:
     nameOverride: "mongodb-replicaset-chart"
   auth:
