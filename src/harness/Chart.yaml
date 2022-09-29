@@ -42,10 +42,10 @@ dependencies:
     version: 0.1.x
     repository: "file://ci"
 
-  - name: et
-    condition: global.et.enabled
+  - name: srm
+    condition: global.srm.enabled
     version: 0.1.x
-    repository: "file://et"
+    repository: "file://srm"
 
   - name: ngcustomdashboard
     condition: global.ngcustomdashboard.enabled

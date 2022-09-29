@@ -12,8 +12,8 @@ global:
   sto:
     enabled: false
 
-  # -- Enabled will deploy ET to your cluster
-  et:
+  # -- Enabled will deploy SRM to your cluster
+  srm:
     enabled: false
 
   # -- Enabled will deploy NG Customer Dashboards
@@ -174,8 +174,8 @@ harness:
       nodeSelector: {}
       tolerations: []
 
-  et:
-    # -- Enabled will deploy ET to your cluster
+  srm:
+    # -- Enabled will deploy SRM to your cluster
     enabled: false
     enable-receivers: false
 
