@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness in Production environment
 
-![Version: 0.2.53](https://img.shields.io/badge/Version-0.2.53-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.54](https://img.shields.io/badge/Version-0.2.54-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -58,7 +58,8 @@ global:
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
-    enabled: false
+    enabled: true
+    annotations: {}
     createNginxIngressController: false
     createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
@@ -73,7 +74,7 @@ global:
 
   # -- Istio Ingress Settings
   istio:
-    enabled: true
+    enabled: false
     gateway:
       create: true
       port: 443
@@ -356,7 +357,7 @@ This command removes the Kubernetes components that are associated with the char
 | global.ff.enabled | bool | `false` | Enabled will deploy Feature Flags Component |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
-| global.ingress | object | `{"className":"harness","createDefaultBackend":false,"createNginxIngressController":false,"defaultbackend":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["my-host.example.org"],"loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"}},"tls":{"enabled":false,"secretName":"harness-ssl"},"useSelfSignedCert":false}` | - Enable Nginx ingress controller gateway |
+| global.ingress | object | `{"annotations":{},"className":"harness","createDefaultBackend":false,"createNginxIngressController":false,"defaultbackend":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["my-host.example.org"],"loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"}},"tls":{"enabled":false,"secretName":"harness-ssl"},"useSelfSignedCert":false}` | - Enable Nginx ingress controller gateway |
 | global.istio | object | `{"enabled":false,"gateway":{"create":true,"port":443,"protocol":"HTTPS"},"hosts":["*"],"tls":{"credentialName":null,"minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[""],"hosts":[""]}}` | - Enable Istio Gateway |
 | global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |

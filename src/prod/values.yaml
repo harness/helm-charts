@@ -49,6 +49,7 @@ global:
   # --- Enable Nginx ingress controller gateway
   ingress:
     enabled: false
+    annotations: {}
     createNginxIngressController: false
     createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
