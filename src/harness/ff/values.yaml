@@ -1,6 +1,18 @@
 ff-service:
   image:
     tag: "1.546.0"
+  jobs:
+    postgres_migration:
+      image:
+        tag: "1.546.0"
+    timescaledb_migrate:
+      image:
+        tag: "1.546.0"
 ff-pushpin-service:
-  image:
-    tag: "1.546.0"
+  pushpinworker:
+    image:
+      tag:
+        "1.546.0"
+  pushpin:
+    image:
+      tag: "1.0.3"
