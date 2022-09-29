@@ -14,8 +14,8 @@ global:
     # -- Enable to install STO
     enabled: false
 
-  et:
-    # -- Enable to install Error Tracking
+  srm:
+    # -- Enable to install SRM
     enabled: false
 
   ngcustomdashboard:
@@ -398,7 +398,7 @@ harness:
           cpu: 1
           memory: 3072Mi
 
-  et:
+  srm:
     enable-receivers: false
     et-service:
       et:
