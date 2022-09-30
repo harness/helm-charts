@@ -72,6 +72,8 @@ global:
         # Overrides the image tag whose default is the chart appVersion.
         tag: "1.5"
         digest: ""
+    # NOTE: for ip-based installs, either use sslip.io for an IP-encoded DNS name
+    # OR set the hosts entry to '*'
     hosts:
       - 'my-host.example.org'
     tls:
