@@ -16,8 +16,8 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ff-pushpin-service.pushpin.image.tag | string | `"1.0.3"` |  |
-| ff-pushpin-service.pushpinworker.image.tag | string | `"1.546.0"` |  |
-| ff-service.image.tag | string | `"1.546.0"` |  |
-| ff-service.jobs.postgres_migration.image.tag | string | `"1.546.0"` |  |
-| ff-service.jobs.timescaledb_migrate.image.tag | string | `"1.546.0"` |  |
+| ff-pushpin-service.pushpinworker.image.tag | string | `"1.666.0"` |  |
+| ff-service.image.tag | string | `"1.666.0"` |  |
+| ff-service.jobs.postgres_migration.image.tag | string | `"1.666.0"` |  |
+| ff-service.jobs.timescaledb_migrate.image.tag | string | `"1.666.0"` |  |
 
