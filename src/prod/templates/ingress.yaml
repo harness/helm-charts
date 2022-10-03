@@ -254,7 +254,7 @@ metadata:
     {{- if .Values.global.ingress.annotations }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
     {{- end }}
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /cv/api/$2
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
@@ -267,7 +267,7 @@ spec:
                 name: cv-nextgen
                 port:
                   number: 6060
-            path: /cv(/|$)(.*)
+            path: /cv/api(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
