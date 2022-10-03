@@ -16,8 +16,8 @@ global:
   sto:
     enabled: false
 
-  # -- Enable to install Error Tracking
-  et:
+  # -- Enable to install SRM
+  srm:
     enabled: false
 
   ff:
@@ -30,4 +30,3 @@ global:
 ci:
   # -- Enable to install CI
   enabled: true
-
