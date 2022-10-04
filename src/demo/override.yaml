@@ -28,20 +28,31 @@ global:
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
-    enabled: false
-    createNginxIngressController: false
-    createDefaultBackend: false
+    enabled: true
+    annotations: {}
     loadBalancerIP: '0.0.0.0'
     loadBalancerEnabled: false
     className: "harness"
     useSelfSignedCert: false
-    ingressObjectsAnnotations:
-    ingressControllerAnnotations:
     hosts:
       - 'myhost.example.com'
     tls:
       enabled: true
       secretName: mycert
+
+    nginx:
+      # -- Create Nginx Controller.  True will deploy a controller into your cluster
+      create: false
+      controller:
+        # -- annotations to be addded to ingress Controller
+        annotations: {}
+      objects:
+        # -- annotations to be added to ingress Objects
+        annotations: {}
+
+    defaultbackend:
+      # -- Create will deploy a default backend into your cluster
+      create: false
 
   # -- Istio Ingress Settings
   istio:
