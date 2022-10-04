@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.53](https://img.shields.io/badge/Version-0.2.53-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.54](https://img.shields.io/badge/Version-0.2.54-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -8,7 +8,7 @@ Helm Chart for deploying Harness in Demo configuration
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://harness.github.io/helm-charts | harness | 0.2.51 |
+| https://harness.github.io/helm-charts | harness | 0.2.53 |
 | https://harness.github.io/helm-common | harness-common | 1.x.x |
 
 ## Values
