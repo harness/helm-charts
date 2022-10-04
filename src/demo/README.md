@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.52](https://img.shields.io/badge/Version-0.2.52-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.53](https://img.shields.io/badge/Version-0.2.53-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -17,27 +17,24 @@ Helm Chart for deploying Harness in Demo configuration
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
 | global.ff.enabled | bool | `false` | Enabled will deploy Feature Flags Component |
-| global.ha | bool | `true` |  |
+| global.ha | bool | `false` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
+| global.ingress.annotations | object | `{}` |  |
 | global.ingress.className | string | `"harness"` |  |
-| global.ingress.createDefaultBackend | bool | `false` |  |
-| global.ingress.createNginxIngressController | bool | `true` |  |
+| global.ingress.defaultbackend.create | bool | `false` | Create will deploy a default backend into your cluster |
 | global.ingress.defaultbackend.image.digest | string | `""` |  |
 | global.ingress.defaultbackend.image.pullPolicy | string | `"IfNotPresent"` |  |
 | global.ingress.defaultbackend.image.registry | string | `"k8s.gcr.io"` |  |
 | global.ingress.defaultbackend.image.repository | string | `"defaultbackend-amd64"` |  |
 | global.ingress.defaultbackend.image.tag | string | `"1.5"` |  |
-| global.ingress.enabled | bool | `true` |  |
+| global.ingress.enabled | bool | `false` | - Enable Nginx ingress controller gateway |
 | global.ingress.hosts[0] | string | `"my-host.example.org"` |  |
-| global.ingress.ingressControllerAnnotations | string | `nil` |  |
-| global.ingress.ingressObjectsAnnotations | string | `nil` |  |
-| global.ingress.loadBalancerEnabled | bool | `true` |  |
+| global.ingress.loadBalancerEnabled | bool | `false` |  |
 | global.ingress.loadBalancerIP | string | `"0.0.0.0"` |  |
-| global.ingress.nginx.image.digest | string | `""` |  |
-| global.ingress.nginx.image.pullPolicy | string | `"IfNotPresent"` |  |
-| global.ingress.nginx.image.registry | string | `"us.gcr.io"` |  |
-| global.ingress.nginx.image.repository | string | `"k8s-artifacts-prod/ingress-nginx/controller"` |  |
-| global.ingress.nginx.image.tag | string | `"v1.0.0-alpha.2"` |  |
+| global.ingress.nginx.controller.annotations | object | `{}` | annotations to be addded to ingress Controller |
+| global.ingress.nginx.create | bool | `false` | Create Nginx Controller.  True will deploy a controller into your cluster |
+| global.ingress.nginx.image | object | `{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"}` | docker image to be used |
+| global.ingress.nginx.objects.annotations | object | `{}` | annotations to be added to ingress Objects |
 | global.ingress.tls.enabled | bool | `false` |  |
 | global.ingress.tls.secretName | string | `"harness-ssl"` |  |
 | global.ingress.useSelfSignedCert | bool | `false` |  |

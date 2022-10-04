@@ -34,8 +34,6 @@ global:
     loadBalancerEnabled: false
     className: "harness"
     useSelfSignedCert: false
-    ingressObjectsAnnotations:
-    ingressControllerAnnotations:
     hosts:
       - 'myhost.example.com'
     tls:

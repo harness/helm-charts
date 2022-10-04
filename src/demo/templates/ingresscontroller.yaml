@@ -1,11 +1,11 @@
-{{- if and .Values.global.ingress.enabled .Values.global.ingress.createNginxIngressController -}}
+{{- if and .Values.global.ingress.enabled .Values.global.ingress.nginx.create -}}
 apiVersion: v1
 kind: Service
 metadata:
   name: harness-ingress-controller
   namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.ingress.ingressControllerAnnotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressControllerAnnotations "context" $ ) | nindent 4 }}
+  {{- if .Values.global.ingress.nginx.controller.annotations}}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.controller.annotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   selector:
