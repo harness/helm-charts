@@ -29,6 +29,7 @@ global:
   # --- Enable Istio Gateway
   istio:
     enabled: false
+    strict: false
     gateway:
       # -- Enable to create istio-system gateway
       create: true
@@ -56,6 +57,8 @@ global:
     className: "harness"
     loadBalancerEnabled: false
     useSelfSignedCert: false
+    ingressObjectsAnnotations:
+    ingressControllerAnnotations:
     nginx:
       image:
         registry:  us.gcr.io

@@ -44,8 +44,8 @@ global:
   sto:
     enabled: false
 
-  # -- Enable to install Error Tracking
-  et:
+  # -- Enable to install SRM
+  srm:
     enabled: false
 
   ff:
@@ -99,7 +99,6 @@ The command removes all the Kubernetes components associated with the chart and 
 |-----|------|---------|-------------|
 | ci.enabled | bool | `true` | Enable to install CI |
 | global.airgap | bool | `false` | Enable for complete airgap environment |
-| global.et | object | `{"enabled":false}` | Enable to install Error Tracking |
 | global.ff.enabled | bool | `false` |  |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
@@ -107,6 +106,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.ngcustomdashboard.enabled | bool | `false` |  |
+| global.srm | object | `{"enabled":false}` | Enable to install SRM |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 

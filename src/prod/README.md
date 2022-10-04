@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness in Production environment
 
-![Version: 0.2.55](https://img.shields.io/badge/Version-0.2.55-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.57](https://img.shields.io/badge/Version-0.2.57-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -43,8 +43,8 @@ global:
   sto:
     enabled: false
 
-  # -- Enabled will deploy ET to your cluster
-  et:
+  # -- Enabled will deploy SRM to your cluster
+  srm:
     enabled: false
 
   # -- Enabled will deploy NG Customer Dashboards
@@ -66,6 +66,8 @@ global:
     loadBalancerEnabled: false
     className: "harness"
     useSelfSignedCert: false
+    ingressObjectsAnnotations:
+    ingressControllerAnnotations:
     hosts:
       - 'myhost.example.com'
     tls:
@@ -75,6 +77,7 @@ global:
   # -- Istio Ingress Settings
   istio:
     enabled: false
+    strict: false
     gateway:
       create: true
       port: 443
@@ -110,7 +113,7 @@ harness:
       nodeSelector: {}
       tolerations: []
 
-  et:
+  srm:
     enable-receivers: false
 
     et-service:
@@ -263,50 +266,6 @@ harness:
       nodeSelector: {}
       tolerations: []
 
-  sto:
-    sto-core:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    sto-manager:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-  et:
-    enable-receivers: false
-
-    et-service:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-collector:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-decompile:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-hit:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-sql:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-agent:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
 ```
 
 Install the Helm chart:
@@ -353,16 +312,16 @@ This command removes the Kubernetes components that are associated with the char
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
-| global.et.enabled | bool | `false` | Enable to install Error Tracking |
 | global.ff.enabled | bool | `false` | Enabled will deploy Feature Flags Component |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
-| global.ingress | object | `{"annotations":{},"className":"harness","createDefaultBackend":false,"createNginxIngressController":false,"defaultbackend":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["my-host.example.org"],"loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"}},"tls":{"enabled":false,"secretName":"harness-ssl"},"useSelfSignedCert":false}` | - Enable Nginx ingress controller gateway |
-| global.istio | object | `{"enabled":false,"gateway":{"create":true,"port":443,"protocol":"HTTPS"},"hosts":["*"],"tls":{"credentialName":null,"minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[""],"hosts":[""]}}` | - Enable Istio Gateway |
+| global.ingress | object | `{"annotations":{},"className":"harness","createDefaultBackend":false,"createNginxIngressController":false,"defaultbackend":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["my-host.example.org"],"ingressControllerAnnotations":null,"ingressObjectsAnnotations":null,"loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"}},"tls":{"enabled":false,"secretName":"harness-ssl"},"useSelfSignedCert":false}` | - Enable Nginx ingress controller gateway |
+| global.istio | object | `{"enabled":false,"gateway":{"create":true,"port":443,"protocol":"HTTPS"},"hosts":["*"],"strict":false,"tls":{"credentialName":null,"minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[""],"hosts":[""]}}` | - Enable Istio Gateway |
 | global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.ngcustomdashboard.enabled | bool | `false` | Enabled will deploy NG Customer Dashboards |
+| global.srm.enabled | bool | `false` | Enable to install SRM |
 | global.sto.enabled | bool | `false` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `true` |  |
@@ -373,62 +332,6 @@ This command removes the Kubernetes components that are associated with the char
 | harness.ci.ci-manager.resources.requests.cpu | int | `1` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"6192Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
-| harness.et.enable-receivers | bool | `true` |  |
-| harness.et.et-collector.autoscaling.enabled | bool | `true` |  |
-| harness.et.et-collector.autoscaling.maxReplicas | int | `3` |  |
-| harness.et.et-collector.et.java.heapSize | string | `"1600m"` |  |
-| harness.et.et-collector.replicaCount | int | `1` |  |
-| harness.et.et-collector.resources.limits.cpu | int | `1` |  |
-| harness.et.et-collector.resources.limits.memory | string | `"2Gi"` |  |
-| harness.et.et-collector.resources.requests.cpu | string | `"100m"` |  |
-| harness.et.et-collector.resources.requests.memory | string | `"2Gi"` |  |
-| harness.et.et-receiver-agent.autoscaling.enabled | bool | `true` |  |
-| harness.et.et-receiver-agent.autoscaling.maxReplicas | int | `3` |  |
-| harness.et.et-receiver-agent.et.java.heapSize | string | `"1600m"` |  |
-| harness.et.et-receiver-agent.et.redisQueue.type | string | `"agent"` |  |
-| harness.et.et-receiver-agent.name | string | `"et-receiver-agent"` |  |
-| harness.et.et-receiver-agent.replicaCount | int | `1` |  |
-| harness.et.et-receiver-agent.resources.limits.cpu | int | `1` |  |
-| harness.et.et-receiver-agent.resources.limits.memory | string | `"2Gi"` |  |
-| harness.et.et-receiver-agent.resources.requests.cpu | string | `"100m"` |  |
-| harness.et.et-receiver-agent.resources.requests.memory | string | `"2Gi"` |  |
-| harness.et.et-receiver-decompile.autoscaling.enabled | bool | `true` |  |
-| harness.et.et-receiver-decompile.autoscaling.maxReplicas | int | `3` |  |
-| harness.et.et-receiver-decompile.et.java.heapSize | string | `"1600m"` |  |
-| harness.et.et-receiver-decompile.et.redisQueue.type | string | `"decompile"` |  |
-| harness.et.et-receiver-decompile.name | string | `"et-receiver-decompile"` |  |
-| harness.et.et-receiver-decompile.replicaCount | int | `1` |  |
-| harness.et.et-receiver-decompile.resources.limits.cpu | int | `2` |  |
-| harness.et.et-receiver-decompile.resources.limits.memory | string | `"2Gi"` |  |
-| harness.et.et-receiver-decompile.resources.requests.cpu | string | `"100m"` |  |
-| harness.et.et-receiver-decompile.resources.requests.memory | string | `"2Gi"` |  |
-| harness.et.et-receiver-hit.autoscaling.enabled | bool | `true` |  |
-| harness.et.et-receiver-hit.autoscaling.maxReplicas | int | `3` |  |
-| harness.et.et-receiver-hit.et.java.heapSize | string | `"1600m"` |  |
-| harness.et.et-receiver-hit.et.redisQueue.type | string | `"hit"` |  |
-| harness.et.et-receiver-hit.name | string | `"et-receiver-hit"` |  |
-| harness.et.et-receiver-hit.replicaCount | int | `1` |  |
-| harness.et.et-receiver-hit.resources.limits.cpu | int | `1` |  |
-| harness.et.et-receiver-hit.resources.limits.memory | string | `"2Gi"` |  |
-| harness.et.et-receiver-hit.resources.requests.cpu | string | `"100m"` |  |
-| harness.et.et-receiver-hit.resources.requests.memory | string | `"2Gi"` |  |
-| harness.et.et-receiver-sql.autoscaling.enabled | bool | `true` |  |
-| harness.et.et-receiver-sql.autoscaling.maxReplicas | int | `3` |  |
-| harness.et.et-receiver-sql.et.java.heapSize | string | `"1600m"` |  |
-| harness.et.et-receiver-sql.et.redisQueue.type | string | `"sql"` |  |
-| harness.et.et-receiver-sql.name | string | `"et-receiver-sql"` |  |
-| harness.et.et-receiver-sql.replicaCount | int | `1` |  |
-| harness.et.et-receiver-sql.resources.limits.cpu | int | `1` |  |
-| harness.et.et-receiver-sql.resources.limits.memory | string | `"2Gi"` |  |
-| harness.et.et-receiver-sql.resources.requests.cpu | string | `"100m"` |  |
-| harness.et.et-receiver-sql.resources.requests.memory | string | `"2Gi"` |  |
-| harness.et.et-service.et.java.heapSize | string | `"6400m"` |  |
-| harness.et.et-service.et.redis.enabled | bool | `true` |  |
-| harness.et.et-service.replicaCount | int | `1` |  |
-| harness.et.et-service.resources.limits.cpu | int | `2` |  |
-| harness.et.et-service.resources.limits.memory | string | `"8Gi"` |  |
-| harness.et.et-service.resources.requests.cpu | string | `"500m"` |  |
-| harness.et.et-service.resources.requests.memory | string | `"8Gi"` |  |
 | harness.ngcustomdashboard.looker.config.clientId | string | `""` | id used by initial setup user for authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
 | harness.ngcustomdashboard.looker.config.email | string | `""` | email address of the support user, required for initial signup and support |
 | harness.ngcustomdashboard.looker.config.firstName | string | `"Harness"` | name of the user who performs setup and support tasks |
@@ -608,6 +511,62 @@ This command removes the Kubernetes components that are associated with the char
 | harness.platform.timescaledb.resources.requests.cpu | int | `1` |  |
 | harness.platform.timescaledb.resources.requests.memory | string | `"2048Mi"` |  |
 | harness.platform.timescaledb.storage.capacity | string | `"120Gi"` |  |
+| harness.srm.enable-receivers | bool | `true` |  |
+| harness.srm.et-collector.autoscaling.enabled | bool | `true` |  |
+| harness.srm.et-collector.autoscaling.maxReplicas | int | `3` |  |
+| harness.srm.et-collector.et.java.heapSize | string | `"1600m"` |  |
+| harness.srm.et-collector.replicaCount | int | `1` |  |
+| harness.srm.et-collector.resources.limits.cpu | int | `1` |  |
+| harness.srm.et-collector.resources.limits.memory | string | `"2Gi"` |  |
+| harness.srm.et-collector.resources.requests.cpu | string | `"100m"` |  |
+| harness.srm.et-collector.resources.requests.memory | string | `"2Gi"` |  |
+| harness.srm.et-receiver-agent.autoscaling.enabled | bool | `true` |  |
+| harness.srm.et-receiver-agent.autoscaling.maxReplicas | int | `3` |  |
+| harness.srm.et-receiver-agent.et.java.heapSize | string | `"1600m"` |  |
+| harness.srm.et-receiver-agent.et.redisQueue.type | string | `"agent"` |  |
+| harness.srm.et-receiver-agent.name | string | `"et-receiver-agent"` |  |
+| harness.srm.et-receiver-agent.replicaCount | int | `1` |  |
+| harness.srm.et-receiver-agent.resources.limits.cpu | int | `1` |  |
+| harness.srm.et-receiver-agent.resources.limits.memory | string | `"2Gi"` |  |
+| harness.srm.et-receiver-agent.resources.requests.cpu | string | `"100m"` |  |
+| harness.srm.et-receiver-agent.resources.requests.memory | string | `"2Gi"` |  |
+| harness.srm.et-receiver-decompile.autoscaling.enabled | bool | `true` |  |
+| harness.srm.et-receiver-decompile.autoscaling.maxReplicas | int | `3` |  |
+| harness.srm.et-receiver-decompile.et.java.heapSize | string | `"1600m"` |  |
+| harness.srm.et-receiver-decompile.et.redisQueue.type | string | `"decompile"` |  |
+| harness.srm.et-receiver-decompile.name | string | `"et-receiver-decompile"` |  |
+| harness.srm.et-receiver-decompile.replicaCount | int | `1` |  |
+| harness.srm.et-receiver-decompile.resources.limits.cpu | int | `2` |  |
+| harness.srm.et-receiver-decompile.resources.limits.memory | string | `"2Gi"` |  |
+| harness.srm.et-receiver-decompile.resources.requests.cpu | string | `"100m"` |  |
+| harness.srm.et-receiver-decompile.resources.requests.memory | string | `"2Gi"` |  |
+| harness.srm.et-receiver-hit.autoscaling.enabled | bool | `true` |  |
+| harness.srm.et-receiver-hit.autoscaling.maxReplicas | int | `3` |  |
+| harness.srm.et-receiver-hit.et.java.heapSize | string | `"1600m"` |  |
+| harness.srm.et-receiver-hit.et.redisQueue.type | string | `"hit"` |  |
+| harness.srm.et-receiver-hit.name | string | `"et-receiver-hit"` |  |
+| harness.srm.et-receiver-hit.replicaCount | int | `1` |  |
+| harness.srm.et-receiver-hit.resources.limits.cpu | int | `1` |  |
+| harness.srm.et-receiver-hit.resources.limits.memory | string | `"2Gi"` |  |
+| harness.srm.et-receiver-hit.resources.requests.cpu | string | `"100m"` |  |
+| harness.srm.et-receiver-hit.resources.requests.memory | string | `"2Gi"` |  |
+| harness.srm.et-receiver-sql.autoscaling.enabled | bool | `true` |  |
+| harness.srm.et-receiver-sql.autoscaling.maxReplicas | int | `3` |  |
+| harness.srm.et-receiver-sql.et.java.heapSize | string | `"1600m"` |  |
+| harness.srm.et-receiver-sql.et.redisQueue.type | string | `"sql"` |  |
+| harness.srm.et-receiver-sql.name | string | `"et-receiver-sql"` |  |
+| harness.srm.et-receiver-sql.replicaCount | int | `1` |  |
+| harness.srm.et-receiver-sql.resources.limits.cpu | int | `1` |  |
+| harness.srm.et-receiver-sql.resources.limits.memory | string | `"2Gi"` |  |
+| harness.srm.et-receiver-sql.resources.requests.cpu | string | `"100m"` |  |
+| harness.srm.et-receiver-sql.resources.requests.memory | string | `"2Gi"` |  |
+| harness.srm.et-service.et.java.heapSize | string | `"6400m"` |  |
+| harness.srm.et-service.et.redis.enabled | bool | `true` |  |
+| harness.srm.et-service.replicaCount | int | `1` |  |
+| harness.srm.et-service.resources.limits.cpu | int | `2` |  |
+| harness.srm.et-service.resources.limits.memory | string | `"8Gi"` |  |
+| harness.srm.et-service.resources.requests.cpu | string | `"500m"` |  |
+| harness.srm.et-service.resources.requests.memory | string | `"8Gi"` |  |
 | harness.sto.sto-core.autoscaling.enabled | bool | `true` |  |
 | harness.sto.sto-core.autoscaling.minReplicas | int | `2` |  |
 | harness.sto.sto-core.resources.limits.cpu | string | `"500m"` |  |

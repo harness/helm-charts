@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.50](https://img.shields.io/badge/Version-0.2.50-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.52](https://img.shields.io/badge/Version-0.2.52-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -16,21 +16,22 @@ Helm Chart for deploying Harness in Demo configuration
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
-| global.et.enabled | bool | `false` | Enable to install Error Tracking |
 | global.ff.enabled | bool | `false` | Enabled will deploy Feature Flags Component |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.ingress.className | string | `"harness"` |  |
 | global.ingress.createDefaultBackend | bool | `false` |  |
-| global.ingress.createNginxIngressController | bool | `false` |  |
+| global.ingress.createNginxIngressController | bool | `true` |  |
 | global.ingress.defaultbackend.image.digest | string | `""` |  |
 | global.ingress.defaultbackend.image.pullPolicy | string | `"IfNotPresent"` |  |
 | global.ingress.defaultbackend.image.registry | string | `"k8s.gcr.io"` |  |
 | global.ingress.defaultbackend.image.repository | string | `"defaultbackend-amd64"` |  |
 | global.ingress.defaultbackend.image.tag | string | `"1.5"` |  |
-| global.ingress.enabled | bool | `false` |  |
+| global.ingress.enabled | bool | `true` |  |
 | global.ingress.hosts[0] | string | `"my-host.example.org"` |  |
-| global.ingress.loadBalancerEnabled | bool | `false` |  |
+| global.ingress.ingressControllerAnnotations | string | `nil` |  |
+| global.ingress.ingressObjectsAnnotations | string | `nil` |  |
+| global.ingress.loadBalancerEnabled | bool | `true` |  |
 | global.ingress.loadBalancerIP | string | `"0.0.0.0"` |  |
 | global.ingress.nginx.image.digest | string | `""` |  |
 | global.ingress.nginx.image.pullPolicy | string | `"IfNotPresent"` |  |
@@ -45,6 +46,7 @@ Helm Chart for deploying Harness in Demo configuration
 | global.istio.gateway.port | int | `443` |  |
 | global.istio.gateway.protocol | string | `"HTTPS"` |  |
 | global.istio.hosts[0] | string | `"*"` |  |
+| global.istio.strict | bool | `false` |  |
 | global.istio.tls.credentialName | string | `nil` |  |
 | global.istio.tls.minProtocolVersion | string | `"TLSV1_2"` |  |
 | global.istio.tls.mode | string | `"SIMPLE"` |  |
@@ -53,6 +55,7 @@ Helm Chart for deploying Harness in Demo configuration
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.ngcustomdashboard.enabled | bool | `false` | Enabled will deploy NG Customer Dashboards |
+| global.srm.enabled | bool | `false` | Enable to install SRM |
 | global.sto.enabled | bool | `false` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 | harness.ci.ci-manager.autoscaling.enabled | bool | `false` |  |
@@ -63,22 +66,6 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.ci.ci-manager.resources.requests.cpu | float | `0.5` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"3000Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
-| harness.et.enable-receivers | bool | `false` |  |
-| harness.et.et-collector.autoscaling.enabled | bool | `false` |  |
-| harness.et.et-collector.et.java.heapSize | string | `"1600m"` |  |
-| harness.et.et-collector.replicaCount | int | `1` |  |
-| harness.et.et-collector.resources.limits.cpu | string | `"500m"` |  |
-| harness.et.et-collector.resources.limits.memory | string | `"2Gi"` |  |
-| harness.et.et-collector.resources.requests.cpu | string | `"100m"` |  |
-| harness.et.et-collector.resources.requests.memory | string | `"2Gi"` |  |
-| harness.et.et-service.autoscaling.enabled | bool | `false` |  |
-| harness.et.et-service.et.java.heapSize | string | `"2048m"` |  |
-| harness.et.et-service.et.redis.enabled | bool | `false` |  |
-| harness.et.et-service.replicaCount | int | `1` |  |
-| harness.et.et-service.resources.limits.cpu | int | `1` |  |
-| harness.et.et-service.resources.limits.memory | string | `"3Gi"` |  |
-| harness.et.et-service.resources.requests.cpu | string | `"100m"` |  |
-| harness.et.et-service.resources.requests.memory | string | `"3Gi"` |  |
 | harness.ngcustomdashboard.looker.config.clientId | string | `""` | id used by initial setup user for authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
 | harness.ngcustomdashboard.looker.config.email | string | `""` | email address of the support user, required for initial signup and support |
 | harness.ngcustomdashboard.looker.config.firstName | string | `"Harness"` | name of the user who performs setup and support tasks |
@@ -258,6 +245,22 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.platform.timescaledb.resources.requests.cpu | float | `0.3` |  |
 | harness.platform.timescaledb.resources.requests.memory | string | `"512Mi"` |  |
 | harness.platform.timescaledb.storage.capacity | string | `"10Gi"` |  |
+| harness.srm.enable-receivers | bool | `false` |  |
+| harness.srm.et-collector.autoscaling.enabled | bool | `false` |  |
+| harness.srm.et-collector.et.java.heapSize | string | `"1600m"` |  |
+| harness.srm.et-collector.replicaCount | int | `1` |  |
+| harness.srm.et-collector.resources.limits.cpu | string | `"500m"` |  |
+| harness.srm.et-collector.resources.limits.memory | string | `"2Gi"` |  |
+| harness.srm.et-collector.resources.requests.cpu | string | `"100m"` |  |
+| harness.srm.et-collector.resources.requests.memory | string | `"2Gi"` |  |
+| harness.srm.et-service.autoscaling.enabled | bool | `false` |  |
+| harness.srm.et-service.et.java.heapSize | string | `"2048m"` |  |
+| harness.srm.et-service.et.redis.enabled | bool | `false` |  |
+| harness.srm.et-service.replicaCount | int | `1` |  |
+| harness.srm.et-service.resources.limits.cpu | int | `1` |  |
+| harness.srm.et-service.resources.limits.memory | string | `"3Gi"` |  |
+| harness.srm.et-service.resources.requests.cpu | string | `"100m"` |  |
+| harness.srm.et-service.resources.requests.memory | string | `"3Gi"` |  |
 | harness.sto.sto-core.autoscaling.enabled | bool | `false` |  |
 | harness.sto.sto-core.replicaCount | int | `1` |  |
 | harness.sto.sto-core.resources.limits.cpu | string | `"500m"` |  |

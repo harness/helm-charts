@@ -4,8 +4,8 @@ kind: Service
 metadata:
   name: harness-ingress-controller
   namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.ingress.annotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+  {{- if .Values.global.ingress.ingressControllerAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressControllerAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   selector:
@@ -141,9 +141,6 @@ apiVersion: apps/v1
 metadata:
   name: harness-ingress-controller
   namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.ingress.annotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
-  {{- end }}
 spec:
   replicas: 1
   selector:

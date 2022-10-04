@@ -6,8 +6,8 @@ metadata:
   name: ng-manager
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -41,8 +41,8 @@ metadata:
   name: sto-core
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
@@ -76,8 +76,8 @@ metadata:
   name: sto-manager
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
@@ -111,8 +111,8 @@ metadata:
   name: et-collector
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
@@ -146,8 +146,8 @@ metadata:
   name: et-service
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
@@ -181,8 +181,8 @@ metadata:
   name: next-gen-ui
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -216,8 +216,8 @@ metadata:
   name: ci-manager
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -251,8 +251,8 @@ metadata:
   name: cv-nextgen
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /cv/api/$2
 spec:
@@ -285,8 +285,8 @@ kind: Ingress
 metadata:
   name: minio-ui
   namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.ingress.annotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+  {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
@@ -318,8 +318,8 @@ kind: Ingress
 metadata:
   name: logs-service-minio
   namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.ingress.annotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+  {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
@@ -352,8 +352,8 @@ metadata:
   name: log-service
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -387,8 +387,8 @@ metadata:
   name: gateway
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -422,8 +422,8 @@ metadata:
   name: access-control
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -457,8 +457,8 @@ metadata:
   name: ti-service
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -492,8 +492,8 @@ metadata:
   name: template-service
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -526,8 +526,8 @@ kind: Ingress
 metadata:
   name: delegate-proxy
   namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.ingress.annotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+  {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
@@ -560,8 +560,8 @@ metadata:
   name: pipeline-service
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -595,8 +595,8 @@ metadata:
   name: notification-service
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -630,8 +630,8 @@ metadata:
   name: audit-service
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -665,8 +665,8 @@ metadata:
   name: resourcegroup-service
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -700,8 +700,8 @@ metadata:
   name: verification-service
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -734,8 +734,8 @@ kind: Ingress
 metadata:
   name: harness-manager-api
   namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.ingress.annotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+  {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
@@ -767,8 +767,8 @@ kind: Ingress
 metadata:
   name: harness-manager-stream
   namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.ingress.annotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+  {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
@@ -801,8 +801,8 @@ metadata:
   name: ng-auth-ui
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
@@ -835,8 +835,8 @@ kind: Ingress
 metadata:
   name: harness-ui
   namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.ingress.annotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+  {{- if .Values.global.ingress.ingressObjectsAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.ingressObjectsAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}

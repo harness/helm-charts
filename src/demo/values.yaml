@@ -28,6 +28,7 @@ global:
 
   istio:
     enabled: false
+    strict: false
     gateway:
       # -- Enable to create istio-system gateway
       create: true
@@ -46,13 +47,15 @@ global:
         - ""
 
   ingress:
-    enabled: false
-    createNginxIngressController: false
+    enabled: true
+    createNginxIngressController: true
     createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
     className: "harness"
-    loadBalancerEnabled: false
+    loadBalancerEnabled: true
     useSelfSignedCert: false
+    ingressObjectsAnnotations:
+    ingressControllerAnnotations:
     nginx:
       image:
         registry:  us.gcr.io
