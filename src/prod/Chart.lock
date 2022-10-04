@@ -1,9 +1,9 @@
 dependencies:
 - name: harness
   repository: https://harness.github.io/helm-charts
-  version: 0.2.51
+  version: 0.2.53
 - name: harness-common
   repository: https://harness.github.io/helm-common
   version: 1.0.4
-digest: sha256:c0f15208c2d00d5de959292cb23839c50248012c88eb8f117f92dd0115480e44
-generated: "2022-10-04T12:59:23.222755-04:00"
+digest: sha256:f9f671b6bafde8613285ac61229009a1a7233aa55d6d1f9c7a2749315e2a6abb
+generated: "2022-10-04T13:19:14.582326-04:00"
