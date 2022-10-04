@@ -1,4 +1,4 @@
-{{- if and .Values.global.ingress.enabled .Values.global.ingress.createDefaultBackend }}
+{{- if and .Values.global.ingress.enabled .Values.global.ingress.defaultbackend.create }}
 kind: Deployment
 apiVersion: apps/v1
 metadata:

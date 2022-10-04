@@ -30,8 +30,6 @@ global:
   ingress:
     enabled: true
     annotations: {}
-    createNginxIngressController: false
-    createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
     loadBalancerEnabled: false
     className: "harness"
@@ -43,6 +41,20 @@ global:
     tls:
       enabled: true
       secretName: mycert
+
+    nginx:
+      # -- Create Nginx Controller.  True will deploy a controller into your cluster
+      create: false
+      controller:
+        # -- annotations to be addded to ingress Controller
+        annotations: {}
+      objects:
+        # -- annotations to be added to ingress Objects
+        annotations: {}
+
+    defaultbackend:
+      # -- Create will deploy a default backend into your cluster
+      create: false
 
   # -- Istio Ingress Settings
   istio:

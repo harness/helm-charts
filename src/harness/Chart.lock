@@ -11,14 +11,14 @@ dependencies:
 - name: ci
   repository: file://ci
   version: 0.1.2
-- name: et
-  repository: file://et
-  version: 0.1.0
+- name: srm
+  repository: file://srm
+  version: 0.1.1
 - name: ngcustomdashboard
   repository: file://ngcustomdashboard
   version: 0.1.2
 - name: ff
   repository: file://ff
   version: 0.1.2
-digest: sha256:8808309e7789e0d8c0266e2b4e6c7f7ae4490a56ab0cca6e7ae399d69d278228
-generated: "2022-09-26T22:18:49.58163+05:30"
+digest: sha256:168b2772bf0537a777c75277da020a509f306c5b13144a180b5a8d2333ca11be
+generated: "2022-10-04T11:49:28.823252-04:00"
