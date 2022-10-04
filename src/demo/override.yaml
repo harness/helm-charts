@@ -13,8 +13,8 @@ global:
   sto:
     enabled: false
 
-  # -- Enabled will deploy ET to your cluster
-  et:
+  # -- Enabled will deploy SRM to your cluster
+  srm:
     enabled: false
 
   # -- Enabled will deploy NG Customer Dashboards
@@ -35,6 +35,8 @@ global:
     loadBalancerEnabled: false
     className: "harness"
     useSelfSignedCert: false
+    ingressObjectsAnnotations:
+    ingressControllerAnnotations:
     hosts:
       - 'myhost.example.com'
     tls:
@@ -44,6 +46,7 @@ global:
   # -- Istio Ingress Settings
   istio:
     enabled: true
+    strict: false
     gateway:
       create: true
       port: 443
@@ -79,7 +82,7 @@ harness:
       nodeSelector: {}
       tolerations: []
 
-  et:
+  srm:
     enable-receivers: false
 
     et-service:
@@ -228,50 +231,6 @@ harness:
       tolerations: []
 
     timescaledb:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-  sto:
-    sto-core:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    sto-manager:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-  et:
-    enable-receivers: false
-
-    et-service:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-collector:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-decompile:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-hit:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-sql:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-agent:
       affinity: {}
       nodeSelector: {}
       tolerations: []

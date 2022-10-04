@@ -7,7 +7,7 @@ dependencies:
   version: 0.2.10
 - name: cv-nextgen
   repository: https://harness.github.io/helm-cv-nextgen
-  version: 0.2.12
+  version: 0.2.13
 - name: gateway
   repository: https://harness.github.io/helm-gateway
   version: 0.2.9
@@ -16,7 +16,7 @@ dependencies:
   version: 0.2.1
 - name: harness-manager
   repository: https://harness.github.io/helm-harness-manager
-  version: 0.2.18
+  version: 0.2.19
 - name: delegate-proxy
   repository: https://harness.github.io/helm-delegate-proxy
   version: 0.2.5
@@ -61,6 +61,6 @@ dependencies:
   version: 0.2.7
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
-  version: 0.2.9
-digest: sha256:af4a918db26e4f1dc61529ac3634f4ad127af09415c8aa5c955af8610b5e00d8
-generated: "2022-09-29T14:42:37.565932-04:00"
+  version: 0.2.13
+digest: sha256:93bc4001cadd6c7012ccf54d674f12f3b60222f5a4dd53a4883794642e958cfa
+generated: "2022-10-04T12:22:22.010021-04:00"

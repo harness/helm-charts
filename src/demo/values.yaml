@@ -14,8 +14,8 @@ global:
     # -- Enable to install STO
     enabled: false
 
-  et:
-    # -- Enable to install Error Tracking
+  srm:
+    # -- Enable to install SRM
     enabled: false
 
   ngcustomdashboard:
@@ -28,6 +28,7 @@ global:
 
   istio:
     enabled: false
+    strict: false
     gateway:
       # -- Enable to create istio-system gateway
       create: true
@@ -46,13 +47,15 @@ global:
         - ""
 
   ingress:
-    enabled: false
-    createNginxIngressController: false
+    enabled: true
+    createNginxIngressController: true
     createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
     className: "harness"
-    loadBalancerEnabled: false
+    loadBalancerEnabled: true
     useSelfSignedCert: false
+    ingressObjectsAnnotations:
+    ingressControllerAnnotations:
     nginx:
       image:
         registry:  us.gcr.io
@@ -398,7 +401,7 @@ harness:
           cpu: 1
           memory: 3072Mi
 
-  et:
+  srm:
     enable-receivers: false
     et-service:
       et:

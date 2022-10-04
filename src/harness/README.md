@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.51](https://img.shields.io/badge/Version-0.2.51-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.52](https://img.shields.io/badge/Version-0.2.52-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -44,8 +44,8 @@ global:
   sto:
     enabled: false
 
-  # -- Enable to install Error Tracking
-  et:
+  # -- Enable to install SRM
+  srm:
     enabled: false
 
   ff:
@@ -99,7 +99,6 @@ The command removes all the Kubernetes components associated with the chart and 
 |-----|------|---------|-------------|
 | ci.enabled | bool | `true` | Enable to install CI |
 | global.airgap | bool | `false` | Enable for complete airgap environment |
-| global.et | object | `{"enabled":false}` | Enable to install Error Tracking |
 | global.ff.enabled | bool | `false` |  |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
@@ -107,6 +106,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.ngcustomdashboard.enabled | bool | `false` |  |
+| global.srm | object | `{"enabled":false}` | Enable to install SRM |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
 

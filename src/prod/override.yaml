@@ -13,8 +13,8 @@ global:
   sto:
     enabled: false
 
-  # -- Enabled will deploy ET to your cluster
-  et:
+  # -- Enabled will deploy SRM to your cluster
+  srm:
     enabled: false
 
   # -- Enabled will deploy NG Customer Dashboards
@@ -30,21 +30,36 @@ global:
   ingress:
     enabled: true
     annotations: {}
-    createNginxIngressController: false
-    createDefaultBackend: false
     loadBalancerIP: '0.0.0.0'
     loadBalancerEnabled: false
     className: "harness"
     useSelfSignedCert: false
+    ingressObjectsAnnotations:
+    ingressControllerAnnotations:
     hosts:
       - 'myhost.example.com'
     tls:
       enabled: true
       secretName: mycert
 
+    nginx:
+      # -- Create Nginx Controller.  True will deploy a controller into your cluster
+      create: false
+      controller:
+        # -- annotations to be addded to ingress Controller
+        annotations: {}
+      objects:
+        # -- annotations to be added to ingress Objects
+        annotations: {}
+
+    defaultbackend:
+      # -- Create will deploy a default backend into your cluster
+      create: false
+
   # -- Istio Ingress Settings
   istio:
     enabled: false
+    strict: false
     gateway:
       create: true
       port: 443
@@ -80,7 +95,7 @@ harness:
       nodeSelector: {}
       tolerations: []
 
-  et:
+  srm:
     enable-receivers: false
 
     et-service:
@@ -229,50 +244,6 @@ harness:
       tolerations: []
 
     timescaledb:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-  sto:
-    sto-core:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    sto-manager:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-  et:
-    enable-receivers: false
-
-    et-service:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-collector:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-decompile:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-hit:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-sql:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
-    et-receiver-agent:
       affinity: {}
       nodeSelector: {}
       tolerations: []
