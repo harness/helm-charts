@@ -59,7 +59,6 @@ global:
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
     enabled: true
-    annotations: {}
     loadBalancerIP: '0.0.0.0'
     loadBalancerEnabled: false
     className: "harness"
@@ -360,6 +359,7 @@ This command removes the Kubernetes components that are associated with the char
 | harness.ci.ci-manager.resources.requests.cpu | int | `1` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"6192Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
+| harness.infra.postgresql.primary.persistence.size | string | `"200Gi"` |  |
 | harness.ngcustomdashboard.looker.config.clientId | string | `""` | id used by initial setup user for authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
 | harness.ngcustomdashboard.looker.config.email | string | `""` | email address of the support user, required for initial signup and support |
 | harness.ngcustomdashboard.looker.config.firstName | string | `"Harness"` | name of the user who performs setup and support tasks |

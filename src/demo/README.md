@@ -63,6 +63,7 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.ci.ci-manager.resources.requests.cpu | float | `0.5` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"3000Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
+| harness.infra.postgresql.primary.persistence.size | string | `"8Gi"` |  |
 | harness.ngcustomdashboard.looker.config.clientId | string | `""` | id used by initial setup user for authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
 | harness.ngcustomdashboard.looker.config.email | string | `""` | email address of the support user, required for initial signup and support |
 | harness.ngcustomdashboard.looker.config.firstName | string | `"Harness"` | name of the user who performs setup and support tasks |
