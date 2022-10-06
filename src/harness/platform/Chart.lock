@@ -13,10 +13,10 @@ dependencies:
   version: 0.2.9
 - name: harness-secrets
   repository: https://harness.github.io/helm-harness-secrets
-  version: 0.2.1
+  version: 0.2.2
 - name: harness-manager
   repository: https://harness.github.io/helm-harness-manager
-  version: 0.2.19
+  version: 0.2.20
 - name: delegate-proxy
   repository: https://harness.github.io/helm-delegate-proxy
   version: 0.2.5
@@ -62,5 +62,5 @@ dependencies:
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.13
-digest: sha256:d18c1bb1404da937a6e9a8d29296fc0bc1e2e5d9c0c9ebcfd9458a874248e6e7
-generated: "2022-10-04T13:15:14.358263-04:00"
+digest: sha256:988ac0e46a2e3cd94560af6229a4e361823c775c6b27c0ff3cba9ba8d4bae34c
+generated: "2022-10-06T13:06:50.835439+01:00"
