@@ -426,11 +426,11 @@ harness:
           size: 200Gi
         resources:
           limits:
-            cpu: 2
-            memory: 4Gi
+            cpu: 4
+            memory: 8192Mi
           requests:
-            cpu: 2
-            memory: 4Gi
+            cpu: 4
+            memory: 8192Mi
   srm:
     enable-receivers: true
     et-service:

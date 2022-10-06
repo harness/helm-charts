@@ -360,10 +360,10 @@ This command removes the Kubernetes components that are associated with the char
 | harness.ci.ci-manager.resources.requests.memory | string | `"6192Mi"` |  |
 | harness.ci.enabled | bool | `true` | Enable to install CI |
 | harness.infra.postgresql.primary.persistence.size | string | `"200Gi"` |  |
-| harness.infra.postgresql.primary.resources.limits.cpu | int | `2` |  |
-| harness.infra.postgresql.primary.resources.limits.memory | string | `"4Gi"` |  |
-| harness.infra.postgresql.primary.resources.requests.cpu | int | `2` |  |
-| harness.infra.postgresql.primary.resources.requests.memory | string | `"4Gi"` |  |
+| harness.infra.postgresql.primary.resources.limits.cpu | int | `4` |  |
+| harness.infra.postgresql.primary.resources.limits.memory | string | `"8192Mi"` |  |
+| harness.infra.postgresql.primary.resources.requests.cpu | int | `4` |  |
+| harness.infra.postgresql.primary.resources.requests.memory | string | `"8192Mi"` |  |
 | harness.ngcustomdashboard.looker.config.email | string | `""` | email address of the support user, required for initial signup and support |
 | harness.ngcustomdashboard.looker.config.firstName | string | `"Harness"` | name of the user who performs setup and support tasks |
 | harness.ngcustomdashboard.looker.config.lastName | string | `"Support"` | last name of the user who performs setup and support tasks |
