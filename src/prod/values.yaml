@@ -424,6 +424,13 @@ harness:
       primary:
         persistence:
           size: 200Gi
+        resources:
+          limits:
+            cpu: 2
+            memory: 4Gi
+          requests:
+            cpu: 2
+            memory: 4Gi
   srm:
     enable-receivers: true
     et-service:
@@ -533,7 +540,7 @@ harness:
       resources:
         limits:
           cpu: 4
-          memory: 8Gi
+          memory: 10Gi
         requests:
           cpu: 2
           memory: 4Gi
@@ -545,46 +552,13 @@ harness:
         # -- email address of the support user, required for initial signup and support
         email: ''
         # -- id used by initial setup user for authentication, generate a 20-byte key, e.g. openssl rand -hex 10
-        clientId: ''
-        # -- timescale connection name, must match model connection name
-        timescaleConnectionName: 'qa-timescale'
-        # -- timescale hostname
-        timescaleHost: ''
-        # -- timescale port
-        timescalePort: ''
-        # -- timescale database name
-        timescaleDatabase: ''
-        # -- timescale user
-        timescaleUser: ''
-        # -- name of the looker project which will be created
-        projectName: 'Harness'
-
-      lookerSecrets:
-        licenseKey:
-          name: harness-secrets
-          # -- name of secret containing the looker license key which will be provided by Harness
-          key: lookerLicenseKey
-        masterKey:
-          name: harness-secrets
-          # -- name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32
-          key: lookerMasterKey
-        clientSecret:
-          name: harness-secrets
-          # -- name of secret containing the client secret used for initial setup, generate a 24-byte key, e.g. openssl rand -hex 12
-          key: lookerClientSecret
-
-      timescaleSecrets:
-        password:
-          name: harness-secrets
-          # -- name of secret containing the timescale password
-          key: lookerTimescalePassword
 
       ingress:
         # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
         host: ''
         tls:
           secretName: ''
-    ng-custom-dashboard:
+    ng-custom-dashboards:
       resources:
         limits:
             cpu: 2
@@ -600,29 +574,3 @@ harness:
         # -- port of your looker install
         lookerPort: '80'
         # -- folder ID of the 'CUSTOMER' folder in looker
-        customerFolderId: '6'
-        # -- folder ID of the 'OOTB' folder in looker
-        ootbFolderId: '7'
-        # -- hostname of your redis install
-        redisHost: ''
-        # -- port of your redis install
-        redisPort: '6379'
-        # -- if you have configured Looker models with a prefix enter it here
-        modelPrefix: ''
-        # -- looker sdk param
-        lookerApiVersion: '4.0'
-        # -- looker sdk param
-        lookerTimeout: '120'
-        # -- looker sdk param
-        lookerVerifySsl: 'false'
-
-      lookerSecrets:
-        clientId:
-          name: harness-secrets
-          key: lookerSdkClientId
-        clientSecret:
-          name: harness-secrets
-          key: lookerSdkClientSecret
-        secret:
-          name: harness-secrets
-          key: lookerEmbedSecret
