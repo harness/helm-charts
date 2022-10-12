@@ -364,9 +364,7 @@ This command removes the Kubernetes components that are associated with the char
 | harness.infra.postgresql.primary.resources.limits.memory | string | `"8192Mi"` |  |
 | harness.infra.postgresql.primary.resources.requests.cpu | int | `4` |  |
 | harness.infra.postgresql.primary.resources.requests.memory | string | `"8192Mi"` |  |
-| harness.ngcustomdashboard.looker.config.email | string | `""` | email address of the support user, required for initial signup and support |
-| harness.ngcustomdashboard.looker.config.firstName | string | `"Harness"` | name of the user who performs setup and support tasks |
-| harness.ngcustomdashboard.looker.config.lastName | string | `"Support"` | last name of the user who performs setup and support tasks |
+| harness.ngcustomdashboard.looker.config.email | string | `"harnessSupport@harness.io"` | email address of the support user, required for initial signup and support |
 | harness.ngcustomdashboard.looker.ingress.host | string | `""` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | harness.ngcustomdashboard.looker.ingress.tls.secretName | string | `""` |  |
 | harness.ngcustomdashboard.looker.resources.limits.cpu | int | `4` |  |
