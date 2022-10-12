@@ -479,7 +479,7 @@ harness:
         # -- id used by initial setup user for authentication, generate a 20-byte key, e.g. openssl rand -hex 10
         clientId: ''
         # -- timescale connection name, must match model connection name
-        timescaleConnectionName: 'qa-timescale'
+        timescaleConnectionName: 'timescale'
         # -- timescale hostname
         timescaleHost: ''
         # -- timescale port
@@ -509,7 +509,7 @@ harness:
         password:
           name: harness-secrets
           # -- name of secret containing the timescale password
-          key: lookerTimescalePassword
+          key: timescaledbPostgresPassword
 
       ingress:
         # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
