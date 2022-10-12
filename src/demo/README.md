@@ -73,7 +73,7 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.ngcustomdashboard.looker.config.firstName | string | `"Harness"` | name of the user who performs setup and support tasks |
 | harness.ngcustomdashboard.looker.config.lastName | string | `"Support"` | last name of the user who performs setup and support tasks |
 | harness.ngcustomdashboard.looker.config.projectName | string | `"Harness"` | name of the looker project which will be created |
-| harness.ngcustomdashboard.looker.config.timescaleConnectionName | string | `"qa-timescale"` | timescale connection name, must match model connection name |
+| harness.ngcustomdashboard.looker.config.timescaleConnectionName | string | `"timescale"` | timescale connection name, must match model connection name |
 | harness.ngcustomdashboard.looker.config.timescaleDatabase | string | `""` | timescale database name |
 | harness.ngcustomdashboard.looker.config.timescaleHost | string | `""` | timescale hostname |
 | harness.ngcustomdashboard.looker.config.timescalePort | string | `""` | timescale port |
@@ -90,7 +90,7 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.ngcustomdashboard.looker.resources.limits.memory | string | `"8Gi"` |  |
 | harness.ngcustomdashboard.looker.resources.requests.cpu | int | `2` |  |
 | harness.ngcustomdashboard.looker.resources.requests.memory | string | `"4Gi"` |  |
-| harness.ngcustomdashboard.looker.timescaleSecrets.password.key | string | `"lookerTimescalePassword"` | name of secret containing the timescale password |
+| harness.ngcustomdashboard.looker.timescaleSecrets.password.key | string | `"timescaledbPostgresPassword"` | name of secret containing the timescale password |
 | harness.ngcustomdashboard.looker.timescaleSecrets.password.name | string | `"harness-secrets"` |  |
 | harness.ngcustomdashboard.ng-custom-dashboard.config.customerFolderId | string | `"6"` | folder ID of the 'CUSTOMER' folder in looker |
 | harness.ngcustomdashboard.ng-custom-dashboard.config.lookerApiVersion | string | `"4.0"` | looker sdk param |
