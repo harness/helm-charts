@@ -414,6 +414,18 @@ harness:
         requests:
           cpu: 1
           memory: 3072Mi
+  infra:
+    postgresql:
+      primary:
+        persistence:
+          size: 8Gi
+        resources:
+          limits:
+            cpu: 2
+            memory: 4Gi
+          requests:
+            cpu: 2
+            memory: 4Gi
 
   srm:
     enable-receivers: false

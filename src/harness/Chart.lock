@@ -13,12 +13,12 @@ dependencies:
   version: 0.1.2
 - name: srm
   repository: file://srm
-  version: 0.1.1
+  version: 0.1.2
 - name: ngcustomdashboard
   repository: file://ngcustomdashboard
-  version: 0.1.2
+  version: 0.1.3
 - name: ff
   repository: file://ff
   version: 0.1.2
-digest: sha256:168b2772bf0537a777c75277da020a509f306c5b13144a180b5a8d2333ca11be
-generated: "2022-10-04T11:49:28.823252-04:00"
+digest: sha256:8a67f7e289d4c0258f40c306bf760813068207152ecc70e189ff4c3c21bab9f1
+generated: "2022-10-11T12:42:32.908112-04:00"

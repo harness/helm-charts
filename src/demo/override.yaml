@@ -29,7 +29,6 @@ global:
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
     enabled: true
-    annotations: {}
     loadBalancerIP: '0.0.0.0'
     loadBalancerEnabled: false
     className: "harness"
