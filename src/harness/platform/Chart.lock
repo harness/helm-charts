@@ -13,7 +13,7 @@ dependencies:
   version: 0.2.9
 - name: harness-secrets
   repository: https://harness.github.io/helm-harness-secrets
-  version: 0.2.2
+  version: 0.2.3
 - name: harness-manager
   repository: https://harness.github.io/helm-harness-manager
   version: 0.2.20
@@ -62,5 +62,5 @@ dependencies:
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.13
-digest: sha256:988ac0e46a2e3cd94560af6229a4e361823c775c6b27c0ff3cba9ba8d4bae34c
-generated: "2022-10-06T13:06:50.835439+01:00"
+digest: sha256:bfa0b7ed0490626fb0af6f4003a2070336ab07c9d3fea484e1382a1785e0bfc7
+generated: "2022-10-12T21:21:19.39053+05:30"
