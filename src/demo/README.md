@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.56](https://img.shields.io/badge/Version-0.2.56-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77026](https://img.shields.io/badge/AppVersion-1.0.77026-informational?style=flat-square)
+![Version: 0.2.57](https://img.shields.io/badge/Version-0.2.57-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77026](https://img.shields.io/badge/AppVersion-1.0.77026-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -68,20 +68,22 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.infra.postgresql.primary.resources.limits.memory | string | `"4Gi"` |  |
 | harness.infra.postgresql.primary.resources.requests.cpu | int | `2` |  |
 | harness.infra.postgresql.primary.resources.requests.memory | string | `"4Gi"` |  |
-| harness.ngcustomdashboard.looker.config.email | string | `"harnessSupport@harness.io"` | email address of the support user, required for initial signup and support |
+| harness.ngcustomdashboard.looker.config.email | string | `""` | email address of the support user, required for initial signup and support |
+| harness.ngcustomdashboard.looker.config.firstName | string | `"Harness"` | name of the user who performs setup and support tasks |
+| harness.ngcustomdashboard.looker.config.lastName | string | `"Support"` | last name of the user who performs setup and support tasks |
 | harness.ngcustomdashboard.looker.ingress.host | string | `""` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | harness.ngcustomdashboard.looker.ingress.tls.secretName | string | `""` |  |
 | harness.ngcustomdashboard.looker.resources.limits.cpu | int | `4` |  |
-| harness.ngcustomdashboard.looker.resources.limits.memory | string | `"8Gi"` |  |
+| harness.ngcustomdashboard.looker.resources.limits.memory | string | `"10Gi"` |  |
 | harness.ngcustomdashboard.looker.resources.requests.cpu | int | `2` |  |
 | harness.ngcustomdashboard.looker.resources.requests.memory | string | `"4Gi"` |  |
 | harness.ngcustomdashboard.ng-custom-dashboards.config.lookerHost | string | `""` | hostname of your looker install |
 | harness.ngcustomdashboard.ng-custom-dashboards.config.lookerPort | string | `"80"` | port of your looker install |
 | harness.ngcustomdashboard.ng-custom-dashboards.config.lookerScheme | string | `"https"` | scheme used for your looker install, http or https |
-| harness.ngcustomdashboard.ng-custom-dashboards.resources.limits.cpu | int | `1` |  |
-| harness.ngcustomdashboard.ng-custom-dashboards.resources.limits.memory | string | `"600Mi"` |  |
-| harness.ngcustomdashboard.ng-custom-dashboards.resources.requests.cpu | float | `0.5` |  |
-| harness.ngcustomdashboard.ng-custom-dashboards.resources.requests.memory | string | `"300Mi"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboards.resources.limits.cpu | int | `2` |  |
+| harness.ngcustomdashboard.ng-custom-dashboards.resources.limits.memory | string | `"1Gi"` |  |
+| harness.ngcustomdashboard.ng-custom-dashboards.resources.requests.cpu | int | `1` |  |
+| harness.ngcustomdashboard.ng-custom-dashboards.resources.requests.memory | string | `"500Mi"` |  |
 | harness.platform.access-control | object | `{"appLogLevel":"INFO","autoscaling":{"enabled":false},"java":{"memory":"512m"},"replicaCount":1,"resources":{"limits":{"cpu":1,"memory":"4096Mi"},"requests":{"cpu":1,"memory":"4096Mi"}}}` | Feature list to enable within platform.  Contact Harness for value |
 | harness.platform.change-data-capture.appLogLevel | string | `"INFO"` |  |
 | harness.platform.change-data-capture.autoscaling.enabled | bool | `false` |  |

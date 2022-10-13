@@ -465,13 +465,18 @@ harness:
       resources:
         limits:
           cpu: 4
-          memory: 8Gi
+          memory: 10Gi
         requests:
           cpu: 2
           memory: 4Gi
       config:
+        # -- name of the user who performs setup and support tasks
+        firstName: Harness
+        # -- last name of the user who performs setup and support tasks
+        lastName: Support
         # -- email address of the support user, required for initial signup and support
-        email: 'harnessSupport@harness.io'
+        email: ''
+        # -- id used by initial setup user for authentication, generate a 20-byte key, e.g. openssl rand -hex 10
 
       ingress:
         # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
@@ -481,11 +486,11 @@ harness:
     ng-custom-dashboards:
       resources:
         limits:
-            cpu: 1
-            memory: 600Mi
+            cpu: 2
+            memory: 1Gi
         requests:
-          cpu: 0.5
-          memory: 300Mi
+          cpu: 1
+          memory: 500Mi
       config:
         # -- scheme used for your looker install, http or https
         lookerScheme: 'https'
