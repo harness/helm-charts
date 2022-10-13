@@ -15,6 +15,6 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| looker.image.tag | string | `"22.16.42"` |  |
-| ng-custom-dashboard.image.tag | string | `"v1.52.24"` |  |
+| looker.image.tag | string | `"22.16.42.0"` |  |
+| ng-custom-dashboards.image.tag | string | `"v1.52.24"` |  |
 

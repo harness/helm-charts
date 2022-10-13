@@ -160,7 +160,7 @@ harness:
       affinity: {}
       nodeSelector: {}
       tolerations: []
-    ng-custom-dashboard:
+    ng-custom-dashboards:
       affinity: {}
       nodeSelector: {}
       tolerations: []
