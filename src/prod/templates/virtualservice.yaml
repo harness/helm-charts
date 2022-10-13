@@ -378,4 +378,35 @@ spec:
     redirect:
       uri: "/"
 
+{{- if .Values.global.ff.enabled }}
+  - name: ff-service
+    match:
+    - uri:
+        prefix: /cf/
+    - uri:
+        prefix: /cf
+    rewrite:
+      uri: /api/1.0/
+    route:
+    - destination:
+        port:
+          number: 16001
+        host: ff-service
+
+  - name: ff-pushpin-service
+    match:
+    - uri:
+        prefix: /sdk/
+    - uri:
+        prefix: /sdk
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        port:
+          number: 17001
+        host: ff-pushpin-service
+{{- end }}
+
+
 {{- end }}
