@@ -444,6 +444,8 @@ spec:
     match:
     - uri:
         prefix: /
+    - uri:
+        prefix: /api/internal/
     route:
     - destination:
         port:
@@ -457,8 +459,7 @@ spec:
         prefix: /api-docs/
     - uri:
         prefix: /versions
-    - uri:
-        prefix: /api/internal/
+
     route:
     - destination:
         port:
