@@ -9,21 +9,24 @@ global:
   mongoSSL: false
   storageClassName: ""
 
-  # -- Enabled will deploy STO to your cluster
+  # -- Enabled will deploy STO to your cluster(GA)
   sto:
     enabled: false
 
-  # -- Enabled will deploy SRM to your cluster
+  # -- Enabled will deploy SRM to your cluster(Beta)
   srm:
     enabled: false
 
-  # -- Enabled will deploy NG Customer Dashboards
+  # -- Enabled will deploy NG Customer Dashboards(Beta)
   ngcustomdashboard:
     enabled: false
 
-  # -- Enabled will deploy Feature Flags Component
+  # -- Enabled will deploy Feature Flags Component(Beta)
   ff:
     enabled: false
+  # --  Enabled will not send invites to email and autoaccepts
+  saml:
+    autoaccept: false
 
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.

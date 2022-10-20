@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness in Production environment
 
-![Version: 0.2.65](https://img.shields.io/badge/Version-0.2.65-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77026](https://img.shields.io/badge/AppVersion-1.0.77026-informational?style=flat-square)
+![Version: 0.2.66](https://img.shields.io/badge/Version-0.2.66-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
 
 ## Usage
 
@@ -39,21 +39,24 @@ global:
   mongoSSL: false
   storageClassName: ""
 
-  # -- Enabled will deploy STO to your cluster
+  # -- Enabled will deploy STO to your cluster(GA)
   sto:
     enabled: false
 
-  # -- Enabled will deploy SRM to your cluster
+  # -- Enabled will deploy SRM to your cluster(Beta)
   srm:
     enabled: false
 
-  # -- Enabled will deploy NG Customer Dashboards
+  # -- Enabled will deploy NG Customer Dashboards(Beta)
   ngcustomdashboard:
     enabled: false
 
-  # -- Enabled will deploy Feature Flags Component
+  # -- Enabled will deploy Feature Flags Component(Beta)
   ff:
     enabled: false
+  # --  Enabled will not send invites to email and autoaccepts
+  saml:
+    autoaccept: false
 
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
@@ -348,6 +351,7 @@ This command removes the Kubernetes components that are associated with the char
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
 | global.ngcustomdashboard.enabled | bool | `false` | Enabled will deploy NG Customer Dashboards |
+| global.saml.autoaccept | bool | `false` | Enabled will not send invites to email and autoaccepts |
 | global.srm.enabled | bool | `false` | Enable to install SRM |
 | global.sto.enabled | bool | `false` | Enable to install STO |
 | global.storageClassName | string | `""` |  |

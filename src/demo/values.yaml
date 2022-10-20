@@ -26,6 +26,9 @@ global:
     # -- Enabled will deploy Feature Flags Component
     enabled: false
 
+  saml:
+    # --  Enabled will not send invites to email and autoaccepts
+    autoaccept: false
   istio:
     enabled: false
     strict: false
