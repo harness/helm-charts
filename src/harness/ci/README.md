@@ -14,5 +14,5 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ci-manager.image.tag | string | `"400"` |  |
+| ci-manager.image.tag | string | `"904"` |  |
 

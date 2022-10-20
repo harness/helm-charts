@@ -80,14 +80,14 @@ A Helm chart for Kubernetes
 | harness-manager.delegate_docker_image.image.repository | string | `"harness/delegate"` |  |
 | harness-manager.delegate_docker_image.image.tag | string | `"latest"` |  |
 | harness-manager.external_graphql_rate_limit | string | `"500"` |  |
-| harness-manager.image.tag | string | `"77026"` |  |
+| harness-manager.image.tag | string | `"77030"` |  |
 | harness-manager.java.memory | string | `"2048"` |  |
 | harness-manager.replicaCount | int | `1` |  |
 | harness-manager.resources.limits.cpu | int | `2` |  |
 | harness-manager.resources.limits.memory | string | `"8192Mi"` |  |
 | harness-manager.resources.requests.cpu | int | `2` |  |
 | harness-manager.resources.requests.memory | string | `"3000Mi"` |  |
-| harness-manager.version | string | `"1.0.77026"` |  |
+| harness-manager.version | string | `"1.0.77030"` |  |
 | harness-storage-proxy.autoscaling.enabled | bool | `false` |  |
 | le-nextgen.autoscaling.enabled | bool | `false` |  |
 | le-nextgen.image.tag | string | `"67102"` |  |
@@ -137,7 +137,7 @@ A Helm chart for Kubernetes
 | ng-auth-ui.resources.requests.memory | string | `"512Mi"` |  |
 | ng-manager.appLogLevel | string | `"INFO"` |  |
 | ng-manager.autoscaling.enabled | bool | `false` |  |
-| ng-manager.image.tag | string | `"77026"` |  |
+| ng-manager.image.tag | string | `"77030"` |  |
 | ng-manager.java.memory | string | `"4096m"` |  |
 | ng-manager.replicaCount | int | `1` |  |
 | ng-manager.resources.limits.cpu | int | `2` |  |
