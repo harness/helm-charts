@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.58](https://img.shields.io/badge/Version-0.2.58-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77026](https://img.shields.io/badge/AppVersion-1.0.77026-informational?style=flat-square)
+![Version: 0.2.59](https://img.shields.io/badge/Version-0.2.59-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
 
 ## Usage
 
