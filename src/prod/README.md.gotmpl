@@ -72,4 +72,10 @@ This command removes the Kubernetes components that are associated with the char
 
 {{ template "chart.valuesSection" . }}
 
+## Images for AirGap
+
+If you are in an airgapped environment, the list below contains the images required for your deployment:
+
+{{ .Files.Get "images.txt" }}
+
 {{ template "helm-docs.versionFooter" . }}

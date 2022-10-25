@@ -41,19 +41,20 @@ global:
 
   # -- Enabled will deploy STO to your cluster(GA)
   sto:
-    enabled: false
+    enabled: true
 
   # -- Enabled will deploy SRM to your cluster(Beta)
   srm:
-    enabled: false
+    enabled: true
 
   # -- Enabled will deploy NG Customer Dashboards(Beta)
   ngcustomdashboard:
-    enabled: false
+    enabled: true
 
   # -- Enabled will deploy Feature Flags Component(Beta)
   ff:
-    enabled: false
+    enabled: true
+
   # --  Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false
@@ -584,4 +585,62 @@ This command removes the Kubernetes components that are associated with the char
 | harness.sto.sto-manager.resources.limits.memory | string | `"3072Mi"` |  |
 | harness.sto.sto-manager.resources.requests.cpu | int | `1` |  |
 | harness.sto.sto-manager.resources.requests.memory | string | `"3072Mi"` |  |
+
+## Images for AirGap
+
+If you are in an airgapped environment, the list below contains the images required for your deployment:
+
+docker.io/bitnami/minio:2022.8.22-debian-11-r0
+docker.io/bitnami/mongodb:4.2.19
+docker.io/bitnami/nginx-ingress-controller:1.4.0-debian-11-r2
+docker.io/bitnami/nginx:1.22.0-debian-11-r44
+docker.io/bitnami/postgresql:14.4.0-debian-11-r9
+docker.io/harness/accesscontrol-service-signed:76800
+docker.io/harness/cdcdata-signed:77026
+docker.io/harness/ci-manager-signed:904
+docker.io/harness/ci-scm-signed:release-87-ubi
+docker.io/harness/cv-nextgen-signed:77026
+docker.io/harness/dashboard-service-signed:v1.52.24
+docker.io/harness/delegate-proxy-signed:76818_2
+docker.io/harness/error-tracking-signed:5.5.2
+docker.io/harness/et-collector-signed:5.5.0
+docker.io/harness/ff-pushpin-signed:1.0.3
+docker.io/harness/ff-pushpin-worker-signed:1.666.0
+docker.io/harness/ff-server-signed:1.666.0
+docker.io/harness/gateway-signed:200089
+docker.io/harness/helm-init-container:latest
+docker.io/harness/le-nextgen-signed:67102
+docker.io/harness/looker-signed:22.16.46.0
+docker.io/harness/manager-signed:77030
+docker.io/harness/stocore-signed:v1.7.2
+docker.io/harness/stomanager-signed:77300-000
+docker.io/harness/ti-service-signed:release-87
+docker.io/harness/template-service-signed:77026
+docker.io/harness/ff-postgres-migration-signed:1.666.0
+docker.io/harness/ff-timescale-migration-signed:1.666.0
+docker.io/harness/helm-init-container:latest
+docker.io/harness/log-service-signed:release-18
+docker.io/harness/nextgenui-signed:0.322.11
+docker.io/harness/ng-auth-ui-signed:0.42.2
+docker.io/harness/ng-manager-signed:77030
+docker.io/harness/pipeline-service-signed:1.11.1
+docker.io/harness/platform-service-signed:77000
+docker.io/harness/redis:6.2.7-alpine
+docker.io/harness/ti-service-signed:release-87
+docker.io/timescale/timescaledb-ha:pg13-ts2.6-oss-latest
+docker.io/harness/ci-addon:1.14.7
+docker.io/plugins/artifactory:1.1.0
+docker.io/harness/delegate:latest
+docker.io/plugins/kaniko:1.6.0
+docker.io/plugins/kaniko-ecr:1.6.0
+docker.io/plugins/kaniko-gcr:1.6.0
+docker.io/plugins/cache:1.4.0
+docker.io/plugins/gcs:1.3.0
+docker.io/harness/drone-git:1.2.0-rootless
+docker.io/harness/ci-lite-engine:1.14.7
+docker.io/plugins/cache:1.4.0
+docker.io/bewithaman/s3:latest
+docker.io/plugins/s3:1.1.0
+docker.io/harness/sto-plugin:latest
+docker.io/curlimages/curl:latest
 
