@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness in Production environment
 
-![Version: 0.2.66](https://img.shields.io/badge/Version-0.2.66-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
+![Version: 0.2.67](https://img.shields.io/badge/Version-0.2.67-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
 
 ## Usage
 
@@ -308,7 +308,7 @@ Helm Upgrade
 $ helm upgrade my-release harness/harness-demo -n <namespace> -f old_values.yaml
 ```
 
-## Uninstall the Chart
+## Uninstall the chart
 
 The following process uninstalls the Helm chart and removes your Harness deployment.
 
@@ -320,9 +320,9 @@ $ helm uninstall my-release -n <namespace>
 
 This command removes the Kubernetes components that are associated with the chart and deletes the release.
 
-## Images for AirGap
+## Images for disconnected networks
 
-If you are in an airgapped environment, the list below contains the images required for your deployment:
+If your cluster is in an air-gapped environment, your deployment requires the following images:
 
 ```
 docker.io/bitnami/minio:2022.8.22-debian-11-r0
