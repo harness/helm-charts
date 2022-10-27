@@ -58,7 +58,7 @@ Helm Upgrade
 $ helm upgrade my-release harness/harness-demo -n <namespace> -f old_values.yaml
 ```
 
-## Uninstall the Chart
+## Uninstall the chart
 
 The following process uninstalls the Helm chart and removes your Harness deployment.
 
@@ -70,6 +70,13 @@ $ helm uninstall my-release -n <namespace>
 
 This command removes the Kubernetes components that are associated with the chart and deletes the release.
 
+## Images for disconnected networks
+
+If your cluster is in an air-gapped environment, your deployment requires the following images:
+
+```
+{{ .Files.Get "images.txt" }}
+```
 {{ template "chart.valuesSection" . }}
 
 {{ template "helm-docs.versionFooter" . }}

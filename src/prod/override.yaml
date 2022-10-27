@@ -11,19 +11,20 @@ global:
 
   # -- Enabled will deploy STO to your cluster(GA)
   sto:
-    enabled: false
+    enabled: true
 
   # -- Enabled will deploy SRM to your cluster(Beta)
   srm:
-    enabled: false
+    enabled: true
 
   # -- Enabled will deploy NG Customer Dashboards(Beta)
   ngcustomdashboard:
-    enabled: false
+    enabled: true
 
   # -- Enabled will deploy Feature Flags Component(Beta)
   ff:
-    enabled: false
+    enabled: true
+
   # --  Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false
