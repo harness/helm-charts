@@ -8,7 +8,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 ## Usage
 
-Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, see the [Helm documentation](https://helm.sh/docs/) to get started.
+Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, see the [Helm documentation](https://helm.sh/docs/).
 
 Use the following command to add the Harness chart repository to your Helm installation:
 
@@ -46,13 +46,14 @@ Use the following instructions to upgrade Harness Helm chart to a later version.
 ```
 $ helm ls -n <namespace>
 ```
-2. Retrieve configuration information for the installed release from the old-values.yaml file
+2. Retrieve configuration information for the installed release from the old-values.yaml file:
 ```
 $ helm get values my-release > old_values.yaml
 ```
 3. Modify the values of the old_values.yaml file as your configuration requires.
 
 4. Use the `helm upgrade` command to update the chart:
+
 Helm Upgrade
 ```
 $ helm upgrade my-release harness/harness-demo -n <namespace> -f old_values.yaml

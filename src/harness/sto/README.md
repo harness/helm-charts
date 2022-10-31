@@ -16,7 +16,7 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | sto-core.autoscaling.enabled | bool | `false` |  |
-| sto-core.image.tag | string | `"v1.7.2"` |  |
+| sto-core.image.tag | string | `"v1.12.1"` |  |
 | sto-manager.autoscaling.enabled | bool | `false` |  |
 | sto-manager.image.tag | string | `"77300-000"` |  |
 
