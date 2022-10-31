@@ -16,9 +16,9 @@ dependencies:
   version: 0.1.2
 - name: ngcustomdashboard
   repository: file://ngcustomdashboard
-  version: 0.1.5
+  version: 0.1.6
 - name: ff
   repository: file://ff
   version: 0.1.2
-digest: sha256:df0594b43ca0ae3813158c9f98de7844328afbc23eae4f8fb5f674cf6393df79
-generated: "2022-10-20T15:15:41.997656+01:00"
+digest: sha256:5ba4435c03eb3d3389d9e9a2899dc4a9a37fa4e4c7a89035871a37ad5419a463
+generated: "2022-10-31T23:43:45.057322Z"
