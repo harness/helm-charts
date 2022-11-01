@@ -4,6 +4,6 @@ dependencies:
   version: 0.1.8
 - name: looker
   repository: https://harness.github.io/helm-looker
-  version: 0.1.13
-digest: sha256:3fbfb9fcda0e677ff53f5b7e958f3365f249e9bbc4f24426fc7828e84a9044bb
-generated: "2022-10-31T23:43:02.992199Z"
+  version: 0.1.14
+digest: sha256:d1a01febed0dafca2529de657dbba8253e2e709b7eda230140fb5c0dd716ea9f
+generated: "2022-11-01T15:06:28.68599Z"

@@ -3,4 +3,4 @@ ng-custom-dashboards:
     tag: "v1.52.24"
 looker:
   image:
-    tag: "22.18.16.0"
+    tag: "22.18.18.0"
