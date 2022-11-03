@@ -8,7 +8,7 @@ Helm Chart for deploying Harness in Production environment
 
 ## Usage
 
-Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, see the [Helm documentation](https://helm.sh/docs/) to get started.
+Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, see the [Helm documentation](https://helm.sh/docs/).
 
 Use the following command to add the Harness chart repository to your Helm installation:
 
@@ -39,6 +39,11 @@ global:
   mongoSSL: false
   storageClassName: ""
 
+  cd:
+    enabled: true
+  # -- Enabled will deploy CI to your cluster(GA)
+  ci:
+    enabled: true
   # -- Enabled will deploy STO to your cluster(GA)
   sto:
     enabled: true
@@ -296,13 +301,14 @@ Use the following instructions to upgrade Harness Helm chart to a later version.
 ```
 $ helm ls -n <namespace>
 ```
-2. Retrieve configuration information for the installed release from the old-values.yaml file
+2. Retrieve configuration information for the installed release from the old-values.yaml file:
 ```
 $ helm get values my-release > old_values.yaml
 ```
 3. Modify the values of the old_values.yaml file as your configuration requires.
 
 4. Use the `helm upgrade` command to update the chart:
+
 Helm Upgrade
 ```
 $ helm upgrade my-release harness/harness-demo -n <namespace> -f old_values.yaml
@@ -385,6 +391,8 @@ docker.io/curlimages/curl:latest
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
+| global.cd.enabled | bool | `true` | Enable to install CD |
+| global.ci.enabled | bool | `true` | Enable to install CI |
 | global.ff.enabled | bool | `false` | Enabled will deploy Feature Flags Component |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |

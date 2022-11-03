@@ -11,7 +11,12 @@ global:
   storageClassName: ""
   ingress:
     useSelfSignedCert: false
-
+  # -- Enable to install CD
+  cd:
+    enabled: false
+  # -- Enable to install CI
+  ci:
+    enabled: false
   # -- Enable to install STO
   sto:
     enabled: false
@@ -26,7 +31,3 @@ global:
   ngcustomdashboard:
     enabled: false
 
-### Release tags
-ci:
-  # -- Enable to install CI
-  enabled: true

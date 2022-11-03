@@ -16,6 +16,8 @@ Helm Chart for deploying Harness in Demo configuration
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
+| global.cd.enabled | bool | `true` | Enable to install CD |
+| global.ci.enabled | bool | `true` | Enable to install CI |
 | global.ff.enabled | bool | `false` | Enabled will deploy Feature Flags Component |
 | global.ha | bool | `false` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
