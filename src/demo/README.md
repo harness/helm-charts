@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.60](https://img.shields.io/badge/Version-0.2.60-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
+![Version: 0.2.61](https://img.shields.io/badge/Version-0.2.61-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -8,7 +8,7 @@ Helm Chart for deploying Harness in Demo configuration
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://harness.github.io/helm-charts | harness | 0.2.59 |
+| https://harness.github.io/helm-charts | harness | 0.2.x |
 | https://harness.github.io/helm-common | harness-common | 1.x.x |
 
 ## Values
@@ -65,7 +65,6 @@ Helm Chart for deploying Harness in Demo configuration
 | harness.ci.ci-manager.resources.limits.memory | string | `"3000Mi"` |  |
 | harness.ci.ci-manager.resources.requests.cpu | float | `0.5` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"3000Mi"` |  |
-| harness.ci.enabled | bool | `true` | Enable to install CI |
 | harness.infra.postgresql.primary.persistence.size | string | `"8Gi"` |  |
 | harness.infra.postgresql.primary.resources.limits.cpu | int | `2` |  |
 | harness.infra.postgresql.primary.resources.limits.memory | string | `"4Gi"` |  |

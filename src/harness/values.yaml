@@ -16,7 +16,7 @@ global:
     enabled: false
   # -- Enable to install CI
   ci:
-    enabled: false
+    enabled: true
   # -- Enable to install STO
   sto:
     enabled: false
