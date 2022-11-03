@@ -44,7 +44,7 @@ global:
     enabled: false
   # -- Enable to install CI
   ci:
-    enabled: false
+    enabled: true
   # -- Enable to install STO
   sto:
     enabled: false
@@ -99,7 +99,7 @@ The command removes all the Kubernetes components associated with the chart and 
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
 | global.cd | object | `{"enabled":false}` | Enable to install CD |
-| global.ci | object | `{"enabled":false}` | Enable to install CI |
+| global.ci | object | `{"enabled":true}` | Enable to install CI |
 | global.ff.enabled | bool | `false` |  |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |

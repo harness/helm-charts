@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness in Production environment
 
-![Version: 0.2.67](https://img.shields.io/badge/Version-0.2.67-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
+![Version: 0.2.68](https://img.shields.io/badge/Version-0.2.68-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
 
 ## Usage
 
@@ -112,8 +112,6 @@ global:
 
 harness:
   ci:
-    # -- Enable to deploy CI to your cluster.
-    enabled: true
 
     ci-manager:
       affinity: {}
@@ -431,7 +429,6 @@ docker.io/curlimages/curl:latest
 | harness.ci.ci-manager.resources.limits.memory | string | `"6192Mi"` |  |
 | harness.ci.ci-manager.resources.requests.cpu | int | `1` |  |
 | harness.ci.ci-manager.resources.requests.memory | string | `"6192Mi"` |  |
-| harness.ci.enabled | bool | `true` | Enable to install CI |
 | harness.infra.postgresql.primary.persistence.size | string | `"200Gi"` |  |
 | harness.infra.postgresql.primary.resources.limits.cpu | int | `4` |  |
 | harness.infra.postgresql.primary.resources.limits.memory | string | `"8192Mi"` |  |

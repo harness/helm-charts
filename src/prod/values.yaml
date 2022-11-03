@@ -390,8 +390,6 @@ harness:
 
 
   ci:
-  # -- Enable to install CI
-    enabled: true
     ci-manager:
       autoscaling:
         enabled: true

@@ -384,8 +384,6 @@ harness:
         capacity: 10Gi
 
   ci:
-  # -- Enable to install CI
-    enabled: true
     ci-manager:
       autoscaling:
         enabled: false

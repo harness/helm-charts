@@ -82,8 +82,6 @@ global:
 
 harness:
   ci:
-    # -- Enable to deploy CI to your cluster.
-    enabled: true
 
     ci-manager:
       affinity: {}
