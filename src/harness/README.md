@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.59](https://img.shields.io/badge/Version-0.2.59-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
+![Version: 0.2.60](https://img.shields.io/badge/Version-0.2.60-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
 
 ## Usage
 
@@ -39,7 +39,12 @@ global:
   storageClassName: ""
   ingress:
     useSelfSignedCert: false
-
+  # -- Enable to install CD
+  cd:
+    enabled: false
+  # -- Enable to install CI
+  ci:
+    enabled: false
   # -- Enable to install STO
   sto:
     enabled: false
@@ -53,11 +58,6 @@ global:
 
   ngcustomdashboard:
     enabled: false
-
-### Release tags
-ci:
-  # -- Enable to install CI
-  enabled: true
 
 ```
 
@@ -97,8 +97,9 @@ The command removes all the Kubernetes components associated with the chart and 
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ci.enabled | bool | `true` | Enable to install CI |
 | global.airgap | bool | `false` | Enable for complete airgap environment |
+| global.cd | object | `{"enabled":false}` | Enable to install CD |
+| global.ci | object | `{"enabled":false}` | Enable to install CI |
 | global.ff.enabled | bool | `false` |  |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |

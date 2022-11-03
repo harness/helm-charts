@@ -8,7 +8,12 @@ global:
   loadbalancerURL: https://myhostname.example.com
   mongoSSL: false
   storageClassName: ""
-
+  # -- Enabled will deploy CD to your cluster(GA)
+  cd:
+    enabled: true
+  # -- Enabled will deploy CI to your cluster(GA)
+  ci:
+    enabled: true
   # -- Enabled will deploy STO to your cluster(GA)
   sto:
     enabled: false

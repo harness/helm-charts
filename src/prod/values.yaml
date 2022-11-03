@@ -10,6 +10,12 @@ global:
   mongoSSL: false
   storageClassName: ""
 
+  cd:
+    # -- Enable to install CD
+    enabled: true
+  ci:
+    # -- Enable to install CI
+    enabled: true
   sto:
     # -- Enable to install STO
     enabled: false
