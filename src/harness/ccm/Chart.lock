@@ -1,0 +1,6 @@
+dependencies:
+- name: nextgen-ce
+  repository: https://harness.github.io/helm-nextgen-ce
+  version: 0.1.1
+digest: sha256:774e79f0e700845b7b807f18a5e2bcca177d3e8f4a2582fe48238e549b2320e8
+generated: "2022-11-04T15:01:23.061346+05:30"
