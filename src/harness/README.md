@@ -60,7 +60,7 @@ global:
     enabled: false
   # -- Enable to install CCM
   ccm:
-    enabled: false
+    enabled: true
 
 ```
 
@@ -101,7 +101,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
-| global.ccm | object | `{"enabled":false}` | Enable to install CCM |
+| global.ccm | object | `{"enabled":true}` | Enable to install CCM |
 | global.cd | object | `{"enabled":false}` | Enable to install CD |
 | global.ci | object | `{"enabled":false}` | Enable to install CI |
 | global.ff | object | `{"enabled":false}` | Enable to install FF |

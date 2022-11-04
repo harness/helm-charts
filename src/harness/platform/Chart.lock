@@ -1,7 +1,7 @@
 dependencies:
 - name: access-control
   repository: https://harness.github.io/helm-access-control
-  version: 0.2.7
+  version: 0.2.8
 - name: change-data-capture
   repository: https://harness.github.io/helm-change-data-capture
   version: 0.2.10
@@ -16,7 +16,7 @@ dependencies:
   version: 0.2.5
 - name: harness-manager
   repository: https://harness.github.io/helm-harness-manager
-  version: 0.2.22
+  version: 0.2.23
 - name: delegate-proxy
   repository: https://harness.github.io/helm-delegate-proxy
   version: 0.2.5
@@ -62,5 +62,5 @@ dependencies:
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.13
-digest: sha256:9e12b3eeabc0b20d95d9e56ce36f7022364851057ec0c05183f04e048983e7aa
-generated: "2022-11-03T11:24:52.224708+05:30"
+digest: sha256:04eb702a7836d186d5f530847d85b389ec09966a9d02c5fa6c1b300b813d6326
+generated: "2022-11-04T18:56:07.050362+05:30"
