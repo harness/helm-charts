@@ -20,5 +20,8 @@ dependencies:
 - name: ff
   repository: file://ff
   version: 0.1.2
-digest: sha256:189022cad01cd488b12de9316ccc7a6ad3d6313d9319ffc9909828ae4c897f37
-generated: "2022-11-03T11:28:13.787071+05:30"
+- name: ccm
+  repository: file://ccm
+  version: 0.1.0
+digest: sha256:d3fb71e7dfd1b449ea7618d4382425678f521c25a932732e334492b62ef6f432
+generated: "2022-11-04T16:51:38.574879+05:30"
