@@ -14,5 +14,5 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| nextgen-ce.tag | string | `"77300-000"` |  |
+| nextgen-ce.tag | string | `"77300"` |  |
 

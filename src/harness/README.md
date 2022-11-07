@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.61](https://img.shields.io/badge/Version-0.2.61-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
+![Version: 0.2.63](https://img.shields.io/badge/Version-0.2.63-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
 
 ## Usage
 
@@ -58,9 +58,9 @@ global:
   # -- Enable to install CDB
   ngcustomdashboard:
     enabled: false
-  # -- Enable to install CCM
+  # -- Enable to install CCM(beta)
   ccm:
-    enabled: true
+    enabled: false
 
 ```
 
@@ -101,7 +101,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
-| global.ccm | object | `{"enabled":true}` | Enable to install CCM |
+| global.ccm | object | `{"enabled":false}` | Enable to install CCM(beta) |
 | global.cd | object | `{"enabled":false}` | Enable to install CD |
 | global.ci | object | `{"enabled":false}` | Enable to install CI |
 | global.ff | object | `{"enabled":false}` | Enable to install FF |
