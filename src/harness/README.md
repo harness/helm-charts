@@ -2,7 +2,7 @@
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.60](https://img.shields.io/badge/Version-0.2.60-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
+![Version: 0.2.61](https://img.shields.io/badge/Version-0.2.61-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77030](https://img.shields.io/badge/AppVersion-1.0.77030-informational?style=flat-square)
 
 ## Usage
 
@@ -44,7 +44,7 @@ global:
     enabled: false
   # -- Enable to install CI
   ci:
-    enabled: true
+    enabled: false
   # -- Enable to install STO
   sto:
     enabled: false
@@ -52,12 +52,15 @@ global:
   # -- Enable to install SRM
   srm:
     enabled: false
-
+  # -- Enable to install FF
   ff:
     enabled: false
-
+  # -- Enable to install CDB
   ngcustomdashboard:
     enabled: false
+  # -- Enable to install CCM
+  ccm:
+    enabled: true
 
 ```
 
@@ -98,15 +101,16 @@ The command removes all the Kubernetes components associated with the chart and 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | bool | `false` | Enable for complete airgap environment |
+| global.ccm | object | `{"enabled":true}` | Enable to install CCM |
 | global.cd | object | `{"enabled":false}` | Enable to install CD |
-| global.ci | object | `{"enabled":true}` | Enable to install CI |
-| global.ff.enabled | bool | `false` |  |
+| global.ci | object | `{"enabled":false}` | Enable to install CI |
+| global.ff | object | `{"enabled":false}` | Enable to install FF |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | Global Docker image registry |
 | global.ingress.useSelfSignedCert | bool | `false` |  |
 | global.loadbalancerURL | string | `""` | Fully qualified URL of your loadbalancer (ex: https://www.foo.com) |
 | global.mongoSSL | bool | `false` |  |
-| global.ngcustomdashboard.enabled | bool | `false` |  |
+| global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install CDB |
 | global.srm | object | `{"enabled":false}` | Enable to install SRM |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |
 | global.storageClassName | string | `""` |  |

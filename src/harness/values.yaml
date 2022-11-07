@@ -16,7 +16,7 @@ global:
     enabled: false
   # -- Enable to install CI
   ci:
-    enabled: true
+    enabled: false
   # -- Enable to install STO
   sto:
     enabled: false
@@ -24,10 +24,13 @@ global:
   # -- Enable to install SRM
   srm:
     enabled: false
-
+  # -- Enable to install FF
   ff:
     enabled: false
-
+  # -- Enable to install CDB
   ngcustomdashboard:
     enabled: false
+  # -- Enable to install CCM
+  ccm:
+    enabled: true
 
