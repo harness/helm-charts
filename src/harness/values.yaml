@@ -30,7 +30,7 @@ global:
   # -- Enable to install CDB
   ngcustomdashboard:
     enabled: false
-  # -- Enable to install CCM
+  # -- Enable to install CCM(beta)
   ccm:
-    enabled: true
+    enabled: false
 
