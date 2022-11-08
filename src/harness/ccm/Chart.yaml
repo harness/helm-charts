@@ -27,4 +27,7 @@ dependencies:
 - name: nextgen-ce
   version: 0.1.x
   repository: "https://harness.github.io/helm-nextgen-ce"
+- name: event-service
+  version: 0.1.x
+  repository: "https://harness.github.io/helm-event-service"
 

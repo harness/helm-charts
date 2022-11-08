@@ -2,5 +2,8 @@ dependencies:
 - name: nextgen-ce
   repository: https://harness.github.io/helm-nextgen-ce
   version: 0.1.13
-digest: sha256:7ed33c1e6d19ee5d717f899bb8e09f7a3d4dd3e0b7487fb8158ecc2b59a457da
-generated: "2022-11-07T22:29:58.332527+05:30"
+- name: event-service
+  repository: https://harness.github.io/helm-event-service
+  version: 0.1.1
+digest: sha256:9d89d786f422dc1925aac9518c745ad33624a4650a7a145b1c6ee2053f190453
+generated: "2022-11-08T15:32:11.748925+05:30"
