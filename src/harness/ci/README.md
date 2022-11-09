@@ -25,5 +25,5 @@ A Helm chart for Kubernetes
 | ci-manager.ci_images.lite_engine.tag | string | `"1.14.7"` |  |
 | ci-manager.ci_images.s3_cache.tag | string | `"1.4.2"` |  |
 | ci-manager.ci_images.s3_upload.tag | string | `"1.1.1"` |  |
-| ci-manager.image.tag | string | `"904"` |  |
+| ci-manager.image.tag | string | `"905"` |  |
 
