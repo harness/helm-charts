@@ -1,11 +1,7 @@
 sto-core:
   autoscaling:
     enabled: false
-  image:
-    tag: "v1.12.1"
 
 sto-manager:
   autoscaling:
     enabled: false
-  image:
-    tag: "77300-000"

@@ -8,11 +8,13 @@ A Helm chart for Kubernetes
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://harness.github.io/helm-event-service | event-service | 0.1.x |
 | https://harness.github.io/helm-nextgen-ce | nextgen-ce | 0.1.x |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| event-service.tag | string | `"77300"` |  |
 | nextgen-ce.tag | string | `"77300"` |  |
 
