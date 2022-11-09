@@ -4,6 +4,6 @@ dependencies:
   version: 0.1.13
 - name: event-service
   repository: https://harness.github.io/helm-event-service
-  version: 0.1.1
-digest: sha256:9d89d786f422dc1925aac9518c745ad33624a4650a7a145b1c6ee2053f190453
-generated: "2022-11-08T15:32:11.748925+05:30"
+  version: 0.1.4
+digest: sha256:aa6a78d13d68b180f25d63b90eb3e6b6cee9fcff20030a03a5ea0823015debb0
+generated: "2022-11-09T16:34:26.255337+05:30"
