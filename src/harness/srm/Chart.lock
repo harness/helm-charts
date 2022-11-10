@@ -4,7 +4,7 @@ dependencies:
   version: 0.1.16
 - name: et-collector
   repository: https://harness.github.io/helm-et-collector
-  version: 0.1.7
+  version: 0.1.8
 - name: et-receiver
   repository: https://harness.github.io/helm-et-receiver
   version: 0.1.10
@@ -17,5 +17,5 @@ dependencies:
 - name: et-receiver
   repository: https://harness.github.io/helm-et-receiver
   version: 0.1.10
-digest: sha256:2e0fd793e2bb5e7c05bbaaff982b62e1b92240fcaf1699c52a0a81cfc3e50b68
-generated: "2022-09-08T15:24:29.138936-04:00"
+digest: sha256:3e2b1809cf7c5582505dcb02f09fcbb58ad651af498f5bc91489b37004daf2ec
+generated: "2022-11-10T17:40:58.369535-05:00"
