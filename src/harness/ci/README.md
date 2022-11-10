@@ -22,7 +22,7 @@ A Helm chart for Kubernetes
 | ci-manager.ci_images.kaniko.tag | string | `"1.6.6"` |  |
 | ci-manager.ci_images.kaniko_ecr.tag | string | `"1.6.6"` |  |
 | ci-manager.ci_images.kaniko_gcr.tag | string | `"1.6.6"` |  |
-| ci-manager.ci_images.lite_engine.tag | string | `"1.14.7"` |  |
+| ci-manager.ci_images.lite_engine.tag | string | `"1.14.21"` |  |
 | ci-manager.ci_images.s3_cache.tag | string | `"1.4.2"` |  |
 | ci-manager.ci_images.s3_upload.tag | string | `"1.1.1"` |  |
 | ci-manager.image.tag | string | `"905"` |  |

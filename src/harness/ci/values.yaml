@@ -6,7 +6,7 @@ ci-manager:
       tag: "1.14.7"
 
     lite_engine:
-      tag: "1.14.7"
+      tag: "1.14.21"
 
     git_clone:
       tag: "1.2.4-rootless"
