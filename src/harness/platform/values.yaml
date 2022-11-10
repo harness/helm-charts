@@ -206,7 +206,7 @@ ng-manager:
 pipeline-service:
   appLogLevel: INFO
   image:
-    tag: "1.12.3"
+    tag: "1.11.1"
   java:
     memory: "4096m"
   replicaCount: 1
