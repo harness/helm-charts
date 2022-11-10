@@ -145,7 +145,7 @@ A Helm chart for Kubernetes
 | ng-manager.resources.requests.memory | string | `"200Mi"` |  |
 | pipeline-service.appLogLevel | string | `"INFO"` |  |
 | pipeline-service.autoscaling.enabled | bool | `false` |  |
-| pipeline-service.image.tag | string | `"1.12.3"` |  |
+| pipeline-service.image.tag | string | `"1.11.1"` |  |
 | pipeline-service.java.memory | string | `"4096m"` |  |
 | pipeline-service.replicaCount | int | `1` |  |
 | pipeline-service.resources.limits.cpu | int | `1` |  |
