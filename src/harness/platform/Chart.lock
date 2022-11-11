@@ -25,7 +25,7 @@ dependencies:
   version: 0.2.3
 - name: log-service
   repository: https://harness.github.io/helm-log-service
-  version: 0.2.10
+  version: 0.2.11
 - name: minio
   repository: https://charts.bitnami.com/bitnami
   version: 11.9.1
@@ -40,7 +40,7 @@ dependencies:
   version: 0.2.2
 - name: ng-manager
   repository: https://harness.github.io/helm-ng-manager
-  version: 0.2.19
+  version: 0.2.20
 - name: pipeline-service
   repository: https://harness.github.io/helm-pipeline-service
   version: 0.2.11
@@ -62,5 +62,5 @@ dependencies:
 - name: timescaledb
   repository: https://harness.github.io/helm-timescaledb
   version: 0.2.14
-digest: sha256:4e339b30c5de596ec695f213d1155a70ae9a9c92a37d474b149eb4d3bf029ff3
-generated: "2022-11-09T23:40:31.073318+05:30"
+digest: sha256:5a3f1474715629fe1471417a9912f9ec05f9ef45d84bf475b85f254fb736b27c
+generated: "2022-11-11T18:20:39.136188+05:30"
