@@ -459,6 +459,8 @@ harness:
       et:
         java:
           heapSize: "1600m"
+        redis:
+          enabled: true
       autoscaling:
         enabled: true
         maxReplicas: 3
