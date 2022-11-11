@@ -13,7 +13,7 @@ dependencies:
   version: 0.1.2
 - name: srm
   repository: file://srm
-  version: 0.1.2
+  version: 0.1.3
 - name: ngcustomdashboard
   repository: file://ngcustomdashboard
   version: 0.1.7
@@ -23,5 +23,5 @@ dependencies:
 - name: ccm
   repository: file://ccm
   version: 0.1.0
-digest: sha256:d3fb71e7dfd1b449ea7618d4382425678f521c25a932732e334492b62ef6f432
-generated: "2022-11-04T16:51:38.574879+05:30"
+digest: sha256:be6500a75bd938f22a05e1c8f237cdfb1d46c6948a2a1d9bc3a38010a01fdda0
+generated: "2022-11-10T17:44:23.246224-05:00"

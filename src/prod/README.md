@@ -586,6 +586,7 @@ docker.io/curlimages/curl:latest
 | harness.srm.et-collector.autoscaling.enabled | bool | `true` |  |
 | harness.srm.et-collector.autoscaling.maxReplicas | int | `3` |  |
 | harness.srm.et-collector.et.java.heapSize | string | `"1600m"` |  |
+| harness.srm.et-collector.et.redis.enabled | bool | `true` |  |
 | harness.srm.et-collector.replicaCount | int | `1` |  |
 | harness.srm.et-collector.resources.limits.cpu | int | `1` |  |
 | harness.srm.et-collector.resources.limits.memory | string | `"2Gi"` |  |

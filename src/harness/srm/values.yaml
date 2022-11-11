@@ -2,28 +2,28 @@ enable-receivers: false
 
 et-service:
   image:
-    tag: "5.5.2"
+    tag: "5.7.4"
   autoscaling:
     enabled: false
 
 et-collector:
   image:
-    tag: "5.5.0"
+    tag: "5.7.2"
   autoscaling:
     enabled: false
 
 et-receiver-agent:
   image:
-    tag: "5.5.2"
+    tag: "5.7.4"
 
 et-receiver-decompile:
   image:
-    tag: "5.5.2"
+    tag: "5.7.4"
 
 et-receiver-hit:
   image:
-    tag: "5.5.2"
+    tag: "5.7.4"
 
 et-receiver-sql:
   image:
-    tag: "5.5.2"
+    tag: "5.7.4"
