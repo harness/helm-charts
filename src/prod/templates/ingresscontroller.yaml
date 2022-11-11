@@ -19,12 +19,12 @@ spec:
   externalTrafficPolicy: 'Cluster'
   ports:
   - name: http
-    nodePort: 32500
+    nodePort: {{ .Values.global.ingress.nginx.httpNodePort | default 32500 }}
     port: 80
     protocol: TCP
     targetPort: http
   - name: https
-    nodePort: 32505
+    nodePort: {{ .Values.global.ingress.nginx.httpsNodePort | default 32505 }}
     port: 443
     protocol: TCP
     targetPort: https
