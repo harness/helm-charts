@@ -5,5 +5,14 @@ dependencies:
 - name: event-service
   repository: https://harness.github.io/helm-event-service
   version: 0.1.4
-digest: sha256:24dbb622164034e8b213fdd9907daf73e8ab933eb295d4d43247cd6d069882f2
-generated: "2022-11-11T16:58:46.422688+05:30"
+- name: anomaly-detection
+  repository: https://harness.github.io/helm-ce-anomaly-detection
+  version: 0.1.7
+- name: cloud-info
+  repository: https://harness.github.io/helm-ce-cloud-info
+  version: 0.1.12
+- name: telescopes
+  repository: https://harness.github.io/helm-telescopes
+  version: 0.1.10
+digest: sha256:28ede08837ce782beedc64c44b4435839fd8000aa78c704cde8dff315f435980
+generated: "2022-11-14T22:47:11.867878+05:30"
