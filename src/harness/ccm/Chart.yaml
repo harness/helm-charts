@@ -30,4 +30,13 @@ dependencies:
 - name: event-service
   version: 0.1.x
   repository: "https://harness.github.io/helm-event-service"
+- name: anomaly-detection
+  version: 0.1.x
+  repository: "https://harness.github.io/helm-ce-anomaly-detection"
+- name: cloud-info
+  version: 0.1.x
+  repository: "https://harness.github.io/helm-ce-cloud-info"
+- name: telescopes
+  version: 0.1.x
+  repository: "https://harness.github.io/helm-telescopes"
 
