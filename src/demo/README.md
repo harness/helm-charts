@@ -1,6 +1,6 @@
 # harness-demo
 
-![Version: 0.2.69](https://img.shields.io/badge/Version-0.2.69-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77125](https://img.shields.io/badge/AppVersion-1.0.77125-informational?style=flat-square)
+![Version: 0.2.77](https://img.shields.io/badge/Version-0.2.77-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77125](https://img.shields.io/badge/AppVersion-1.0.77125-informational?style=flat-square)
 
 Helm Chart for deploying Harness in Demo configuration
 
@@ -38,7 +38,7 @@ Helm Chart for deploying Harness in Demo configuration
 | global.ingress.nginx.image | object | `{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"}` | docker image to be used |
 | global.ingress.nginx.objects.annotations | object | `{}` | annotations to be added to ingress Objects |
 | global.ingress.tls.enabled | bool | `false` |  |
-| global.ingress.tls.secretName | string | `"harness-ssl"` |  |
+| global.ingress.tls.secretName | string | `"harness-cert"` |  |
 | global.ingress.useSelfSignedCert | bool | `false` |  |
 | global.istio.enabled | bool | `false` |  |
 | global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |
