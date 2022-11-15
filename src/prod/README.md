@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness in Production environment
 
-![Version: 0.2.76](https://img.shields.io/badge/Version-0.2.76-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77125](https://img.shields.io/badge/AppVersion-1.0.77125-informational?style=flat-square)
+![Version: 0.2.77](https://img.shields.io/badge/Version-0.2.77-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77125](https://img.shields.io/badge/AppVersion-1.0.77125-informational?style=flat-square)
 
 ## Usage
 
@@ -76,7 +76,7 @@ global:
       - 'myhost.example.com'
     tls:
       enabled: true
-      secretName: mycert
+      secretName: harness-cert
 
     nginx:
       # -- Create Nginx Controller.  True will deploy a controller into your cluster
@@ -103,7 +103,7 @@ global:
     hosts:
       - '*'
     tls:
-      credentialName: mycert
+      credentialName: harness-cert
       minProtocolVersion: TLSV1_2
       mode: SIMPLE
     virtualService:
@@ -411,7 +411,7 @@ docker.io/curlimages/curl:latest
 | global.ingress.nginx.image | object | `{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"}` | docker image to be used |
 | global.ingress.nginx.objects.annotations | object | `{}` | annotations to be added to ingress Objects |
 | global.ingress.tls.enabled | bool | `false` |  |
-| global.ingress.tls.secretName | string | `"harness-ssl"` |  |
+| global.ingress.tls.secretName | string | `"harness-cert"` |  |
 | global.ingress.useSelfSignedCert | bool | `false` |  |
 | global.istio | object | `{"enabled":false,"gateway":{"create":true,"port":443,"protocol":"HTTPS"},"hosts":["*"],"strict":false,"tls":{"credentialName":null,"minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[""],"hosts":[""]}}` | - Enable Istio Gateway |
 | global.istio.gateway.create | bool | `true` | Enable to create istio-system gateway |

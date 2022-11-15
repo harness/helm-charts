@@ -70,7 +70,7 @@ global:
       - 'my-host.example.org'
     tls:
       enabled: false
-      secretName: harness-ssl
+      secretName: harness-cert
 
     nginx:
       # -- Create Nginx Controller.  True will deploy a controller into your cluster
