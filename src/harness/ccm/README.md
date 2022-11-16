@@ -8,9 +8,11 @@ A Helm chart for Kubernetes
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://harness.github.io/helm-batch-processing | batch-processing | 0.1.x |
 | https://harness.github.io/helm-ce-anomaly-detection | anomaly-detection | 0.1.x |
 | https://harness.github.io/helm-ce-cloud-info | cloud-info | 0.1.x |
 | https://harness.github.io/helm-event-service | event-service | 0.1.x |
+| https://harness.github.io/helm-lightwingFaktory | lw-faktory | 0.1.x |
 | https://harness.github.io/helm-nextgen-ce | nextgen-ce | 0.1.x |
 | https://harness.github.io/helm-telescopes | telescopes | 0.1.x |
 

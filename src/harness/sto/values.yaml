@@ -7,4 +7,4 @@ sto-manager:
   autoscaling:
     enabled: false
   image:
-    tag: "77300-000"
+    tag: "77800-000"
