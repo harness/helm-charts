@@ -39,4 +39,10 @@ dependencies:
 - name: telescopes
   version: 0.1.x
   repository: "https://harness.github.io/helm-telescopes"
+- name: batch-processing
+  version: 0.1.x
+  repository: "https://harness.github.io/helm-batch-processing"
+- name: lw-faktory
+  version: 0.1.x
+  repository: "https://harness.github.io/helm-lightwingFaktory"
 
