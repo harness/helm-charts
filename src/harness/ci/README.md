@@ -14,7 +14,7 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ci-manager.ci_images.addon.tag | string | `"1.14.7"` |  |
+| ci-manager.ci_images.addon.tag | string | `"1.14.21"` |  |
 | ci-manager.ci_images.artifactory_upload.tag | string | `"1.2.0"` |  |
 | ci-manager.ci_images.gcs_cache.tag | string | `"1.4.2"` |  |
 | ci-manager.ci_images.gcs_upload.tag | string | `"1.3.0"` |  |
