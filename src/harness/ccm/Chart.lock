@@ -1,18 +1,24 @@
 dependencies:
 - name: nextgen-ce
   repository: https://harness.github.io/helm-nextgen-ce
-  version: 0.1.14
+  version: 0.1.15
 - name: event-service
   repository: https://harness.github.io/helm-event-service
   version: 0.1.4
 - name: anomaly-detection
   repository: https://harness.github.io/helm-ce-anomaly-detection
-  version: 0.1.7
+  version: 0.1.8
 - name: cloud-info
   repository: https://harness.github.io/helm-ce-cloud-info
-  version: 0.1.12
+  version: 0.1.13
 - name: telescopes
   repository: https://harness.github.io/helm-telescopes
   version: 0.1.10
-digest: sha256:28ede08837ce782beedc64c44b4435839fd8000aa78c704cde8dff315f435980
-generated: "2022-11-14T22:47:11.867878+05:30"
+- name: batch-processing
+  repository: https://harness.github.io/helm-batch-processing
+  version: 0.1.4
+- name: lw-faktory
+  repository: https://harness.github.io/helm-lightwingFaktory
+  version: 0.1.2
+digest: sha256:3fc909e63598edc5cc2db4f7c413ee9da2d7530d159768c65b1296305a837b7b
+generated: "2022-11-16T15:54:39.028565+05:30"
