@@ -40,7 +40,6 @@ global:
     loadBalancerIP: '0.0.0.0'
     loadBalancerEnabled: false
     className: "harness"
-    useSelfSignedCert: false
     hosts:
       - 'myhost.example.com'
     tls:
