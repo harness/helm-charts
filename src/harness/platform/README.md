@@ -62,7 +62,7 @@ A Helm chart for Kubernetes
 | cv-nextgen.resources.limits.memory | string | `"6144Mi"` |  |
 | cv-nextgen.resources.requests.cpu | int | `1` |  |
 | cv-nextgen.resources.requests.memory | string | `"6144Mi"` |  |
-| delegate-proxy.image.tag | string | `"77034"` |  |
+| delegate-proxy.image.tag | string | `"77036"` |  |
 | delegate-proxy.replicaCount | int | `1` |  |
 | delegate-proxy.resources.limits.cpu | string | `"200m"` |  |
 | delegate-proxy.resources.limits.memory | string | `"100Mi"` |  |

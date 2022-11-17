@@ -52,7 +52,7 @@ cv-nextgen:
 
 delegate-proxy:
   image:
-    tag: "77034"
+    tag: "77036"
   replicaCount: 1
   resources:
     limits:
