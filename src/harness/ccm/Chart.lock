@@ -13,12 +13,21 @@ dependencies:
   version: 0.1.13
 - name: telescopes
   repository: https://harness.github.io/helm-telescopes
-  version: 0.1.11
+  version: 0.1.12
 - name: batch-processing
   repository: https://harness.github.io/helm-batch-processing
-  version: 0.1.5
-- name: lw-faktory
+  version: 0.1.6
+- name: lwd-faktory
   repository: https://harness.github.io/helm-lightwingFaktory
+  version: 0.1.5
+- name: lwd
+  repository: https://harness.github.io/helm-lightwingAPI
+  version: 0.1.4
+- name: lwd-worker
+  repository: https://harness.github.io/helm-lightwingFaktoryWorker
   version: 0.1.2
-digest: sha256:7a6931a7b3c1f44096066f4b1a1ad79f62ef4d36ce5eab3deec4c18b560dd257
-generated: "2022-11-16T17:38:33.093821+05:30"
+- name: lwd-autocud
+  repository: https://harness.github.io/helm-lightwingAutocud
+  version: 0.1.1
+digest: sha256:7bdb362a5b2d3b7f945b9cb414e130a5795a99457efff1e2b0bd08d966a3c7ac
+generated: "2022-11-18T14:35:02.577118+05:30"
