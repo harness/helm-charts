@@ -160,7 +160,7 @@ mongodb:
 
 next-gen-ui:
   image:
-    tag: "0.323.9"
+    tag: "0.323.10"
   replicaCount: 1
   resources:
     limits:
