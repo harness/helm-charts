@@ -360,24 +360,7 @@ spec:
         port:
           number: 80
         host: ng-auth-ui
-
-  - name: harness-ui
-    match:
-    - uri:
-        prefix: "/"
-    route:
-    - destination:
-        port:
-          number: 80
-        host: next-gen-ui
-
-  - name: catchall-redirect
-    match:
-    - uri:
-        regex: ".*"
-    redirect:
-      uri: "/"
-{{- if .Values.global.ff.enabled }}
+  {{- if .Values.global.ff.enabled }}
   - name: ff-service
     match:
     - uri:
@@ -405,7 +388,23 @@ spec:
         port:
           number: 17001
         host: ff-pushpin-service
-{{- end }}
+  {{- end }}
+  - name: harness-ui
+    match:
+    - uri:
+        prefix: "/"
+    route:
+    - destination:
+        port:
+          number: 80
+        host: next-gen-ui
+
+  - name: catchall-redirect
+    match:
+    - uri:
+        regex: ".*"
+    redirect:
+      uri: "/"
 {{- if .Values.global.ngcustomdashboard.enabled }}
   - name: ng-custom-dashboards
     match:
