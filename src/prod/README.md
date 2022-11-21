@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness in Production environment
 
-![Version: 0.2.85](https://img.shields.io/badge/Version-0.2.85-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77125](https://img.shields.io/badge/AppVersion-1.0.77125-informational?style=flat-square)
+![Version: 0.2.86](https://img.shields.io/badge/Version-0.2.86-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77125](https://img.shields.io/badge/AppVersion-1.0.77125-informational?style=flat-square)
 
 ## Usage
 
@@ -333,7 +333,7 @@ docker.io/bitnami/mongodb:4.2.19
 docker.io/bitnami/postgresql:14.4.0-debian-11-r9
 docker.io/harness/accesscontrol-service-signed:77002
 docker.io/harness/cdcdata-signed:77125
-docker.io/harness/ci-manager-signed:905
+docker.io/harness/ci-manager-signed:906
 docker.io/harness/ci-scm-signed:release-87-ubi
 docker.io/harness/cv-nextgen-signed:77125
 docker.io/harness/dashboard-service-signed:v1.52.24
@@ -374,12 +374,12 @@ docker.io/plugins/kaniko-gcr:1.6.6
 docker.io/plugins/cache:1.4.2
 docker.io/plugins/gcs:1.3.0
 docker.io/harness/drone-git:1.2.4-rootless
-docker.io/harness/ci-lite-engine:1.14.22
+"docker.io/harness/ci-lite-engine:1.14.22"
 docker.io/harness/ci-lite-engine:1.14.21
 docker.io/plugins/cache:1.4.2
-docker.io/bewithaman/s3:latest
-docker.io/plugins/s3:1.1.1
-docker.io/harness/sto-plugin:latest
+"docker.io/bewithaman/s3:latest"
+docker.io/plugins/s3:1.1.0
+"docker.io/harness/sto-plugin:latest"
 docker.io/harness/sto-plugin:latest
 docker.io/curlimages/curl:latest
 
