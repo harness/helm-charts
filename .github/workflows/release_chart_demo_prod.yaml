@@ -38,10 +38,14 @@ jobs:
         uses: dcarbone/install-yq-action@v1.0.0
         with:
           version: 'v4.28.1'
+      
+      - name: Backup values.yaml
+        run: |
+          cp src/harness/values.yaml harness-values.yaml
 
       - name: Override values.yaml and Chart.yaml for demo
         run: |
-          yq '. *= load("src/override-demo.yaml")' src/harness/values.yaml > tmp.values
+          yq '. *= load("src/override-demo.yaml")' harness-values.yaml > tmp.values
           mv tmp.values src/harness/values.yaml
           yq -i '.name += "-demo"' src/harness/Chart.yaml
       
@@ -55,7 +59,7 @@ jobs:
       
       - name: Override values.yaml and Chart.yaml for prod
         run: |
-          yq '. *= load("src/override-prod.yaml")' src/harness/values.yaml > tmp.values
+          yq '. *= load("src/override-prod.yaml")' harness-values.yaml > tmp.values
           mv tmp.values src/harness/values.yaml
           yq -i '.name += "-prod"' src/harness/Chart.yaml
       
