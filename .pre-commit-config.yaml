@@ -5,6 +5,7 @@ repos:
   rev: v4.0.1
   hooks:
   - id: trailing-whitespace
+  - id: check-yaml
 #  - id: end-of-file-fixer
 - repo: https://github.com/gruntwork-io/pre-commit
   rev: v0.1.17

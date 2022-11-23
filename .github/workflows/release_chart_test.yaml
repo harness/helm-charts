@@ -1,11 +1,11 @@
-name: Release chart-testing
+name: Release chart test
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - '**.yaml'
+  workflow_dispatch:
+    inputs:
+      repo:
+        type: string
+        required: true
 
 jobs:
   release:
@@ -34,10 +34,22 @@ jobs:
           helm repo add harness-common https://harness.github.io/helm-common
           helm repo add bitnami https://charts.bitnami.com/bitnami
       
-      - name: Run Chart Releaser
+      - name: Install yq
+        uses: dcarbone/install-yq-action@v1.0.0
+        with:
+          version: 'v4.28.1'
+
+      - name: Override values.yaml for demo
+        run: |
+          yq '. *= load("override.yaml")' values.yaml > tmp.values
+          mv tmp.values values.yaml
+          rm tmp.values
+      
+      - name: Run Chart Releaser demo
         uses: helm/chart-releaser-action@v1.4.1
         with:
           charts_dir: src
+          charts_repo_url: "${{ inputs.repo }}"
         env:
           CR_SKIP_EXISTING: true
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
