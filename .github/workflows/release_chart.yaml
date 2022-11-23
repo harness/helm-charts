@@ -1,9 +1,9 @@
-name: Release chart-testing
+name: Release chart harness
 
 on:
   push:
     branches:
-      - main
+      - "main"
     paths:
       - '**.yaml'
 
