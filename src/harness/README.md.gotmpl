@@ -27,10 +27,6 @@ $ kubectl create namespace <namespace>
 
 2. Create the override.yaml file using your envirionment settings:
 
-```
-{{ .Files.Get "override.yaml" }}
-```
-
 Install the Helm chart:
 ```
 $  helm install my-release harness/harness-prod -n <namespace> -f override.yaml
