@@ -105,278 +105,206 @@ global:
 
 
 ## Platform Settings
-harness:
-  platform:
-    # -- Feature list to enable within platform.  Contact Harness for value
-    access-control:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      appLogLevel: INFO
-      java:
-        memory: 512m
-      resources:
-        limits:
-          cpu: 1
-          memory: 4096Mi
-        requests:
-          cpu: 1
-          memory: 4096Mi
-
-    change-data-capture:
-      appLogLevel: INFO
-      java:
-        memory: 2048
-      resources:
-        limits:
-          cpu: 1
-          memory: 2880Mi
-        requests:
-          cpu: 1
-          memory: 2880Mi
-      autoscaling:
-        enabled: false
-        minReplicas: 2
-
-    cv-nextgen:
-      java:
-        memory: 2048
-      resources:
-        limits:
-          cpu: 1
-          memory: 3000Mi
-        requests:
-          cpu: 1
-          memory: 3000Mi
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-
-    delegate-proxy:
-      resources:
-        limits:
-          cpu: 200m
-          memory: 100Mi
-        requests:
-          cpu: 200m
-          memory: 100Mi
-      autoscaling:
-        enabled: false
-      replicaCount: 1
-
-    gateway:
-      java:
-        memory: 2048
-      resources:
-        limits:
-          cpu: 0.5
-          memory: 3072Mi
-        requests:
-          cpu: 0.5
-          memory: 3072Mi
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-
-    harness-manager:
-      external_graphql_rate_limit: "500"
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      java:
-        memory: "2048"
-      resources:
-        limits:
-          cpu: 2
-          memory: 3000Mi
-        requests:
-          cpu: 2
-          memory: 3000Mi
-
-    le-nextgen:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      resources:
-        limits:
-          cpu: 4
-          memory: 6132Mi
-        requests:
-          cpu: 4
-          memory: 6132Mi
-
-    log-service:
-      autoscaling:
-        enabled: false
-      replicaCount: 1
-      resources:
-        limits:
-          cpu: 1
-          memory: 3072Mi
-        requests:
-          cpu: 1
-          memory: 3072Mi
-
-    minio:
-      fullnameOverride: "minio"
-      mode: standalone
-      defaultBuckets: "logs"
-      persistence:
-        size: 200Gi
-
-    mongodb:
-      replicaCount: 3
-      resources:
-        limits:
-          cpu: 4
-          memory: 8192Mi
-        requests:
-          cpu: 4
-          memory: 8192Mi
-      persistence:
-        size: 200Gi
-      args:
-        - "--wiredTigerCacheSizeGB=3"
-
-    next-gen-ui:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      resources:
-        limits:
-          cpu: 0.5
-          memory: 512Mi
-        requests:
-          cpu: 0.5
-          memory: 512Mi
-
-    ng-auth-ui:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      resources:
-        limits:
-          cpu: 0.5
-          memory: 512Mi
-        requests:
-          cpu: 0.5
-          memory: 512Mi
-
-    ng-manager:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      java:
-        memory: "4096m"
-      resources:
-        limits:
-          cpu: 2
-          memory: 6144Mi
-        requests:
-          cpu: 2
-          memory: 6144Mi
-
-    pipeline-service:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      java:
-        memory: "4096m"
-      resources:
-        limits:
-          cpu: 1
-          memory: 6144Mi
-        requests:
-          cpu: 1
-          memory: 6144Mi
-
-    platform-service:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      java:
-        memory: "3072m"
-      resources:
-        limits:
-          cpu: 1
-          memory: 4096Mi
-        requests:
-          cpu: 1
-          memory: 4096Mi
-
-    redis:
-      redis:
-        resources:
-          limits:
-            cpu: 1
-            memory: 2048Mi
-          requests:
-            cpu: 1
-            memory: 2048Mi
-      replicaCount: 3
-      sentinel:
-        resources:
-          limits:
-            cpu: 100m
-            memory: 200Mi
-          requests:
-            cpu: 100m
-            memory: 200Mi
-      volumeClaimTemplate:
-        resources:
-          requests:
-            storage: 10Gi
-
-    scm-service:
-      autoscaling:
-        enabled: false
-      replicaCount: 1
-      resources:
-        limits:
-          cpu: 0.1
-          memory: 512Mi
-        requests:
-          cpu: 0.1
-          memory: 512Mi
-
-    template-service:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      java:
-        memory: "2048m"
-      resources:
-        limits:
-          cpu: 1
-          memory: 3000Mi
-        requests:
-          cpu: 0.7
-          memory: 3000Mi
-
-    ti-service:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      jobresources:
-        limits:
-          cpu: 1
-          memory: 3072Mi
-        requests:
-          cpu: 1
-          memory: 3072Mi
-      resources:
-        limits:
-          cpu: 1
-          memory: 3072Mi
-        requests:
-          cpu: 1
-          memory: 3072Mi
-
-    timescaledb:
+platform:
+  # -- Feature list to enable within platform.  Contact Harness for value
+  access-control:
+    autoscaling:
       enabled: true
-      autoscaling:
-        enabled: false
-      replicaCount: 2
+      minReplicas: 2
+    appLogLevel: INFO
+    java:
+      memory: 512m
+    resources:
+      limits:
+        cpu: 1
+        memory: 4096Mi
+      requests:
+        cpu: 1
+        memory: 4096Mi
+
+  change-data-capture:
+    appLogLevel: INFO
+    java:
+      memory: 2048
+    resources:
+      limits:
+        cpu: 1
+        memory: 2880Mi
+      requests:
+        cpu: 1
+        memory: 2880Mi
+    autoscaling:
+      enabled: false
+      minReplicas: 2
+
+  cv-nextgen:
+    java:
+      memory: 2048
+    resources:
+      limits:
+        cpu: 1
+        memory: 3000Mi
+      requests:
+        cpu: 1
+        memory: 3000Mi
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+
+  delegate-proxy:
+    resources:
+      limits:
+        cpu: 200m
+        memory: 100Mi
+      requests:
+        cpu: 200m
+        memory: 100Mi
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+
+  gateway:
+    java:
+      memory: 2048
+    resources:
+      limits:
+        cpu: 0.5
+        memory: 3072Mi
+      requests:
+        cpu: 0.5
+        memory: 3072Mi
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+
+  harness-manager:
+    external_graphql_rate_limit: "500"
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    java:
+      memory: "2048"
+    resources:
+      limits:
+        cpu: 2
+        memory: 3000Mi
+      requests:
+        cpu: 2
+        memory: 3000Mi
+
+  le-nextgen:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 4
+        memory: 6132Mi
+      requests:
+        cpu: 4
+        memory: 6132Mi
+
+  log-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 3072Mi
+      requests:
+        cpu: 1
+        memory: 3072Mi
+
+  minio:
+    fullnameOverride: "minio"
+    mode: standalone
+    defaultBuckets: "logs"
+    persistence:
+      size: 200Gi
+
+  mongodb:
+    replicaCount: 3
+    resources:
+      limits:
+        cpu: 4
+        memory: 8192Mi
+      requests:
+        cpu: 4
+        memory: 8192Mi
+    persistence:
+      size: 200Gi
+    args:
+      - "--wiredTigerCacheSizeGB=3"
+
+  next-gen-ui:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 0.5
+        memory: 512Mi
+      requests:
+        cpu: 0.5
+        memory: 512Mi
+
+  ng-auth-ui:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 0.5
+        memory: 512Mi
+      requests:
+        cpu: 0.5
+        memory: 512Mi
+
+  ng-manager:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    java:
+      memory: "4096m"
+    resources:
+      limits:
+        cpu: 2
+        memory: 6144Mi
+      requests:
+        cpu: 2
+        memory: 6144Mi
+
+  pipeline-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    java:
+      memory: "4096m"
+    resources:
+      limits:
+        cpu: 1
+        memory: 6144Mi
+      requests:
+        cpu: 1
+        memory: 6144Mi
+
+  platform-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    java:
+      memory: "3072m"
+    resources:
+      limits:
+        cpu: 1
+        memory: 4096Mi
+      requests:
+        cpu: 1
+        memory: 4096Mi
+
+  redis:
+    redis:
       resources:
         limits:
           cpu: 1
@@ -384,198 +312,269 @@ harness:
         requests:
           cpu: 1
           memory: 2048Mi
-      storage:
-        capacity: 120Gi
-
-
-
-  ci:
-    ci-manager:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      java:
-        memory: "4096m"
+    replicaCount: 3
+    sentinel:
       resources:
         limits:
-          cpu: 1
-          memory: 6192Mi
-        requests:
-          cpu: 1
-          memory: 6192Mi
-
-  sto:
-    sto-core:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 500m
-          memory: 500Mi
-    sto-manager:
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-      resources:
-        limits:
-          cpu: 1
-          memory: 3072Mi
-        requests:
-          cpu: 1
-          memory: 3072Mi
-  infra:
-    postgresql:
-      primary:
-        persistence:
-          size: 200Gi
-        resources:
-          limits:
-            cpu: 4
-            memory: 8192Mi
-          requests:
-            cpu: 4
-            memory: 8192Mi
-  srm:
-    enable-receivers: true
-    et-service:
-      et:
-        java:
-          heapSize: "6400m"
-        redis:
-          enabled: true
-      replicaCount: 1
-      resources:
-        limits:
-          cpu: 2
-          memory: 8Gi
-        requests:
-          cpu: 500m
-          memory: 8Gi
-    et-collector:
-      et:
-        java:
-          heapSize: "1600m"
-        redis:
-          enabled: true
-      autoscaling:
-        enabled: true
-        maxReplicas: 3
-
-      replicaCount: 1
-      resources:
-        limits:
-          cpu: 1
-          memory: 2Gi
+          cpu: 100m
+          memory: 200Mi
         requests:
           cpu: 100m
-          memory: 2Gi
-    et-receiver-hit:
-      name: et-receiver-hit
-      et:
-        redisQueue:
-          type: hit
-        java:
-          heapSize: "1600m"
-      autoscaling:
-        enabled: true
-        maxReplicas: 3
-      replicaCount: 1
+          memory: 200Mi
+    volumeClaimTemplate:
       resources:
-        limits:
-          cpu: 1
-          memory: 2Gi
         requests:
-          cpu: 100m
-          memory: 2Gi
-    et-receiver-decompile:
-      name: et-receiver-decompile
-      et:
-        redisQueue:
-          type: decompile
-        java:
-          heapSize: "1600m"
-      autoscaling:
-        enabled: true
-        maxReplicas: 3
-      replicaCount: 1
-      resources:
-        limits:
-          cpu: 2
-          memory: 2Gi
-        requests:
-          cpu: 100m
-          memory: 2Gi
-    et-receiver-agent:
-      name: et-receiver-agent
-      et:
-        redisQueue:
-          type: agent
-        java:
-          heapSize: "1600m"
-      autoscaling:
-        enabled: true
-        maxReplicas: 3
-      replicaCount: 1
-      resources:
-        limits:
-          cpu: 1
-          memory: 2Gi
-        requests:
-          cpu: 100m
-          memory: 2Gi
-    et-receiver-sql:
-      name: et-receiver-sql
-      et:
-        redisQueue:
-          type: sql
-        java:
-          heapSize: "1600m"
-      autoscaling:
-        enabled: true
-        maxReplicas: 3
-      replicaCount: 1
-      resources:
-        limits:
-          cpu: 1
-          memory: 2Gi
-        requests:
-          cpu: 100m
-          memory: 2Gi
+          storage: 10Gi
 
-  ngcustomdashboard:
-    looker:
+  scm-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 0.1
+        memory: 512Mi
+      requests:
+        cpu: 0.1
+        memory: 512Mi
+
+  template-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    java:
+      memory: "2048m"
+    resources:
+      limits:
+        cpu: 1
+        memory: 3000Mi
+      requests:
+        cpu: 0.7
+        memory: 3000Mi
+
+  ti-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    jobresources:
+      limits:
+        cpu: 1
+        memory: 3072Mi
+      requests:
+        cpu: 1
+        memory: 3072Mi
+    resources:
+      limits:
+        cpu: 1
+        memory: 3072Mi
+      requests:
+        cpu: 1
+        memory: 3072Mi
+
+  timescaledb:
+    enabled: true
+    autoscaling:
+      enabled: false
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 1
+        memory: 2048Mi
+      requests:
+        cpu: 1
+        memory: 2048Mi
+    storage:
+      capacity: 120Gi
+
+
+
+ci:
+  ci-manager:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    java:
+      memory: "4096m"
+    resources:
+      limits:
+        cpu: 1
+        memory: 6192Mi
+      requests:
+        cpu: 1
+        memory: 6192Mi
+
+sto:
+  sto-core:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 500m
+        memory: 500Mi
+      requests:
+        cpu: 500m
+        memory: 500Mi
+  sto-manager:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 1
+        memory: 3072Mi
+      requests:
+        cpu: 1
+        memory: 3072Mi
+infra:
+  postgresql:
+    primary:
+      persistence:
+        size: 200Gi
       resources:
         limits:
           cpu: 4
-          memory: 10Gi
+          memory: 8192Mi
         requests:
-          cpu: 2
-          memory: 4Gi
-      config:
-        # -- email address of the support user, required for initial signup and support
-        email: 'harnessSupport@harness.io'
+          cpu: 4
+          memory: 8192Mi
+srm:
+  enable-receivers: true
+  et-service:
+    et:
+      java:
+        heapSize: "6400m"
+      redis:
+        enabled: true
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 2
+        memory: 8Gi
+      requests:
+        cpu: 500m
+        memory: 8Gi
+  et-collector:
+    et:
+      java:
+        heapSize: "1600m"
+      redis:
+        enabled: true
+    autoscaling:
+      enabled: true
+      maxReplicas: 3
 
-      ingress:
-        # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
-        host: ''
-        tls:
-          secretName: ''
-    ng-custom-dashboards:
-      resources:
-        limits:
-            cpu: 2
-            memory: 1Gi
-        requests:
-          cpu: 1
-          memory: 500Mi
-      config:
-        # -- scheme used for your looker install, http or https
-        lookerScheme: 'https'
-        # -- hostname of your looker install
-        lookerHost: ''
-        # -- port of your looker install
-        lookerPort: '80'
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 2Gi
+  et-receiver-hit:
+    name: et-receiver-hit
+    et:
+      redisQueue:
+        type: hit
+      java:
+        heapSize: "1600m"
+    autoscaling:
+      enabled: true
+      maxReplicas: 3
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 2Gi
+  et-receiver-decompile:
+    name: et-receiver-decompile
+    et:
+      redisQueue:
+        type: decompile
+      java:
+        heapSize: "1600m"
+    autoscaling:
+      enabled: true
+      maxReplicas: 3
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 2
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 2Gi
+  et-receiver-agent:
+    name: et-receiver-agent
+    et:
+      redisQueue:
+        type: agent
+      java:
+        heapSize: "1600m"
+    autoscaling:
+      enabled: true
+      maxReplicas: 3
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 2Gi
+  et-receiver-sql:
+    name: et-receiver-sql
+    et:
+      redisQueue:
+        type: sql
+      java:
+        heapSize: "1600m"
+    autoscaling:
+      enabled: true
+      maxReplicas: 3
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 2Gi
+
+ngcustomdashboard:
+  looker:
+    resources:
+      limits:
+        cpu: 4
+        memory: 10Gi
+      requests:
+        cpu: 2
+        memory: 4Gi
+    config:
+      # -- email address of the support user, required for initial signup and support
+      email: 'harnessSupport@harness.io'
+
+    ingress:
+      # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
+      host: ''
+      tls:
+        secretName: ''
+  ng-custom-dashboards:
+    resources:
+      limits:
+          cpu: 2
+          memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 500Mi
+    config:
+      # -- scheme used for your looker install, http or https
+      lookerScheme: 'https'
+      # -- hostname of your looker install
+      lookerHost: ''
+      # -- port of your looker install
+      lookerPort: '80'

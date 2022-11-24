@@ -104,6 +104,9 @@ docker.io/curlimages/curl:latest
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| ci.ci-manager.affinity | object | `{}` |  |
+| ci.ci-manager.nodeSelector | object | `{}` |  |
+| ci.ci-manager.tolerations | list | `[]` |  |
 | global.airgap | string | `"false"` |  |
 | global.ccm | object | `{"enabled":false}` | Enable to install CCM(beta) |
 | global.cd.enabled | bool | `false` |  |
@@ -124,82 +127,79 @@ docker.io/curlimages/curl:latest
 | global.srm | object | `{"enabled":false}` | Enable to install SRM |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
-| harness.ci.ci-manager.affinity | object | `{}` |  |
-| harness.ci.ci-manager.nodeSelector | object | `{}` |  |
-| harness.ci.ci-manager.tolerations | list | `[]` |  |
-| harness.ngcustomdashboard.looker.affinity | object | `{}` |  |
-| harness.ngcustomdashboard.looker.nodeSelector | object | `{}` |  |
-| harness.ngcustomdashboard.looker.tolerations | list | `[]` |  |
-| harness.ngcustomdashboard.ng-custom-dashboards.affinity | object | `{}` |  |
-| harness.ngcustomdashboard.ng-custom-dashboards.nodeSelector | object | `{}` |  |
-| harness.ngcustomdashboard.ng-custom-dashboards.tolerations | list | `[]` |  |
-| harness.platform.access-control | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
-| harness.platform.change-data-capture | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | change-data-capture settings (taints, tolerations, and so on) |
-| harness.platform.cv-nextgen | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | cv-nextgen settings (taints, tolerations, and so on) |
-| harness.platform.delegate-proxy | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | delegate proxy settings (taints, tolerations, and so on) |
-| harness.platform.gateway | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | gateway settings (taints, tolerations, and so on) |
-| harness.platform.harness-manager | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | harness-manager (taints, tolerations, and so on) |
-| harness.platform.le-nextgen | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | le-nextgen (taints, tolerations, and so on) |
-| harness.platform.log-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
-| harness.platform.minio | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | minio (taints, tolerations, and so on) |
-| harness.platform.mongodb.affinity | object | `{}` |  |
-| harness.platform.mongodb.nodeSelector | object | `{}` |  |
-| harness.platform.mongodb.tolerations | list | `[]` |  |
-| harness.platform.next-gen-ui.affinity | object | `{}` |  |
-| harness.platform.next-gen-ui.nodeSelector | object | `{}` |  |
-| harness.platform.next-gen-ui.tolerations | list | `[]` |  |
-| harness.platform.ng-auth-ui.affinity | object | `{}` |  |
-| harness.platform.ng-auth-ui.nodeSelector | object | `{}` |  |
-| harness.platform.ng-auth-ui.tolerations | list | `[]` |  |
-| harness.platform.ng-manager.affinity | object | `{}` |  |
-| harness.platform.ng-manager.nodeSelector | object | `{}` |  |
-| harness.platform.ng-manager.tolerations | list | `[]` |  |
-| harness.platform.pipeline-service.affinity | object | `{}` |  |
-| harness.platform.pipeline-service.nodeSelector | object | `{}` |  |
-| harness.platform.pipeline-service.tolerations | list | `[]` |  |
-| harness.platform.platform-service.affinity | object | `{}` |  |
-| harness.platform.platform-service.nodeSelector | object | `{}` |  |
-| harness.platform.platform-service.tolerations | list | `[]` |  |
-| harness.platform.redis.affinity | object | `{}` |  |
-| harness.platform.redis.nodeSelector | object | `{}` |  |
-| harness.platform.redis.tolerations | list | `[]` |  |
-| harness.platform.scm-service.affinity | object | `{}` |  |
-| harness.platform.scm-service.nodeSelector | object | `{}` |  |
-| harness.platform.scm-service.tolerations | list | `[]` |  |
-| harness.platform.template-service.affinity | object | `{}` |  |
-| harness.platform.template-service.nodeSelector | object | `{}` |  |
-| harness.platform.template-service.tolerations | list | `[]` |  |
-| harness.platform.ti-service.affinity | object | `{}` |  |
-| harness.platform.ti-service.nodeSelector | object | `{}` |  |
-| harness.platform.ti-service.tolerations | list | `[]` |  |
-| harness.platform.timescaledb.affinity | object | `{}` |  |
-| harness.platform.timescaledb.nodeSelector | object | `{}` |  |
-| harness.platform.timescaledb.tolerations | list | `[]` |  |
-| harness.srm.enable-receivers | bool | `false` |  |
-| harness.srm.et-collector.affinity | object | `{}` |  |
-| harness.srm.et-collector.nodeSelector | object | `{}` |  |
-| harness.srm.et-collector.tolerations | list | `[]` |  |
-| harness.srm.et-receiver-agent.affinity | object | `{}` |  |
-| harness.srm.et-receiver-agent.nodeSelector | object | `{}` |  |
-| harness.srm.et-receiver-agent.tolerations | list | `[]` |  |
-| harness.srm.et-receiver-decompile.affinity | object | `{}` |  |
-| harness.srm.et-receiver-decompile.nodeSelector | object | `{}` |  |
-| harness.srm.et-receiver-decompile.tolerations | list | `[]` |  |
-| harness.srm.et-receiver-hit.affinity | object | `{}` |  |
-| harness.srm.et-receiver-hit.nodeSelector | object | `{}` |  |
-| harness.srm.et-receiver-hit.tolerations | list | `[]` |  |
-| harness.srm.et-receiver-sql.affinity | object | `{}` |  |
-| harness.srm.et-receiver-sql.nodeSelector | object | `{}` |  |
-| harness.srm.et-receiver-sql.tolerations | list | `[]` |  |
-| harness.srm.et-service.affinity | object | `{}` |  |
-| harness.srm.et-service.nodeSelector | object | `{}` |  |
-| harness.srm.et-service.tolerations | list | `[]` |  |
-| harness.sto.sto-core.affinity | object | `{}` |  |
-| harness.sto.sto-core.nodeSelector | object | `{}` |  |
-| harness.sto.sto-core.tolerations | list | `[]` |  |
-| harness.sto.sto-manager.affinity | object | `{}` |  |
-| harness.sto.sto-manager.nodeSelector | object | `{}` |  |
-| harness.sto.sto-manager.tolerations | list | `[]` |  |
+| ngcustomdashboard.looker.affinity | object | `{}` |  |
+| ngcustomdashboard.looker.nodeSelector | object | `{}` |  |
+| ngcustomdashboard.looker.tolerations | list | `[]` |  |
+| ngcustomdashboard.ng-custom-dashboards.affinity | object | `{}` |  |
+| ngcustomdashboard.ng-custom-dashboards.nodeSelector | object | `{}` |  |
+| ngcustomdashboard.ng-custom-dashboards.tolerations | list | `[]` |  |
+| platform.access-control | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
+| platform.change-data-capture | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | change-data-capture settings (taints, tolerations, and so on) |
+| platform.cv-nextgen | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | cv-nextgen settings (taints, tolerations, and so on) |
+| platform.delegate-proxy | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | delegate proxy settings (taints, tolerations, and so on) |
+| platform.gateway | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | gateway settings (taints, tolerations, and so on) |
+| platform.harness-manager | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | harness-manager (taints, tolerations, and so on) |
+| platform.le-nextgen | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | le-nextgen (taints, tolerations, and so on) |
+| platform.log-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
+| platform.minio | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | minio (taints, tolerations, and so on) |
+| platform.mongodb.affinity | object | `{}` |  |
+| platform.mongodb.nodeSelector | object | `{}` |  |
+| platform.mongodb.tolerations | list | `[]` |  |
+| platform.next-gen-ui.affinity | object | `{}` |  |
+| platform.next-gen-ui.nodeSelector | object | `{}` |  |
+| platform.next-gen-ui.tolerations | list | `[]` |  |
+| platform.ng-auth-ui.affinity | object | `{}` |  |
+| platform.ng-auth-ui.nodeSelector | object | `{}` |  |
+| platform.ng-auth-ui.tolerations | list | `[]` |  |
+| platform.ng-manager.affinity | object | `{}` |  |
+| platform.ng-manager.nodeSelector | object | `{}` |  |
+| platform.ng-manager.tolerations | list | `[]` |  |
+| platform.pipeline-service.affinity | object | `{}` |  |
+| platform.pipeline-service.nodeSelector | object | `{}` |  |
+| platform.pipeline-service.tolerations | list | `[]` |  |
+| platform.platform-service.affinity | object | `{}` |  |
+| platform.platform-service.nodeSelector | object | `{}` |  |
+| platform.platform-service.tolerations | list | `[]` |  |
+| platform.redis.affinity | object | `{}` |  |
+| platform.redis.nodeSelector | object | `{}` |  |
+| platform.redis.tolerations | list | `[]` |  |
+| platform.scm-service.affinity | object | `{}` |  |
+| platform.scm-service.nodeSelector | object | `{}` |  |
+| platform.scm-service.tolerations | list | `[]` |  |
+| platform.template-service.affinity | object | `{}` |  |
+| platform.template-service.nodeSelector | object | `{}` |  |
+| platform.template-service.tolerations | list | `[]` |  |
+| platform.ti-service.affinity | object | `{}` |  |
+| platform.ti-service.nodeSelector | object | `{}` |  |
+| platform.ti-service.tolerations | list | `[]` |  |
+| platform.timescaledb.affinity | object | `{}` |  |
+| platform.timescaledb.nodeSelector | object | `{}` |  |
+| platform.timescaledb.tolerations | list | `[]` |  |
+| srm.enable-receivers | bool | `false` |  |
+| srm.et-collector.affinity | object | `{}` |  |
+| srm.et-collector.nodeSelector | object | `{}` |  |
+| srm.et-collector.tolerations | list | `[]` |  |
+| srm.et-receiver-agent.affinity | object | `{}` |  |
+| srm.et-receiver-agent.nodeSelector | object | `{}` |  |
+| srm.et-receiver-agent.tolerations | list | `[]` |  |
+| srm.et-receiver-decompile.affinity | object | `{}` |  |
+| srm.et-receiver-decompile.nodeSelector | object | `{}` |  |
+| srm.et-receiver-decompile.tolerations | list | `[]` |  |
+| srm.et-receiver-hit.affinity | object | `{}` |  |
+| srm.et-receiver-hit.nodeSelector | object | `{}` |  |
+| srm.et-receiver-hit.tolerations | list | `[]` |  |
+| srm.et-receiver-sql.affinity | object | `{}` |  |
+| srm.et-receiver-sql.nodeSelector | object | `{}` |  |
+| srm.et-receiver-sql.tolerations | list | `[]` |  |
+| srm.et-service.affinity | object | `{}` |  |
+| srm.et-service.nodeSelector | object | `{}` |  |
+| srm.et-service.tolerations | list | `[]` |  |
+| sto.sto-core.affinity | object | `{}` |  |
+| sto.sto-core.nodeSelector | object | `{}` |  |
+| sto.sto-core.tolerations | list | `[]` |  |
+| sto.sto-manager.affinity | object | `{}` |  |
+| sto.sto-manager.nodeSelector | object | `{}` |  |
+| sto.sto-manager.tolerations | list | `[]` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
