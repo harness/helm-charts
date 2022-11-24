@@ -80,173 +80,172 @@ global:
       hosts:
         - "myhostname.example.com"
 
-harness:
-  ci:
-    ci-manager:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+ci:
+  ci-manager:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-  sto:
-    sto-core:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+sto:
+  sto-core:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    sto-manager:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  sto-manager:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-  srm:
-    enable-receivers: false
+srm:
+  enable-receivers: false
 
-    et-service:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  et-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    et-collector:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  et-collector:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    et-receiver-decompile:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  et-receiver-decompile:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    et-receiver-hit:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  et-receiver-hit:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    et-receiver-sql:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  et-receiver-sql:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    et-receiver-agent:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  et-receiver-agent:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-  ngcustomdashboard:
-    looker:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-    ng-custom-dashboards:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+ngcustomdashboard:
+  looker:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  ng-custom-dashboards:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-  platform:
-    # -- Access control settings (taints, tolerations, and so on)
-    access-control:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+platform:
+  # -- Access control settings (taints, tolerations, and so on)
+  access-control:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    # -- change-data-capture settings (taints, tolerations, and so on)
-    change-data-capture:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  # -- change-data-capture settings (taints, tolerations, and so on)
+  change-data-capture:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    # -- cv-nextgen settings (taints, tolerations, and so on)
-    cv-nextgen:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  # -- cv-nextgen settings (taints, tolerations, and so on)
+  cv-nextgen:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    # -- delegate proxy settings (taints, tolerations, and so on)
-    delegate-proxy:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  # -- delegate proxy settings (taints, tolerations, and so on)
+  delegate-proxy:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    # -- gateway settings (taints, tolerations, and so on)
-    gateway:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  # -- gateway settings (taints, tolerations, and so on)
+  gateway:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    # -- harness-manager (taints, tolerations, and so on)
-    harness-manager:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  # -- harness-manager (taints, tolerations, and so on)
+  harness-manager:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    # -- le-nextgen (taints, tolerations, and so on)
-    le-nextgen:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  # -- le-nextgen (taints, tolerations, and so on)
+  le-nextgen:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    # -- log-service (taints, tolerations, and so on)
-    log-service:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  # -- log-service (taints, tolerations, and so on)
+  log-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    # -- minio (taints, tolerations, and so on)
-    minio:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  # -- minio (taints, tolerations, and so on)
+  minio:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    mongodb:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  mongodb:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    next-gen-ui:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  next-gen-ui:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    ng-auth-ui:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  ng-auth-ui:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    ng-manager:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  ng-manager:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    pipeline-service:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  pipeline-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    platform-service:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  platform-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    redis:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  redis:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    scm-service:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  scm-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    template-service:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  template-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    ti-service:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  ti-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 
-    timescaledb:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
+  timescaledb:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
