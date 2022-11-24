@@ -33,7 +33,7 @@ jobs:
           helm repo add harness-helm https://harness.github.io/helm-charts
           helm repo add harness-common https://harness.github.io/helm-common
           helm repo add bitnami https://charts.bitnami.com/bitnami
-      
+
       - name: Run Chart Releaser
         uses: helm/chart-releaser-action@v1.4.1
         with:
@@ -41,5 +41,4 @@ jobs:
         env:
           CR_SKIP_EXISTING: true
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      
-      
+          CR_RELEASE_NOTES_FILE: images.txt

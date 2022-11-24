@@ -1,11 +1,10 @@
 name: Release chart demo and prod
 
 on:
-  push:
-    branches:
-      - "main"
-    paths:
-      - '**.yaml'
+  workflow_run:
+    workflows: ["Release chart harness"]
+    types:
+      - completed
 
 jobs:
   release:
@@ -33,22 +32,23 @@ jobs:
           helm repo add harness-helm https://harness.github.io/helm-charts
           helm repo add harness-common https://harness.github.io/helm-common
           helm repo add bitnami https://charts.bitnami.com/bitnami
-      
+
       - name: Install yq
         uses: dcarbone/install-yq-action@v1.0.0
         with:
           version: 'v4.28.1'
-      
-      - name: Backup values.yaml
+
+      - name: Backup values.yaml and Chart.yaml
         run: |
           cp src/harness/values.yaml harness-values.yaml
+          cp src/harness/Chart.yaml harness-chart.yaml
 
       - name: Override values.yaml and Chart.yaml for demo
         run: |
           yq '. *= load("src/override-demo.yaml")' harness-values.yaml > tmp.values
           mv tmp.values src/harness/values.yaml
-          yq -i '.name += "-demo"' src/harness/Chart.yaml
-      
+          yq '.name += "-demo"' harness-chart.yaml > src/harness/Chart.yaml
+
       - name: Run Chart Releaser demo
         uses: helm/chart-releaser-action@v1.4.1
         with:
@@ -56,13 +56,14 @@ jobs:
         env:
           CR_SKIP_EXISTING: true
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      
+          CR_RELEASE_NOTES_FILE: images.txt
+
       - name: Override values.yaml and Chart.yaml for prod
         run: |
           yq '. *= load("src/override-prod.yaml")' harness-values.yaml > tmp.values
           mv tmp.values src/harness/values.yaml
-          yq -i '.name += "-prod"' src/harness/Chart.yaml
-      
+          yq '.name += "-prod"' harness-chart.yaml > src/harness/Chart.yaml
+
       - name: Run Chart Releaser prod
         uses: helm/chart-releaser-action@v1.4.1
         with:
@@ -70,4 +71,4 @@ jobs:
         env:
           CR_SKIP_EXISTING: true
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      
+          CR_RELEASE_NOTES_FILE: images.txt
