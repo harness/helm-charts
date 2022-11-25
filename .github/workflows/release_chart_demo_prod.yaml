@@ -34,7 +34,7 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
 
       - name: Install yq
-        uses: dcarbone/install-yq-action@v1.0.0
+        uses: dcarbone/install-yq-action@v1.0.1
         with:
           version: 'v4.28.1'
 
