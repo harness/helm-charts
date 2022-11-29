@@ -1,0 +1,18 @@
+# Chart 0.2.87
+
+- Prior to version 0.2.87, All module level overrides must be present under `harness` key in override file
+Eg.
+To enable global receivers for "srm", use the following overrides
+
+harness:
+    srm:
+        enable-receivers: true
+
+- Starting version 0.2.87, All module level overrides must be present at root level in override file and NOT under `harness` key
+Eg.
+To enable global receivers for "srm", use the following overrides
+
+srm:
+    enable-receivers: true
+
+- To change the existing override file, delete the root level "harness" key and de-indent the value (all module level overrides)
