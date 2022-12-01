@@ -30,6 +30,8 @@ jobs:
 
       - name: Add Helm repos
         run: |
+          helm repo add harness-gitops https://harness.github.io/helm-gitops
+          helm repo add harness-policy-mgmt https://harness.github.io/helm-policy-mgmt
           helm repo add harness-helm https://harness.github.io/helm-charts
           helm repo add harness-common https://harness.github.io/helm-common
           helm repo add bitnami https://charts.bitnami.com/bitnami
