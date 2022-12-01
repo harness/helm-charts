@@ -23,5 +23,11 @@ dependencies:
 - name: ccm
   repository: file://ccm
   version: 0.1.0
-digest: sha256:be6500a75bd938f22a05e1c8f237cdfb1d46c6948a2a1d9bc3a38010a01fdda0
-generated: "2022-11-10T17:44:23.246224-05:00"
+- name: gitops
+  repository: file://gitops
+  version: 0.1.0
+- name: opa
+  repository: file://opa
+  version: 0.1.0
+digest: sha256:285def4f33b066519cb913f42aeb4cdcc6d2d966647d9a12e06f24ab47b9ec45
+generated: "2022-12-01T22:59:03.529431+05:30"
