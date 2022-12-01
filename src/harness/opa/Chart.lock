@@ -1,6 +1,0 @@
-dependencies:
-- name: policy-mgmt
-  repository: https://harness.github.io/helm-policy-mgmt
-  version: 0.1.2
-digest: sha256:45a09bab87ff753a0db9b5a2c8a272de6861a669f7e037420fe1eb502010b7ce
-generated: "2022-12-01T22:51:18.6909+05:30"

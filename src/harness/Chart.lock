@@ -24,10 +24,10 @@ dependencies:
   repository: file://ccm
   version: 0.1.0
 - name: gitops
-  repository: file://gitops
-  version: 0.1.0
-- name: opa
-  repository: file://opa
-  version: 0.1.0
-digest: sha256:285def4f33b066519cb913f42aeb4cdcc6d2d966647d9a12e06f24ab47b9ec45
-generated: "2022-12-01T22:59:03.529431+05:30"
+  repository: https://harness.github.io/helm-gitops
+  version: 0.1.4
+- name: policy-mgmt
+  repository: https://harness.github.io/helm-policy-mgmt
+  version: 0.1.2
+digest: sha256:d977061e8d068e1dc895ad282088ddff75ae149ab450afca151d5de34496b7da
+generated: "2022-12-01T23:45:00.52133+05:30"

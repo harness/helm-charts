@@ -9,7 +9,6 @@ global:
   loadbalancerURL: ""
   mongoSSL: false
   storageClassName: ""
-
   cd:
     # -- Enable to install CD
     enabled: true
@@ -19,19 +18,21 @@ global:
   sto:
     # -- Enable to install STO
     enabled: false
-
   srm:
     # -- Enable to install SRM
     enabled: false
-
   ngcustomdashboard:
     # -- Enabled will deploy NG Customer Dashboards
     enabled: false
-
   ff:
     # -- Enabled will deploy Feature Flags Component
     enabled: false
-
+  # -- Enable to install gitops(beta)
+  gitops:
+    enabled: false
+  # -- Enable to install opa(beta)
+  opa:
+    enabled: false
   saml:
     # --  Enabled will not send invites to email and autoaccepts
     autoaccept: false

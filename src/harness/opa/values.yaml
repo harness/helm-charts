@@ -1,3 +1,0 @@
-policy-mgmt:
-  image:
-    tag: "v1.49.0"

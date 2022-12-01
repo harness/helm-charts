@@ -65,9 +65,9 @@ dependencies:
   - name: gitops
     conditon: global.gitops.enabled
     version: 0.1.x
-    repository: "file://gitops"
+    repository: "https://harness.github.io/helm-gitops"
 
-  - name: opa
+  - name: policy-mgmt
     conditon: global.opa.enabled
     version: 0.1.x
-    repository: "file://opa"
+    repository: "https://harness.github.io/helm-policy-mgmt"
