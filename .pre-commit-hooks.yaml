@@ -1,0 +1,8 @@
+- id: generate-images-list
+  args: []
+  description: Generate list of images used in the chart
+  entry: src/generate-image-list.sh
+  files: ((Chart|values)\.yaml)$
+  language: script
+  name: Generate Images List
+  require_serial: true

@@ -1,9 +1,9 @@
-name: Release chart-testing
+name: Release chart harness
 
 on:
   push:
     branches:
-      - main
+      - "main"
     paths:
       - '**.yaml'
 
@@ -41,3 +41,4 @@ jobs:
         env:
           CR_SKIP_EXISTING: true
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          CR_RELEASE_NOTES_FILE: images.txt
