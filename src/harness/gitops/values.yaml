@@ -1,0 +1,3 @@
+gitops:
+  image:
+    tag: "v0.54.5"
