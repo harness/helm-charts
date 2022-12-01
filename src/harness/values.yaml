@@ -17,7 +17,6 @@ global:
   # -- Enable to install STO
   sto:
     enabled: false
-
   # -- Enable to install SRM
   srm:
     enabled: false
@@ -30,7 +29,12 @@ global:
   # -- Enable to install CCM(beta)
   ccm:
     enabled: false
-
+  # -- Enable to install gitops(beta)
+  gitops:
+    enabled: false
+  # -- Enable to install opa(beta)
+  opa:
+    enabled: false
   # --  Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false

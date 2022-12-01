@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.87-dev-01](https://img.shields.io/badge/Version-0.2.87--dev--01-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77125](https://img.shields.io/badge/AppVersion-1.0.77125-informational?style=flat-square)
+![Version: 0.2.87-dev-04](https://img.shields.io/badge/Version-0.2.87--dev--04-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77125](https://img.shields.io/badge/AppVersion-1.0.77125-informational?style=flat-square)
 
 ## Usage
 
@@ -112,6 +112,7 @@ docker.io/curlimages/curl:latest
 | global.cd.enabled | bool | `false` |  |
 | global.ci | object | `{"enabled":false}` | Enable to install CI |
 | global.ff | object | `{"enabled":false}` | Enable to install FF |
+| global.gitops | object | `{"enabled":false}` | Enable to install gitops(beta) |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | This private Docker image registry will override any registries that are defined in subcharts. |
 | global.ingress | object | `{"className":"harness","defaultbackend":{"create":false},"enabled":true,"hosts":["myhost.example.com"],"loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"controller":{"annotations":{}},"create":false,"objects":{"annotations":{}}},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
@@ -123,6 +124,7 @@ docker.io/curlimages/curl:latest
 | global.loadbalancerURL | string | `"https://myhostname.example.com"` |  |
 | global.mongoSSL | bool | `false` |  |
 | global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install CDB |
+| global.opa | object | `{"enabled":false}` | Enable to install opa(beta) |
 | global.saml | object | `{"autoaccept":false}` | Enabled will not send invites to email and autoaccepts |
 | global.srm | object | `{"enabled":false}` | Enable to install SRM |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |

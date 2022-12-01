@@ -1,0 +1,17 @@
+global:
+  cd:
+    enabled: true
+  ci:
+    enabled: true
+  sto:
+    enabled: true
+  srm:
+    enabled: true
+  ngcustomdashboard:
+    enabled: true
+  ff:
+    enabled: true
+  gitops:
+    enabled: true
+  opa:
+    enabled: true
