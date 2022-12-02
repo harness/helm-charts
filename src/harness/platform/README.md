@@ -122,7 +122,7 @@ A Helm chart for Kubernetes
 | mongodb.resources.requests.memory | string | `"8192Mi"` |  |
 | mongodb.service.nameOverride | string | `"mongodb-replicaset-chart"` |  |
 | next-gen-ui.autoscaling.enabled | bool | `false` |  |
-| next-gen-ui.image.tag | string | `"0.323.10"` |  |
+| next-gen-ui.image.tag | string | `"0.323.11"` |  |
 | next-gen-ui.replicaCount | int | `1` |  |
 | next-gen-ui.resources.limits.cpu | float | `0.2` |  |
 | next-gen-ui.resources.limits.memory | string | `"200Mi"` |  |
