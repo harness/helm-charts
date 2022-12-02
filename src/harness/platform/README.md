@@ -1,6 +1,6 @@
 # platform
 
-![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -15,7 +15,6 @@ A Helm chart for Kubernetes
 | https://harness.github.io/helm-cv-nextgen | cv-nextgen | 0.2.x |
 | https://harness.github.io/helm-delegate-proxy | delegate-proxy | 0.2.x |
 | https://harness.github.io/helm-gateway | gateway | 0.2.x |
-| https://harness.github.io/helm-gitops | gitops | 0.1.x |
 | https://harness.github.io/helm-harness-manager | harness-manager | 0.2.x |
 | https://harness.github.io/helm-harness-secrets | harness-secrets | 0.2.x |
 | https://harness.github.io/helm-le-nextgen | le-nextgen | 0.2.x |
