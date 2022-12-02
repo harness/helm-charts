@@ -40,10 +40,6 @@ dependencies:
     version: 0.2.x
     repository: "https://harness.github.io/helm-gateway"
 
-  - name: gitops
-    version: 0.1.x
-    repository: "https://harness.github.io/helm-gitops"
-
   - name: harness-secrets
     version: 0.2.x
     repository: "https://harness.github.io/helm-harness-secrets"

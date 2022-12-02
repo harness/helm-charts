@@ -15,7 +15,6 @@ A Helm chart for Kubernetes
 | https://harness.github.io/helm-cv-nextgen | cv-nextgen | 0.2.x |
 | https://harness.github.io/helm-delegate-proxy | delegate-proxy | 0.2.x |
 | https://harness.github.io/helm-gateway | gateway | 0.2.x |
-| https://harness.github.io/helm-gitops | gitops | 0.1.x |
 | https://harness.github.io/helm-harness-manager | harness-manager | 0.2.x |
 | https://harness.github.io/helm-harness-secrets | harness-secrets | 0.2.x |
 | https://harness.github.io/helm-le-nextgen | le-nextgen | 0.2.x |
