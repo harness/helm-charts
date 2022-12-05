@@ -1,6 +1,6 @@
 # platform
 
-![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 0.1.7](https://img.shields.io/badge/Version-0.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -80,7 +80,7 @@ A Helm chart for Kubernetes
 | harness-manager.delegate_docker_image.image.repository | string | `"harness/delegate"` |  |
 | harness-manager.delegate_docker_image.image.tag | string | `"latest"` |  |
 | harness-manager.external_graphql_rate_limit | string | `"500"` |  |
-| harness-manager.image.tag | string | `"77125"` |  |
+| harness-manager.image.tag | string | `"77126"` |  |
 | harness-manager.java.memory | string | `"2048"` |  |
 | harness-manager.replicaCount | int | `1` |  |
 | harness-manager.resources.limits.cpu | int | `2` |  |

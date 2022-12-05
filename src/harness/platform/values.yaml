@@ -87,7 +87,7 @@ harness-manager:
   autoscaling:
     enabled: false
   image:
-    tag: "77125"
+    tag: "77126"
   java:
     memory: "2048"
   replicaCount: 1
