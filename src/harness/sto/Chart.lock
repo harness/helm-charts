@@ -1,9 +1,9 @@
 dependencies:
 - name: sto-core
   repository: https://harness.github.io/helm-sto-core
-  version: 0.2.9
+  version: 0.2.10
 - name: sto-manager
   repository: https://harness.github.io/helm-sto-manager
   version: 0.2.15
-digest: sha256:a8947a8eb4fa66dd0ac1c84b07126fc8b4e364f78ad9e87badd8aafe4e03c2c4
-generated: "2022-11-17T22:20:54.93731+05:30"
+digest: sha256:148087bd98606cfca39a4ec272a35c13ac6d665e60faf182f001c003a07861f1
+generated: "2022-12-05T09:02:41.631708-05:00"

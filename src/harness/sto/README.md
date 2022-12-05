@@ -1,6 +1,6 @@
 # sto
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -16,7 +16,7 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | sto-core.autoscaling.enabled | bool | `false` |  |
-| sto-core.image.tag | string | `"v1.13.3"` |  |
+| sto-core.image.tag | string | `"v1.14.1"` |  |
 | sto-manager.autoscaling.enabled | bool | `false` |  |
 | sto-manager.image.tag | string | `"77800-000"` |  |
 
