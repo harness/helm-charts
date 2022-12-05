@@ -4,7 +4,7 @@ dependencies:
   version: 0.1.1
 - name: platform
   repository: file://platform
-  version: 0.1.6
+  version: 0.1.7
 - name: sto
   repository: file://sto
   version: 0.1.4
@@ -29,5 +29,5 @@ dependencies:
 - name: policy-mgmt
   repository: https://harness.github.io/helm-policy-mgmt
   version: 0.1.2
-digest: sha256:552b7f3b0270d51fd08faed4dcdb541d1f652dc794fc20b0d6b180cdb807b4eb
-generated: "2022-12-05T09:03:47.031454-05:00"
+digest: sha256:d427e9cdaa17d0ee87473646e081f13719a38e1d0176f7fc2e4f87b009555614
+generated: "2022-12-05T11:35:15.787847-05:00"
