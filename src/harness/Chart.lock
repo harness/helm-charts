@@ -25,9 +25,9 @@ dependencies:
   version: 0.1.0
 - name: gitops
   repository: https://harness.github.io/helm-gitops
-  version: 0.1.4
+  version: 0.1.7
 - name: policy-mgmt
   repository: https://harness.github.io/helm-policy-mgmt
   version: 0.1.2
-digest: sha256:d427e9cdaa17d0ee87473646e081f13719a38e1d0176f7fc2e4f87b009555614
-generated: "2022-12-05T11:35:15.787847-05:00"
+digest: sha256:2db23645fdc4a599b850a7ca636fe6a685fce2b1a22ac7111f4ac70a5497f1f3
+generated: "2022-12-09T16:18:36.91987+05:30"
