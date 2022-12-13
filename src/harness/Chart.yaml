@@ -63,11 +63,11 @@ dependencies:
     repository: "file://ccm"
 
   - name: gitops
-    conditon: global.gitops.enabled
+    condition: global.gitops.enabled
     version: 0.1.x
     repository: "https://harness.github.io/helm-gitops"
 
   - name: policy-mgmt
-    conditon: global.opa.enabled
+    condition: global.opa.enabled
     version: 0.1.x
     repository: "https://harness.github.io/helm-policy-mgmt"
