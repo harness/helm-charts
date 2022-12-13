@@ -1,6 +1,6 @@
 ci-manager:
   image:
-    tag: "1711"
+    tag: "1714"
   ci_images:
     addon:
       tag: "1.14.21"
