@@ -389,7 +389,24 @@ spec:
           number: 17001
         host: ff-pushpin-service
 {{- end }}
+{{- if not .Values.global.cg.enabled }}
+  - name: harness-ui
+    match:
+    - uri:
+        prefix: "/"
+    route:
+    - destination:
+        port:
+          number: 80
+        host: next-gen-ui
 
+  - name: catchall-redirect
+    match:
+    - uri:
+        regex: ".*"
+    redirect:
+      uri: "/"
+{{- end }}
 {{- if .Values.global.ngcustomdashboard.enabled }}
   - name: ng-custom-dashboards
     match:
