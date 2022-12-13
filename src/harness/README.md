@@ -146,6 +146,7 @@ docker.io/curlimages/curl:latest
 | global.airgap | string | `"false"` |  |
 | global.ccm | object | `{"enabled":false}` | Enable to install CCM(beta) |
 | global.cd.enabled | bool | `false` |  |
+| global.cg.enabled | bool | `false` |  |
 | global.ci | object | `{"enabled":false}` | Enable to install CI |
 | global.ff | object | `{"enabled":false}` | Enable to install FF |
 | global.gitops | object | `{"enabled":false}` | Enable to install gitops(beta) |
