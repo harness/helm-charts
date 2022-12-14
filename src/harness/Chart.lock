@@ -3,31 +3,31 @@ dependencies:
   repository: file://infra
   version: 0.1.1
 - name: platform
-  repository: file://platform
-  version: 0.1.7
+  repository: https://harness.github.io/helm-platform
+  version: 0.3.2
 - name: sto
-  repository: file://sto
-  version: 0.1.4
+  repository: https://harness.github.io/helm-sto
+  version: 0.3.1
 - name: ci
   repository: file://ci
   version: 0.1.2
 - name: srm
-  repository: file://srm
-  version: 0.1.3
+  repository: https://harness.github.io/helm-srm
+  version: 0.3.0
 - name: ngcustomdashboard
-  repository: file://ngcustomdashboard
-  version: 0.1.7
+  repository: https://harness.github.io/helm-dashboards
+  version: 0.2.2
 - name: ff
-  repository: file://ff
-  version: 0.1.2
+  repository: https://harness.github.io/helm-ff
+  version: 0.3.2
 - name: ccm
-  repository: file://ccm
-  version: 0.1.0
+  repository: https://harness.github.io/helm-ccm
+  version: 0.3.2
 - name: gitops
   repository: https://harness.github.io/helm-gitops
   version: 0.1.8
 - name: policy-mgmt
   repository: https://harness.github.io/helm-policy-mgmt
   version: 0.1.2
-digest: sha256:4abde6c2daadc06ca28779b11e50674819dfbdbdd8846e29fdad2d770482a243
-generated: "2022-12-12T19:20:33.678914+05:30"
+digest: sha256:8aa5761b6426870e89a2b2a7872c7920e6740a061304af432e3a6da29a9d23bf
+generated: "2022-12-15T00:37:33.435847+05:30"

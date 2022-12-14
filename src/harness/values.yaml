@@ -95,11 +95,15 @@ sto:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    autoscaling:
+      enabled: false
 
   sto-manager:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    autoscaling:
+      enabled: false
 
 srm:
   enable-receivers: false
