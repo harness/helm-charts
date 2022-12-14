@@ -29,13 +29,13 @@ dependencies:
     repository: "file://infra"
 
   - name: platform
-    version: 0.1.x
-    repository: "file://platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/helm-platform"
 
   - name: sto
     condition: global.sto.enabled
-    version: 0.1.x
-    repository: "file://sto"
+    version: 0.3.x
+    repository: "https://harness.github.io/helm-sto"
 
   - name: ci
     condition: global.ci.enabled
@@ -44,23 +44,23 @@ dependencies:
 
   - name: srm
     condition: global.srm.enabled
-    version: 0.1.x
-    repository: "file://srm"
+    version: 0.3.x
+    repository: "https://harness.github.io/helm-srm"
 
   - name: ngcustomdashboard
     condition: global.ngcustomdashboard.enabled
-    version: 0.1.x
-    repository: "file://ngcustomdashboard"
+    version: 0.2.x
+    repository: "https://harness.github.io/helm-dashboards"
 
   - name: ff
     condition: global.ff.enabled
-    version: 0.1.x
-    repository: "file://ff"
+    version: 0.3.x
+    repository: "https://harness.github.io/helm-ff"
 
   - name: ccm
     condition: global.ccm.enabled
-    version: 0.1.x
-    repository: "file://ccm"
+    version: 0.3.x
+    repository: "https://harness.github.io/helm-ccm"
 
   - name: gitops
     condition: global.gitops.enabled
