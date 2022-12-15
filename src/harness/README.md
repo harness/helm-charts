@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.91-dev-04](https://img.shields.io/badge/Version-0.2.91--dev--04-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77622](https://img.shields.io/badge/AppVersion-1.0.77622-informational?style=flat-square)
+![Version: 0.2.92](https://img.shields.io/badge/Version-0.2.92-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77622](https://img.shields.io/badge/AppVersion-1.0.77622-informational?style=flat-square)
 
 ## Usage
 
@@ -102,7 +102,7 @@ docker.io/harness/ff-postgres-migration-signed:1.666.0
 docker.io/harness/ff-timescale-migration-signed:1.666.0
 docker.io/harness/helm-init-container:latest
 docker.io/harness/log-service-signed:release-18
-docker.io/harness/nextgenui-signed:0.323.10
+docker.io/harness/nextgenui-signed:0.323.11
 docker.io/harness/ng-auth-ui-signed:0.42.2
 docker.io/harness/ng-manager-signed:77125
 docker.io/harness/pipeline-service-signed:1.11.1
@@ -234,9 +234,11 @@ docker.io/curlimages/curl:latest
 | srm.et-service.nodeSelector | object | `{}` |  |
 | srm.et-service.tolerations | list | `[]` |  |
 | sto.sto-core.affinity | object | `{}` |  |
+| sto.sto-core.autoscaling.enabled | bool | `false` |  |
 | sto.sto-core.nodeSelector | object | `{}` |  |
 | sto.sto-core.tolerations | list | `[]` |  |
 | sto.sto-manager.affinity | object | `{}` |  |
+| sto.sto-manager.autoscaling.enabled | bool | `false` |  |
 | sto.sto-manager.nodeSelector | object | `{}` |  |
 | sto.sto-manager.tolerations | list | `[]` |  |
 
