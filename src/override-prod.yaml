@@ -36,7 +36,9 @@ global:
   saml:
     # --  Enabled will not send invites to email and autoaccepts
     autoaccept: false
-
+  license:
+    cg: ''
+    ng: ''
   # --- Enable Istio Gateway
   istio:
     enabled: false
