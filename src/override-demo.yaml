@@ -37,6 +37,9 @@ global:
   saml:
     # --  Enabled will not send invites to email and autoaccepts
     autoaccept: false
+  license:
+    cg: ''
+    ng: ''
   istio:
     enabled: false
     strict: false
