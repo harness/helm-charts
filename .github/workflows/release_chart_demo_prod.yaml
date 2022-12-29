@@ -33,6 +33,12 @@ jobs:
           helm repo add harness-policy-mgmt https://harness.github.io/helm-policy-mgmt
           helm repo add harness-helm https://harness.github.io/helm-charts
           helm repo add harness-common https://harness.github.io/helm-common
+          helm repo add harness-sto https://harness.github.io/helm-sto
+          helm repo add harness-dashboards https://harness.github.io/helm-dashboards
+          helm repo add harness-platform https://harness.github.io/helm-platform
+          helm repo add harness-ccm https://harness.github.io/helm-ccm
+          helm repo add harness-ff https://harness.github.io/helm-ff
+          helm repo add harness-srm https://harness.github.io/helm-srm
           helm repo add bitnami https://charts.bitnami.com/bitnami
 
       - name: Install yq
