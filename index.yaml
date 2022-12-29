@@ -3573,6 +3573,55 @@ entries:
     version: 0.2.17
   harness-prod:
   - apiVersion: v2
+    appVersion: 1.0.77629
+    created: "2022-12-29T13:31:22.507447154Z"
+    dependencies:
+    - name: infra
+      repository: file://infra
+      version: 0.1.x
+    - name: platform
+      repository: https://harness.github.io/helm-platform
+      version: 0.3.x
+    - condition: global.sto.enabled
+      name: sto
+      repository: https://harness.github.io/helm-sto
+      version: 0.3.x
+    - condition: global.ci.enabled
+      name: ci
+      repository: file://ci
+      version: 0.1.x
+    - condition: global.srm.enabled
+      name: srm
+      repository: https://harness.github.io/helm-srm
+      version: 0.3.x
+    - condition: global.ngcustomdashboard.enabled
+      name: ngcustomdashboard
+      repository: https://harness.github.io/helm-dashboards
+      version: 0.2.x
+    - condition: global.ff.enabled
+      name: ff
+      repository: https://harness.github.io/helm-ff
+      version: 0.3.x
+    - condition: global.ccm.enabled
+      name: ccm
+      repository: https://harness.github.io/helm-ccm
+      version: 0.3.x
+    - condition: global.gitops.enabled
+      name: gitops
+      repository: https://harness.github.io/helm-gitops
+      version: 0.1.x
+    - condition: global.opa.enabled
+      name: policy-mgmt
+      repository: https://harness.github.io/helm-policy-mgmt
+      version: 0.1.x
+    description: Helm Chart for deploying Harness.
+    digest: c2bdfabb7922a759c4e472f946e49b828895c279e025a35c3b1fd219724dbb65
+    name: harness-prod
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.92/harness-prod-0.2.92.tgz
+    version: 0.2.92
+  - apiVersion: v2
     appVersion: 1.0.77125
     created: "2022-12-02T15:52:18.029416413Z"
     dependencies:
@@ -5065,4 +5114,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.2/harness-prod-0.2.2.tgz
     version: 0.2.2
-generated: "2022-12-29T13:31:16.87106Z"
+generated: "2022-12-29T13:31:22.508031061Z"
