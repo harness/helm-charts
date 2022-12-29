@@ -389,6 +389,7 @@ spec:
           number: 17001
         host: ff-pushpin-service
 {{- end }}
+{{- if not .Values.global.cg.enabled }}
   - name: harness-ui
     match:
     - uri:
@@ -405,7 +406,7 @@ spec:
         regex: ".*"
     redirect:
       uri: "/"
-
+{{- end }}
 {{- if .Values.global.ngcustomdashboard.enabled }}
   - name: ng-custom-dashboards
     match:

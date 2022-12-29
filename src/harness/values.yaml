@@ -38,6 +38,11 @@ global:
   # --  Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false
+  cg:
+    enabled: false
+  license:
+    cg: ''
+    ng: ''
 
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
@@ -95,11 +100,15 @@ sto:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    autoscaling:
+      enabled: false
 
   sto-manager:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    autoscaling:
+      enabled: false
 
 srm:
   enable-receivers: false

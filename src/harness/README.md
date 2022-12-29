@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.91](https://img.shields.io/badge/Version-0.2.91-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77125](https://img.shields.io/badge/AppVersion-1.0.77125-informational?style=flat-square)
+![Version: 0.2.92](https://img.shields.io/badge/Version-0.2.92-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77629](https://img.shields.io/badge/AppVersion-1.0.77629-informational?style=flat-square)
 
 ## Usage
 
@@ -72,43 +72,44 @@ This command removes the Kubernetes components that are associated with the char
 If your cluster is in an air-gapped environment, your deployment requires the following images:
 
 ```
-docker.io/harness/gitops-service-signed:v0.54.5
+docker.io/harness/gitops-service-signed:v0.59.5
 docker.io/bitnami/minio:2022.8.22-debian-11-r0
 docker.io/bitnami/mongodb:4.2.19
 docker.io/bitnami/postgresql:14.4.0-debian-11-r9
-docker.io/harness/accesscontrol-service-signed:77002
-docker.io/harness/cdcdata-signed:77125
-docker.io/harness/ci-manager-signed:906
-docker.io/harness/ci-scm-signed:release-87-ubi
-docker.io/harness/cv-nextgen-signed:77125
+docker.io/harness/accesscontrol-service-signed:77301
+docker.io/harness/cdcdata-signed:77629
+docker.io/harness/ci-manager-signed:1714
+docker.io/harness/ci-scm-signed:release-88-ubi
+docker.io/harness/cv-nextgen-signed:77629
 docker.io/harness/dashboard-service-signed:v1.52.24
-docker.io/harness/delegate-proxy-signed:77036
+docker.io/harness/delegate-proxy-signed:77629
 docker.io/harness/error-tracking-signed:5.7.4
 docker.io/harness/et-collector-signed:5.7.2
 docker.io/harness/ff-pushpin-signed:1.0.3
-docker.io/harness/ff-pushpin-worker-signed:1.666.0
-docker.io/harness/ff-server-signed:1.666.0
-docker.io/harness/gateway-signed:200091
+docker.io/harness/ff-pushpin-worker-signed:1.738.0
+docker.io/harness/ff-server-signed:1.738.0
+docker.io/harness/gateway-signed:2000125
 docker.io/harness/helm-init-container:latest
-docker.io/harness/le-nextgen-signed:67101
+docker.io/harness/le-nextgen-signed:67200
 docker.io/harness/looker-signed:22.18.18.0
-docker.io/harness/manager-signed:77125
+docker.io/harness/manager-signed:77629
 docker.io/harness/policy-mgmt:v1.49.0
-docker.io/harness/stocore-signed:v1.13.3
+docker.io/harness/stocore-signed:v1.14.4
 docker.io/harness/stomanager-signed:77800-000
-docker.io/harness/ti-service-signed:release-87
-docker.io/harness/template-service-signed:77125
-docker.io/harness/ff-postgres-migration-signed:1.666.0
-docker.io/harness/ff-timescale-migration-signed:1.666.0
+docker.io/harness/ti-service-signed:release-98
+docker.io/ubuntu:20.04
+docker.io/harness/template-service-signed:77629
+docker.io/harness/ff-postgres-migration-signed:1.738.0
+docker.io/harness/ff-timescale-migration-signed:1.738.0
 docker.io/harness/helm-init-container:latest
 docker.io/harness/log-service-signed:release-18
-docker.io/harness/nextgenui-signed:0.323.10
-docker.io/harness/ng-auth-ui-signed:0.42.2
-docker.io/harness/ng-manager-signed:77125
-docker.io/harness/pipeline-service-signed:1.11.1
-docker.io/harness/platform-service-signed:77201
+docker.io/harness/nextgenui-signed:0.331.16
+docker.io/harness/ng-auth-ui-signed:0.45.0
+docker.io/harness/ng-manager-signed:77629
+docker.io/harness/pipeline-service-signed:1.16.3
+docker.io/harness/platform-service-signed:77502
 docker.io/harness/redis:6.2.7-alpine
-docker.io/harness/ti-service-signed:release-87
+docker.io/harness/ti-service-signed:release-98
 docker.io/timescale/timescaledb-ha:pg13-ts2.6-oss-latest
 docker.io/harness/ci-addon:1.14.19
 docker.io/harness/ci-addon:1.14.21
@@ -124,7 +125,7 @@ docker.io/plugins/cache:1.4.2
 docker.io/plugins/gcs:1.3.0
 docker.io/harness/upgrader:latest
 docker.io/harness/drone-git:1.2.4-rootless
-docker.io/harness/delegate:22.10.77221
+docker.io/harness/delegate:22.12.77629
 docker.io/harness/ci-lite-engine:1.14.22
 docker.io/harness/ci-lite-engine:1.14.21
 docker.io/plugins/cache:1.4.2
@@ -146,6 +147,7 @@ docker.io/curlimages/curl:latest
 | global.airgap | string | `"false"` |  |
 | global.ccm | object | `{"enabled":false}` | Enable to install CCM(beta) |
 | global.cd.enabled | bool | `false` |  |
+| global.cg.enabled | bool | `false` |  |
 | global.ci | object | `{"enabled":false}` | Enable to install CI |
 | global.ff | object | `{"enabled":false}` | Enable to install FF |
 | global.gitops | object | `{"enabled":false}` | Enable to install gitops(beta) |
@@ -157,6 +159,8 @@ docker.io/curlimages/curl:latest
 | global.ingress.nginx.create | bool | `false` | Create Nginx Controller.  True will deploy a controller into your cluster |
 | global.ingress.nginx.objects.annotations | object | `{}` | annotations to be added to ingress Objects |
 | global.istio | object | `{"enabled":false,"gateway":{"create":true,"port":443,"protocol":"HTTPS"},"hosts":["*"],"strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
+| global.license.cg | string | `""` |  |
+| global.license.ng | string | `""` |  |
 | global.loadbalancerURL | string | `"https://myhostname.example.com"` |  |
 | global.mongoSSL | bool | `false` |  |
 | global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install CDB |
@@ -233,9 +237,11 @@ docker.io/curlimages/curl:latest
 | srm.et-service.nodeSelector | object | `{}` |  |
 | srm.et-service.tolerations | list | `[]` |  |
 | sto.sto-core.affinity | object | `{}` |  |
+| sto.sto-core.autoscaling.enabled | bool | `false` |  |
 | sto.sto-core.nodeSelector | object | `{}` |  |
 | sto.sto-core.tolerations | list | `[]` |  |
 | sto.sto-manager.affinity | object | `{}` |  |
+| sto.sto-manager.autoscaling.enabled | bool | `false` |  |
 | sto.sto-manager.nodeSelector | object | `{}` |  |
 | sto.sto-manager.tolerations | list | `[]` |  |
 
