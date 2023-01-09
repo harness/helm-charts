@@ -58,7 +58,7 @@ jobs:
           yq '.name += "-demo"' harness-chart.yaml > src/harness/Chart.yaml
 
       - name: Run Chart Releaser demo
-        uses: helm/chart-releaser-action@v1.4.1
+        uses: helm/chart-releaser-action@v1.5.0
         with:
           charts_dir: src
         env:
@@ -73,7 +73,7 @@ jobs:
           yq '.name += "-prod"' harness-chart.yaml > src/harness/Chart.yaml
 
       - name: Run Chart Releaser prod
-        uses: helm/chart-releaser-action@v1.4.1
+        uses: helm/chart-releaser-action@v1.5.0
         with:
           charts_dir: src
         env:
