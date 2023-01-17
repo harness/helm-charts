@@ -153,7 +153,7 @@ docker.io/curlimages/curl:latest
 | global.gitops | object | `{"enabled":false}` | Enable to install gitops(beta) |
 | global.ha | bool | `true` |  |
 | global.imageRegistry | string | `""` | This private Docker image registry will override any registries that are defined in subcharts. |
-| global.ingress | object | `{"className":"harness","defaultbackend":{"create":false},"enabled":true,"hosts":["myhost.example.com"],"loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"controller":{"annotations":{}},"create":false,"objects":{"annotations":{}}},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
+| global.ingress | object | `{"className":"harness","defaultbackend":{"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":true,"hosts":["myhost.example.com"],"loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"controller":{"annotations":{}},"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"},"objects":{"annotations":{}}},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
 | global.ingress.defaultbackend.create | bool | `false` | Create will deploy a default backend into your cluster |
 | global.ingress.nginx.controller.annotations | object | `{}` | annotations to be addded to ingress Controller |
 | global.ingress.nginx.create | bool | `false` | Create Nginx Controller.  True will deploy a controller into your cluster |
