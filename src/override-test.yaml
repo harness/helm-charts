@@ -6,7 +6,7 @@ global:
   # -- Global Docker image registry
   imageRegistry: ""
   # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
-  loadbalancerURL: "hello"
+  loadbalancerURL: ""
   mongoSSL: false
   storageClassName: ""
 
