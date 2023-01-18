@@ -387,7 +387,7 @@ platform:
 ci:
   ci-manager:
     autoscaling:
-      enabled: false
+      enabled: true
     replicaCount: 1
     java:
       memory: "2048m"
