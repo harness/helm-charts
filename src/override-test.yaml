@@ -69,7 +69,7 @@ global:
     # NOTE: for ip-based installs, either use sslip.io for an IP-encoded DNS name
     # OR set the hosts entry to '*'
     hosts:
-      - ''
+      - '<+pipeline.variables.ENV_URL>.pr.harness.io'
     tls:
       enabled: false
       secretName: harness-cert
@@ -387,7 +387,7 @@ platform:
 ci:
   ci-manager:
     autoscaling:
-      enabled: true
+      enabled: false
     replicaCount: 1
     java:
       memory: "2048m"
