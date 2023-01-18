@@ -107,16 +107,6 @@ global:
 platform:
   # -- Feature list to enable within platform.  Contact Harness for value
   access-control:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -132,16 +122,6 @@ platform:
         memory: 4096Mi
 
   change-data-capture:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     appLogLevel: INFO
     java:
       memory: 2048
@@ -157,16 +137,6 @@ platform:
     replicaCount: 1
 
   cv-nextgen:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     java:
       memory: 1024
     resources:
@@ -181,16 +151,6 @@ platform:
     replicaCount: 1
 
   delegate-proxy:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     resources:
       limits:
         cpu: 200m
@@ -203,16 +163,6 @@ platform:
     replicaCount: 1
 
   gateway:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     java:
       memory: 1024
     resources:
@@ -227,16 +177,6 @@ platform:
     replicaCount: 1
 
   harness-manager:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     external_graphql_rate_limit: "500"
     autoscaling:
       enabled: false
@@ -252,16 +192,6 @@ platform:
         memory: 3000Mi
 
   le-nextgen:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -274,16 +204,6 @@ platform:
         memory: 512Mi
 
   log-service:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -295,16 +215,6 @@ platform:
         cpu: 0.5
         memory: 1400Mi
   minio:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     fullnameOverride: "minio"
     mode: standalone
     defaultBuckets: "logs"
@@ -312,16 +222,6 @@ platform:
       size: 10Gi
 
   mongodb:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     replicaCount: 1
     resources:
       limits:
@@ -336,16 +236,6 @@ platform:
       - "--wiredTigerCacheSizeGB=0.5"
 
   next-gen-ui:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -358,16 +248,6 @@ platform:
         memory: 200Mi
 
   ng-auth-ui:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -380,16 +260,6 @@ platform:
         memory: 200Mi
 
   ng-manager:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -404,16 +274,6 @@ platform:
         memory: 6144Mi
 
   pipeline-service:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -428,16 +288,6 @@ platform:
         memory: 1400Mi
 
   platform-service:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -452,16 +302,6 @@ platform:
         memory: 3000Mi
 
   redis:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     useAntiAffinity: false
     redis:
       resources:
@@ -486,16 +326,6 @@ platform:
           storage: 10Gi
 
   scm-service:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -508,16 +338,6 @@ platform:
         memory: 512Mi
 
   template-service:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -532,16 +352,6 @@ platform:
         memory: 1500Mi
 
   ti-service:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -561,16 +371,6 @@ platform:
         memory: 1400Mi
 
   timescaledb:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -586,16 +386,6 @@ platform:
 
 ci:
   ci-manager:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -611,16 +401,6 @@ ci:
 
 sto:
   sto-core:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -632,16 +412,6 @@ sto:
         cpu: 500m
         memory: 500Mi
   sto-manager:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     autoscaling:
       enabled: false
     replicaCount: 1
@@ -654,16 +424,6 @@ sto:
         memory: 3072Mi
 infra:
   postgresql:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image: 
-      registry: docker.io
-      repository: harness/manager
-      tag: 77600
-      pullPolicy: Always
-    imagePullSecrets:
-      - name : regcred
     primary:
       persistence:
         size: 8Gi
@@ -676,16 +436,6 @@ infra:
           memory: 4Gi
 
 srm:
-  affinity: {}
-  nodeSelector: {}
-  tolerations: []
-  image: 
-    registry: docker.io
-    repository: harness/manager
-    tag: 77600
-    pullPolicy: Always
-  imagePullSecrets:
-    - name : regcred
   enable-receivers: false
   et-service:
     et:
