@@ -61,7 +61,7 @@ global:
     # --- Enable Nginx ingress controller gateway
     enabled: true
     annotations: {}
-    loadBalancerIP: '35.188.90.103'
+    loadBalancerIP: '0.0.0.0'
     className: "harness"
     loadBalancerEnabled: true
     useSelfSignedCert: false
