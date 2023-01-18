@@ -353,7 +353,7 @@ platform:
 
   ti-service:
     autoscaling:
-      enabled: false
+      enabled: true
     replicaCount: 1
     jobresources:
       limits:
