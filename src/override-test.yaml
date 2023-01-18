@@ -6,7 +6,7 @@ global:
   # -- Global Docker image registry
   imageRegistry: ""
   # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
-  loadbalancerURL: "https://<+pipeline.variables.ENV_URL>.pr.harness.io"
+  loadbalancerURL: "https://<+pipeline.variables.ENV_URL>.pr.harness.io/<+infra.namespace>/"
   mongoSSL: false
   storageClassName: ""
 
