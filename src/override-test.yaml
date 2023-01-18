@@ -6,7 +6,7 @@ global:
   # -- Global Docker image registry
   imageRegistry: ""
   # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
-  loadbalancerURL: 'https://<+pipeline.variables.ENV_URL>.pr.harness.io/<+regex.extract("^[0-9]+", <+infra.namespace>)>/'
+  loadbalancerURL: "https://<+pipeline.variables.ENV_URL>.pr.harness.io/<+infra.namespace>/"
   mongoSSL: false
   storageClassName: ""
 
@@ -63,13 +63,13 @@ global:
     annotations: {}
     loadBalancerIP: '0.0.0.0'
     className: "harness"
-    loadBalancerEnabled: false
+    loadBalancerEnabled: true
     useSelfSignedCert: false
 
     # NOTE: for ip-based installs, either use sslip.io for an IP-encoded DNS name
     # OR set the hosts entry to '*'
     hosts:
-      - 'https://<+pipeline.variables.ENV_URL>.pr.harness.io/<+regex.extract("^[0-9]+", <+infra.namespace>)>/'
+      - 'https://<+pipeline.variables.ENV_URL>.pr.harness.io/<+infra.namespace>/'
     tls:
       enabled: false
       secretName: harness-cert
