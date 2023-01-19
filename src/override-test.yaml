@@ -76,7 +76,7 @@ global:
 
     nginx:
       # -- Create Nginx Controller.  True will deploy a controller into your cluster
-      create: false
+      create: true
       controller:
         # -- annotations to be addded to ingress Controller
         annotations: {}
