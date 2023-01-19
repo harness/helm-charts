@@ -62,7 +62,7 @@ global:
     enabled: true
     annotations: {}
     loadBalancerIP: '0.0.0.0'
-    className: "harness"
+    className: "k8s.io/nginx-130"
     loadBalancerEnabled: true
     useSelfSignedCert: false
 
