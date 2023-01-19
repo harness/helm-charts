@@ -62,7 +62,7 @@ global:
     enabled: true
     annotations: {}
     loadBalancerIP: '0.0.0.0'
-    className: '<+regex.extract("^[0-9]+",k8s.io/nginx-130)>'
+    className: "nginx-130"
     loadBalancerEnabled: true
     useSelfSignedCert: false
 
