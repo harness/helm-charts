@@ -51,7 +51,7 @@ global:
     loadBalancerIP: '0.0.0.0'
     loadBalancerEnabled: false
     className: "harness"
-    envpath: 'namespace'
+    envpath: "namespace"
     hosts:
       - 'myhost.example.com'
     tls:
