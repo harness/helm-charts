@@ -22,7 +22,7 @@ spec:
                 name: ng-manager
                 port:
                   number: 7090
-             path: /{{  .Values.envpath }}ng/api(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}ng/api(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -57,7 +57,7 @@ spec:
                 name: sto-core
                 port:
                   number: 4000
-             path: /{{  .Values.envpath }}sto/(.*)
+             path: /{{  .Values.global.ingress.envpath }}sto/(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -92,7 +92,7 @@ spec:
                 name: sto-manager
                 port:
                   number: 7090
-             path: /{{  .Values.envpath }}sto-manager/(.*)
+             path: /{{  .Values.global.ingress.envpath }}sto-manager/(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -127,7 +127,7 @@ spec:
                 name: et-collector
                 port:
                   number: 6070
-             path: /{{  .Values.envpath }}et-collector(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}et-collector(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -162,7 +162,7 @@ spec:
                 name: et-service
                 port:
                   number: 9191
-             path: /{{  .Values.envpath }}et(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}et(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -197,7 +197,7 @@ spec:
                 name: next-gen-ui
                 port:
                   number: 80
-             path: /{{  .Values.envpath }}ng(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}ng(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -232,7 +232,7 @@ spec:
                 name: ci-manager
                 port:
                   number: 7090
-             path: /{{  .Values.envpath }}ci(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}ci(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -267,7 +267,7 @@ spec:
                 name: cv-nextgen
                 port:
                   number: 6060
-             path: /{{  .Values.envpath }}cv/api(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}cv/api(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -300,7 +300,7 @@ spec:
                 name: minio
                 port:
                   number: 9000
-             path: /{{  .Values.envpath }}minio
+             path: /{{  .Values.global.ingress.envpath }}minio
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -333,7 +333,7 @@ spec:
                 name: minio
                 port:
                   number: 9000
-             path: /{{  .Values.envpath }}logs/
+             path: /{{  .Values.global.ingress.envpath }}logs/
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -368,7 +368,7 @@ spec:
                 name: log-service
                 port:
                   number: 8079
-             path: /{{  .Values.envpath }}log-service(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}log-service(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -403,7 +403,7 @@ spec:
                 name: gateway
                 port:
                   number: 80
-             path: /{{  .Values.envpath }}gateway(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}gateway(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -438,7 +438,7 @@ spec:
                 name: access-control
                 port:
                   number: 9006
-             path: /{{  .Values.envpath }}authz(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}authz(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -473,7 +473,7 @@ spec:
                 name: ti-service
                 port:
                   number: 8078
-             path: /{{  .Values.envpath }}ti-service(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}ti-service(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -508,7 +508,7 @@ spec:
                 name: template-service
                 port:
                   number: 15002
-             path: /{{  .Values.envpath }}template(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}template(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -541,7 +541,7 @@ spec:
                 name: delegate-proxy
                 port:
                   number: 80
-             path: /{{  .Values.envpath }}storage
+             path: /{{  .Values.global.ingress.envpath }}storage
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -576,7 +576,7 @@ spec:
                 name: pipeline-service
                 port:
                   number: 12001
-             path: /{{  .Values.envpath }}pipeline(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}pipeline(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -611,7 +611,7 @@ spec:
                 name: platform-service
                 port:
                   number: 9005
-             path: /{{  .Values.envpath }}notifications(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}notifications(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -646,7 +646,7 @@ spec:
                 name: platform-service
                 port:
                   number: 9005
-             path: /{{  .Values.envpath }}audit(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}audit(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -681,7 +681,7 @@ spec:
                 name: platform-service
                 port:
                   number: 9005
-             path: /{{  .Values.envpath }}resourcegroup(/|$)(.*)
+             path: /{{  .Values.global.ingress.envpath }}resourcegroup(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -716,7 +716,7 @@ spec:
                 name: verification-svc
                 port:
                   number: 7070
-             path: /{{  .Values.envpath }}verification
+             path: /{{  .Values.global.ingress.envpath }}verification
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -749,7 +749,7 @@ spec:
                 name: harness-manager
                 port:
                   number: 9090
-             path: /{{  .Values.envpath }}api
+             path: /{{  .Values.global.ingress.envpath }}api
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -782,7 +782,7 @@ spec:
                 name: harness-manager
                 port:
                   number: 9090
-             path: /{{  .Values.envpath }}stream
+             path: /{{  .Values.global.ingress.envpath }}stream
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -817,7 +817,7 @@ spec:
                 name: ng-auth-ui
                 port:
                   number: 80
-             path: /{{  .Values.envpath }}auth(.*)
+             path: /{{  .Values.global.ingress.envpath }}auth(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -850,7 +850,7 @@ spec:
                 name: next-gen-ui
                 port:
                   number: 80
-             path: /{{  .Values.envpath }}
+             path: /{{  .Values.global.ingress.envpath }}
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
