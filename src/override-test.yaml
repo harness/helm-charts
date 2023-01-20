@@ -69,7 +69,7 @@ global:
     # NOTE: for ip-based installs, either use sslip.io for an IP-encoded DNS name
     # OR set the hosts entry to '*'
     hosts:
-      - "<+pipeline.variables.ENV_URL>.pr.harness.io"
+      - <+pipeline.variables.ENV_URL>.pr.harness.io/<+infra.namespace>/
     tls:
       enabled: false
       secretName: harness-cert
@@ -488,7 +488,7 @@ ngcustomdashboard:
 
     ingress:
       # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
-      host: "<+pipeline.variables.ENV_URL>.pr.harness.io"
+      host: <+pipeline.variables.ENV_URL>.pr.harness.io/<+infra.namespace>/
       tls:
         secretName: ''
   ng-custom-dashboards:
