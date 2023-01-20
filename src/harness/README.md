@@ -163,6 +163,7 @@ docker.io/curlimages/curl:latest
 | global.license.ng | string | `""` |  |
 | global.loadbalancerURL | string | `"https://myhostname.example.com"` |  |
 | global.mongoSSL | bool | `false` |  |
+| global.ng.enabled | bool | `true` |  |
 | global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install CDB |
 | global.opa | object | `{"enabled":false}` | Enable to install opa(beta) |
 | global.saml | object | `{"autoaccept":false}` | Enabled will not send invites to email and autoaccepts |

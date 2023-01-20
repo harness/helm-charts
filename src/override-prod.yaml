@@ -9,6 +9,10 @@ global:
   loadbalancerURL: ""
   mongoSSL: false
   storageClassName: ""
+  cg:
+    enabled: false
+  ng:
+    enabled: true
   cd:
     # -- Enable to install CD
     enabled: true

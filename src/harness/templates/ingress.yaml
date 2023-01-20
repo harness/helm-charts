@@ -697,41 +697,6 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: verification-service
-  namespace: {{ .Release.Namespace }}
-  annotations:
-    {{- if .Values.global.ingress.nginx.objects.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
-    {{- end }}
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-spec:
-  ingressClassName: {{ .Values.global.ingress.className | quote }}
-  rules:
-    {{- range .Values.global.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
-        paths:
-          - backend:
-              service:
-                name: verification-svc
-                port:
-                  number: 7070
-            path: /verification
-            pathType: Prefix
-    {{- end }}
-  {{- if .Values.global.ingress.tls.enabled }}
-  tls:
-    - hosts:
-        {{- range .Values.global.ingress.hosts }}
-        - {{ . | quote }}
-        {{- end }}
-      secretName: {{ .Values.global.ingress.tls.secretName }}
-  {{- end }}
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
   name: harness-manager-api
   namespace: {{ .Release.Namespace }}
   {{- if .Values.global.ingress.nginx.objects.annotations }}

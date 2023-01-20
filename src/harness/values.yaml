@@ -8,7 +8,10 @@ global:
   loadbalancerURL: https://myhostname.example.com
   mongoSSL: false
   storageClassName: ""
-
+  cg:
+    enabled: false
+  ng:
+    enabled: true
   cd:
     enabled: false
   # -- Enable to install CI
@@ -38,8 +41,6 @@ global:
   # --  Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false
-  cg:
-    enabled: false
   license:
     cg: ''
     ng: ''
