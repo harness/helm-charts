@@ -13,8 +13,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -48,8 +48,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -83,8 +83,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -118,8 +118,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -153,8 +153,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -188,8 +188,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -223,8 +223,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -258,8 +258,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -291,8 +291,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -324,8 +324,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -359,8 +359,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -394,8 +394,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -429,8 +429,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -464,8 +464,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -499,8 +499,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -532,8 +532,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -567,8 +567,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -602,8 +602,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -637,8 +637,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -672,8 +672,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -707,8 +707,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -740,8 +740,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -773,8 +773,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -808,8 +808,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
@@ -841,8 +841,8 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
-    '{{- range .Values.global.ingress.hosts }}'
-    - host: '{{ . | quote }}'
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
       http:
         paths:
           - backend:
