@@ -53,7 +53,7 @@ global:
     loadBalancerEnabled: false
     className: "harness"
     hosts:
-      - 'myhost.example.com'
+      - ''
     tls:
       enabled: true
       secretName: harness-cert
