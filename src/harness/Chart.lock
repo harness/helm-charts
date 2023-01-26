@@ -17,17 +17,14 @@ dependencies:
 - name: ngcustomdashboard
   repository: https://harness.github.io/helm-dashboards
   version: 0.2.5
-  version: 0.2.5
 - name: ff
   repository: https://harness.github.io/helm-ff
-  version: 0.3.5
   version: 0.3.5
 - name: ccm
   repository: https://harness.github.io/helm-ccm
   version: 0.3.9
 - name: gitops
   repository: https://harness.github.io/helm-gitops
-  version: 0.1.10
   version: 0.1.10
 - name: policy-mgmt
   repository: https://harness.github.io/helm-policy-mgmt
