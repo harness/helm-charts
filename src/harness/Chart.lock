@@ -22,12 +22,12 @@ dependencies:
   version: 0.3.5
 - name: ccm
   repository: https://harness.github.io/helm-ccm
-  version: 0.3.9
+  version: 0.3.10
 - name: gitops
   repository: https://harness.github.io/helm-gitops
-  version: 0.1.10
+  version: 0.1.11
 - name: policy-mgmt
   repository: https://harness.github.io/helm-policy-mgmt
   version: 0.1.3
-digest: sha256:9b94a67e23f41cb1593f12d49e69f680291f75af0e4204ce3e79b1cb74b7bc2b
-generated: "2023-01-25T19:05:31.738311-05:00"
+digest: sha256:50088a0579000f78eab13dbeda37fa667f5274ebb9b07c6686fd41e7c81a75a4
+generated: "2023-01-30T10:21:13.406212+05:30"
