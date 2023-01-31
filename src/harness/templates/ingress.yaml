@@ -114,7 +114,7 @@ metadata:
     {{- if .Values.global.ingress.nginx.objects.annotations }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
     {{- end }}
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
@@ -149,7 +149,7 @@ metadata:
     {{- if .Values.global.ingress.nginx.objects.annotations }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
     {{- end }}
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
