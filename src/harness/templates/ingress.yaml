@@ -163,6 +163,7 @@ spec:
                 port:
                   number: 9191
             path: {{- range .Values.global.ingress.paths 0 | quote }}(/|$)(.*)
+                  {{- end }}
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
