@@ -3,6 +3,7 @@ global:
     storageClassName: "standard-zonal-c"
     storageClass: "standard-zonal-c"
     imagePullSecrets: <+artifact.imagePullSecret>
+    imageRegistry: us.gcr.io
     ingress:
         enabled: true
         loadBalancerEnabled: true
@@ -17,6 +18,9 @@ global:
         - ''
 ci:
   ci-manager:
+    image:
+        repository: harness/feature-ci-manager-openjdk-8u242
+        tag: 9000890
     affinity: {}
     nodeSelector: {}
     tolerations: []
