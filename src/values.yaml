@@ -1,0 +1,2 @@
+namespace: <+pipeline.variables.Namespace>
+secret: <+artifact.imagePullSecret>
