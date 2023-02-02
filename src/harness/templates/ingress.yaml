@@ -162,7 +162,7 @@ spec:
                 name: et-service
                 port:
                   number: 9191
-            path: {{- range .Values.global.ingress.paths | quote }}
+            path: {{ .Values.global.ingress.paths | quote }}
                   {{- end }}
             pathType: ImplementationSpecific
     {{- end }}
