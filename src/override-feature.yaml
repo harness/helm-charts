@@ -2,7 +2,8 @@ global:
     loadbalancerURL: http://<+pipeline.variables.loadbalancerIP>
     storageClassName: "standard-zonal-c"
     storageClass: "standard-zonal-c"
-    imagePullSecrets: <+artifact.imagePullSecret>
+    imagePullSecrets: 
+    - gcr-io-secret
     imageRegistry: us.gcr.io
     ingress:
         enabled: true
