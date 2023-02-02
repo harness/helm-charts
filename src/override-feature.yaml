@@ -2,6 +2,7 @@ global:
     loadbalancerURL: http://<+pipeline.variables.loadbalancerIP>
     storageClassName: "standard-zonal-c"
     storageClass: "standard-zonal-c"
+    imagePullSecrets: <+artifact.imagePullSecret>
     ingress:
         enabled: true
         loadBalancerEnabled: true
