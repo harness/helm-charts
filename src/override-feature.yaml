@@ -2,7 +2,6 @@ global:
     loadbalancerURL: http://<+pipeline.variables.loadbalancerIP>
     storageClassName: "standard-zonal-c"
     storageClass: "standard-zonal-c"
-    imageRegistry: us.gcr.io
     ingress:
         enabled: true
         loadBalancerEnabled: true
@@ -18,6 +17,7 @@ global:
 ci:
   ci-manager:
     image:
+        registry: us.gcr.io
         repository: harness/feature-ci-manager-openjdk-8u242
         tag: 9000890
         imagePullSecrets: 
