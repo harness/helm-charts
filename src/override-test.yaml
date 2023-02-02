@@ -71,7 +71,7 @@ global:
     hosts:
       - <+pipeline.variables.ENV_URL>.pr.harness.io
     paths:
-      - /<+infra.namespace>
+      - "/<+infra.namespace>"
     tls:
       enabled: false
       secretName: harness-cert
