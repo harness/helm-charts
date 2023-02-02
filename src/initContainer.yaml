@@ -1,0 +1,18 @@
+apiVersion: batch/v1          ## The version of the Kubernetes API
+kind: Job                     ## The type of object for jobs
+metadata:
+ name: image-pull-secrets
+ namespace: <+pipeline.variables.Namespace>
+spec:                         ## What state you desire for the object
+ template:
+   metadata:
+     name: image-pull-secrets
+   spec:
+     containers:
+     - name: job
+       image: bitnami/kubectl:latest                  ##  Image used
+       command: |
+        secretName=<+pipeline.variables.Namespace>
+        echo <+artifact.imagePullSecret> > /tmp/secretvalue.txt
+        kubectl -n $secretName create secret docker-registry gcr-io-secret --docker-server us.gcr.io --docker-username _json_key --docker-email anything@gcr --docker-password="$(cat /tmp/secretvalue.txt)" 
+     restartPolicy: Never          ##  Restart Policy in case container failed
