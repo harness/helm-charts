@@ -11,8 +11,8 @@ spec:                         ## What state you desire for the object
      containers:
      - name: job
        image: bitnami/kubectl:latest                  ##  Image used
-       command: |
-        secretName=<+pipeline.variables.Namespace>
-        echo <+artifact.imagePullSecret> > /tmp/secretvalue.txt
-        kubectl -n $secretName create secret docker-registry gcr-io-secret --docker-server us.gcr.io --docker-username _json_key --docker-email anything@gcr --docker-password="$(cat /tmp/secretvalue.txt)" 
+       command:
+        - export secretName=<+pipeline.variables.Namespace>
+        - echo <+artifact.imagePullSecret> > /tmp/secretvalue.txt
+        - kubectl -n $secretName create secret docker-registry gcr-io-secret --docker-server us.gcr.io --docker-username _json_key --docker-email anything@gcr --docker-password="$(cat /tmp/secretvalue.txt)" 
      restartPolicy: Never          ##  Restart Policy in case container failed
