@@ -10,9 +10,6 @@ spec:                         ## What state you desire for the object
    spec:
      containers:
      - name: job
-       image: bitnami/kubectl:latest                  ##  Image used
-       command:
-        - export secretName={{.Values.namespace}}
-        - echo {{.Values.secret}} > /tmp/secretvalue.txt
-        - kubectl -n $secretName create secret docker-registry gcr-io-secret --docker-server us.gcr.io --docker-username _json_key --docker-email anything@gcr --docker-password="$(cat /tmp/secretvalue.txt)" 
+       image: alpine:latest                  ##  Image used
+       command: ["echo", "hello"] 
      restartPolicy: Never          ##  Restart Policy in case container failed
