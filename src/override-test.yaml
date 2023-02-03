@@ -70,7 +70,7 @@ global:
     # OR set the hosts entry to '*'
     hosts:
       - "<+pipeline.variables.ENV_URL>.pr.harness.io"
-    paths:
+    path:
        - "/<+infra.namespace>"
     tls:
       enabled: false

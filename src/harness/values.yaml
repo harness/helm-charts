@@ -53,6 +53,7 @@ global:
     className: "harness"
     hosts:
       - 'myhost.example.com'
+    path: 'namespace'
     tls:
       enabled: true
       secretName: harness-cert

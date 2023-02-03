@@ -13,6 +13,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path }}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -22,7 +23,7 @@ spec:
                 name: ng-manager
                 port:
                   number: 7090
-            path: /ng/api(/|$)(.*)
+            path: /{{ $path }}/ng/api(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -48,6 +49,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -57,7 +59,7 @@ spec:
                 name: sto-core
                 port:
                   number: 4000
-            path: /sto/(.*)
+            path: /{{ $path }}/sto/(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -83,6 +85,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -92,7 +95,7 @@ spec:
                 name: sto-manager
                 port:
                   number: 7090
-            path: /sto-manager/(.*)
+            path: /{{ $path }}/sto-manager/(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -118,6 +121,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -127,7 +131,7 @@ spec:
                 name: et-collector
                 port:
                   number: 6070
-            path: /et-collector(/|$)(.*)
+            path: /{{ $path }}/et-collector(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -146,26 +150,25 @@ metadata:
   name: et-service
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- if .Values.global.ingress.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
     {{- end }}
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
         paths:
-          {{- range .Values.global.ingress.paths }}
-          - path: {{ . | quote }}
-            pathType: ImplementationSpecific
-            backend:
+          - backend:
               service:
                 name: et-service
                 port:
                   number: 9191
-          {{- end }}
+            path: /{{ $path }}/et(/|$)(.*)
+            pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
   tls:
@@ -190,6 +193,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -199,7 +203,7 @@ spec:
                 name: next-gen-ui
                 port:
                   number: 80
-            path: /ng(/|$)(.*)
+            path: /{{ $path }}/ng(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -225,6 +229,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -234,7 +239,7 @@ spec:
                 name: ci-manager
                 port:
                   number: 7090
-            path: /ci(/|$)(.*)
+            path: /{{ $path }}/ci(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -260,6 +265,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -269,7 +275,7 @@ spec:
                 name: cv-nextgen
                 port:
                   number: 6060
-            path: /cv/api(/|$)(.*)
+            path: /{{ $path }}/cv/api(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -293,6 +299,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -302,7 +309,7 @@ spec:
                 name: minio
                 port:
                   number: 9000
-            path: /minio
+            path: /{{ $path }}/minio
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -326,6 +333,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -335,7 +343,7 @@ spec:
                 name: minio
                 port:
                   number: 9000
-            path: /logs/
+            path: /{{ $path }}/logs/
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -361,6 +369,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -370,7 +379,7 @@ spec:
                 name: log-service
                 port:
                   number: 8079
-            path: /log-service(/|$)(.*)
+            path: /{{ $path }}/log-service(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -396,6 +405,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -405,7 +415,7 @@ spec:
                 name: gateway
                 port:
                   number: 80
-            path: /gateway(/|$)(.*)
+            path: /{{ $path }}/gateway(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -431,6 +441,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -440,7 +451,7 @@ spec:
                 name: access-control
                 port:
                   number: 9006
-            path: /authz(/|$)(.*)
+            path: /{{ $path }}/authz(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -466,6 +477,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -475,7 +487,7 @@ spec:
                 name: ti-service
                 port:
                   number: 8078
-            path: /ti-service(/|$)(.*)
+            path: /{{ $path }}/ti-service(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -501,6 +513,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -510,7 +523,7 @@ spec:
                 name: template-service
                 port:
                   number: 15002
-            path: /template(/|$)(.*)
+            path: /{{ $path }}/template(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -534,6 +547,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -543,7 +557,7 @@ spec:
                 name: delegate-proxy
                 port:
                   number: 80
-            path: /storage
+            path: /{{ $path }}/storage
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -569,6 +583,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -578,7 +593,7 @@ spec:
                 name: pipeline-service
                 port:
                   number: 12001
-            path: /pipeline(/|$)(.*)
+            path: /{{ $path }}/pipeline(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -604,6 +619,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -613,7 +629,7 @@ spec:
                 name: platform-service
                 port:
                   number: 9005
-            path: /notifications(/|$)(.*)
+            path: /{{ $path }}/notifications(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -639,6 +655,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -648,7 +665,7 @@ spec:
                 name: platform-service
                 port:
                   number: 9005
-            path: /audit(/|$)(.*)
+            path: /{{ $path }}/audit(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -674,6 +691,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -683,7 +701,7 @@ spec:
                 name: platform-service
                 port:
                   number: 9005
-            path: /resourcegroup(/|$)(.*)
+            path: /{{ $path }}/resourcegroup(/|$)(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -709,6 +727,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -718,7 +737,7 @@ spec:
                 name: verification-svc
                 port:
                   number: 7070
-            path: /verification
+            path: /{{ $path }}/verification
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -742,6 +761,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -751,7 +771,7 @@ spec:
                 name: harness-manager
                 port:
                   number: 9090
-            path: /api
+            path: /{{ $path }}/api
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -775,6 +795,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -784,7 +805,7 @@ spec:
                 name: harness-manager
                 port:
                   number: 9090
-            path: /stream
+            path: /{{ $path }}/stream
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -810,6 +831,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -819,7 +841,7 @@ spec:
                 name: ng-auth-ui
                 port:
                   number: 80
-            path: /auth(.*)
+            path: /{{ $path }}/auth(.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
@@ -843,6 +865,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.global.ingress.className | quote }}
   rules:
+    {{- $path = .Values.global.ingress.path -}}
     {{- range .Values.global.ingress.hosts }}
     - host: {{ . | quote }}
       http:
@@ -852,7 +875,7 @@ spec:
                 name: next-gen-ui
                 port:
                   number: 80
-            path: /
+            path: /{{ $path }}/
             pathType: Prefix
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
