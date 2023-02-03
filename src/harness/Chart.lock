@@ -10,7 +10,7 @@ dependencies:
   version: 0.3.5
 - name: ci
   repository: file://ci
-  version: 0.1.4
+  version: 0.1.5
 - name: srm
   repository: https://harness.github.io/helm-srm
   version: 0.3.0
@@ -25,9 +25,9 @@ dependencies:
   version: 0.3.16
 - name: gitops
   repository: https://harness.github.io/helm-gitops
-  version: 0.1.13
+  version: 0.1.14
 - name: policy-mgmt
   repository: https://harness.github.io/helm-policy-mgmt
   version: 0.1.3
-digest: sha256:2314f9fcf1a3fa75a82688002aa3f04a1a2e19161a2353f8f52fe580f566d309
-generated: "2023-02-03T18:26:47.232722+05:30"
+digest: sha256:231d83a2a06c978a82ae5f6356fc0c1786e8cf5547a98d367dea1f0650f5c134
+generated: "2023-02-03T18:22:35.47581-05:00"
