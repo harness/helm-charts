@@ -43,6 +43,8 @@ global:
   license:
     cg: ''
     ng: ''
+  smtpCreateSecret:
+    enabled: false
   # --- Enable Istio Gateway
   istio:
     enabled: false

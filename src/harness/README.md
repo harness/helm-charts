@@ -167,6 +167,7 @@ docker.io/curlimages/curl:latest
 | global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install CDB |
 | global.opa | object | `{"enabled":false}` | Enable to install opa(beta) |
 | global.saml | object | `{"autoaccept":false}` | Enabled will not send invites to email and autoaccepts |
+| global.smtpCreateSecret.enabled | bool | `false` |  |
 | global.srm | object | `{"enabled":false}` | Enable to install SRM |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |
 | global.storageClassName | string | `""` |  |

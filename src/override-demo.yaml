@@ -43,6 +43,8 @@ global:
   license:
     cg: ''
     ng: ''
+  smtpCreateSecret:
+    enabled: false
   istio:
     enabled: false
     strict: false
