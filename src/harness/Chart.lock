@@ -13,7 +13,7 @@ dependencies:
   version: 0.1.5
 - name: srm
   repository: https://harness.github.io/helm-srm
-  version: 0.3.0
+  version: 0.3.3
 - name: ngcustomdashboard
   repository: https://harness.github.io/helm-dashboards
   version: 0.2.5
@@ -29,5 +29,5 @@ dependencies:
 - name: policy-mgmt
   repository: https://harness.github.io/helm-policy-mgmt
   version: 0.1.3
-digest: sha256:3a936cb52353d4538862b6a3c728111f60fa31aaa336b669cb8c7dfa3fe37ea5
-generated: "2023-02-03T20:13:33.520236-05:00"
+digest: sha256:4392738beb0755f81c7d64cffa75a21e64e17c3d727e2852dbfe1875da8f8448
+generated: "2023-02-04T09:16:58.354506+05:30"
