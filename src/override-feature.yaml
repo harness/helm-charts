@@ -1,7 +1,7 @@
 global:
     loadbalancerURL: http://<+pipeline.variables.loadbalancerIP>
-    storageClassName: "standard"
-    storageClass: "standard"
+    storageClassName: "standard-zonal-c"
+    storageClass: "standard-zonal-c"
     ingress:
         enabled: true
         loadBalancerEnabled: true
