@@ -18,8 +18,8 @@ ci:
   ci-manager:
     image:
         registry: us.gcr.io
-        repository: harness/feature-ci-manager-openjdk-8u242
-        tag: 9000890
+        repository: platform-205701/harness/feature-ci-manager-openjdk-8u242
+        tag: "9000917"
         imagePullSecrets: 
         - gcr-io-secret
     affinity: {}
