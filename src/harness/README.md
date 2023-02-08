@@ -141,6 +141,7 @@ docker.io/curlimages/curl:latest
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| ccm | object | `{"batch-processing":{"awsAccountTagsCollectionJobConfig":{"enabled":true},"clickhouse":{"enabled":false},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"stackDriverLoggingEnabled":false},"clickhouse":{"enabled":false},"event-service":{"stackDriverLoggingEnabled":false},"nextgen-ce":{"clickhouse":{"enabled":false},"cloudProviderConfig":{"GCP_PROJECT_ID":"placeHolder"},"stackDriverLoggingEnabled":false}}` | Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure |
 | ci.ci-manager.affinity | object | `{}` |  |
 | ci.ci-manager.nodeSelector | object | `{}` |  |
 | ci.ci-manager.tolerations | list | `[]` |  |
@@ -171,6 +172,7 @@ docker.io/curlimages/curl:latest
 | global.srm | object | `{"enabled":false}` | Enable to install SRM |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
+| ng-manager.ceGcpSetupConfigGcpProjectId | string | `"placeHolder"` |  |
 | ngcustomdashboard.looker.affinity | object | `{}` |  |
 | ngcustomdashboard.looker.nodeSelector | object | `{}` |  |
 | ngcustomdashboard.looker.tolerations | list | `[]` |  |
