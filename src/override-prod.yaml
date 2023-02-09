@@ -43,6 +43,7 @@ global:
   license:
     cg: ''
     ng: ''
+  useImmutableDelegate: "false"
   smtpCreateSecret:
     enabled: false
   # --- Enable Istio Gateway

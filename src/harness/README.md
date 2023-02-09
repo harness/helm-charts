@@ -172,6 +172,7 @@ docker.io/curlimages/curl:latest
 | global.srm | object | `{"enabled":false}` | Enable to install SRM |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
+| global.useImmutableDelegate | string | `"false"` |  |
 | ng-manager.ceGcpSetupConfigGcpProjectId | string | `"placeHolder"` |  |
 | ngcustomdashboard.looker.affinity | object | `{}` |  |
 | ngcustomdashboard.looker.nodeSelector | object | `{}` |  |
