@@ -305,17 +305,6 @@ spec:
           number: 9005
         host: platform-service
 
-  - name: verification-svc
-    match:
-    - uri:
-        #regex: "/verification(/|$)(.*)"
-        prefix: "/verification"
-    route:
-    - destination:
-        port:
-          number: 7070
-        host: verification-svc
-
   - name: harness-manager-api
     match:
     - uri:

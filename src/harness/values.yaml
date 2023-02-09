@@ -8,7 +8,10 @@ global:
   loadbalancerURL: https://myhostname.example.com
   mongoSSL: false
   storageClassName: ""
-
+  cg:
+    enabled: false
+  ng:
+    enabled: true
   cd:
     enabled: false
   # -- Enable to install CI
@@ -38,16 +41,19 @@ global:
   # --  Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false
-  cg:
-    enabled: false
   license:
     cg: ''
     ng: ''
+  ngGitSync:
+    enabled: false
+  useImmutableDelegate: "false"
+  smtpCreateSecret:
+    enabled: false
 
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
-    enabled: true
+    enabled: false
     loadBalancerIP: '0.0.0.0'
     loadBalancerEnabled: false
     className: "harness"
@@ -66,10 +72,24 @@ global:
       objects:
         # -- annotations to be added to ingress Objects
         annotations: {}
+      image:
+        registry:  us.gcr.io
+        repository: k8s-artifacts-prod/ingress-nginx/controller
+        pullPolicy: IfNotPresent
+        # Overrides the image tag whose default is the chart appVersion.
+        tag: "v1.0.0-alpha.2"
+        digest: ""
 
     defaultbackend:
       # -- Create will deploy a default backend into your cluster
       create: false
+      image:
+        registry: k8s.gcr.io
+        repository: defaultbackend-amd64
+        pullPolicy: IfNotPresent
+        # Overrides the image tag whose default is the chart appVersion.
+        tag: "1.5"
+        digest: ""
 
   # -- Istio Ingress Settings
   istio:
@@ -262,3 +282,38 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+
+# -- Set ccm.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
+# -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
+# -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
+# -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
+ccm:
+  clickhouse:
+    enabled: false
+  event-service:
+    stackDriverLoggingEnabled: false
+  batch-processing:
+    stackDriverLoggingEnabled: false
+    cloudProviderConfig:
+      CLUSTER_DATA_GCS_BACKUP_BUCKET: "placeHolder"
+      CLUSTER_DATA_GCS_BUCKET: "placeHolder"
+      DATA_PIPELINE_CONFIG_GCS_BASE_PATH: "placeHolder"
+      GCP_PROJECT_ID: "placeHolder"
+      S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
+      S3_SYNC_CONFIG_REGION: "placeHolder"
+    clickhouse:
+      enabled: false
+    awsAccountTagsCollectionJobConfig:
+      enabled: true
+  nextgen-ce:
+    stackDriverLoggingEnabled: false
+    cloudProviderConfig:
+      GCP_PROJECT_ID: "placeHolder"
+    clickhouse:
+      enabled: false
+
+ng-manager:
+  ceGcpSetupConfigGcpProjectId: "placeHolder"

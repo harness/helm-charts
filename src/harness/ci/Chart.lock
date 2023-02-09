@@ -1,6 +1,6 @@
 dependencies:
 - name: ci-manager
   repository: https://harness.github.io/helm-ci-manager
-  version: 0.2.22
-digest: sha256:44d79f8b0f6a1ce61036e292580e8e6da18b45ce6c6118a2b57c24b7b066318e
-generated: "2022-12-29T00:06:04.139892+05:30"
+  version: 0.2.24
+digest: sha256:160ee4f9e1e70362cd424397d9e59d2b9a9fa05493fe9ec89907df55645b5e3e
+generated: "2023-02-03T18:22:07.534871-05:00"
