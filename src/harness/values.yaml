@@ -44,6 +44,8 @@ global:
   license:
     cg: ''
     ng: ''
+  ngGitSync:
+    enabled: false
   useImmutableDelegate: "false"
   smtpCreateSecret:
     enabled: false

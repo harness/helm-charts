@@ -48,6 +48,9 @@ global:
     cg: ''
     # -- Insert NG License String to enable NG license
     ng: ''
+  ngGitSync:
+    # -- Set to enable NG_GIT_SYNC and disable OLD_GIT_SYNC
+    enabled: false
   # -- Set true to enable Immutable Delegate
   useImmutableDelegate: "false"
   smtpCreateSecret:
