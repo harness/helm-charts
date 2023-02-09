@@ -54,20 +54,20 @@ dependencies:
 
   - name: ff
     condition: global.ff.enabled
-    version: 0.3.x
+    version: 0.4.x
     repository: "https://harness.github.io/helm-ff"
 
   - name: ccm
     condition: global.ccm.enabled
-    version: 0.3.x
+    version: 0.4.x
     repository: "https://harness.github.io/helm-ccm"
 
   - name: gitops
     condition: global.gitops.enabled
-    version: 0.1.x
+    version: 0.2.x
     repository: "https://harness.github.io/helm-gitops"
 
   - name: policy-mgmt
     condition: global.opa.enabled
-    version: 0.1.x
+    version: 0.2.x
     repository: "https://harness.github.io/helm-policy-mgmt"
