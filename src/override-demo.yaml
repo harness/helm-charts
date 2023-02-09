@@ -26,25 +26,32 @@ global:
     # -- Enable to install SRM
     enabled: false
   ngcustomdashboard:
-    # -- Enabled will deploy NG Customer Dashboards
+    # -- Enable to install  NG Custom Dashboards Component
     enabled: false
   ff:
-    # -- Enabled will deploy Feature Flags Component
+    # -- Enable to install  Feature Flags Component
     enabled: false
-  # -- Enable to install gitops(beta)
   gitops:
+    # -- Enable to install GitOps
     enabled: false
-  # -- Enable to install opa(beta)
   opa:
+    # -- Enable to install Open Policy Agent
+    enabled: false
+  ccm:
+    # -- Enable to install Cloud Cloud Management
     enabled: false
   saml:
     # --  Enabled will not send invites to email and autoaccepts
     autoaccept: false
   license:
+    # -- Insert CG License String to enable CG license
     cg: ''
+    # -- Insert NG License String to enable NG license
     ng: ''
+  # -- Set true to enable Immutable Delegate
   useImmutableDelegate: "false"
   smtpCreateSecret:
+    # -- Enable to create SMTP secretFile
     enabled: false
   istio:
     enabled: false

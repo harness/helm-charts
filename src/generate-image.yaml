@@ -15,3 +15,9 @@ global:
     enabled: true
   opa:
     enabled: true
+  ccm:
+    enabled: true
+  cg:
+    enabled: true
+  ng:
+    enabled: true
