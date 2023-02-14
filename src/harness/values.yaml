@@ -8,7 +8,7 @@ global:
   loadbalancerURL: https://myhostname.example.com
   mongoSSL: false
   storageClassName: ""
-  cg:
+  fg:
     enabled: false
   ng:
     enabled: true
@@ -42,7 +42,7 @@ global:
   saml:
     autoaccept: false
   license:
-    cg: ''
+    fg: ''
     ng: ''
   ngGitSync:
     enabled: false
