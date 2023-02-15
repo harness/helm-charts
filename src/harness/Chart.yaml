@@ -15,13 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.2.94
+version: 0.3.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "1.0.77629"
+appVersion: "1.0.78109"
 
 dependencies:
   - name: infra
@@ -29,12 +29,12 @@ dependencies:
     repository: "file://infra"
 
   - name: platform
-    version: 0.3.x
+    version: 0.4.x
     repository: "https://harness.github.io/helm-platform"
 
   - name: sto
     condition: global.sto.enabled
-    version: 0.3.x
+    version: 0.4.x
     repository: "https://harness.github.io/helm-sto"
 
   - name: ci
@@ -44,30 +44,30 @@ dependencies:
 
   - name: srm
     condition: global.srm.enabled
-    version: 0.3.x
+    version: 0.4.x
     repository: "https://harness.github.io/helm-srm"
 
   - name: ngcustomdashboard
     condition: global.ngcustomdashboard.enabled
-    version: 0.2.x
+    version: 0.3.x
     repository: "https://harness.github.io/helm-dashboards"
 
   - name: ff
     condition: global.ff.enabled
-    version: 0.3.x
+    version: 0.4.x
     repository: "https://harness.github.io/helm-ff"
 
   - name: ccm
     condition: global.ccm.enabled
-    version: 0.3.x
+    version: 0.4.x
     repository: "https://harness.github.io/helm-ccm"
 
   - name: gitops
     condition: global.gitops.enabled
-    version: 0.1.x
+    version: 0.2.x
     repository: "https://harness.github.io/helm-gitops"
 
   - name: policy-mgmt
     condition: global.opa.enabled
-    version: 0.1.x
+    version: 0.2.x
     repository: "https://harness.github.io/helm-policy-mgmt"

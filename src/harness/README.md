@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.2.94](https://img.shields.io/badge/Version-0.2.94-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.77629](https://img.shields.io/badge/AppVersion-1.0.77629-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78109](https://img.shields.io/badge/AppVersion-1.0.78109-informational?style=flat-square)
 
 ## Usage
 
@@ -72,48 +72,58 @@ This command removes the Kubernetes components that are associated with the char
 If your cluster is in an air-gapped environment, your deployment requires the following images:
 
 ```
-docker.io/harness/gitops-service-signed:v0.59.5
+docker.io/harness/gitops-service-signed:v0.61.2
+docker.io/harness/learning-engine-onprem-signed:66700
 docker.io/bitnami/minio:2022.8.22-debian-11-r0
 docker.io/bitnami/mongodb:4.2.19
 docker.io/bitnami/postgresql:14.4.0-debian-11-r9
-docker.io/harness/accesscontrol-service-signed:77301
-docker.io/harness/cdcdata-signed:77629
-docker.io/harness/ci-manager-signed:1714
+docker.io/harness/accesscontrol-service-signed:77801
+docker.io/harness/batch-processing-signed:78200-000
+docker.io/harness/cdcdata-signed:78109
+docker.io/harness/ce-anomaly-detection-signed:12
+docker.io/harness/ce-cloud-info-signed:0.19.0
+docker.io/harness/ce-nextgen-signed:78300-000
+docker.io/harness/ci-manager-signed:2303
 docker.io/harness/ci-scm-signed:release-88-ubi
-docker.io/harness/cv-nextgen-signed:77629
+docker.io/harness/cv-nextgen-signed:78109
 docker.io/harness/dashboard-service-signed:v1.52.24
-docker.io/harness/delegate-proxy-signed:77629
+docker.io/harness/delegate-proxy-signed:78108
 docker.io/harness/error-tracking-signed:5.7.4
 docker.io/harness/et-collector-signed:5.7.2
+docker.io/harness/event-service-signed:77317
 docker.io/harness/ff-pushpin-signed:1.0.3
 docker.io/harness/ff-pushpin-worker-signed:1.738.0
 docker.io/harness/ff-server-signed:1.738.0
-docker.io/harness/gateway-signed:2000125
+docker.io/harness/gateway-signed:2000137
 docker.io/harness/helm-init-container:latest
-docker.io/harness/le-nextgen-signed:67200
+docker.io/harness/le-nextgen-signed:67300
 docker.io/harness/looker-signed:22.18.18.0
-docker.io/harness/manager-signed:77629
+docker.io/harness/manager-signed:78109
+docker.io/harness/ng-ce-ui:0.23.8
 docker.io/harness/policy-mgmt:v1.49.0
-docker.io/harness/stocore-signed:v1.14.4
-docker.io/harness/stomanager-signed:77800-000
-docker.io/harness/ti-service-signed:release-98
+docker.io/harness/stocore-signed:v1.20.5
+docker.io/harness/stomanager-signed:78800-000
+docker.io/harness/telescopes-signed:10100
+docker.io/harness/ti-service-signed:release-149
+docker.io/harness/ui-signed:78100
+docker.io/harness/verification-service-signed:78109
 docker.io/ubuntu:20.04
-docker.io/harness/template-service-signed:77629
+docker.io/harness/template-service-signed:78109
 docker.io/harness/ff-postgres-migration-signed:1.738.0
 docker.io/harness/ff-timescale-migration-signed:1.738.0
 docker.io/harness/helm-init-container:latest
 docker.io/harness/log-service-signed:release-18
-docker.io/harness/nextgenui-signed:0.331.16
+docker.io/harness/nextgenui-signed:0.336.3
 docker.io/harness/ng-auth-ui-signed:0.45.0
-docker.io/harness/ng-manager-signed:77629
-docker.io/harness/pipeline-service-signed:1.16.3
-docker.io/harness/platform-service-signed:77502
+docker.io/harness/ng-manager-signed:78109
+docker.io/harness/pipeline-service-signed:1.19.3
+docker.io/harness/platform-service-signed:77901
 docker.io/harness/redis:6.2.7-alpine
-docker.io/harness/ti-service-signed:release-98
+docker.io/harness/ti-service-signed:release-149
 docker.io/timescale/timescaledb-ha:pg13-ts2.6-oss-latest
 docker.io/harness/ci-addon:1.14.19
-docker.io/harness/ci-addon:1.14.21
-docker.io/harness/gitops-agent
+docker.io/harness/ci-addon:1.16.1-linux-amd64
+docker.io/harness/gitops-agent:v0.42.0
 docker.io/haproxy:2.0.25-alpine
 docker.io/redis:6.2.6-alpine
 docker.io/plugins/artifactory:1.2.0
@@ -121,14 +131,14 @@ docker.io/harness/delegate:latest
 docker.io/plugins/kaniko:1.6.6
 docker.io/plugins/kaniko-ecr:1.6.6
 docker.io/plugins/kaniko-gcr:1.6.6
-docker.io/plugins/cache:1.4.2
+docker.io/plugins/cache:1.4.3
 docker.io/plugins/gcs:1.3.0
 docker.io/harness/upgrader:latest
-docker.io/harness/drone-git:1.2.4-rootless
-docker.io/harness/delegate:22.12.77629
+docker.io/harness/drone-git:1.2.7-rootless
+docker.io/harness/delegate:23.02.78108
 docker.io/harness/ci-lite-engine:1.14.22
-docker.io/harness/ci-lite-engine:1.14.21
-docker.io/plugins/cache:1.4.2
+docker.io/harness/ci-lite-engine:1.16.1-linux-amd64
+docker.io/plugins/cache:1.4.3
 docker.io/bewithaman/s3:latest
 docker.io/plugins/s3:1.1.0
 docker.io/harness/sto-plugin:latest
@@ -141,6 +151,7 @@ docker.io/curlimages/curl:latest
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| ccm | object | `{"batch-processing":{"awsAccountTagsCollectionJobConfig":{"enabled":true},"clickhouse":{"enabled":false},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"stackDriverLoggingEnabled":false},"clickhouse":{"enabled":false},"event-service":{"stackDriverLoggingEnabled":false},"nextgen-ce":{"clickhouse":{"enabled":false},"cloudProviderConfig":{"GCP_PROJECT_ID":"placeHolder"},"stackDriverLoggingEnabled":false}}` | Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure |
 | ci.ci-manager.affinity | object | `{}` |  |
 | ci.ci-manager.nodeSelector | object | `{}` |  |
 | ci.ci-manager.tolerations | list | `[]` |  |
@@ -164,12 +175,16 @@ docker.io/curlimages/curl:latest
 | global.loadbalancerURL | string | `"https://myhostname.example.com"` |  |
 | global.mongoSSL | bool | `false` |  |
 | global.ng.enabled | bool | `true` |  |
+| global.ngGitSync.enabled | bool | `false` |  |
 | global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install CDB |
 | global.opa | object | `{"enabled":false}` | Enable to install opa(beta) |
 | global.saml | object | `{"autoaccept":false}` | Enabled will not send invites to email and autoaccepts |
+| global.smtpCreateSecret.enabled | bool | `false` |  |
 | global.srm | object | `{"enabled":false}` | Enable to install SRM |
 | global.sto | object | `{"enabled":false}` | Enable to install STO |
 | global.storageClassName | string | `""` |  |
+| global.useImmutableDelegate | string | `"false"` |  |
+| ng-manager.ceGcpSetupConfigGcpProjectId | string | `"placeHolder"` |  |
 | ngcustomdashboard.looker.affinity | object | `{}` |  |
 | ngcustomdashboard.looker.nodeSelector | object | `{}` |  |
 | ngcustomdashboard.looker.tolerations | list | `[]` |  |

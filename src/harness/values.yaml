@@ -44,6 +44,11 @@ global:
   license:
     cg: ''
     ng: ''
+  ngGitSync:
+    enabled: false
+  useImmutableDelegate: "false"
+  smtpCreateSecret:
+    enabled: false
 
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
@@ -277,3 +282,38 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+
+# -- Set ccm.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
+# -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
+# -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
+# -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
+ccm:
+  clickhouse:
+    enabled: false
+  event-service:
+    stackDriverLoggingEnabled: false
+  batch-processing:
+    stackDriverLoggingEnabled: false
+    cloudProviderConfig:
+      CLUSTER_DATA_GCS_BACKUP_BUCKET: "placeHolder"
+      CLUSTER_DATA_GCS_BUCKET: "placeHolder"
+      DATA_PIPELINE_CONFIG_GCS_BASE_PATH: "placeHolder"
+      GCP_PROJECT_ID: "placeHolder"
+      S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
+      S3_SYNC_CONFIG_REGION: "placeHolder"
+    clickhouse:
+      enabled: false
+    awsAccountTagsCollectionJobConfig:
+      enabled: true
+  nextgen-ce:
+    stackDriverLoggingEnabled: false
+    cloudProviderConfig:
+      GCP_PROJECT_ID: "placeHolder"
+    clickhouse:
+      enabled: false
+
+ng-manager:
+  ceGcpSetupConfigGcpProjectId: "placeHolder"

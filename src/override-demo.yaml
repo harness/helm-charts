@@ -26,23 +26,36 @@ global:
     # -- Enable to install SRM
     enabled: false
   ngcustomdashboard:
-    # -- Enabled will deploy NG Customer Dashboards
+    # -- Enable to install  NG Custom Dashboards Component
     enabled: false
   ff:
-    # -- Enabled will deploy Feature Flags Component
+    # -- Enable to install  Feature Flags Component
     enabled: false
-  # -- Enable to install gitops(beta)
   gitops:
+    # -- Enable to install GitOps
     enabled: false
-  # -- Enable to install opa(beta)
   opa:
+    # -- Enable to install Open Policy Agent
+    enabled: false
+  ccm:
+    # -- Enable to install Cloud Cloud Management
     enabled: false
   saml:
     # --  Enabled will not send invites to email and autoaccepts
     autoaccept: false
   license:
+    # -- Insert CG License String to enable CG license
     cg: ''
+    # -- Insert NG License String to enable NG license
     ng: ''
+  ngGitSync:
+    # -- Set to enable NG_GIT_SYNC and disable OLD_GIT_SYNC
+    enabled: false
+  # -- Set true to enable Immutable Delegate
+  useImmutableDelegate: "false"
+  smtpCreateSecret:
+    # -- Enable to create SMTP secretFile
+    enabled: false
   istio:
     enabled: false
     strict: false
@@ -512,3 +525,38 @@ ngcustomdashboard:
       lookerHost: ''
       # -- port of your looker install
       lookerPort: '80'
+
+# -- Set ccm.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
+# -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
+# -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
+# -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
+ccm:
+  clickhouse:
+    enabled: false
+  event-service:
+    stackDriverLoggingEnabled: false
+  batch-processing:
+    stackDriverLoggingEnabled: false
+    cloudProviderConfig:
+      CLUSTER_DATA_GCS_BACKUP_BUCKET: "placeHolder"
+      CLUSTER_DATA_GCS_BUCKET: "placeHolder"
+      DATA_PIPELINE_CONFIG_GCS_BASE_PATH: "placeHolder"
+      GCP_PROJECT_ID: "placeHolder"
+      S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
+      S3_SYNC_CONFIG_REGION: "placeHolder"
+    clickhouse:
+      enabled: false
+    awsAccountTagsCollectionJobConfig:
+      enabled: true
+  nextgen-ce:
+    stackDriverLoggingEnabled: false
+    cloudProviderConfig:
+      GCP_PROJECT_ID: "placeHolder"
+    clickhouse:
+      enabled: false
+
+ng-manager:
+  ceGcpSetupConfigGcpProjectId: "placeHolder"
