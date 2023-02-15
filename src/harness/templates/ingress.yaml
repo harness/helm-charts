@@ -828,3 +828,92 @@ spec:
   {{- end }}
 {{- end }}
 {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pipeline-service-smp-v1-apis
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /api/$1
+spec:
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
+  rules:
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: pipeline-service
+                port:
+                  number: 12001
+            path: /(v1/orgs/.+/projects/.+/pipelines.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: pipeline-service
+                port:
+                  number: 12001
+            path: /(v1/orgs/.+/projects/.+/input-sets.*)
+            pathType: ImplementationSpecific
+    {{- end }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.global.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
+  {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: template-service-smp-v1-apis
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /api/$1
+spec:
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
+  rules:
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: template-service
+                port:
+                  number: 15002
+            path: /(v1/templates.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: template-service
+                port:
+                  number: 15002
+            path: /(v1/orgs/.+/templates.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: template-service
+                port:
+                  number: 15002
+            path: /(v1/orgs/.+/projects/.+/templates.*)
+            pathType: ImplementationSpecific
+    {{- end }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.global.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
+  {{- end }}
