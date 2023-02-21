@@ -29,5 +29,8 @@ dependencies:
 - name: policy-mgmt
   repository: https://harness.github.io/helm-policy-mgmt
   version: 0.2.0
-digest: sha256:35a98ccc04224c0e4ccedb221f1c709181fe98ba6c6b0d744cb36cf4400c8934
-generated: "2023-02-15T14:27:22.560091+05:30"
+- name: chaos
+  repository: https://harness.github.io/helm-chaos
+  version: 0.1.0
+digest: sha256:b289f3d9ea6153dea8cdbf53261dc7f9e1fd5cf0ef7bb08de853a2342d911201
+generated: "2023-02-15T16:13:54.379336+05:30"

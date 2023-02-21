@@ -38,6 +38,9 @@ global:
   # -- Enable to install opa(beta)
   opa:
     enabled: false
+  # -- Enable to install Chaos(beta)
+  chaos:
+    enabled: false
   # --  Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false
@@ -317,3 +320,16 @@ ccm:
 
 ng-manager:
   ceGcpSetupConfigGcpProjectId: "placeHolder"
+
+chaos:
+  chaos-manager:
+    nodeSelector: {}
+    tolerations: []
+
+  chaos-driver:
+    nodeSelector: {}
+    tolerations: []
+
+  chaos-web:
+    nodeSelector: {}
+    tolerations: []
