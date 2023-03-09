@@ -1,52 +1,62 @@
 global:
+  # -- Airgap functionality. Disabled by default
   airgap: "false"
+  # -- High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV
   ha: true
-
   # -- This private Docker image registry will override any registries that are defined in subcharts.
   imageRegistry: ""
-
+  # -- Provide your URL for your intended load balancer
   loadbalancerURL: https://myhostname.example.com
+  # -- Enable SSL for MongoDB service
   mongoSSL: false
+  # -- Configure storage class for MongoSSL
   storageClassName: ""
+  # -- Enable to install First Generation Harness Platform (disabled by default)
   cg:
     enabled: false
+  # -- Enable to install NG (Next Generation Harness Platform)  
   ng:
     enabled: true
+  # -- Enable to install Continuous Deployment (CD)  
   cd:
     enabled: false
-  # -- Enable to install CI
+  # -- Enable to install Continuous Integration (CI)
   ci:
     enabled: false
-  # -- Enable to install STO
+  # -- Enable to install Security Test Orchestration (STO)
   sto:
     enabled: false
-  # -- Enable to install SRM
+  # -- Enable to install Site Reliability Management (SRM)
   srm:
     enabled: false
-  # -- Enable to install FF
+  # -- Enable to install Feature Flags (FF)
   ff:
     enabled: false
-  # -- Enable to install CDB
+  # -- Enable to install Next Generation Custom Dashboards
   ngcustomdashboard:
     enabled: false
-  # -- Enable to install CCM(beta)
+  # -- Enable to install Cloud Cost Management (CCM) Beta
   ccm:
     enabled: false
   # -- Enable to install gitops(beta)
   gitops:
     enabled: false
-  # -- Enable to install opa(beta)
+  # -- Enable to install Open Policy Agent (OPA) (beta)
   opa:
     enabled: false
-  # --  Enabled will not send invites to email and autoaccepts
+  # --  SAML auto acceptance. Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false
+  # -- Place the license key, Harness support team will provide these
   license:
     cg: ''
     ng: ''
+  # -- Enable to install Next Generation Git Sync functionality
   ngGitSync:
     enabled: false
+  # -- Utilize immutable delegates (default = false)
   useImmutableDelegate: "false"
+  # -- Method to create a secret for your SMTP server
   smtpCreateSecret:
     enabled: false
 
@@ -63,6 +73,7 @@ global:
       enabled: true
       secretName: harness-cert
 
+    # -- Section to provide configuration on an NGINX ingress controller.
     nginx:
       # -- Create Nginx Controller.  True will deploy a controller into your cluster
       create: false
@@ -109,20 +120,23 @@ global:
       hosts:
         - "myhostname.example.com"
 
+# -- Install the Continuous Integration (CI) manager pod
 ci:
   ci-manager:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
+# -- Config for Security Test Orchestration (STO) 
 sto:
+  # -- Install the STO core
   sto-core:
     affinity: {}
     nodeSelector: {}
     tolerations: []
     autoscaling:
       enabled: false
-
+  # -- Install the STO manager
   sto-manager:
     affinity: {}
     nodeSelector: {}
@@ -130,49 +144,61 @@ sto:
     autoscaling:
       enabled: false
 
+# -- Config for Site Reliability Management (SRM)
 srm:
+  # -- Flag to enable error-tracking (ET) receivers
   enable-receivers: false
-
+  
+  # -- Install the error-tracking (ET) service
   et-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  
+  # -- Install the error-tracking (ET) collector
   et-collector:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  
+  # -- Install the error-tracking (ET) receiver decompiler
   et-receiver-decompile:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  
+  # -- Install the error-tracking (ET) receiver hit
   et-receiver-hit:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  
+  # -- Install the error-tracking (ET) receiver sql service
   et-receiver-sql:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  
+  # -- Install the error-tracking (ET) receiver agent
   et-receiver-agent:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
+# -- Install the Next Generation customer dashboard
 ngcustomdashboard:
+  # -- Install the looker service
   looker:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+  # -- Install the Next Generation customer dashboards service
   ng-custom-dashboards:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
+# -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
@@ -228,74 +254,83 @@ platform:
     nodeSelector: {}
     tolerations: []
 
+  # -- mongodb (taints, tolerations, and so on)
   mongodb:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
+  # -- next-gen-ui (Next Generation User Interface) (taints, tolerations, and so on)
   next-gen-ui:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
+  # -- ng-auth-ui (Next Generation Authorization User Interface) (taints, tolerations, and so on)
   ng-auth-ui:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  
+  # -- ng-manager (Next Generation Manager) (taints, tolerations, and so on)
   ng-manager:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
+  # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  
+  # -- platform-service (Harness platform-related services) (taints, tolerations, and so on)
   platform-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
+  # -- redis (taints, tolerations, and so on)
   redis:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
+  # -- scm-service (taints, tolerations, and so on)
   scm-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
+  # -- template-service (Harness template-related services) (taints, tolerations, and so on)
   template-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  
+  # -- ti-service (Harness Test Intelligence-related services) (taints, tolerations, and so on)
   ti-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
+  # -- timescaledb (Timescale Database service) (taints, tolerations, and so on)
   timescaledb:
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
-# -- Set ccm.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
-# -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
-# -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
-# -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
+# -- Enable the Cloud Cost Management (CCM) service
 ccm:
+  # -- Set ccm.clickhouse.enabled to true for AWS infrastructure
   clickhouse:
     enabled: false
+  # -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
   event-service:
     stackDriverLoggingEnabled: false
+  # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
   batch-processing:
+    # -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
     stackDriverLoggingEnabled: false
     cloudProviderConfig:
       CLUSTER_DATA_GCS_BACKUP_BUCKET: "placeHolder"
@@ -304,16 +339,22 @@ ccm:
       GCP_PROJECT_ID: "placeHolder"
       S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
       S3_SYNC_CONFIG_REGION: "placeHolder"
+    # -- Set ccm.clickhouse.enabled to true for AWS infrastructure
     clickhouse:
       enabled: false
+    # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
     awsAccountTagsCollectionJobConfig:
       enabled: true
+  # -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
   nextgen-ce:
+    # -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
     stackDriverLoggingEnabled: false
     cloudProviderConfig:
       GCP_PROJECT_ID: "placeHolder"
+    # -- Set ccm.clickhouse.enabled to true for AWS infrastructure
     clickhouse:
       enabled: false
 
+# -- Enable the Cloud Cost Management (CCM) service for the Next Generation Manager
 ng-manager:
   ceGcpSetupConfigGcpProjectId: "placeHolder"
