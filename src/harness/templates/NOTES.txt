@@ -69,8 +69,4 @@ srm:
 - To change the existing override file, delete the root level "harness" key and de-indent the value (all module level overrides)
 {{- end}}
 
-<<<<<<< HEAD
 {{- end }}
-=======
-{{- end }}
->>>>>>> 351860fd73009a8e7453c75bf265beefb0f1e935
