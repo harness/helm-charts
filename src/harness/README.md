@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78426](https://img.shields.io/badge/AppVersion-1.0.78426-informational?style=flat-square)
+![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78426](https://img.shields.io/badge/AppVersion-1.0.78426-informational?style=flat-square)
 
 ## Usage
 
@@ -72,7 +72,6 @@ This command removes the Kubernetes components that are associated with the char
 If your cluster is in an air-gapped environment, your deployment requires the following images:
 
 ```
-
 docker.io/harness/gitops-service-signed:v0.62.4
 docker.io/harness/learning-engine-onprem-signed:66700
 docker.io/bitnami/minio:2022.8.22-debian-11-r0
@@ -124,30 +123,17 @@ docker.io/harness/redis:6.2.7-alpine
 docker.io/harness/ti-service-signed:release-149
 docker.io/timescale/timescaledb-ha:pg13-ts2.9-oss-latest
 docker.io/harness/ci-addon:1.16.4
-docker.io/harness/ci-addon:1.16.1-linux-amd64
 docker.io/harness/gitops-agent:v0.42.0
 docker.io/haproxy:2.0.25-alpine
 docker.io/redis:6.2.6-alpine
-docker.io/plugins/artifactory:1.2.0
 docker.io/harness/delegate:latest
-docker.io/plugins/kaniko:1.6.6
-docker.io/plugins/kaniko-ecr:1.6.6
-docker.io/plugins/kaniko-gcr:1.6.6
-docker.io/plugins/cache:1.4.3
-docker.io/plugins/gcs:1.3.0
 docker.io/harness/upgrader:latest
-docker.io/harness/drone-git:1.2.7-rootless
 docker.io/harness/delegate:23.03.78312
 docker.io/harness/ci-lite-engine:1.16.4
-docker.io/harness/ci-lite-engine:1.16.1-linux-amd64
-docker.io/plugins/cache:1.4.3
 docker.io/bewithaman/s3:latest
-docker.io/plugins/s3:1.1.0
-docker.io/harness/sto-plugin:latest
 docker.io/harness/sto-plugin:latest
 docker.io/harness/upgrader:latest
 docker.io/curlimages/curl:latest
-
 
 ```
 ## Values
