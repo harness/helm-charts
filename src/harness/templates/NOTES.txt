@@ -1,4 +1,51 @@
-# Chart 0.2.87
+                   /(,
+              (((((((((((((
+           /(((((((((((((((((
+         ((((((((       ((((((((
+      *((((((((           ((((((((.
+    (((((((((((((       (((((((((((((
+  (((((((/ *(((((((* ((((((((. ((((((((        __    __       ___      .______     .__   __.  _______      _______.   _______.
+   ((((((       (((((((((((((       ((((((    |  |  |  |     /   \     |   _  \    |  \ |  | |   ____|    /       |  /       |
+((((((          ((((((((/          (((((      |  |__|  |    /  ^  \    |  |_)  |   |   \|  | |  |__      |   (----` |   (----`
+ ((((((       (((((((((((((      ,((((((      |   __   |   /  /_\  \   |      /    |  . `  | |   __|      \   \      \   \
+  (((((((( /(((((((. *(((((((* ((((((((       |  |  |  |  /  _____  \  |  |\  \---.|  |\   | |  |____ .----)   | .----)   |
+    (((((((((((((       ((((((((((((/         |__|  |__| /__/     \__\ | _| `.____||__| \__| |_______||_______/  |_______/
+      .((((((((           ((((((((
+         ((((((((      .(((((((/
+            (((((((((((((((((
+              ((((((((((((/
+
+{{ println "" }}
+{{- if .Release.IsUpgrade }}
+
+{{- $imageToChart := list (dict "766" "0.2.34") (dict "771" "0.2.88") (dict "776" "0.2.93") (dict "781" "0.3.0") (dict "784" "0.4.0") }}
+
+{{- $currentImage := include "harness.harness-manager-image" . }}
+{{- $currentChart := "" }}
+{{- $currentChartIndex := -1 }}
+{{- $updateChartIndex := len $imageToChart }}
+
+{{- if eq $currentImage "0" }}
+# Info: Starting chart 0.4.0 and app 784xx, upgrade policies are being formulated. Please upgrade the charts in consecutive minor versions for backward compatibility.
+{{- else }}
+    {{- range $index, $chart := $imageToChart }}
+        {{- if hasKey $chart $currentImage }}
+            {{- $currentChartIndex = $index }}
+            {{- $currentChart = $chart }}
+        {{- end }}
+    {{- end }}
+    {{- if eq $currentChartIndex -1 }}
+# Info: Your setup seems to have development images {{ $currentImage }}xx. Starting chart 0.4.0 and app 784xx, upgrade policies are being formulated. Please upgrade the charts in consecutive minor versions for backward compatibility.
+    {{- else }}
+        {{- $releaseGap := sub $updateChartIndex $currentChartIndex }}
+        {{- if gt $releaseGap 2 }}
+# Info: Your current chart is {{ get $currentChart $currentImage }} and app {{ $currentImage }}xx. You seem to have skipped intermediate public releases. Starting chart 0.4.0 and app 784xx, upgrade policies are being formulated. Please upgrade the charts in consecutive minor versions for backward compatibility.
+        {{- end }}
+    {{- end }}
+{{- end }}
+
+{{- if lt $currentImage "771" }}
+# Info
 
 - Prior to version 0.2.87, All module level overrides must be present under `harness` key in override file
 Eg.
@@ -16,3 +63,6 @@ srm:
     enable-receivers: true
 
 - To change the existing override file, delete the root level "harness" key and de-indent the value (all module level overrides)
+{{- end}}
+
+{{- end }}
