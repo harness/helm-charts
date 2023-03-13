@@ -72,6 +72,7 @@ This command removes the Kubernetes components that are associated with the char
 If your cluster is in an air-gapped environment, your deployment requires the following images:
 
 ```
+
 docker.io/harness/gitops-service-signed:v0.62.4
 docker.io/harness/learning-engine-onprem-signed:66700
 docker.io/bitnami/minio:2022.8.22-debian-11-r0
@@ -146,6 +147,7 @@ docker.io/harness/sto-plugin:latest
 docker.io/harness/sto-plugin:latest
 docker.io/harness/upgrader:latest
 docker.io/curlimages/curl:latest
+
 
 ```
 ## Values
