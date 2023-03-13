@@ -14,10 +14,10 @@ global:
   # -- Enable to install First Generation Harness Platform (disabled by default)
   cg:
     enabled: false
-  # -- Enable to install NG (Next Generation Harness Platform)  
+  # -- Enable to install NG (Next Generation Harness Platform)
   ng:
     enabled: true
-  # -- Enable to install Continuous Deployment (CD)  
+  # -- Enable to install Continuous Deployment (CD)
   cd:
     enabled: false
   # -- Enable to install Continuous Integration (CI)
@@ -43,6 +43,9 @@ global:
     enabled: false
   # -- Enable to install Open Policy Agent (OPA) (beta)
   opa:
+    enabled: false
+  # -- Enable to install Chaos(beta)
+  chaos:
     enabled: false
   # --  SAML auto acceptance. Enabled will not send invites to email and autoaccepts
   saml:
@@ -127,7 +130,7 @@ ci:
     nodeSelector: {}
     tolerations: []
 
-# -- Config for Security Test Orchestration (STO) 
+# -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
   sto-core:
@@ -148,37 +151,37 @@ sto:
 srm:
   # -- Flag to enable error-tracking (ET) receivers
   enable-receivers: false
-  
+
   # -- Install the error-tracking (ET) service
   et-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  
+
   # -- Install the error-tracking (ET) collector
   et-collector:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  
+
   # -- Install the error-tracking (ET) receiver decompiler
   et-receiver-decompile:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  
+
   # -- Install the error-tracking (ET) receiver hit
   et-receiver-hit:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  
+
   # -- Install the error-tracking (ET) receiver sql service
   et-receiver-sql:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  
+
   # -- Install the error-tracking (ET) receiver agent
   et-receiver-agent:
     affinity: {}
@@ -271,7 +274,7 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  
+
   # -- ng-manager (Next Generation Manager) (taints, tolerations, and so on)
   ng-manager:
     affinity: {}
@@ -283,7 +286,7 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  
+
   # -- platform-service (Harness platform-related services) (taints, tolerations, and so on)
   platform-service:
     affinity: {}
@@ -307,7 +310,7 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  
+
   # -- ti-service (Harness Test Intelligence-related services) (taints, tolerations, and so on)
   ti-service:
     affinity: {}
@@ -358,3 +361,16 @@ ccm:
 # -- Enable the Cloud Cost Management (CCM) service for the Next Generation Manager
 ng-manager:
   ceGcpSetupConfigGcpProjectId: "placeHolder"
+
+chaos:
+  chaos-manager:
+    nodeSelector: {}
+    tolerations: []
+
+  chaos-driver:
+    nodeSelector: {}
+    tolerations: []
+
+  chaos-web:
+    nodeSelector: {}
+    tolerations: []
