@@ -26,7 +26,11 @@
 {{- $updateChartIndex := len $imageToChart }}
 
 {{- if eq $currentImage "0" }}
+<<<<<<< HEAD
 Warning: Starting 0.4.0, monthly releases should be done in order. Please don't skip any release for backward compatibility.
+=======
+# Info: Starting chart 0.4.0 and app 784xx, upgrade policies are being formulated. Please upgrade the charts in consecutive minor versions for backward compatibility.
+>>>>>>> 351860fd73009a8e7453c75bf265beefb0f1e935
 {{- else }}
     {{- range $index, $chart := $imageToChart }}
         {{- if hasKey $chart $currentImage }}
@@ -35,11 +39,11 @@ Warning: Starting 0.4.0, monthly releases should be done in order. Please don't 
         {{- end }}
     {{- end }}
     {{- if eq $currentChartIndex -1 }}
-# Warning: Your setup seems to have development images. Starting 0.4.0, monthly releases should be done in order. Please don't skip any release for backward compatibility.
+# Info: Your setup seems to have development images {{ $currentImage }}xx. Starting chart 0.4.0 and app 784xx, upgrade policies are being formulated. Please upgrade the charts in consecutive minor versions for backward compatibility.
     {{- else }}
         {{- $releaseGap := sub $updateChartIndex $currentChartIndex }}
         {{- if gt $releaseGap 2 }}
-# Info: Your current chart is {{ get $currentChart $currentImage }}. Starting 0.4.0, monthly releases should be done in order. Please don't skip any release for backward compatibility.
+# Info: Your current chart is {{ get $currentChart $currentImage }} and app {{ $currentImage }}xx. You seem to have skipped intermediate public releases. Starting chart 0.4.0 and app 784xx, upgrade policies are being formulated. Please upgrade the charts in consecutive minor versions for backward compatibility.
         {{- end }}
     {{- end }}
 {{- end }}
@@ -65,4 +69,8 @@ srm:
 - To change the existing override file, delete the root level "harness" key and de-indent the value (all module level overrides)
 {{- end}}
 
+<<<<<<< HEAD
 {{- end }}
+=======
+{{- end }}
+>>>>>>> 351860fd73009a8e7453c75bf265beefb0f1e935

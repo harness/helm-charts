@@ -41,7 +41,7 @@ global:
     # -- Enable to install Cloud Cloud Management
     enabled: false
   chaos:
-    # -- Enable to install Chaos components
+    # -- Enable to install Chaos components(Beta)
     enabled: false
   saml:
     # --  Enabled will not send invites to email and autoaccepts
@@ -59,6 +59,7 @@ global:
   smtpCreateSecret:
     # -- Enable to create SMTP secretFile
     enabled: false
+  # --- Enable Istio Gateway
   istio:
     enabled: false
     strict: false
@@ -506,8 +507,17 @@ ngcustomdashboard:
       lastName: Support
       # -- email address of the support user, required for initial signup and support
       email: ''
-      # -- id used by initial setup user for authentication, generate a 20-byte key, e.g. openssl rand -hex 10
-
+      # -- Leave empty if not deploying Clickhouse.
+      # -- clickhouse connection name for CCM, must match model connection name
+      clickhouseConnectionName: smp-clickhouse
+      # -- clickhouse hostname
+      clickhouseHost: 'clickhouse'
+      # -- clickhouse port
+      clickhousePort: '8123'
+      # -- clickhouse database name
+      clickhouseDatabase: 'ccm'
+      # -- clickhouse user
+      clickhouseUser: 'default'
     ingress:
       # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
       host: ''
@@ -522,12 +532,10 @@ ngcustomdashboard:
         cpu: 1
         memory: 500Mi
     config:
-      # -- scheme used for your looker install, http or https
-      lookerScheme: 'https'
-      # -- hostname of your looker install
-      lookerHost: ''
-      # -- port of your looker install
-      lookerPort: '80'
+      # -- Required: domain name of your looker instance, this must be accessible by users in your organisation
+      lookerPubDomain: ''
+      # -- Required: HTTP scheme used, either http or https
+      lookerPubScheme: 'https'
 
 # -- Set ccm.clickhouse.enabled to true for AWS infrastructure
 # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
