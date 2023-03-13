@@ -395,4 +395,5 @@ spec:
     redirect:
       uri: "/"
 {{- end }}
+{{- end }}
 
