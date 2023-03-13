@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78109](https://img.shields.io/badge/AppVersion-1.0.78109-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78426](https://img.shields.io/badge/AppVersion-1.0.78426-informational?style=flat-square)
 
 ## Usage
 
@@ -151,46 +151,58 @@ docker.io/curlimages/curl:latest
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ccm | object | `{"batch-processing":{"awsAccountTagsCollectionJobConfig":{"enabled":true},"clickhouse":{"enabled":false},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"stackDriverLoggingEnabled":false},"clickhouse":{"enabled":false},"event-service":{"stackDriverLoggingEnabled":false},"nextgen-ce":{"clickhouse":{"enabled":false},"cloudProviderConfig":{"GCP_PROJECT_ID":"placeHolder"},"stackDriverLoggingEnabled":false}}` | Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure |
-| ci.ci-manager.affinity | object | `{}` |  |
-| ci.ci-manager.nodeSelector | object | `{}` |  |
-| ci.ci-manager.tolerations | list | `[]` |  |
-| global.airgap | string | `"false"` |  |
-| global.ccm | object | `{"enabled":false}` | Enable to install CCM(beta) |
-| global.cd.enabled | bool | `false` |  |
-| global.cg.enabled | bool | `false` |  |
-| global.ci | object | `{"enabled":false}` | Enable to install CI |
-| global.ff | object | `{"enabled":false}` | Enable to install FF |
+| ccm | object | `{"batch-processing":{"awsAccountTagsCollectionJobConfig":{"enabled":true},"clickhouse":{"enabled":false},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"stackDriverLoggingEnabled":false},"clickhouse":{"enabled":false},"event-service":{"stackDriverLoggingEnabled":false},"nextgen-ce":{"clickhouse":{"enabled":false},"cloudProviderConfig":{"GCP_PROJECT_ID":"placeHolder"},"stackDriverLoggingEnabled":false}}` | Enable the Cloud Cost Management (CCM) service |
+| ccm.batch-processing | object | `{"awsAccountTagsCollectionJobConfig":{"enabled":true},"clickhouse":{"enabled":false},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"stackDriverLoggingEnabled":false}` | Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure |
+| ccm.batch-processing.awsAccountTagsCollectionJobConfig | object | `{"enabled":true}` | Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure |
+| ccm.batch-processing.clickhouse | object | `{"enabled":false}` | Set ccm.clickhouse.enabled to true for AWS infrastructure |
+| ccm.batch-processing.stackDriverLoggingEnabled | bool | `false` | Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure |
+| ccm.clickhouse | object | `{"enabled":false}` | Set ccm.clickhouse.enabled to true for AWS infrastructure |
+| ccm.event-service | object | `{"stackDriverLoggingEnabled":false}` | Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure |
+| ccm.nextgen-ce | object | `{"clickhouse":{"enabled":false},"cloudProviderConfig":{"GCP_PROJECT_ID":"placeHolder"},"stackDriverLoggingEnabled":false}` | Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure |
+| ccm.nextgen-ce.clickhouse | object | `{"enabled":false}` | Set ccm.clickhouse.enabled to true for AWS infrastructure |
+| ccm.nextgen-ce.stackDriverLoggingEnabled | bool | `false` | Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure |
+| chaos.chaos-driver.nodeSelector | object | `{}` |  |
+| chaos.chaos-driver.tolerations | list | `[]` |  |
+| chaos.chaos-manager.nodeSelector | object | `{}` |  |
+| chaos.chaos-manager.tolerations | list | `[]` |  |
+| chaos.chaos-web.nodeSelector | object | `{}` |  |
+| chaos.chaos-web.tolerations | list | `[]` |  |
+| ci | object | `{"ci-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Install the Continuous Integration (CI) manager pod |
+| global.airgap | string | `"false"` | Airgap functionality. Disabled by default |
+| global.ccm | object | `{"enabled":false}` | Enable to install Cloud Cost Management (CCM) Beta |
+| global.cd | object | `{"enabled":false}` | Enable to install Continuous Deployment (CD) |
+| global.cg | object | `{"enabled":false}` | Enable to install First Generation Harness Platform (disabled by default) |
+| global.chaos | object | `{"enabled":false}` | Enable to install Chaos(beta) |
+| global.ci | object | `{"enabled":false}` | Enable to install Continuous Integration (CI) |
+| global.ff | object | `{"enabled":false}` | Enable to install Feature Flags (FF) |
 | global.gitops | object | `{"enabled":false}` | Enable to install gitops(beta) |
-| global.ha | bool | `true` |  |
+| global.ha | bool | `true` | High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV |
 | global.imageRegistry | string | `""` | This private Docker image registry will override any registries that are defined in subcharts. |
 | global.ingress | object | `{"className":"harness","defaultbackend":{"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["myhost.example.com"],"loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"controller":{"annotations":{}},"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"},"objects":{"annotations":{}}},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
 | global.ingress.defaultbackend.create | bool | `false` | Create will deploy a default backend into your cluster |
+| global.ingress.nginx | object | `{"controller":{"annotations":{}},"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"},"objects":{"annotations":{}}}` | Section to provide configuration on an NGINX ingress controller. |
 | global.ingress.nginx.controller.annotations | object | `{}` | annotations to be addded to ingress Controller |
 | global.ingress.nginx.create | bool | `false` | Create Nginx Controller.  True will deploy a controller into your cluster |
 | global.ingress.nginx.objects.annotations | object | `{}` | annotations to be added to ingress Objects |
 | global.istio | object | `{"enabled":false,"gateway":{"create":true,"port":443,"protocol":"HTTPS"},"hosts":["*"],"strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
-| global.license.cg | string | `""` |  |
-| global.license.ng | string | `""` |  |
-| global.loadbalancerURL | string | `"https://myhostname.example.com"` |  |
-| global.mongoSSL | bool | `false` |  |
-| global.ng.enabled | bool | `true` |  |
-| global.ngGitSync.enabled | bool | `false` |  |
-| global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install CDB |
-| global.opa | object | `{"enabled":false}` | Enable to install opa(beta) |
-| global.saml | object | `{"autoaccept":false}` | Enabled will not send invites to email and autoaccepts |
-| global.smtpCreateSecret.enabled | bool | `false` |  |
-| global.srm | object | `{"enabled":false}` | Enable to install SRM |
-| global.sto | object | `{"enabled":false}` | Enable to install STO |
-| global.storageClassName | string | `""` |  |
-| global.useImmutableDelegate | string | `"false"` |  |
-| ng-manager.ceGcpSetupConfigGcpProjectId | string | `"placeHolder"` |  |
-| ngcustomdashboard.looker.affinity | object | `{}` |  |
-| ngcustomdashboard.looker.nodeSelector | object | `{}` |  |
-| ngcustomdashboard.looker.tolerations | list | `[]` |  |
-| ngcustomdashboard.ng-custom-dashboards.affinity | object | `{}` |  |
-| ngcustomdashboard.ng-custom-dashboards.nodeSelector | object | `{}` |  |
-| ngcustomdashboard.ng-custom-dashboards.tolerations | list | `[]` |  |
+| global.license | object | `{"cg":"","ng":""}` | Place the license key, Harness support team will provide these |
+| global.loadbalancerURL | string | `"https://myhostname.example.com"` | Provide your URL for your intended load balancer |
+| global.mongoSSL | bool | `false` | Enable SSL for MongoDB service |
+| global.ng | object | `{"enabled":true}` | Enable to install NG (Next Generation Harness Platform) |
+| global.ngGitSync | object | `{"enabled":false}` | Enable to install Next Generation Git Sync functionality |
+| global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install Next Generation Custom Dashboards |
+| global.opa | object | `{"enabled":false}` | Enable to install Open Policy Agent (OPA) (beta) |
+| global.saml | object | `{"autoaccept":false}` | SAML auto acceptance. Enabled will not send invites to email and autoaccepts |
+| global.smtpCreateSecret | object | `{"enabled":false}` | Method to create a secret for your SMTP server |
+| global.srm | object | `{"enabled":false}` | Enable to install Site Reliability Management (SRM) |
+| global.sto | object | `{"enabled":false}` | Enable to install Security Test Orchestration (STO) |
+| global.storageClassName | string | `""` | Configure storage class for MongoSSL |
+| global.useImmutableDelegate | string | `"false"` | Utilize immutable delegates (default = false) |
+| ng-manager | object | `{"ceGcpSetupConfigGcpProjectId":"placeHolder"}` | Enable the Cloud Cost Management (CCM) service for the Next Generation Manager |
+| ngcustomdashboard | object | `{"looker":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-custom-dashboards":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Install the Next Generation customer dashboard |
+| ngcustomdashboard.looker | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the looker service |
+| ngcustomdashboard.ng-custom-dashboards | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the Next Generation customer dashboards service |
+| platform | object | `{"access-control":{"affinity":{},"nodeSelector":{},"tolerations":[]},"change-data-capture":{"affinity":{},"nodeSelector":{},"tolerations":[]},"cv-nextgen":{"affinity":{},"nodeSelector":{},"tolerations":[]},"delegate-proxy":{"affinity":{},"nodeSelector":{},"tolerations":[]},"gateway":{"affinity":{},"nodeSelector":{},"tolerations":[]},"harness-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"le-nextgen":{"affinity":{},"nodeSelector":{},"tolerations":[]},"log-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"minio":{"affinity":{},"nodeSelector":{},"tolerations":[]},"mongodb":{"affinity":{},"nodeSelector":{},"tolerations":[]},"next-gen-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-auth-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"pipeline-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"platform-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"redis":{"affinity":{},"nodeSelector":{},"tolerations":[]},"scm-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"template-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ti-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"timescaledb":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for platform-level services (always deployed by default to support all services) |
 | platform.access-control | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
 | platform.change-data-capture | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | change-data-capture settings (taints, tolerations, and so on) |
 | platform.cv-nextgen | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | cv-nextgen settings (taints, tolerations, and so on) |
@@ -200,66 +212,28 @@ docker.io/curlimages/curl:latest
 | platform.le-nextgen | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | le-nextgen (taints, tolerations, and so on) |
 | platform.log-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
 | platform.minio | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | minio (taints, tolerations, and so on) |
-| platform.mongodb.affinity | object | `{}` |  |
-| platform.mongodb.nodeSelector | object | `{}` |  |
-| platform.mongodb.tolerations | list | `[]` |  |
-| platform.next-gen-ui.affinity | object | `{}` |  |
-| platform.next-gen-ui.nodeSelector | object | `{}` |  |
-| platform.next-gen-ui.tolerations | list | `[]` |  |
-| platform.ng-auth-ui.affinity | object | `{}` |  |
-| platform.ng-auth-ui.nodeSelector | object | `{}` |  |
-| platform.ng-auth-ui.tolerations | list | `[]` |  |
-| platform.ng-manager.affinity | object | `{}` |  |
-| platform.ng-manager.nodeSelector | object | `{}` |  |
-| platform.ng-manager.tolerations | list | `[]` |  |
-| platform.pipeline-service.affinity | object | `{}` |  |
-| platform.pipeline-service.nodeSelector | object | `{}` |  |
-| platform.pipeline-service.tolerations | list | `[]` |  |
-| platform.platform-service.affinity | object | `{}` |  |
-| platform.platform-service.nodeSelector | object | `{}` |  |
-| platform.platform-service.tolerations | list | `[]` |  |
-| platform.redis.affinity | object | `{}` |  |
-| platform.redis.nodeSelector | object | `{}` |  |
-| platform.redis.tolerations | list | `[]` |  |
-| platform.scm-service.affinity | object | `{}` |  |
-| platform.scm-service.nodeSelector | object | `{}` |  |
-| platform.scm-service.tolerations | list | `[]` |  |
-| platform.template-service.affinity | object | `{}` |  |
-| platform.template-service.nodeSelector | object | `{}` |  |
-| platform.template-service.tolerations | list | `[]` |  |
-| platform.ti-service.affinity | object | `{}` |  |
-| platform.ti-service.nodeSelector | object | `{}` |  |
-| platform.ti-service.tolerations | list | `[]` |  |
-| platform.timescaledb.affinity | object | `{}` |  |
-| platform.timescaledb.nodeSelector | object | `{}` |  |
-| platform.timescaledb.tolerations | list | `[]` |  |
-| srm.enable-receivers | bool | `false` |  |
-| srm.et-collector.affinity | object | `{}` |  |
-| srm.et-collector.nodeSelector | object | `{}` |  |
-| srm.et-collector.tolerations | list | `[]` |  |
-| srm.et-receiver-agent.affinity | object | `{}` |  |
-| srm.et-receiver-agent.nodeSelector | object | `{}` |  |
-| srm.et-receiver-agent.tolerations | list | `[]` |  |
-| srm.et-receiver-decompile.affinity | object | `{}` |  |
-| srm.et-receiver-decompile.nodeSelector | object | `{}` |  |
-| srm.et-receiver-decompile.tolerations | list | `[]` |  |
-| srm.et-receiver-hit.affinity | object | `{}` |  |
-| srm.et-receiver-hit.nodeSelector | object | `{}` |  |
-| srm.et-receiver-hit.tolerations | list | `[]` |  |
-| srm.et-receiver-sql.affinity | object | `{}` |  |
-| srm.et-receiver-sql.nodeSelector | object | `{}` |  |
-| srm.et-receiver-sql.tolerations | list | `[]` |  |
-| srm.et-service.affinity | object | `{}` |  |
-| srm.et-service.nodeSelector | object | `{}` |  |
-| srm.et-service.tolerations | list | `[]` |  |
-| sto.sto-core.affinity | object | `{}` |  |
-| sto.sto-core.autoscaling.enabled | bool | `false` |  |
-| sto.sto-core.nodeSelector | object | `{}` |  |
-| sto.sto-core.tolerations | list | `[]` |  |
-| sto.sto-manager.affinity | object | `{}` |  |
-| sto.sto-manager.autoscaling.enabled | bool | `false` |  |
-| sto.sto-manager.nodeSelector | object | `{}` |  |
-| sto.sto-manager.tolerations | list | `[]` |  |
+| platform.mongodb | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | mongodb (taints, tolerations, and so on) |
+| platform.next-gen-ui | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | next-gen-ui (Next Generation User Interface) (taints, tolerations, and so on) |
+| platform.ng-auth-ui | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | ng-auth-ui (Next Generation Authorization User Interface) (taints, tolerations, and so on) |
+| platform.ng-manager | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | ng-manager (Next Generation Manager) (taints, tolerations, and so on) |
+| platform.pipeline-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on) |
+| platform.platform-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | platform-service (Harness platform-related services) (taints, tolerations, and so on) |
+| platform.redis | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | redis (taints, tolerations, and so on) |
+| platform.scm-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | scm-service (taints, tolerations, and so on) |
+| platform.template-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | template-service (Harness template-related services) (taints, tolerations, and so on) |
+| platform.ti-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | ti-service (Harness Test Intelligence-related services) (taints, tolerations, and so on) |
+| platform.timescaledb | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | timescaledb (Timescale Database service) (taints, tolerations, and so on) |
+| srm | object | `{"enable-receivers":false,"et-collector":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-agent":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-decompile":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-hit":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-sql":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-service":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for Site Reliability Management (SRM) |
+| srm.enable-receivers | bool | `false` | Flag to enable error-tracking (ET) receivers |
+| srm.et-collector | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) collector |
+| srm.et-receiver-agent | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver agent |
+| srm.et-receiver-decompile | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver decompiler |
+| srm.et-receiver-hit | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver hit |
+| srm.et-receiver-sql | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver sql service |
+| srm.et-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) service |
+| sto | object | `{"sto-core":{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]},"sto-manager":{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]}}` | Config for Security Test Orchestration (STO) |
+| sto.sto-core | object | `{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Install the STO core |
+| sto.sto-manager | object | `{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Install the STO manager |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
