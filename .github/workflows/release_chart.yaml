@@ -40,6 +40,7 @@ jobs:
           helm repo add harness-ccm https://harness.github.io/helm-ccm
           helm repo add harness-ff https://harness.github.io/helm-ff
           helm repo add harness-srm https://harness.github.io/helm-srm
+          helm repo add harness-chaos https://harness.github.io/helm-chaos
           helm repo add bitnami https://charts.bitnami.com/bitnami
 
       - name: Run Chart Releaser
