@@ -26,11 +26,7 @@
 {{- $updateChartIndex := len $imageToChart }}
 
 {{- if eq $currentImage "0" }}
-<<<<<<< HEAD
-Warning: Starting 0.4.0, monthly releases should be done in order. Please don't skip any release for backward compatibility.
-=======
 # Info: Starting chart 0.4.0 and app 784xx, upgrade policies are being formulated. Please upgrade the charts in consecutive minor versions for backward compatibility.
->>>>>>> 351860fd73009a8e7453c75bf265beefb0f1e935
 {{- else }}
     {{- range $index, $chart := $imageToChart }}
         {{- if hasKey $chart $currentImage }}
