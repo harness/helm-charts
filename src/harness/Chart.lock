@@ -7,7 +7,7 @@ dependencies:
   version: 0.5.0
 - name: sto
   repository: https://harness.github.io/helm-sto
-  version: 0.5.1
+  version: 0.5.2
 - name: ci
   repository: file://ci
   version: 0.2.0
@@ -32,5 +32,5 @@ dependencies:
 - name: chaos
   repository: https://harness.github.io/helm-chaos
   version: 0.2.0
-digest: sha256:fd1bea2f9b76d2eea17132a201e17502f0c06df45c29f560ef0592d3db552df6
-generated: "2023-03-14T00:20:29.832176+05:30"
+digest: sha256:b3113b0b22f19d666bff3f54e0f0668bf9486242606f3a8fdf8f6591b8d4c628
+generated: "2023-03-14T12:35:27.498475+05:30"

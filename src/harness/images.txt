@@ -9,7 +9,7 @@ docker.io/harness/cdcdata-signed:78426
 docker.io/harness/ce-anomaly-detection-signed:12
 docker.io/harness/ce-cloud-info-signed:0.22.0
 docker.io/harness/ce-nextgen-signed:78700-000
-docker.io/harness/ci-manager-signed:2303
+docker.io/harness/ci-manager-signed:2804
 docker.io/harness/ci-scm-signed:release-114-ubi
 docker.io/harness/cv-nextgen-signed:78426
 docker.io/harness/dashboard-service-signed:v1.53.0.0
@@ -29,7 +29,7 @@ docker.io/harness/mysql:enterprise-server-8.0.32
 docker.io/harness/ng-ce-ui:0.26.3
 docker.io/harness/policy-mgmt:v1.49.0
 docker.io/harness/stocore-signed:v1.31.3
-docker.io/harness/stomanager-signed:79000-000
+docker.io/harness/stomanager-signed:79001-000
 docker.io/harness/telescopes-signed:10100
 docker.io/harness/ti-service-signed:release-149
 docker.io/harness/ui-signed:78400
