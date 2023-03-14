@@ -32,19 +32,19 @@ global:
   # -- Enable to install Feature Flags (FF)
   ff:
     enabled: false
-  # -- Enable to install Next Generation Custom Dashboards
+  # -- Enable to install Next Generation Custom Dashboards (Beta)
   ngcustomdashboard:
     enabled: false
-  # -- Enable to install Cloud Cost Management (CCM) Beta
+  # -- Enable to install Cloud Cost Management (CCM) (Beta)
   ccm:
     enabled: false
-  # -- Enable to install gitops(beta)
+  # -- Enable to install gitops
   gitops:
     enabled: false
-  # -- Enable to install Open Policy Agent (OPA) (beta)
+  # -- Enable to install Open Policy Agent (OPA)
   opa:
     enabled: false
-  # -- Enable to install Chaos(beta)
+  # -- Enable to install Chaos Engineering (CE) (Beta)
   chaos:
     enabled: false
   # --  SAML auto acceptance. Enabled will not send invites to email and autoaccepts
