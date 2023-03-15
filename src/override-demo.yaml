@@ -495,21 +495,15 @@ ngcustomdashboard:
   looker:
     resources:
       limits:
-        cpu: 4
-        memory: 10Gi
+        memory: 8Gi
       requests:
         cpu: 2
-        memory: 4Gi
+        memory: 8Gi
+    secrets:
+      # -- Required: Looker license key
+      lookerLicenseKey: ""
     config:
-      # -- name of the user who performs setup and support tasks
-      firstName: Harness
-      # -- last name of the user who performs setup and support tasks
-      lastName: Support
-      # -- email address of the support user, required for initial signup and support
-      email: ''
       # -- Leave empty if not deploying Clickhouse.
-      # -- clickhouse connection name for CCM, must match model connection name
-      clickhouseConnectionName: smp-clickhouse
       # -- clickhouse hostname
       clickhouseHost: 'clickhouse'
       # -- clickhouse port
@@ -526,8 +520,8 @@ ngcustomdashboard:
   ng-custom-dashboards:
     resources:
       limits:
-          cpu: 2
-          memory: 1Gi
+        cpu: 2
+        memory: 1Gi
       requests:
         cpu: 1
         memory: 500Mi
