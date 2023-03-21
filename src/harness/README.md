@@ -158,13 +158,13 @@ docker.io/curlimages/curl:latest
 | chaos.chaos-web.tolerations | list | `[]` |  |
 | ci | object | `{"ci-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Install the Continuous Integration (CI) manager pod |
 | global.airgap | string | `"false"` | Airgap functionality. Disabled by default |
-| global.ccm | object | `{"enabled":false}` | Enable to install Cloud Cost Management (CCM) Beta |
+| global.ccm | object | `{"enabled":false}` | Enable to install Cloud Cost Management (CCM) (Beta) |
 | global.cd | object | `{"enabled":false}` | Enable to install Continuous Deployment (CD) |
 | global.cg | object | `{"enabled":false}` | Enable to install First Generation Harness Platform (disabled by default) |
-| global.chaos | object | `{"enabled":false}` | Enable to install Chaos(beta) |
+| global.chaos | object | `{"enabled":false}` | Enable to install Chaos Engineering (CE) (Beta) |
 | global.ci | object | `{"enabled":false}` | Enable to install Continuous Integration (CI) |
 | global.ff | object | `{"enabled":false}` | Enable to install Feature Flags (FF) |
-| global.gitops | object | `{"enabled":false}` | Enable to install gitops(beta) |
+| global.gitops | object | `{"enabled":false}` | Enable to install gitops |
 | global.ha | bool | `true` | High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV |
 | global.imageRegistry | string | `""` | This private Docker image registry will override any registries that are defined in subcharts. |
 | global.ingress | object | `{"className":"harness","defaultbackend":{"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"k8s.gcr.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["myhost.example.com"],"loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"controller":{"annotations":{}},"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"},"objects":{"annotations":{}}},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
@@ -179,8 +179,8 @@ docker.io/curlimages/curl:latest
 | global.mongoSSL | bool | `false` | Enable SSL for MongoDB service |
 | global.ng | object | `{"enabled":true}` | Enable to install NG (Next Generation Harness Platform) |
 | global.ngGitSync | object | `{"enabled":false}` | Enable to install Next Generation Git Sync functionality |
-| global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install Next Generation Custom Dashboards |
-| global.opa | object | `{"enabled":false}` | Enable to install Open Policy Agent (OPA) (beta) |
+| global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install Next Generation Custom Dashboards (Beta) |
+| global.opa | object | `{"enabled":false}` | Enable to install Open Policy Agent (OPA) |
 | global.saml | object | `{"autoaccept":false}` | SAML auto acceptance. Enabled will not send invites to email and autoaccepts |
 | global.smtpCreateSecret | object | `{"enabled":false}` | Method to create a secret for your SMTP server |
 | global.srm | object | `{"enabled":false}` | Enable to install Site Reliability Management (SRM) |
