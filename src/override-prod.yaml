@@ -215,6 +215,9 @@ platform:
         cpu: 2
         memory: 3000Mi
 
+  harness-secrets:
+    enabled: true
+
   le-nextgen:
     autoscaling:
       enabled: true

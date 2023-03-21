@@ -239,6 +239,10 @@ platform:
     nodeSelector: {}
     tolerations: []
 
+  # -- deploy harness-secret( set false to not deploy any secrets)
+  harness-secrets:
+    enabled: true
+
   # -- le-nextgen (taints, tolerations, and so on)
   le-nextgen:
     affinity: {}

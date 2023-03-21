@@ -72,8 +72,33 @@ This command removes the Kubernetes components that are associated with the char
 If your cluster is in an air-gapped environment, your deployment requires the following images:
 
 ```
-docker.io/harness/gitops-service-signed:v0.62.4
-docker.io/harness/learning-engine-onprem-signed:66700
+plugins/kaniko-acr:1.7.1
+docker.io/harness/ci-addon:1.16.4
+harness/ci-addon:1.16.4
+quay.io/argoproj/argocd-applicationset:v0.4.1
+quay.io/argoproj/argocd:v2.3.4
+docker.io/harness/gitops-agent:v0.42.0
+docker.io/haproxy:2.0.25-alpine
+docker.io/redis:6.2.6-alpine
+plugins/artifactory:1.2.0
+docker.io/harness/delegate:latest
+plugins/kaniko:1.7.0
+plugins/kaniko-ecr:1.7.0
+plugins/kaniko-gcr:1.7.0
+plugins/cache:1.4.6
+plugins/gcs:1.3.0
+docker.io/harness/upgrader:latest
+harness/drone-git:1.2.7-rootless
+docker.io/harness/delegate:23.03.78312
+docker.io/harness/ci-lite-engine:1.16.4
+harness/ci-lite-engine:1.16.4
+plugins/cache:1.4.6
+docker.io/bewithaman/s3:latest
+plugins/s3:1.2.0
+docker.io/harness/sto-plugin:latest
+harness/sto-plugin:latest
+docker.io/harness/upgrader:latest
+curlimages/curl
 docker.io/bitnami/minio:2022.8.22-debian-11-r0
 docker.io/bitnami/mongodb:4.4.15
 docker.io/bitnami/postgresql:14.4.0-debian-11-r9
@@ -91,49 +116,37 @@ docker.io/harness/delegate-proxy-signed:78312
 docker.io/harness/error-tracking-signed:5.14.2
 docker.io/harness/et-collector-signed:5.14.0
 docker.io/harness/event-service-signed:77317
+docker.io/harness/ff-postgres-migration-signed:1.945.0
 docker.io/harness/ff-pushpin-signed:1.0.3
 docker.io/harness/ff-pushpin-worker-signed:1.945.0
 docker.io/harness/ff-server-signed:1.945.0
+docker.io/harness/ff-timescale-migration-signed:1.945.0
 docker.io/harness/gateway-signed:2000149
+docker.io/harness/gitops-service-signed:v0.62.4
 docker.io/harness/helm-init-container:latest
 docker.io/harness/le-nextgen-signed:67500
+docker.io/harness/learning-engine-onprem-signed:66700
+docker.io/harness/log-service-signed:release-18
 docker.io/harness/looker-signed:23.2.31
 docker.io/harness/manager-signed:78426
 docker.io/harness/mysql:enterprise-server-8.0.32
-docker.io/harness/ng-ce-ui:0.26.3
-docker.io/harness/policy-mgmt:v1.49.0
-docker.io/harness/stocore-signed:v1.31.3
-docker.io/harness/stomanager-signed:79001-000
-docker.io/harness/telescopes-signed:10100
-docker.io/harness/ti-service-signed:release-149
-docker.io/harness/ui-signed:78400
-docker.io/harness/verification-service-signed:78426
-docker.io/ubuntu:20.04
-docker.io/harness/template-service-signed:78426
-docker.io/harness/ff-postgres-migration-signed:1.945.0
-docker.io/harness/ff-timescale-migration-signed:1.945.0
-docker.io/harness/helm-init-container:latest
-docker.io/harness/log-service-signed:release-18
 docker.io/harness/nextgenui-signed:0.339.19
 docker.io/harness/ng-auth-ui-signed:1.3.3
+docker.io/harness/ng-ce-ui:0.26.3
 docker.io/harness/ng-manager-signed:78426
 docker.io/harness/pipeline-service-signed:1.21.13
 docker.io/harness/platform-service-signed:78202
+docker.io/harness/policy-mgmt:v1.49.0
 docker.io/harness/redis:6.2.7-alpine
+docker.io/harness/stocore-signed:v1.31.3
+docker.io/harness/stomanager-signed:79001-000
+docker.io/harness/telescopes-signed:10100
+docker.io/harness/template-service-signed:78426
 docker.io/harness/ti-service-signed:release-149
+docker.io/harness/ui-signed:78400
+docker.io/harness/verification-service-signed:78426
 docker.io/timescale/timescaledb-ha:pg13-ts2.9-oss-latest
-docker.io/harness/ci-addon:1.16.4
-docker.io/harness/gitops-agent:v0.42.0
-docker.io/haproxy:2.0.25-alpine
-docker.io/redis:6.2.6-alpine
-docker.io/harness/delegate:latest
-docker.io/harness/upgrader:latest
-docker.io/harness/delegate:23.03.78312
-docker.io/harness/ci-lite-engine:1.16.4
-docker.io/bewithaman/s3:latest
-docker.io/harness/sto-plugin:latest
-docker.io/harness/upgrader:latest
-docker.io/curlimages/curl:latest
+docker.io/ubuntu:20.04
 
 ```
 ## Values
@@ -191,13 +204,14 @@ docker.io/curlimages/curl:latest
 | ngcustomdashboard | object | `{"looker":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-custom-dashboards":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Install the Next Generation customer dashboard |
 | ngcustomdashboard.looker | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the looker service |
 | ngcustomdashboard.ng-custom-dashboards | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the Next Generation customer dashboards service |
-| platform | object | `{"access-control":{"affinity":{},"nodeSelector":{},"tolerations":[]},"change-data-capture":{"affinity":{},"nodeSelector":{},"tolerations":[]},"cv-nextgen":{"affinity":{},"nodeSelector":{},"tolerations":[]},"delegate-proxy":{"affinity":{},"nodeSelector":{},"tolerations":[]},"gateway":{"affinity":{},"nodeSelector":{},"tolerations":[]},"harness-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"le-nextgen":{"affinity":{},"nodeSelector":{},"tolerations":[]},"log-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"minio":{"affinity":{},"nodeSelector":{},"tolerations":[]},"mongodb":{"affinity":{},"nodeSelector":{},"tolerations":[]},"next-gen-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-auth-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"pipeline-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"platform-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"redis":{"affinity":{},"nodeSelector":{},"tolerations":[]},"scm-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"template-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ti-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"timescaledb":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for platform-level services (always deployed by default to support all services) |
+| platform | object | `{"access-control":{"affinity":{},"nodeSelector":{},"tolerations":[]},"change-data-capture":{"affinity":{},"nodeSelector":{},"tolerations":[]},"cv-nextgen":{"affinity":{},"nodeSelector":{},"tolerations":[]},"delegate-proxy":{"affinity":{},"nodeSelector":{},"tolerations":[]},"gateway":{"affinity":{},"nodeSelector":{},"tolerations":[]},"harness-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"harness-secrets":{"enabled":true},"le-nextgen":{"affinity":{},"nodeSelector":{},"tolerations":[]},"log-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"minio":{"affinity":{},"nodeSelector":{},"tolerations":[]},"mongodb":{"affinity":{},"nodeSelector":{},"tolerations":[]},"next-gen-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-auth-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"pipeline-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"platform-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"redis":{"affinity":{},"nodeSelector":{},"tolerations":[]},"scm-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"template-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ti-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"timescaledb":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for platform-level services (always deployed by default to support all services) |
 | platform.access-control | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
 | platform.change-data-capture | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | change-data-capture settings (taints, tolerations, and so on) |
 | platform.cv-nextgen | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | cv-nextgen settings (taints, tolerations, and so on) |
 | platform.delegate-proxy | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | delegate proxy settings (taints, tolerations, and so on) |
 | platform.gateway | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | gateway settings (taints, tolerations, and so on) |
 | platform.harness-manager | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | harness-manager (taints, tolerations, and so on) |
+| platform.harness-secrets | object | `{"enabled":true}` | deploy harness-secret( set false to not deploy any secrets) |
 | platform.le-nextgen | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | le-nextgen (taints, tolerations, and so on) |
 | platform.log-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
 | platform.minio | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | minio (taints, tolerations, and so on) |
