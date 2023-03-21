@@ -25,7 +25,7 @@ dependencies:
     version: 0.2.x
     repository: "file://infra"
   - name: platform
-    version: 0.5.0
+    version: 0.5.x
     repository: "https://harness.github.io/helm-platform"
   - name: sto
     condition: global.sto.enabled
