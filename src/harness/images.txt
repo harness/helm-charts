@@ -38,7 +38,7 @@ docker.io/harness/ci-manager-signed:2804
 docker.io/harness/ci-scm-signed:release-114-ubi
 docker.io/harness/cv-nextgen-signed:78426
 docker.io/harness/dashboard-service-signed:v1.53.0.0
-docker.io/harness/delegate-proxy-signed:78312
+docker.io/harness/delegate-proxy-signed:78314
 docker.io/harness/error-tracking-signed:5.14.2
 docker.io/harness/et-collector-signed:5.14.0
 docker.io/harness/event-service-signed:77317
@@ -53,7 +53,7 @@ docker.io/harness/helm-init-container:latest
 docker.io/harness/le-nextgen-signed:67500
 docker.io/harness/learning-engine-onprem-signed:66700
 docker.io/harness/log-service-signed:release-18
-docker.io/harness/looker-signed:23.2.31
+docker.io/harness/looker-signed:23.2.57
 docker.io/harness/manager-signed:78426
 docker.io/harness/mysql:enterprise-server-8.0.32
 docker.io/harness/nextgenui-signed:0.339.19

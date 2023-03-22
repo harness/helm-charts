@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.4.4](https://img.shields.io/badge/Version-0.4.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78426](https://img.shields.io/badge/AppVersion-1.0.78426-informational?style=flat-square)
+![Version: 0.4.5](https://img.shields.io/badge/Version-0.4.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78426](https://img.shields.io/badge/AppVersion-1.0.78426-informational?style=flat-square)
 
 ## Usage
 
@@ -112,7 +112,7 @@ docker.io/harness/ci-manager-signed:2804
 docker.io/harness/ci-scm-signed:release-114-ubi
 docker.io/harness/cv-nextgen-signed:78426
 docker.io/harness/dashboard-service-signed:v1.53.0.0
-docker.io/harness/delegate-proxy-signed:78312
+docker.io/harness/delegate-proxy-signed:78314
 docker.io/harness/error-tracking-signed:5.14.2
 docker.io/harness/et-collector-signed:5.14.0
 docker.io/harness/event-service-signed:77317
@@ -127,7 +127,7 @@ docker.io/harness/helm-init-container:latest
 docker.io/harness/le-nextgen-signed:67500
 docker.io/harness/learning-engine-onprem-signed:66700
 docker.io/harness/log-service-signed:release-18
-docker.io/harness/looker-signed:23.2.31
+docker.io/harness/looker-signed:23.2.57
 docker.io/harness/manager-signed:78426
 docker.io/harness/mysql:enterprise-server-8.0.32
 docker.io/harness/nextgenui-signed:0.339.19
