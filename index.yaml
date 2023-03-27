@@ -3,6 +3,59 @@ entries:
   harness:
   - apiVersion: v2
     appVersion: 1.0.78426
+    created: "2023-03-27T16:04:11.230677129Z"
+    dependencies:
+    - name: infra
+      repository: file://infra
+      version: 0.2.x
+    - name: platform
+      repository: https://harness.github.io/helm-platform
+      version: 0.5.x
+    - condition: global.sto.enabled
+      name: sto
+      repository: https://harness.github.io/helm-sto
+      version: 0.5.x
+    - condition: global.ci.enabled
+      name: ci
+      repository: file://ci
+      version: 0.2.x
+    - condition: global.srm.enabled
+      name: srm
+      repository: https://harness.github.io/helm-srm
+      version: 0.5.x
+    - condition: global.ngcustomdashboard.enabled
+      name: ngcustomdashboard
+      repository: https://harness.github.io/helm-dashboards
+      version: 0.4.x
+    - condition: global.ff.enabled
+      name: ff
+      repository: https://harness.github.io/helm-ff
+      version: 0.5.x
+    - condition: global.ccm.enabled
+      name: ccm
+      repository: https://harness.github.io/helm-ccm
+      version: 0.5.x
+    - condition: global.gitops.enabled
+      name: gitops
+      repository: https://harness.github.io/helm-gitops
+      version: 0.3.x
+    - condition: global.opa.enabled
+      name: policy-mgmt
+      repository: https://harness.github.io/helm-policy-mgmt
+      version: 0.2.x
+    - condition: global.chaos.enabled
+      name: chaos
+      repository: https://harness.github.io/helm-chaos
+      version: 0.2.x
+    description: Helm Chart for deploying Harness.
+    digest: ead24f7042e1352d097e1cababf981864adeb398c22e9e8bc358d1ef522505a6
+    name: harness
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-0.4.6/harness-0.4.6.tgz
+    version: 0.4.6
+  - apiVersion: v2
+    appVersion: 1.0.78426
     created: "2023-03-22T02:52:10.367093008Z"
     dependencies:
     - name: infra
@@ -6309,4 +6362,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.2/harness-prod-0.2.2.tgz
     version: 0.2.2
-generated: "2023-03-22T02:52:56.206291645Z"
+generated: "2023-03-27T16:04:11.231573938Z"
