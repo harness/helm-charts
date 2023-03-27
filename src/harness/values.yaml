@@ -98,7 +98,7 @@ global:
       # -- Create will deploy a default backend into your cluster
       create: false
       image:
-        registry: k8s.gcr.io
+        registry: registry.k8s.io
         repository: defaultbackend-amd64
         pullPolicy: IfNotPresent
         # Overrides the image tag whose default is the chart appVersion.
@@ -235,6 +235,9 @@ platform:
 
   # -- harness-manager (taints, tolerations, and so on)
   harness-manager:
+    immutable_delegate_docker_image:
+      image:
+        tag: 23.03.78314
     affinity: {}
     nodeSelector: {}
     tolerations: []
