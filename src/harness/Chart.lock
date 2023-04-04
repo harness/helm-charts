@@ -16,7 +16,7 @@ dependencies:
   version: 0.5.0
 - name: ngcustomdashboard
   repository: https://harness.github.io/helm-dashboards
-  version: 0.4.1
+  version: 0.4.2
 - name: ff
   repository: https://harness.github.io/helm-ff
   version: 0.5.0
@@ -32,5 +32,5 @@ dependencies:
 - name: chaos
   repository: https://harness.github.io/helm-chaos
   version: 0.2.0
-digest: sha256:627bac153f2f53ccf9a16554056676757a0ad83efdb68566ff5a360950d81a5b
-generated: "2023-03-22T08:15:22.670955+05:30"
+digest: sha256:240de2c22266895287d74e2a20779ec399331e46ccb93ca4db4943ba945e0c8d
+generated: "2023-04-04T10:13:44.421407+01:00"
