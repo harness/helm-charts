@@ -238,6 +238,42 @@ spec:
           number: 15002
         host: template-service
 
+  - name: account-templates-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/templates(.*)$"
+      rewrite:
+        uri: "/api$1"
+    route:
+    - destination:
+        host: template-service
+        port:
+          number: 15002
+
+  - name: org-templates-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/templates(.*)$"
+      rewrite:
+        uri: "/api$1"
+    route:
+    - destination:
+        host: template-service
+        port:
+          number: 15002
+
+  - name: project-templates-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects/.+/templates(.*)$"
+      rewrite:
+        uri: "/api$1"
+    route:
+    - destination:
+        host: template-service
+        port:
+          number: 15002
+
   - name: delegate-proxy
     match:
     - uri:
@@ -262,6 +298,30 @@ spec:
         port:
           number: 12001
         host: pipeline-service
+
+  - name: pipelines-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/pipelines(.*)$"
+      rewrite:
+        uri: "/api$1"
+    route:
+    - destination:
+        host: pipeline-service
+        port:
+          number: 12001
+
+  - name: inputsets-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/input-sets(.*)$"
+      rewrite:
+        uri: "/api$1"
+    route:
+    - destination:
+        host: pipeline-service
+        port:
+          number: 12001
 
   - name: notification-service
     match:
