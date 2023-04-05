@@ -242,8 +242,8 @@ spec:
     match:
     - uri:
         regex: "^/v1/templates(.*)$"
-      rewrite:
-        uri: "/api$1"
+    rewrite:
+      uri: "/api$1"
     route:
     - destination:
         host: template-service
@@ -254,8 +254,8 @@ spec:
     match:
     - uri:
         regex: "^/v1/orgs/.+/templates(.*)$"
-      rewrite:
-        uri: "/api$1"
+    rewrite:
+      uri: "/api$1"
     route:
     - destination:
         host: template-service
@@ -266,8 +266,8 @@ spec:
     match:
     - uri:
         regex: "^/v1/orgs/.+/projects/.+/templates(.*)$"
-      rewrite:
-        uri: "/api$1"
+    rewrite:
+      uri: "/api$1"
     route:
     - destination:
         host: template-service
@@ -303,8 +303,8 @@ spec:
     match:
     - uri:
         regex: "^/v1/pipelines(.*)$"
-      rewrite:
-        uri: "/api$1"
+    rewrite:
+      uri: "/api$1"
     route:
     - destination:
         host: pipeline-service
@@ -315,8 +315,8 @@ spec:
     match:
     - uri:
         regex: "^/v1/input-sets(.*)$"
-      rewrite:
-        uri: "/api$1"
+    rewrite:
+      uri: "/api$1"
     route:
     - destination:
         host: pipeline-service
