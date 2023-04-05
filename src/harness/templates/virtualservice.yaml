@@ -316,6 +316,18 @@ spec:
           number: 9090
         host: harness-manager
 
+  - name: blocking-swagger-api
+    match:
+    - uri:
+        prefix: /api/swagger
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: dne
+        port:
+          number: 9999
+
   - name: harness-manager-stream
     match:
     - uri:
