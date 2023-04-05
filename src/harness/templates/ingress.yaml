@@ -827,7 +827,6 @@ spec:
       secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
 {{- end }}
-{{- end }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -951,3 +950,4 @@ spec:
         {{- end }}
       secretName: {{ .Values.global.ingress.tls.secretName }}
   {{- end }}
+{{- end }}
