@@ -260,7 +260,7 @@ platform:
         memory: 8192Mi
     persistence:
       size: 200Gi
-    args:
+    extraFlags:
       - "--wiredTigerCacheSizeGB=3"
 
   next-gen-ui:
