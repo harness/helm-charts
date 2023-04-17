@@ -63,6 +63,16 @@ global:
   smtpCreateSecret:
     enabled: false
 
+  # -- Enable monitoring for harness databases
+  monitoring:
+    enabled: false
+    prometheus:
+      # -- if false, then its assumed that prometheus is running in the same cluster as harness and
+      # then no ingress/virtualservice would be exposed for metrics endpoints
+      external: true
+      # -- prometheus public IP if prometheus is hosted outside harness cluster. This will be whitelisted in ingress/virtualservice rules
+      hostIp: ""
+
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
@@ -71,9 +81,9 @@ global:
     loadBalancerEnabled: false
     className: "harness"
     hosts:
-      - 'myhost.example.com'
+      - ''
     tls:
-      enabled: true
+      enabled: false
       secretName: harness-cert
 
     # -- Section to provide configuration on an NGINX ingress controller.

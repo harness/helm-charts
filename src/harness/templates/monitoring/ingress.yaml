@@ -1,0 +1,119 @@
+{{- if and .Values.global.ingress.enabled .Values.global.monitoring.enabled .Values.global.monitoring.prometheus.external -}}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mongo-metrics
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.global.monitoring.prometheus.hostIp | quote }}
+spec:
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
+  rules:
+    {{ $port :=  default 9216 (pluck "metrics" .Values.platform.mongodb.metrics.service.ports)}}
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: mongodb-replicaset-chart-metrics
+                port:
+                  {{/* ---
+                  User is advised to keep this same as the setting platform.mongodb.metrics.service.ports.metrics
+                  --- */}}
+                  number: {{ $port }}
+            path: /mongo-metrics(/|$)(.*)
+            pathType: ImplementationSpecific
+    {{- end }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.global.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
+  {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: redis-metrics
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.global.monitoring.prometheus.hostIp | quote }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
+  rules:
+    {{$port := default 9121 (pluck "metricsPort" .Values.platform.redis.service | first) }}
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: "redis-metrics"
+                port:
+                  {{/* ---
+                  User is advised to keep this same as the setting platform.redis.service.metricsPort
+                  --- */}}
+                  number: {{ $port }}
+            path: /redis-metrics(/|$)(.*)
+            pathType: ImplementationSpecific
+    {{- end }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.global.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
+  {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: postgres-metrics
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.global.monitoring.prometheus.hostIp | quote }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
+  rules:
+    {{ $port := default 9187 (pluck "metrics" .Values.infra.postgresql.metrics.service.ports | first) }}
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: timescaledb-single-chart-prometheus
+                port:
+                  {{/* ---
+                  User is advised to keep this same as the setting infra.postgresql.metrics.service.ports.metrics
+                  --- */}}
+                  number: {{ $port }}
+            path: /postgres-metrics(/|$)(.*)
+            pathType: ImplementationSpecific
+    {{- end }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.global.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
+  {{- end }}
+{{- end }}
