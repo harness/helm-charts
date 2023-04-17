@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 images="harness-airgapped-images.tar.gz"
-list="images.txt"
+list="airgapped-images.txt"
 
-function usage {
+usage () {
     echo "Usage: $0 [options]"
     echo ""
     echo "Options:"
@@ -13,7 +13,7 @@ function usage {
     echo ""
 }
 
-while [[ $# -gt 0 ]]; do
+while [ $# -gt 0 ]; do
     key="$1"
     case $key in
         -r|--registry)
@@ -40,31 +40,27 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-if [[ -z $registry ]]; then
-    echo "Input file not specified."
+if [ -z "$registry" ]; then
+    echo "Registry is not specified."
     usage
     exit 1
 fi
 
-
 set -e
 
-docker load --input ${images}
+docker load --input "$images"
 
-while IFS= read -r i; do 
-    [ -z "${i}" ] && continue
-    echo "Tagging ${registry}/${i}"
+export registry="$registry"
+cat "$list" | xargs -n1 -P0 sh -c '
+    i=$(echo "$0" | tr -d "[:space:]"); \
+    if docker tag "$i" "$registry/$i"; then \
+        echo "Image tagging success: $registry/$i"; \
+    else \
+        echo "Image tagging failed: $registry/$i"; \
+    fi; \
+    if docker push --quiet "$registry/$i"; then \
+        echo "Image push success: $registry/$i"; \
+    else \
+        echo "Image push failed: $registry/$i"; \
+    fi;'
 
-    if docker tag "${i}" "${registry}/${i}"; then
-    echo "Image tagging success: ${registry}/${i}"
-    else
-    echo "Image tagging failed: ${registry}/${i}"
-    fi
-
-    if docker push --quiet "${registry}/${i}"; then
-    echo "Image push success: ${registry}/${i}"
-    else
-    echo "Image push failed: ${registry}/${i}"
-    fi
-
-done < "${list}"
