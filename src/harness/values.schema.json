@@ -1,0 +1,74 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "properties": {
+      "global": {
+        "type": "object",
+        "properties": {
+          "monitoring": {
+            "description": "Monitoring",
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "prometheus": {
+                "type": "object",
+                "properties": {
+                  "external": {
+                    "type": "boolean"
+                  },
+                  "hostIp": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+    },
+    "if": {
+      "properties": {
+        "global": {
+            "properties": {
+              "monitoring": {
+                "properties": {
+                  "enabled": {
+                    "const": true
+                  },
+                  "prometheus": {
+                    "properties": {
+                      "external": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }
+    },
+    "then": {
+      "properties": {
+        "global": {
+            "properties": {
+              "monitoring": {
+                "properties": {
+                  "prometheus": {
+                    "properties": {
+                      "hostIp": {
+                        "minLength": 11
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }
+    },
+    "title": "Values",
+    "type": "object"
+  }
