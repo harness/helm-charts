@@ -1,0 +1,2 @@
+harness/log-service-signed:release-18
+harness/manager-signed:78426
