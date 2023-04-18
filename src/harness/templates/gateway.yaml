@@ -3,11 +3,11 @@
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
-  name: public
-  namespace: istio-system
+  name: {{ .Values.global.istio.gateway.name | default "public" }}
+  namespace: {{ .Values.global.istio.gateway.namespace | default "istio-system" }}
 spec:
   selector:
-     istio: ingressgateway
+    istio: {{ .Values.global.istio.gateway.selector | default "ingressgateway" }}
   servers:
   - port:
       number: {{ .Values.global.istio.gateway.port }}

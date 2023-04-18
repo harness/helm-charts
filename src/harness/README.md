@@ -186,7 +186,10 @@ docker.io/ubuntu:20.04
 | global.ingress.nginx.controller.annotations | object | `{}` | annotations to be addded to ingress Controller |
 | global.ingress.nginx.create | bool | `false` | Create Nginx Controller.  True will deploy a controller into your cluster |
 | global.ingress.nginx.objects.annotations | object | `{}` | annotations to be added to ingress Objects |
-| global.istio | object | `{"enabled":false,"gateway":{"create":true,"port":443,"protocol":"HTTPS"},"hosts":["*"],"strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
+| global.istio | object | `{"enabled":true,"gateway":{"create":true,"name":"","namespace":"","port":443,"protocol":"HTTPS","selector":""},"hosts":["*"],"strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
+| global.istio.gateway.name | string | `""` | override the name of gateway |
+| global.istio.gateway.namespace | string | `""` | override the name of namespace to deploy gateway |
+| global.istio.gateway.selector | string | `""` | adds a gateway selector selector  istio : selectorname |
 | global.license | object | `{"cg":"","ng":""}` | Place the license key, Harness support team will provide these |
 | global.loadbalancerURL | string | `"https://myhostname.example.com"` | Provide your URL for your intended load balancer |
 | global.mongoSSL | bool | `false` | Enable SSL for MongoDB service |
