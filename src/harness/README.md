@@ -163,6 +163,7 @@ docker.io/ubuntu:20.04
 | ccm.nextgen-ce | object | `{"clickhouse":{"enabled":false},"cloudProviderConfig":{"GCP_PROJECT_ID":"placeHolder"},"stackDriverLoggingEnabled":false}` | Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure |
 | ccm.nextgen-ce.clickhouse | object | `{"enabled":false}` | Set ccm.clickhouse.enabled to true for AWS infrastructure |
 | ccm.nextgen-ce.stackDriverLoggingEnabled | bool | `false` | Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure |
+| certificates | object | `{"dnsNames":["harness.intm.<domain>"],"enabled":false,"issuerRef":{"group":"cert-manager.io","kind":"ClusterIssuer","name":"local"},"name":"harness-cert","namespace":"harness-fips","secretName":"harness-cert","secretTemplate":{"annotations":{"kubed.appscode.com/sync":"kubernetes.io/metadata.name=mesh-platform-generic"}},"usages":["digital signature","key encipherment"]}` | Creates cert-manager.io/v1 object |
 | chaos.chaos-driver.nodeSelector | object | `{}` |  |
 | chaos.chaos-driver.tolerations | list | `[]` |  |
 | chaos.chaos-manager.nodeSelector | object | `{}` |  |

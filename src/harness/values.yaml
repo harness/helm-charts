@@ -123,6 +123,25 @@ global:
       hosts:
         - "myhostname.example.com"
 
+# -- Creates cert-manager.io/v1 object
+certificates:
+  enabled: false
+  name: "harness-cert"
+  namespace: "harness-fips"
+  dnsNames:
+  - harness.intm.<domain>
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: local
+  secretName: "harness-cert"
+  secretTemplate:
+    annotations:
+        kubed.appscode.com/sync: kubernetes.io/metadata.name=mesh-platform-generic
+  usages:
+  - digital signature
+  - key encipherment
+
 # -- Install the Continuous Integration (CI) manager pod
 ci:
   ci-manager:

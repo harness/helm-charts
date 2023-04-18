@@ -1,0 +1,16 @@
+# --- cert resource manifest
+# Example manifest for cert resource
+# Parts that should be configurable are marked with comments
+{{- if .Values.certificates.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Values.certificates.name  }}
+  namespace: {{ .Values.certificates.namespace }}
+spec:
+  dnsNames: {{ toYaml .Values.certificates.dnsNames | nindent 4 }}
+  issuerRef: {{ toYaml .Values.certificates.issuerRef | nindent 4 }}
+  secretName: {{ .Values.certificates.secretName }}
+  secretTemplate: {{ toYaml .Values.certificates.secretTemplate | nindent 4 }}
+  usages: {{ toYaml .Values.certificates.usages | nindent 4}}
+{{- end }}
