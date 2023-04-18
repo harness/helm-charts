@@ -648,14 +648,14 @@ ng-manager:
 
 chaos:
   chaos-manager:
-    replicaCount: 1
+    replicaCount: 3
     resources:
       limits:
-        cpu: 1500m
-        memory: 2048Mi
+        cpu: 600m
+        memory: 512Mi
       requests:
-        cpu: 1500m
-        memory: 2048Mi
+        cpu: 600m
+        memory: 512Mi
 
   chaos-driver:
     replicaCount: 3
