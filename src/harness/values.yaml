@@ -235,9 +235,6 @@ platform:
 
   # -- harness-manager (taints, tolerations, and so on)
   harness-manager:
-    immutable_delegate_docker_image:
-      image:
-        tag: 23.03.78314
     affinity: {}
     nodeSelector: {}
     tolerations: []
