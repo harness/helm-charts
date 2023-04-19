@@ -112,6 +112,13 @@ global:
     gateway:
       create: true
       port: 443
+      # -- override the name of gateway
+      name: ""
+      # -- override the name of namespace to deploy gateway
+      namespace: ""
+      # -- adds a gateway selector
+      selector:
+        istio: ingressgateway
       protocol: HTTPS
     hosts:
       - '*'
