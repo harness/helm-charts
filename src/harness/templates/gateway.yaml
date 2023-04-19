@@ -6,8 +6,7 @@ metadata:
   name: {{ .Values.global.istio.gateway.name | default "public" }}
   namespace: {{ .Values.global.istio.gateway.namespace | default "istio-system" }}
 spec:
-  selector:
-    istio: {{ .Values.global.istio.gateway.selector | default "ingressgateway" }}
+  selector: {{ toYaml .Values.global.istio.gateway.selector | nindent 4 }}
   servers:
   - port:
       number: {{ .Values.global.istio.gateway.port }}

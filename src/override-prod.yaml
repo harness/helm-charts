@@ -72,9 +72,8 @@ global:
       # -- override the name of namespace to deploy gateway
       namespace: ""
       # -- adds a gateway selector
-      # selector
-      #  istio : selectorname
-      selector: ""
+      selector:
+        istio: ingressgateway
       protocol: HTTPS
     hosts:
       - '*'

@@ -107,7 +107,7 @@ global:
 
   # -- Istio Ingress Settings
   istio:
-    enabled: true
+    enabled: false
     strict: false
     gateway:
       create: true
@@ -117,9 +117,8 @@ global:
       # -- override the name of namespace to deploy gateway
       namespace: ""
       # -- adds a gateway selector
-      # selector
-      #  istio : selectorname
-      selector: ""
+      selector:
+        istio: ingressgateway
       protocol: HTTPS
     hosts:
       - '*'
