@@ -11,6 +11,9 @@ global:
   mongoSSL: false
   # -- Configure storage class for MongoSSL
   storageClassName: ""
+  # -- Enable to deploy postgres(needed for NG components)
+  postgres:
+    enabled: true
   # -- Enable to install First Generation Harness Platform (disabled by default)
   cg:
     enabled: false
