@@ -581,14 +581,14 @@ chaos:
     replicaCount: 1
     resources:
       limits:
-        cpu: 1500m
-        memory: 2048Mi
+        cpu: 600m
+        memory: 512Mi
       requests:
-        cpu: 1500m
-        memory: 2048Mi
+        cpu: 600m
+        memory: 512Mi
 
   chaos-driver:
-    replicaCount: 3
+    replicaCount: 1
     resources:
       limits:
         cpu: 500m
@@ -597,7 +597,7 @@ chaos:
         memory: 512Mi
 
   chaos-web:
-    replicaCount: 3
+    replicaCount: 1
     resources:
       limits:
         cpu: 500m
