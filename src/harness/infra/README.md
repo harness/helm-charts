@@ -15,6 +15,7 @@ Shared Infrastructure components of Harness
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | postgresql.auth.database | string | `"overops"` |  |
+| postgresql.auth.existingSecret | string | `"postgres"` |  |
 | postgresql.commonLabels.app | string | `"postgres"` |  |
 | postgresql.fullnameOverride | string | `"postgres"` |  |
 

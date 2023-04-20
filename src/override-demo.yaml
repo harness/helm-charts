@@ -67,6 +67,13 @@ global:
       # -- Enable to create istio-system gateway
       create: true
       port: 443
+      # -- override the name of gateway
+      name: ""
+      # -- override the name of namespace to deploy gateway
+      namespace: ""
+      # -- adds a gateway selector
+      selector:
+        istio: ingressgateway
       protocol: HTTPS
     hosts:
       - '*'
@@ -258,7 +265,7 @@ platform:
         memory: 2048Mi
     persistence:
       size: 20Gi
-    args:
+    extraFlags:
       - "--wiredTigerCacheSizeGB=0.5"
 
   next-gen-ui:
@@ -574,14 +581,14 @@ chaos:
     replicaCount: 1
     resources:
       limits:
-        cpu: 1500m
-        memory: 2048Mi
+        cpu: 600m
+        memory: 512Mi
       requests:
-        cpu: 1500m
-        memory: 2048Mi
+        cpu: 600m
+        memory: 512Mi
 
   chaos-driver:
-    replicaCount: 3
+    replicaCount: 1
     resources:
       limits:
         cpu: 500m
@@ -590,7 +597,7 @@ chaos:
         memory: 512Mi
 
   chaos-web:
-    replicaCount: 3
+    replicaCount: 1
     resources:
       limits:
         cpu: 500m
