@@ -13,6 +13,9 @@ global:
     enabled: false
   ng:
     enabled: true
+  # -- Enable to deploy postgres(needed for NG components)
+  postgres:
+    enabled: true
   cd:
     # -- Enable to install CD
     enabled: true
