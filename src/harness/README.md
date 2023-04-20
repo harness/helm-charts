@@ -197,6 +197,7 @@ docker.io/ubuntu:20.04
 | global.ngGitSync | object | `{"enabled":false}` | Enable to install Next Generation Git Sync functionality |
 | global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install Next Generation Custom Dashboards (Beta) |
 | global.opa | object | `{"enabled":false}` | Enable to install Open Policy Agent (OPA) |
+| global.postgres | object | `{"enabled":true}` | Enable to deploy postgres(needed for NG components) |
 | global.saml | object | `{"autoaccept":false}` | SAML auto acceptance. Enabled will not send invites to email and autoaccepts |
 | global.smtpCreateSecret | object | `{"enabled":false}` | Method to create a secret for your SMTP server |
 | global.srm | object | `{"enabled":false}` | Enable to install Site Reliability Management (SRM) |
