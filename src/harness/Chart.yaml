@@ -14,8 +14,7 @@ type: application
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 
-version: 0.4.6
-
+version: 0.5.0
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
@@ -23,45 +22,45 @@ version: 0.4.6
 appVersion: "1.0.78426"
 dependencies:
   - name: infra
-    version: 0.2.x
+    version: 0.3.x
     condition: global.postgres.enabled
     repository: "file://infra"
   - name: platform
-    version: 0.5.x
+    version: 0.6.x
     repository: "https://harness.github.io/helm-platform"
   - name: sto
     condition: global.sto.enabled
-    version: 0.5.x
+    version: 0.6.x
     repository: "https://harness.github.io/helm-sto"
   - name: ci
     condition: global.ci.enabled
-    version: 0.2.x
+    version: 0.3.x
     repository: "file://ci"
   - name: srm
     condition: global.srm.enabled
-    version: 0.5.x
+    version: 0.6.x
     repository: "https://harness.github.io/helm-srm"
   - name: ngcustomdashboard
     condition: global.ngcustomdashboard.enabled
-    version: 0.4.x
+    version: 0.5.x
     repository: "https://harness.github.io/helm-dashboards"
   - name: ff
     condition: global.ff.enabled
-    version: 0.5.x
+    version: 0.6.x
     repository: "https://harness.github.io/helm-ff"
   - name: ccm
     condition: global.ccm.enabled
-    version: 0.5.x
+    version: 0.6.x
     repository: "https://harness.github.io/helm-ccm"
   - name: gitops
     condition: global.gitops.enabled
-    version: 0.3.x
+    version: 0.4.x
     repository: "https://harness.github.io/helm-gitops"
   - name: policy-mgmt
     condition: global.opa.enabled
-    version: 0.2.x
+    version: 0.3.x
     repository: "https://harness.github.io/helm-policy-mgmt"
   - name: chaos
     condition: global.chaos.enabled
-    version: 0.2.x
+    version: 0.3.x
     repository: "https://harness.github.io/helm-chaos"
