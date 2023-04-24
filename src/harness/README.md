@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.4.6](https://img.shields.io/badge/Version-0.4.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78426](https://img.shields.io/badge/AppVersion-1.0.78426-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78426](https://img.shields.io/badge/AppVersion-1.0.78426-informational?style=flat-square)
 
 ## Usage
 
@@ -89,7 +89,7 @@ plugins/cache:1.4.6
 plugins/gcs:1.3.0
 docker.io/harness/upgrader:latest
 harness/drone-git:1.2.7-rootless
-docker.io/harness/delegate:23.03.78314
+docker.io/harness/delegate:23.03.78312
 docker.io/harness/ci-lite-engine:1.16.4
 harness/ci-lite-engine:1.16.4
 plugins/cache:1.4.6
@@ -127,9 +127,8 @@ docker.io/harness/helm-init-container:latest
 docker.io/harness/le-nextgen-signed:67500
 docker.io/harness/learning-engine-onprem-signed:66700
 docker.io/harness/log-service-signed:release-18
-docker.io/harness/looker-signed:23.2.57
+docker.io/harness/looker-signed:23.4.29
 docker.io/harness/manager-signed:78426
-docker.io/harness/mysql:enterprise-server-8.0.32
 docker.io/harness/nextgenui-signed:0.339.19
 docker.io/harness/ng-auth-ui-signed:1.3.3
 docker.io/harness/ng-ce-ui:0.26.3
