@@ -460,6 +460,8 @@ sto:
         memory: 3072Mi
 infra:
   postgresql:
+    auth:
+      existingSecret: "postgres"
     primary:
       persistence:
         size: 8Gi
@@ -470,6 +472,7 @@ infra:
         requests:
           cpu: 2
           memory: 4Gi
+
 
 srm:
   enable-receivers: false
