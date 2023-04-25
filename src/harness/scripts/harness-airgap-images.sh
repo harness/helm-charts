@@ -1,6 +1,5 @@
 #!/bin/sh
 images="harness-airgapped-images.tar.gz"
-list="airgapped-images.txt"
 
 usage () {
     echo "Usage: $0 [options]"
@@ -8,7 +7,6 @@ usage () {
     echo "Options:"
     echo "  -r, --registry registry.com:5000  Specify the private registry url"
     echo "  -f, --image-bundle image_bundle Specify the tar.gz file which contains docker images"
-    echo "  -i, --file FILENAME    Specify the docker images txt file"
     echo "  -h, --help             Show this help message"
     echo ""
 }
@@ -22,10 +20,6 @@ while [ $# -gt 0 ]; do
             ;;
         -f|--image-bundle)
             images="$2"
-            shift 2
-            ;;
-        -i|--image-list)
-            list="$2"
             shift 2
             ;;
         -h|--help)
@@ -48,19 +42,17 @@ fi
 
 set -e
 
-docker load --input "$images"
-
-export registry="$registry"
-cat "$list" | xargs -n1 -P0 sh -c '
-    i=$(echo "$0" | tr -d "[:space:]"); \
-    if docker tag "$i" "$registry/$i"; then \
-        echo "Image tagging success: $registry/$i"; \
-    else \
-        echo "Image tagging failed: $registry/$i"; \
-    fi; \
-    if docker push --quiet "$registry/$i"; then \
-        echo "Image push success: $registry/$i"; \
-    else \
-        echo "Image push failed: $registry/$i"; \
-    fi;'
-
+docker load --input "$images" | awk '/Loaded image:/ { print $3 }' | while read -r image_id; do
+    image_name=$(docker inspect --format '{{index .RepoTags 0}}' "$image_id" | sed -E 's/(\[|\]|")//g')
+    tagged_image="${registry}/${image_name}"
+    if docker tag "$image_id" "$tagged_image" >/dev/null; then
+        echo "Image tagging success: $tagged_image"
+    else
+        echo "Image tagging failed: $tagged_image"
+    fi
+    if docker push "$tagged_image" >/dev/null; then
+        echo "Image push success: $tagged_image"
+    else
+        echo "Image push failed: $tagged_image"
+    fi
+done
