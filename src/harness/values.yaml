@@ -156,6 +156,11 @@ sto:
     tolerations: []
     autoscaling:
       enabled: false
+# -- overrides for Postgresql
+infra:
+  postgresql:
+    auth:
+      existingSecret: "postgres"
 
 # -- Config for Site Reliability Management (SRM)
 srm:
