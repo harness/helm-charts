@@ -1,6 +1,6 @@
 #!/bin/sh
 
-images="harness-airgapped-images.tar.gz"
+images="harness-airgapped-images.tgz"
 list="airgapped-images.txt"
 
 pull_image() {

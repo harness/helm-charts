@@ -1,12 +1,12 @@
 #!/bin/sh
-images="harness-airgapped-images.tar.gz"
+images="harness-airgapped-images.tgz"
 
 usage () {
     echo "Usage: $0 [options]"
     echo ""
     echo "Options:"
     echo "  -r, --registry registry.com:5000  Specify the private registry url"
-    echo "  -f, --image-bundle image_bundle Specify the tar.gz file which contains docker images"
+    echo "  -f, --image-bundle image_bundle Specify the tgz file which contains docker images"
     echo "  -h, --help             Show this help message"
     echo ""
 }
