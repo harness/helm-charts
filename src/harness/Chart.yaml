@@ -58,7 +58,7 @@ dependencies:
     repository: "https://harness.github.io/helm-gitops"
   - name: policy-mgmt
     condition: global.opa.enabled
-    version: 0.3.x
+    version: 0.4.x
     repository: "https://harness.github.io/helm-policy-mgmt"
   - name: chaos
     condition: global.chaos.enabled
