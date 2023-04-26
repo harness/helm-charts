@@ -342,11 +342,6 @@ platform:
     nodeSelector: {}
     tolerations: []
 
-# -- Overrides for postgresql
-infra:
-  postgresql:
-    auth:
-      existingSecret: "postgres"
 # -- Enable the Cloud Cost Management (CCM) service
 ccm:
   # -- Set ccm.clickhouse.enabled to true for AWS infrastructure
