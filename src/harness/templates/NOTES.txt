@@ -18,31 +18,12 @@
 {{ println "" }}
 {{- if .Release.IsUpgrade }}
 
-{{- $imageToChart := list (dict "766" "0.2.34") (dict "771" "0.2.88") (dict "776" "0.2.93") (dict "781" "0.3.0") (dict "784" "0.4.0") }}
+{{- $imageToChart := list (dict "766" "0.2.34") (dict "771" "0.2.88") (dict "776" "0.2.93") (dict "781" "0.3.0") (dict "784" "0.4.0") (dict "789" "0.5.0") }}
 
 {{- $currentImage := include "harness.harness-manager-image" . }}
 {{- $currentChart := "" }}
 {{- $currentChartIndex := -1 }}
 {{- $updateChartIndex := len $imageToChart }}
-
-{{- if eq $currentImage "0" }}
-# Info: Starting chart 0.4.0 and app 784xx, upgrade policies are being formulated. Please upgrade the charts in consecutive minor versions for backward compatibility.
-{{- else }}
-    {{- range $index, $chart := $imageToChart }}
-        {{- if hasKey $chart $currentImage }}
-            {{- $currentChartIndex = $index }}
-            {{- $currentChart = $chart }}
-        {{- end }}
-    {{- end }}
-    {{- if eq $currentChartIndex -1 }}
-# Info: Your setup seems to have development images {{ $currentImage }}xx. Starting chart 0.4.0 and app 784xx, upgrade policies are being formulated. Please upgrade the charts in consecutive minor versions for backward compatibility.
-    {{- else }}
-        {{- $releaseGap := sub $updateChartIndex $currentChartIndex }}
-        {{- if gt $releaseGap 2 }}
-# Info: Your current chart is {{ get $currentChart $currentImage }} and app {{ $currentImage }}xx. You seem to have skipped intermediate public releases. Starting chart 0.4.0 and app 784xx, upgrade policies are being formulated. Please upgrade the charts in consecutive minor versions for backward compatibility.
-        {{- end }}
-    {{- end }}
-{{- end }}
 
 {{- if lt $currentImage "771" }}
 # Info
