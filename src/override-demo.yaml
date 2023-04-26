@@ -460,6 +460,8 @@ sto:
         memory: 3072Mi
 infra:
   postgresql:
+    auth:
+      existingSecret: "postgres"
     primary:
       persistence:
         size: 8Gi

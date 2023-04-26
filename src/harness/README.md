@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.4.6](https://img.shields.io/badge/Version-0.4.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78426](https://img.shields.io/badge/AppVersion-1.0.78426-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78929](https://img.shields.io/badge/AppVersion-1.0.78929-informational?style=flat-square)
 
 ## Usage
 
@@ -204,6 +204,7 @@ docker.io/ubuntu:20.04
 | global.sto | object | `{"enabled":false}` | Enable to install Security Test Orchestration (STO) |
 | global.storageClassName | string | `""` | Configure storage class for MongoSSL |
 | global.useImmutableDelegate | string | `"false"` | Utilize immutable delegates (default = false) |
+| infra | object | `{"postgresql":{"auth":{"existingSecret":"postgres"}}}` | Overrides for postgresql |
 | ng-manager | object | `{"ceGcpSetupConfigGcpProjectId":"placeHolder"}` | Enable the Cloud Cost Management (CCM) service for the Next Generation Manager |
 | ngcustomdashboard | object | `{"looker":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-custom-dashboards":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Install the Next Generation customer dashboard |
 | ngcustomdashboard.looker | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the looker service |
