@@ -1,6 +1,75 @@
 apiVersion: v1
 entries:
+  ci:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-04-27T14:01:24.982860461Z"
+    dependencies:
+    - name: ci-manager
+      repository: https://harness.github.io/helm-ci-manager
+      version: 0.4.x
+    description: A Helm chart for Kubernetes
+    digest: 2d8afcfc8fb4c82cbb3429bdb7c1cb8d6a1abf35df13e913d7c16d7953570bb4
+    name: ci
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/ci-0.3.0/ci-0.3.0.tgz
+    version: 0.3.0
   harness:
+  - apiVersion: v2
+    appVersion: 1.0.78929
+    created: "2023-04-27T14:01:25.42412276Z"
+    dependencies:
+    - condition: global.postgres.enabled
+      name: infra
+      repository: file://infra
+      version: 0.3.x
+    - name: platform
+      repository: https://harness.github.io/helm-platform
+      version: 0.6.x
+    - condition: global.sto.enabled
+      name: sto
+      repository: https://harness.github.io/helm-sto
+      version: 0.6.x
+    - condition: global.ci.enabled
+      name: ci
+      repository: file://ci
+      version: 0.3.x
+    - condition: global.srm.enabled
+      name: srm
+      repository: https://harness.github.io/helm-srm
+      version: 0.6.x
+    - condition: global.ngcustomdashboard.enabled
+      name: ngcustomdashboard
+      repository: https://harness.github.io/helm-dashboards
+      version: 0.5.x
+    - condition: global.ff.enabled
+      name: ff
+      repository: https://harness.github.io/helm-ff
+      version: 0.6.x
+    - condition: global.ccm.enabled
+      name: ccm
+      repository: https://harness.github.io/helm-ccm
+      version: 0.6.x
+    - condition: global.gitops.enabled
+      name: gitops
+      repository: https://harness.github.io/helm-gitops
+      version: 0.4.x
+    - condition: global.opa.enabled
+      name: policy-mgmt
+      repository: https://harness.github.io/helm-policy-mgmt
+      version: 0.4.x
+    - condition: global.chaos.enabled
+      name: chaos
+      repository: https://harness.github.io/helm-chaos
+      version: 0.3.x
+    description: Helm Chart for deploying Harness.
+    digest: 6f3441d9522694cdbd7535fc082b155d50cd382b231e2da7ffa196e7123f0d16
+    name: harness
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-0.5.0/harness-0.5.0.tgz
+    version: 0.5.0
   - apiVersion: v2
     appVersion: 1.0.78426
     created: "2023-03-27T16:04:11.230677129Z"
@@ -6468,4 +6537,19 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/harness-prod-0.2.2/harness-prod-0.2.2.tgz
     version: 0.2.2
-generated: "2023-03-27T16:04:50.882903209Z"
+  infra:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-04-27T14:01:25.604605485Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.6.16
+    description: Shared Infrastructure components of Harness
+    digest: 206a1095a0f76dd52c2bdbfa3ba97279c1ac9d0d88759002d36140477a196696
+    name: infra
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/infra-0.3.0/infra-0.3.0.tgz
+    version: 0.3.0
+generated: "2023-04-27T14:01:25.605303989Z"
