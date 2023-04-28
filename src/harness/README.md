@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78929](https://img.shields.io/badge/AppVersion-1.0.78929-informational?style=flat-square)
+![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78929](https://img.shields.io/badge/AppVersion-1.0.78929-informational?style=flat-square)
 
 Harness Version - 78926
 Harness Release notes - https://developer.harness.io/release-notes/self-managed-enterprise-edition#latest---april-26-2023-version-78926
@@ -204,7 +204,8 @@ docker.io/ubuntu:20.04
 | global.smtpCreateSecret | object | `{"enabled":false}` | Method to create a secret for your SMTP server |
 | global.srm | object | `{"enabled":false}` | Enable to install Site Reliability Management (SRM) |
 | global.sto | object | `{"enabled":false}` | Enable to install Security Test Orchestration (STO) |
-| global.storageClassName | string | `""` | Configure storage class for MongoSSL |
+| global.storageClass | string | `""` | Configure storage class for Mongo,Timescale,Redis |
+| global.storageClassName | string | `""` | Configure storage class for Harness |
 | global.useImmutableDelegate | string | `"false"` | Utilize immutable delegates (default = false) |
 | infra | object | `{"postgresql":{"auth":{"existingSecret":"postgres"}}}` | overrides for Postgresql |
 | ng-manager | object | `{"ceGcpSetupConfigGcpProjectId":"placeHolder"}` | Enable the Cloud Cost Management (CCM) service for the Next Generation Manager |
