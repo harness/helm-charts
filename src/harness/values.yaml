@@ -11,7 +11,7 @@ global:
   mongoSSL: false
   # -- Configure storage class for Harness
   storageClassName: ""
-  # -- Configure storage class for Mongo,Timescale
+  # -- Configure storage class for Mongo,Timescale,Redis
   storageClass: ""
   # -- Enable to deploy postgres(needed for NG components)
   postgres:

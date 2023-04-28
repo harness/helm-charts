@@ -201,7 +201,7 @@ docker.io/ubuntu:20.04
 | global.smtpCreateSecret | object | `{"enabled":false}` | Method to create a secret for your SMTP server |
 | global.srm | object | `{"enabled":false}` | Enable to install Site Reliability Management (SRM) |
 | global.sto | object | `{"enabled":false}` | Enable to install Security Test Orchestration (STO) |
-| global.storageClass | string | `""` | Configure storage class for Mongo,Timescale |
+| global.storageClass | string | `""` | Configure storage class for Mongo,Timescale,Redis |
 | global.storageClassName | string | `""` | Configure storage class for Harness |
 | global.useImmutableDelegate | string | `"false"` | Utilize immutable delegates (default = false) |
 | infra | object | `{"postgresql":{"auth":{"existingSecret":"postgres"}}}` | overrides for Postgresql |
