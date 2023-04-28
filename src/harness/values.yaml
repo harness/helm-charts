@@ -9,8 +9,10 @@ global:
   loadbalancerURL: https://myhostname.example.com
   # -- Enable SSL for MongoDB service
   mongoSSL: false
-  # -- Configure storage class for MongoSSL
+  # -- Configure storage class for Harness
   storageClassName: ""
+  # -- Configure storage class for Mongo,Timescale
+  storageClass: ""
   # -- Enable to deploy postgres(needed for NG components)
   postgres:
     enabled: true
