@@ -6,6 +6,9 @@ Helm Chart for deploying Harness.
 
 ![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78929](https://img.shields.io/badge/AppVersion-1.0.78929-informational?style=flat-square)
 
+Harness Version - 78926
+Harness Release notes - https://developer.harness.io/release-notes/self-managed-enterprise-edition#latest---april-26-2023-version-78926
+
 ## Usage
 
 Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, see the [Helm documentation](https://helm.sh/docs/).
