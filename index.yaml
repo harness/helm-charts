@@ -18,6 +18,60 @@ entries:
   harness:
   - apiVersion: v2
     appVersion: 1.0.78929
+    created: "2023-05-02T18:36:25.456440278Z"
+    dependencies:
+    - condition: global.postgres.enabled
+      name: infra
+      repository: file://infra
+      version: 0.3.x
+    - name: platform
+      repository: https://harness.github.io/helm-platform
+      version: 0.6.x
+    - condition: global.sto.enabled
+      name: sto
+      repository: https://harness.github.io/helm-sto
+      version: 0.6.x
+    - condition: global.ci.enabled
+      name: ci
+      repository: file://ci
+      version: 0.3.x
+    - condition: global.srm.enabled
+      name: srm
+      repository: https://harness.github.io/helm-srm
+      version: 0.6.x
+    - condition: global.ngcustomdashboard.enabled
+      name: ngcustomdashboard
+      repository: https://harness.github.io/helm-dashboards
+      version: 0.5.x
+    - condition: global.ff.enabled
+      name: ff
+      repository: https://harness.github.io/helm-ff
+      version: 0.6.x
+    - condition: global.ccm.enabled
+      name: ccm
+      repository: https://harness.github.io/helm-ccm
+      version: 0.6.x
+    - condition: global.gitops.enabled
+      name: gitops
+      repository: https://harness.github.io/helm-gitops
+      version: 0.4.x
+    - condition: global.opa.enabled
+      name: policy-mgmt
+      repository: https://harness.github.io/helm-policy-mgmt
+      version: 0.4.x
+    - condition: global.chaos.enabled
+      name: chaos
+      repository: https://harness.github.io/helm-chaos
+      version: 0.3.x
+    description: Helm Chart for deploying Harness.
+    digest: 512d3e434d2dd3a18ce8e17e7540823eea8b83fd7fcec7f78da9a6d9055aa290
+    name: harness
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-0.5.2/harness-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: 1.0.78929
     created: "2023-04-28T19:36:29.968827373Z"
     dependencies:
     - condition: global.postgres.enabled
@@ -6606,4 +6660,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/infra-0.3.0/infra-0.3.0.tgz
     version: 0.3.0
-generated: "2023-04-28T19:36:30.143133183Z"
+generated: "2023-05-02T18:36:25.645429463Z"
