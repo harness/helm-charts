@@ -200,6 +200,7 @@ docker.io/ubuntu:20.04
 | global.saml | object | `{"autoaccept":false}` | SAML auto acceptance. Enabled will not send invites to email and autoaccepts |
 | global.smtpCreateSecret | object | `{"enabled":false}` | Method to create a secret for your SMTP server |
 | global.srm | object | `{"enabled":false}` | Enable to install Site Reliability Management (SRM) |
+| global.stackDriverLoggingEnabled | bool | `false` | Enable stack driver logging |
 | global.sto | object | `{"enabled":false}` | Enable to install Security Test Orchestration (STO) |
 | global.storageClass | string | `""` | Configure storage class for Mongo,Timescale,Redis |
 | global.storageClassName | string | `""` | Configure storage class for Harness |

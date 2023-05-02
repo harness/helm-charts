@@ -16,6 +16,8 @@ global:
   # -- Enable to deploy postgres(needed for NG components)
   postgres:
     enabled: true
+  # -- Enable stack driver logging
+  stackDriverLoggingEnabled: false
   # -- Enable to install First Generation Harness Platform (disabled by default)
   cg:
     enabled: false
