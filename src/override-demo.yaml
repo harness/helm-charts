@@ -251,6 +251,21 @@ platform:
       requests:
         cpu: 0.5
         memory: 1400Mi
+
+  migrator:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    java:
+      memory: "2048"
+    resources:
+      limits:
+        cpu: 0.5
+        memory: 3000Mi
+      requests:
+        cpu: 0.5
+        memory: 3000Mi
+
   minio:
     fullnameOverride: "minio"
     mode: standalone

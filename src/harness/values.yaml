@@ -274,6 +274,12 @@ platform:
     nodeSelector: {}
     tolerations: []
 
+  # -- migrator (taints, tolerations, and so on)
+  migrator:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
   # -- minio (taints, tolerations, and so on)
   minio:
     affinity: {}

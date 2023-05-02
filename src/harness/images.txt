@@ -54,6 +54,7 @@ docker.io/harness/learning-engine-onprem-signed:67708
 docker.io/harness/log-service-signed:release-61-ubi
 docker.io/harness/looker-signed:23.4.29
 docker.io/harness/manager-signed:78929
+docker.io/harness/migrator-signed:100421-000
 docker.io/harness/mongo:4.4.19
 docker.io/harness/nextgenui-signed:0.344.13
 docker.io/harness/ng-auth-ui-signed:1.4.0
