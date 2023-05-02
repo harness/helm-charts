@@ -9,6 +9,7 @@ global:
   loadbalancerURL: ""
   mongoSSL: false
   storageClassName: ""
+  stackDriverLoggingEnabled: false
   cg:
     enabled: false
   ng:
