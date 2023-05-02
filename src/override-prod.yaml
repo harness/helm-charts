@@ -9,6 +9,7 @@ global:
   loadbalancerURL: ""
   mongoSSL: false
   storageClassName: ""
+  stackDriverLoggingEnabled: false
   cg:
     enabled: false
   ng:
@@ -251,6 +252,20 @@ platform:
       requests:
         cpu: 1
         memory: 3072Mi
+
+  migrator:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    java:
+      memory: "2048"
+    resources:
+      limits:
+        cpu: 2
+        memory: 3000Mi
+      requests:
+        cpu: 2
+        memory: 3000Mi
 
   minio:
     fullnameOverride: "minio"
