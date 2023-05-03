@@ -1,0 +1,23 @@
+global:
+  airgap: "false"
+  cd:
+    enabled: true
+  ci:
+    enabled: false
+  ha: true  
+  imageRegistry: ""
+  ingress:
+    defaultbackend:
+      create: true
+    enabled: true
+    hosts:
+    - ""
+    loadBalancerEnabled: true
+    loadBalancerIP: 35.209.241.209
+    nginx:
+      create: true
+      httpNodePort: 32522
+      httpsNodePort: 32527
+  loadbalancerURL: http://35.209.241.209
+  storageClassName: standard-zonal-c 
+  storageClass: standard-zonal-c  
