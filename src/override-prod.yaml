@@ -7,16 +7,23 @@ global:
   imageRegistry: ""
   # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
   loadbalancerURL: ""
-  # -- provide overrides to use in-cluster database or configure to use external databases
+   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
+    # -- settings to deploy mongo in-cluster or configure to use external mongo source
     mongo:
+      # -- set false to configure external mongo and generate mongo uri protocol://hosts?extraArgs
       installed: true
+      # -- set the protocol for mongo uri
       protocol: mongodb
       # --  provide default values if mongo.installed is set to false
       hosts: []
+      # -- provide the secretname to reference mongo username and password
       secretName: ""
+      # -- provide the userKey to reference mongo username
       userKey: ""
+      # -- provide the passwordKey to reference mongo password
       passwordKey: ""
+      # -- set additional arguments to mongo uri
       extraArgs: ""
   mongoSSL: false
   storageClassName: ""

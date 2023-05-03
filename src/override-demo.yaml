@@ -9,7 +9,9 @@ global:
   loadbalancerURL: ""
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
+    # -- settings to deploy mongo in-cluster or configure to use external mongo source
     mongo:
+      # -- set false to configure external mongo
       installed: true
       protocol: mongodb
       # --  provide default values if mongo.installed is set to false
