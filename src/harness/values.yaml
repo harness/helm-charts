@@ -7,6 +7,18 @@ global:
   imageRegistry: ""
   # -- Provide your URL for your intended load balancer
   loadbalancerURL: https://myhostname.example.com
+  # -- provide overrides to use in-cluster database or configure to use external databases
+  database:
+    mongo:
+      installed: true
+      protocol: mongodb
+      # --  provide default values if mongo.installed is set to false
+      hosts: []
+      secretName: ""
+      userKey: ""
+      passwordKey: ""
+      extraArgs: ""
+
   # -- Enable SSL for MongoDB service
   mongoSSL: false
   # -- Configure storage class for Harness
