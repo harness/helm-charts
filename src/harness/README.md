@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.5.2](https://img.shields.io/badge/Version-0.5.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78929](https://img.shields.io/badge/AppVersion-1.0.78929-informational?style=flat-square)
+![Version: 0.5.3](https://img.shields.io/badge/Version-0.5.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78929](https://img.shields.io/badge/AppVersion-1.0.78929-informational?style=flat-square)
 
 ## Usage
 
@@ -176,6 +176,15 @@ docker.io/ubuntu:20.04
 | global.cg | object | `{"enabled":false}` | Enable to install First Generation Harness Platform (disabled by default) |
 | global.chaos | object | `{"enabled":false}` | Enable to install Chaos Engineering (CE) (Beta) |
 | global.ci | object | `{"enabled":false}` | Enable to install Continuous Integration (CI) |
+| global.database | object | `{"mongo":{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""}}` | provide overrides to use in-cluster database or configure to use external databases |
+| global.database.mongo | object | `{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""}` | settings to deploy mongo in-cluster or configure to use external mongo source |
+| global.database.mongo.extraArgs | string | `""` | set additional arguments to mongo uri |
+| global.database.mongo.hosts | list | `[]` | set the mongo hosts if mongo.installed is set to false |
+| global.database.mongo.installed | bool | `true` | set false to configure external mongo and generate mongo uri protocol://hosts?extraArgs |
+| global.database.mongo.passwordKey | string | `""` | provide the passwordKey to reference mongo password |
+| global.database.mongo.protocol | string | `"mongodb"` | set the protocol for mongo uri |
+| global.database.mongo.secretName | string | `""` | provide the secretname to reference mongo username and password |
+| global.database.mongo.userKey | string | `""` | provide the userKey to reference mongo username |
 | global.ff | object | `{"enabled":false}` | Enable to install Feature Flags (FF) |
 | global.gitops | object | `{"enabled":false}` | Enable to install gitops |
 | global.ha | bool | `true` | High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV |
