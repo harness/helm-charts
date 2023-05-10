@@ -76,8 +76,8 @@ global:
   ngGitSync:
     # -- Set to enable NG_GIT_SYNC and disable OLD_GIT_SYNC
     enabled: false
-  # -- Set true to enable Immutable Delegate
-  useImmutableDelegate: "false"
+  # -- Set false to disable Immutable Delegate
+  useImmutableDelegate: "true"
   smtpCreateSecret:
     # -- Enable to create SMTP secretFile
     enabled: false
