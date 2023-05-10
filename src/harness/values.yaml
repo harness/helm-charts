@@ -83,8 +83,8 @@ global:
   # -- Enable to install Next Generation Git Sync functionality
   ngGitSync:
     enabled: false
-  # -- Utilize immutable delegates (default = false)
-  useImmutableDelegate: "false"
+  # -- Utilize immutable delegates (default = true)
+  useImmutableDelegate: "true"
   # -- Method to create a secret for your SMTP server
   smtpCreateSecret:
     enabled: false
