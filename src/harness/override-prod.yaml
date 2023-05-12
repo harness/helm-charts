@@ -30,6 +30,8 @@ global:
   stackDriverLoggingEnabled: false
   cg:
     enabled: false
+  migrator:
+    enabled: false
   ng:
     enabled: true
   # -- Enable to deploy postgres(needed for NG components)

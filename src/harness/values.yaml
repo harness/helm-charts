@@ -73,6 +73,8 @@ global:
   # -- Enable to install Chaos Engineering (CE) (Beta)
   chaos:
     enabled: false
+  migrator:
+    enabled: false
   # --  SAML auto acceptance. Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false
