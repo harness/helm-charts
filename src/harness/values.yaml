@@ -182,12 +182,16 @@ platform:
 
   # -- change-data-capture settings (taints, tolerations, and so on)
   change-data-capture:
+    image:
+      tag: 78112
     affinity: {}
     nodeSelector: {}
     tolerations: []
 
   # -- cv-nextgen settings (taints, tolerations, and so on)
   cv-nextgen:
+    image:
+      tag: 78112
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -206,6 +210,8 @@ platform:
 
   # -- harness-manager (taints, tolerations, and so on)
   harness-manager:
+    image:
+      tag: 78112
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -244,6 +250,8 @@ platform:
     tolerations: []
 
   ng-manager:
+    image:
+      tag: 78112
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -269,6 +277,8 @@ platform:
     tolerations: []
 
   template-service:
+    image:
+      tag: 78112
     affinity: {}
     nodeSelector: {}
     tolerations: []
