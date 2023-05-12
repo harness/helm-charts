@@ -78,6 +78,8 @@ global:
     enabled: false
   # -- Set true to enable Immutable Delegate
   useImmutableDelegate: "false"
+  # -- Set true to use delegate minimal image
+  useMinimalDelegateImage: false
   smtpCreateSecret:
     # -- Enable to create SMTP secretFile
     enabled: false
