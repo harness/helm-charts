@@ -6,12 +6,12 @@ helm template ${SCRIPT_DIR}/harness -f  ${SCRIPT_DIR}/generate-image.yaml | grep
 
 # Add minimal images
 IMAGES=("docker.io/harness/delegate:[0-9.]+" "docker.io/harness/delegate-proxy-signed:[0-9.]+")
-SUFFIX=".minimal"
-for search_item in "${IMAGES[@]}"
+SUFFIX=(".minimal" "_minimal")
+for i in "${!IMAGES[@]}"
 do
-    MATCHES=$(grep -oE "$search_item" "src/harness/images.txt")
+    MATCHES=$(grep -oE "${IMAGES[i]}" "src/harness/images.txt")
     if [ -n "$MATCHES" ]; then
-        echo "$MATCHES" | sed "s/$/$SUFFIX/" | tee -a src/harness/images.txt
+        echo "$MATCHES" | sed "s/$/${SUFFIX[i]}/" | tee -a src/harness/images.txt
     fi
 done
 
