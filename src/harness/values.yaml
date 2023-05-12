@@ -198,6 +198,8 @@ platform:
 
   # -- delegate proxy settings (taints, tolerations, and so on)
   delegate-proxy:
+    image:
+      tag: 78100
     affinity: {}
     nodeSelector: {}
     tolerations: []
