@@ -245,6 +245,15 @@ ngcustomdashboard:
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
+    # -- set mongoHosts for external database hosts
+    # -- mongoHosts:
+    # -- - replica1.host.com:27017
+    # -- - replica2.host.com:27017
+    # -- - replica3.host.com:27017
+    mongoHosts: []
+    # -- enable mongoSSL for external database connections
+    mongoSSL:
+      enabled: false
     affinity: {}
     nodeSelector: {}
     tolerations: []

@@ -161,6 +161,15 @@ global:
 platform:
   # -- Feature list to enable within platform.  Contact Harness for value
   access-control:
+    # -- set mongoHosts for external database hosts
+    # -- mongoHosts:
+    # -- - replica1.host.com:27017
+    # -- - replica2.host.com:27017
+    # -- - replica3.host.com:27017
+    mongoHosts: []
+    # -- enable mongoSSL for external database connections
+    mongoSSL:
+      enabled: false
     autoscaling:
       enabled: false
     replicaCount: 1
