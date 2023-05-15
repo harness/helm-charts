@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.5.3](https://img.shields.io/badge/Version-0.5.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78929](https://img.shields.io/badge/AppVersion-1.0.78929-informational?style=flat-square)
+![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78929](https://img.shields.io/badge/AppVersion-1.0.78929-informational?style=flat-square)
 
 ## Usage
 
@@ -89,6 +89,7 @@ plugins/cache:1.4.7
 plugins/gcs:1.3.0
 docker.io/harness/upgrader:latest
 harness/drone-git:1.2.8-rootless
+docker.io/harness/delegate:23.03.78904
 docker.io/harness/delegate:23.04.78918
 docker.io/harness/ci-lite-engine:1.16.6-linux-amd64
 harness/ci-lite-engine:1.16.6-linux-amd64
