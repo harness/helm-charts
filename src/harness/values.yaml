@@ -73,6 +73,8 @@ global:
   # -- Enable to install Chaos Engineering (CE) (Beta)
   chaos:
     enabled: false
+  migrator:
+    enabled: false
   # --  SAML auto acceptance. Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false
@@ -83,8 +85,8 @@ global:
   # -- Enable to install Next Generation Git Sync functionality
   ngGitSync:
     enabled: false
-  # -- Utilize immutable delegates (default = false)
-  useImmutableDelegate: "false"
+  # -- Utilize immutable delegates (default = true)
+  useImmutableDelegate: "true"
   # -- Method to create a secret for your SMTP server
   smtpCreateSecret:
     enabled: false
@@ -243,6 +245,15 @@ ngcustomdashboard:
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
+    # -- set mongoHosts for external database hosts
+    # -- mongoHosts:
+    # -- - replica1.host.com:27017
+    # -- - replica2.host.com:27017
+    # -- - replica3.host.com:27017
+    mongoHosts: []
+    # -- enable mongoSSL for external database connections
+    mongoSSL:
+      enabled: false
     affinity: {}
     nodeSelector: {}
     tolerations: []
