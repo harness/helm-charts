@@ -32,5 +32,5 @@ dependencies:
 - name: chaos
   repository: https://harness.github.io/helm-chaos
   version: 0.3.1
-digest: sha256:c9d6d559f7e2f9632fb67d6e4dfe0da8e83914a6f8af3f5dbfb916cae4330040
-generated: "2023-05-16T20:45:03.378964+05:30"
+digest: sha256:5a4b7236e3281302f6a0a082e24c62f61468676c9eb77c51a4a64c12898972ab
+generated: "2023-05-15T19:37:55.105701459Z"
