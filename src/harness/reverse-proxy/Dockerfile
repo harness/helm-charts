@@ -2,7 +2,7 @@ FROM golang:1.16-alpine as builder
 
 WORKDIR /app
 COPY . .
-RUN go mod init https://github.com/harness/helm-charts/src/harness/reverse-proxy
+RUN go mod init https://github.com/harness/helm-charts/tree/arcticwolf-sd/src/harness/reverse-proxy
 RUN CGO_ENABLED=0 GOOS=linux go build -o reverse-proxy .
 
 FROM alpine:latest
