@@ -96,7 +96,7 @@ docker.io/haproxy:2.0.25-alpine
 docker.io/redis:6.2.6-alpine
 docker.io/bewithaman/s3:latest
 curlimages/curl
-docker.io/bitnami/minio:2022.8.22-debian-11-r0
+docker.io/bitnami/minio:2023.4.13-debian-11-r0
 docker.io/bitnami/mongodb:4.4.15
 docker.io/bitnami/postgresql:14.4.0-debian-11-r9
 docker.io/timescale/timescaledb-ha:pg13-ts2.9-oss-latest

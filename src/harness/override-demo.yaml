@@ -30,6 +30,8 @@ global:
   stackDriverLoggingEnabled: false
   cg:
     enabled: false
+  migrator:
+    enabled: false
   ng:
     enabled: true
   # -- Enable to deploy postgres(needed for NG components)
@@ -76,8 +78,8 @@ global:
   ngGitSync:
     # -- Set to enable NG_GIT_SYNC and disable OLD_GIT_SYNC
     enabled: false
-  # -- Set true to enable Immutable Delegate
-  useImmutableDelegate: "false"
+  # -- Set false to disable Immutable Delegate
+  useImmutableDelegate: "true"
   # -- Set true to use delegate minimal image
   useMinimalDelegateImage: false
   smtpCreateSecret:
@@ -161,6 +163,15 @@ global:
 platform:
   # -- Feature list to enable within platform.  Contact Harness for value
   access-control:
+    # -- set mongoHosts for external database hosts
+    # -- mongoHosts:
+    # -- - replica1.host.com:27017
+    # -- - replica2.host.com:27017
+    # -- - replica3.host.com:27017
+    mongoHosts: []
+    # -- enable mongoSSL for external database connections
+    mongoSSL:
+      enabled: false
     autoscaling:
       enabled: false
     replicaCount: 1
