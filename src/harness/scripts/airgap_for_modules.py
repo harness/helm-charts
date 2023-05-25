@@ -1,7 +1,7 @@
 """
 This script pulls Docker images based on the provided modules and images file.
 Usage: python script.py images_file module1 [module2 ...]
-Example: python images.txt CD-CG FF (This will download the unique containers required for CD-CG and FF)
+Example: python airgap_for_modules.py images.txt CD-CG FF (This will download the unique containers required for CD-CG and FF)
 
 How to obtain images.txt:
     - Go to https://github.com/harness/helm-charts/releases
