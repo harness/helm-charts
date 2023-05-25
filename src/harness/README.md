@@ -100,7 +100,7 @@ docker.io/harness/sto-plugin:latest
 harness/sto-plugin:latest
 docker.io/harness/upgrader:latest
 docker.io/bitnami/minio:2023.4.13-debian-11-r0
-docker.io/bitnami/postgresql:14.4.0-debian-11-r9
+docker.io/bitnami/postgresql:14.7.0-debian-11-r28
 docker.io/curlimages/curl:latest
 docker.io/harness/accesscontrol-service-signed:78405
 docker.io/harness/batch-processing-signed:78605-000
@@ -111,7 +111,7 @@ docker.io/harness/ce-nextgen-signed:78700-000
 docker.io/harness/ci-manager-signed:3304
 docker.io/harness/ci-scm-signed:release-114-ubi
 docker.io/harness/cv-nextgen-signed:78929
-docker.io/harness/dashboard-service-signed:v1.53.0.0
+docker.io/harness/dashboard-service-signed:v1.53.8
 docker.io/harness/delegate-proxy-signed:78918
 docker.io/harness/error-tracking-signed:5.18.0
 docker.io/harness/et-collector-signed:5.18.0
@@ -138,7 +138,7 @@ docker.io/harness/ng-manager-signed:78929
 docker.io/harness/pipeline-service-signed:1.26.9
 docker.io/harness/platform-service-signed:78602
 docker.io/harness/policy-mgmt:v1.56.2
-docker.io/harness/redis:6.2.7-alpine
+docker.io/harness/redis:6.2.11-alpine
 docker.io/harness/stocore-signed:v1.40.3
 docker.io/harness/stomanager-signed:79002-000
 docker.io/harness/telescopes-signed:10100
