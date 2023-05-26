@@ -329,6 +329,10 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    arbiter:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
 
   # -- next-gen-ui (Next Generation User Interface) (taints, tolerations, and so on)
   next-gen-ui:

@@ -27,6 +27,7 @@ global:
       extraArgs: ""
   mongoSSL: false
   storageClassName: ""
+  # -- set storageClass for third party applications
   storageClass: ""
   stackDriverLoggingEnabled: false
   cg:
