@@ -27,6 +27,8 @@ global:
       extraArgs: ""
   mongoSSL: false
   storageClassName: ""
+  # -- set storageClass for third party applications
+  storageClass: ""
   stackDriverLoggingEnabled: false
   cg:
     enabled: false
@@ -259,6 +261,18 @@ platform:
   harness-secrets:
     enabled: true
 
+  learning-engine:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 4
+        memory: 6132Mi
+      requests:
+        cpu: 4
+        memory: 6132Mi
+
   le-nextgen:
     autoscaling:
       enabled: true
@@ -317,6 +331,10 @@ platform:
       size: 200Gi
     extraFlags:
       - "--wiredTigerCacheSizeGB=3"
+    arbiter:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
 
   next-gen-ui:
     autoscaling:
@@ -466,6 +484,30 @@ platform:
         memory: 2048Mi
     storage:
       capacity: 120Gi
+
+  ui:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 0.5
+        memory: 512Mi
+      requests:
+        cpu: 0.5
+        memory: 512Mi
+
+  verification-svc:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 1
+        memory: 2048Mi
+      requests:
+        cpu: 1
+        memory: 2048Mi
 
 
 
