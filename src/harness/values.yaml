@@ -294,6 +294,12 @@ platform:
   harness-secrets:
     enabled: true
 
+   # -- learning-engine (taints, tolerations, and so on)
+  learning-engine:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
   # -- le-nextgen (taints, tolerations, and so on)
   le-nextgen:
     affinity: {}
@@ -383,6 +389,17 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+  # -- ui (Harness First CG Ui component) (taints, tolerations, and so on)
+  ui:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  # -- verificiation-service (Harness First CG verification service) (taints, tolerations, and so on)
+  verification-svc:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
 
 # -- Enable the Cloud Cost Management (CCM) service
 ccm:
