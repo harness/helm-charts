@@ -27,6 +27,8 @@ global:
       extraArgs: ""
   mongoSSL: false
   storageClassName: ""
+  # -- set storageClass for third party applications
+  storageClass: ""
   stackDriverLoggingEnabled: false
   cg:
     enabled: false
@@ -80,6 +82,8 @@ global:
     enabled: false
   # -- Set false to disable Immutable Delegate
   useImmutableDelegate: "true"
+  # -- Set true to use delegate minimal image
+  useMinimalDelegateImage: false
   smtpCreateSecret:
     # -- Enable to create SMTP secretFile
     enabled: false
@@ -257,6 +261,18 @@ platform:
   harness-secrets:
     enabled: true
 
+  learning-engine:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 4
+        memory: 6132Mi
+      requests:
+        cpu: 4
+        memory: 6132Mi
+
   le-nextgen:
     autoscaling:
       enabled: true
@@ -315,6 +331,10 @@ platform:
       size: 200Gi
     extraFlags:
       - "--wiredTigerCacheSizeGB=3"
+    arbiter:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
 
   next-gen-ui:
     autoscaling:
@@ -465,6 +485,29 @@ platform:
     storage:
       capacity: 120Gi
 
+  ui:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 0.5
+        memory: 512Mi
+      requests:
+        cpu: 0.5
+        memory: 512Mi
+
+  verification-svc:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        cpu: 1
+        memory: 2048Mi
+      requests:
+        cpu: 1
+        memory: 2048Mi
 
 
 ci:

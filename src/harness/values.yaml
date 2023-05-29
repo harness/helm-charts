@@ -87,9 +87,16 @@ global:
     enabled: false
   # -- Utilize immutable delegates (default = true)
   useImmutableDelegate: "true"
+  # -- Use delegate minimal image (default = false)
+  useMinimalDelegateImage: false
   # -- Method to create a secret for your SMTP server
   smtpCreateSecret:
     enabled: false
+  # -- Enable monitoring for all harness services: disabled by default
+  monitoring:
+    enabled: false
+    port: 8889
+    path: /metrics
 
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
@@ -184,6 +191,13 @@ sto:
 # -- overrides for Postgresql
 infra:
   postgresql:
+  # -- set enable to enable postgres metrics exporter
+    metrics:
+        enabled: false
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9187'
+    #   prometheus.io/scrape: 'false'
     auth:
       existingSecret: "postgres"
 
@@ -292,6 +306,12 @@ platform:
   harness-secrets:
     enabled: true
 
+   # -- learning-engine (taints, tolerations, and so on)
+  learning-engine:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
   # -- le-nextgen (taints, tolerations, and so on)
   le-nextgen:
     affinity: {}
@@ -318,9 +338,20 @@ platform:
 
   # -- mongodb (taints, tolerations, and so on)
   mongodb:
+    metrics:
+    # -- set enable to enable mongo metrics exporter
+        enabled: false
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9216'
+    #   prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    arbiter:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
 
   # -- next-gen-ui (Next Generation User Interface) (taints, tolerations, and so on)
   next-gen-ui:
@@ -354,6 +385,13 @@ platform:
 
   # -- redis (taints, tolerations, and so on)
   redis:
+  # -- set enable to enable redis exporter
+    metrics:
+      enabled: false
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9121'
+    #   prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -378,9 +416,27 @@ platform:
 
   # -- timescaledb (Timescale Database service) (taints, tolerations, and so on)
   timescaledb:
+  # -- set enable to enable timescaledb metric exporter
+    prometheus:
+        enabled: false
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9187'
+    #   prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
+  # -- ui (Harness First CG Ui component) (taints, tolerations, and so on)
+  ui:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  # -- verificiation-service (Harness First CG verification service) (taints, tolerations, and so on)
+  verification-svc:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
 
 # -- Enable the Cloud Cost Management (CCM) service
 ccm:
