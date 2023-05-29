@@ -92,6 +92,11 @@ global:
   # -- Method to create a secret for your SMTP server
   smtpCreateSecret:
     enabled: false
+  # -- Enable monitoring for all harness services: disabled by default 
+  monitoring:
+    enabled: false
+    port: 8889
+    path: /metrics
 
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
@@ -186,6 +191,12 @@ sto:
 # -- overrides for Postgresql
 infra:
   postgresql:
+    metrics:
+        enabled: false
+    podAnnotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: '9187'
+      prometheus.io/scrape: 'false'
     auth:
       existingSecret: "postgres"
 
@@ -326,6 +337,12 @@ platform:
 
   # -- mongodb (taints, tolerations, and so on)
   mongodb:
+    metrics:
+        enabled: false
+    podAnnotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: '9216'
+      prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -366,6 +383,12 @@ platform:
 
   # -- redis (taints, tolerations, and so on)
   redis:
+    metrics:
+      enabled: false
+    podAnnotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: '9121'
+      prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -390,6 +413,12 @@ platform:
 
   # -- timescaledb (Timescale Database service) (taints, tolerations, and so on)
   timescaledb:
+    prometheus:
+        enabled: false
+    podAnnotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: '9187'
+      prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
