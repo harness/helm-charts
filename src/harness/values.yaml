@@ -92,7 +92,7 @@ global:
   # -- Method to create a secret for your SMTP server
   smtpCreateSecret:
     enabled: false
-  # -- Enable monitoring for all harness services: disabled by default 
+  # -- Enable monitoring for all harness services: disabled by default
   monitoring:
     enabled: false
     port: 8889
@@ -193,10 +193,10 @@ infra:
   postgresql:
     metrics:
         enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9187'
-      prometheus.io/scrape: 'false'
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9187'
+    #   prometheus.io/scrape: 'false'
     auth:
       existingSecret: "postgres"
 
@@ -339,10 +339,10 @@ platform:
   mongodb:
     metrics:
         enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9216'
-      prometheus.io/scrape: 'false'
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9216'
+    #   prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -385,10 +385,10 @@ platform:
   redis:
     metrics:
       enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9121'
-      prometheus.io/scrape: 'false'
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9121'
+    #   prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -415,10 +415,10 @@ platform:
   timescaledb:
     prometheus:
         enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9187'
-      prometheus.io/scrape: 'false'
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9187'
+    #   prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
