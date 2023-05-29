@@ -191,6 +191,7 @@ sto:
 # -- overrides for Postgresql
 infra:
   postgresql:
+  # -- set enable to enable postgres metrics exporter
     metrics:
         enabled: false
     # podAnnotations:
@@ -338,6 +339,7 @@ platform:
   # -- mongodb (taints, tolerations, and so on)
   mongodb:
     metrics:
+    # -- set enable to enable mongo metrics exporter
         enabled: false
     # podAnnotations:
     #   prometheus.io/path: /metrics
@@ -383,6 +385,7 @@ platform:
 
   # -- redis (taints, tolerations, and so on)
   redis:
+  # -- set enable to enable redis exporter
     metrics:
       enabled: false
     # podAnnotations:
@@ -413,6 +416,7 @@ platform:
 
   # -- timescaledb (Timescale Database service) (taints, tolerations, and so on)
   timescaledb:
+  # -- set enable to enable timescaledb metric exporter
     prometheus:
         enabled: false
     # podAnnotations:
