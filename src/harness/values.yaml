@@ -92,6 +92,11 @@ global:
   # -- Method to create a secret for your SMTP server
   smtpCreateSecret:
     enabled: false
+  # -- Enable monitoring for all harness services: disabled by default 
+  monitoring:
+    enabled: false
+    port: 8889
+    path: /metrics
 
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
