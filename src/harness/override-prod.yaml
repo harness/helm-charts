@@ -510,7 +510,6 @@ platform:
         memory: 2048Mi
 
 
-
 ci:
   ci-manager:
     autoscaling:
