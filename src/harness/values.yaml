@@ -184,6 +184,12 @@ sto:
 # -- overrides for Postgresql
 infra:
   postgresql:
+    metrics:
+        enabled: false
+    podAnnotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: '9187'
+      prometheus.io/scrape: 'false'
     auth:
       existingSecret: "postgres"
 
@@ -318,6 +324,12 @@ platform:
 
   # -- mongodb (taints, tolerations, and so on)
   mongodb:
+    metrics:
+        enabled: false
+    podAnnotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: '9216'
+      prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -354,6 +366,12 @@ platform:
 
   # -- redis (taints, tolerations, and so on)
   redis:
+    metrics:
+      enabled: false
+    podAnnotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: '9121'
+      prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -378,6 +396,12 @@ platform:
 
   # -- timescaledb (Timescale Database service) (taints, tolerations, and so on)
   timescaledb:
+    prometheus:
+        enabled: false
+    podAnnotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: '9187'
+      prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
