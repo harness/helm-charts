@@ -92,7 +92,7 @@ global:
   # -- Method to create a secret for your SMTP server
   smtpCreateSecret:
     enabled: false
-  # -- Enable monitoring for all harness services: disabled by default 
+  # -- Enable monitoring for all harness services: disabled by default
   monitoring:
     enabled: false
     port: 8889
@@ -191,12 +191,13 @@ sto:
 # -- overrides for Postgresql
 infra:
   postgresql:
+  # -- set enable to enable postgres metrics exporter
     metrics:
         enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9187'
-      prometheus.io/scrape: 'false'
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9187'
+    #   prometheus.io/scrape: 'false'
     auth:
       existingSecret: "postgres"
 
@@ -338,11 +339,12 @@ platform:
   # -- mongodb (taints, tolerations, and so on)
   mongodb:
     metrics:
+    # -- set enable to enable mongo metrics exporter
         enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9216'
-      prometheus.io/scrape: 'false'
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9216'
+    #   prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -383,12 +385,13 @@ platform:
 
   # -- redis (taints, tolerations, and so on)
   redis:
+  # -- set enable to enable redis exporter
     metrics:
       enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9121'
-      prometheus.io/scrape: 'false'
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9121'
+    #   prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -413,12 +416,13 @@ platform:
 
   # -- timescaledb (Timescale Database service) (taints, tolerations, and so on)
   timescaledb:
+  # -- set enable to enable timescaledb metric exporter
     prometheus:
         enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9187'
-      prometheus.io/scrape: 'false'
+    # podAnnotations:
+    #   prometheus.io/path: /metrics
+    #   prometheus.io/port: '9187'
+    #   prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
