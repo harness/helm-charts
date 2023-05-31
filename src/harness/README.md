@@ -35,7 +35,7 @@ $  helm install my-release harness/harness-prod -n <namespace> -f override.yaml
 ```
 
 ### Access the application
-Verify your installation by accessing the Harness application and creating your Harness account. For basic instructions, go to https://docs.harness.io/article/gqoqinkhck-install-harness-self-managed-enterprise-edition-with-helm#create_your_harness_account.
+Verify your installation by accessing the Harness application and creating your Harness account. For basic instructions, go to [Install using Helm](https://developer.harness.io/docs/self-managed-enterprise-edition/self-managed-helm-based-install/install-harness-self-managed-enterprise-edition-using-helm-ga/).
 
 ## Upgrade the chart
 Use the following instructions to upgrade Harness Helm chart to a later version.
