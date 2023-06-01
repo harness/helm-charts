@@ -6,9 +6,11 @@ Helm Chart for deploying Harness.
 
 ![Version: 0.5.5](https://img.shields.io/badge/Version-0.5.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.78929](https://img.shields.io/badge/AppVersion-1.0.78929-informational?style=flat-square)
 
+For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
+
 ## Usage
 
-Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, see the [Helm documentation](https://helm.sh/docs/).
+Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, go to the [Helm documentation](https://helm.sh/docs/).
 
 Use the following command to add the Harness chart repository to your Helm installation:
 
@@ -16,7 +18,7 @@ Use the following command to add the Harness chart repository to your Helm insta
 $ helm repo add harness https://harness.github.io/helm-charts
 ```
 ## Requirements
-* [Istio](https://isio/io). This Helm chart includes Istio service mesh as an optional dependency and requires its installation. For information about how to download and install Istio into your Kubernetes clusters, see https://istio.io/latest/docs/setup/getting-started/
+* [Istio](https://isio/io). This Helm chart includes Istio service mesh as an optional dependency and requires its installation. For information about how to download and install Istio into your Kubernetes clusters, go to [Getting Started](https://istio.io/latest/docs/setup/getting-started/) in the Istio documentation.
 
 ## Install the chart
 Use the following process to install the Helm chart.
@@ -25,7 +27,7 @@ Use the following process to install the Helm chart.
 $ kubectl create namespace <namespace>
 ```
 
-2. Create the override.yaml file using your envirionment settings:
+2. Create the override.yaml file using your environment settings:
 
 Install the Helm chart:
 ```
@@ -33,7 +35,7 @@ $  helm install my-release harness/harness-prod -n <namespace> -f override.yaml
 ```
 
 ### Access the application
-Verify your installation by accessing the Harness application and creating your Harness account. For basic instructions, see https://docs.harness.io/article/gqoqinkhck-install-harness-self-managed-enterprise-edition-with-helm#create_your_harness_account.
+Verify your installation by accessing the Harness application and creating your Harness account. For basic instructions, go to [Install using Helm](https://developer.harness.io/docs/self-managed-enterprise-edition/self-managed-helm-based-install/install-harness-self-managed-enterprise-edition-using-helm-ga/).
 
 ## Upgrade the chart
 Use the following instructions to upgrade Harness Helm chart to a later version.
