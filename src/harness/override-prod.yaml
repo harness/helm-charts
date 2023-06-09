@@ -103,6 +103,10 @@ global:
       selector:
         istio: ingressgateway
       protocol: HTTPS
+    # -- set to istio gateway's k8s service FQDN for internal use case. eg "internal-istio-gateway.istio-system.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    istioGatewayServiceUrl: ""
+    # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
     hosts:
       - '*'
     tls:
@@ -112,6 +116,7 @@ global:
     virtualService:
       gateways:
         - ""
+      # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
       hosts:
         - ""
 
@@ -126,6 +131,10 @@ global:
 
     # NOTE: for ip-based installs, either use sslip.io for an IP-encoded DNS name
     # OR set the hosts entry to '*'
+    # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    ingressGatewayServiceUrl: ""
+    # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
     hosts:
       - 'my-host.example.org'
     tls:
