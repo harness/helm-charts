@@ -87,6 +87,8 @@ global:
   smtpCreateSecret:
     # -- Enable to create SMTP secretFile
     enabled: false
+  # -- set kubernetes version override, unrequired if installing using Helm.
+  kubeVersion: ""
   # --- Enable Istio Gateway
   istio:
     enabled: false

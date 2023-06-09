@@ -92,6 +92,8 @@ global:
   # -- Method to create a secret for your SMTP server
   smtpCreateSecret:
     enabled: false
+  # -- set kubernetes version override, unrequired if installing using Helm.
+  kubeVersion: ""
   # -- Enable monitoring for all harness services: disabled by default
   monitoring:
     enabled: false
