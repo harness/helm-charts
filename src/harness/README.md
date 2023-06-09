@@ -186,6 +186,7 @@ docker.io/curlimages/curl:latest
 | global.istio.gateway.name | string | `""` | override the name of gateway |
 | global.istio.gateway.namespace | string | `""` | override the name of namespace to deploy gateway |
 | global.istio.gateway.selector | object | `{"istio":"ingressgateway"}` | adds a gateway selector |
+| global.kubeVersion | string | `""` | set kubernetes version override, unrequired if installing using Helm. |
 | global.license | object | `{"cg":"","ng":""}` | Place the license key, Harness support team will provide these |
 | global.loadbalancerURL | string | `"https://myhostname.example.com"` | Provide your URL for your intended load balancer |
 | global.migrator.enabled | bool | `false` |  |
