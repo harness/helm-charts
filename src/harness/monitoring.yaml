@@ -1,5 +1,5 @@
 platform:
-  mongo:
+  mongodb:
     metrics:
       enabled: true
     podAnnotations:
