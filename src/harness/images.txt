@@ -24,7 +24,6 @@ plugins/gcs:1.3.0
 docker.io/harness/upgrader:latest
 harness/drone-git:1.3.3-rootless
 harness/grype-job-runner:latest
-docker.io/harness/delegate:23.04.78918
 docker.io/harness/delegate:23.05.78924
 docker.io/harness/ci-lite-engine:1.16.4
 harness/ci-lite-engine:1.16.13
@@ -94,6 +93,5 @@ docker.io/harness/verification-service-signed:79231
 docker.io/redis:6.2.12-alpine
 docker.io/timescale/timescaledb-ha:pg13-ts2.9-oss-latest
 docker.io/ubuntu:20.04
-docker.io/harness/delegate:23.04.78918.minimal
 docker.io/harness/delegate:23.05.78924.minimal
 docker.io/harness/delegate-proxy-signed:78924_minimal
