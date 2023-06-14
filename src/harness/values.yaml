@@ -107,6 +107,10 @@ global:
     loadBalancerIP: '0.0.0.0'
     loadBalancerEnabled: false
     className: "harness"
+    # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    ingressGatewayServiceUrl: ""
+    # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
     hosts:
       - 'myhost.example.com'
     tls:
@@ -157,6 +161,10 @@ global:
       selector:
         istio: ingressgateway
       protocol: HTTPS
+    # -- set to istio gateway's k8s service FQDN for internal use case. eg "internal-istio-gateway.istio-system.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    istioGatewayServiceUrl: ""
+    # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
     hosts:
       - '*'
     tls:
@@ -164,6 +172,7 @@ global:
       minProtocolVersion: TLSV1_2
       mode: SIMPLE
     virtualService:
+      # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
       hosts:
         - "myhostname.example.com"
 
