@@ -553,8 +553,6 @@ platform:
         cpu: 1
         memory: 2048Mi
 
-
-
 ci:
   ci-manager:
     autoscaling:
