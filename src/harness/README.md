@@ -100,7 +100,6 @@ plugins/gcs:1.3.0
 docker.io/harness/upgrader:latest
 harness/drone-git:1.3.3-rootless
 harness/grype-job-runner:latest
-docker.io/harness/delegate:23.04.78918
 docker.io/harness/delegate:23.05.78924
 docker.io/harness/ci-lite-engine:1.16.4
 harness/ci-lite-engine:1.16.13
@@ -170,7 +169,6 @@ docker.io/harness/verification-service-signed:79231
 docker.io/redis:6.2.12-alpine
 docker.io/timescale/timescaledb-ha:pg13-ts2.9-oss-latest
 docker.io/ubuntu:20.04
-docker.io/harness/delegate:23.04.78918.minimal
 docker.io/harness/delegate:23.05.78924.minimal
 docker.io/harness/delegate-proxy-signed:78924_minimal
 
@@ -215,13 +213,13 @@ docker.io/harness/delegate-proxy-signed:78924_minimal
 | global.gitops | object | `{"enabled":false}` | Enable to install gitops |
 | global.ha | bool | `true` | High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV |
 | global.imageRegistry | string | `""` | This private Docker image registry will override any registries that are defined in subcharts. |
-| global.ingress | object | `{"className":"harness","defaultbackend":{"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"registry.k8s.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":false,"hosts":["myhost.example.com"],"ingressGatewayServiceUrl":"","loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"controller":{"annotations":{}},"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"},"objects":{"annotations":{}}},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
+| global.ingress | object | `{"className":"harness","defaultbackend":{"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"registry.k8s.io","repository":"defaultbackend-amd64","tag":"1.5"}},"enabled":true,"hosts":["myhost.example.com"],"ingressGatewayServiceUrl":"","loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nginx":{"affinity":{},"controller":{"annotations":{}},"create":true,"healthNodePort":"","healthPort":"","httpNodePort":"","httpsNodePort":"","image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"},"nodeSelector":{},"objects":{"annotations":{}},"tolerations":[]},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
 | global.ingress.defaultbackend.create | bool | `false` | Create will deploy a default backend into your cluster |
 | global.ingress.hosts | list | `["myhost.example.com"]` | add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty. |
 | global.ingress.ingressGatewayServiceUrl | string | `""` | set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local" If not set, internal request routing would happen via global.loadbalancerUrl |
-| global.ingress.nginx | object | `{"controller":{"annotations":{}},"create":false,"image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"},"objects":{"annotations":{}}}` | Section to provide configuration on an NGINX ingress controller. |
+| global.ingress.nginx | object | `{"affinity":{},"controller":{"annotations":{}},"create":true,"healthNodePort":"","healthPort":"","httpNodePort":"","httpsNodePort":"","image":{"digest":"","pullPolicy":"IfNotPresent","registry":"us.gcr.io","repository":"k8s-artifacts-prod/ingress-nginx/controller","tag":"v1.0.0-alpha.2"},"nodeSelector":{},"objects":{"annotations":{}},"tolerations":[]}` | Section to provide configuration on an NGINX ingress controller. |
 | global.ingress.nginx.controller.annotations | object | `{}` | annotations to be addded to ingress Controller |
-| global.ingress.nginx.create | bool | `false` | Create Nginx Controller.  True will deploy a controller into your cluster |
+| global.ingress.nginx.create | bool | `true` | Create Nginx Controller.  True will deploy a controller into your cluster |
 | global.ingress.nginx.objects.annotations | object | `{}` | annotations to be added to ingress Objects |
 | global.istio | object | `{"enabled":false,"gateway":{"create":true,"name":"","namespace":"","port":443,"protocol":"HTTPS","selector":{"istio":"ingressgateway"}},"hosts":["*"],"istioGatewayServiceUrl":"","strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
 | global.istio.gateway.name | string | `""` | override the name of gateway |

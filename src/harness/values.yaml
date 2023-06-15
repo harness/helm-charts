@@ -103,7 +103,7 @@ global:
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
-    enabled: false
+    enabled: true
     loadBalancerIP: '0.0.0.0'
     loadBalancerEnabled: false
     className: "harness"
@@ -120,13 +120,20 @@ global:
     # -- Section to provide configuration on an NGINX ingress controller.
     nginx:
       # -- Create Nginx Controller.  True will deploy a controller into your cluster
-      create: false
+      create: true
+      healthPort: ""
+      healthNodePort: ""
+      httpNodePort: ""
+      httpsNodePort: ""
       controller:
         # -- annotations to be addded to ingress Controller
         annotations: {}
       objects:
         # -- annotations to be added to ingress Objects
         annotations: {}
+      nodeSelector: {}
+      tolerations: []
+      affinity: {}
       image:
         registry:  us.gcr.io
         repository: k8s-artifacts-prod/ingress-nginx/controller
@@ -134,6 +141,7 @@ global:
         # Overrides the image tag whose default is the chart appVersion.
         tag: "v1.0.0-alpha.2"
         digest: ""
+
 
     defaultbackend:
       # -- Create will deploy a default backend into your cluster
