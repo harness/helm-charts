@@ -98,6 +98,5 @@ docker.io/harness/verification-service-signed:79231
 docker.io/redis:6.2.12-alpine
 docker.io/timescale/timescaledb-ha:pg13-ts2.9-oss-latest
 docker.io/ubuntu:20.04
-docker.io/harness/delegate:23.04.78918.minimal
 docker.io/harness/delegate:23.05.78924.minimal
 docker.io/harness/delegate-proxy-signed:78924_minimal
