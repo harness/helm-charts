@@ -23,3 +23,10 @@ global:
     enabled: true
   ng:
     enabled: true
+  lwd:
+    enabled: true
+    autocud:
+      enabled: true
+ccm:
+  clickhouse:
+    enabled: true
