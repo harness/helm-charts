@@ -145,7 +145,7 @@ global:
 
     nginx:
       # -- Create Nginx Controller.  True will deploy a controller into your cluster
-      create: true
+      create: false
       healthPort: ""
       healthNodePort: ""
       httpNodePort: ""
