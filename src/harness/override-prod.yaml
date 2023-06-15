@@ -146,12 +146,19 @@ global:
     nginx:
       # -- Create Nginx Controller.  True will deploy a controller into your cluster
       create: false
+      healthPort: ""
+      healthNodePort: ""
+      httpNodePort: ""
+      httpsNodePort: ""
       controller:
         # -- annotations to be addded to ingress Controller
         annotations: {}
       objects:
         # -- annotations to be added to ingress Objects
         annotations: {}
+      nodeSelector: {}
+      tolerations: []
+      affinity: {}
       # -- docker image to be used
       image:
         registry:  us.gcr.io
