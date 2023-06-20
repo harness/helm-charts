@@ -193,7 +193,6 @@ platform:
       memory: 512m
     resources:
       limits:
-        cpu: 1
         memory: 4096Mi
       requests:
         cpu: 1
@@ -205,7 +204,6 @@ platform:
       memory: 2048
     resources:
       limits:
-        cpu: 1
         memory: 2880Mi
       requests:
         cpu: 1
@@ -219,7 +217,6 @@ platform:
       memory: 1024
     resources:
       limits:
-        cpu: 0.5
         memory: 1440Mi
       requests:
         cpu: 0.5
@@ -231,7 +228,6 @@ platform:
   delegate-proxy:
     resources:
       limits:
-        cpu: 200m
         memory: 100Mi
       requests:
         cpu: 200m
@@ -245,7 +241,6 @@ platform:
       memory: 1024
     resources:
       limits:
-        cpu: 0.5
         memory: 1300Mi
       requests:
         cpu: 0.2
@@ -296,7 +291,6 @@ platform:
       memory: "2048"
     resources:
       limits:
-        cpu: 0.5
         memory: 3000Mi
       requests:
         cpu: 0.5
@@ -311,7 +305,6 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        cpu: 0.5
         memory: 512Mi
       requests:
         cpu: 0.5
@@ -323,7 +316,6 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        cpu: 0.5
         memory: 512Mi
       requests:
         cpu: 0.5
@@ -335,7 +327,6 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        cpu: 0.5
         memory: 1400Mi
       requests:
         cpu: 0.5
@@ -349,7 +340,6 @@ platform:
       memory: "2048"
     resources:
       limits:
-        cpu: 0.5
         memory: 3000Mi
       requests:
         cpu: 0.5
@@ -366,7 +356,6 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        cpu: 2
         memory: 2048Mi
       requests:
         cpu: 1
@@ -386,7 +375,6 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        cpu: 0.2
         memory: 200Mi
       requests:
         cpu: 0.2
@@ -398,7 +386,6 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        cpu: 0.2
         memory: 200Mi
       requests:
         cpu: 0.2
@@ -412,7 +399,6 @@ platform:
       memory: "4096m"
     resources:
       limits:
-        cpu: 0.5
         memory: 6144Mi
       requests:
         cpu: 0.5
@@ -426,7 +412,6 @@ platform:
       memory: "1024m"
     resources:
       limits:
-        cpu: 0.5
         memory: 1400Mi
       requests:
         cpu: 0.5
@@ -440,7 +425,6 @@ platform:
       memory: "2048m"
     resources:
       limits:
-        cpu: 0.5
         memory: 3000Mi
       requests:
         cpu: 0.5
@@ -476,7 +460,6 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        cpu: 0.1
         memory: 512Mi
       requests:
         cpu: 0.1
@@ -490,7 +473,6 @@ platform:
       memory: "1024m"
     resources:
       limits:
-        cpu: 0.5
         memory: 1500Mi
       requests:
         cpu: 0.5
@@ -502,14 +484,12 @@ platform:
     replicaCount: 1
     jobresources:
       limits:
-        cpu: 0.5
         memory: 1400Mi
       requests:
         cpu: 0.5
         memory: 1400Mi
     resources:
       limits:
-        cpu: 0.5
         memory: 1400Mi
       requests:
         cpu: 0.5
@@ -521,7 +501,6 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        cpu: 0.3
         memory: 512Mi
       requests:
         cpu: 0.3
@@ -535,7 +514,6 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        cpu: 0.2
         memory: 200Mi
       requests:
         cpu: 0.2
@@ -547,7 +525,6 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        cpu: 0.5
         memory: 1024Mi
       requests:
         cpu: 0.5
@@ -562,7 +539,6 @@ ci:
       memory: "2048m"
     resources:
       limits:
-        cpu: 0.5
         memory: 3000Mi
       requests:
         cpu: 0.5
@@ -575,7 +551,6 @@ sto:
     replicaCount: 1
     resources:
       limits:
-        cpu: 500m
         memory: 500Mi
       requests:
         cpu: 500m
@@ -586,7 +561,6 @@ sto:
     replicaCount: 1
     resources:
       limits:
-        cpu: 1
         memory: 3072Mi
       requests:
         cpu: 1
@@ -600,12 +574,10 @@ infra:
         size: 8Gi
       resources:
         limits:
-          cpu: 2
           memory: 4Gi
         requests:
           cpu: 2
           memory: 4Gi
-
 
 srm:
   enable-receivers: false
@@ -620,7 +592,6 @@ srm:
     replicaCount: 1
     resources:
       limits:
-        cpu: 1
         memory: 3Gi
       requests:
         cpu: 100m
@@ -634,7 +605,6 @@ srm:
     replicaCount: 1
     resources:
       limits:
-        cpu: 500m
         memory: 2Gi
       requests:
         cpu: 100m
@@ -669,7 +639,6 @@ ngcustomdashboard:
   ng-custom-dashboards:
     resources:
       limits:
-        cpu: 2
         memory: 1Gi
       requests:
         cpu: 1
@@ -720,7 +689,6 @@ chaos:
     replicaCount: 1
     resources:
       limits:
-        cpu: 600m
         memory: 512Mi
       requests:
         cpu: 600m
@@ -730,7 +698,6 @@ chaos:
     replicaCount: 1
     resources:
       limits:
-        cpu: 500m
         memory: 512Mi
       requests:
         memory: 512Mi
@@ -739,7 +706,6 @@ chaos:
     replicaCount: 1
     resources:
       limits:
-        cpu: 500m
         memory: 512Mi
       requests:
         cpu: 500m
