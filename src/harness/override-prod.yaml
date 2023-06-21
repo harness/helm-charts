@@ -434,7 +434,6 @@ platform:
     redis:
       resources:
         limits:
-          cpu: 1
           memory: 2048Mi
         requests:
           cpu: 1
@@ -443,7 +442,6 @@ platform:
     sentinel:
       resources:
         limits:
-          cpu: 100m
           memory: 200Mi
         requests:
           cpu: 100m
