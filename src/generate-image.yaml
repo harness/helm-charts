@@ -23,3 +23,8 @@ global:
     enabled: true
   ng:
     enabled: true
+  chaos:
+    enabled: true
+ccm:
+  clickhouse:
+    enabled: true
