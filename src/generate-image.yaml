@@ -23,10 +23,8 @@ global:
     enabled: true
   ng:
     enabled: true
-  lwd:
+  chaos:
     enabled: true
-    autocud:
-      enabled: true
 ccm:
   clickhouse:
     enabled: true
