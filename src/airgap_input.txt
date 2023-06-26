@@ -52,13 +52,6 @@
     s3
     sto-plugin
     ci-manager-signed
-    aws-ecr-job-runner
-    aws-security-hub-job-runner
-    bandit-job-runner
-    fossa-job-runner
-    nikto-job-runner
-    nmap-job-runner
-    prowler-job-runner
 
 [sto]:
     ci-addon
@@ -79,6 +72,13 @@
     veracode-agent-job-runner
     whitesource-agent-job-runner
     zap-job-runner
+    aws-ecr-job-runner
+    aws-security-hub-job-runner
+    bandit-job-runner
+    fossa-job-runner
+    nikto-job-runner
+    nmap-job-runner
+    prowler-job-runner
 
 [ff]:
     ff-postgres-migration-signed
