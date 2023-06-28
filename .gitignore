@@ -5,6 +5,3 @@
 
 # Chart dependencies
 **/charts/
-
-# Chart lock file
-**/Chart.lock
