@@ -1,0 +1,120 @@
+[platform]: 
+    le-nextgen-signed
+    ci-scm-signed
+    template-service-signed
+    ti-service-signed
+    platform-service-signed
+    pipeline-service-signed
+    ng-manager-signed
+    nextgenui-signed
+    minio
+    log-service-signed
+    cv-nextgen-signed
+    cdcdata-signed
+    accesscontrol-service-signed
+    delegate
+    delegate-proxy-signed
+    gateway-signed
+    helm-init-container
+    manager-signed
+    mongo
+    ng-auth-ui-signed
+    redis
+    upgrader
+    timescaledb-ha
+    postgresql
+    dashboard-service-signed
+    looker-signed
+    policy-mgmt
+    curl
+    migrator-signed
+    verification-service-signed
+    learning-engine-onprem-signed
+
+[cdng]:
+    argocd
+    gitops-agent
+    haproxy
+    gitops-service-signed
+    ubuntu
+
+[ci]:
+    kaniko-acr
+    ci-addon
+    artifactory
+    kaniko
+    kaniko-ecr
+    kaniko-gcr
+    gcs
+    drone-git
+    ci-lite-engine
+    cache
+    s3
+    sto-plugin
+    ci-manager-signed
+    
+[sto]:
+    ci-addon
+    ci-lite-engine
+    s3
+    sto-plugin
+    stocore-signed
+    stomanager-signed
+    aqua-trivy-job-runner
+    blackduckhub-job-runner
+    brakeman-job-runner
+    checkmarx-job-runner
+    grype-job-runner
+    owasp-dependency-check-job-runner
+    snyk-job-runner
+    sonarqube-agent-job-runner
+    twistlock-job-runner
+    veracode-agent-job-runner
+    whitesource-agent-job-runner
+    zap-job-runner
+    aws-ecr-job-runner
+    aws-security-hub-job-runner
+    bandit-job-runner
+    fossa-job-runner
+    nikto-job-runner
+    nmap-job-runner
+    prowler-job-runner
+
+[ff]:
+    ff-postgres-migration-signed
+    ff-pushpin-signed
+    ff-pushpin-worker-signed
+    ff-server-signed
+    ff-timescale-migration-signed
+
+[srm]:
+    error-tracking-signed
+    et-collector-signed
+
+[ccm]:
+    batch-processing-signed
+    ce-anomaly-detection-signed
+    ce-cloud-info-signed
+    ce-nextgen-signed
+    event-service-signed
+    ng-ce-ui
+    telescopes-signed
+    ce-cloud-info-signed
+    ui-signed
+    clickhouse
+
+[ce]:
+    workflow-controller
+    argoexec
+    chaos-exporter
+    chaos-operator
+    chaos-runner
+    harness-chaos-log-watcher
+    smp-chaos-subscriber
+    smp-chaos-driver
+    smp-chaos-k8s-ifs
+    smp-chaos-linux-infra-controller
+    smp-chaos-linux-infra-server
+    smp-chaos-manager
+    smp-chaos-web
+    source-probe
