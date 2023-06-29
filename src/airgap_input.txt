@@ -13,6 +13,7 @@
     cdcdata-signed
     accesscontrol-service-signed
     delegate
+    delegate-proxy-signed
     gateway-signed
     helm-init-container
     manager-signed
@@ -31,7 +32,6 @@
     learning-engine-onprem-signed
 
 [cdng]:
-    argocd-applicationset
     argocd
     gitops-agent
     haproxy
@@ -52,7 +52,7 @@
     s3
     sto-plugin
     ci-manager-signed
-
+    
 [sto]:
     ci-addon
     ci-lite-engine
@@ -110,11 +110,11 @@
     chaos-operator
     chaos-runner
     harness-chaos-log-watcher
-    harness-smp-chaos-subscriber
-    harness-smp-chaos-driver
-    harness-smp-chaos-k8s-ifs
-    harness-smp-chaos-linux-infra-controller
-    harness-smp-chaos-linux-infra-server
-    harness-smp-chaos-manager
-    harness-smp-chaos-web
+    smp-chaos-subscriber
+    smp-chaos-driver
+    smp-chaos-k8s-ifs
+    smp-chaos-linux-infra-controller
+    smp-chaos-linux-infra-server
+    smp-chaos-manager
+    smp-chaos-web
     source-probe

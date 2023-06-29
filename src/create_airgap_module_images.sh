@@ -25,7 +25,6 @@ while IFS= read -r line; do
     MODULE_NAME=${MODULE_NAME//[[:punct:]]/}
     MODULE_IMAGE_FILE="${MODULE_NAME//:/}_images.txt"
 
-    # Create an empty module-specific image file
     > "$MODULE_IMAGE_FILE"
   elif [[ -n $MODULE_IMAGE_FILE ]]; then
     # Trim leading/trailing whitespaces from the image
@@ -36,15 +35,14 @@ while IFS= read -r line; do
       continue
     fi
 
-    MATCHING_LINES=$(grep -F "$image" "$IMAGES_TXT")
+    MATCHING_LINES=$(grep -F "/$image:" "$IMAGES_TXT")
 
     if [[ -n $MATCHING_LINES ]]; then
-      # Mark the lines as read in the associative array
       while IFS= read -r matching_line; do
         lines_read["$matching_line"]=1
       done <<< "$MATCHING_LINES"
 
-      if ! grep -qF "$image" "$MODULE_IMAGE_FILE"; then
+      if ! grep -qF "/$image:" "$MODULE_IMAGE_FILE"; then
         # Append the matching lines to the module-specific image file
         echo "$MATCHING_LINES" >> "$MODULE_IMAGE_FILE"
       fi
