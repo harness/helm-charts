@@ -241,9 +241,11 @@ spec:
   - name: account-templates-v1-apis
     match:
     - uri:
-        regex: "^/v1/templates(.*)$"
+        prefix: /v1/templates
+    - uri:
+        prefix: "/v1/templates/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/templates/"
     route:
     - destination:
         host: template-service
@@ -253,9 +255,11 @@ spec:
   - name: org-templates-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/templates(.*)$"
+        regex: /v1/orgs/.+/templates
+    - uri:
+        regex: "/v1/orgs/.+/templates/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/orgs/.+/templates/"
     route:
     - destination:
         host: template-service
@@ -265,9 +269,11 @@ spec:
   - name: project-templates-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/templates(.*)$"
+        regex: /v1/orgs/.+/projects/.+/templates
+    - uri:
+        regex: "/v1/orgs/.+/projects/.+/templates/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/orgs/.+/projects/.+/templates/"
     route:
     - destination:
         host: template-service
@@ -302,9 +308,11 @@ spec:
   - name: pipelines-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/pipelines(.*)$"
+        prefix: /v1/orgs/.+/projects/.+/pipelines
+    - uri:
+        prefix: "/v1/orgs/.+/projects/.+/pipelines/"
     rewrite:
-      uri: "/api/"
+      uri: "/api/v1/orgs/.+/projects/.+/pipelines/"
     route:
     - destination:
         host: pipeline-service
@@ -314,9 +322,11 @@ spec:
   - name: inputsets-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/input-sets(.*)$"
+        prefix: /v1/orgs/.+/projects/.+/input-sets
+    - uri:
+        prefix: "/v1/orgs/.+/projects/.+/input-sets/"
     rewrite:
-      uri: "/api/"
+      uri: "/api/v1/orgs/.+/projects/.+/input-sets/"
     route:
     - destination:
         host: pipeline-service
@@ -326,21 +336,25 @@ spec:
   - name: approvals-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/approvals(.*)$"
+        regex: /v1/orgs/.+/projects/.+/approvals
+    - uri:
+        regex: "/v1/orgs/.+/projects/.+/approvals/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/orgs/.+/projects/.+/approvals/"
     route:
     - destination:
         host: pipeline-service
         port:
           number: 12001
 
-  - name: account-secrets-v1-apis
+- name: account-secrets-v1-apis
     match:
     - uri:
-        regex: "^/v1/secrets(.*)$"
+        prefix: /v1/secrets
+    - uri:
+        prefix: "/v1/secrets/"
     rewrite:
-      uri: "/"
+      uri: "/v1/secrets/"
     route:
     - destination:
         host: ng-manager
@@ -350,9 +364,11 @@ spec:
   - name: org-secrets-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/secrets(.*)$"
+        prefix: /v1/orgs/.+/secrets
+    - uri:
+        prefix: "/v1/orgs/.+/secrets/"
     rewrite:
-      uri: "$1"
+      uri: "/v1/orgs/.+/secrets/"
     route:
     - destination:
         host: ng-manager
@@ -362,9 +378,11 @@ spec:
   - name: project-secrets-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/secrets(.*)$"
+        prefix: /v1/orgs/.+/projects/.+/secrets
+    - uri:
+        prefix: "/v1/orgs/.+/projects/.+/secrets/"
     rewrite:
-      uri: "$1"
+      uri: "/v1/orgs/.+/projects/.+/secrets/"
     route:
     - destination:
         host: ng-manager
@@ -374,9 +392,11 @@ spec:
   - name: account-connectors-v1-apis
     match:
     - uri:
-        regex: "^/v1/connectors(.*)$"
+        prefix: /v1/connectors
+    - uri:
+        prefix: "/v1/connectors/"
     rewrite:
-      uri: "$1"
+      uri: "/v1/connectors/"
     route:
     - destination:
         host: ng-manager
@@ -386,9 +406,11 @@ spec:
   - name: org-connectors-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/connectors(.*)$"
+        prefix: /v1/orgs/.+/connectors
+    - uri:
+        prefix: "/v1/orgs/.+/connectors/"
     rewrite:
-      uri: "$1"
+      uri: "/v1/orgs/.+/connectors/"
     route:
     - destination:
         host: ng-manager
@@ -398,9 +420,11 @@ spec:
   - name: project-connectors-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/connectors(.*)$"
+        prefix: /v1/orgs/.+/projects/.+/connectors
+    - uri:
+        prefix: "/v1/orgs/.+/projects/.+/connectors/"
     rewrite:
-      uri: "$1"
+      uri: "/v1/orgs/.+/projects/.+/connectors/"
     route:
     - destination:
         host: ng-manager
@@ -410,9 +434,11 @@ spec:
   - name: account-services-v1-apis
     match:
     - uri:
-        regex: "^/v1/services(.*)$"
+        prefix: /v1/services
+    - uri:
+        prefix: "/v1/services/"
     rewrite:
-      uri: "$1"
+      uri: "/v1/services/"
     route:
     - destination:
         host: ng-manager
@@ -422,9 +448,11 @@ spec:
   - name: org-services-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/services(.*)$"
+        prefix: /v1/orgs/.+/services
+    - uri:
+        prefix: "/v1/orgs/.+/services/"
     rewrite:
-      uri: "$1"
+      uri: "/v1/orgs/.+/services/"
     route:
     - destination:
         host: ng-manager
@@ -434,9 +462,11 @@ spec:
   - name: project-services-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/services(.*)$"
+        prefix: /v1/orgs/.+/projects/.+/services
+    - uri:
+        prefix: "/v1/orgs/.+/projects/.+/services/"
     rewrite:
-      uri: "$1"
+      uri: "/v1/orgs/.+/projects/.+/services/"
     route:
     - destination:
         host: ng-manager
@@ -446,9 +476,11 @@ spec:
   - name: ip-allowlist-v1-apis
     match:
     - uri:
-        regex: "^/v1/ip-allowlist(.*)$"
+        prefix: /v1/ip-allowlist
+    - uri:
+        prefix: "/v1/ip-allowlist/"
     rewrite:
-      uri: "$1"
+      uri: "/v1/ip-allowlist/"
     route:
     - destination:
         host: ng-manager
@@ -458,9 +490,11 @@ spec:
   - name: favorites-v1-apis
     match:
     - uri:
-        regex: "^/v1/favorites(.*)$"
+        prefix: /v1/favorites
+    - uri:
+        prefix: "/v1/favorites/"
     rewrite:
-      uri: "$1"
+      uri: "/v1/favorites/"
     route:
     - destination:
         host: ng-manager
@@ -470,9 +504,9 @@ spec:
   - name: account-rancher-connectors-clusters-v1-apis
     match:
     - uri:
-        regex: "^/v1/rancher/connectors/.+/clusters$"
+        prefix: /v1/rancher/connectors/.+/clusters
     rewrite:
-      uri: "$1"
+      uri: "/v1/rancher/connectors/.+/clusters"
     route:
     - destination:
         host: ng-manager
@@ -482,9 +516,9 @@ spec:
   - name: account-rancher-infras-clusters-v1-apis
     match:
     - uri:
-        regex: "^/v1/rancher/environments/.+/infrastructure-definitions/.+/clusters$"
+        prefix: /v1/rancher/environments/.+/infrastructure-definitions/.+/clusters
     rewrite:
-      uri: "$1"
+      uri: "/v1/rancher/environments/.+/infrastructure-definitions/.+/clusters"
     route:
     - destination:
         host: ng-manager
@@ -494,9 +528,9 @@ spec:
   - name: org-rancher-connectors-clusters-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/rancher/connectors/.+/clusters$"
+        prefix: /v1/orgs/.+/rancher/connectors/.+/clusters
     rewrite:
-      uri: "$1"
+      uri: "/v1/orgs/.+/rancher/connectors/.+/clusters"
     route:
     - destination:
         host: ng-manager
@@ -506,9 +540,9 @@ spec:
   - name: org-rancher-infras-clusters-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/rancher/environments/.+/infrastructure-definitions/.+/clusters$"
+        prefix: /v1/orgs/.+/rancher/environments/.+/infrastructure-definitions/.+/clusters
     rewrite:
-      uri: "$1"
+      uri: "/v1/orgs/.+/rancher/environments/.+/infrastructure-definitions/.+/clusters"
     route:
     - destination:
         host: ng-manager
@@ -518,9 +552,9 @@ spec:
   - name: project-rancher-connectors-clusters-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/rancher/connectors/.+/clusters$"
+        prefix: /v1/orgs/.+/projects/.+/rancher/connectors/.+/clusters
     rewrite:
-      uri: "$1"
+      uri: "/v1/orgs/.+/projects/.+/rancher/connectors/.+/clusters"
     route:
     - destination:
         host: ng-manager
@@ -530,9 +564,9 @@ spec:
   - name: project-rancher-infras-clusters-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/rancher/environments/.+/infrastructure-definitions/.+/clusters$"
+        prefix: /v1/orgs/.+/projects/.+/rancher/environments/.+/infrastructure-definitions/.+/clusters
     rewrite:
-      uri: "$1"
+      uri: "/v1/orgs/.+/projects/.+/rancher/environments/.+/infrastructure-definitions/.+/clusters"
     route:
     - destination:
         host: ng-manager
@@ -542,9 +576,11 @@ spec:
   - name: account-roles-v1-apis
     match:
     - uri:
-        regex: "^/v1/roles(.*)$"
+        prefix: /v1/roles
+    - uri:
+        prefix: "/v1/roles/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/roles/"
     route:
     - destination:
         host: access-control
@@ -554,9 +590,11 @@ spec:
   - name: org-roles-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/roles(.*)$"
+        prefix: /v1/orgs/.+/roles
+    - uri:
+        prefix: "/v1/orgs/.+/roles/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/orgs/.+/roles/"
     route:
     - destination:
         host: access-control
@@ -566,9 +604,11 @@ spec:
   - name: project-roles-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/roles(.*)$"
+        prefix: /v1/orgs/.+/projects/.+/roles
+    - uri:
+        prefix: "/v1/orgs/.+/projects/.+/roles/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/orgs/.+/projects/.+/roles/"
     route:
     - destination:
         host: access-control
@@ -578,9 +618,11 @@ spec:
   - name: account-role-assignments-v1-apis
     match:
     - uri:
-        regex: "^/v1/role-assignments(.*)$"
+        prefix: /v1/role-assignments
+    - uri:
+        prefix: "/v1/role-assignments/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/role-assignments/"
     route:
     - destination:
         host: access-control
@@ -590,9 +632,11 @@ spec:
   - name: org-role-assignments-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/role-assignments(.*)$"
+        prefix: /v1/orgs/.+/role-assignments
+    - uri:
+        prefix: "/v1/orgs/.+/role-assignments/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/orgs/.+/role-assignments/"
     route:
     - destination:
         host: access-control
@@ -602,9 +646,11 @@ spec:
   - name: project-role-assignments-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/role-assignments(.*)$"
+        prefix: /v1/orgs/.+/projects/.+/role-assignments/
+    - uri:
+        prefix: "/v1/orgs/.+/projects/.+/role-assignments/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/orgs/.+/projects/.+/role-assignments/"
     route:
     - destination:
         host: access-control
@@ -614,9 +660,11 @@ spec:
   - name: account-resource-groups-v1-apis
     match:
     - uri:
-        regex: "^/v1/resource-groups(.*)$"
+        prefix: /v1/resource-groups
+    - uri:
+        prefix: "/v1/resource-groups/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/resource-groups/"
     route:
     - destination:
         host: platform-service
@@ -626,9 +674,11 @@ spec:
   - name: org-resource-groups-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/resource-groups(.*)$"
+        prefix: /v1/orgs/.+/resource-groups
+    - uri:
+        prefix: "/v1/orgs/.+/resource-groups/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/orgs/.+/resource-groups/"
     route:
     - destination:
         host: platform-service
@@ -638,9 +688,11 @@ spec:
   - name: project-resource-groups-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects/.+/resource-groups(.*)$"
+        prefix: /v1/orgs/.+/projects/.+/resource-groups
+    - uri:
+        prefix: "/v1/orgs/.+/projects/.+/resource-groups/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/orgs/.+/projects/.+/resource-groups/"
     route:
     - destination:
         host: platform-service
@@ -650,9 +702,11 @@ spec:
   - name: streaming-destinations-v1-apis
     match:
     - uri:
-        regex: "^/v1/streaming-destinations(.*)$"
+        prefix: /v1/streaming-destinations
+    - uri:
+        prefix: "/v1/streaming-destinations/"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/v1/streaming-destinations/"
     route:
     - destination:
         host: platform-service
@@ -662,9 +716,11 @@ spec:
   - name: projects-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs/.+/projects(.*)$"
+        prefix: /v1/orgs/.+/projects
+    - uri:
+        prefix: "/v1/orgs/.+/projects/"
     rewrite:
-      uri: "/"
+      uri: "/v1/orgs/.+/projects/"
     route:
     - destination:
         host: ng-manager
@@ -674,9 +730,11 @@ spec:
   - name: orgs-v1-apis
     match:
     - uri:
-        regex: "^/v1/orgs(.*)$"
+        prefix: /v1/orgs
+    - uri:
+        prefix: "/v1/orgs/"
     rewrite:
-      uri: "/"
+      uri: "/v1/orgs/"
     route:
     - destination:
         host: ng-manager
