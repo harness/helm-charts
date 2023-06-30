@@ -22,7 +22,7 @@ dependencies:
   version: 0.7.2
 - name: ccm
   repository: https://harness.github.io/helm-ccm
-  version: 0.7.5
+  version: 0.7.2
 - name: gitops
   repository: https://harness.github.io/helm-gitops
   version: 0.5.10
@@ -32,5 +32,5 @@ dependencies:
 - name: chaos
   repository: https://harness.github.io/helm-chaos
   version: 0.4.0
-digest: sha256:98c01ad4a24ede78db366ecfff22542d868230225a7c379dfff05a7631e8626b
-generated: "2023-06-27T23:53:34.2126-07:00"
+digest: sha256:ee32939aa794ff4cda5bda9c42bf679279e2fbb9ee96d9df6580742084d2762c
+generated: "2023-06-15T00:36:10.897904+05:30"

@@ -1,7 +1,2 @@
 .DS_Store
 .idea/
-
-## Helm Chart ## 
-
-# Chart dependencies
-**/charts/
