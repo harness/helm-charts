@@ -24,9 +24,9 @@ global:
   ng:
     enabled: true
   lwd:
-    enabled: true
+    enabled: false
     autocud:
-      enabled: true
+      enabled: false
 ccm:
   clickhouse:
     enabled: true
