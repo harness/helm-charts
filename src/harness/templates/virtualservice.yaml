@@ -323,6 +323,362 @@ spec:
         port:
           number: 12001
 
+  - name: approvals-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects/.+/approvals(.*)$"
+    rewrite:
+      uri: "/api$1"
+    route:
+    - destination:
+        host: pipeline-service
+        port:
+          number: 12001
+    
+  - name: orgs-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: projects-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: account-secrets-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/secrets(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: org-secrets-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/secrets(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: project-secrets-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects/.+/secrets(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: account-connectors-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/connectors(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: org-connectors-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/connectors(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: project-connectors-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects/.+/connectors(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: account-services-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/services(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: org-services-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/services(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: project-services-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects/.+/services(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: ip-allowlist-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/ip-allowlist(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: favorites-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/favorites(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: account-rancher-connectors-clusters-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/rancher/connectors/.+/clusters$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: account-rancher-infras-clusters-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/rancher/environments/.+/infrastructure-definitions/.+/clusters$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: org-rancher-connectors-clusters-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/rancher/connectors/.+/clusters$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: org-rancher-infras-clusters-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/rancher/environments/.+/infrastructure-definitions/.+/clusters$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: project-rancher-connectors-clusters-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects/.+/rancher/connectors/.+/clusters$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: project-rancher-infras-clusters-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects/.+/rancher/environments/.+/infrastructure-definitions/.+/clusters$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: account-roles-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/roles(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: access-control
+        port:
+          number: 9006
+
+  - name: org-roles-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/roles(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: access-control
+        port:
+          number: 9006
+
+  - name: project-roles-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects/.+/roles(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: access-control
+        port:
+          number: 9006
+
+  - name: account-role-assignments-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/role-assignments(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: access-control
+        port:
+          number: 9006
+
+  - name: org-role-assignments-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/role-assignments(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: access-control
+        port:
+          number: 9006
+
+  - name: project-role-assignments-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects/.+/role-assignments(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: access-control
+        port:
+          number: 9006
+
+  - name: account-resource-groups-v1-apis
+    - uri:
+        regex: "^/v1/resource-groups(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: platform-service
+        port:
+          number: 9005
+
+  - name: org-resource-groups-v1-apis
+    - uri:
+        regex: "^/v1/orgs/.+/resource-groups(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: platform-service
+        port:
+          number: 9005
+
+  - name: project-resource-groups-v1-apis
+    - uri:
+        regex: "^/v1/orgs/.+/projects/.+/resource-groups(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: platform-service
+        port:
+          number: 9005
+
+  - name: streaming-destinations-v1-apis
+    - uri:
+        regex: "^/v1/streaming-destinations(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: platform-service
+        port:
+          number: 9005
+
   - name: notification-service
     match:
     - uri:
