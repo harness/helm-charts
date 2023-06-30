@@ -304,7 +304,7 @@ spec:
     - uri:
         regex: "^/v1/orgs/.+/projects/.+/pipelines(.*)$"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/"
     route:
     - destination:
         host: pipeline-service
@@ -316,7 +316,7 @@ spec:
     - uri:
         regex: "^/v1/orgs/.+/projects/.+/input-sets(.*)$"
     rewrite:
-      uri: "/api$1"
+      uri: "/api/"
     route:
     - destination:
         host: pipeline-service
@@ -340,7 +340,7 @@ spec:
     - uri:
         regex: "^/v1/secrets(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/"
     route:
     - destination:
         host: ng-manager
@@ -664,7 +664,7 @@ spec:
     - uri:
         regex: "^/v1/orgs/.+/projects(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/"
     route:
     - destination:
         host: ng-manager
@@ -676,7 +676,7 @@ spec:
     - uri:
         regex: "^/v1/orgs(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/"
     route:
     - destination:
         host: ng-manager
