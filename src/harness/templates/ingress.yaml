@@ -859,6 +859,13 @@ spec:
                   number: 12001
             path: /(v1/orgs/.+/projects/.+/input-sets.*)
             pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: pipeline-service
+                port:
+                  number: 12001
+            path: /(v1/orgs/.+/projects/.+/approvals.*)
+            pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
   tls:
@@ -906,6 +913,386 @@ spec:
                 port:
                   number: 15002
             path: /(v1/orgs/.+/projects/.+/templates.*)
+            pathType: ImplementationSpecific
+    {{- end }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.global.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
+  {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ng-manager-smp-v1-apis
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
+  rules:
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/projects.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/secrets.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/secrets.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/projects/.+/secrets.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/connectors.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/connectors.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/projects/.+/connectors.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/services.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/services.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/projects/.+/services.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/ip-allowlist.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/favorites.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/rancher/connectors/.+/clusters)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/rancher/connectors/.+/clusters)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/projects/.+/rancher/connectors/.+/clusters)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/rancher/environments/.+/infrastructure-definitions/.+/clusters)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/rancher/environments/.+/infrastructure-definitions/.+/clusters)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: ng-manager
+                port:
+                  number: 7090
+            path: /(v1/orgs/.+/projects/.+/rancher/environments/.+/infrastructure-definitions/.+/clusters)
+            pathType: ImplementationSpecific
+    {{- end }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.global.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
+  {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: access-control-smp-v1-apis
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /api/$1
+spec:
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
+  rules:
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: access-control
+                port:
+                  number: 9006
+            path: /(v1/roles.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: access-control
+                port:
+                  number: 9006
+            path: /(v1/orgs/.+/roles.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: access-control
+                port:
+                  number: 9006
+            path: /(v1/orgs/.+/projects/.+/roles.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: access-control
+                port:
+                  number: 9006
+            path: /(v1/role-assignments.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: access-control
+                port:
+                  number: 9006
+            path: /(v1/orgs/.+/role-assignments.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: access-control
+                port:
+                  number: 9006
+            path: /(v1/orgs/.+/projects/.+/role-assignments.*)
+            pathType: ImplementationSpecific
+    {{- end }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.global.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
+  {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: platform-service-smp-v1-apis
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /api/$1
+spec:
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
+  rules:
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: platform-service
+                port:
+                  number: 9005
+            path: /(v1/resource-groups.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: platform-service
+                port:
+                  number: 9005
+            path: /(v1/orgs/.+/resource-groups.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: platform-service
+                port:
+                  number: 9005
+            path: /(v1/orgs/.+/projects/.+/resource-groups.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: platform-service
+                port:
+                  number: 9005
+            path: /(v1/streaming-destinations.*)
+    {{- end }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.global.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
+  {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pipeline-service-smp-v1-apis
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /api/$1
+spec:
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
+  rules:
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: pipeline-service
+                port:
+                  number: 12001
+            path: /(v1/orgs/.+/projects/.+/pipelines.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: pipeline-service
+                port:
+                  number: 12001
+            path: /(v1/orgs/.+/projects/.+/input-sets.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: pipeline-service
+                port:
+                  number: 12001
+            path: /(v1/orgs/.+/projects/.+/approvals.*)
+            pathType: ImplementationSpecific
+    {{- end }}
+  {{- if .Values.global.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        {{- range .Values.global.ingress.hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .Values.global.ingress.tls.secretName }}
+  {{- end }}
+---
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pipeline-service-smp-v1-apis
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /api/$1
+spec:
+  ingressClassName: {{ .Values.global.ingress.className | quote }}
+  rules:
+    {{- range .Values.global.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: pipeline-service
+                port:
+                  number: 12001
+            path: /(v1/orgs/.+/projects/.+/pipelines.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: pipeline-service
+                port:
+                  number: 12001
+            path: /(v1/orgs/.+/projects/.+/input-sets.*)
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: pipeline-service
+                port:
+                  number: 12001
+            path: /(v1/orgs/.+/projects/.+/approvals.*)
             pathType: ImplementationSpecific
     {{- end }}
   {{- if .Values.global.ingress.tls.enabled }}
