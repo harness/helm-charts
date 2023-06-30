@@ -19,11 +19,11 @@ MODULE_IMAGE_FILE=""
 
 while IFS= read -r line; do
   # Check if the line starts with "["
-  if [[ $line == [* ]]; then
-    
+  if [[ $line == [* ]]; then 
     MODULE_NAME=${line//[[:space:]]/}
     MODULE_NAME=${MODULE_NAME//[[:punct:]]/}
     MODULE_IMAGE_FILE="${MODULE_NAME//:/}_images.txt"
+    echo "Generating module image file: $MODULE_IMAGE_FILE"
 
     > "$MODULE_IMAGE_FILE"
   elif [[ -n $MODULE_IMAGE_FILE ]]; then
@@ -52,9 +52,19 @@ while IFS= read -r line; do
   fi
 done < "$INPUT_FILE"
 
+#Check if module_image files are not empty
+if [[ -n $MODULE_IMAGE_FILE && ! -s $MODULE_IMAGE_FILE ]]; then
+  echo "Module image file $MODULE_IMAGE_FILE is empty"
+fi
+
 echo "Lines not read from $IMAGES_TXT:"
 while IFS= read -r line; do
   if [[ -z ${lines_read["$line"]} ]]; then
     echo "$line"
   fi
 done < "$IMAGES_TXT"
+
+# Check if there are any lines not read from images.txt
+if [[ $(wc -l <"$IMAGES_TXT") -ne ${#lines_read[@]} ]]; then
+  echo "There are lines in $IMAGES_TXT that were not read"
+fi
