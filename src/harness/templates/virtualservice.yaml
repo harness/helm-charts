@@ -302,7 +302,7 @@ spec:
   - name: pipelines-v1-apis
     match:
     - uri:
-        regex: "^/v1/pipelines(.*)$"
+        regex: "^/v1/orgs/.+/projects/.+/pipelines(.*)$"
     rewrite:
       uri: "/api$1"
     route:
@@ -314,7 +314,7 @@ spec:
   - name: inputsets-v1-apis
     match:
     - uri:
-        regex: "^/v1/input-sets(.*)$"
+        regex: "^/v1/orgs/.+/projects/.+/input-sets(.*)$"
     rewrite:
       uri: "/api$1"
     route:
