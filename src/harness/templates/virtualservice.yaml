@@ -334,30 +334,6 @@ spec:
         host: pipeline-service
         port:
           number: 12001
-    
-  - name: orgs-v1-apis
-    match:
-    - uri:
-        regex: "^/v1/orgs(.*)$"
-    rewrite:
-      uri: "$1"
-    route:
-    - destination:
-        host: ng-manager
-        port:
-          number: 7090
-
-  - name: projects-v1-apis
-    match:
-    - uri:
-        regex: "^/v1/orgs/.+/projects(.*)$"
-    rewrite:
-      uri: "$1"
-    route:
-    - destination:
-        host: ng-manager
-        port:
-          number: 7090
 
   - name: account-secrets-v1-apis
     match:
@@ -678,6 +654,30 @@ spec:
         host: platform-service
         port:
           number: 9005
+
+  - name: projects-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs/.+/projects(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
+
+  - name: orgs-v1-apis
+    match:
+    - uri:
+        regex: "^/v1/orgs(.*)$"
+    rewrite:
+      uri: "$1"
+    route:
+    - destination:
+        host: ng-manager
+        port:
+          number: 7090
 
   - name: notification-service
     match:
