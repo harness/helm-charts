@@ -544,7 +544,7 @@ spec:
     - uri:
         regex: "^/v1/roles(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/api$1"
     route:
     - destination:
         host: access-control
@@ -556,7 +556,7 @@ spec:
     - uri:
         regex: "^/v1/orgs/.+/roles(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/api$1"
     route:
     - destination:
         host: access-control
@@ -568,7 +568,7 @@ spec:
     - uri:
         regex: "^/v1/orgs/.+/projects/.+/roles(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/api$1"
     route:
     - destination:
         host: access-control
@@ -580,7 +580,7 @@ spec:
     - uri:
         regex: "^/v1/role-assignments(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/api$1"
     route:
     - destination:
         host: access-control
@@ -592,7 +592,7 @@ spec:
     - uri:
         regex: "^/v1/orgs/.+/role-assignments(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/api$1"
     route:
     - destination:
         host: access-control
@@ -604,7 +604,7 @@ spec:
     - uri:
         regex: "^/v1/orgs/.+/projects/.+/role-assignments(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/api$1"
     route:
     - destination:
         host: access-control
@@ -612,10 +612,11 @@ spec:
           number: 9006
 
   - name: account-resource-groups-v1-apis
+    match:
     - uri:
         regex: "^/v1/resource-groups(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/api$1"
     route:
     - destination:
         host: platform-service
@@ -623,10 +624,11 @@ spec:
           number: 9005
 
   - name: org-resource-groups-v1-apis
+    match:
     - uri:
         regex: "^/v1/orgs/.+/resource-groups(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/api$1"
     route:
     - destination:
         host: platform-service
@@ -634,10 +636,11 @@ spec:
           number: 9005
 
   - name: project-resource-groups-v1-apis
+    match:
     - uri:
         regex: "^/v1/orgs/.+/projects/.+/resource-groups(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/api$1"
     route:
     - destination:
         host: platform-service
@@ -645,10 +648,11 @@ spec:
           number: 9005
 
   - name: streaming-destinations-v1-apis
+    match:
     - uri:
         regex: "^/v1/streaming-destinations(.*)$"
     rewrite:
-      uri: "$1"
+      uri: "/api$1"
     route:
     - destination:
         host: platform-service
