@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+
 images="harness-airgapped-images.tgz"
 list="airgapped-images.txt"
 

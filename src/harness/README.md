@@ -10,7 +10,7 @@ For full release notes, go to [Self-Managed Enterprise Edition release notes](ht
 
 ## Usage
 
-Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, see the [Helm documentation](https://helm.sh/docs/).
+Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, go to the [Helm documentation](https://helm.sh/docs/).
 
 Use the following command to add the Harness chart repository to your Helm installation:
 

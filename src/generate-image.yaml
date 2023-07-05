@@ -23,6 +23,8 @@ global:
     enabled: true
   ng:
     enabled: true
+  chaos:
+    enabled: true
   lwd:
     enabled: false
     autocud:
