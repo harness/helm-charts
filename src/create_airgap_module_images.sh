@@ -27,6 +27,8 @@ while IFS= read -r line; do
     MODULE_IMAGE_FILE="${MODULE_NAME//:/}_images.txt"
 
     > "$MODULE_IMAGE_FILE"
+    echo "Created module file: $MODULE_IMAGE_FILE"
+     
   elif [[ -n $MODULE_IMAGE_FILE ]]; then
     # Trim leading/trailing whitespaces from the image
     image=$(echo "$line" | awk '{$1=$1};1')
