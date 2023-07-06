@@ -9,4 +9,4 @@ postgresql:
   commonLabels:
     app: postgres
   image:
-    tag: "14.7.0-debian-11-r28"
+    tag: "14.8.0-debian-11-r17"
