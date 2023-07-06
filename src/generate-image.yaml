@@ -35,4 +35,4 @@ ccm:
   clickhouse:
     enabled: true
 cet:
-    enable-receivers: true
+  enable-receivers: true
