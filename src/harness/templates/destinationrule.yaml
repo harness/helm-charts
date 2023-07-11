@@ -1,4 +1,4 @@
-{{- if and .Values.global.istio.enabled .Values.global.srm.enabled -}}
+{{- if and .Values.global.istio.enabled .Values.global.cet.enabled -}}
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
