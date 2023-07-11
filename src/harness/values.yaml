@@ -73,6 +73,9 @@ global:
   # -- Enable to install Chaos Engineering (CE) (Beta)
   chaos:
     enabled: false
+  # -- Enable to install Continuous Error Tracking (CET)
+  cet:
+    enabled: false
   migrator:
     enabled: false
   # --  SAML auto acceptance. Enabled will not send invites to email and autoaccepts
@@ -219,8 +222,8 @@ infra:
     auth:
       existingSecret: "postgres"
 
-# -- Config for Site Reliability Management (SRM)
-srm:
+# -- Config for Continuous Error Tracking (CET)
+cet:
   # -- Flag to enable error-tracking (ET) receivers
   enable-receivers: false
 
