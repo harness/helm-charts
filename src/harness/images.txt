@@ -73,7 +73,7 @@ docker.io/harness/helm-init-container:latest
 docker.io/harness/le-nextgen-signed:67902
 docker.io/harness/learning-engine-onprem-signed:67903
 docker.io/harness/log-service-signed:release-65-ubi
-docker.io/harness/looker-signed:23.10.36
+docker.io/harness/looker-signed:23.10.47
 docker.io/harness/manager-signed:79422
 docker.io/harness/migrator-signed:100476-000
 docker.io/harness/mongo:4.4.19
