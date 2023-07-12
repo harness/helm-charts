@@ -69,9 +69,6 @@ global:
   chaos:
     # -- Enable to install Chaos components(Beta)
     enabled: false
-  cet:
-    # -- Enable to install CET
-    enabled: false
   saml:
     # --  Enabled will not send invites to email and autoaccepts
     autoaccept: false
@@ -587,8 +584,7 @@ infra:
           cpu: 2
           memory: 4Gi
 
-
-cet:
+srm:
   enable-receivers: false
   et-service:
     et:

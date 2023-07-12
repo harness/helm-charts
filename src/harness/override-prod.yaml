@@ -69,9 +69,6 @@ global:
   chaos:
     # -- Enable to install Chaos components(Beta)
     enabled: false
-  cet:
-    # -- Enable to install CET
-    enabled: false
   saml:
     # --  Enabled will not send invites to email and autoaccepts
     autoaccept: false
@@ -586,7 +583,7 @@ infra:
         requests:
           cpu: 4
           memory: 8192Mi
-cet:
+srm:
   enable-receivers: true
   et-service:
     et:
@@ -594,7 +591,7 @@ cet:
         heapSize: "6400m"
       redis:
         enabled: true
-    replicaCount: 2
+    replicaCount: 1
     resources:
       limits:
         memory: 8Gi
@@ -607,6 +604,10 @@ cet:
         heapSize: "1600m"
       redis:
         enabled: true
+    autoscaling:
+      enabled: true
+      maxReplicas: 3
+
     replicaCount: 1
     resources:
       limits:
@@ -629,7 +630,7 @@ cet:
       limits:
         memory: 2Gi
       requests:
-        cpu: 250m
+        cpu: 100m
         memory: 2Gi
   et-receiver-decompile:
     name: et-receiver-decompile
@@ -646,7 +647,7 @@ cet:
       limits:
         memory: 2Gi
       requests:
-        cpu: 250m
+        cpu: 100m
         memory: 2Gi
   et-receiver-agent:
     name: et-receiver-agent
@@ -663,7 +664,7 @@ cet:
       limits:
         memory: 2Gi
       requests:
-        cpu: 250m
+        cpu: 100m
         memory: 2Gi
   et-receiver-sql:
     name: et-receiver-sql
@@ -680,7 +681,7 @@ cet:
       limits:
         memory: 2Gi
       requests:
-        cpu: 250m
+        cpu: 100m
         memory: 2Gi
 
 ngcustomdashboard:
