@@ -36,6 +36,10 @@ dependencies:
     condition: global.ci.enabled
     version: 0.5.x
     repository: "file://ci"
+  - name: srm
+    condition: global.srm.enabled
+    version: 0.8.x
+    repository: "https://harness.github.io/helm-srm"
   - name: ngcustomdashboard
     condition: global.ngcustomdashboard.enabled
     version: 0.7.x
@@ -60,7 +64,3 @@ dependencies:
     condition: global.chaos.enabled
     version: 0.5.x
     repository: "https://harness.github.io/helm-chaos"
-  - name: cet
-    condition: global.cet.enabled
-    version: 0.1.x
-    repository: "https://harness.github.io/helm-cet"
