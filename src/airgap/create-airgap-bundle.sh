@@ -2,8 +2,9 @@
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-images="harness-airgapped-images.tgz"
-list="airgapped-images.txt"
+# Provide lists of image names
+lists=("platform_images.txt" "ccm_images.txt" "cdng_images.txt" "ci_images.txt" 
+"ce_images.txt" "sto_images.txt" "srm_images.txt" "ff_images.txt")
 
 pull_image() {
     i="$1"
@@ -15,24 +16,32 @@ pull_image() {
     fi
 }
 
-# Create a temporary file to store the list of successfully pulled images
-pulled_file="$(mktemp)"
+# Loop through each list
+for list in ${lists[*]}; do
 
-# Download images in parallel
-while IFS= read -r i; do
-    [ -z "${i}" ] && continue
-    pull_image "${i}" &
-done < "${list}"
+  # Generate image file name from list name
+  base_name=$(basename "$list" .txt)
+  images_file="${base_name}.tgz"
 
-# Wait for all background tasks to finish
-wait
+  # Create a temporary file to store the list of successfully pulled images
+  pulled_file="$(mktemp)"
 
-# Get the list of successfully pulled images
-pulled=$(cat "${pulled_file}")
+  # Download images in parallel
+  while IFS= read -r i; do
+      [ -z "${i}" ] && continue
+      pull_image "${i}" &
+  done < "${list}"
 
-# Save pulled images to a tarball
-echo "Creating ${images} with $(echo ${pulled} | wc -w | tr -d '[:space:]') images"
-docker save $(echo ${pulled}) | gzip --stdout > ${images}
+  # Wait for all background tasks to finish
+  wait
 
-# Remove temporary file
-rm "${pulled_file}"
+  # Get the list of successfully pulled images
+  pulled=$(cat "${pulled_file}")
+
+  # Save pulled images to a tarball
+  echo "Creating ${images_file} with $(echo ${pulled} | wc -w | tr -d '[:space:]') images"
+  docker save $(echo ${pulled}) | gzip --stdout > ${images_file}
+
+  # Remove temporary file
+  rm "${pulled_file}"
+done
