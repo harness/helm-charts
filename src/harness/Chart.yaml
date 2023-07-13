@@ -62,5 +62,5 @@ dependencies:
     repository: "https://harness.github.io/helm-chaos"
   - name: cet
     condition: global.cet.enabled
-    version: 0.1.x
+    version: 0.4.x
     repository: "https://harness.github.io/helm-cet"

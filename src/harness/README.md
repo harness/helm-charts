@@ -188,6 +188,14 @@ docker.io/harness/delegate-proxy-signed:79310_minimal
 | ccm.nextgen-ce | object | `{"clickhouse":{"enabled":false},"cloudProviderConfig":{"GCP_PROJECT_ID":"placeHolder"},"stackDriverLoggingEnabled":false}` | Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure |
 | ccm.nextgen-ce.clickhouse | object | `{"enabled":false}` | Set ccm.clickhouse.enabled to true for AWS infrastructure |
 | ccm.nextgen-ce.stackDriverLoggingEnabled | bool | `false` | Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure |
+| cet | object | `{"enable-receivers":false,"et-collector":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-agent":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-decompile":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-hit":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-sql":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-service":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for Continuous Error Tracking (CET) |
+| cet.enable-receivers | bool | `false` | Flag to enable error-tracking (ET) receivers |
+| cet.et-collector | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) collector |
+| cet.et-receiver-agent | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver agent |
+| cet.et-receiver-decompile | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver decompiler |
+| cet.et-receiver-hit | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver hit |
+| cet.et-receiver-sql | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver sql service |
+| cet.et-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) service |
 | chaos.chaos-driver.nodeSelector | object | `{}` |  |
 | chaos.chaos-driver.tolerations | list | `[]` |  |
 | chaos.chaos-manager.nodeSelector | object | `{}` |  |
@@ -198,6 +206,7 @@ docker.io/harness/delegate-proxy-signed:79310_minimal
 | global.airgap | string | `"false"` | Airgap functionality. Disabled by default |
 | global.ccm | object | `{"enabled":false}` | Enable to install Cloud Cost Management (CCM) (Beta) |
 | global.cd | object | `{"enabled":false}` | Enable to install Continuous Deployment (CD) |
+| global.cet | object | `{"enabled":false}` | Enable to install Continuous Error Tracking (CET) |
 | global.cg | object | `{"enabled":false}` | Enable to install First Generation Harness Platform (disabled by default) |
 | global.chaos | object | `{"enabled":false}` | Enable to install Chaos Engineering (CE) (Beta) |
 | global.ci | object | `{"enabled":false}` | Enable to install Continuous Integration (CI) |
@@ -297,14 +306,6 @@ docker.io/harness/delegate-proxy-signed:79310_minimal
 | platform.timescaledb | object | `{"affinity":{},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"},"prometheus":{"enabled":false},"tolerations":[]}` | timescaledb (Timescale Database service) (taints, tolerations, and so on) |
 | platform.ui | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | ui (Harness First CG Ui component) (taints, tolerations, and so on) |
 | platform.verification-svc | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | verificiation-service (Harness First CG verification service) (taints, tolerations, and so on) |
-| srm | object | `{"enable-receivers":false,"et-collector":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-agent":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-decompile":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-hit":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-receiver-sql":{"affinity":{},"nodeSelector":{},"tolerations":[]},"et-service":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for Site Reliability Management (SRM) |
-| srm.enable-receivers | bool | `false` | Flag to enable error-tracking (ET) receivers |
-| srm.et-collector | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) collector |
-| srm.et-receiver-agent | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver agent |
-| srm.et-receiver-decompile | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver decompiler |
-| srm.et-receiver-hit | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver hit |
-| srm.et-receiver-sql | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) receiver sql service |
-| srm.et-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | Install the error-tracking (ET) service |
 | sto | object | `{"sto-core":{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]},"sto-manager":{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]}}` | Config for Security Test Orchestration (STO) |
 | sto.sto-core | object | `{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Install the STO core |
 | sto.sto-manager | object | `{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Install the STO manager |
