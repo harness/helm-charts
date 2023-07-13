@@ -36,6 +36,13 @@ dependencies:
     condition: global.ci.enabled
     version: 0.6.x
     repository: "file://ci"
+<<<<<<< Updated upstream
+=======
+  - name: srm
+    condition: global.srm.enabled
+    version: 0.9.x
+    repository: "https://harness.github.io/helm-srm"
+>>>>>>> Stashed changes
   - name: ngcustomdashboard
     condition: global.ngcustomdashboard.enabled
     version: 0.8.x
