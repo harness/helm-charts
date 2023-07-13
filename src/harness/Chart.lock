@@ -34,7 +34,11 @@ dependencies:
   version: 0.5.1
 digest: sha256:8c4b263bc222ee258f741c0f1e57e33acf4e34780448080a8e5e6e1810a54988
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 generated: "2023-07-13T04:42:06.498356005Z"
+=======
+generated: "2023-07-13T05:45:29.171097616Z"
+>>>>>>> Stashed changes
 =======
 generated: "2023-07-13T05:45:29.171097616Z"
 >>>>>>> Stashed changes
