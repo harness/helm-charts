@@ -90,7 +90,7 @@
 [srm]:
     error-tracking-signed
     et-collector-signed
-
+    et-receiver-signed
 [ccm]:
     batch-processing-signed
     ce-anomaly-detection-signed
