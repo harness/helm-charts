@@ -18,3 +18,5 @@ do
     python3 upload.py service_account_key.json "$file"
     gsutil mv gs://smp-airgap-bundles/"$file" gs://smp-airgap-bundles/${release_number}/
 done
+
+gsutil rm gs://smp-airgap-bundles/${release_number}/empty_file
