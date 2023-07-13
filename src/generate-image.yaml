@@ -29,8 +29,10 @@ global:
     enabled: false
     autocud:
       enabled: false
+  cet:
+    enabled: true
 ccm:
   clickhouse:
     enabled: true
-srm:
+cet:
   enable-receivers: true
