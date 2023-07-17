@@ -141,6 +141,12 @@ global:
         # Overrides the image tag whose default is the chart appVersion.
         tag: "v1.0.0-alpha.2"
         digest: ""
+      resources:
+        limits:
+          memory: '512Mi'
+        requests:
+          cpu: '0.5'
+          memory: '512Mi'
 
 
     defaultbackend:
@@ -153,6 +159,12 @@ global:
         # Overrides the image tag whose default is the chart appVersion.
         tag: "1.5"
         digest: ""
+      resources:
+        limits:
+          memory: 20Mi
+        requests:
+          cpu: 10m
+          memory: 20Mi
 
   # -- Istio Ingress Settings
   istio:

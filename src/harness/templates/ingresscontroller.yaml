@@ -200,11 +200,7 @@ spec:
         - configMapRef:
             name: harness-ingress-controller
         resources:
-          limits:
-            memory: '512Mi'
-          requests:
-            cpu: '0.5'
-            memory: '512Mi'
+          {{- toYaml .Values.global.ingress.nginx.resources | nindent 10 }}
         ports:
           - name: http
             containerPort: 8080
