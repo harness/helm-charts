@@ -85,9 +85,6 @@ global:
   license:
     cg: ''
     ng: ''
-  # -- Enable to install Next Generation Git Sync functionality
-  ngGitSync:
-    enabled: false
   # -- Utilize immutable delegates (default = true)
   useImmutableDelegate: "true"
   # -- Use delegate minimal image (default = false)
@@ -144,6 +141,12 @@ global:
         # Overrides the image tag whose default is the chart appVersion.
         tag: "v1.0.0-alpha.2"
         digest: ""
+      resources:
+        limits:
+          memory: '512Mi'
+        requests:
+          cpu: '0.5'
+          memory: '512Mi'
 
 
     defaultbackend:
@@ -156,6 +159,12 @@ global:
         # Overrides the image tag whose default is the chart appVersion.
         tag: "1.5"
         digest: ""
+      resources:
+        limits:
+          memory: 20Mi
+        requests:
+          cpu: 10m
+          memory: 20Mi
 
   # -- Istio Ingress Settings
   istio:
@@ -330,7 +339,7 @@ platform:
       # -- NG Specific Feature Flags(activated when global.ng is enabled)
       NG: "ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE"
       # -- CD Feature Flags (activated when global.cd is enabled)
-      CD: ""
+      CD: "CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION"
       # -- CI Feature Flags (activated when global.ci is enabled)
       CI: "CING_ENABLED,CI_INDIRECT_LOG_UPLOAD"
       # -- STO Feature Flags (activated when global.sto is enabled)
@@ -349,8 +358,6 @@ platform:
       OPA: "OPA_PIPELINE_GOVERNANCE"
       # -- CHAOS Feature Flags (activated when global.chaos is enabled)
       CHAOS: "CHAOS_ENABLED"
-      # -- Disables OLD_GIT_SYNC if .global.ngGitSync is enabled
-      OLDGITSYNC : "USE_OLD_GIT_SYNC"
       # -- AutoAccept Feature Flags
       SAMLAutoAccept: "AUTO_ACCEPT_SAML_ACCOUNT_INVITES,PL_NO_EMAIL_FOR_SAML_ACCOUNT_INVITES"
       # -- Additional Feature Flag (placeholder to add any other featureFlags)

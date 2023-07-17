@@ -28,11 +28,7 @@ spec:
           initialDelaySeconds: 30
           timeoutSeconds: 5
         resources:
-          limits:
-            memory: 20Mi
-          requests:
-            cpu: 10m
-            memory: 20Mi
+          {{- toYaml .Values.global.ingress.defaultbackend.resources | nindent 10 }}
         securityContext:
           runAsUser: 65534
         ports:
