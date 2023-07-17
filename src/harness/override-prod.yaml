@@ -80,9 +80,6 @@ global:
     cg: ''
     # -- Insert NG License String to enable NG license
     ng: ''
-  ngGitSync:
-    # -- Set to enable NG_GIT_SYNC and disable OLD_GIT_SYNC
-    enabled: false
   # -- Set false to disable Immutable Delegate
   useImmutableDelegate: "true"
   # -- Set true to use delegate minimal image
@@ -272,7 +269,7 @@ platform:
       # -- NG Specific Feature Flags(activated when global.ng is enabled)
       NG: "ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE"
       # -- CD Feature Flags (activated when global.cd is enabled)
-      CD: ""
+      CD: "CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION"
       # -- CI Feature Flags (activated when global.ci is enabled)
       CI: "CING_ENABLED,CI_INDIRECT_LOG_UPLOAD"
       # -- STO Feature Flags (activated when global.sto is enabled)
@@ -291,8 +288,6 @@ platform:
       OPA: "OPA_PIPELINE_GOVERNANCE"
       # -- CHAOS Feature Flags (activated when global.chaos is enabled)
       CHAOS: "CHAOS_ENABLED"
-      # -- Disables OLD_GIT_SYNC if .global.ngGitSync is enabled
-      OLDGITSYNC : "USE_OLD_GIT_SYNC"
       # -- AutoAccept Feature Flags
       SAMLAutoAccept: "AUTO_ACCEPT_SAML_ACCOUNT_INVITES,PL_NO_EMAIL_FOR_SAML_ACCOUNT_INVITES"
       # -- Additional Feature Flag (placeholder to add any other featureFlags)
