@@ -146,12 +146,19 @@ global:
     nginx:
       # -- Create Nginx Controller.  True will deploy a controller into your cluster
       create: false
+      healthPort: ""
+      healthNodePort: ""
+      httpNodePort: ""
+      httpsNodePort: ""
       controller:
         # -- annotations to be addded to ingress Controller
         annotations: {}
       objects:
         # -- annotations to be added to ingress Objects
         annotations: {}
+      nodeSelector: {}
+      tolerations: []
+      affinity: {}
       # -- docker image to be used
       image:
         registry:  us.gcr.io
@@ -278,7 +285,7 @@ platform:
       # -- GitOps Feature Flags (activated when global.gitops is enabled)
       GitOps: "GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN"
       # -- OPA (activated when global.opa is enabled)
-      OPA: ""
+      OPA: "OPA_PIPELINE_GOVERNANCE"
       # -- CHAOS Feature Flags (activated when global.chaos is enabled)
       CHAOS: "CHAOS_ENABLED"
       # -- Disables OLD_GIT_SYNC if .global.ngGitSync is enabled

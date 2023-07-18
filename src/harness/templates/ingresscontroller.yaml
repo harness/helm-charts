@@ -18,16 +18,27 @@ spec:
   {{- end }}
   externalTrafficPolicy: 'Cluster'
   ports:
+  - name: health
+    protocol: TCP
+    port: {{ .Values.global.ingress.nginx.healthPort | default 10254 }}
+    targetPort: {{ .Values.global.ingress.nginx.healthPort | default 10254 }}
+    {{- if .Values.global.ingress.nginx.healthNodePort }}
+    nodePort: {{ .Values.global.ingress.nginx.healthNodePort }}
+    {{- end }}
   - name: http
-    nodePort: {{ .Values.global.ingress.nginx.httpNodePort | default 32500 }}
     port: 80
     protocol: TCP
     targetPort: http
+    {{- if .Values.global.ingress.nginx.httpNodePort }}
+    nodePort: {{ .Values.global.ingress.nginx.httpNodePort }}
+    {{- end }}
   - name: https
-    nodePort: {{ .Values.global.ingress.nginx.httpsNodePort | default 32505 }}
     port: 443
     protocol: TCP
     targetPort: https
+    {{- if .Values.global.ingress.nginx.httpsNodePort }}
+    nodePort: {{ .Values.global.ingress.nginx.httpsNodePort }}
+    {{- end }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -159,7 +170,6 @@ spec:
       labels:
         app: "harness-ingress-controller"
     spec:
-#
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -167,7 +177,17 @@ spec:
                 matchLabels:
                   app: "harness-ingress-controller"
               topologyKey: kubernetes.io/hostname
-#
+      {{- with .Values.global.ingress.nginx.affinity }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.global.ingress.nginx.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.global.ingress.nginx.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       serviceAccountName: harness-serviceaccount
       terminationGracePeriodSeconds: 60
       securityContext:
@@ -195,7 +215,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 10254
+            port: {{ .Values.global.ingress.nginx.healthPort | default 10254 }}
             scheme: HTTP
           initialDelaySeconds: 30
           timeoutSeconds: 5

@@ -25,6 +25,12 @@ global:
     enabled: true
   chaos:
     enabled: true
+  lwd:
+    enabled: false
+    autocud:
+      enabled: false
 ccm:
   clickhouse:
     enabled: true
+srm:
+  enable-receivers: true
