@@ -1,13 +1,57 @@
 #!/bin/bash
 
-SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+usage () {
+    echo "Usage: $0 [options]"
+    echo ""
+    echo "Options:"
+    echo "  -i, --image-gen-input ${SCRIPT_DIR}/generate-image.yaml  Path to generate-image.yaml file"
+    echo "  -o, --output-dir ${SCRIPT_DIR}/harness Path to directory in which images.txt is to be generated"
+    echo "  -d, --harness-dir ${SCRIPT_DIR}/harness Path to harness directory"
+    echo "  -h, --help             Show this help message"
+    echo ""
+}
 
-helm template ${SCRIPT_DIR}/harness -f  ${SCRIPT_DIR}/generate-image.yaml | grep -i image | grep \/ | grep -v imagePullPolicy | grep -v "#" | awk '{$1=$1};1' | sort -u | sed 's/^[^:]*: //g' | sed -e "s/^'//" -e "s/'$//"| sed -e 's/^"//' -e 's/"$//' > ${SCRIPT_DIR}/harness/images_tmp.txt
+SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+HARNESS_DIR=${SCRIPT_DIR}/harness
+IMAGE_GEN_INPUT_FILE=${SCRIPT_DIR}/generate-image.yaml
+OUTPUT_DIR=${SCRIPT_DIR}/harness
+
+
+while [ $# -gt 0 ]; do
+    key="$1"
+    case $key in
+        -i|--image-gen-input)
+            IMAGE_GEN_INPUT_FILE="$2"
+            shift 2
+            ;;
+        -o|--output-dir)
+            OUTPUT_DIR="$2"
+            shift 2
+            ;;
+        -d|--harness-dir)
+            HARNESS_DIR="$2"
+            shift 2
+            ;;
+        -h|--help)
+            usage
+            exit
+            ;;
+        *)
+            echo "Unknown option: $1"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+
+
+helm template ${HARNESS_DIR} -f  ${IMAGE_GEN_INPUT_FILE} | grep -i image | grep \/ | grep -v imagePullPolicy | grep -v "#" | awk '{$1=$1};1' | sort -u | sed 's/^[^:]*: //g' | sed -e "s/^'//" -e "s/'$//"| sed -e 's/^"//' -e 's/"$//' > ${OUTPUT_DIR}/images_tmp.txt
 
 # Remove duplicates based on image name and tag
-awk -F: '{ print $1 ":" $2 }' ${SCRIPT_DIR}/harness/images_tmp.txt | sort -u > ${SCRIPT_DIR}/harness/images.txt
+awk -F: '{ print $1 ":" $2 }' ${OUTPUT_DIR}/images_tmp.txt | sort -u > ${OUTPUT_DIR}/images.txt
 
-rm ${SCRIPT_DIR}/harness/images_tmp.txt
+rm ${OUTPUT_DIR}/images_tmp.txt
 
 # Add minimal images
 IMAGES=("docker.io/harness/delegate:[0-9.]+" "docker.io/harness/delegate-proxy-signed:[0-9.]+")
@@ -21,7 +65,7 @@ do
 done
 
 # Remove duplicates one more time in case minimal images have added any
-awk -F: '{ print $1 ":" $2 }' ${SCRIPT_DIR}/harness/images.txt | sort -u > ${SCRIPT_DIR}/harness/images_tmp.txt
-mv ${SCRIPT_DIR}/harness/images_tmp.txt ${SCRIPT_DIR}/harness/images.txt
+awk -F: '{ print $1 ":" $2 }' ${OUTPUT_DIR}/images.txt | sort -u > ${OUTPUT_DIR}/images_tmp.txt
+mv ${OUTPUT_DIR}/images_tmp.txt ${OUTPUT_DIR}/images.txt
 
 exit 0
