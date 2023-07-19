@@ -1,4 +1,4 @@
-[platform]: 
+[platform]:
     le-nextgen-signed
     ci-scm-signed
     template-service-signed
@@ -52,7 +52,7 @@
     s3
     sto-plugin
     ci-manager-signed
-    
+
 [sto]:
     ci-addon
     ci-lite-engine
@@ -87,9 +87,10 @@
     ff-server-signed
     ff-timescale-migration-signed
 
-[srm]:
+[cet]:
     error-tracking-signed
     et-collector-signed
+    et-receiver-signed
 
 [ccm]:
     batch-processing-signed
