@@ -25,6 +25,53 @@ global:
       passwordKey: ""
       # -- set additional arguments to mongo uri
       extraArgs: ""
+    postgres:
+      ## - set this to false if you want to use external postgre cluster
+      installed: true
+      ## - protocol to use for connection
+      protocol: postgres
+      ## - host array for external
+      hosts:
+        - <postgres ip>:5432
+      ## - secret name containing external postgresql credentials
+      secretName: "postgres-secret"
+      ## - key within secret containing username
+      userKey: "user"
+      ## - key within secret containing password
+      passwordKey: "password"
+      ## - extra arguments set to connection string
+      extraArgs: ""
+    timescaledb:
+      ## - set this to false if you want to use external timescaledb cluster
+      installed: true
+      # --  provide host name for timescaledb
+      hosts:
+        - hostname.timescale.com:5432
+      ## - secret name containing external timescaledb credentials
+      secretName: "tsdb-secret"
+      ## - key within secret containing username
+      userKey: "username"
+      ## - key within secret containing password
+      passwordKey: "password"
+      ## - set this to true if you want to enabled external timescaledb ssl traffic
+      sslEnabled: false
+      ## - secret name containing timescaledb certificates
+      certName: "tsdb-cert"
+      ## - key name within secret containing certificates
+      certKey: "cert"
+    redis:
+      ## - set this to false if you want to use external redis cluster
+      installed: true
+      # --  provide host name for redis
+      hosts:
+      - <internal-endpoint-with-port>
+      ## - secret name containing external redis credentials
+      secretName: "redis-user-pass"
+      ## - key within secret containing username
+      userKey: "username"
+      ## - key within secret containing password
+      passwordKey: "password"
+
 
   # -- Enable SSL for MongoDB service
   mongoSSL: false
@@ -32,9 +79,6 @@ global:
   storageClassName: ""
   # -- Configure storage class for Mongo,Timescale,Redis
   storageClass: ""
-  # -- Enable to deploy postgres(needed for NG components)
-  postgres:
-    enabled: true
   # -- Enable stack driver logging
   stackDriverLoggingEnabled: false
   # -- Enable to install First Generation Harness Platform (disabled by default)

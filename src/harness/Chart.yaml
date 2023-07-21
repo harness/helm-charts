@@ -23,7 +23,7 @@ appVersion: "1.0.79422"
 dependencies:
   - name: infra
     version: 0.6.x
-    condition: global.postgres.enabled
+    condition: global.database.postgres.enabled
     repository: "file://infra"
   - name: platform
     version: 0.9.x
