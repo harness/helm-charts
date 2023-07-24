@@ -329,7 +329,7 @@ platform:
       # -- CD Feature Flags (activated when global.cd is enabled)
       CD: ""
       # -- CI Feature Flags (activated when global.ci is enabled)
-      CI: "CING_ENABLED,CI_INDIRECT_LOG_UPLOAD"
+      CI: "CING_ENABLED,CI_INDIRECT_LOG_UPLOAD,CI_LE_STATUS_REST_ENABLED"
       # -- STO Feature Flags (activated when global.sto is enabled)
       STO: "SECURITY,SECURITY_STAGE,STO_CI_PIPELINE_SECURITY,STO_API_V2"
       # -- SRM Flags (activated when global.srm is enabled)
