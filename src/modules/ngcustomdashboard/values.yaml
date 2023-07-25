@@ -1,0 +1,291 @@
+# Declare variables to be passed into your templates.
+global:
+  ha: false
+  loadbalancerURL: ""
+  airgap: "false"
+  ingress:
+    enabled: false
+    className: ""
+    hosts: []
+    tls:
+      enabled: false
+      secretName: ""
+  istio:
+    enabled: false
+    gateway:
+      create: false
+    virtualService:
+      gateways:
+      hosts:
+  imagePullSecrets: []
+
+ng-custom-dashboards:
+  replicaCount: 1
+  maxSurge: 1
+  maxUnavailable: 0
+
+  image:
+    registry: docker.io
+    repository: harness/dashboard-service-signed
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "v1.53.8.0"
+    digest: ""
+    imagePullSecrets: []
+
+  config:
+    # -- Required: domain name of your looker instance, this must be accessible by users in your organisation
+    lookerPubDomain: ''
+    # -- Required: HTTP scheme used, either http or https
+    lookerPubScheme: 'https'
+    # -- scheme used for your looker install, http or https
+    lookerScheme: 'http'
+    # -- hostname of your looker install
+    lookerHost: 'hrns-looker-api'
+    # -- port of your looker install
+    lookerPort: '19999'
+    # -- folder ID of the 'CUSTOMER' folder in looker
+    customerFolderId: '6'
+    # -- folder ID of the 'OOTB' folder in looker
+    ootbFolderId: '7'
+    # -- hostname of your redis install
+    redisHost: 'harness-redis-master'
+    # -- port of your redis install
+    redisPort: '6379'
+    # -- used to enable Redis Sentinel support
+    redisSentinel: 'true'
+    # -- list of sentinel URLs, example host:port,host:port
+    redisSentinelUrls: ''
+    # -- name of the Redis Sentinel master
+    redisSentinelMasterName: 'harness-redis'
+    # -- if you have configured Looker models with a prefix enter it here
+    modelPrefix: 'SMP_'
+    # -- looker sdk param
+    lookerApiVersion: '4.0'
+    # -- looker sdk param
+    lookerTimeout: '120'
+    # -- looker sdk param
+    lookerVerifySsl: 'false'
+    # -- time in seconds between cache reloads
+    cacheReloadFrequency: '600'
+    # -- time in seconds before cache reload locks are automatically released
+    redisLockTimeout: '570'
+
+  lookerSecrets:
+    clientId:
+      name: harness-looker-secrets
+      key: lookerClientId
+    clientSecret:
+      name: harness-looker-secrets
+      key: lookerClientSecret
+    secret:
+      name: harness-looker-secrets
+      key: lookerEmbedSecret
+
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: "harness-default"
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext:
+    runAsUser: 65534
+    runAsNonRoot: true
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 5000
+
+  resources:
+    limits:
+      memory: 1536Mi
+    requests:
+      cpu: 1
+      memory: 768Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPU: ""
+    targetMemory: ""
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+looker:
+  # Default values for looker
+  # This is a YAML-formatted file.
+
+  config:
+    # -- name of the user who performs setup and support tasks
+    firstName: Harness
+    # -- last name of the user who performs setup and support tasks
+    lastName: Support
+    # -- email address of the support user, required for initial signup and support
+    email: 'harnessSupport@harness.io'
+    # -- timescale connection name, must match model connection name
+    timescaleConnectionName: 'smp-timescale'
+    # -- timescale hostname
+    timescaleHost: 'timescaledb-single-chart.harness'
+    # -- timescale port
+    timescalePort: '5432'
+    # -- timescale database name
+    timescaleDatabase: 'harness'
+    # -- timescale user
+    timescaleUser: 'postgres'
+    # -- timescale connection name for feature flags, must match model connection name
+    ffConnectionName: 'smp-timescale-cf'
+    # -- timescale database name for feature flags
+    ffDatabase: 'harness_ff'
+    # -- postgres connection name for STO, must match model connection name
+    stoConnectionName: 'smp-postgres'
+    # -- postgres database name for STO
+    stoDatabase: 'harness_sto'
+    # -- clickhouse connection name for CCM, must match model connection name
+    clickhouseConnectionName: smp-clickhouse
+    # -- clickhouse hostname
+    clickhouseHost: 'clickhouse'
+    # -- clickhouse port
+    clickhousePort: '8123'
+    # -- clickhouse database name
+    clickhouseDatabase: 'ccm'
+    # -- clickhouse user
+    clickhouseUser: 'default'
+    # -- name of the looker project which will be created
+    projectName: 'Harness'
+
+  lookerSecrets:
+    licenseKey:
+      name: looker-secrets
+      # -- name of secret containing the looker license key which will be provided by Harness
+      key: lookerLicenseKey
+    masterKey:
+      name: looker-secrets
+      # -- name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32
+      key: lookerMasterKey
+    clientId:
+      name: harness-looker-secrets
+      # -- name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10
+      key: lookerClientId
+    clientSecret:
+      name: harness-looker-secrets
+      # -- name of secret containing the client secret used for API authentication, generate a 24-byte key, e.g. openssl rand -hex 12
+      key: lookerClientSecret
+
+  timescaleSecrets:
+    password:
+      name: harness-secrets
+      # -- name of secret containing the timescale password
+      key: timescaledbPostgresPassword
+
+  clickhouseSecrets:
+    password:
+      name: clickhouse
+      # -- name of secret containing the clickhouse password
+      key: admin-password
+
+  ingress:
+    # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
+    hosts: []
+    tls:
+      secretName: ''
+
+  persistentVolume:
+    accessMode: ReadWriteOnce
+    storage:
+      # -- size of volume where Looker stores model files
+      models: 2Gi
+      # -- size of volume where Looker stores database
+      database: 20Gi
+
+  # -- directory where Looker models volume will be mounted
+  modelsDirectory: /mnt/lookerfiles
+
+  maxSurge: 1
+  maxUnavailable: 0
+
+  mysql:
+    user: looker
+    database: looker
+    port: '3306'
+
+  image:
+    registry: docker.io
+    repository: harness/looker-signed
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "23.10.36"
+    digest: ""
+    imagePullSecrets: []
+
+  secrets:
+    # -- Required: Looker license key
+    lookerLicenseKey: ""
+
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: "harness-looker"
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext:
+    runAsUser: 1001
+    runAsNonRoot: true
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port:
+      web: 9999
+      api: 19999
+
+  resources:
+    limits:
+      # -- minimum of 6GiB recommended
+      memory: 8192Mi
+    requests:
+      cpu: 2
+      memory: 4096Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}

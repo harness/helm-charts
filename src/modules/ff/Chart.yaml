@@ -1,0 +1,13 @@
+apiVersion: v2
+name: ff
+description: A Helm chart for harness Feature Flags module
+type: application
+version: 0.8.5
+appVersion: "0.0.1"
+dependencies:
+  - name: ff-service
+    version: 0.5.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: ff-pushpin-service
+    version: 0.5.x
+    repository: "https://harness.github.io/services/placeholder"

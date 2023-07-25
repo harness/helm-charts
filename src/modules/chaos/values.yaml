@@ -1,0 +1,710 @@
+global:
+  loadbalancerURL: "http://x.x.x."
+  airgap: false
+  ha: false
+  opa:
+    enabled: false
+  cd:
+    # -- Enable to install CD
+    enabled: false
+  chaos:
+    enabled: true
+  #Enable if using ingress objects
+  ingress:
+    enabled: true
+    loadBalancerIP: '0.0.0.0'
+    className: "harness"
+    loadBalancerEnabled: true
+    hosts:
+      - ''
+    tls:
+      enabled: false
+      secretName: harness-ssl
+    nginx:
+      # -- Create Nginx Controller.  True will deploy a controller into your cluster
+      create: true
+    defaultbackend:
+      # -- Create will deploy a default backend into your cluster
+      create: true
+  # Enable if using Istio setup
+  istio:
+    enabled: false
+    gateway:
+      create: true
+      port: 443
+      protocol: HTTPS
+    hosts:
+    - '*'
+    strict: true
+    tls:
+      credentialName: harness-wildcard
+      minProtocolVersion: TLSV1_2
+      mode: SIMPLE
+    virtualService:
+      gateways:
+      - ""
+      hosts:
+      - smp-istio.test.harness.io
+
+## Platform Settings
+platform:
+  harness-manager:
+    featureFlags:
+      OPA: "OPA_PIPELINE_GOVERNANCE"
+      ADDITIONAL: "CHAOS_ENABLED,CHAOS_LINUX_ENABLED"
+
+chaos-manager:
+  replicaCount: 2
+  maxSurge: 1
+  maxUnavailable: 0
+
+  waitForInitContainer:
+    image:
+      registry: docker.io
+      repository: harness/helm-init-container
+      pullPolicy: IfNotPresent
+      tag: "latest"
+      digest: ""
+      imagePullSecrets: []
+
+  image:
+    registry: docker.io
+    repository: harness/smp-chaos-manager-signed
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: 1.15.6
+    digest: ""
+    #imagePullSecrets: ["chaos-regcred-secret"]
+
+  #allowedOrigins: "[*.*.*.*]"
+  jobs:
+    chaos_db_upgrade:
+      enabled: false
+      slackURLToNotify: 'no-url'
+      image:
+        registry: docker.io
+        tag: 1.15.0
+        repository: harness/smp-chaos-db-upgrade-agent-signed
+        pullPolicy: Always
+        digest: ""
+        imagePullSecrets: []
+
+  subscriberImage:
+    image:
+      registry: docker.io
+      repository: harness/smp-chaos-subscriber-signed
+      tag: 1.15.1
+      digest: ""
+
+  argoWorkflowControllerImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/workflow-controller
+      tag: v3.3.1
+      digest: ""
+
+  argoWorkflowExecutorImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/argoexec
+      tag: v3.3.1
+      digest: ""
+
+  litmusChaosOperatorImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/chaos-operator
+      tag: 1.15.0
+      digest: ""
+
+  litmusChaosRunnerImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/chaos-runner
+      tag: 1.15.0
+      digest: ""
+
+  litmusChaosExporterImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/chaos-exporter
+      tag: 1.15.0
+      digest: ""
+
+  logWatcherImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/harness-chaos-log-watcher
+      tag: 1.15.1
+      digest: ""
+
+  enterpriseHubBranchName: 'release/1.15.x'
+
+  chaosExperimentLimit: '2000'
+
+  chaosHubLimit: '30'
+
+  chaosGamedayLimit: '200'
+
+  chaosHubSize: '200'
+
+  parallelChaosExperimentRuns: '500'
+
+  skipSecureVerify: 'true'
+
+  configmap: {}
+
+  mongoSecrets:
+    userName:
+      name: harness-secrets
+      key: mongodbUsername
+    password:
+      name: mongodb-replicaset-chart
+      key: mongodb-root-password
+
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: "harness-default"
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    #runAsUser: 65534
+    #runAsNonRoot: true
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 8080
+    targetport: 8080
+    grpcport: 8081
+    targetgrpcport: 8081
+
+  resources:
+    limits:
+      cpu: 600m
+      memory: 512Mi
+    requests:
+      cpu: 600m
+      memory: 512Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPU: ""
+    targetMemory: ""
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  # extraVolumes:
+  #   - name: volume-test
+  #     configMap:
+  #       name: test-config
+  #       # readOnly: true
+  extraVolumes:
+    - name: chaos-dashboard-config
+      configMap:
+        name: chaos-dashboard-config
+
+  # extraVolumeMounts:
+  #   - name: volume-test
+  #     mountPath: /opt/harness/config
+  extraVolumeMounts:
+    - name: chaos-dashboard-config
+      mountPath: /tmp/dashboard.yaml
+      subPath: dashboard.yaml
+
+  lifecycleHooks: {}
+  # lifecycleHooks:
+  #   postStart:
+  #     exec:
+  #       command:
+  #   preStop:
+  #     exec:
+  #       command:
+
+chaos-web:
+  replicaCount: 3
+  maxSurge: 1
+  maxUnavailable: 0
+
+  image:
+    registry: docker.io
+    repository: harness/smp-chaos-web-signed
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "1.15.7"
+    digest: ""
+    #imagePullSecrets: ["chaos-regcred-secret"]
+
+  enableCDN: 'false'
+
+  configmap: {}
+
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: "harness-default"
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    #runAsUser: 65534
+    #runAsNonRoot: true
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 8184
+    targetport: 8184
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPU: ""
+    targetMemory: ""
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  # extraVolumes:
+  #   - name: volume-test
+  #     configMap:
+  #       name: test-config
+  #       # readOnly: true
+  extraVolumes: []
+
+  # extraVolumeMounts:
+  #   - name: volume-test
+  #     mountPath: /opt/harness/config
+  extraVolumeMounts: []
+
+  lifecycleHooks: {}
+  # lifecycleHooks:
+  #   postStart:
+  #     exec:
+  #       command:
+  #   preStop:
+  #     exec:
+  #       command:
+
+chaos-linux-ifc:
+  replicaCount: 2
+  maxSurge: 1
+  maxUnavailable: 0
+
+  waitForInitContainer:
+    image:
+      registry: docker.io
+      repository: harness/helm-init-container
+      pullPolicy: IfNotPresent
+      tag: "latest"
+      digest: ""
+      imagePullSecrets: []
+
+  image:
+    registry: docker.io
+    #repository: chaosnative/harness-smp-chaos-delegate-controller
+    repository: harness/smp-chaos-linux-infra-controller-signed
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "1.15.1"
+    digest: ""
+    #imagePullSecrets: ["chaos-regcred-secret"]
+
+  configmap: {}
+
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: "chaos-linux-ifc-sa"
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    #runAsUser: 65534
+    #runAsNonRoot: true
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPU: ""
+    targetMemory: ""
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  # extraVolumes:
+  #   - name: volume-test
+  #     configMap:
+  #       name: test-config
+  #       # readOnly: true
+  extraVolumes: []
+
+  # extraVolumeMounts:
+  #   - name: volume-test
+  #     mountPath: /opt/harness/config
+  extraVolumeMounts: []
+
+  lifecycleHooks: {}
+  # lifecycleHooks:
+  #   postStart:
+  #     exec:
+  #       command:
+  #   preStop:
+  #     exec:
+  #       command:
+
+chaos-linux-ifs:
+  replicaCount: 2
+  maxSurge: 1
+  maxUnavailable: 0
+
+  waitForInitContainer:
+    image:
+      registry: docker.io
+      repository: harness/helm-init-container
+      pullPolicy: IfNotPresent
+      tag: "latest"
+      digest: ""
+      imagePullSecrets: []
+
+  image:
+    registry: docker.io
+    #repository: chaosnative/harness-smp-chaos-delegate-server
+    repository: harness/smp-chaos-linux-infra-server-signed
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "1.15.1"
+    digest: ""
+    #imagePullSecrets: ["chaos-regcred-secret"]
+
+  probeSourceImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/source-probe
+      tag: "ci"
+
+  configmap: {}
+
+  mongoSecrets:
+    userName:
+      name: harness-secrets
+      key: mongodbUsername
+    password:
+      name: mongodb-replicaset-chart
+      key: mongodb-root-password
+
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: "chaos-linux-ifs-sa"
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    #runAsUser: 65534
+    #runAsNonRoot: true
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 4000
+    targetport: 4000
+    grpcport: 5000
+    grpctargetport: 5000
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPU: ""
+    targetMemory: ""
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  # extraVolumes:
+  #   - name: volume-test
+  #     configMap:
+  #       name: test-config
+  #       # readOnly: true
+  extraVolumes: []
+
+  # extraVolumeMounts:
+  #   - name: volume-test
+  #     mountPath: /opt/harness/config
+  extraVolumeMounts: []
+
+  lifecycleHooks: {}
+  # lifecycleHooks:
+  #   postStart:
+  #     exec:
+  #       command:
+  #   preStop:
+  #     exec:
+  #       command:
+
+chaos-k8s-ifs:
+  replicaCount: 2
+  maxSurge: 1
+  maxUnavailable: 0
+  customTlsCert: ""
+  skipSecureVerify: "true"
+  waitForInitContainer:
+    image:
+      registry: docker.io
+      repository: harness/helm-init-container
+      pullPolicy: IfNotPresent
+      tag: "latest"
+      digest: ""
+      imagePullSecrets: []
+
+
+  image:
+    registry: docker.io
+    repository: harness/smp-chaos-k8s-ifs-signed
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "1.15.2"
+    digest: ""
+    #imagePullSecrets: ["chaos-regcred-secret"]
+
+  configmap: {}
+
+  subscriberImage:
+    image:
+      registry: docker.io
+      repository: harness/smp-chaos-subscriber-signed
+      tag: 1.15.1
+      digest: ""
+
+  argoWorkflowControllerImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/workflow-controller
+      tag: v3.3.1
+      digest: ""
+
+  argoWorkflowExecutorImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/argoexec
+      tag: v3.3.1
+      digest: ""
+
+  litmusChaosOperatorImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/chaos-operator
+      tag: 1.15.0
+      digest: ""
+
+  litmusChaosRunnerImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/chaos-runner
+      tag: 1.15.0
+      digest: ""
+
+  litmusChaosExporterImage:
+    image:
+      registry: docker.io
+      repository: chaosnative/chaos-exporter
+      tag: 1.15.0
+      digest: ""
+
+  chaosExperimentLimit: '2000'
+
+  chaosHubLimit: '30'
+
+  chaosGamedayLimit: '200'
+
+  chaosHubSize: '200'
+
+  parallelChaosExperimentRuns: '500'
+
+  skipSecureVerify: 'true'
+  mongoSecrets:
+    userName:
+      name: harness-secrets
+      key: mongodbUsername
+    password:
+      name: mongodb-replicaset-chart
+      key: mongodb-root-password
+
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: "harness-default"
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    #runAsUser: 65534
+    #runAsNonRoot: true
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 6000
+    targetport: 6000
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 401m
+      memory: 512Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPU: ""
+    targetMemory: ""
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  # extraVolumes:
+  #   - name: volume-test
+  #     configMap:
+  #       name: test-config
+  #       # readOnly: true
+  extraVolumes: []
+
+  # extraVolumeMounts:
+  #   - name: volume-test
+  #     mountPath: /opt/harness/config
+  extraVolumeMounts: []
+
+  lifecycleHooks: {}
+  # lifecycleHooks:
+  #   postStart:
+  #     exec:
+  #       command:
+  #   preStop:
+  #     exec:
+  #       command:

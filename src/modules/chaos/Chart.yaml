@@ -1,0 +1,28 @@
+apiVersion: v2
+name: chaos
+description: A Helm chart for harness chaos module
+type: application
+version: 0.6.0
+appVersion: "0.6.0"
+dependencies:
+  - name: chaos-common
+    version: 0.5.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: chaos-manager
+    version: 0.6.x
+    repository: "https://harness.github.io/services/placeholderr"
+  - name: chaos-web
+    version: 0.6.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: chaos-k8s-ifs
+    version: 0.5.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: chaos-linux-ifs
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: chaos-linux-ifc
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: chaos-infra
+    version: 0.2.x
+    repository: "https://harness.github.io/services/placeholder"

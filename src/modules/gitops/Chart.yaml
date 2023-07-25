@@ -1,0 +1,10 @@
+apiVersion: v2
+name: gitops
+description: Harness GitOps
+type: application
+version: 0.6.5
+appVersion: "0.0.1"
+dependencies:
+  - name: harness-common
+    version: 1.x.x
+    repository: https://harness.github.io/helm-common

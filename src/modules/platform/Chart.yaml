@@ -1,67 +1,51 @@
 apiVersion: v2
 name: platform
 description: Helm chart for Harness Platform
-# A chart can be either an 'application' or a 'library' chart.
-#
-# Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployed.
-#
-# Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
-# pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
-# Versions are expected to follow Semantic Versioning (https://semver.org/)
-
-version: 0.9.0
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application. Versions are not expected to
-# follow Semantic Versioning. They should reflect the version the application is using.
-# It is recommended to use it with quotes.
+version: 0.8.15
 appVersion: "1.16.1"
 dependencies:
   - name: access-control
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: change-data-capture
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: cv-nextgen
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: gateway
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: harness-secrets
-    version: 0.x.x
+    version: 0.3.x
     condition: harness-secrets.enabled
-    repository: "https://harness.github.io/helm-platform"
+    repository: "https://harness.github.io/services/placeholder"
   - name: harness-manager
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: delegate-proxy
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: le-nextgen
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: learning-engine
     condition: global.cg.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: log-service
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: migrator
-    version: 0.x.x
+    version: 0.3.x
     condition: global.migrator.enabled
-    repository: "https://harness.github.io/helm-platform"
+    repository: "https://harness.github.io/services/placeholder"
   - name: minio
     condition: global.ng.enabled
     version: 12.6.3
@@ -72,47 +56,48 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
   - name: next-gen-ui
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: ng-auth-ui
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: ng-manager
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: pipeline-service
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: platform-service
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: redis
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-redis"
+    condition: global.database.redis.installed
+    version: 0.2.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: scm-service
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: template-service
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: ti-service
     condition: global.ng.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.3.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: timescaledb
     condition: global.database.timescaledb.installed
     version: 0.2.x
-    repository: "https://harness.github.io/helm-timescaledb"
+    repository: "https://harness.github.io/services/placeholder"
   - name: ui
     condition: global.cg.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
   - name: verification-svc
     condition: global.cg.enabled
-    version: 0.x.x
-    repository: "https://harness.github.io/helm-platform"
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"

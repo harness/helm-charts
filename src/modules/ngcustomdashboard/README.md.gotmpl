@@ -1,0 +1,179 @@
+## Harness Dashboards Chart
+
+{{ template "chart.description" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+## Usage
+
+Use the following dependency to add this chart repository to your Helm installation:
+
+```
+dependencies:
+    - name: ng-custom-dashboards
+      repository: https://harness.github.io/helm-dashboards
+      version: {{ template "chart.version" . }}
+```
+
+## Required setup
+Our Dashboards application uses a 3rd party application called Looker, Looker must have it's own domain name to work.
+
+A DNS CNAME entry must be created for Looker, it is recommended to use `looker.existing-dns-name.tld` as the domain name.
+
+The Looker CNAME should be setup to point at the existing A record for your installation.
+
+## Configuration
+To enable dashboards the following is the minimum configuration required.
+```yaml
+global:
+  ngcustomdashboard:
+    enabled: true
+
+ng-custom-dashboards:
+  config:
+    lookerPubDomain: 'looker.domain.tld'
+
+looker:
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+```
+
+### Airgapped (Offline) install
+To install dashboards in an airgapped system an additional offline license key must be provided.
+```yaml
+looker:
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+    lookerLicenseFile: |
+      xxxxxxx
+      yyyyyyy
+      zzzzzzz
+```
+
+
+## Configuration Examples
+Since Looker must have it's own domain name the ingress/istio configuration is slightly different to other Harness Charts.
+
+The following examples show only the additional config required for this Chart, you will need to merge this with your existing installations values.yaml overrides. Please take special care when merging the `global` sections.
+
+The following examples all have TLS enabled, to ensure your `looker.domain.tld` domain works correctly you should update your TLS certificates to include this domain. Another option is to create a separate certificate and reference that secret below.
+
+### Ingress
+```yaml
+global:
+  ngcustomdashboard:
+    enabled: true
+
+ng-custom-dashboards:
+  config:
+    lookerPubDomain: 'looker.domain.tld'
+
+looker:
+  ingress:
+    hosts:
+      - 'looker.domain.tld'
+    tls:
+      secretName: 'looker-tls'
+
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+```
+
+### Istio
+Istio has two potential configuration options
+1. Where the Istio gateway is create by the customer.
+2. Where the Istio gateway is create by Harness at a global level.
+3. Where the Istio gateway is create by this Chart.
+
+#### Istio - gateway created by customer
+In this scenario the customer will have to manually update their gateway configuration to route the `looker.domain.tld` domain.
+```yaml
+global:
+  istio:
+    virtualService:
+      gateways:
+      - istio-namespace/gateway-name
+  ngcustomdashboard:
+    enabled: true
+
+ng-custom-dashboards:
+  config:
+    lookerPubDomain: 'looker.domain.tld'
+
+looker:
+  istio:
+    gateway:
+      create: false
+    virtualService:
+      enabled: true
+      hosts:
+        - looker.domain.tld
+
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+```
+
+#### Istio - gateway created by Harness
+In this case, you can simply add the Looker domain to the list of hosts in your existing `global.istio` configuration.
+```yaml
+global:
+  istio:
+    gateway:
+      create: true
+    hosts:
+    - looker.domain.tld
+  ngcustomdashboard:
+    enabled: true
+
+ng-custom-dashboards:
+  config:
+    lookerPubDomain: 'looker.domain.tld'
+
+looker:
+  istio:
+    gateway:
+      create: false
+    virtualService:
+      enabled: true
+      hosts:
+        - looker.domain.tld
+
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+```
+
+#### Istio - gateway created by this Chart
+In this scenario the gateway configuration is provided here in the values.yaml override.
+```yaml
+global:
+  ngcustomdashboard:
+    enabled: true
+
+ng-custom-dashboards:
+  config:
+    lookerPubDomain: 'looker.domain.tld'
+
+looker:
+  istio:
+    gateway:
+      create: true
+      port: 443
+      protocol: HTTPS
+    hosts:
+      - looker.domain.tld
+    tls:
+      mode: SIMPLE
+      credentialName: 'looker-tls'
+    virtualService:
+      enabled: true
+      hosts:
+        - looker.domain.tld
+
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+```
+
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

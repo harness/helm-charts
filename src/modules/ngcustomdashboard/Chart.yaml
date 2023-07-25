@@ -1,0 +1,13 @@
+apiVersion: v2
+name: ngcustomdashboard
+description: A Helm chart for custom dashboards
+type: application
+version: 0.7.3
+appVersion: "1.0.76620"
+dependencies:
+  - name: ng-custom-dashboards
+    version: 0.6.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: looker
+    version: 0.6.x
+    repository: "https://harness.github.io/services/placeholder"

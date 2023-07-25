@@ -1,0 +1,33 @@
+apiVersion: v2
+name: cet
+description: A Helm chart for CET
+type: application
+version: 0.4.0
+appVersion: "5.23.1"
+dependencies:
+  - name: et-service
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: et-collector
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: et-receiver
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+    alias: et-receiver-hit
+    condition: enable-receivers
+  - name: et-receiver
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+    alias: et-receiver-decompile
+    condition: enable-receivers
+  - name: et-receiver
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+    alias: et-receiver-sql
+    condition: enable-receivers
+  - name: et-receiver
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+    alias: et-receiver-agent
+    condition: enable-receivers

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "gitops"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "gitops.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: gitops-grpc
+      port: {{.Values.service.grpcServerPort}}
+      protocol: TCP
+      targetPort: gitops-grpc
+    - name: gitops-http
+      port: {{.Values.service.httpServerPort}}
+      protocol: TCP
+      targetPort: gitops-http
+  selector:
+    {{- include "gitops.selectorLabels" . | nindent 4 }}

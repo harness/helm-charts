@@ -1,0 +1,52 @@
+apiVersion: v2
+name: ccm
+description: A Helm chart for Harness Cloud Cost Management (CCM) module
+type: application
+version: 0.8.1
+appVersion: "1.546.0"
+dependencies:
+  - name: nextgen-ce
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: event-service
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: anomaly-detection
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: cloud-info
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: telescopes
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: batch-processing
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: ng-ce-ui
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: clickhouse
+    condition: clickhouse.enabled
+    version: 2.1.0
+    repository: https://charts.bitnami.com/bitnami
+  - name: lwd-faktory
+    condition: global.lwd.enabled
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: lwd
+    condition: global.lwd.enabled
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: lwd-worker
+    condition: global.lwd.enabled
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: lwd-autocud
+    condition: global.lwd.autocud.enabled
+    version: 0.4.x
+    repository: "https://harness.github.io/services/placeholder"
+  - name: dkron
+    condition: global.lwd.enabled
+    version: 0.2.x
+    repository: "https://harness.github.io/services/placeholder"

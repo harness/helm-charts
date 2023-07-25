@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops
+  labels:
+    {{- include "gitops.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "gitops.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "gitops.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- include "gitops.pullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ include "gitops.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        {{- if .Values.global.database.mongo.installed }}
+        - name: wait-for-mongo
+          image: {{ include "common.images.image" (dict "imageRoot" .Values.waitForInitContainer.image "global" .Values.global) }}
+          imagePullPolicy: IfNotPresent
+          args:
+            - "pod"
+            - "-lapp=mongodb-replicaset"
+        {{- end }}
+        {{- if .Values.global.database.timescaledb.installed }}
+        - name: wait-for-timescale
+          image: {{ include "common.images.image" (dict "imageRoot" .Values.waitForInitContainer.image "global" .Values.global) }}
+          imagePullPolicy: IfNotPresent
+          args:
+            - "pod"
+            - "-lapp=timescaledb-single-chart"
+        {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image:  {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: gitops-http
+              containerPort: {{.Values.service.httpServerPort}}
+              protocol: TCP
+            - name: gitops-grpc
+              containerPort: {{.Values.service.grpcServerPort}}
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: harness-gitops-config
+          env:
+            {{- include "harnesscommon.dbconnection.redisEnv" (dict "context" .Values.global.database.redis "userVariableName" "EVENTS_CONFIG_REDIS_USERNAME" "passwordVariableName" "REDIS_PASSWORD") | indent 12 }}
+            {{- include "harnesscommon.dbconnection.mongoEnv" . | indent 12 }}
+            {{- include "harnesscommon.dbconnection.timescaleEnv" (dict "passwordVariableName" "TIMESCALE_PASSWORD" "userVariableName" "TIMESCALEDB_USERNAME" "context" $) | indent 12}}
+            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "GITOPS_SERVICE_TIMESCALE_USE_TLS" "certPathVariableName" "GITOPS_SERVICE_TIMESCALE_CERT_PATH" "certPathValue" "/opt/harness/svc/timescaledb-pem" "context" $ ) | nindent 12 }}
+            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "GITOPS_SMP_ADMIN_TIMESCALE_USE_TLS" "certPathVariableName" "GITOPS_SMP_ADMIN_TIMESCALE_CERT_PATH" "certPathValue" "/opt/harness/svc/timescaledb-pem" "context" $ ) | nindent 12 }}
+            {{- $args := " "}}
+            {{- if not .Values.global.database.timescaledb.sslEnabled }}
+            {{- $args = "sslmode=disable" }}
+            {{- else }}
+            {{- $args = "sslmode=require" }}
+            {{- end }}
+            - name: GITOPS_SERVICE_TIMESCALE_URL
+              value: {{ include "harnesscommon.dbconnection.timescaleConnection" (dict "protocol" "postgres" "userVariableName" "TIMESCALEDB_USERNAME" "passwordVariableName" "TIMESCALE_PASSWORD" "database" "harness_gitops" "args" $args "context" $) }}
+            - name: GITOPS_SMP_ADMIN_TIMESCALE_URL
+              value: {{ include "harnesscommon.dbconnection.timescaleConnection" (dict "protocol" "postgres" "userVariableName" "TIMESCALEDB_USERNAME" "passwordVariableName" "TIMESCALE_PASSWORD" "database" "" "args" $args "context" $) }}
+            - name: GITOPS_SERVICE_MONGODB_URL
+              value: {{ include "harnesscommon.dbconnection.mongoConnection" (dict "database" "harness-gitops" "context" $) }}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{.Values.service.httpServerPort}}
+            initialDelaySeconds: 3
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{.Values.service.httpServerPort}}
+            initialDelaySeconds: 3
+            periodSeconds: 30
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.global.database.timescaledb.sslEnabled }}
+          volumeMounts:
+            - name: timescaledb-cert
+              mountPath: /opt/harness/svc
+      volumes:
+      - name: timescaledb-cert
+        secret:
+          secretName: {{ .Values.global.database.timescaledb.certName }}
+          items:
+          - key: {{ .Values.global.database.timescaledb.certKey }}
+            path: timescaledb-pem
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
