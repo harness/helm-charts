@@ -174,7 +174,7 @@ docker.io/curlimages/curl:latest
 | global.cg | object | `{"enabled":false}` | Enable to install First Generation Harness Platform (disabled by default) |
 | global.chaos | object | `{"enabled":false}` | Enable to install Chaos Engineering (CE) (Beta) |
 | global.ci | object | `{"enabled":false}` | Enable to install Continuous Integration (CI) |
-| global.database | object | `{"mongo":{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""}}` | provide overrides to use in-cluster database or configure to use external databases |
+| global.database | object | `{"mongo":{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""},"postgres":{"extraArgs":"","hosts":["<postgres ip>:5432"],"installed":true,"passwordKey":"password","protocol":"postgres","secretName":"postgres-secret","userKey":"user"},"redis":{"hosts":["<internal-endpoint-with-port>"],"installed":true,"passwordKey":"password","secretName":"redis-user-pass","userKey":"username"},"timescaledb":{"certKey":"cert","certName":"tsdb-cert","hosts":["hostname.timescale.com:5432"],"installed":true,"passwordKey":"password","secretName":"tsdb-secret","sslEnabled":false,"userKey":"username"}}` | provide overrides to use in-cluster database or configure to use external databases |
 | global.database.mongo | object | `{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""}` | settings to deploy mongo in-cluster or configure to use external mongo source |
 | global.database.mongo.extraArgs | string | `""` | set additional arguments to mongo uri |
 | global.database.mongo.hosts | list | `[]` | set the mongo hosts if mongo.installed is set to false |
@@ -183,6 +183,8 @@ docker.io/curlimages/curl:latest
 | global.database.mongo.protocol | string | `"mongodb"` | set the protocol for mongo uri |
 | global.database.mongo.secretName | string | `""` | provide the secretname to reference mongo username and password |
 | global.database.mongo.userKey | string | `""` | provide the userKey to reference mongo username |
+| global.database.redis.hosts | list | `["<internal-endpoint-with-port>"]` | provide host name for redis |
+| global.database.timescaledb.hosts | list | `["hostname.timescale.com:5432"]` | provide host name for timescaledb |
 | global.ff | object | `{"enabled":false}` | Enable to install Feature Flags (FF) |
 | global.gitops | object | `{"enabled":false}` | Enable to install gitops |
 | global.ha | bool | `true` | High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV |
@@ -211,7 +213,6 @@ docker.io/curlimages/curl:latest
 | global.ng | object | `{"enabled":true}` | Enable to install NG (Next Generation Harness Platform) |
 | global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install Next Generation Custom Dashboards (Beta) |
 | global.opa | object | `{"enabled":false}` | Enable to install Open Policy Agent (OPA) |
-| global.postgres | object | `{"enabled":true}` | Enable to deploy postgres(needed for NG components) |
 | global.saml | object | `{"autoaccept":false}` | SAML auto acceptance. Enabled will not send invites to email and autoaccepts |
 | global.smtpCreateSecret | object | `{"enabled":false}` | Method to create a secret for your SMTP server |
 | global.srm | object | `{"enabled":false}` | Enable to install Site Reliability Management (SRM) |
@@ -241,7 +242,7 @@ docker.io/curlimages/curl:latest
 | platform.harness-manager.featureFlags.CCM | string | `"CENG_ENABLED,CCM_MICRO_FRONTEND,NODE_RECOMMENDATION_AGGREGATE"` | CCM Feature Flags (activated when global.ccm is enabled) |
 | platform.harness-manager.featureFlags.CD | string | `"CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION"` | CD Feature Flags (activated when global.cd is enabled) |
 | platform.harness-manager.featureFlags.CDB | string | `"NG_DASHBOARDS"` | Custom Dashboard Flags (activated when global.dashboards is enabled) |
-| platform.harness-manager.featureFlags.CET | string | `"CET_ENABLED,SRM_CODE_ERROR_NOTIFICATIONS,SRM_ET_RESOLVED_EVENTS,SRM_ET_CRITICAL_EVENTS"` | CET Feature Flags |
+| platform.harness-manager.featureFlags.CET | string | `"CET_ENABLED,SRM_CODE_ERROR_NOTIFICATIONS,SRM_ET_RESOLVED_EVENTS,SRM_ET_CRITICAL_EVENTS"` | CET Feature Flags (activated when global.cet is enabled) |
 | platform.harness-manager.featureFlags.CHAOS | string | `"CHAOS_ENABLED"` | CHAOS Feature Flags (activated when global.chaos is enabled) |
 | platform.harness-manager.featureFlags.CI | string | `"CING_ENABLED,CI_INDIRECT_LOG_UPLOAD"` | CI Feature Flags (activated when global.ci is enabled) |
 | platform.harness-manager.featureFlags.FF | string | `"CFNG_ENABLED"` | FF Feature Flags (activated when global.ff is enabled) |
