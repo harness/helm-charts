@@ -111,11 +111,10 @@
     chaos-operator
     chaos-runner
     harness-chaos-log-watcher
-    smp-chaos-subscriber
-    smp-chaos-driver
-    smp-chaos-k8s-ifs
-    smp-chaos-linux-infra-controller
-    smp-chaos-linux-infra-server
-    smp-chaos-manager
-    smp-chaos-web
+    smp-chaos-subscriber-signed
+    smp-chaos-k8s-ifs-signed
+    smp-chaos-linux-infra-controller-signed
+    smp-chaos-linux-infra-server-signed
+    smp-chaos-manager-signed
+    smp-chaos-web-signed
     source-probe
