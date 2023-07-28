@@ -74,10 +74,6 @@ dependencies:
     name: verification-svc
     repository: https://harness.github.io/services/placeholder
     version: x.x.x
-  - condition: global.bootstrap.enabled
-    name: bootstrap
-    repository: https://harness.github.io/services/placeholder
-    version: x.x.x
 description: Helm chart for Harness Platform
 name: platform
 type: application
