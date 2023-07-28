@@ -1,10 +1,11 @@
 apiVersion: v2
-name: gitops
-description: Harness GitOps
-type: application
-version: 0.6.5
-appVersion: "0.0.1"
+appVersion: 1.16.0
 dependencies:
-  - name: harness-common
-    version: 1.x.x
-    repository: https://harness.github.io/helm-common
+- condition: global.gitops.enabled
+  name: gitops
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+description: A Helm chart for Kubernetes
+name: gitops
+type: application
+version: 0.1.0

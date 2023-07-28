@@ -1,103 +1,87 @@
 apiVersion: v2
-name: platform
+appVersion: 1.16.1
+dependencies:
+- condition: global.ng.enabled
+  name: access-control
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: change-data-capture
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: cv-nextgen
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- name: gateway
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- name: harness-manager
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- name: delegate-proxy
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: le-nextgen
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.cg.enabled
+  name: learning-engine
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: log-service
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.migrator.enabled
+  name: migrator
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: next-gen-ui
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- name: ng-auth-ui
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: ng-manager
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: pipeline-service
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: platform-service
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: scm-service
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: template-service
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.ng.enabled
+  name: ti-service
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.cg.enabled
+  name: ui
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.cg.enabled
+  name: verification-svc
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
+- condition: global.bootstrap.enabled
+  name: bootstrap
+  repository: https://harness.github.io/services/placeholder
+  version: x.x.x
 description: Helm chart for Harness Platform
+name: platform
 type: application
 version: 0.8.15
-appVersion: "1.16.1"
-dependencies:
-  - name: access-control
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: change-data-capture
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: cv-nextgen
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: gateway
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: harness-secrets
-    version: 0.3.x
-    condition: harness-secrets.enabled
-    repository: "https://harness.github.io/services/placeholder"
-  - name: harness-manager
-    version: 0.4.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: delegate-proxy
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: le-nextgen
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: learning-engine
-    condition: global.cg.enabled
-    version: 0.4.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: log-service
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: migrator
-    version: 0.3.x
-    condition: global.migrator.enabled
-    repository: "https://harness.github.io/services/placeholder"
-  - name: minio
-    condition: global.ng.enabled
-    version: 12.6.3
-    repository: https://charts.bitnami.com/bitnami
-  - name: mongodb
-    version: 13.1.2
-    condition: global.database.mongo.installed
-    repository: https://charts.bitnami.com/bitnami
-  - name: next-gen-ui
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: ng-auth-ui
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: ng-manager
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: pipeline-service
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: platform-service
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: redis
-    condition: global.database.redis.installed
-    version: 0.2.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: scm-service
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: template-service
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: ti-service
-    condition: global.ng.enabled
-    version: 0.3.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: timescaledb
-    condition: global.database.timescaledb.installed
-    version: 0.2.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: ui
-    condition: global.cg.enabled
-    version: 0.4.x
-    repository: "https://harness.github.io/services/placeholder"
-  - name: verification-svc
-    condition: global.cg.enabled
-    version: 0.4.x
-    repository: "https://harness.github.io/services/placeholder"

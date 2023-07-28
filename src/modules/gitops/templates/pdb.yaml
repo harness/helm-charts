@@ -1,9 +1,0 @@
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: {{ include "gitops.fullname" . }}
-spec:
-  minAvailable: 1
-  selector:
-    matchLabels:
-      {{- include "gitops.selectorLabels" . | nindent 6 }}
