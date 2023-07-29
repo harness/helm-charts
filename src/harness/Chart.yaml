@@ -1,66 +1,42 @@
 apiVersion: v2
 name: harness
 description: Helm Chart for deploying Harness.
-# A chart can be either an 'application' or a 'library' chart.
-#
-# Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployed.
-#
-# Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
-# pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
-# Versions are expected to follow Semantic Versioning (https://semver.org/)
-
 version: 0.7.1
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application. Versions are not expected to
-# follow Semantic Versioning. They should reflect the version the application is using.
-# It is recommended to use it with quotes.
 appVersion: "1.0.79422"
 dependencies:
-  - name: infra
-    version: 0.5.x
-    condition: global.postgres.enabled
-    repository: "file://infra"
   - name: platform
     version: 0.8.x
-    repository: "https://harness.github.io/helm-platform"
+    repository: "https://harness.github.io/helm-charts"
   - name: sto
     condition: global.sto.enabled
     version: 0.8.x
-    repository: "https://harness.github.io/helm-sto"
+    repository: "https://harness.github.io/helm-charts"
   - name: ci
     condition: global.ci.enabled
     version: 0.5.x
-    repository: "file://ci"
-  - name: srm
-    condition: global.srm.enabled
-    version: 0.8.x
-    repository: "https://harness.github.io/helm-srm"
+    repository: "https://harness.github.io/helm-charts"
   - name: ngcustomdashboard
     condition: global.ngcustomdashboard.enabled
     version: 0.7.x
-    repository: "https://harness.github.io/helm-dashboards"
+    repository: "https://harness.github.io/helm-charts"
   - name: ff
     condition: global.ff.enabled
     version: 0.8.x
-    repository: "https://harness.github.io/helm-ff"
+    repository: "https://harness.github.io/helm-charts"
   - name: ccm
     condition: global.ccm.enabled
     version: 0.8.x
-    repository: "https://harness.github.io/helm-ccm"
+    repository: "https://harness.github.io/helm-charts"
   - name: gitops
     condition: global.gitops.enabled
     version: 0.6.x
-    repository: "https://harness.github.io/helm-gitops"
+    repository: "https://harness.github.io/helm-charts"
   - name: policy-mgmt
     condition: global.opa.enabled
     version: 0.6.x
-    repository: "https://harness.github.io/helm-policy-mgmt"
+    repository: "https://harness.github.io/helm-charts"
   - name: chaos
     condition: global.chaos.enabled
     version: 0.5.x
-    repository: "https://harness.github.io/helm-chaos"
+    repository: "https://harness.github.io/helm-charts"
