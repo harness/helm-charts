@@ -3,7 +3,7 @@ appVersion: 1.16.0
 dependencies:
 - name: policy-mgmt
   repository: https://harness.github.io/services/placeholder
-  version: 1.x.x
+  version: 0.8.x
 description: A Helm chart for Harness policy management
 name: opa
 type: application
