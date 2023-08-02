@@ -3,7 +3,7 @@ appVersion: 1.16.0
 dependencies:
 - name: ci-manager
   repository: https://harness.github.io/services/placeholder
-  version: x.x.x
+  version: 0.5.x
 description: A Helm chart for Kubernetes
 name: ci
 type: application

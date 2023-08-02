@@ -24,19 +24,11 @@ dependencies:
     condition: global.ff.enabled
     version: 0.8.x
     repository: "https://harness.github.io/helm-charts"
-  - name: ccm
-    condition: global.ccm.enabled
-    version: 0.8.x
-    repository: "https://harness.github.io/helm-charts"
   - name: gitops
     condition: global.gitops.enabled
     version: 0.6.x
     repository: "https://harness.github.io/helm-charts"
-  - name: policy-mgmt
+  - name: opa
     condition: global.opa.enabled
     version: 0.6.x
-    repository: "https://harness.github.io/helm-charts"
-  - name: chaos
-    condition: global.chaos.enabled
-    version: 0.5.x
     repository: "https://harness.github.io/helm-charts"

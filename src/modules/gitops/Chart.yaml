@@ -4,8 +4,8 @@ dependencies:
 - condition: global.gitops.enabled
   name: gitops
   repository: https://harness.github.io/services/placeholder
-  version: x.x.x
+  version: 0.8.x
 description: A Helm chart for Kubernetes
 name: gitops
 type: application
-version: 0.1.0
+version: 0.6.0

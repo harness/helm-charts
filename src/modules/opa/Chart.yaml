@@ -1,10 +1,10 @@
 apiVersion: v2
 appVersion: 1.16.0
 dependencies:
-- name: harness-common
-  repository: https://harness.github.io/helm-common
-  version: x.x.x
+- name: policy-mgmt
+  repository: https://harness.github.io/services/placeholder
+  version: 1.x.x
 description: A Helm chart for Harness policy management
-name: policy-mgmt
+name: opa
 type: application
 version: 0.6.0

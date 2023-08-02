@@ -3,10 +3,10 @@ appVersion: 0.0.1
 dependencies:
 - name: ff-service
   repository: https://harness.github.io/services/placeholder
-  version: x.x.x
+  version: 0.9.x
 - name: ff-pushpin-service
   repository: https://harness.github.io/services/placeholder
-  version: x.x.x
+  version: 0.9.x
 description: A Helm chart for harness Feature Flags module
 name: ff
 type: application
