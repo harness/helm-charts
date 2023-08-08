@@ -1,76 +1,74 @@
 apiVersion: v2
 appVersion: 1.16.1
 dependencies:
-  - condition: global.ng.enabled
-    name: access-control
-    repository: https://harness.github.io/services/placeholder
-    version: 0.3.x
-  - condition: global.bootstrap.enabled
-    name: bootstrap
-    repository: https://harness.github.io/services/placeholder
-    version: x.x.x
-  - condition: global.ng.enabled
-    name: change-data-capture
-    repository: https://harness.github.io/services/placeholder
-    version: 0.3.x
-  - name: delegate-proxy
-    repository: https://harness.github.io/services/placeholder
-    version: x.x.x
-  - name: gateway
-    repository: https://harness.github.io/services/placeholder
-    version: 0.4.x
-  - name: harness-manager
-    repository: https://harness.github.io/services/placeholder
-    version: 0.4.x
-  - condition: global.ng.enabled
-    name: log-service
-    repository: https://harness.github.io/services/placeholder
-    version: 0.4.x
-  - condition: global.migrator.enabled
-    name: migrator
-    repository: https://harness.github.io/services/placeholder
-    version: 0.4.x
-  - condition: global.ng.enabled
-    name: next-gen-ui
-    repository: https://harness.github.io/services/placeholder
-    version: 0.4.x
-  - name: ng-auth-ui
-    repository: https://harness.github.io/services/placeholder
-    version: 0.4.x
-  - condition: global.ng.enabled
-    name: ng-manager
-    repository: https://harness.github.io/services/placeholder
-    version: 0.4.x
-  - condition: global.ng.enabled
-    name: pipeline-service
-    repository: https://harness.github.io/services/placeholder
-    version: 0.3.x
-  - condition: global.ng.enabled
-    name: platform-service
-    repository: https://harness.github.io/services/placeholder
-    version: 0.4.x
-  - name: policy-mgmt
-    repository: https://harness.github.io/services/placeholder
-    version: 0.8.x
-  - condition: global.ng.enabled
-    name: scm-service
-    repository: https://harness.github.io/services/placeholder
-    version: 0.3.x
-  - condition: global.ng.enabled
-    name: template-service
-    repository: https://harness.github.io/services/placeholder
-    version: 0.4.x
-  - condition: global.cg.enabled
-    name: ui
-    repository: https://harness.github.io/services/placeholder
-    version: 0.4.x
-  - name: ng-custom-dashboards
-    condition:  global.ngcustomdashboard.enabled
-    repository: https://harness.github.io/services/placeholder
-    version: 0.8.x
-  - name: looker
-    repository: https://harness.github.io/services/placeholder
-    version: 0.8.x
+- condition: global.ng.enabled
+  name: access-control
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.bootstrap.enabled
+  name: bootstrap
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.ng.enabled
+  name: change-data-capture
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- name: gateway
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- name: harness-manager
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.ng.enabled
+  name: log-service
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.migrator.enabled
+  name: migrator
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.ng.enabled
+  name: next-gen-ui
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- name: ng-auth-ui
+  repository: https://harness.github.io/services/placeholder
+  version: 0.4.0
+- condition: global.ng.enabled
+  name: ng-manager
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.ng.enabled
+  name: pipeline-service
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.ng.enabled
+  name: platform-service
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- name: policy-mgmt
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.ng.enabled
+  name: scm-service
+  repository: https://harness.github.io/services/placeholder
+  version: 0.3.0
+- condition: global.ng.enabled
+  name: template-service
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.cg.enabled
+  name: ui
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.ngcustomdashboard.enabled
+  name: ng-custom-dashboards
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- condition: global.ngcustomdashboard.enabled
+  name: looker
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
 description: Helm chart for Harness Platform
 name: platform
 type: application

@@ -8,23 +8,16 @@ dependencies:
   - name: ccm
     version: 0.8.x
     repository: "https://harness.github.io/helm-charts"
-  - name: chaos
-    condition: global.chaos.enabled
-    version: 0.5.x
-    repository: "https://harness.github.io/helm-chaos"
   - name: cd
     version: 0.8.x
     repository: "https://harness.github.io/helm-charts"
   - name: cet
     version: 0.4.x
     repository: "https://harness.github.io/helm-charts"
-  - name: platform
-    version: 0.8.x
-    repository: "https://harness.github.io/helm-charts"
-  - name: sto
-    condition: global.sto.enabled
-    version: 0.8.x
-    repository: "https://harness.github.io/helm-charts"
+  - name: chaos
+    condition: global.chaos.enabled
+    version: 0.5.x
+    repository: "https://harness.github.io/helm-chaos"
   - name: ci
     condition: global.ci.enabled
     version: 0.5.x
@@ -33,11 +26,13 @@ dependencies:
     condition: global.ff.enabled
     version: 0.8.x
     repository: "https://harness.github.io/helm-charts"
-  - name: gitops
-    condition: global.gitops.enabled
-    version: 0.6.x
+  - name: platform
+    version: 0.8.x
     repository: "https://harness.github.io/helm-charts"
-  - name: opa
-    condition: global.opa.enabled
-    version: 0.6.x
+  - name: srm
+    version: 0.1.x
+    repository: "https://harness.github.io/helm-charts"
+  - name: sto
+    condition: global.sto.enabled
+    version: 0.8.x
     repository: "https://harness.github.io/helm-charts"
