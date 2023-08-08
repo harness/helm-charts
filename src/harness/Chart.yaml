@@ -5,6 +5,19 @@ type: application
 version: 0.7.1
 appVersion: "1.0.79422"
 dependencies:
+  - name: ccm
+    version: 0.8.x
+    repository: "https://harness.github.io/helm-charts"
+  - name: chaos
+    condition: global.chaos.enabled
+    version: 0.5.x
+    repository: "https://harness.github.io/helm-chaos"
+  - name: cd
+    version: 0.8.x
+    repository: "https://harness.github.io/helm-charts"
+  - name: cet
+    version: 0.4.x
+    repository: "https://harness.github.io/helm-charts"
   - name: platform
     version: 0.8.x
     repository: "https://harness.github.io/helm-charts"
@@ -15,10 +28,6 @@ dependencies:
   - name: ci
     condition: global.ci.enabled
     version: 0.5.x
-    repository: "https://harness.github.io/helm-charts"
-  - name: ngcustomdashboard
-    condition: global.ngcustomdashboard.enabled
-    version: 0.7.x
     repository: "https://harness.github.io/helm-charts"
   - name: ff
     condition: global.ff.enabled
