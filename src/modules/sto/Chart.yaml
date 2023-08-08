@@ -7,7 +7,7 @@ dependencies:
 - name: sto-manager
   repository: https://harness.github.io/services/placeholder
   version: 0.4.x
-description: A Helm chart for harness STO module
+description: Helm chart for Harness STO
 name: sto
 type: application
 version: 0.8.1
