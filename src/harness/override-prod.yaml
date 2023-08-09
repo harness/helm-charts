@@ -79,7 +79,7 @@ global:
     ng: ''
   ngGitSync:
     # -- Set to enable NG_GIT_SYNC and disable OLD_GIT_SYNC
-    enabled: false
+    enabled: true
   # -- Set false to disable Immutable Delegate
   useImmutableDelegate: "true"
   # -- Set true to use delegate minimal image
