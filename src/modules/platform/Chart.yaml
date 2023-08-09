@@ -13,6 +13,9 @@ dependencies:
   name: change-data-capture
   repository: https://harness.github.io/services/placeholder
   version: 0.8.0
+- name: delegate-proxy
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
 - name: gateway
   repository: https://harness.github.io/services/placeholder
   version: 0.8.0

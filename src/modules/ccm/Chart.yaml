@@ -35,6 +35,9 @@ dependencies:
   name: lwd-autocud
   repository: https://harness.github.io/services/placeholder
   version: 0.8.0
+- name: nextgen-ce
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
 - condition: global.lwd.enabled
   name: dkron
   repository: https://harness.github.io/services/placeholder
