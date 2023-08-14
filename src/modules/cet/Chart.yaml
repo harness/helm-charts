@@ -30,4 +30,4 @@ dependencies:
 description: A Helm chart for Harness CET
 name: cet
 type: application
-version: 0.12.0
+version: 0.13.0
