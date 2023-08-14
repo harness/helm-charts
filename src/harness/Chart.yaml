@@ -1,38 +1,38 @@
 apiVersion: v2
-name: harness
-description: Helm Chart for deploying Harness.
-type: application
-version: 0.8.1
-appVersion: "1.0.79422"
+appVersion: 1.0.79422
 dependencies:
-  - name: ccm
-    version: 0.8.x
-    repository: "https://harness.github.io/helm-charts"
-  - name: cd
-    version: 0.8.x
-    repository: "https://harness.github.io/helm-charts"
-  - name: cet
-    version: 0.4.x
-    repository: "https://harness.github.io/helm-charts"
-  - name: chaos
-    condition: global.chaos.enabled
-    version: 0.5.x
-    repository: "https://harness.github.io/helm-chaos"
-  - name: ci
-    condition: global.ci.enabled
-    version: 0.5.x
-    repository: "https://harness.github.io/helm-charts"
-  - name: ff
-    condition: global.ff.enabled
-    version: 0.8.x
-    repository: "https://harness.github.io/helm-charts"
-  - name: platform
-    version: 0.8.x
-    repository: "https://harness.github.io/helm-charts"
-  - name: srm
-    version: 0.1.x
-    repository: "https://harness.github.io/helm-charts"
-  - name: sto
-    condition: global.sto.enabled
-    version: 0.8.x
-    repository: "https://harness.github.io/helm-charts"
+- name: ccm
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
+- name: cd
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
+- name: cet
+  repository: https://harness.github.io/helm-charts
+  version: 0.5.0
+- condition: global.chaos.enabled
+  name: chaos
+  repository: https://harness.github.io/helm-chaos
+  version: 0.7.0
+- condition: global.ci.enabled
+  name: ci
+  repository: https://harness.github.io/helm-charts
+  version: 0.6.0
+- condition: global.ff.enabled
+  name: ff
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
+- name: platform
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
+- name: srm
+  repository: https://harness.github.io/helm-charts
+  version: 0.2.0
+- condition: global.sto.enabled
+  name: sto
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
+description: Helm Chart for deploying Harness.
+name: harness
+type: application
+version: 0.9.0
