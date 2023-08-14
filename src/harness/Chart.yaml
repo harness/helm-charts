@@ -2,7 +2,7 @@ apiVersion: v2
 name: harness
 description: Helm Chart for deploying Harness.
 type: application
-version: 0.7.1
+version: 0.8.1
 appVersion: "1.0.79422"
 dependencies:
   - name: ccm
