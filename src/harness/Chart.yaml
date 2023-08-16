@@ -3,36 +3,36 @@ appVersion: 1.0.79422
 dependencies:
 - name: ccm
   repository: https://harness.github.io/helm-charts
-  version: 0.21.0
+  version: 0.22.0
 - name: cd
   repository: https://harness.github.io/helm-charts
-  version: 0.21.0
+  version: 0.22.0
 - name: cet
   repository: https://harness.github.io/helm-charts
-  version: 0.17.0
+  version: 0.18.0
 - condition: global.chaos.enabled
   name: chaos
   repository: https://harness.github.io/helm-chaos
-  version: 0.19.0
+  version: 0.20.0
 - condition: global.ci.enabled
   name: ci
   repository: https://harness.github.io/helm-charts
-  version: 0.18.0
+  version: 0.19.0
 - condition: global.ff.enabled
   name: ff
   repository: https://harness.github.io/helm-charts
-  version: 0.21.0
+  version: 0.22.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.21.0
+  version: 0.22.0
 - name: srm
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.15.0
 - condition: global.sto.enabled
   name: sto
   repository: https://harness.github.io/helm-charts
-  version: 0.21.0
+  version: 0.22.0
 description: Helm Chart for deploying Harness.
 name: harness
 type: application
-version: 0.9.1
+version: 0.10.0
