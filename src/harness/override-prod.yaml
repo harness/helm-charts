@@ -1,147 +1,4 @@
 ## Global Settings
-global:
-  # -- Enable for complete airgap environment
-  airgap: false
-  ccm:
-    # -- Enable to install Cloud Cloud Management
-    enabled: false
-  cd:
-    # -- Enable to install CD
-    enabled: true
-  cg:
-    enabled: false
-  chaos:
-    # -- Enable to install Chaos components(Beta)
-    enabled: false
-  ci:
-    # -- Enable to install CI
-    enabled: true
-  # -- provide overrides to use in-cluster database or configure to use external databases
-  database:
-    clickhouse:
-      enabled: false
-    # -- settings to deploy mongo in-cluster or configure to use external mongo source
-    mongo:
-      # -- set additional arguments to mongo uri
-      extraArgs: ""
-      # --   set the mongo hosts if mongo.installed is set to false
-      hosts: []
-      # -- set false to configure external mongo and generate mongo uri protocol://hosts?extraArgs
-      installed: true
-      # -- provide the passwordKey to reference mongo password
-      passwordKey: ""
-      # -- set the protocol for mongo uri
-      protocol: mongodb
-      # -- provide the secretname to reference mongo username and password
-      secretName: ""
-      # -- provide the userKey to reference mongo username
-      userKey: ""
-  ff:
-    # -- Enable to install  Feature Flags Component
-    enabled: false
-  gitops:
-    # -- Enable to install GitOps
-    enabled: false
-  ha: true
-  # -- Global Docker image registry
-  imageRegistry: ""
-  ingress:
-    annotations: {}
-    className: "harness"
-    # --- Enable Nginx ingress controller gateway
-    enabled: false
-    # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
-    hosts:
-      - 'my-host.example.org'
-    # NOTE: for ip-based installs, either use sslip.io for an IP-encoded DNS name
-    # OR set the hosts entry to '*'
-    # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
-    # If not set, internal request routing would happen via global.loadbalancerUrl
-    ingressGatewayServiceUrl: ""
-    loadBalancerEnabled: false
-    loadBalancerIP: '0.0.0.0'
-    tls:
-      enabled: false
-      secretName: harness-cert
-    useSelfSignedCert: false
-  # --- Enable Istio Gateway
-  istio:
-    enabled: false
-    gateway:
-      # -- Enable to create istio-system gateway
-      create: true
-      # -- override the name of gateway
-      name: ""
-      # -- override the name of namespace to deploy gateway
-      namespace: ""
-      port: 443
-      protocol: HTTPS
-      # -- adds a gateway selector
-      selector:
-        istio: ingressgateway
-    # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
-    hosts:
-      - '*'
-    # -- set to istio gateway's k8s service FQDN for internal use case. eg "internal-istio-gateway.istio-system.svc.cluster.local"
-    # If not set, internal request routing would happen via global.loadbalancerUrl
-    istioGatewayServiceUrl: ""
-    strict: false
-    tls:
-      credentialName:
-      minProtocolVersion: TLSV1_2
-      mode: SIMPLE
-    virtualService:
-      gateways:
-        - ""
-      # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
-      hosts:
-        - ""
-  # -- set kubernetes version override, unrequired if installing using Helm.
-  kubeVersion: ""
-  license:
-    # -- Insert CG License String to enable CG license
-    cg: ''
-    # -- Insert NG License String to enable NG license
-    ng: ''
-  # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
-  loadbalancerURL: ""
-  migrator:
-    enabled: false
-  mongoSSL: false
-  ng:
-    enabled: true
-  ngGitSync:
-    # -- Set to enable NG_GIT_SYNC and disable OLD_GIT_SYNC
-    enabled: false
-  ngcustomdashboard:
-    # -- Enable to install  NG Custom Dashboards Component
-    enabled: false
-  opa:
-    # -- Enable to install Open Policy Agent
-    enabled: false
-  # -- Enable to deploy postgres(needed for NG components)
-  postgres:
-    enabled: true
-  saml:
-    # --  Enabled will not send invites to email and autoaccepts
-    autoaccept: false
-  smtpCreateSecret:
-    # -- Enable to create SMTP secretFile
-    enabled: false
-  srm:
-    # -- Enable to install SRM
-    enabled: false
-  stackDriverLoggingEnabled: false
-  sto:
-    # -- Enable to install STO
-    enabled: false
-  # -- set storageClass for third party applications
-  storageClass: ""
-  storageClassName: ""
-  # -- Set false to disable Immutable Delegate
-  useImmutableDelegate: "true"
-  # -- Set true to use delegate minimal image
-  useMinimalDelegateImage: false
 # -- Set ccm.clickhouse.enabled to true for AWS infrastructure
 # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
 # -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
@@ -153,8 +10,6 @@ ccm:
   batch-processing:
     awsAccountTagsCollectionJobConfig:
       enabled: true
-    clickhouse:
-      enabled: false
     cloudProviderConfig:
       CLUSTER_DATA_GCS_BACKUP_BUCKET: "placeHolder"
       CLUSTER_DATA_GCS_BUCKET: "placeHolder"
@@ -166,13 +21,9 @@ ccm:
   event-service:
     stackDriverLoggingEnabled: false
   nextgen-ce:
-    clickhouse:
-      enabled: false
     cloudProviderConfig:
       GCP_PROJECT_ID: "placeHolder"
     stackDriverLoggingEnabled: false
-cd:
-  gitops: null
 cet:
   enable-receivers: true
   et-collector:
@@ -326,6 +177,149 @@ ci:
       requests:
         cpu: 1
         memory: 3072Mi
+global:
+  # -- Enable for complete airgap environment
+  airgap: false
+  ccm:
+    # -- Enable to install Cloud Cloud Management
+    enabled: false
+  cd:
+    # -- Enable to install CD
+    enabled: true
+  cg:
+    enabled: false
+  chaos:
+    # -- Enable to install Chaos components(Beta)
+    enabled: false
+  ci:
+    # -- Enable to install CI
+    enabled: true
+  # -- provide overrides to use in-cluster database or configure to use external databases
+  database:
+    clickhouse:
+      enabled: false
+    # -- settings to deploy mongo in-cluster or configure to use external mongo source
+    mongo:
+      # -- set additional arguments to mongo uri
+      extraArgs: ""
+      # --   set the mongo hosts if mongo.installed is set to false
+      hosts: []
+      # -- set false to configure external mongo and generate mongo uri protocol://hosts?extraArgs
+      installed: true
+      # -- provide the passwordKey to reference mongo password
+      passwordKey: ""
+      # -- set the protocol for mongo uri
+      protocol: mongodb
+      # -- provide the secretname to reference mongo username and password
+      secretName: ""
+      # -- provide the userKey to reference mongo username
+      userKey: ""
+  ff:
+    # -- Enable to install  Feature Flags Component
+    enabled: false
+  gitops:
+    # -- Enable to install GitOps
+    enabled: false
+  ha: true
+  # -- Global Docker image registry
+  imageRegistry: ""
+  ingress:
+    annotations: {}
+    className: "harness"
+    # --- Enable Nginx ingress controller gateway
+    enabled: false
+    # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
+    hosts:
+      - 'my-host.example.org'
+    # NOTE: for ip-based installs, either use sslip.io for an IP-encoded DNS name
+    # OR set the hosts entry to '*'
+    # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    ingressGatewayServiceUrl: ""
+    loadBalancerEnabled: false
+    loadBalancerIP: '0.0.0.0'
+    tls:
+      enabled: false
+      secretName: harness-cert
+    useSelfSignedCert: false
+  # --- Enable Istio Gateway
+  istio:
+    enabled: false
+    gateway:
+      # -- Enable to create istio-system gateway
+      create: true
+      # -- override the name of gateway
+      name: ""
+      # -- override the name of namespace to deploy gateway
+      namespace: ""
+      port: 443
+      protocol: HTTPS
+      # -- adds a gateway selector
+      selector:
+        istio: ingressgateway
+    # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
+    hosts:
+      - '*'
+    # -- set to istio gateway's k8s service FQDN for internal use case. eg "internal-istio-gateway.istio-system.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    istioGatewayServiceUrl: ""
+    strict: false
+    tls:
+      credentialName:
+      minProtocolVersion: TLSV1_2
+      mode: SIMPLE
+    virtualService:
+      gateways:
+        - ""
+      # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
+      hosts:
+        - ""
+  # -- set kubernetes version override, unrequired if installing using Helm.
+  kubeVersion: ""
+  license:
+    # -- Insert CG License String to enable CG license
+    cg: ''
+    # -- Insert NG License String to enable NG license
+    ng: ''
+  # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
+  loadbalancerURL: ""
+  migrator:
+    enabled: false
+  mongoSSL: false
+  ng:
+    enabled: true
+  ngGitSync:
+    # -- Set to enable NG_GIT_SYNC and disable OLD_GIT_SYNC
+    enabled: false
+  ngcustomdashboard:
+    # -- Enable to install  NG Custom Dashboards Component
+    enabled: false
+  opa:
+    # -- Enable to install Open Policy Agent
+    enabled: false
+  # -- Enable to deploy postgres(needed for NG components)
+  postgres:
+    enabled: true
+  saml:
+    # --  Enabled will not send invites to email and autoaccepts
+    autoaccept: false
+  smtpCreateSecret:
+    # -- Enable to create SMTP secretFile
+    enabled: false
+  srm:
+    # -- Enable to install SRM
+    enabled: false
+  stackDriverLoggingEnabled: false
+  sto:
+    # -- Enable to install STO
+    enabled: false
+  # -- set storageClass for third party applications
+  storageClass: ""
+  storageClassName: ""
+  # -- Set false to disable Immutable Delegate
+  useImmutableDelegate: "true"
+  # -- Set true to use delegate minimal image
+  useMinimalDelegateImage: false
 ngcustomdashboard:
   looker:
     config:
@@ -507,7 +501,6 @@ platform:
       requests:
         cpu: 1
         memory: 2880Mi
-  dashboards: null
   delegate-proxy:
     autoscaling:
       enabled: false
@@ -654,7 +647,6 @@ platform:
       requests:
         cpu: 1
         memory: 4096Mi
-  policy-mgmt: null
   scm-service:
     autoscaling:
       enabled: false

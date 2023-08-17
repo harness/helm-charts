@@ -1,4 +1,118 @@
 ## Global Settings
+# -- Set ccm.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
+# -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
+# -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
+# -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
+# -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
+ccm:
+  batch-processing:
+    awsAccountTagsCollectionJobConfig:
+      enabled: true
+    cloudProviderConfig:
+      CLUSTER_DATA_GCS_BACKUP_BUCKET: "placeHolder"
+      CLUSTER_DATA_GCS_BUCKET: "placeHolder"
+      DATA_PIPELINE_CONFIG_GCS_BASE_PATH: "placeHolder"
+      GCP_PROJECT_ID: "placeHolder"
+      S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
+      S3_SYNC_CONFIG_REGION: "placeHolder"
+    stackDriverLoggingEnabled: false
+  event-service:
+    stackDriverLoggingEnabled: false
+  nextgen-ce:
+    cloudProviderConfig:
+      GCP_PROJECT_ID: "placeHolder"
+    stackDriverLoggingEnabled: false
+cd:
+  gitops: null
+cet:
+  enable-receivers: false
+  et-collector:
+    autoscaling:
+      enabled: false
+    et:
+      java:
+        heapSize: "1600m"
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 2Gi
+  et-receiver-agent: null
+  et-receiver-decompile: null
+  et-receiver-hit: null
+  et-receiver-sql: null
+  et-service:
+    autoscaling:
+      enabled: false
+    et:
+      java:
+        heapSize: "2048m"
+      redis:
+        enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 3Gi
+      requests:
+        cpu: 100m
+        memory: 3Gi
+chaos:
+  chaos-driver:
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        memory: 512Mi
+  chaos-manager:
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 600m
+        memory: 512Mi
+  chaos-web:
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+ci:
+  ci-manager:
+    autoscaling:
+      enabled: false
+    java:
+      memory: "2048m"
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 3000Mi
+      requests:
+        cpu: 0.5
+        memory: 3000Mi
+  ti-service:
+    autoscaling:
+      enabled: false
+    jobresources:
+      limits:
+        memory: 1400Mi
+      requests:
+        cpu: 0.5
+        memory: 1400Mi
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 1400Mi
+      requests:
+        cpu: 0.5
+        memory: 1400Mi
 global:
   # -- Enable for complete airgap environment
   airgap: false
@@ -142,124 +256,6 @@ global:
   useImmutableDelegate: "true"
   # -- Set true to use delegate minimal image
   useMinimalDelegateImage: false
-# -- Set ccm.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
-# -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
-# -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
-# -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
-ccm:
-  batch-processing:
-    awsAccountTagsCollectionJobConfig:
-      enabled: true
-    clickhouse:
-      enabled: false
-    cloudProviderConfig:
-      CLUSTER_DATA_GCS_BACKUP_BUCKET: "placeHolder"
-      CLUSTER_DATA_GCS_BUCKET: "placeHolder"
-      DATA_PIPELINE_CONFIG_GCS_BASE_PATH: "placeHolder"
-      GCP_PROJECT_ID: "placeHolder"
-      S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
-      S3_SYNC_CONFIG_REGION: "placeHolder"
-    stackDriverLoggingEnabled: false
-  event-service:
-    stackDriverLoggingEnabled: false
-  nextgen-ce:
-    clickhouse:
-      enabled: false
-    cloudProviderConfig:
-      GCP_PROJECT_ID: "placeHolder"
-    stackDriverLoggingEnabled: false
-cd:
-  gitops: null
-cet:
-  enable-receivers: false
-  et-collector:
-    autoscaling:
-      enabled: false
-    et:
-      java:
-        heapSize: "1600m"
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 100m
-        memory: 2Gi
-  et-receiver-agent: null
-  et-receiver-decompile: null
-  et-receiver-hit: null
-  et-receiver-sql: null
-  et-service:
-    autoscaling:
-      enabled: false
-    et:
-      java:
-        heapSize: "2048m"
-      redis:
-        enabled: false
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 3Gi
-      requests:
-        cpu: 100m
-        memory: 3Gi
-chaos:
-  chaos-driver:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 512Mi
-      requests:
-        memory: 512Mi
-  chaos-manager:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 512Mi
-      requests:
-        cpu: 600m
-        memory: 512Mi
-  chaos-web:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 512Mi
-      requests:
-        cpu: 500m
-        memory: 512Mi
-ci:
-  ci-manager:
-    autoscaling:
-      enabled: false
-    java:
-      memory: "2048m"
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 3000Mi
-      requests:
-        cpu: 0.5
-        memory: 3000Mi
-  ti-service:
-    autoscaling:
-      enabled: false
-    jobresources:
-      limits:
-        memory: 1400Mi
-      requests:
-        cpu: 0.5
-        memory: 1400Mi
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 1400Mi
-      requests:
-        cpu: 0.5
-        memory: 1400Mi
 ngcustomdashboard:
   looker:
     config:
