@@ -6,7 +6,7 @@ dependencies:
   version: 0.8.0
 - name: anomaly-detection
   repository: https://harness.github.io/services/placeholder
-  version: 0.8.1
+  version: 0.8.0
 - name: cloud-info
   repository: https://harness.github.io/services/placeholder
   version: 0.8.0
