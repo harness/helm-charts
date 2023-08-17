@@ -52,7 +52,7 @@
     s3
     sto-plugin
     ci-manager-signed
-    
+
 [sto]:
     ci-addon
     ci-lite-engine
