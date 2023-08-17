@@ -123,6 +123,7 @@ global:
     cg: ''
     # -- Insert NG License String to enable NG license
     ng: ''
+
   # -- Set false to disable Immutable Delegate
   useImmutableDelegate: "true"
   # -- Set true to use delegate minimal image

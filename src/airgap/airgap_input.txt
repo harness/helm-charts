@@ -1,4 +1,4 @@
-[platform]:
+[platform]: 
     le-nextgen-signed
     ci-scm-signed
     template-service-signed

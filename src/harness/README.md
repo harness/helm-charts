@@ -6,6 +6,7 @@ Helm Chart for deploying Harness.
 
 ![Version: 0.8.1](https://img.shields.io/badge/Version-0.8.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.79819](https://img.shields.io/badge/AppVersion-1.0.79819-informational?style=flat-square)
 
+
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
 ## Usage
@@ -31,7 +32,7 @@ $ kubectl create namespace <namespace>
 
 Install the Helm chart:
 ```
-$  helm install my-release harness/harness-prod -n <namespace> -f override.yaml
+$  helm install my-release harness -n <namespace> -f override-prod.yaml -f override.yaml
 ```
 
 ### Access the application
