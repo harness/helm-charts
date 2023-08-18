@@ -52,7 +52,7 @@
     s3
     sto-plugin
     ci-manager-signed
-    
+
 [sto]:
     ci-addon
     ci-lite-engine
@@ -87,9 +87,10 @@
     ff-server-signed
     ff-timescale-migration-signed
 
-[srm]:
+[cet]:
     error-tracking-signed
     et-collector-signed
+    et-receiver-signed
 
 [ccm]:
     batch-processing-signed
@@ -110,11 +111,10 @@
     chaos-operator
     chaos-runner
     harness-chaos-log-watcher
-    smp-chaos-subscriber
-    smp-chaos-driver
-    smp-chaos-k8s-ifs
-    smp-chaos-linux-infra-controller
-    smp-chaos-linux-infra-server
-    smp-chaos-manager
-    smp-chaos-web
+    smp-chaos-subscriber-signed
+    smp-chaos-k8s-ifs-signed
+    smp-chaos-linux-infra-controller-signed
+    smp-chaos-linux-infra-server-signed
+    smp-chaos-manager-signed
+    smp-chaos-web-signed
     source-probe
