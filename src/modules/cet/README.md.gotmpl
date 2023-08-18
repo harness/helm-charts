@@ -1,0 +1,20 @@
+## Harness CET Chart
+
+{{ template "chart.description" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+## Usage
+
+Use the following dependency to add this chart repository to your Helm installation:
+
+```
+dependencies:
+    - name: cet
+      repository: https://harness.github.io/helm-cet
+      version: {{ template "chart.version" . }}
+```
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

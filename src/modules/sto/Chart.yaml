@@ -1,0 +1,13 @@
+apiVersion: v2
+appVersion: 0.0.79001
+dependencies:
+- name: sto-core
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+- name: sto-manager
+  repository: https://harness.github.io/services/placeholder
+  version: 0.8.0
+description: Helm chart for Harness STO
+name: sto
+type: application
+version: 0.8.1

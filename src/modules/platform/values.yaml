@@ -1,0 +1,466 @@
+global:
+  kubeVersion: ""
+  cg:
+    enabled: true
+  ng:
+    enabled: true
+  # -- enable to install migrator service
+  migrator:
+    enabled: false
+  database:
+    postgres:
+      ## - installed = true if installed within cluster
+      installed: true
+      ## - protocol to use for connection
+      protocol: postgres
+      ## - host array for external
+      hosts:
+        - postgres:5432
+      ## - secret name containing external values
+      secretName: ""
+      ## - key within secret containing username
+      userKey: ""
+      ## - key within secret containing password
+      passwordKey: ""
+      ## - extra arguments set to connection string
+      extraArgs: ""
+    mongo:
+      installed: true
+      protocol: mongodb
+      # --  provide default values if mongo.installed is set to false
+      hosts: []
+      secretName: ""
+      userKey: ""
+      passwordKey: ""
+      extraArgs: ""
+    timescaledb:
+      installed: true
+      protocol: "jdbc:postgresql"
+      # --  provide default values if mongo.installed is set to false
+      hosts:
+        - timescaledb-single-chart:5432
+      secretName: ""
+      userKey: ""
+      passwordKey: ""
+      extraArgs: ""
+    redis:
+      installed: true
+      protocol: "redis"
+      # --  provide default values if redis.installed is set to false
+      hosts:
+        - redis-sentinel-harness-announce-0:26379
+        - redis-sentinel-harness-announce-1:26379
+        - redis-sentinel-harness-announce-2:26379
+      secretName: "redis-secret"
+      userKey: "redis-user"
+      passwordKey: "redis-password"
+      extraArgs: ""
+
+access-control:
+  appLogLevel: INFO
+  image:
+    tag: "79004"
+  java:
+    memory: 512m
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 8192Mi
+    requests:
+      cpu: 0.5
+      memory: 512Mi
+  slackWebhookURL: ""
+  autoscaling:
+    enabled: false
+
+change-data-capture:
+  appLogLevel: INFO
+  replicaCount: 1
+  image:
+    tag: "79421"
+  java:
+    memory: 2048
+  resources:
+    limits:
+      memory: 2880Mi
+    requests:
+      cpu: 1
+      memory: 2880Mi
+  autoscaling:
+    enabled: false
+
+cv-nextgen:
+  appLogLevel: INFO
+  image:
+    tag: "79421"
+  java:
+    memory: 4096
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 6144Mi
+    requests:
+      cpu: 1
+      memory: 6144Mi
+  autoscaling:
+    enabled: false
+
+delegate-proxy:
+  image:
+    tag: "79310"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 100Mi
+    requests:
+      cpu: 200m
+      memory: 100Mi
+
+gateway:
+  image:
+    tag: "11002"
+  java:
+    memory: 512
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 1024Mi
+    requests:
+      cpu: 0.2
+      memory: 512Mi
+  autoscaling:
+    enabled: false
+
+harness-manager:
+  delegate_docker_image:
+    image:
+      repository: harness/delegate
+      tag: latest
+  immutable_delegate_docker_image:
+    image:
+      tag: 23.05.79310
+  external_graphql_rate_limit: "500"
+  autoscaling:
+    enabled: false
+  image:
+    tag: "79421"
+  java:
+    memory: "2048"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 8192Mi
+    requests:
+      cpu: 2
+      memory: 3000Mi
+  version: 1.0.79421
+
+harness-secrets:
+  enabled: true
+
+le-nextgen:
+  autoscaling:
+    enabled: false
+  image:
+    tag: "67902"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 6144Mi
+    requests:
+      cpu: 1
+      memory: 6144Mi
+
+learning-engine:
+  autoscaling:
+    enabled: false
+  image:
+    tag: "67903"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 2048Mi
+    requests:
+      cpu: 1
+      memory: 2048Mi
+
+log-service:
+  image:
+    tag: "release-65-ubi"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 3072Mi
+    requests:
+      cpu: 1
+      memory: 3072Mi
+  autoscaling:
+    enabled: false
+
+migrator:
+  delegate_docker_image:
+    image:
+      repository: harness/delegate
+      tag: latest
+  immutable_delegate_docker_image:
+    image:
+      tag: 23.05.79310
+  external_graphql_rate_limit: "500"
+  autoscaling:
+    enabled: false
+  image:
+    tag: "100476-000"
+  java:
+    memory: "2048"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 8192Mi
+    requests:
+      cpu: 2
+      memory: 3000Mi
+  version: 1.0.100476
+
+minio:
+  fullnameOverride: "minio"
+  image:
+    tag: 2023.5.18-debian-11-r2
+  mode: standalone
+  defaultBuckets: "logs"
+  auth:
+    existingSecret: "minio"
+
+mongodb:
+  architecture: replicaset
+  fullnameOverride: "mongodb-replicaset-chart"
+  image:
+    registry: docker.io
+    repository: harness/mongo
+    tag: 4.4.22
+  replicaCount: 3
+  arbiter:
+    enabled: true
+  service:
+    nameOverride: "mongodb-replicaset-chart"
+  auth:
+    rootUser: "admin"
+    existingSecret: "mongodb-replicaset-chart"
+  podLabels: { app: mongodb-replicaset }
+  resources:
+    limits:
+      memory: 8192Mi
+    requests:
+      cpu: 4
+      memory: 8192Mi
+  persistence:
+    size: 200Gi
+
+next-gen-ui:
+  image:
+    tag: "0.349.16"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 200Mi
+    requests:
+      cpu: 0.2
+      memory: 200Mi
+  autoscaling:
+    enabled: false
+
+ng-auth-ui:
+  image:
+    tag: "1.7.0"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 0.5
+      memory: 512Mi
+  autoscaling:
+    enabled: false
+
+ng-manager:
+  appLogLevel: INFO
+  image:
+    tag: "79421"
+  java:
+    memory: "4096m"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 8192Mi
+    requests:
+      cpu: 2
+      memory: 200Mi
+  autoscaling:
+    enabled: false
+
+pipeline-service:
+  appLogLevel: INFO
+  image:
+    tag: "1.33.8"
+  java:
+    memory: "4096m"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 6144Mi
+    requests:
+      cpu: 1
+      memory: 6144Mi
+  autoscaling:
+    enabled: false
+
+platform-service:
+  appLogLevel: INFO
+  image:
+    tag: "79202"
+  java:
+    memory: "3072m"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 8192Mi
+    requests:
+      cpu: 0.5
+      memory: 512Mi
+  autoscaling:
+    enabled: false
+
+redis:
+  initContainers:
+    config_init:
+      image:
+        tag: 6.2.12-alpine
+        repository: redis
+  redis:
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 0.1
+        memory: 200Mi
+    image:
+      tag: 6.2.12-alpine
+      repository: redis
+      pullPolicy: IfNotPresent
+  replicaCount: 3
+  sentinel:
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    image:
+      tag: 6.2.12-alpine
+      repository: redis
+      pullPolicy: IfNotPresent
+  volumeClaimTemplate:
+    resources:
+      requests:
+        storage: 10Gi
+  autoscaling:
+    enabled: false
+
+scm-service:
+  appLogLevel: INFO
+  image:
+    tag: "release-150-ubi"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 0.1
+      memory: 512Mi
+  autoscaling:
+    enabled: false
+
+template-service:
+  appLogLevel: INFO
+  image:
+    tag: "79421"
+  java:
+    memory: "1024m"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 1400Mi
+    requests:
+      cpu: 1
+      memory: 1400Mi
+  autoscaling:
+    enabled: false
+
+ti-service:
+  appLogLevel: INFO
+  image:
+    tag: "release-177"
+  jobresources:
+    limits:
+      memory: 3072Mi
+    requests:
+      cpu: 1
+      memory: 3072Mi
+  jobs:
+    migrate:
+      image:
+        tag: release-177
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 3072Mi
+    requests:
+      cpu: 1
+      memory: 3072Mi
+  autoscaling:
+    enabled: false
+
+timescaledb:
+  enabled: true
+  image:
+    tag: "pg13-ts2.9-oss-latest"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 2048Mi
+    requests:
+      cpu: 1
+      memory: 2048Mi
+  storage:
+    capacity: 100Gi
+  autoscaling:
+    enabled: false
+
+ui:
+  appLogLevel: INFO
+  image:
+    tag: "79401"
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  autoscaling:
+    enabled: false
+
+verification-svc:
+  appLogInfo: INFO
+  image:
+    tag: "79421"
+  java:
+    memory: 2048
+  replicaCount: 1
+  resources:
+    limits:
+      memory: 3000Mi
+    requests:
+      cpu: 500m
+      memory: 3000Mi
+  autoscaling:
+    enabled: false
