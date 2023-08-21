@@ -35,7 +35,7 @@ dependencies:
   name: lwd-autocud
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.0
-- name: nextgen-ce
+- name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.0
 - condition: global.lwd.enabled
