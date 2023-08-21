@@ -58,9 +58,9 @@ IMAGES=("docker.io/harness/delegate:[0-9.]+" "docker.io/harness/delegate-proxy-s
 SUFFIX=(".minimal" "_minimal")
 for i in "${!IMAGES[@]}"
 do
-    MATCHES=$(grep -oE "${IMAGES[i]}" "src/harness/images.txt")
+    MATCHES=$(grep -oE "${IMAGES[i]}" "${OUTPUT_DIR}/images.txt")
     if [ -n "$MATCHES" ]; then
-        echo "$MATCHES" | sed "s/$/${SUFFIX[i]}/" | tee -a src/harness/images.txt
+        echo "$MATCHES" | sed "s/$/${SUFFIX[i]}/" | tee -a ${OUTPUT_DIR}/images.txt
     fi
 done
 

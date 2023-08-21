@@ -119,9 +119,8 @@ echo "Moved platform.ti-service to ci.ti-service in $newOverrideFile"
 yq eval '(select(has("policy-mgmt")) | .platform.policy-mgmt = .policy-mgmt | del(.policy-mgmt)) // .' -i "$newOverrideFile"
 echo "Moved policy-mgmt to platform.policy-mgmt in $newOverrideFile"
 # - moved dashboards.* to platform.*
-yq eval '(select(has("ngcustomdashboard") and .ngcustomdashboard | has("ng-custom-dashboards")) | .platform.ng-custom-dashboards = .ngcustomdashboard.ng-custom-dashboards) // .' -i "$newOverrideFile"
-yq eval '(select(has("ngcustomdashboard") and .ngcustomdashboard | has("looker")) | .platform.looker = .ngcustomdashboard.looker | del(.ngcustomdashboard)) // .' -i "$newOverrideFile"
-echo "Moved dashboards to platform in $newOverrideFile"
+yq eval '(select(has("dashboards")) | .platform.dashboards = .dashboards | del(.dashboards)) // .' -i "$newOverrideFile"
+echo "Moved dashboards to platform.dashboards in $newOverrideFile"
 yq eval 'del(.ng-manager)' -i "$newOverrideFile"
 
 # # ccm
