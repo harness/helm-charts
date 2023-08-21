@@ -3,21 +3,21 @@ appVersion: 1.16.0
 dependencies:
 - condition: global.ng.enabled
   name: cv-nextgen
-  repository: https://harness.github.io/services/placeholder
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.0
 - condition: global.ng.enabled
   name: le-nextgen
-  repository: https://harness.github.io/services/placeholder
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.0
 - condition: global.cg.enabled
   name: learning-engine
-  repository: https://harness.github.io/services/placeholder
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.0
 - condition: global.cg.enabled
   name: verification-svc
-  repository: https://harness.github.io/services/placeholder
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.0
 description: Helm chart for Harness SRM
 name: srm
 type: application
-version: 0.1.0
+version: 0.8.0
