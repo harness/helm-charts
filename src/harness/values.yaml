@@ -236,6 +236,8 @@ global:
       minProtocolVersion: TLSV1_2
       mode: SIMPLE
     virtualService:
+      # only used if .global.istio.gateway.create is set to false
+      gateways: []
       # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
       hosts:
         - "myhostname.example.com"
