@@ -54,9 +54,16 @@ $ helm get values my-release > old_values.yaml
 4. Use the `helm upgrade` command to update the chart:
 
 Helm Upgrade
-```
-$ helm upgrade my-release harness/harness-demo -n <namespace> -f old_values.yaml
-```
+
+Use the `helm upgrade` command to update the chart for your `override-demo.yaml` file or `override-prod.yaml` file. 
+
+   ```
+   $ helm upgrade my-release harness/harness -n <namespace> -f override-demo.yaml -f old_values.yaml
+   ```
+
+   ```
+   $ helm upgrade my-release harness/harness -n <namespace> -f override-prod.yaml -f old_values.yaml
+   ```
 
 ## Uninstall the chart
 
