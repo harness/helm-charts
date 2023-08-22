@@ -227,11 +227,6 @@ echo "Migrated global.ingress.nginx to platform.bootstrap.networking.nginx "
 yq eval '(select( .global | has("ingress") and .global.ingress | has("defaultbackend")) | .platform.bootstrap.networking.defaultbackend = .global.ingress.defaultbackend | del(.global.ingress.defaultbackend)) // .' -i "$newOverrideFile"
 echo "Migrated global.ingress.defaultbackend to platform.bootstrap.networking.defaultbackend "
 
-# - move global.istio.gateway to platform.bootstrap.networking.istio
-# - TODO: istio migration
-echo "Migrated changes required for istio/gateway file "
-echo
-
 # 
 yq eval 'del(.ng-manager)' -i "$newOverrideFile"
 echo
