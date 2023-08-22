@@ -1,0 +1,33 @@
+apiVersion: v2
+appVersion: 5.23.1
+dependencies:
+- name: et-service
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- name: et-collector
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- alias: et-receiver-hit
+  condition: enable-receivers
+  name: et-receiver
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.4.0
+- alias: et-receiver-decompile
+  condition: enable-receivers
+  name: et-receiver
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.4.0
+- alias: et-receiver-sql
+  condition: enable-receivers
+  name: et-receiver
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.4.0
+- alias: et-receiver-agent
+  condition: enable-receivers
+  name: et-receiver
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.4.0
+description: A Helm chart for Harness CET
+name: cet
+type: application
+version: 0.8.0

@@ -1,0 +1,20 @@
+## Harness STO Chart
+
+{{ template "chart.description" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+## Usage
+
+Use the following dependency to add this chart to your Helm chart:
+
+```
+dependencies:
+    - name: harness-sto
+      repository: https://harness.github.io/helm-sto
+      version: {{ template "chart.version" . }}
+```
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

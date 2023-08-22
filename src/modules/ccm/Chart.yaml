@@ -1,0 +1,48 @@
+apiVersion: v2
+appVersion: 1.546.0
+dependencies:
+- name: event-service
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- name: anomaly-detection
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- name: cloud-info
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- name: telescopes
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- name: batch-processing
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- name: ng-ce-ui
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- condition: global.lwd.enabled
+  name: lwd-faktory
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- condition: global.lwd.enabled
+  name: lwd
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- condition: global.lwd.enabled
+  name: lwd-worker
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- condition: global.lwd.autocud.enabled
+  name: lwd-autocud
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- name: ce-nextgen
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+- condition: global.lwd.enabled
+  name: dkron
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.0
+description: A Helm chart for Harness Cloud Cost Management (CCM) module
+name: ccm
+type: application
+version: 0.8.1

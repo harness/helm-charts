@@ -1,0 +1,20 @@
+## Harness Chaos Chart
+
+{{ template "chart.description" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+## Usage
+
+Use the following dependency to add this chart repository to your Helm installation:
+
+```
+dependencies:
+    - name: harness-chaos
+      repository: https://harness.github.io/helm-chaos
+      version: {{ template "chart.version" }}
+```
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}
