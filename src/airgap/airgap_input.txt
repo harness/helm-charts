@@ -30,7 +30,8 @@
     migrator-signed
     verification-service-signed
     learning-engine-onprem-signed
-
+    ui-signed
+    
 [cdng]:
     argocd
     gitops-agent
