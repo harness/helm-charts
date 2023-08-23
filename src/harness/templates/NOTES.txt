@@ -47,3 +47,7 @@ srm:
 {{- end}}
 
 {{- end }}
+
+{{- if ne .Values.global.overrideValidation true }}
+{{- include "validateRestructuredValues" . }}
+{{- end }}
