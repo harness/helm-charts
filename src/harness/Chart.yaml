@@ -2,37 +2,37 @@ apiVersion: v2
 appVersion: 1.0.79819
 dependencies:
 - name: ccm
-  repository: https://harness.github.io/helm-charts
-  version: 0.9.0
+  repository: gs://smp-helm-charts/qa
+  version: 0.9.0-qa.20230822.213449.893
 - name: cd
-  repository: https://harness.github.io/helm-charts
-  version: 0.9.0
+  repository: gs://smp-helm-charts/qa
+  version: 0.9.0-qa.20230822.213449.893
 - name: cet
-  repository: https://harness.github.io/helm-charts
-  version: 0.9.0
+  repository: gs://smp-helm-charts/qa
+  version: 0.9.0-qa.20230822.213449.893
 - condition: global.chaos.enabled
   name: chaos
-  repository: https://harness.github.io/helm-charts
-  version: 0.9.0
+  repository: gs://smp-helm-charts/qa
+  version: 0.9.0-qa.20230822.213449.893
 - condition: global.ci.enabled
   name: ci
-  repository: https://harness.github.io/helm-charts
-  version: 0.9.0
+  repository: gs://smp-helm-charts/qa
+  version: 0.9.0-qa.20230822.213449.893
 - condition: global.ff.enabled
   name: ff
-  repository: https://harness.github.io/helm-charts
-  version: 0.9.0
+  repository: gs://smp-helm-charts/qa
+  version: 0.9.0-qa.20230822.213449.893
 - name: platform
-  repository: https://harness.github.io/helm-charts
-  version: 0.9.0
+  repository: gs://smp-helm-charts/qa
+  version: 0.9.0-qa.20230822.213449.893
 - name: srm
-  repository: https://harness.github.io/helm-charts
-  version: 0.9.0
+  repository: gs://smp-helm-charts/qa
+  version: 0.9.0-qa.20230822.213449.893
 - condition: global.sto.enabled
   name: sto
-  repository: https://harness.github.io/helm-charts
-  version: 0.9.0
+  repository: gs://smp-helm-charts/qa
+  version: 0.9.0-qa.20230822.213449.893
 description: Helm Chart for deploying Harness.
 name: harness
 type: application
-version: 0.9.0
+version: 0.9.0-qa.20230822.213449.893
