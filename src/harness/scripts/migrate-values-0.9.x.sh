@@ -235,10 +235,10 @@ yq eval '(select( .global | has("ingress") and .global.ingress | has("defaultbac
 echo "Migrated global.ingress.defaultbackend to platform.bootstrap.networking.defaultbackend "
 
 #
-yq eval 'del(.ng-manager)' -i "$newOverrideFile" -i "$newOverrideFile"
+yq eval 'del(.ng-manager)' -i "$newOverrideFile"
 echo "Set lwd and ccm to defaultly false \n"
 
-yq eval '.global.lwd.autocud.enabled = false | .global.lwd.enabled = false'
+yq eval '.global.lwd.autocud.enabled = false | .global.lwd.enabled = false' -i "$newOverrideFile"
 
 ###################################################
 
