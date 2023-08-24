@@ -161,7 +161,7 @@ yq eval '(select(has("ccm") and .ccm | has("clickhouse")) | .platform.bootstrap.
 echo "Migrated ccm.clickhouse to platform.bootstrap.database.clickhouse "
 
 # - clickhouse enabled moved to global flag. earlier ccm.clickhouse.enabled converted to global.database.clickhouse.enabled
-yq eval '(select(has("ccm") and .ccm | has("clickhouse")) | .global.database.clickhouse = .ccm.clickhouse | del(.ccm.clickhouse)) // .global.database.clickhouse += {"enabled": false}' -i "$newOverrideFile"
+yq eval '(select(has("ccm") and .ccm | has("clickhouse")) | .global.database.clickhouse = .ccm.clickhouse | del(.ccm.clickhouse)) // (select(.global.database.clickhouse == null) | .global.database.clickhouse += {"enabled": false}) // .' -i "$newOverrideFile"
 yq eval 'del(.ccm.nextgen-ce.clickhouse)' -i "$newOverrideFile"
 yq eval 'del(.ccm.batch-processing.clickhouse)' -i "$newOverrideFile"
 echo "Migrated ccm.clickhouse to global.database.clickhouse "
@@ -200,8 +200,8 @@ yq eval '(select(has("srm") and .srm | has("et-receiver-decompile")) | .cet.et-r
 echo "Migrated srm.et-receiver-decompile to cet.et-receiver-decompile "
 yq eval '(select(has("srm") and .srm | has("et-receiver-hit")) | .cet.et-receiver-hit = .srm.et-receiver-hit | del(.srm.et-receiver-hit)) // .' -i "$newOverrideFile"
 echo "Migrated srm.et-receiver-hit to cet.et-receiver-hit "
-yq eval '(select(has("srm") and .srm | has("et-receiver-sql ")) | .cet.et-receiver-sql = .srm.et-receiver-sql | del(.srm.et-receiver-sql)) // .' -i "$newOverrideFile"
-echo "Migrated srm.et-receiver-sql to cet.et-receiver-sql "
+yq eval '(select(has("srm") and .srm | has("et-receiver-sql")) | .cet.et-receiver-sql = .srm.et-receiver-sql | del(.srm.et-receiver-sql)) // .' -i "$newOverrideFile"
+echo "Migrated srm.et-receiver-sql to cet.et-receiver-sql"
 yq eval '(select(has("srm") and .srm | has("et-receiver-agent")) | .cet.et-receiver-agent = .srm.et-receiver-agent | del(.srm.et-receiver-agent)) // .' -i "$newOverrideFile"
 echo "Migrated srm.et-receiver-agent to cet.et-receiver-agent "
 echo
