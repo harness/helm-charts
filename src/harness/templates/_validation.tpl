@@ -1,47 +1,60 @@
+{{/* Generates validation error message for restructured values/override
+{{ include "restructuredValuesValidationErrMessage" (dict "serviceName" "foo" "srcLocation" "bar1.foo" "destLocation" "bar2.foo") }}
+*/}}
+{{- define "restructuredValuesValidationErrMessage" -}}
+{{- printf "%s : %s --> %s" .serviceName .srcLocation .destLocation -}}
+{{- end -}}
+
 {{- define "validateRestructuredValues" -}}
 {{- $validationErrors := "" }}
 {{/* platform */}}
 {{/* ti-service */}}
-{{- if index .Values "platform" "ti-service" }} }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors "ti-service has been migrated from platform.ti-service to ci.ti-service" }}
+{{- if and (index .Values "platform") (index .Values "platform" "ti-service") }}
+{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "ti-service" "srcLocation" "platform.ti-service" "destLocation" "ci.ti-service")) }}
 {{- end }}
 {{/* cv-nextgen */}}
-{{- if index .Values "platform" "cv-nextgen" }} }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors "cv-nextgen has been migrated from platform.cv-nextgen to srm.cv-nextgen" }}
+{{- if and (index .Values "platform") (index .Values "platform" "cv-nextgen") }}
+{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "cv-nextgen" "srcLocation" "platform.cv-nextgen" "destLocation" "srm.cv-nextgen")) }}
 {{- end }}
 {{/* verification-svc */}}
-{{- if index .Values "platform" "verification-svc" }} }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors "verification-svc has been migrated from platform.verification-svc to srm.verification-svc" }}
+{{- if and (index .Values "platform") (index .Values "platform" "verification-svc") }}
+{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "verification-svc" "srcLocation" "platform.verification-svc" "destLocation" "srm.verification-svc")) }}
 {{- end }}
 {{/* le-nextgen */}}
-{{- if index .Values "platform" "le-nextgen" }} }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors "le-nextgen has been migrated from platform.le-nextgen to srm.le-nextgen" }}
+{{- if and (index .Values "platform") (index .Values "platform" "le-nextgen") }}
+{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "le-nextgen" "srcLocation" "platform.le-nextgen" "destLocation" "srm.le-nextgen")) }}
 {{- end }}
 {{/* harness-secrets */}}
-{{- if index .Values "platform" "harness-secrets" }} }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors "harness-secrets has been migrated from platform.harness-secrets to platform.bootstrap.harness-secrets" }}
+{{- if and (index .Values "platform") (index .Values "platform" "harness-secrets") }}
+{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "harness-secrets" "srcLocation" "platform.harness-secrets" "destLocation" "platform.bootstrap.harness-secrets")) }}
 {{- end }}
 {{/* minio */}}
-{{- if index .Values "platform" "minio" }} }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors "minio has been migrated from platform.minio to platform.bootstrap.database.minio" }}
+{{- if and (index .Values "platform") (index .Values "platform" "minio") }}
+{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "minio" "srcLocation" "platform.minio" "destLocation" "platform.bootstrap.database.minio")) }}
 {{- end }}
 {{/* mongo */}}
-{{- if index .Values "platform" "mongo" }} }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors "mongo has been migrated from platform.mongodb to platform.bootstrap.database.mongodb" }}
+{{- if and (index .Values "platform") (index .Values "platform" "mongo") }}
+{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "mongo" "srcLocation" "platform.mongodb" "destLocation" "platform.bootstrap.database.mongodb")) }}
 {{- end }}
 {{/* redis */}}
-{{- if index .Values "platform" "redis" }} }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors "redis has been migrated from platform.redis to platform.bootstrap.database.redis" }}
+{{- if and (index .Values "platform") (index .Values "platform" "timescaledb") }}
+{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "redis" "srcLocation" "platform.redis" "destLocation" "platform.bootstrap.database.redis")) }}
 {{- end }}
 {{/* timescaledb */}}
-{{- if index .Values "platform" "timescaledb" }} }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors "timescaledb has been migrated from platform.timescaledb to platform.bootstrap.database.timescaledb" }}
+{{- if and (index .Values "platform") (index .Values "platform" "timescaledb") }}
+{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "timescaledb" "srcLocation" "platform.timescaledb" "destLocation" "platform.bootstrap.database.timescaledb")) }}
 {{- end }}
-{{- if gt (len $validationErrors) 0}}
+{{/* infra */}}
+{{/* postgresql */}}
+{{- if and (index .Values "infra") (index .Values "infra" "postgresql") }}
+{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "postgresql" "srcLocation" "infra.postgresql" "destLocation" "platform.bootstrap.database.postgresql")) }}
+{{- end }}
+{{- if gt (len $validationErrors) 0 }}
+{{- $validationErrorHeading := printf "\n\n Validation Error: \n values/override.yaml files require changes to work with the new Harness Helm Charts structure \n\n" }}
+{{- $validationErrorHeading = printf "%s In harness-0.9.x, Harness helm charts have been restructured and the following fields in provided values/override.yaml need to be migrated as follows:" $validationErrorHeading }}
+{{- $validationErrors = printf "%s \n %s" $validationErrorHeading $validationErrors }}
 {{- fail $validationErrors }}
-{{- end }}
-{{- end }}
+{{- end -}}
+{{- end -}}
 
-{{- define "restructuredValuesValidationMessage" -}}
-{{- printf "%s \n %s" $validationErrors "redis has been migrated from platform.redis to platform.bootstrap.database.redis" -}}
-{{- end }}
+
