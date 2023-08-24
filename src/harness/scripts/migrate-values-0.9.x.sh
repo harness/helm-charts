@@ -221,6 +221,9 @@ echo -e "\n----------------------------------------\n global \n-----------------
 echo "No change required for bootstrap/rbac chart "
 
 # - move global.ingress.nginx to platform.bootstrap.networking.nginx
+yq eval '(select(.global.ingress.nginx.objects != null) | .global.ingress.objects = .global.ingress.nginx.objects | del(.global.ingress.nginx.objects)) // .' -i "$newOverrideFile"
+echo "Migrated global.ingress.nginx to platform.bootstrap.networking.nginx "
+
 yq eval '(select( .global | has("ingress") and .global.ingress | has("nginx")) | .platform.bootstrap.networking.nginx = .global.ingress.nginx | del(.global.ingress.nginx)) // .' -i "$newOverrideFile"
 echo "Migrated global.ingress.nginx to platform.bootstrap.networking.nginx "
 # - move global.ingress.loadBalancerEnabled to platform.bootstrap.networking.nginx.loadBalancerEnabled
@@ -236,7 +239,7 @@ echo "Migrated global.ingress.defaultbackend to platform.bootstrap.networking.de
 
 #
 yq eval 'del(.ng-manager)' -i "$newOverrideFile"
-echo "Set lwd and ccm to defaultly false \n"
+echo "Set lwd and ccm to defaultly false "
 
 yq eval '.global.lwd.autocud.enabled = false | .global.lwd.enabled = false' -i "$newOverrideFile"
 
