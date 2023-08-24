@@ -4,8 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.8.1](https://img.shields.io/badge/Version-0.8.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.79819](https://img.shields.io/badge/AppVersion-1.0.79819-informational?style=flat-square)
-
+![Version: 0.9.0](https://img.shields.io/badge/Version-0.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.79819](https://img.shields.io/badge/AppVersion-1.0.79819-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -54,16 +53,9 @@ $ helm get values my-release > old_values.yaml
 4. Use the `helm upgrade` command to update the chart:
 
 Helm Upgrade
-
-Use the `helm upgrade` command to update the chart for your `override-demo.yaml` file or `override-prod.yaml` file. 
-
-   ```
-   $ helm upgrade my-release harness/harness -n <namespace> -f override-demo.yaml -f old_values.yaml
-   ```
-
-   ```
-   $ helm upgrade my-release harness/harness -n <namespace> -f override-prod.yaml -f old_values.yaml
-   ```
+```
+$ helm upgrade my-release harness/harness-demo -n <namespace> -f old_values.yaml
+```
 
 ## Uninstall the chart
 
@@ -95,21 +87,23 @@ docker.io/chaosnative/workflow-controller:v3.3.1
 docker.io/curlimages/curl:8.1.2
 docker.io/haproxy:lts-alpine3.17
 docker.io/harness/accesscontrol-service-signed:79400
-docker.io/harness/batch-processing-signed:80002-000
+docker.io/harness/batch-processing-signed:80003-000
 docker.io/harness/cdcdata-signed:79819
 docker.io/harness/ce-anomaly-detection-signed:70029
 docker.io/harness/ce-cloud-info-signed:10303
-docker.io/harness/ce-nextgen-signed:80102-000
+docker.io/harness/ce-nextgen-signed:80103-000
 docker.io/harness/ci-addon:1.16.19
 docker.io/harness/ci-lite-engine:1.16.19
 docker.io/harness/ci-manager-signed:4902
 docker.io/harness/ci-scm-signed:release-150-ubi
 docker.io/harness/cv-nextgen-signed:79819
 docker.io/harness/dashboard-service-signed:v1.54.0
-docker.io/harness/delegate-proxy-signed:79712_3
-docker.io/harness/delegate-proxy-signed:79712_minimal
+docker.io/harness/delegate-proxy-signed:79713
+docker.io/harness/delegate-proxy-signed:79713_minimal
 docker.io/harness/delegate:23.07.79712
 docker.io/harness/delegate:23.07.79712.minimal
+docker.io/harness/delegate:23.08.79713
+docker.io/harness/delegate:23.08.79713.minimal
 docker.io/harness/delegate:latest
 docker.io/harness/error-tracking-signed:5.24.7
 docker.io/harness/et-collector-signed:5.24.0
@@ -251,7 +245,7 @@ quay.io/argoproj/argocd:v2.7.8
 | global.ingress.nginx.controller.annotations | object | `{}` | annotations to be addded to ingress Controller |
 | global.ingress.nginx.create | bool | `false` | Create Nginx Controller.  True will deploy a controller into your cluster |
 | global.ingress.nginx.objects.annotations | object | `{}` | annotations to be added to ingress Objects |
-| global.istio | object | `{"enabled":false,"gateway":{"create":true,"name":"","namespace":"","port":443,"protocol":"HTTPS","selector":{"istio":"ingressgateway"}},"hosts":["*"],"istioGatewayServiceUrl":"","strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
+| global.istio | object | `{"enabled":false,"gateway":{"create":true,"name":"","namespace":"","port":443,"protocol":"HTTPS","selector":{"istio":"ingressgateway"}},"hosts":["*"],"istioGatewayServiceUrl":"","strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[],"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
 | global.istio.gateway.name | string | `""` | override the name of gateway |
 | global.istio.gateway.namespace | string | `""` | override the name of namespace to deploy gateway |
 | global.istio.gateway.selector | object | `{"istio":"ingressgateway"}` | adds a gateway selector |
