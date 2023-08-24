@@ -48,6 +48,8 @@ srm:
 
 {{- end }}
 
-{{- if ne .Values.global.overrideValidation true }}
+{{- if or (not (index .Values "global")) (not (index .Values "global" "overrideValidation")) (and (index .Values "global") (index .Values "global" "overrideValidation") (index .Values "global" "overrideValidation") (not .Values.global.overrideValidation.restructuredValues)) }}
+{{- if semverCompare ">= 0.9.0-0" .Chart.Version }}
 {{- include "validateRestructuredValues" . }}
+{{- end }}
 {{- end }}

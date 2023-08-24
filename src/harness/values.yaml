@@ -1,5 +1,4 @@
 global:
-  overrideValidation: false
   # -- Airgap functionality. Disabled by default
   airgap: "false"
   # -- High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV
