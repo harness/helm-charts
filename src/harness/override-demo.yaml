@@ -106,6 +106,9 @@ global:
     # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
     # If not set, internal request routing would happen via global.loadbalancerUrl
     ingressGatewayServiceUrl: ""
+    objects:
+      # -- annotations to be added to ingress Objects
+      annotations: {}
     tls:
       enabled: false
       secretName: harness-cert
@@ -280,7 +283,6 @@ ci:
       requests:
         cpu: 0.5
         memory: 1400Mi
-enabled: false
 ## Platform Settings
 platform:
   # -- Feature list to enable within platform.  Contact Harness for value
@@ -412,9 +414,6 @@ platform:
         loadBalancerEnabled: false
         loadBalancerIP: '0.0.0.0'
         nodeSelector: {}
-        objects:
-          # -- annotations to be added to ingress Objects
-          annotations: {}
         tolerations: []
   change-data-capture:
     appLogLevel: INFO
