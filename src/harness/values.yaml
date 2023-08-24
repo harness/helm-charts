@@ -1,236 +1,135 @@
 global:
   # -- Airgap functionality. Disabled by default
   airgap: "false"
-  # -- High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV
-  ha: true
-  # -- This private Docker image registry will override any registries that are defined in subcharts.
-  imageRegistry: ""
-  # -- Provide your URL for your intended load balancer
-  loadbalancerURL: https://myhostname.example.com
-  # -- provide overrides to use in-cluster database or configure to use external databases
-  database:
-    # -- settings to deploy mongo in-cluster or configure to use external mongo source
-    mongo:
-      # -- set false to configure external mongo and generate mongo uri protocol://hosts?extraArgs
-      installed: true
-      # -- set the protocol for mongo uri
-      protocol: mongodb
-      # --   set the mongo hosts if mongo.installed is set to false
-      hosts: []
-      # -- provide the secretname to reference mongo username and password
-      secretName: ""
-      # -- provide the userKey to reference mongo username
-      userKey: ""
-      # -- provide the passwordKey to reference mongo password
-      passwordKey: ""
-      # -- set additional arguments to mongo uri
-      extraArgs: ""
-    postgres:
-      ## - set this to false if you want to use external postgre cluster
-      installed: true
-      ## - protocol to use for connection
-      protocol: postgres
-      ## - host array for external
-      hosts:
-        - <postgres ip>:5432
-      ## - secret name containing external postgresql credentials
-      secretName: "postgres-secret"
-      ## - key within secret containing username
-      userKey: "user"
-      ## - key within secret containing password
-      passwordKey: "password"
-      ## - extra arguments set to connection string
-      extraArgs: ""
-    timescaledb:
-      ## - set this to false if you want to use external timescaledb cluster
-      installed: true
-      # --  provide host name for timescaledb
-      hosts:
-        - hostname.timescale.com:5432
-      ## - secret name containing external timescaledb credentials
-      secretName: "tsdb-secret"
-      ## - key within secret containing username
-      userKey: "username"
-      ## - key within secret containing password
-      passwordKey: "password"
-      ## - set this to true if you want to enabled external timescaledb ssl traffic
-      sslEnabled: false
-      ## - secret name containing timescaledb certificates
-      certName: "tsdb-cert"
-      ## - key name within secret containing certificates
-      certKey: "cert"
-    redis:
-      ## - set this to false if you want to use external redis cluster
-      installed: true
-      # --  provide host name for redis
-      hosts:
-      - <internal-endpoint-with-port>
-      ## - secret name containing external redis credentials
-      secretName: "redis-user-pass"
-      ## - key within secret containing username
-      userKey: "username"
-      ## - key within secret containing password
-      passwordKey: "password"
-
-
-  # -- Enable SSL for MongoDB service
-  mongoSSL: false
-  # -- Configure storage class for Harness
-  storageClassName: ""
-  # -- Configure storage class for Mongo,Timescale,Redis
-  storageClass: ""
-  # -- Enable stack driver logging
-  stackDriverLoggingEnabled: false
-  # -- Enable to install First Generation Harness Platform (disabled by default)
-  cg:
-    enabled: false
-  # -- Enable to install NG (Next Generation Harness Platform)
-  ng:
-    enabled: true
-  # -- Enable to install Continuous Deployment (CD)
-  cd:
-    enabled: false
-  # -- Enable to install Continuous Integration (CI)
-  ci:
-    enabled: false
-  # -- Enable to install Security Test Orchestration (STO)
-  sto:
-    enabled: false
-  # -- Enable to install Site Reliability Management (SRM)
-  srm:
-    enabled: false
-  # -- Enable to install Feature Flags (FF)
-  ff:
-    enabled: false
-  # -- Enable to install Next Generation Custom Dashboards (Beta)
-  ngcustomdashboard:
-    enabled: false
   # -- Enable to install Cloud Cost Management (CCM) (Beta)
   ccm:
     enabled: false
-  # -- Enable to install gitops
-  gitops:
-    enabled: false
-  # -- Enable to install Open Policy Agent (OPA)
-  opa:
-    enabled: false
-  # -- Enable to install Chaos Engineering (CE) (Beta)
-  chaos:
+  # -- Enable to install Continuous Deployment (CD)
+  cd:
     enabled: false
   # -- Enable to install Continuous Error Tracking (CET)
   cet:
     enabled: false
-  migrator:
+  # -- Enable to install First Generation Harness Platform (disabled by default)
+  cg:
     enabled: false
-  # --  SAML auto acceptance. Enabled will not send invites to email and autoaccepts
-  saml:
-    autoaccept: false
-  # -- Place the license key, Harness support team will provide these
-  license:
-    cg: ''
-    ng: ''
-  # -- Utilize immutable delegates (default = true)
-  useImmutableDelegate: "true"
-  # -- Use delegate minimal image (default = false)
-  useMinimalDelegateImage: false
-  # -- Method to create a secret for your SMTP server
-  smtpCreateSecret:
+  # -- Enable to install Chaos Engineering (CE) (Beta)
+  chaos:
     enabled: false
-  # -- set kubernetes version override, unrequired if installing using Helm.
-  kubeVersion: ""
-  # -- Enable monitoring for all harness services: disabled by default
-  monitoring:
+  # -- Enable to install Continuous Integration (CI)
+  ci:
     enabled: false
-    port: 8889
-    path: /metrics
-
+  # -- provide overrides to use in-cluster database or configure to use external databases
+  database:
+    clickhouse:
+      enabled: false
+    # -- settings to deploy mongo in-cluster or configure to use external mongo source
+    mongo:
+      # -- set additional arguments to mongo uri
+      extraArgs: ""
+      # --   set the mongo hosts if mongo.installed is set to false
+      hosts: []
+      # -- set false to configure external mongo and generate mongo uri protocol://hosts?extraArgs
+      installed: true
+      # -- provide the passwordKey to reference mongo password
+      passwordKey: ""
+      # -- set the protocol for mongo uri
+      protocol: mongodb
+      # -- provide the secretname to reference mongo username and password
+      secretName: ""
+      # -- provide the userKey to reference mongo username
+      userKey: ""
+    postgres:
+      ## - extra arguments set to connection string
+      extraArgs: ""
+      ## - host array for external
+      hosts:
+        - <postgres ip>:5432
+      ## - set this to false if you want to use external postgre cluster
+      installed: true
+      ## - key within secret containing password
+      passwordKey: "password"
+      ## - protocol to use for connection
+      protocol: postgres
+      ## - secret name containing external postgresql credentials
+      secretName: "postgres-secret"
+      ## - key within secret containing username
+      userKey: "user"
+    redis:
+      # --  provide host name for redis
+      hosts:
+        - <internal-endpoint-with-port>
+      ## - set this to false if you want to use external redis cluster
+      installed: true
+      ## - key within secret containing password
+      passwordKey: "password"
+      ## - secret name containing external redis credentials
+      secretName: "redis-user-pass"
+      ## - key within secret containing username
+      userKey: "username"
+    timescaledb:
+      ## - key name within secret containing certificates
+      certKey: "cert"
+      ## - secret name containing timescaledb certificates
+      certName: "tsdb-cert"
+      # --  provide host name for timescaledb
+      hosts:
+        - hostname.timescale.com:5432
+      ## - set this to false if you want to use external timescaledb cluster
+      installed: true
+      ## - key within secret containing password
+      passwordKey: "password"
+      ## - secret name containing external timescaledb credentials
+      secretName: "tsdb-secret"
+      ## - set this to true if you want to enabled external timescaledb ssl traffic
+      sslEnabled: false
+      ## - key within secret containing username
+      userKey: "username"
+  # -- Enable to install Feature Flags (FF)
+  ff:
+    enabled: false
+  # -- Enable to install gitops
+  gitops:
+    enabled: false
+  # -- High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV
+  ha: true
+  # -- This private Docker image registry will override any registries that are defined in subcharts.
+  imageRegistry: ""
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
-    enabled: false
-    loadBalancerIP: '0.0.0.0'
-    loadBalancerEnabled: false
     className: "harness"
-    # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
-    # If not set, internal request routing would happen via global.loadbalancerUrl
-    ingressGatewayServiceUrl: ""
+    enabled: false
     # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
     hosts:
       - 'myhost.example.com'
+    # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    ingressGatewayServiceUrl: ""
     tls:
       enabled: true
       secretName: harness-cert
-
-    # -- Section to provide configuration on an NGINX ingress controller.
-    nginx:
-      # -- Create Nginx Controller.  True will deploy a controller into your cluster
-      create: false
-      healthPort: ""
-      healthNodePort: ""
-      httpNodePort: ""
-      httpsNodePort: ""
-      controller:
-        # -- annotations to be addded to ingress Controller
-        annotations: {}
-      objects:
-        # -- annotations to be added to ingress Objects
-        annotations: {}
-      nodeSelector: {}
-      tolerations: []
-      affinity: {}
-      image:
-        registry:  us.gcr.io
-        repository: k8s-artifacts-prod/ingress-nginx/controller
-        pullPolicy: IfNotPresent
-        # Overrides the image tag whose default is the chart appVersion.
-        tag: "v1.0.0-alpha.2"
-        digest: ""
-      resources:
-        limits:
-          memory: '512Mi'
-        requests:
-          cpu: '0.5'
-          memory: '512Mi'
-
-
-    defaultbackend:
-      # -- Create will deploy a default backend into your cluster
-      create: false
-      image:
-        registry: registry.k8s.io
-        repository: defaultbackend-amd64
-        pullPolicy: IfNotPresent
-        # Overrides the image tag whose default is the chart appVersion.
-        tag: "1.5"
-        digest: ""
-      resources:
-        limits:
-          memory: 20Mi
-        requests:
-          cpu: 10m
-          memory: 20Mi
-
   # -- Istio Ingress Settings
   istio:
     enabled: false
-    strict: false
     gateway:
       create: true
-      port: 443
       # -- override the name of gateway
       name: ""
       # -- override the name of namespace to deploy gateway
       namespace: ""
+      port: 443
+      protocol: HTTPS
       # -- adds a gateway selector
       selector:
         istio: ingressgateway
-      protocol: HTTPS
-    # -- set to istio gateway's k8s service FQDN for internal use case. eg "internal-istio-gateway.istio-system.svc.cluster.local"
-    # If not set, internal request routing would happen via global.loadbalancerUrl
-    istioGatewayServiceUrl: ""
     # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
     hosts:
       - '*'
+    # -- set to istio gateway's k8s service FQDN for internal use case. eg "internal-istio-gateway.istio-system.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    istioGatewayServiceUrl: ""
+    strict: false
     tls:
       credentialName: harness-cert
       minProtocolVersion: TLSV1_2
@@ -241,100 +140,138 @@ global:
       # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
       hosts:
         - "myhostname.example.com"
-
+  # -- set kubernetes version override, unrequired if installing using Helm.
+  kubeVersion: ""
+  # -- Place the license key, Harness support team will provide these
+  license:
+    cg: ''
+    ng: ''
+  # -- Provide your URL for your intended load balancer
+  loadbalancerURL: https://myhostname.example.com
+  lwd:
+    autocud:
+      enabled: false
+    enabled: false
+  migrator:
+    enabled: false
+  # -- Enable SSL for MongoDB service
+  mongoSSL: false
+  # -- Enable monitoring for all harness services: disabled by default
+  monitoring:
+    enabled: false
+    path: /metrics
+    port: 8889
+  # -- Enable to install NG (Next Generation Harness Platform)
+  ng:
+    enabled: true
+  # -- Enable to install Next Generation Custom Dashboards (Beta)
+  ngcustomdashboard:
+    enabled: false
+  # -- Enable to install Open Policy Agent (OPA)
+  opa:
+    enabled: false
+  # --  SAML auto acceptance. Enabled will not send invites to email and autoaccepts
+  saml:
+    autoaccept: false
+  # -- Method to create a secret for your SMTP server
+  smtpCreateSecret:
+    enabled: false
+  # -- Enable to install Site Reliability Management (SRM)
+  srm:
+    enabled: false
+  # -- Enable stack driver logging
+  stackDriverLoggingEnabled: false
+  # -- Enable to install Security Test Orchestration (STO)
+  sto:
+    enabled: false
+  # -- Configure storage class for Mongo,Timescale,Redis
+  storageClass: ""
+  # -- Configure storage class for Harness
+  storageClassName: ""
+  # -- Utilize immutable delegates (default = true)
+  useImmutableDelegate: "true"
+  # -- Use delegate minimal image (default = false)
+  useMinimalDelegateImage: false
+ccm:
+  # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
+  batch-processing:
+    # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
+    awsAccountTagsCollectionJobConfig:
+      enabled: true
+    cloudProviderConfig:
+      CLUSTER_DATA_GCS_BACKUP_BUCKET: "placeHolder"
+      CLUSTER_DATA_GCS_BUCKET: "placeHolder"
+      DATA_PIPELINE_CONFIG_GCS_BASE_PATH: "placeHolder"
+      GCP_PROJECT_ID: "placeHolder"
+      S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
+      S3_SYNC_CONFIG_REGION: "placeHolder"
+    # -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
+    stackDriverLoggingEnabled: false
+  ce-nextgen:
+    cloudProviderConfig:
+      GCP_PROJECT_ID: "placeHolder"
+    # -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
+    stackDriverLoggingEnabled: false
+  # -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
+  event-service:
+    stackDriverLoggingEnabled: false
+# -- Config for Continuous Error Tracking (CET)
+cet:
+  # -- Flag to enable error-tracking (ET) receivers
+  enable-receivers: false
+  # -- Install the error-tracking (ET) collector
+  et-collector:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  # -- Install the error-tracking (ET) receiver agent
+  et-receiver-agent:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  # -- Install the error-tracking (ET) receiver decompiler
+  et-receiver-decompile:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  # -- Install the error-tracking (ET) receiver hit
+  et-receiver-hit:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  # -- Install the error-tracking (ET) receiver sql service
+  et-receiver-sql:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  # -- Install the error-tracking (ET) service
+  et-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+chaos:
+  chaos-manager:
+    nodeSelector: {}
+    tolerations: []
+  chaos-web:
+    nodeSelector: {}
+    tolerations: []
 # -- Install the Continuous Integration (CI) manager pod
 ci:
   ci-manager:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
-# -- Config for Security Test Orchestration (STO)
-sto:
-  # -- Install the STO core
-  sto-core:
+  ti-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-    autoscaling:
-      enabled: false
-  # -- Install the STO manager
-  sto-manager:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    autoscaling:
-      enabled: false
-# -- overrides for Postgresql
-infra:
-  postgresql:
-    metrics:
-        enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9187'
-      prometheus.io/scrape: 'false'
-    auth:
-      existingSecret: "postgres"
-
-# -- Config for Continuous Error Tracking (CET)
-cet:
-  # -- Flag to enable error-tracking (ET) receivers
-  enable-receivers: false
-
-  # -- Install the error-tracking (ET) service
-  et-service:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
-  # -- Install the error-tracking (ET) collector
-  et-collector:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
-  # -- Install the error-tracking (ET) receiver decompiler
-  et-receiver-decompile:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
-  # -- Install the error-tracking (ET) receiver hit
-  et-receiver-hit:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
-  # -- Install the error-tracking (ET) receiver sql service
-  et-receiver-sql:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
-  # -- Install the error-tracking (ET) receiver agent
-  et-receiver-agent:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
-# -- Install the Next Generation customer dashboard
-ngcustomdashboard:
-  # -- Install the looker service
-  looker:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-  # -- Install the Next Generation customer dashboards service
-  ng-custom-dashboards:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
+enabled: false
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
+    affinity: {}
     # -- set mongoHosts for external database hosts
     # -- mongoHosts:
     # -- - replica1.host.com:27017
@@ -344,191 +281,213 @@ platform:
     # -- enable mongoSSL for external database connections
     mongoSSL:
       enabled: false
-    affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  bootstrap:
+    database:
+      clickhouse:
+        enabled: false
+      minio:
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+      mongodb:
+        affinity: {}
+        arbiter:
+          affinity: {}
+          nodeSelector: {}
+          tolerations: []
+        metrics:
+          enabled: false
+        nodeSelector: {}
+        podAnnotations:
+          prometheus.io/path: /metrics
+          prometheus.io/port: '9216'
+          prometheus.io/scrape: 'false'
+        tolerations: []
+      postgresql:
+        auth:
+          existingSecret: "postgres"
+        metrics:
+          enabled: false
+        podAnnotations:
+          prometheus.io/path: /metrics
+          prometheus.io/port: '9187'
+          prometheus.io/scrape: 'false'
+      redis:
+        affinity: {}
+        metrics:
+          enabled: false
+        nodeSelector: {}
+        podAnnotations:
+          prometheus.io/path: /metrics
+          prometheus.io/port: '9121'
+          prometheus.io/scrape: 'false'
+        tolerations: []
+      timescaledb:
+        affinity: {}
+        nodeSelector: {}
+        podAnnotations:
+          prometheus.io/path: /metrics
+          prometheus.io/port: '9187'
+          prometheus.io/scrape: 'false'
+        prometheus:
+          enabled: false
+        tolerations: []
+    harness-secrets:
+      enabled: true
+      # -- learning-engine (taints, tolerations, and so on)
+    networking:
+      defaultbackend:
+        # -- Create will deploy a default backend into your cluster
+        create: false
+        image:
+          digest: ""
+          pullPolicy: IfNotPresent
+          registry: registry.k8s.io
+          repository: defaultbackend-amd64
+          # Overrides the image tag whose default is the chart appVersion.
+          tag: "1.5"
+        resources:
+          limits:
+            memory: 20Mi
+          requests:
+            cpu: 10m
+            memory: 20Mi
+      nginx:
+        affinity: {}
+        controller:
+          # -- annotations to be addded to ingress Controller
+          annotations: {}
+        # -- Create Nginx Controller.  True will deploy a controller into your cluster
+        create: false
+        healthNodePort: ""
+        healthPort: ""
+        httpNodePort: ""
+        httpsNodePort: ""
+        image:
+          digest: ""
+          pullPolicy: IfNotPresent
+          registry: us.gcr.io
+          repository: k8s-artifacts-prod/ingress-nginx/controller
+          # Overrides the image tag whose default is the chart appVersion.
+          tag: "v1.0.0-alpha.2"
+        loadBalancerEnabled: false
+        loadBalancerIP: '0.0.0.0'
+        nodeSelector: {}
+        objects:
+          # -- annotations to be added to ingress Objects
+          annotations: {}
+        resources:
+          limits:
+            memory: '512Mi'
+          requests:
+            cpu: '0.5'
+            memory: '512Mi'
+        tolerations: []
   # -- change-data-capture settings (taints, tolerations, and so on)
   change-data-capture:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
-  # -- cv-nextgen settings (taints, tolerations, and so on)
-  cv-nextgen:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
   # -- delegate proxy settings (taints, tolerations, and so on)
   delegate-proxy:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
   # -- gateway settings (taints, tolerations, and so on)
   gateway:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
   # -- harness-manager (taints, tolerations, and so on)
   harness-manager:
     affinity: {}
-    nodeSelector: {}
-    tolerations: []
     # -- These flags are used by the helper function to create the FEATURES config value based off the global.<feature>.enabled boolean
     # -- Feature Flags
     featureFlags:
-      # -- Base flags for all modules(enabled by Default)
-      Base: "LDAP_SSO_PROVIDER,ASYNC_ARTIFACT_COLLECTION,JIRA_INTEGRATION,AUDIT_TRAIL_UI,GDS_TIME_SERIES_SAVE_PER_MINUTE,STACKDRIVER_SERVICEGUARD,BATCH_SECRET_DECRYPTION,TIME_SERIES_SERVICEGUARD_V2,TIME_SERIES_WORKFLOW_V2,CUSTOM_DASHBOARD,GRAPHQL,CV_FEEDBACKS,LOGS_V2_247,UPGRADE_JRE,LOG_STREAMING_INTEGRATION,NG_HARNESS_APPROVAL,GIT_SYNC_NG,NG_SHOW_DELEGATE,NG_CG_TASK_ASSIGNMENT_ISOLATION,CI_OVERVIEW_PAGE,AZURE_CLOUD_PROVIDER_VALIDATION_ON_DELEGATE,TERRAFORM_AWS_CP_AUTHENTICATION,NG_TEMPLATES,NEW_DEPLOYMENT_FREEZE,HELM_CHART_AS_ARTIFACT,RESOLVE_DEPLOYMENT_TAGS_BEFORE_EXECUTION,WEBHOOK_TRIGGER_AUTHORIZATION,GITHUB_WEBHOOK_AUTHENTICATION,CUSTOM_MANIFEST,GIT_ACCOUNT_SUPPORT,AZURE_WEBAPP,LDAP_GROUP_SYNC_JOB_ITERATOR,POLLING_INTERVAL_CONFIGURABLE,APPLICATION_DROPDOWN_MULTISELECT,USER_GROUP_AS_EXPRESSION,RESOURCE_CONSTRAINT_SCOPE_PIPELINE_ENABLED,NG_TEMPLATE_GITX,ELK_HEALTH_SOURCE,NG_ENABLE_LDAP_CHECK,CVNG_METRIC_THRESHOLD,SRM_HOST_SAMPLING_ENABLE,SRM_ENABLE_HEALTHSOURCE_CLOUDWATCH_METRICS,NG_SETTINGS"
-      # -- NG Specific Feature Flags(activated when global.ng is enabled)
-      NG: "ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE,PL_ENABLE_JIT_USER_PROVISION"
-      # -- CD Feature Flags (activated when global.cd is enabled)
-      CD: "CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION"
-      # -- CI Feature Flags (activated when global.ci is enabled)
-      CI: "CING_ENABLED,CI_INDIRECT_LOG_UPLOAD,CI_LE_STATUS_REST_ENABLED"
-      # -- STO Feature Flags (activated when global.sto is enabled)
-      STO: "SECURITY,SECURITY_STAGE,STO_CI_PIPELINE_SECURITY,STO_API_V2"
-      # -- SRM Flags (activated when global.srm is enabled)
-      SRM: "CVNG_ENABLED"
-      # -- Custom Dashboard Flags (activated when global.dashboards is enabled)
-      CDB: "NG_DASHBOARDS"
-      # -- FF Feature Flags (activated when global.ff is enabled)
-      FF: "CFNG_ENABLED"
-      # -- CCM Feature Flags (activated when global.ccm is enabled)
-      CCM: "CENG_ENABLED,CCM_MICRO_FRONTEND,NODE_RECOMMENDATION_AGGREGATE"
-      # -- GitOps Feature Flags (activated when global.gitops is enabled)
-      GitOps: "GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN"
-      # -- OPA (activated when global.opa is enabled)
-      OPA: "OPA_PIPELINE_GOVERNANCE,OPA_GIT_GOVERNANCE"
-      # -- CHAOS Feature Flags (activated when global.chaos is enabled)
-      CHAOS: "CHAOS_ENABLED"
-      # -- CET Feature Flags (activated when global.cet is enabled)
-      CET: "CET_ENABLED,SRM_CODE_ERROR_NOTIFICATIONS,SRM_ET_RESOLVED_EVENTS,SRM_ET_CRITICAL_EVENTS"
-      # -- AutoAccept Feature Flags
-      SAMLAutoAccept: "AUTO_ACCEPT_SAML_ACCOUNT_INVITES,PL_NO_EMAIL_FOR_SAML_ACCOUNT_INVITES"
       # -- Additional Feature Flag (placeholder to add any other featureFlags)
       ADDITIONAL: ""
-
-  # -- deploy harness-secret( set false to not deploy any secrets)
-  harness-secrets:
-    enabled: true
-
-   # -- learning-engine (taints, tolerations, and so on)
-  learning-engine:
-    affinity: {}
+      # -- Base flags for all modules(enabled by Default)
+      Base: "LDAP_SSO_PROVIDER,ASYNC_ARTIFACT_COLLECTION,JIRA_INTEGRATION,AUDIT_TRAIL_UI,GDS_TIME_SERIES_SAVE_PER_MINUTE,STACKDRIVER_SERVICEGUARD,BATCH_SECRET_DECRYPTION,TIME_SERIES_SERVICEGUARD_V2,TIME_SERIES_WORKFLOW_V2,CUSTOM_DASHBOARD,GRAPHQL,CV_FEEDBACKS,LOGS_V2_247,UPGRADE_JRE,LOG_STREAMING_INTEGRATION,NG_HARNESS_APPROVAL,GIT_SYNC_NG,NG_SHOW_DELEGATE,NG_CG_TASK_ASSIGNMENT_ISOLATION,CI_OVERVIEW_PAGE,AZURE_CLOUD_PROVIDER_VALIDATION_ON_DELEGATE,TERRAFORM_AWS_CP_AUTHENTICATION,NG_TEMPLATES,NEW_DEPLOYMENT_FREEZE,HELM_CHART_AS_ARTIFACT,RESOLVE_DEPLOYMENT_TAGS_BEFORE_EXECUTION,WEBHOOK_TRIGGER_AUTHORIZATION,GITHUB_WEBHOOK_AUTHENTICATION,CUSTOM_MANIFEST,GIT_ACCOUNT_SUPPORT,AZURE_WEBAPP,LDAP_GROUP_SYNC_JOB_ITERATOR,POLLING_INTERVAL_CONFIGURABLE,APPLICATION_DROPDOWN_MULTISELECT,USER_GROUP_AS_EXPRESSION,RESOURCE_CONSTRAINT_SCOPE_PIPELINE_ENABLED,NG_TEMPLATE_GITX,ELK_HEALTH_SOURCE,NG_ENABLE_LDAP_CHECK,CVNG_METRIC_THRESHOLD,SRM_HOST_SAMPLING_ENABLE,SRM_ENABLE_HEALTHSOURCE_CLOUDWATCH_METRICS,NG_SETTINGS"
+      # -- CCM Feature Flags (activated when global.ccm is enabled)
+      CCM: "CENG_ENABLED,CCM_MICRO_FRONTEND,NODE_RECOMMENDATION_AGGREGATE"
+      # -- CD Feature Flags (activated when global.cd is enabled)
+      CD: "CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION"
+      # -- Custom Dashboard Flags (activated when global.dashboards is enabled)
+      CDB: "NG_DASHBOARDS"
+      # -- CET Feature Flags (activated when global.cet is enabled)
+      CET: "CET_ENABLED,SRM_CODE_ERROR_NOTIFICATIONS,SRM_ET_RESOLVED_EVENTS,SRM_ET_CRITICAL_EVENTS"
+      # -- CHAOS Feature Flags (activated when global.chaos is enabled)
+      CHAOS: "CHAOS_ENABLED"
+      # -- CI Feature Flags (activated when global.ci is enabled)
+      CI: "CING_ENABLED,CI_INDIRECT_LOG_UPLOAD,CI_LE_STATUS_REST_ENABLED"
+      # -- FF Feature Flags (activated when global.ff is enabled)
+      FF: "CFNG_ENABLED"
+      # -- GitOps Feature Flags (activated when global.gitops is enabled)
+      GitOps: "GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN"
+      # -- NG Specific Feature Flags(activated when global.ng is enabled)
+      NG: "ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE,PL_ENABLE_JIT_USER_PROVISION"
+      # -- OPA (activated when global.opa is enabled)
+      OPA: "OPA_PIPELINE_GOVERNANCE,OPA_GIT_GOVERNANCE"
+      # -- AutoAccept Feature Flags
+      SAMLAutoAccept: "AUTO_ACCEPT_SAML_ACCOUNT_INVITES,PL_NO_EMAIL_FOR_SAML_ACCOUNT_INVITES"
+      # -- SRM Flags (activated when global.srm is enabled)
+      SRM: "CVNG_ENABLED"
+      # -- STO Feature Flags (activated when global.sto is enabled)
+      STO: "SECURITY,SECURITY_STAGE,STO_CI_PIPELINE_SECURITY,STO_API_V2"
     nodeSelector: {}
     tolerations: []
-
-  # -- le-nextgen (taints, tolerations, and so on)
-  le-nextgen:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
   # -- log-service (taints, tolerations, and so on)
   log-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  looker:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
   # -- migrator (taints, tolerations, and so on)
   migrator:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
-  # -- minio (taints, tolerations, and so on)
-  minio:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
-  # -- mongodb (taints, tolerations, and so on)
-  mongodb:
-    metrics:
-        enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9216'
-      prometheus.io/scrape: 'false'
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    arbiter:
-      affinity: {}
-      nodeSelector: {}
-      tolerations: []
-
   # -- next-gen-ui (Next Generation User Interface) (taints, tolerations, and so on)
   next-gen-ui:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
   # -- ng-auth-ui (Next Generation Authorization User Interface) (taints, tolerations, and so on)
   ng-auth-ui:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
+  ng-custom-dashboards:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
   # -- ng-manager (Next Generation Manager) (taints, tolerations, and so on)
   ng-manager:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
   # -- platform-service (Harness platform-related services) (taints, tolerations, and so on)
   platform-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
-  # -- redis (taints, tolerations, and so on)
-  redis:
-    metrics:
-      enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9121'
-      prometheus.io/scrape: 'false'
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
   # -- scm-service (taints, tolerations, and so on)
   scm-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
   # -- template-service (Harness template-related services) (taints, tolerations, and so on)
   template-service:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
-  # -- ti-service (Harness Test Intelligence-related services) (taints, tolerations, and so on)
-  ti-service:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-
-  # -- timescaledb (Timescale Database service) (taints, tolerations, and so on)
-  timescaledb:
-    prometheus:
-        enabled: false
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9187'
-      prometheus.io/scrape: 'false'
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -537,61 +496,36 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  # -- verificiation-service (Harness First CG verification service) (taints, tolerations, and so on)
+srm:
+  cv-nextgen:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  le-nextgen:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  learning-engine:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
   verification-svc:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
-
-# -- Enable the Cloud Cost Management (CCM) service
-ccm:
-  # -- Set ccm.clickhouse.enabled to true for AWS infrastructure
-  clickhouse:
-    enabled: false
-  # -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
-  event-service:
-    stackDriverLoggingEnabled: false
-  # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
-  batch-processing:
-    # -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
-    stackDriverLoggingEnabled: false
-    cloudProviderConfig:
-      CLUSTER_DATA_GCS_BACKUP_BUCKET: "placeHolder"
-      CLUSTER_DATA_GCS_BUCKET: "placeHolder"
-      DATA_PIPELINE_CONFIG_GCS_BASE_PATH: "placeHolder"
-      GCP_PROJECT_ID: "placeHolder"
-      S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
-      S3_SYNC_CONFIG_REGION: "placeHolder"
-    # -- Set ccm.clickhouse.enabled to true for AWS infrastructure
-    clickhouse:
+# -- Config for Security Test Orchestration (STO)
+sto:
+  # -- Install the STO core
+  sto-core:
+    affinity: {}
+    autoscaling:
       enabled: false
-    # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
-    awsAccountTagsCollectionJobConfig:
-      enabled: true
-  # -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
-  nextgen-ce:
-    # -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
-    stackDriverLoggingEnabled: false
-    cloudProviderConfig:
-      GCP_PROJECT_ID: "placeHolder"
-    # -- Set ccm.clickhouse.enabled to true for AWS infrastructure
-    clickhouse:
-      enabled: false
-
-# -- Enable the Cloud Cost Management (CCM) service for the Next Generation Manager
-ng-manager:
-  ceGcpSetupConfigGcpProjectId: "placeHolder"
-
-chaos:
-  chaos-manager:
     nodeSelector: {}
     tolerations: []
-
-  chaos-driver:
-    nodeSelector: {}
-    tolerations: []
-
-  chaos-web:
+  # -- Install the STO manager
+  sto-manager:
+    affinity: {}
+    autoscaling:
+      enabled: false
     nodeSelector: {}
     tolerations: []

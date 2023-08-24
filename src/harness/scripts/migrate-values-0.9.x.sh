@@ -161,7 +161,7 @@ yq eval '(select(has("ccm") and .ccm | has("clickhouse")) | .platform.bootstrap.
 echo "Migrated ccm.clickhouse to platform.bootstrap.database.clickhouse "
 
 # - clickhouse enabled moved to global flag. earlier ccm.clickhouse.enabled converted to global.database.clickhouse.enabled
-yq eval '(select(has("ccm") and .ccm | has("clickhouse")) | .global.database.clickhouse = .ccm.clickhouse | del(.ccm.clickhouse)) // .' -i "$newOverrideFile"
+yq eval '(select(has("ccm") and .ccm | has("clickhouse")) | .global.database.clickhouse = .ccm.clickhouse | del(.ccm.clickhouse)) // (select(.global.database.clickhouse == null) | .global.database.clickhouse += {"enabled": false}) // .' -i "$newOverrideFile"
 yq eval 'del(.ccm.nextgen-ce.clickhouse)' -i "$newOverrideFile"
 yq eval 'del(.ccm.batch-processing.clickhouse)' -i "$newOverrideFile"
 echo "Migrated ccm.clickhouse to global.database.clickhouse "
@@ -177,7 +177,8 @@ echo -e "\n----------------------------------------\n ngcustomdashboard \n------
 yq eval '(select(has("ngcustomdashboard") and .ngcustomdashboard | has("ng-custom-dashboards")) | .platform.ng-custom-dashboards = .ngcustomdashboard.ng-custom-dashboards) // .' -i "$newOverrideFile"
 yq eval '(select(has("ngcustomdashboard") and .ngcustomdashboard | has("looker")) | .platform.looker = .ngcustomdashboard.looker | del(.ngcustomdashboard)) // .' -i "$newOverrideFile"
 echo "Migrated ngcustomdashboard to platform"
-echo
+yq eval '(select(.platform.looker.ingress.host != null and .platform.looker.ingress.hosts ==null ) | .platform.looker.ingress.hosts = [] ) // . | del(.platform.looker.ingress.host) ' -i "$newOverrideFile"
+echo "moved looker.ingress.host to looker.ingress.hosts"
 
 ## policy-mgmt
 echo -e "\n----------------------------------------\n policy-mgmt \n----------------------------------------"
@@ -199,8 +200,8 @@ yq eval '(select(has("srm") and .srm | has("et-receiver-decompile")) | .cet.et-r
 echo "Migrated srm.et-receiver-decompile to cet.et-receiver-decompile "
 yq eval '(select(has("srm") and .srm | has("et-receiver-hit")) | .cet.et-receiver-hit = .srm.et-receiver-hit | del(.srm.et-receiver-hit)) // .' -i "$newOverrideFile"
 echo "Migrated srm.et-receiver-hit to cet.et-receiver-hit "
-yq eval '(select(has("srm") and .srm | has("et-receiver-sql ")) | .cet.et-receiver-sql = .srm.et-receiver-sql | del(.srm.et-receiver-sql)) // .' -i "$newOverrideFile"
-echo "Migrated srm.et-receiver-sql to cet.et-receiver-sql "
+yq eval '(select(has("srm") and .srm | has("et-receiver-sql")) | .cet.et-receiver-sql = .srm.et-receiver-sql | del(.srm.et-receiver-sql)) // .' -i "$newOverrideFile"
+echo "Migrated srm.et-receiver-sql to cet.et-receiver-sql"
 yq eval '(select(has("srm") and .srm | has("et-receiver-agent")) | .cet.et-receiver-agent = .srm.et-receiver-agent | del(.srm.et-receiver-agent)) // .' -i "$newOverrideFile"
 echo "Migrated srm.et-receiver-agent to cet.et-receiver-agent "
 echo
@@ -222,17 +223,28 @@ echo "No change required for bootstrap/rbac chart "
 # - move global.ingress.nginx to platform.bootstrap.networking.nginx
 yq eval '(select( .global | has("ingress") and .global.ingress | has("nginx")) | .platform.bootstrap.networking.nginx = .global.ingress.nginx | del(.global.ingress.nginx)) // .' -i "$newOverrideFile"
 echo "Migrated global.ingress.nginx to platform.bootstrap.networking.nginx "
+# - move global.ingress.loadBalancerEnabled to platform.bootstrap.networking.nginx.loadBalancerEnabled
+yq eval '(select( .global | has("ingress") and .global.ingress | has("loadBalancerEnabled")) | .platform.bootstrap.networking.nginx.loadBalancerEnabled = .global.ingress.loadBalancerEnabled | del(.global.ingress.loadBalancerEnabled)) // .' -i "$newOverrideFile"
+# - move global.ingress.loadBalancerIP to platform.bootstrap.networking.nginx.loadBalancerIP
+yq eval '(select( .global | has("ingress") and .global.ingress | has("loadBalancerIP")) | .platform.bootstrap.networking.nginx.loadBalancerIP = .global.ingress.loadBalancerIP | del(.global.ingress.loadBalancerIP)) // .' -i "$newOverrideFile"
+echo "Migrated global.ingress.loadBalancer* to platform.bootstrap.networking.nginx.loadBalancer* "
+
 
 # - move global.ingress.nginx to platform.bootstrap.networking.nginx
 yq eval '(select( .global | has("ingress") and .global.ingress | has("defaultbackend")) | .platform.bootstrap.networking.defaultbackend = .global.ingress.defaultbackend | del(.global.ingress.defaultbackend)) // .' -i "$newOverrideFile"
 echo "Migrated global.ingress.defaultbackend to platform.bootstrap.networking.defaultbackend "
 
-# 
+#
 yq eval 'del(.ng-manager)' -i "$newOverrideFile"
-echo
+echo "Set lwd and ccm to defaultly false \n"
+
+yq eval '.global.lwd.autocud.enabled = false | .global.lwd.enabled = false' -i "$newOverrideFile"
 
 ###################################################
 
 yq eval -i 'sortKeys(..)' $newOverrideFile
+
+# - keep global at the top
+yq eval '. as $doc | del(.global) | {"global": $doc.global} + $doc ' -i  $newOverrideFile
 
 echo -e "\nMigration completed\n"
