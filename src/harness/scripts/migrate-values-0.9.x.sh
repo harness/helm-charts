@@ -222,7 +222,7 @@ echo "No change required for bootstrap/rbac chart "
 
 # - move global.ingress.nginx to platform.bootstrap.networking.nginx
 yq eval '(select(.global.ingress.nginx.objects != null) | .global.ingress.objects = .global.ingress.nginx.objects | del(.global.ingress.nginx.objects)) // .' -i "$newOverrideFile"
-echo "Migrated global.ingress.nginx to platform.bootstrap.networking.nginx "
+echo "Migrated global.ingress.nginx.objects to global.ingress.objects "
 
 yq eval '(select( .global | has("ingress") and .global.ingress | has("nginx")) | .platform.bootstrap.networking.nginx = .global.ingress.nginx | del(.global.ingress.nginx)) // .' -i "$newOverrideFile"
 echo "Migrated global.ingress.nginx to platform.bootstrap.networking.nginx "
