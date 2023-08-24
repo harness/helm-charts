@@ -1,6 +1,6 @@
 ## Harness Helm Charts
 
-This readme provides the basic instructions you need to deploy Harness using a Helm chart. The Helm chart deploys Harness in a production configuration.
+This readme provides the basic instructions to deploy Harness using a Helm chart. The Helm chart deploys Harness in a production configuration.
 
 {{ template "chart.description" . }}
 
@@ -10,7 +10,7 @@ For full release notes, go to [Self-Managed Enterprise Edition release notes](ht
 
 ## Usage
 
-Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, see the [Helm documentation](https://helm.sh/docs/).
+Harness Helm charts require the installation of [Helm](https://helm.sh). To download and get started with Helm, go to the [Helm documentation](https://helm.sh/docs/).
 
 Use the following command to add the Harness chart repository to your Helm installation:
 
@@ -53,8 +53,15 @@ $ helm get values my-release > old_values.yaml
 4. Use the `helm upgrade` command to update the chart:
 
 Helm Upgrade
+
+Use the `helm upgrade` command to update the chart for your `override-demo.yaml` file or `override-prod.yaml` file.
+
 ```
-$ helm upgrade my-release harness/harness-demo -n <namespace> -f old_values.yaml
+$ helm upgrade my-release harness/harness -n <namespace> -f override-demo.yaml -f old_values.yaml
+```
+
+```
+$ helm upgrade my-release harness/harness -n <namespace> -f override-prod.yaml -f old_values.yaml
 ```
 
 ## Uninstall the chart
