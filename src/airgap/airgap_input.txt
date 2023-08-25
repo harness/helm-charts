@@ -102,7 +102,6 @@
     ng-ce-ui
     telescopes-signed
     ce-cloud-info-signed
-    ui-signed
     clickhouse
 
 [ce]:
