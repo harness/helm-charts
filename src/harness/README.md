@@ -1,8 +1,8 @@
 ## Harness Helm Charts
 
-This readme provides the basic instructions you need to deploy Harness using a Helm chart. The Helm chart deploys Harness in a production configuration.
+This readme provides the basic instructions to deploy Harness using a Helm chart. The Helm chart deploys Harness in a production configuration.
 
-Helm Chart for deploying Harness.
+Helm Chart to deploy Harness.
 
 ![Version: 0.9.0](https://img.shields.io/badge/Version-0.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.79819](https://img.shields.io/badge/AppVersion-1.0.79819-informational?style=flat-square)
 
