@@ -120,7 +120,19 @@
 {{- end }}
 {{- if gt (len $validationErrors) 0 }}
 {{- $validationErrorHeading := printf "\n\n Validation Error: \n values/override.yaml files require changes to work with the new Harness Helm Charts structure \n\n" }}
-{{- $validationErrorHeading = printf "%s In harness-0.9.x, Harness helm charts have been restructured and the following fields in provided values/override.yaml need to be migrated as follows:" $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s In harness-0.9.x, Harness helm charts have been restructured and the impacted fields in provided values/override.yaml need to be migrated by following the steps below \n\n" $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s Steps: \n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s 1. Download 'migrate-values-0.9.x.sh' script by navigating to the below URL:\n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s    https://github.com/harness/helm-charts/blob/release/0.9.0/src/harness/scripts/migrate-values-0.9.x.sh\n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s    Note: migrate-values-0.9.x.sh script requires 'yq' to be installed \n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s 2. Get values from the installed harness release:\n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s    helm get values my-release > old_values.yaml \n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s 3. Run 'migrate-values-0.9.x.sh' script with the old_values.yaml as input to restrucutre it to work with the new Harness Helm Charts structure  \n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s    ./migrate-values-0.9.x.sh -f old_values.yaml  \n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s 4. A new values file with 'migrated' suffix will be created: old_values-migrated.yaml  \n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s 5. Upgrade Harness using the migrated values file as follows:  \n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s    helm upgrade my-release harness/harness -n <namespace> -f old_values-migrated.yaml  \n\n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%sImpacted fields/values: " $validationErrorHeading }}
 {{- $validationErrors = printf "%s \n %s" $validationErrorHeading $validationErrors }}
 {{- fail $validationErrors }}
 {{- end -}}
