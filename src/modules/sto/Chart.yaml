@@ -6,7 +6,7 @@ dependencies:
   version: 0.9.0
 - name: sto-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.9.0
+  version: 0.9.1
 description: Helm chart for Harness STO
 name: sto
 type: application
