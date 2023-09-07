@@ -342,10 +342,10 @@ platform:
       memory: "2048"
     resources:
       limits:
-        memory: 3000Mi
+        memory: 4000Mi
       requests:
         cpu: 2
-        memory: 3000Mi
+        memory: 4000Mi
 
   harness-secrets:
     enabled: true

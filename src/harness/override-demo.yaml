@@ -478,10 +478,10 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        memory: 3000Mi
+        memory: 4000Mi
       requests:
         cpu: 0.5
-        memory: 3000Mi
+        memory: 4000Mi
   log-service:
     autoscaling:
       enabled: false
