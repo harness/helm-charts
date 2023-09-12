@@ -1,13 +1,16 @@
 apiVersion: v2
 appVersion: 1.0.79819
 dependencies:
-- name: ccm
+- condition: global.ccm.enabled
+  name: ccm
   repository: https://harness.github.io/helm-charts
   version: 0.9.0
-- name: cd
+- condition: global.cd.enabled
+  name: cd
   repository: https://harness.github.io/helm-charts
   version: 0.9.0
-- name: cet
+- condition: global.cet.enabled
+  name: cet
   repository: https://harness.github.io/helm-charts
   version: 0.9.0
 - condition: global.chaos.enabled
@@ -25,7 +28,8 @@ dependencies:
 - name: platform
   repository: https://harness.github.io/helm-charts
   version: 0.9.0
-- name: srm
+- condition: global.srm.enabled
+  name: srm
   repository: https://harness.github.io/helm-charts
   version: 0.9.0
 - condition: global.sto.enabled
