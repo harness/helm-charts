@@ -436,8 +436,8 @@ platform:
     CHAOS: "CHAOS_ENABLED"
     # -- CET Feature Flags
     CET: "CET_ENABLED,SRM_CODE_ERROR_NOTIFICATIONS,SRM_ET_RESOLVED_EVENTS,SRM_ET_CRITICAL_EVENTS"
-  # -- Additional Feature Flag
-  ADDITIONAL: ""
+    # -- Additional Feature Flag
+    ADDITIONAL: ""
     nodeSelector: {}
     tolerations: []
   # -- log-service (taints, tolerations, and so on)
