@@ -2,7 +2,6 @@
     le-nextgen-signed
     ci-scm-signed
     template-service-signed
-    ti-service-signed
     platform-service-signed
     pipeline-service-signed
     ng-manager-signed
@@ -25,6 +24,7 @@
     postgresql
     dashboard-service-signed
     looker-signed
+    ng-dashboard-aggregator-signed
     policy-mgmt
     curl
     migrator-signed
@@ -40,6 +40,7 @@
     ubuntu
 
 [ci]:
+    ti-service-signed
     kaniko-acr
     ci-addon
     artifactory
@@ -118,3 +119,10 @@
     smp-chaos-manager-signed
     smp-chaos-web-signed
     source-probe
+    chaos-go-runner-base
+    chaos-go-runner-io
+    chaos-go-runner-time
+    chaos-go-runner
+    harness-k8s-chaos-infrastructure-upgrader
+    k8s
+    litmus-checker

@@ -53,7 +53,8 @@ dependencies:
   name: platform-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.3
-- name: policy-mgmt
+- condition: global.opa.enabled
+  name: policy-mgmt
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.1
 - condition: global.ng.enabled
