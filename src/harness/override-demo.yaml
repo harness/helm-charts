@@ -201,10 +201,40 @@ ccm:
       S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
       S3_SYNC_CONFIG_REGION: "placeHolder"
     stackDriverLoggingEnabled: false
+    # -- Set ccm.batch-processing.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
+    # -- Set ccm.batch-processing.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+    # -- Set ccm.batch-processing.proxy.port to proxy port, it takes integer value
+    # -- Set ccm.batch-processing.proxy.username and ccm.batch-processing.proxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set ccm.batch-processing.proxy.protocol to http or https depending on the proxy configuration
+    proxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
+  cloud-info:
+    # -- Set ccm.cloud-info.proxy.httpsProxyEnabled to true if we want calls aws sdk calls to ec2, pricing to go through proxy
+    # -- Set ccm.cloud-info.proxy.httpsProxyUrl to proxy url(ex: http://localhost:8080, if http proxy is running on localhost port 8080)
+    proxy:
+      httpsProxyEnabled: false
+      httpsProxyUrl: http://localhost
   ce-nextgen:
     cloudProviderConfig:
       GCP_PROJECT_ID: "placeHolder"
     stackDriverLoggingEnabled: false
+    # -- Set ccm.nextgen-ce.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
+    # -- Set ccm.nextgen-ce.proxy.host to proxy host or IP(ex: localhost, 127.0.0.1)
+    # -- Set ccm.nextgen-ce.proxy.port to proxy port, it takes integer value
+    # -- Set ccm.nextgen-ce.proxy.username and ccm.nextgen-ce.proxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set ccm.nextgen-ce.proxy.protocol to http or https depending on the proxy configuration
+    proxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
   event-service:
     stackDriverLoggingEnabled: false
 cet:
@@ -451,6 +481,18 @@ platform:
         cpu: 0.2
         memory: 1300Mi
   harness-manager:
+    # -- Set platform.harness-manager.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
+    # -- Set platform.harness-manager.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+    # -- Set platform.harness-manager.proxy.port to proxy port, it takes integer value
+    # -- Set platform.harness-manager.proxy.username and platform.harness-manager.proxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set platform.harness-manager.proxy.protocol to http or https depending on the proxy configuration
+    proxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
     autoscaling:
       enabled: false
     external_graphql_rate_limit: "500"
@@ -542,6 +584,18 @@ platform:
         cpu: 1
         memory: 500Mi
   ng-manager:
+    # -- Set platform.ng-manager.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
+    # -- Set platform.ng-manager.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+    # -- Set platform.ng-manager.proxy.port to proxy port, it takes integer value
+    # -- Set platform.ng-manager.proxy.username and platform.ng-manager.proxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set platform.ng-manager.proxy.protocol to http or https depending on the proxy configuration
+    proxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
     autoscaling:
       enabled: false
     java:
