@@ -305,6 +305,18 @@ platform:
     autoscaling:
       enabled: true
       minReplicas: 2
+    # -- Set platform.harness-manager.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
+    # -- Set platform.harness-manager.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+    # -- Set platform.harness-manager.proxy.port to proxy port, it takes integer value
+    # -- Set platform.harness-manager.proxy.username and platform.harness-manager.proxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set platform.harness-manager.proxy.protocol to http or https depending on the proxy configuration
+    proxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
     # -- These flags are used by the helper function to create the FEATURES config value based off the global.<feature>.enabled boolean
     # -- Feature Flags
     featureFlags:
@@ -454,6 +466,18 @@ platform:
       requests:
         cpu: 2
         memory: 6144Mi
+    # -- Set platform.harness-manager.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
+    # -- Set platform.harness-manager.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+    # -- Set platform.harness-manager.proxy.port to proxy port, it takes integer value
+    # -- Set platform.harness-manager.proxy.username and platform.harness-manager.proxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set platform.harness-manager.proxy.protocol to http or https depending on the proxy configuration
+    proxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
 
   pipeline-service:
     autoscaling:
@@ -788,12 +812,42 @@ ccm:
       enabled: false
     awsAccountTagsCollectionJobConfig:
       enabled: true
+    # -- Set ccm.batch-processing.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
+    # -- Set ccm.batch-processing.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+    # -- Set ccm.batch-processing.proxy.port to proxy port, it takes integer value
+    # -- Set ccm.batch-processing.proxy.username and ccm.batch-processing.proxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set ccm.batch-processing.proxy.protocol to http or https depending on the proxy configuration
+    proxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
+  cloud-info:
+    # -- Set ccm.cloud-info.proxy.httpsProxyEnabled to true if we want calls aws sdk calls to ec2, pricing to go through proxy
+    # -- Set ccm.cloud-info.proxy.httpsProxyUrl to proxy url(ex: http://localhost:8080, if http proxy is running on localhost port 8080)
+    proxy:
+      httpsProxyEnabled: false
+      httpsProxyUrl: http://localhost
   nextgen-ce:
     stackDriverLoggingEnabled: false
     cloudProviderConfig:
       GCP_PROJECT_ID: "placeHolder"
     clickhouse:
       enabled: false
+    # -- Set ccm.nextgen-ce.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
+    # -- Set ccm.nextgen-ce.proxy.host to proxy host or IP(ex: localhost, 127.0.0.1)
+    # -- Set ccm.nextgen-ce.proxy.port to proxy port, it takes integer value
+    # -- Set ccm.nextgen-ce.proxy.username and ccm.nextgen-ce.proxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set ccm.nextgen-ce.proxy.protocol to http or https depending on the proxy configuration
+    proxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
 
 ng-manager:
   ceGcpSetupConfigGcpProjectId: "placeHolder"
