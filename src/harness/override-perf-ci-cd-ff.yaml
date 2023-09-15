@@ -1,0 +1,173 @@
+# Use this override file in addition to override-prod.yaml
+
+ci:
+  ci-manager:
+    autoscaling:
+      enabled: false
+    replicaCount: 4
+    securityContext: {}
+    additionalConfigs:
+      PLAN_CREATOR_SERVICE_EXECUTOR_POOL_CORE_SIZE: "30"
+      PLAN_CREATOR_SERVICE_EXECUTOR_POOL_MAX_SIZE: "100"
+      ASYNC_DELEGATE_RESPONSE_THREAD_COUNT: "20"
+      DISTRIBUTED_LOCK_IMPLEMENTATION: "REDIS"
+    java:
+      memory: "4096m"
+    resources:
+      limits:
+        cpu: 3
+        memory: 6Gi
+      requests:
+        cpu: 3
+        memory: 6Gi
+​platform:
+  # Use the following redis configuration if using redis in-cluster installed by harness.
+  redis:
+    redis:
+      resources:
+        limits:
+          cpu: 8
+          memory: 30Gi
+        requests:
+          cpu: 8
+          memory: 30Gi
+  access-control:
+    autoscaling:
+      enabled: false
+    replicaCount: 3
+    # Update the following configuration if using external mongo
+    # mongoSSL:
+    #     enabled: true
+    # mongoHosts:
+    # - "shard-1"
+    # - "shard-2"
+    java:
+      memory: 3g
+    resources:
+      limits:
+        cpu: 3
+        memory: 6Gi
+      requests:
+        cpu: 3
+        memory: 6Gi
+  pipeline-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 8
+    securityContext: {}
+    additionalConfigs:
+      DISTRIBUTED_LOCK_IMPLEMENTATION: "REDIS"
+      ORCHESTRATION_POOL_CORE_SIZE: "40"
+      ORCHESTRATION_POOL_MAX_SIZE: "300"
+      PMS_SDK_EXECUTION_POOL_CORE_SIZE: "40"
+      PMS_SDK_EXECUTION_POOL_MAX_SIZE: "300"
+      PMS_SDK_ORCHESTRATION_EVENT_POOL_CORE_SIZE: "40"
+      PMS_SDK_ORCHESTRATION_EVENT_POOL_MAX_SIZE: "300"
+      PIPELINE_EXECUTION_POOL_CORE_SIZE: "40"
+      PIPELINE_EXECUTION_POOL_MAX_SIZE: "300"
+      ORCHESTRATION_VISUALIZATION_POOL_CORE_SIZE: "30"
+      ORCHESTRATION_VISUALIZATION_POOL_MAX_SIZE: "100"
+      PLAN_CREATOR_SERVICE_EXECUTOR_POOL_MAX_SIZE: "300"
+      JSON_EXPANSION_EXECUTOR_POOL_CORE_SIZE: "20"
+      JSON_EXPANSION_EXECUTOR_POOL_MAX_SIZE: "300"
+      YAML_SCHEMA_EXECUTOR_POOL_CORE_SIZE: "40"
+      YAML_SCHEMA_EXECUTOR_POOL_MAX_SIZE: "300"
+      TRIGGER_EXECUTION_EVENT: '40'
+      PMS_WEBHOOK_EVENT_CONSUMER_THREAD_COUNT: '20'
+      PIPELINE_SETUP_USAGE_CREATION_EXECUTOR_POOL_MAX_SIZE: '50'
+    java:
+      memory: "6g"
+    resources:
+      limits:
+        cpu: 4
+        memory: 8Gi
+      requests:
+        cpu: 4
+        memory: 8Gi
+  harness-manager:
+    autoscaling:
+      enabled: false
+    featureFlags:
+      ADDITIONAL: "SPG_SEND_TRIGGER_PIPELINE_FOR_WEBHOOKS_ASYNC,DELEGATE_TASK_LOAD_DISTRIBUTION,USE_K8S_API_FOR_STEADY_STATE_CHECK"
+    replicaCount: 5
+    java:
+      memory: "4096"
+    resources:
+      limits:
+        cpu: 4
+        memory: 6Gi
+      requests:
+        cpu: 4
+        memory: 6Gi
+    additionalConfigs:
+      REDIS_NETTY_THREADS: "32"
+  log-service:
+    autoscaling:
+      enabled: false
+    securityContext: {}
+    resources:
+      limits:
+        cpu: 4
+        memory: 6Gi
+      requests:
+        cpu: 4
+        memory: 6Gi
+  ng-manager:
+    autoscaling:
+      enabled: false
+    replicaCount: 4
+    java:
+      memory: "4096m"
+    resources:
+      limits:
+        cpu: 3
+        memory: 6Gi
+      requests:
+        cpu: 3
+        memory: 6Gi
+  scm-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 4
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
+  gateway:
+    autoscaling:
+      enabled: false
+    replicaCount: 3
+    additionalConfigs:
+      JAVA_ADVANCED_FLAGS: "-Dreactor.netty.ioWorkerCount=1024"
+    java:
+      memory: 3072
+    resources:
+      limits:
+        cpu: 2
+        memory: 6Gi
+      requests:
+        memory: 6Gi
+        cpu: 2
+  template-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 5
+    resources:
+      limits:
+        cpu: 1
+        memory: 6Gi
+      requests:
+        cpu: 1
+        memory: 6Gi
+ff:
+  ff-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 10
+  ff-pushpin-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 2
