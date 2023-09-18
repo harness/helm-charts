@@ -1,6 +1,8 @@
 global:
   # -- Enable for complete airgap environment
   airgap: false
+  # -- Enable this for autoscaling with Horizontal Pod Autoscaler
+  ha: true
   ccm:
     # -- Enable to install Cloud Cloud Management
     enabled: false
@@ -213,8 +215,13 @@ global:
     stsEndPointUrl: https://sts.us-east-2.amazonaws.com
     ecsEndPointUrl: https://ecs.us-east-2.amazonaws.com
     cloudwatchEndPointUrl: https://monitoring.us-east-2.amazonaws.com
+gitops:
+  autoscaling:
+    enabled: false
+  replicaCount: 2
 ccm:
   batch-processing:
+    replicaCount: 2
     awsAccountTagsCollectionJobConfig:
       enabled: true
     cloudProviderConfig:
@@ -250,6 +257,14 @@ ccm:
     stackDriverLoggingEnabled: false
   event-service:
     stackDriverLoggingEnabled: false
+  cloud-info:
+    replicaCount: 2
+  event-service:
+    replicaCount: 2
+  telescopes:
+    replicaCount: 2
+  anomaly-detection:
+    replicaCount: 2
 cet:
   enable-receivers: true
   et-collector:
@@ -539,7 +554,7 @@ platform:
   delegate-proxy:
     autoscaling:
       enabled: false
-    replicaCount: 1
+    replicaCount: 2
     resources:
       limits:
         memory: 100Mi
@@ -556,7 +571,7 @@ platform:
       limits:
         memory: 3072Mi
       requests:
-        cpu: 0.5
+        cpu: 1
         memory: 3072Mi
   harness-manager:
     autoscaling:
@@ -688,7 +703,7 @@ platform:
   scm-service:
     autoscaling:
       enabled: false
-    replicaCount: 1
+    replicaCount: 2
     resources:
       limits:
         memory: 512Mi
