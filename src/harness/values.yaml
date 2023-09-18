@@ -467,7 +467,7 @@ platform:
       # -- FF Feature Flags (activated when global.ff is enabled)
       FF: "CFNG_ENABLED"
       # -- GitOps Feature Flags (activated when global.gitops is enabled)
-      GitOps: "GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN"
+      GitOps: "GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN,GITOPS_ORG_LEVEL"
       # -- NG Specific Feature Flags(activated when global.ng is enabled)
       NG: "ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE,PL_ENABLE_JIT_USER_PROVISION"
       # -- OPA (activated when global.opa is enabled)
