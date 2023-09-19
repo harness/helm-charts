@@ -239,6 +239,34 @@ global:
       # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
       hosts:
         - "myhostname.example.com"
+  # -- Set global.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce, iam to go through proxy
+  # -- Set global.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+  # -- Set global.proxy.port to proxy port, it takes integer value
+  # -- Set global.proxy.username and global.proxy.password to proxy username and password, if not required remove it or keep blank
+  # -- Set global.proxy.protocol to http or https depending on the proxy configuration
+  proxy:
+    enabled: false
+    host: localhost
+    port: 80
+    username: ""
+    password: ""
+    protocol: http
+  # -- By default aws sdk uses respective services endpoint urls but in case we want to provide custom those endpoint urls we can use following
+  # -- Set global.awsServiceEndpointUrls.enabled to true if we want to enable custom endpoint urls
+  # -- Set global.awsServiceEndpointUrls.endPointRegion.host to valid AWS region where this endpoint is available
+  # -- Set global.awsServiceEndpointUrls.s3EndPointUrl to set s3 endpoint url
+  # -- Set global.awsServiceEndpointUrls.stsEndPointUrl to set sts endpoint url
+  # -- Set global.awsServiceEndpointUrls.ec2EndPointUrl to set ec2 endpoint url
+  # -- Set global.awsServiceEndpointUrls.ecsEndPointUrl to set ecs endpoint url
+  # -- Set global.awsServiceEndpointUrls.cloudwatchEndPointUrl to set cloud watch endpoint url
+  awsServiceEndpointUrls:
+    enabled: false
+    endPointRegion: us-east-2
+    s3EndPointUrl: https://s3.us-east-2.amazonaws.com
+    stsEndPointUrl: https://sts.us-east-2.amazonaws.com
+    ec2EndPointUrl: https://ec2.us-east-2.amazonaws.com
+    ecsEndPointUrl: https://ecs.us-east-2.amazonaws.com
+    cloudwatchEndPointUrl: https://monitoring.us-east-2.amazonaws.com
 
 # -- Install the Continuous Integration (CI) manager pod
 ci:
@@ -375,18 +403,6 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-    # -- Set platform.harness-manager.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
-    # -- Set platform.harness-manager.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
-    # -- Set platform.harness-manager.proxy.port to proxy port, it takes integer value
-    # -- Set platform.harness-manager.proxy.username and platform.harness-manager.proxy.password to proxy username and password, if not required remove it or keep blank
-    # -- Set platform.harness-manager.proxy.protocol to http or https depending on the proxy configuration
-    proxy:
-      enabled: false
-      host: localhost
-      port: 80
-      username: ""
-      password: ""
-      protocol: http
     # -- These flags are used by the helper function to create the FEATURES config value based off the global.<feature>.enabled boolean
     # -- Feature Flags
     featureFlags:
@@ -488,18 +504,6 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-    # -- Set platform.ng-manager.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
-    # -- Set platform.ng-manager.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
-    # -- Set platform.ng-manager.proxy.port to proxy port, it takes integer value
-    # -- Set platform.ng-manager.proxy.username and platform.ng-manager.proxy.password to proxy username and password, if not required remove it or keep blank
-    # -- Set platform.ng-manager.proxy.protocol to http or https depending on the proxy configuration
-    proxy:
-      enabled: false
-      host: localhost
-      port: 80
-      username: ""
-      password: ""
-      protocol: http
 
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
@@ -591,18 +595,6 @@ ccm:
     # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
     awsAccountTagsCollectionJobConfig:
       enabled: true
-    # -- Set ccm.batch-processing.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
-    # -- Set ccm.batch-processing.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
-    # -- Set ccm.batch-processing.proxy.port to proxy port, it takes integer value
-    # -- Set ccm.batch-processing.proxy.username and ccm.batch-processing.proxy.password to proxy username and password, if not required remove it or keep blank
-    # -- Set ccm.batch-processing.proxy.protocol to http or https depending on the proxy configuration
-    proxy:
-      enabled: false
-      host: localhost
-      port: 80
-      username: ""
-      password: ""
-      protocol: http
   cloud-info:
     # -- Set ccm.cloud-info.proxy.httpsProxyEnabled to true if we want calls aws sdk calls to ec2, pricing to go through proxy
     # -- Set ccm.cloud-info.proxy.httpsProxyUrl to proxy url(ex: http://localhost:8080, if http proxy is running on localhost port 8080)
@@ -618,18 +610,6 @@ ccm:
     # -- Set ccm.clickhouse.enabled to true for AWS infrastructure
     clickhouse:
       enabled: false
-    # -- Set ccm.nextgen-ce.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce to go through proxy
-    # -- Set ccm.nextgen-ce.proxy.host to proxy host or IP(ex: localhost, 127.0.0.1)
-    # -- Set ccm.nextgen-ce.proxy.port to proxy port, it takes integer value
-    # -- Set ccm.nextgen-ce.proxy.username and ccm.nextgen-ce.proxy.password to proxy username and password, if not required remove it or keep blank
-    # -- Set ccm.nextgen-ce.proxy.protocol to http or https depending on the proxy configuration
-    proxy:
-      enabled: false
-      host: localhost
-      port: 80
-      username: ""
-      password: ""
-      protocol: http
 
 # -- Enable the Cloud Cost Management (CCM) service for the Next Generation Manager
 ng-manager:
