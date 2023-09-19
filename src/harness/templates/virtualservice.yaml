@@ -161,6 +161,8 @@ spec:
   - name: log-service
     match:
     - uri:
+        prefix: /log-service//
+    - uri:
         prefix: /log-service/
     - uri:
         prefix: /log-service
@@ -212,6 +214,8 @@ spec:
 
   - name: ti-service
     match:
+    - uri:
+        prefix: /ti-service//
     - uri:
         prefix: /ti-service/
     - uri:
