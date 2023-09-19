@@ -238,17 +238,13 @@ global:
   # -- By default aws sdk uses respective services endpoint urls but in case we want to provide custom those endpoint urls we can use following
   # -- Set global.awsServiceEndpointUrls.enabled to true if we want to enable custom endpoint urls
   # -- Set global.awsServiceEndpointUrls.endPointRegion.host to valid AWS region where this endpoint is available
-  # -- Set global.awsServiceEndpointUrls.s3EndPointUrl to set s3 endpoint url
   # -- Set global.awsServiceEndpointUrls.stsEndPointUrl to set sts endpoint url
-  # -- Set global.awsServiceEndpointUrls.ec2EndPointUrl to set ec2 endpoint url
   # -- Set global.awsServiceEndpointUrls.ecsEndPointUrl to set ecs endpoint url
   # -- Set global.awsServiceEndpointUrls.cloudwatchEndPointUrl to set cloud watch endpoint url
   awsServiceEndpointUrls:
     enabled: false
     endPointRegion: us-east-2
-    s3EndPointUrl: https://s3.us-east-2.amazonaws.com
     stsEndPointUrl: https://sts.us-east-2.amazonaws.com
-    ec2EndPointUrl: https://ec2.us-east-2.amazonaws.com
     ecsEndPointUrl: https://ecs.us-east-2.amazonaws.com
     cloudwatchEndPointUrl: https://monitoring.us-east-2.amazonaws.com
 
@@ -753,6 +749,19 @@ ccm:
       enabled: false
     awsAccountTagsCollectionJobConfig:
       enabled: true
+    # -- This proxy is used by S3 sync bucket aws cli command
+    # -- Set ccm.batch-processing.cliProxy.enabled to true if we want calls aws sdk calls to organization, cur, ce, iam to go through proxy
+    # -- Set ccm.batch-processing.cliProxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+    # -- Set ccm.batch-processing.cliProxy.port to proxy port, it takes integer value
+    # -- Set ccm.batch-processing.cliProxy.username and ccm.batch-processing.cliProxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set ccm.batch-processing.cliProxy.protocol to http or https depending on the proxy configuration
+    cliProxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
   cloud-info:
     # -- Set ccm.cloud-info.proxy.httpsProxyEnabled to true if we want calls aws sdk calls to ec2, pricing to go through proxy
     # -- Set ccm.cloud-info.proxy.httpsProxyUrl to proxy url(ex: http://localhost:8080, if http proxy is running on localhost port 8080)

@@ -4,7 +4,7 @@ This readme provides the basic instructions you need to deploy Harness using a H
 
 Helm Chart for deploying Harness.
 
-![Version: 0.8.4](https://img.shields.io/badge/Version-0.8.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.79819](https://img.shields.io/badge/AppVersion-1.0.79819-informational?style=flat-square)
+![Version: 0.8.3](https://img.shields.io/badge/Version-0.8.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.79819](https://img.shields.io/badge/AppVersion-1.0.79819-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -188,9 +188,10 @@ quay.io/argoproj/argocd:v2.7.8
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ccm | object | `{"batch-processing":{"awsAccountTagsCollectionJobConfig":{"enabled":true},"clickhouse":{"enabled":false},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"stackDriverLoggingEnabled":false},"clickhouse":{"enabled":false},"cloud-info":{"proxy":{"httpsProxyEnabled":false,"httpsProxyUrl":"http://localhost"}},"event-service":{"stackDriverLoggingEnabled":false},"nextgen-ce":{"clickhouse":{"enabled":false},"cloudProviderConfig":{"GCP_PROJECT_ID":"placeHolder"},"stackDriverLoggingEnabled":false}}` | Enable the Cloud Cost Management (CCM) service |
-| ccm.batch-processing | object | `{"awsAccountTagsCollectionJobConfig":{"enabled":true},"clickhouse":{"enabled":false},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"stackDriverLoggingEnabled":false}` | Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure |
+| ccm | object | `{"batch-processing":{"awsAccountTagsCollectionJobConfig":{"enabled":true},"cliProxy":{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""},"clickhouse":{"enabled":false},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"stackDriverLoggingEnabled":false},"clickhouse":{"enabled":false},"cloud-info":{"proxy":{"httpsProxyEnabled":false,"httpsProxyUrl":"http://localhost"}},"event-service":{"stackDriverLoggingEnabled":false},"nextgen-ce":{"clickhouse":{"enabled":false},"cloudProviderConfig":{"GCP_PROJECT_ID":"placeHolder"},"stackDriverLoggingEnabled":false}}` | Enable the Cloud Cost Management (CCM) service |
+| ccm.batch-processing | object | `{"awsAccountTagsCollectionJobConfig":{"enabled":true},"cliProxy":{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""},"clickhouse":{"enabled":false},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"stackDriverLoggingEnabled":false}` | Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure |
 | ccm.batch-processing.awsAccountTagsCollectionJobConfig | object | `{"enabled":true}` | Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure |
+| ccm.batch-processing.cliProxy | object | `{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""}` | Set ccm.batch-processing.cliProxy.protocol to http or https depending on the proxy configuration |
 | ccm.batch-processing.clickhouse | object | `{"enabled":false}` | Set ccm.clickhouse.enabled to true for AWS infrastructure |
 | ccm.batch-processing.stackDriverLoggingEnabled | bool | `false` | Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure |
 | ccm.clickhouse | object | `{"enabled":false}` | Set ccm.clickhouse.enabled to true for AWS infrastructure |
@@ -215,7 +216,7 @@ quay.io/argoproj/argocd:v2.7.8
 | chaos.chaos-web.tolerations | list | `[]` |  |
 | ci | object | `{"ci-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Install the Continuous Integration (CI) manager pod |
 | global.airgap | string | `"false"` | Airgap functionality. Disabled by default |
-| global.awsServiceEndpointUrls | object | `{"cloudwatchEndPointUrl":"https://monitoring.us-east-2.amazonaws.com","ec2EndPointUrl":"https://ec2.us-east-2.amazonaws.com","ecsEndPointUrl":"https://ecs.us-east-2.amazonaws.com","enabled":false,"endPointRegion":"us-east-2","s3EndPointUrl":"https://s3.us-east-2.amazonaws.com","stsEndPointUrl":"https://sts.us-east-2.amazonaws.com"}` | Set global.awsServiceEndpointUrls.cloudwatchEndPointUrl to set cloud watch endpoint url |
+| global.awsServiceEndpointUrls | object | `{"cloudwatchEndPointUrl":"https://monitoring.us-east-2.amazonaws.com","ecsEndPointUrl":"https://ecs.us-east-2.amazonaws.com","enabled":false,"endPointRegion":"us-east-2","stsEndPointUrl":"https://sts.us-east-2.amazonaws.com"}` | Set global.awsServiceEndpointUrls.cloudwatchEndPointUrl to set cloud watch endpoint url |
 | global.ccm | object | `{"enabled":false}` | Enable to install Cloud Cost Management (CCM) (Beta) |
 | global.cd | object | `{"enabled":false}` | Enable to install Continuous Deployment (CD) |
 | global.cet | object | `{"enabled":false}` | Enable to install Continuous Error Tracking (CET) |
