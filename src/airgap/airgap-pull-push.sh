@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# This script pulls all the images from images.txt and pushes it to private registry
+# This is created to update escrow setup quickly without generating module specific bundles
+
 usage () {
     echo "Usage: $0 [options]"
     echo ""
