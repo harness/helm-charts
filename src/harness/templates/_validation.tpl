@@ -126,7 +126,7 @@
 {{- $validationErrorHeading = printf "%s    https://github.com/harness/helm-charts/blob/release/0.9.0/src/harness/scripts/migrate-values-0.9.x.sh\n\n " $validationErrorHeading }}
 {{- $validationErrorHeading = printf "%s    Note: migrate-values-0.9.x.sh script requires 'yq' to be installed \n " $validationErrorHeading }}
 {{- $validationErrorHeading = printf "%s 2. Get values from the installed harness release:\n\n " $validationErrorHeading }}
-{{- $validationErrorHeading = printf "%s    helm get values my-release > old_values.yaml \n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s    helm get values my-release -n <namespace> > old_values.yaml \n\n " $validationErrorHeading }}
 {{- $validationErrorHeading = printf "%s 3. Run 'migrate-values-0.9.x.sh' script with the old_values.yaml as input to restrucutre it to work with the new Harness Helm Charts structure  \n\n " $validationErrorHeading }}
 {{- $validationErrorHeading = printf "%s    ./migrate-values-0.9.x.sh -f old_values.yaml  \n\n " $validationErrorHeading }}
 {{- $validationErrorHeading = printf "%s 4. A new values file with 'migrated' suffix will be created: old_values-migrated.yaml  \n " $validationErrorHeading }}
