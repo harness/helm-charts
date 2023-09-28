@@ -11,7 +11,7 @@ docker.io/chaosnative/workflow-controller:v3.3.1
 docker.io/curlimages/curl:8.1.2
 docker.io/haproxy:lts-alpine3.17
 docker.io/harness/accesscontrol-service-signed:79400
-docker.io/harness/batch-processing-signed:80006-000
+docker.io/harness/batch-processing-signed:80007-000
 docker.io/harness/cdcdata-signed:79819
 docker.io/harness/ce-anomaly-detection-signed:70029
 docker.io/harness/ce-cloud-info-signed:10303
@@ -22,10 +22,10 @@ docker.io/harness/ci-manager-signed:4905
 docker.io/harness/ci-scm-signed:release-150-ubi
 docker.io/harness/cv-nextgen-signed:79819
 docker.io/harness/dashboard-service-signed:v1.54.13
-docker.io/harness/delegate-proxy-signed:79715
-docker.io/harness/delegate-proxy-signed:79715_minimal
-docker.io/harness/delegate:23.09.79715
-docker.io/harness/delegate:23.09.79715.minimal
+docker.io/harness/delegate-proxy-signed:79716
+docker.io/harness/delegate-proxy-signed:79716_minimal
+docker.io/harness/delegate:23.09.79716
+docker.io/harness/delegate:23.09.79716.minimal
 docker.io/harness/delegate:latest
 docker.io/harness/error-tracking-signed:5.24.7
 docker.io/harness/et-collector-signed:5.24.0
@@ -37,8 +37,8 @@ docker.io/harness/ff-pushpin-worker-signed:1.1076.0
 docker.io/harness/ff-server-signed:1.1076.0
 docker.io/harness/ff-timescale-migration-signed:1.945.0
 docker.io/harness/gateway-signed:11201
-docker.io/harness/gitops-agent:v0.56.5
-docker.io/harness/gitops-service-signed:v0.75.5
+docker.io/harness/gitops-agent:v0.56.7
+docker.io/harness/gitops-service-signed:v0.75.7
 docker.io/harness/helm-init-container:latest
 docker.io/harness/le-nextgen-signed:68004
 docker.io/harness/learning-engine-onprem-signed:67903

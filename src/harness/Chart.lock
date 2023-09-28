@@ -4,7 +4,7 @@ dependencies:
   version: 0.6.0
 - name: platform
   repository: https://harness.github.io/helm-platform
-  version: 0.9.4
+  version: 0.9.5
 - name: sto
   repository: https://harness.github.io/helm-sto
   version: 0.9.0
@@ -19,10 +19,10 @@ dependencies:
   version: 0.9.0
 - name: ccm
   repository: https://harness.github.io/helm-ccm
-  version: 0.9.3
+  version: 0.9.4
 - name: gitops
   repository: https://harness.github.io/helm-gitops
-  version: 0.7.2
+  version: 0.7.4
 - name: policy-mgmt
   repository: https://harness.github.io/helm-policy-mgmt
   version: 0.7.1
@@ -32,5 +32,5 @@ dependencies:
 - name: cet
   repository: https://harness.github.io/helm-cet
   version: 0.5.0
-digest: sha256:d963a7cde95e954b700504ede0e20239ea4c914fb3bb0ad34411f1b560617dd2
-generated: "2023-09-20T15:31:44.818346-07:00"
+digest: sha256:7f665b25967f671c20a013da3951cb7336cffd4f5cfaba351a9553ac909bdce6
+generated: "2023-09-28T10:55:46.232137-07:00"
