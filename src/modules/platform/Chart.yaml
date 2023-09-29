@@ -5,8 +5,7 @@ dependencies:
   name: access-control
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.3
-- condition: global.bootstrap.enabled
-  name: bootstrap
+- name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.6
 - condition: global.ng.enabled
@@ -49,7 +48,8 @@ dependencies:
   name: platform-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.4
-- name: policy-mgmt
+- condition: global.opa.enabled
+  name: policy-mgmt
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.8.1
 - condition: global.ng.enabled
