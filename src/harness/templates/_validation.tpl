@@ -127,10 +127,12 @@
 {{- $validationErrorHeading = printf "%s    Note: migrate-values-0.9.x.sh script requires 'yq' to be installed \n " $validationErrorHeading }}
 {{- $validationErrorHeading = printf "%s 2. Get values from the installed harness release:\n\n " $validationErrorHeading }}
 {{- $validationErrorHeading = printf "%s    helm get values my-release -n <namespace> > old_values.yaml \n\n " $validationErrorHeading }}
-{{- $validationErrorHeading = printf "%s 3. Run 'migrate-values-0.9.x.sh' script with the old_values.yaml as input to restrucutre it to work with the new Harness Helm Charts structure  \n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s 3. Change permission of 'migrate-values-0.9.x.sh' \n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s    chmod +x migrate-values-0.9.x.sh \n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s 4. Run 'migrate-values-0.9.x.sh' script with the old_values.yaml as input to restrucutre it to work with the new Harness Helm Charts structure  \n\n " $validationErrorHeading }}
 {{- $validationErrorHeading = printf "%s    ./migrate-values-0.9.x.sh -f old_values.yaml  \n\n " $validationErrorHeading }}
-{{- $validationErrorHeading = printf "%s 4. A new values file with 'migrated' suffix will be created: old_values-migrated.yaml  \n " $validationErrorHeading }}
-{{- $validationErrorHeading = printf "%s 5. Upgrade Harness using the migrated values file as follows:  \n\n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s 5. A new values file with 'migrated' suffix will be created: old_values-migrated.yaml  \n " $validationErrorHeading }}
+{{- $validationErrorHeading = printf "%s 6. Upgrade Harness using the migrated values file as follows:  \n\n " $validationErrorHeading }}
 {{- $validationErrorHeading = printf "%s    helm upgrade my-release harness/harness -n <namespace> -f old_values-migrated.yaml  \n\n\n " $validationErrorHeading }}
 {{- $validationErrorHeading = printf "%sImpacted fields/values: " $validationErrorHeading }}
 {{- $validationErrors = printf "%s \n %s" $validationErrorHeading $validationErrors }}
