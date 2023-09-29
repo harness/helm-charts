@@ -1,0 +1,15 @@
+dependencies:
+- name: cv-nextgen
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.4
+- name: le-nextgen
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.2
+- name: learning-engine
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.1
+- name: verification-svc
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.1
+digest: sha256:36083abdf4d3c0ea7ac21f575d89ec01db027222ccdb4765d4e6073cbb5576a1
+generated: "2023-09-29T18:58:29.41350807Z"
