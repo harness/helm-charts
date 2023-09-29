@@ -1,6 +1,8 @@
 global:
   # -- Enable for complete airgap environment
   airgap: false
+  # -- Enable this for autoscaling with Horizontal Pod Autoscaler
+  ha: true
   ccm:
     # -- Enable to install Cloud Cloud Management
     enabled: false
@@ -189,8 +191,37 @@ global:
   useImmutableDelegate: "true"
   # -- Set true to use delegate minimal image
   useMinimalDelegateImage: false
+  # -- Set global.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce, iam to go through proxy
+  # -- Set global.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+  # -- Set global.proxy.port to proxy port, it takes integer value
+  # -- Set global.proxy.username and global.proxy.password to proxy username and password, if not required remove it or keep blank
+  # -- Set global.proxy.protocol to http or https depending on the proxy configuration
+  proxy:
+    enabled: false
+    host: localhost
+    port: 80
+    username: ""
+    password: ""
+    protocol: http
+  # -- By default aws sdk uses respective services endpoint urls but in case we want to provide custom those endpoint urls we can use following
+  # -- Set global.awsServiceEndpointUrls.enabled to true if we want to enable custom endpoint urls
+  # -- Set global.awsServiceEndpointUrls.endPointRegion.host to valid AWS region where this endpoint is available
+  # -- Set global.awsServiceEndpointUrls.stsEndPointUrl to set sts endpoint url
+  # -- Set global.awsServiceEndpointUrls.ecsEndPointUrl to set ecs endpoint url
+  # -- Set global.awsServiceEndpointUrls.cloudwatchEndPointUrl to set cloud watch endpoint url
+  awsServiceEndpointUrls:
+    enabled: false
+    endPointRegion: us-east-2
+    stsEndPointUrl: https://sts.us-east-2.amazonaws.com
+    ecsEndPointUrl: https://ecs.us-east-2.amazonaws.com
+    cloudwatchEndPointUrl: https://monitoring.us-east-2.amazonaws.com
+gitops:
+  autoscaling:
+    enabled: false
+  replicaCount: 2
 ccm:
   batch-processing:
+    replicaCount: 2
     awsAccountTagsCollectionJobConfig:
       enabled: true
     cloudProviderConfig:
@@ -201,12 +232,39 @@ ccm:
       S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
       S3_SYNC_CONFIG_REGION: "placeHolder"
     stackDriverLoggingEnabled: false
+    # -- This proxy is used by S3 sync bucket aws cli command
+    # -- Set ccm.batch-processing.cliProxy.enabled to true if we want calls aws sdk calls to organization, cur, ce, iam to go through proxy
+    # -- Set ccm.batch-processing.cliProxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+    # -- Set ccm.batch-processing.cliProxy.port to proxy port, it takes integer value
+    # -- Set ccm.batch-processing.cliProxy.username and ccm.batch-processing.cliProxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set ccm.batch-processing.cliProxy.protocol to http or https depending on the proxy configuration
+    cliProxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
+  cloud-info:
+    # -- Set ccm.cloud-info.proxy.httpsProxyEnabled to true if we want calls aws sdk calls to ec2, pricing to go through proxy
+    # -- Set ccm.cloud-info.proxy.httpsProxyUrl to proxy url(ex: http://localhost:8080, if http proxy is running on localhost port 8080)
+    proxy:
+      httpsProxyEnabled: false
+      httpsProxyUrl: http://localhost
   ce-nextgen:
     cloudProviderConfig:
       GCP_PROJECT_ID: "placeHolder"
     stackDriverLoggingEnabled: false
   event-service:
     stackDriverLoggingEnabled: false
+  cloud-info:
+    replicaCount: 2
+  event-service:
+    replicaCount: 2
+  telescopes:
+    replicaCount: 2
+  anomaly-detection:
+    replicaCount: 2
 cet:
   enable-receivers: true
   et-collector:
@@ -496,7 +554,7 @@ platform:
   delegate-proxy:
     autoscaling:
       enabled: false
-    replicaCount: 1
+    replicaCount: 2
     resources:
       limits:
         memory: 100Mi
@@ -513,7 +571,7 @@ platform:
       limits:
         memory: 3072Mi
       requests:
-        cpu: 0.5
+        cpu: 1
         memory: 3072Mi
   harness-manager:
     autoscaling:
@@ -645,7 +703,7 @@ platform:
   scm-service:
     autoscaling:
       enabled: false
-    replicaCount: 1
+    replicaCount: 2
     resources:
       limits:
         memory: 512Mi
