@@ -440,6 +440,8 @@ platform:
     tolerations: []
   # -- gateway settings (taints, tolerations, and so on)
   gateway:
+    additionalConfigs:
+      HTTP_CLIENT_POOL_MAX_IDLE_TIME: "300s"
     affinity: {}
     nodeSelector: {}
     tolerations: []
