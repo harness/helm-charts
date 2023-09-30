@@ -1,30 +1,30 @@
 dependencies:
 - name: ccm
-  repository: gs://smp-helm-charts/qa
-  version: 0.9.0-qa.20230822.213449.893
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
 - name: cd
-  repository: gs://smp-helm-charts/qa
-  version: 0.9.0-qa.20230822.213449.893
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
 - name: cet
-  repository: gs://smp-helm-charts/qa
-  version: 0.9.0-qa.20230822.213449.893
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
 - name: chaos
-  repository: gs://smp-helm-charts/qa
-  version: 0.9.0-qa.20230822.213449.893
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
 - name: ci
-  repository: gs://smp-helm-charts/qa
-  version: 0.9.0-qa.20230822.213449.893
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
 - name: ff
-  repository: gs://smp-helm-charts/qa
-  version: 0.9.0-qa.20230822.213449.893
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
 - name: platform
-  repository: gs://smp-helm-charts/qa
-  version: 0.9.0-qa.20230822.213449.893
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
 - name: srm
-  repository: gs://smp-helm-charts/qa
-  version: 0.9.0-qa.20230822.213449.893
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
 - name: sto
-  repository: gs://smp-helm-charts/qa
-  version: 0.9.0-qa.20230822.213449.893
-digest: sha256:ec27da3253d9f7c2e4ae333edf1b659d2f4ab1a3837f07b374221a895900e4f4
-generated: "2023-08-22T22:21:22.540515-07:00"
+  repository: https://harness.github.io/helm-charts
+  version: 0.9.0
+digest: sha256:5247e96da81d3b266fbc7f8f462270ca4503a3e531a743ecc640feab18219302
+generated: "2023-09-30T06:14:02.408425698Z"
