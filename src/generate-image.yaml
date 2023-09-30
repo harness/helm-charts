@@ -1,38 +1,38 @@
 global:
+  ccm:
+    enabled: true
   cd:
+    enabled: true
+  cet:
+    enabled: true
+  cg:
+    enabled: true
+  chaos:
     enabled: true
   ci:
     enabled: true
-  sto:
-    enabled: true
-  migrator:
-    enabled: true
-  srm:
-    enabled: true
-  ngcustomdashboard:
-    enabled: true
+  database:
+    clickhouse:
+      enabled: true
   ff:
     enabled: true
   gitops:
     enabled: true
-  opa:
-    enabled: true
-  ccm:
-    enabled: true
-  cg:
+  lwd:
+    autocud:
+      enabled: false
+    enabled: false
+  migrator:
     enabled: true
   ng:
     enabled: true
-  chaos:
+  ngcustomdashboard:
     enabled: true
-  lwd:
-    enabled: false
-    autocud:
-      enabled: false
-  cet:
+  opa:
     enabled: true
-ccm:
-  clickhouse:
+  srm:
+    enabled: true
+  sto:
     enabled: true
 cet:
   enable-receivers: true

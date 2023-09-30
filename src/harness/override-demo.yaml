@@ -1,11 +1,218 @@
-## Global Settings
-# -- Set ccm.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
-# -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
-# -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
-# -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
+global:
+  # -- Enable for complete airgap environment
+  airgap: false
+  ccm:
+    # -- Enable to install Cloud Cloud Management
+    enabled: false
+  cd:
+    # -- Enable to install CD
+    enabled: true
+  cet:
+    # -- Enable to install CET
+    enabled: false
+  cg:
+    enabled: false
+  chaos:
+    # -- Enable to install Chaos components(Beta)
+    enabled: false
+  ci:
+    # -- Enable to install CI
+    enabled: true
+  # -- provide overrides to use in-cluster database or configure to use external databases
+  database:
+    clickhouse:
+      enabled: false
+    # -- settings to deploy mongo in-cluster or configure to use external mongo source
+    mongo:
+      # -- set additional arguments to mongo uri
+      extraArgs: ""
+      # --   set the mongo hosts if mongo.installed is set to false
+      hosts: []
+      # -- set false to configure external mongo and generate mongo uri protocol://hosts?extraArgs
+      installed: true
+      # -- provide the passwordKey to reference mongo password
+      passwordKey: ""
+      # -- set the protocol for mongo uri
+      protocol: mongodb
+      # -- provide the secretname to reference mongo username and password
+      secretName: ""
+      # -- provide the userKey to reference mongo username
+      userKey: ""
+    postgres:
+      ## - extra arguments set to connection string
+      extraArgs: ""
+      ## - host array for external
+      hosts:
+        - <postgres ip>:5432
+      ## - set this to false if you want to use external postgre cluster
+      installed: true
+      ## - key within secret containing password
+      passwordKey: "password"
+      ## - protocol to use for connection
+      protocol: postgres
+      ## - secret name containing external postgresql credentials
+      secretName: "postgres-secret"
+      ## - key within secret containing username
+      userKey: "user"
+    redis:
+      # --  provide host name for redis
+      hosts:
+        - <internal-endpoint-with-port>
+      ## - set this to false if you want to use external redis cluster
+      installed: true
+      ## - key within secret containing password
+      passwordKey: "password"
+      ## - secret name containing external redis credentials
+      secretName: "redis-user-pass"
+      ## - key within secret containing username
+      userKey: "username"
+    timescaledb:
+      ## - key name within secret containing certificates
+      certKey: "cert"
+      ## - secret name containing timescaledb certificates
+      certName: "tsdb-cert"
+      # --  provide host name for timescaledb
+      hosts:
+        - hostname.timescale.com:5432
+      ## - set this to false if you want to use external timescaledb cluster
+      installed: true
+      ## - key within secret containing password
+      passwordKey: "password"
+      ## - secret name containing external timescaledb credentials
+      secretName: "tsdb-secret"
+      ## - set this to true if you want to enabled external timescaledb ssl traffic
+      sslEnabled: false
+      ## - key within secret containing username
+      userKey: "username"
+  ff:
+    # -- Enable to install  Feature Flags Component
+    enabled: false
+  gitops:
+    # -- Enable to install GitOps
+    enabled: false
+  ha: false
+  # -- Global Docker image registry
+  imageRegistry: ""
+  ingress:
+    annotations: {}
+    className: "harness"
+    # --- Enable Nginx ingress controller gateway
+    enabled: false
+    # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
+    hosts:
+      - 'my-host.example.org'
+    # NOTE: for ip-based installs, either use sslip.io for an IP-encoded DNS name
+    # OR set the hosts entry to '*'
+    # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    ingressGatewayServiceUrl: ""
+    objects:
+      # -- annotations to be added to ingress Objects
+      annotations: {}
+    tls:
+      enabled: false
+      secretName: harness-cert
+    useSelfSignedCert: false
+  # --- Enable Istio Gateway
+  istio:
+    enabled: false
+    gateway:
+      # -- Enable to create istio-system gateway
+      create: true
+      # -- override the name of gateway
+      name: ""
+      # -- override the name of namespace to deploy gateway
+      namespace: ""
+      port: 443
+      protocol: HTTPS
+      # -- adds a gateway selector
+      selector:
+        istio: ingressgateway
+    # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
+    hosts:
+      - '*'
+    # -- set to istio gateway's k8s service FQDN for internal use case. eg "internal-istio-gateway.istio-system.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    istioGatewayServiceUrl: ""
+    strict: false
+    tls:
+      credentialName:
+      minProtocolVersion: TLSV1_2
+      mode: SIMPLE
+    virtualService:
+      gateways:
+        - ""
+      # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
+      hosts:
+        - ""
+  # -- set kubernetes version override, unrequired if installing using Helm.
+  kubeVersion: ""
+  license:
+    # -- Insert CG License String to enable CG license
+    cg: ''
+    # -- Insert NG License String to enable NG license
+    ng: ''
+  # -- Fully qualified URL of your loadbalancer (ex: https://www.foo.com)
+  loadbalancerURL: ""
+  lwd:
+    autocud:
+      enabled: false
+    enabled: false
+  migrator:
+    enabled: false
+  mongoSSL: false
+  ng:
+    enabled: true
+  ngcustomdashboard:
+    # -- Enable to install  NG Custom Dashboards Component
+    enabled: false
+  opa:
+    # -- Enable to install Open Policy Agent
+    enabled: false
+  saml:
+    # --  Enabled will not send invites to email and autoaccepts
+    autoaccept: false
+  smtpCreateSecret:
+    # -- Enable to create SMTP secretFile
+    enabled: false
+  srm:
+    # -- Enable to install SRM
+    enabled: false
+  stackDriverLoggingEnabled: false
+  sto:
+    # -- Enable to install STO
+    enabled: false
+  # -- set storageClass for third party applications
+  storageClass: ""
+  storageClassName: ""
+  # -- Set false to disable Immutable Delegate
+  useImmutableDelegate: "true"
+  # -- Set true to use delegate minimal image
+  useMinimalDelegateImage: false
+  # -- Set global.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce, iam to go through proxy
+  # -- Set global.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+  # -- Set global.proxy.port to proxy port, it takes integer value
+  # -- Set global.proxy.username and global.proxy.password to proxy username and password, if not required remove it or keep blank
+  # -- Set global.proxy.protocol to http or https depending on the proxy configuration
+  proxy:
+    enabled: false
+    host: localhost
+    port: 80
+    username: ""
+    password: ""
+    protocol: http
+  # -- By default aws sdk uses respective services endpoint urls but in case we want to provide custom those endpoint urls we can use following
+  # -- Set global.awsServiceEndpointUrls.enabled to true if we want to enable custom endpoint urls
+  # -- Set global.awsServiceEndpointUrls.endPointRegion.host to valid AWS region where this endpoint is available
+  # -- Set global.awsServiceEndpointUrls.stsEndPointUrl to set sts endpoint url
+  # -- Set global.awsServiceEndpointUrls.ecsEndPointUrl to set ecs endpoint url
+  # -- Set global.awsServiceEndpointUrls.cloudwatchEndPointUrl to set cloud watch endpoint url
+  awsServiceEndpointUrls:
+    enabled: false
+    endPointRegion: us-east-2
+    stsEndPointUrl: https://sts.us-east-2.amazonaws.com
+    ecsEndPointUrl: https://ecs.us-east-2.amazonaws.com
+    cloudwatchEndPointUrl: https://monitoring.us-east-2.amazonaws.com
 ccm:
   batch-processing:
     awsAccountTagsCollectionJobConfig:
@@ -18,14 +225,31 @@ ccm:
       S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
       S3_SYNC_CONFIG_REGION: "placeHolder"
     stackDriverLoggingEnabled: false
-  event-service:
-    stackDriverLoggingEnabled: false
-  nextgen-ce:
+    # -- This proxy is used by S3 sync bucket aws cli command
+    # -- Set ccm.batch-processing.cliProxy.enabled to true if we want calls aws sdk calls to organization, cur, ce, iam to go through proxy
+    # -- Set ccm.batch-processing.cliProxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
+    # -- Set ccm.batch-processing.cliProxy.port to proxy port, it takes integer value
+    # -- Set ccm.batch-processing.cliProxy.username and ccm.batch-processing.cliProxy.password to proxy username and password, if not required remove it or keep blank
+    # -- Set ccm.batch-processing.cliProxy.protocol to http or https depending on the proxy configuration
+    cliProxy:
+      enabled: false
+      host: localhost
+      port: 80
+      username: ""
+      password: ""
+      protocol: http
+  cloud-info:
+    # -- Set ccm.cloud-info.proxy.httpsProxyEnabled to true if we want calls aws sdk calls to ec2, pricing to go through proxy
+    # -- Set ccm.cloud-info.proxy.httpsProxyUrl to proxy url(ex: http://localhost:8080, if http proxy is running on localhost port 8080)
+    proxy:
+      httpsProxyEnabled: false
+      httpsProxyUrl: http://localhost
+  ce-nextgen:
     cloudProviderConfig:
       GCP_PROJECT_ID: "placeHolder"
     stackDriverLoggingEnabled: false
-cd:
-  gitops: null
+  event-service:
+    stackDriverLoggingEnabled: false
 cet:
   enable-receivers: false
   et-collector:
@@ -41,10 +265,6 @@ cet:
       requests:
         cpu: 100m
         memory: 2Gi
-  et-receiver-agent: null
-  et-receiver-decompile: null
-  et-receiver-hit: null
-  et-receiver-sql: null
   et-service:
     autoscaling:
       enabled: false
@@ -61,13 +281,6 @@ cet:
         cpu: 100m
         memory: 3Gi
 chaos:
-  chaos-driver:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 512Mi
-      requests:
-        memory: 512Mi
   chaos-manager:
     replicaCount: 1
     resources:
@@ -113,250 +326,6 @@ ci:
       requests:
         cpu: 0.5
         memory: 1400Mi
-global:
-  # -- Enable for complete airgap environment
-  airgap: false
-  ccm:
-    # -- Enable to install Cloud Cloud Management
-    enabled: false
-  cd:
-    # -- Enable to install CD
-    enabled: true
-  cg:
-    enabled: false
-  chaos:
-    # -- Enable to install Chaos components(Beta)
-    enabled: false
-  ci:
-    # -- Enable to install CI
-    enabled: true
-  # -- provide overrides to use in-cluster database or configure to use external databases
-  database:
-    clickhouse:
-      enabled: false
-    # -- settings to deploy mongo in-cluster or configure to use external mongo source
-    mongo:
-      # -- set additional arguments to mongo uri
-      extraArgs: ""
-      # --   set the mongo hosts if mongo.installed is set to false
-      hosts: []
-      # -- set false to configure external mongo and generate mongo uri protocol://hosts?extraArgs
-      installed: true
-      # -- provide the passwordKey to reference mongo password
-      passwordKey: ""
-      # -- set the protocol for mongo uri
-      protocol: mongodb
-      # -- provide the secretname to reference mongo username and password
-      secretName: ""
-      # -- provide the userKey to reference mongo username
-      userKey: ""
-      # -- provide the passwordKey to reference mongo password
-      passwordKey: ""
-      # -- set additional arguments to mongo uri
-      extraArgs: ""
-    postgres:
-      ## - set this to false if you want to use external postgre cluster
-      installed: true
-      ## - protocol to use for connection
-      protocol: postgres
-      ## - host array for external
-      hosts:
-        - <postgres ip>:5432
-      ## - secret name containing external postgresql credentials
-      secretName: "postgres-secret"
-      ## - key within secret containing username
-      userKey: "user"
-      ## - key within secret containing password
-      passwordKey: "password"
-      ## - extra arguments set to connection string
-      extraArgs: ""
-    timescaledb:
-      ## - set this to false if you want to use external timescaledb cluster
-      installed: true
-      # --  provide host name for timescaledb
-      hosts:
-        - hostname.timescale.com:5432
-      ## - secret name containing external timescaledb credentials
-      secretName: "tsdb-secret"
-      ## - key within secret containing username
-      userKey: "username"
-      ## - key within secret containing password
-      passwordKey: "password"
-      ## - set this to true if you want to enabled external timescaledb ssl traffic
-      sslEnabled: false
-      ## - secret name containing timescaledb certificates
-      certName: "tsdb-cert"
-      ## - key name within secret containing certificates
-      certKey: "cert"
-    redis:
-      ## - set this to false if you want to use external redis cluster
-      installed: true
-      # --  provide host name for redis
-      hosts:
-      - <internal-endpoint-with-port>
-      ## - secret name containing external redis credentials
-      secretName: "redis-user-pass"
-      ## - key within secret containing username
-      userKey: "username"
-      ## - key within secret containing password
-      passwordKey: "password"
-  mongoSSL: false
-  storageClassName: ""
-  # -- set storageClass for third party applications
-  storageClass: ""
-  stackDriverLoggingEnabled: false
-  cg:
-    enabled: false
-  migrator:
-    enabled: false
-  ng:
-    enabled: true
-  cd:
-    # -- Enable to install CD
-    enabled: true
-  ci:
-    # -- Enable to install CI
-    enabled: true
-  sto:
-    # -- Enable to install STO
-    enabled: false
-  srm:
-    # -- Enable to install SRM
-    enabled: false
-  ngcustomdashboard:
-    # -- Enable to install  NG Custom Dashboards Component
-    enabled: false
-  ff:
-    # -- Enable to install  Feature Flags Component
-    enabled: false
-  gitops:
-    # -- Enable to install GitOps
-    enabled: false
-  ha: false
-  # -- Global Docker image registry
-  imageRegistry: ""
-  ingress:
-    annotations: {}
-    className: "harness"
-    # --- Enable Nginx ingress controller gateway
-    enabled: false
-  ccm:
-    # -- Enable to install Cloud Cloud Management
-    enabled: false
-  chaos:
-    # -- Enable to install Chaos components(Beta)
-    enabled: false
-  cet:
-    # -- Enable to install CET
-    enabled: false
-  saml:
-    # --  Enabled will not send invites to email and autoaccepts
-    autoaccept: false
-  license:
-    # -- Insert CG License String to enable CG license
-    cg: ''
-    # -- Insert NG License String to enable NG license
-    ng: ''
-
-  # -- Set false to disable Immutable Delegate
-  useImmutableDelegate: "true"
-  # -- Set true to use delegate minimal image
-  useMinimalDelegateImage: false
-  smtpCreateSecret:
-    # -- Enable to create SMTP secretFile
-    enabled: false
-  # -- set kubernetes version override, unrequired if installing using Helm.
-  kubeVersion: ""
-  # --- Enable Istio Gateway
-  istio:
-    enabled: false
-    gateway:
-      # -- Enable to create istio-system gateway
-      create: true
-      # -- override the name of gateway
-      name: ""
-      # -- override the name of namespace to deploy gateway
-      namespace: ""
-      port: 443
-      protocol: HTTPS
-      # -- adds a gateway selector
-      selector:
-        istio: ingressgateway
-      protocol: HTTPS
-    # -- set to istio gateway's k8s service FQDN for internal use case. eg "internal-istio-gateway.istio-system.svc.cluster.local"
-    # If not set, internal request routing would happen via global.loadbalancerUrl
-    istioGatewayServiceUrl: ""
-    # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
-    hosts:
-      - '*'
-    tls:
-      credentialName:
-      minProtocolVersion: TLSV1_2
-      mode: SIMPLE
-    virtualService:
-      gateways:
-        - ""
-      # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
-      hosts:
-        - ""
-
-  ingress:
-    # --- Enable Nginx ingress controller gateway
-    enabled: false
-    annotations: {}
-    loadBalancerIP: '0.0.0.0'
-    className: "harness"
-    loadBalancerEnabled: false
-    useSelfSignedCert: false
-
-    # NOTE: for ip-based installs, either use sslip.io for an IP-encoded DNS name
-    # OR set the hosts entry to '*'
-    # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
-    # If not set, internal request routing would happen via global.loadbalancerUrl
-    ingressGatewayServiceUrl: ""
-    # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
-    hosts:
-      - 'my-host.example.org'
-    tls:
-      enabled: false
-      secretName: harness-cert
-
-    nginx:
-      # -- Create Nginx Controller.  True will deploy a controller into your cluster
-      create: false
-      healthPort: ""
-      healthNodePort: ""
-      httpNodePort: ""
-      httpsNodePort: ""
-      controller:
-        # -- annotations to be addded to ingress Controller
-        annotations: {}
-      objects:
-        # -- annotations to be added to ingress Objects
-        annotations: {}
-      nodeSelector: {}
-      tolerations: []
-      affinity: {}
-      # -- docker image to be used
-      image:
-        registry:  us.gcr.io
-        repository: k8s-artifacts-prod/ingress-nginx/controller
-        pullPolicy: IfNotPresent
-        # Overrides the image tag whose default is the chart appVersion.
-        tag: "v1.0.0-alpha.2"
-        digest: ""
-
-    defaultbackend:
-      # -- Create will deploy a default backend into your cluster
-      create: false
-      image:
-        registry: k8s.gcr.io
-        repository: defaultbackend-amd64
-        pullPolicy: IfNotPresent
-        # Overrides the image tag whose default is the chart appVersion.
-        tag: "1.5"
-        digest: ""
-
 ## Platform Settings
 platform:
   # -- Feature list to enable within platform.  Contact Harness for value
@@ -382,37 +351,130 @@ platform:
       requests:
         cpu: 1
         memory: 4096Mi
-
+  bootstrap:
+    database:
+      clickhouse:
+        enabled: false
+      minio:
+        defaultBuckets: "logs"
+        fullnameOverride: "minio"
+        mode: standalone
+        persistence:
+          size: 10Gi
+      mongodb:
+        arbiter:
+          affinity: {}
+          nodeSelector: {}
+          tolerations: []
+        extraFlags:
+          - "--wiredTigerCacheSizeGB=0.5"
+        persistence:
+          size: 20Gi
+        replicaCount: 1
+        resources:
+          limits:
+            memory: 2048Mi
+          requests:
+            cpu: 1
+            memory: 2048Mi
+      postgresql:
+        auth:
+          existingSecret: "postgres"
+        primary:
+          persistence:
+            size: 8Gi
+          resources:
+            limits:
+              memory: 4Gi
+            requests:
+              cpu: 2
+              memory: 4Gi
+      redis:
+        redis:
+          resources:
+            limits:
+              memory: 2048Mi
+            requests:
+              cpu: 1
+              memory: 2048Mi
+        replicaCount: 3
+        sentinel:
+          resources:
+            limits:
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+        useAntiAffinity: false
+        volumeClaimTemplate:
+          resources:
+            requests:
+              storage: 10Gi
+      timescaledb:
+        autoscaling:
+          enabled: false
+        replicaCount: 1
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 0.3
+            memory: 512Mi
+        storage:
+          capacity: 10Gi
+    harness-secrets:
+      enabled: true
+    networking:
+      defaultbackend:
+        # -- Create will deploy a default backend into your cluster
+        create: false
+        image:
+          digest: ""
+          pullPolicy: IfNotPresent
+          registry: k8s.gcr.io
+          repository: defaultbackend-amd64
+          # Overrides the image tag whose default is the chart appVersion.
+          tag: "1.5"
+      nginx:
+        affinity: {}
+        controller:
+          # -- annotations to be addded to ingress Controller
+          annotations: {}
+        # -- Create Nginx Controller.  True will deploy a controller into your cluster
+        create: false
+        healthNodePort: ""
+        healthPort: ""
+        httpNodePort: ""
+        httpsNodePort: ""
+        # -- docker image to be used
+        image:
+          digest: ""
+          pullPolicy: IfNotPresent
+          registry: us.gcr.io
+          repository: k8s-artifacts-prod/ingress-nginx/controller
+          # Overrides the image tag whose default is the chart appVersion.
+          tag: "v1.0.0-alpha.2"
+        loadBalancerEnabled: false
+        loadBalancerIP: '0.0.0.0'
+        nodeSelector: {}
+        tolerations: []
   change-data-capture:
     appLogLevel: INFO
+    autoscaling:
+      enabled: false
     java:
       memory: 2048
+    replicaCount: 1
     resources:
       limits:
         memory: 2880Mi
       requests:
         cpu: 1
         memory: 2880Mi
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-
-  cv-nextgen:
-    java:
-      memory: 1024
-    resources:
-      limits:
-        memory: 1440Mi
-      requests:
-        cpu: 0.5
-        memory: 1440Mi
-    autoscaling:
-      enabled: false
-    java:
-      memory: 2048
-    replicaCount: 1
-
   delegate-proxy:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
     resources:
       limits:
         memory: 100Mi
@@ -431,48 +493,10 @@ platform:
       requests:
         cpu: 0.2
         memory: 1300Mi
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-
   harness-manager:
-    external_graphql_rate_limit: "500"
     autoscaling:
       enabled: false
-    replicaCount: 1
-    # -- These flags are used by the helper function to create the FEATURES config value based off the global.<feature>.enabled boolean
-    # -- Feature Flags
-    featureFlags:
-      # -- Base flags for all modules(enabled by Default)
-      Base: "LDAP_SSO_PROVIDER,ASYNC_ARTIFACT_COLLECTION,JIRA_INTEGRATION,AUDIT_TRAIL_UI,GDS_TIME_SERIES_SAVE_PER_MINUTE,STACKDRIVER_SERVICEGUARD,BATCH_SECRET_DECRYPTION,TIME_SERIES_SERVICEGUARD_V2,TIME_SERIES_WORKFLOW_V2,CUSTOM_DASHBOARD,GRAPHQL,CV_FEEDBACKS,LOGS_V2_247,UPGRADE_JRE,LOG_STREAMING_INTEGRATION,NG_HARNESS_APPROVAL,GIT_SYNC_NG,NG_SHOW_DELEGATE,NG_CG_TASK_ASSIGNMENT_ISOLATION,CI_OVERVIEW_PAGE,AZURE_CLOUD_PROVIDER_VALIDATION_ON_DELEGATE,TERRAFORM_AWS_CP_AUTHENTICATION,NG_TEMPLATES,NEW_DEPLOYMENT_FREEZE,HELM_CHART_AS_ARTIFACT,RESOLVE_DEPLOYMENT_TAGS_BEFORE_EXECUTION,WEBHOOK_TRIGGER_AUTHORIZATION,GITHUB_WEBHOOK_AUTHENTICATION,CUSTOM_MANIFEST,GIT_ACCOUNT_SUPPORT,AZURE_WEBAPP,LDAP_GROUP_SYNC_JOB_ITERATOR,POLLING_INTERVAL_CONFIGURABLE,APPLICATION_DROPDOWN_MULTISELECT,USER_GROUP_AS_EXPRESSION,RESOURCE_CONSTRAINT_SCOPE_PIPELINE_ENABLED,NG_TEMPLATE_GITX,ELK_HEALTH_SOURCE,NG_ENABLE_LDAP_CHECK,CVNG_METRIC_THRESHOLD,SRM_HOST_SAMPLING_ENABLE,SRM_ENABLE_HEALTHSOURCE_CLOUDWATCH_METRICS,NG_SETTINGS"
-      # -- NG Specific Feature Flags(activated when global.ng is enabled)
-      NG: "ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE,PL_ENABLE_JIT_USER_PROVISION"
-      # -- CD Feature Flags (activated when global.cd is enabled)
-      CD: "CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION"
-      # -- CI Feature Flags (activated when global.ci is enabled)
-      CI: "CING_ENABLED,CI_INDIRECT_LOG_UPLOAD,CI_LE_STATUS_REST_ENABLED"
-      # -- STO Feature Flags (activated when global.sto is enabled)
-      STO: "SECURITY,SECURITY_STAGE,STO_CI_PIPELINE_SECURITY,STO_API_V2"
-      # -- SRM Flags (activated when global.srm is enabled)
-      SRM: "CVNG_ENABLED"
-      # -- Custom Dashboard Flags (activated when global.dashboards is enabled)
-      CDB: "NG_DASHBOARDS"
-      # -- FF Feature Flags (activated when global.ff is enabled)
-      FF: "CFNG_ENABLED"
-      # -- CCM Feature Flags (activated when global.ccm is enabled)
-      CCM: "CENG_ENABLED,CCM_MICRO_FRONTEND,NODE_RECOMMENDATION_AGGREGATE"
-      # -- GitOps Feature Flags (activated when global.gitops is enabled)
-      GitOps: "GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN"
-      # -- OPA (activated when global.opa is enabled)
-      OPA: "OPA_PIPELINE_GOVERNANCE,OPA_GIT_GOVERNANCE"
-      # -- CHAOS Feature Flags (activated when global.chaos is enabled)
-      CHAOS: "CHAOS_ENABLED"
-      # -- CET Feature Flags (activated when global.cet is enabled)
-      CET: "CET_ENABLED,SRM_CODE_ERROR_NOTIFICATIONS,SRM_ET_RESOLVED_EVENTS,SRM_ET_CRITICAL_EVENTS"
-      # -- AutoAccept Feature Flags
-      SAMLAutoAccept: "AUTO_ACCEPT_SAML_ACCOUNT_INVITES,PL_NO_EMAIL_FOR_SAML_ACCOUNT_INVITES"
-      # -- Additional Feature Flag (placeholder to add any other featureFlags)
-      ADDITIONAL: ""
+    external_graphql_rate_limit: "500"
     java:
       memory: "2048"
     replicaCount: 1
@@ -492,6 +516,30 @@ platform:
       requests:
         cpu: 0.5
         memory: 1400Mi
+  looker:
+    config:
+      # -- clickhouse database name
+      clickhouseDatabase: 'ccm'
+      # -- Leave empty if not deploying Clickhouse.
+      # -- clickhouse hostname
+      clickhouseHost: 'clickhouse'
+      # -- clickhouse port
+      clickhousePort: '8123'
+      # -- clickhouse user
+      clickhouseUser: 'default'
+    ingress:
+      hosts: []
+      tls:
+        secretName: ''
+    resources:
+      limits:
+        memory: 8Gi
+      requests:
+        cpu: 2
+        memory: 8Gi
+    secrets:
+      # -- Required: Looker license key
+      lookerLicenseKey: ""
   migrator:
     autoscaling:
       enabled: false
@@ -524,6 +572,18 @@ platform:
       requests:
         cpu: 0.2
         memory: 200Mi
+  ng-custom-dashboards:
+    config:
+      # -- Required: domain name of your looker instance, this must be accessible by users in your organisation
+      lookerPubDomain: ''
+      # -- Required: HTTP scheme used, either http or https
+      lookerPubScheme: 'https'
+    resources:
+      limits:
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 500Mi
   ng-manager:
     autoscaling:
       enabled: false
@@ -560,7 +620,6 @@ platform:
       requests:
         cpu: 0.5
         memory: 3000Mi
-  policy-mgmt: null
   scm-service:
     autoscaling:
       enabled: false
@@ -657,149 +716,3 @@ sto:
       requests:
         cpu: 1
         memory: 3072Mi
-infra:
-  postgresql:
-    auth:
-      existingSecret: "postgres"
-    primary:
-      persistence:
-        size: 8Gi
-      resources:
-        limits:
-          memory: 4Gi
-        requests:
-          cpu: 2
-          memory: 4Gi
-
-
-cet:
-  enable-receivers: false
-  et-service:
-    et:
-      java:
-        heapSize: "2048m"
-      redis:
-        enabled: false
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 3Gi
-      requests:
-        cpu: 100m
-        memory: 3Gi
-  et-collector:
-    et:
-      java:
-        heapSize: "1600m"
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 100m
-        memory: 2Gi
-
-ngcustomdashboard:
-  looker:
-    resources:
-      limits:
-        memory: 8Gi
-      requests:
-        cpu: 2
-        memory: 8Gi
-    secrets:
-      # -- Required: Looker license key
-      lookerLicenseKey: ""
-    config:
-      # -- Leave empty if not deploying Clickhouse.
-      # -- clickhouse hostname
-      clickhouseHost: 'clickhouse'
-      # -- clickhouse port
-      clickhousePort: '8123'
-      # -- clickhouse database name
-      clickhouseDatabase: 'ccm'
-      # -- clickhouse user
-      clickhouseUser: 'default'
-    ingress:
-      # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
-      host: ''
-      tls:
-        secretName: ''
-  ng-custom-dashboards:
-    resources:
-      limits:
-        memory: 1Gi
-      requests:
-        cpu: 1
-        memory: 500Mi
-    config:
-      # -- Required: domain name of your looker instance, this must be accessible by users in your organisation
-      lookerPubDomain: ''
-      # -- Required: HTTP scheme used, either http or https
-      lookerPubScheme: 'https'
-
-# -- Set ccm.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.nextgen-ce.clickhouse.enabled to true for AWS infrastructure
-# -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
-# -- Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure
-# -- Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure
-# -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
-ccm:
-  clickhouse:
-    enabled: false
-  event-service:
-    stackDriverLoggingEnabled: false
-  batch-processing:
-    stackDriverLoggingEnabled: false
-    cloudProviderConfig:
-      CLUSTER_DATA_GCS_BACKUP_BUCKET: "placeHolder"
-      CLUSTER_DATA_GCS_BUCKET: "placeHolder"
-      DATA_PIPELINE_CONFIG_GCS_BASE_PATH: "placeHolder"
-      GCP_PROJECT_ID: "placeHolder"
-      S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
-      S3_SYNC_CONFIG_REGION: "placeHolder"
-    clickhouse:
-      enabled: false
-    awsAccountTagsCollectionJobConfig:
-      enabled: true
-  nextgen-ce:
-    stackDriverLoggingEnabled: false
-    cloudProviderConfig:
-      GCP_PROJECT_ID: "placeHolder"
-    clickhouse:
-      enabled: false
-
-ng-manager:
-  ceGcpSetupConfigGcpProjectId: "placeHolder"
-
-chaos:
-  chaos-manager:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 512Mi
-      requests:
-        cpu: 600m
-        memory: 512Mi
-
-  chaos-driver:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 512Mi
-      requests:
-        memory: 512Mi
-
-  chaos-web:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 512Mi
-      requests:
-        cpu: 500m
-        memory: 512Mi
