@@ -1,9 +1,16 @@
-#!/bin/sh
+#!/bin/bash
+
+set -e
+
+handle_error() {
+    echo "Error $1" >&2
+    exit 1
+}
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Provide lists of image names
-lists=("platform_images.txt" "ccm_images.txt" "cdng_images.txt" "ci_images.txt" 
+lists=("cdng_images.txt" "ci_images.txt" "platform_images.txt" "ccm_images.tgz" 
 "ce_images.txt" "sto_images.txt" "cet_images.txt" "ff_images.txt")
 
 pull_image() {
@@ -12,12 +19,17 @@ pull_image() {
         echo "Image pull success: ${i}"
         echo "${i}" >> "${pulled_file}"
     else
-        echo "Image pull failed: ${i}"
+        handle_error "Image pull failed: ${i}"
     fi
 }
 
 # Loop through each list
 for list in ${lists[*]}; do
+
+  if [[ ! -f $list ]]; then
+    echo "Error: File $list not found."
+    exit 1
+  fi
 
   # Generate image file name from list name
   base_name=$(basename "$list" .txt)
@@ -26,12 +38,18 @@ for list in ${lists[*]}; do
   # Create a temporary file to store the list of successfully pulled images
   pulled_file="$(mktemp)"
 
+  pids=()
+  
   # Download images in parallel
   while IFS= read -r i; do
       [ -z "${i}" ] && continue
       pull_image "${i}" &
+      pids+=($!)
   done < "${list}"
 
+  for pid in ${pids[*]}; do
+    wait $pid || handle_error "Failed background task with PID: $pid"
+  done
   # Wait for all background tasks to finish
   wait
 
@@ -40,8 +58,9 @@ for list in ${lists[*]}; do
 
   # Save pulled images to a tarball
   echo "Creating ${images_file} with $(echo ${pulled} | wc -w | tr -d '[:space:]') images"
-  docker save $(echo ${pulled}) | gzip --stdout > ${images_file}
+  docker save $(echo ${pulled}) | gzip --stdout > ${images_file} || handle_error "Failed to create tarball: ${images_file}"
+
 
   # Remove temporary file
-  rm "${pulled_file}"
+  rm "${pulled_file}" || handle_error "Failed to remove temporary file: ${pulled_file}"
 done
