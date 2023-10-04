@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/bash
+#!/bin/bash
 
 if [ "$#" -ne 2 ]; then
   echo "Error: Incorrect number of arguments."
