@@ -1,5 +1,14 @@
 #!/bin/bash
 
+cleanup() {
+  echo "Cleaning up generated files..."
+  for file in "${generated_files[@]}"; do
+    rm -f "$file"
+  done
+}
+
+trap cleanup EXIT
+
 if [ "$#" -ne 2 ]; then
   echo "Error: Incorrect number of arguments."
   echo "Usage: $0 <images.txt> <input_file>"
@@ -15,6 +24,7 @@ if [ "${BASH_VERSINFO[0]}" -lt 4 ]; then
 fi
 
 declare -A lines_read
+declare -a generated_files
 
 MODULE_IMAGE_FILE=""
 
@@ -27,6 +37,7 @@ while IFS= read -r line; do
     MODULE_IMAGE_FILE="${MODULE_NAME//:/}_images.txt"
 
     > "$MODULE_IMAGE_FILE"
+    generated_files+=("$MODULE_IMAGE_FILE")
     echo "Created module file: $MODULE_IMAGE_FILE"
      
   elif [[ -n $MODULE_IMAGE_FILE ]]; then
@@ -75,3 +86,5 @@ if [[ $lines_not_read_flag -eq 1 ]]; then
   echo "Error: The above lines were not read from $IMAGES_TXT:"
   exit 1
 fi
+
+trap - EXIT
