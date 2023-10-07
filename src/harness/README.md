@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.9.0](https://img.shields.io/badge/Version-0.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80220](https://img.shields.io/badge/AppVersion-1.0.80220-informational?style=flat-square)
+![Version: 0.9.1](https://img.shields.io/badge/Version-0.9.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80220](https://img.shields.io/badge/AppVersion-1.0.80220-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -112,10 +112,10 @@ docker.io/harness/ci-manager-signed:5313
 docker.io/harness/ci-scm-signed:release-161-ubi
 docker.io/harness/cv-nextgen-signed:80217
 docker.io/harness/dashboard-service-signed:v1.54.13
-docker.io/harness/delegate-proxy-signed:80113
-docker.io/harness/delegate-proxy-signed:80113_minimal
-docker.io/harness/delegate:23.09.80113
-docker.io/harness/delegate:23.09.80113.minimal
+docker.io/harness/delegate-proxy-signed:80114
+docker.io/harness/delegate-proxy-signed:80114_minimal
+docker.io/harness/delegate:23.10.80114
+docker.io/harness/delegate:23.10.80114.minimal
 docker.io/harness/delegate:latest
 docker.io/harness/error-tracking-signed:5.25.10
 docker.io/harness/et-collector-signed:5.25.3
