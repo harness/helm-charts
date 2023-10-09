@@ -366,6 +366,8 @@ platform:
           affinity: {}
           nodeSelector: {}
           tolerations: []
+          annotations: {}
+          podAnnotations: {}
         extraFlags:
           - "--wiredTigerCacheSizeGB=0.5"
         persistence:
