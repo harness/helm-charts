@@ -13,6 +13,10 @@ global:
     enabled: false
     endPointRegion: us-east-2
     stsEndPointUrl: https://sts.us-east-2.amazonaws.com
+  # -- Add common annotations to all objects
+  commonAnnotations: {}
+  # -- Add common labels to all objects
+  commonLabels: {}
   ccm:
     # -- Enable to install Cloud Cloud Management
     enabled: false
