@@ -363,6 +363,10 @@ platform:
         defaultBuckets: "logs"
         fullnameOverride: "minio"
         mode: standalone
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         persistence:
           size: 10Gi
       mongodb:
@@ -370,6 +374,8 @@ platform:
           affinity: {}
           nodeSelector: {}
           tolerations: []
+          annotations: {}
+          podAnnotations: {}
         extraFlags:
           - "--wiredTigerCacheSizeGB=0.5"
         persistence:
@@ -385,6 +391,10 @@ platform:
         auth:
           existingSecret: "postgres"
         primary:
+          affinity: {}
+          nodeSelector: {}
+          tolerations: []
+          podAnnotations: {}
           persistence:
             size: 8Gi
           resources:
@@ -394,6 +404,10 @@ platform:
               cpu: 2
               memory: 4Gi
       redis:
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         redis:
           resources:
             limits:
@@ -417,6 +431,10 @@ platform:
       timescaledb:
         autoscaling:
           enabled: false
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         replicaCount: 1
         resources:
           limits:
