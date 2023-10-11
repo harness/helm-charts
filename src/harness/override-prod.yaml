@@ -434,6 +434,10 @@ platform:
         defaultBuckets: "logs"
         fullnameOverride: "minio"
         mode: standalone
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         persistence:
           size: 200Gi
       mongodb:
@@ -458,6 +462,10 @@ platform:
         auth:
           existingSecret: "postgres"
         primary:
+          affinity: {}
+          nodeSelector: {}
+          tolerations: []
+          podAnnotations: {}
           persistence:
             size: 200Gi
           resources:
@@ -467,6 +475,10 @@ platform:
               cpu: 4
               memory: 8192Mi
       redis:
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         redis:
           resources:
             limits:
@@ -487,6 +499,10 @@ platform:
             requests:
               storage: 10Gi
       timescaledb:
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         autoscaling:
           enabled: false
         enabled: true
