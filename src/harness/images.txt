@@ -29,10 +29,10 @@ docker.io/harness/ci-manager-signed:5313
 docker.io/harness/ci-scm-signed:release-161-ubi
 docker.io/harness/cv-nextgen-signed:80217
 docker.io/harness/dashboard-service-signed:v1.54.13
-docker.io/harness/delegate-proxy-signed:80114
-docker.io/harness/delegate-proxy-signed:80114_minimal
-docker.io/harness/delegate:23.10.80114
-docker.io/harness/delegate:23.10.80114.minimal
+docker.io/harness/delegate-proxy-signed:80115
+docker.io/harness/delegate-proxy-signed:80115_minimal
+docker.io/harness/delegate:23.10.80115
+docker.io/harness/delegate:23.10.80115.minimal
 docker.io/harness/delegate:latest
 docker.io/harness/error-tracking-signed:5.25.10
 docker.io/harness/et-collector-signed:5.25.3
