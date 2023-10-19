@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/bash
+#!/bin/bash
 
 cleanup() {
   echo "Cleaning up generated files..."
