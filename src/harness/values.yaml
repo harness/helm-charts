@@ -1,6 +1,10 @@
 global:
   # -- Airgap functionality. Disabled by default
   airgap: "false"
+  # -- Add common annotations to all objects
+  commonAnnotations: {}
+  # -- Add common labels to all objects
+  commonLabels: {}
   # -- Enable to install Cloud Cost Management (CCM) (Beta)
   ccm:
     enabled: false

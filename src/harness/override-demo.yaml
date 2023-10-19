@@ -13,6 +13,10 @@ global:
     enabled: false
     endPointRegion: us-east-2
     stsEndPointUrl: https://sts.us-east-2.amazonaws.com
+  # -- Add common annotations to all objects
+  commonAnnotations: {}
+  # -- Add common labels to all objects
+  commonLabels: {}
   ccm:
     # -- Enable to install Cloud Cloud Management
     enabled: false
@@ -251,13 +255,15 @@ ccm:
   event-service:
     stackDriverLoggingEnabled: false
 cet:
-  enable-receivers: false
+  enable-receivers: true
   et-collector:
     autoscaling:
       enabled: false
     et:
       java:
         heapSize: "1600m"
+      redis:
+        enabled: true
     replicaCount: 1
     resources:
       limits:
@@ -272,7 +278,37 @@ cet:
       java:
         heapSize: "2048m"
       redis:
-        enabled: false
+        enabled: true
+      receivers:
+        config:
+          - name: et-receiver-hit
+            type: hit
+            autoscaling: false
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-agent
+            type: agent
+            autoscaling: false
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-sql
+            type: sql
+            autoscaling: false
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-decompile
+            type: decompile
+            autoscaling: false
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
     replicaCount: 1
     resources:
       limits:
@@ -359,6 +395,10 @@ platform:
         defaultBuckets: "logs"
         fullnameOverride: "minio"
         mode: standalone
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         persistence:
           size: 10Gi
       mongodb:
@@ -366,6 +406,8 @@ platform:
           affinity: {}
           nodeSelector: {}
           tolerations: []
+          annotations: {}
+          podAnnotations: {}
         extraFlags:
           - "--wiredTigerCacheSizeGB=0.5"
         persistence:
@@ -381,6 +423,10 @@ platform:
         auth:
           existingSecret: "postgres"
         primary:
+          affinity: {}
+          nodeSelector: {}
+          tolerations: []
+          podAnnotations: {}
           persistence:
             size: 8Gi
           resources:
@@ -390,6 +436,10 @@ platform:
               cpu: 2
               memory: 4Gi
       redis:
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         redis:
           resources:
             limits:
@@ -413,6 +463,10 @@ platform:
       timescaledb:
         autoscaling:
           enabled: false
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         replicaCount: 1
         resources:
           limits:

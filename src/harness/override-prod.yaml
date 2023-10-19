@@ -13,6 +13,10 @@ global:
     enabled: false
     endPointRegion: us-east-2
     stsEndPointUrl: https://sts.us-east-2.amazonaws.com
+  # -- Add common annotations to all objects
+  commonAnnotations: {}
+  # -- Add common labels to all objects
+  commonLabels: {}
   ccm:
     # -- Enable to install Cloud Cloud Management
     enabled: false
@@ -273,75 +277,7 @@ cet:
       limits:
         memory: 2Gi
       requests:
-        cpu: 100m
-        memory: 2Gi
-  et-receiver-agent:
-    autoscaling:
-      enabled: true
-      maxReplicas: 3
-    et:
-      java:
-        heapSize: "1600m"
-      redisQueue:
-        type: agent
-    name: et-receiver-agent
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 250m
-        memory: 2Gi
-  et-receiver-decompile:
-    autoscaling:
-      enabled: true
-      maxReplicas: 3
-    et:
-      java:
-        heapSize: "1600m"
-      redisQueue:
-        type: decompile
-    name: et-receiver-decompile
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 250m
-        memory: 2Gi
-  et-receiver-hit:
-    autoscaling:
-      enabled: true
-      maxReplicas: 3
-    et:
-      java:
-        heapSize: "1600m"
-      redisQueue:
-        type: hit
-    name: et-receiver-hit
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 250m
-        memory: 2Gi
-  et-receiver-sql:
-    autoscaling:
-      enabled: true
-      maxReplicas: 3
-    et:
-      java:
-        heapSize: "1600m"
-      redisQueue:
-        type: sql
-    name: et-receiver-sql
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 250m
+        cpu: 500m
         memory: 2Gi
   et-service:
     et:
@@ -349,6 +285,44 @@ cet:
         heapSize: "6400m"
       redis:
         enabled: true
+      receivers:
+        config:
+          - name: et-receiver-hit
+            type: hit
+            autoscaling: true
+            minReplicas: 1
+            maxReplicas: 3
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-agent
+            type: agent
+            autoscaling: true
+            minReplicas: 1
+            maxReplicas: 3
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-sql
+            type: sql
+            autoscaling: true
+            minReplicas: 1
+            maxReplicas: 3
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-decompile
+            type: decompile
+            autoscaling: true
+            minReplicas: 1
+            maxReplicas: 3
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
     replicaCount: 2
     resources:
       limits:
@@ -434,6 +408,10 @@ platform:
         defaultBuckets: "logs"
         fullnameOverride: "minio"
         mode: standalone
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         persistence:
           size: 200Gi
       mongodb:
@@ -441,6 +419,8 @@ platform:
           affinity: {}
           nodeSelector: {}
           tolerations: []
+          annotations: {}
+          podAnnotations: {}
         extraFlags:
           - "--wiredTigerCacheSizeGB=3"
         persistence:
@@ -456,6 +436,10 @@ platform:
         auth:
           existingSecret: "postgres"
         primary:
+          affinity: {}
+          nodeSelector: {}
+          tolerations: []
+          podAnnotations: {}
           persistence:
             size: 200Gi
           resources:
@@ -465,6 +449,10 @@ platform:
               cpu: 4
               memory: 8192Mi
       redis:
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         redis:
           resources:
             limits:
@@ -485,6 +473,10 @@ platform:
             requests:
               storage: 10Gi
       timescaledb:
+        affinity: {}
+        nodeSelector: {}
+        tolerations: []
+        podAnnotations: {}
         autoscaling:
           enabled: false
         enabled: true
