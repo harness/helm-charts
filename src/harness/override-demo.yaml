@@ -255,13 +255,15 @@ ccm:
   event-service:
     stackDriverLoggingEnabled: false
 cet:
-  enable-receivers: false
+  enable-receivers: true
   et-collector:
     autoscaling:
       enabled: false
     et:
       java:
         heapSize: "1600m"
+      redis:
+        enabled: true
     replicaCount: 1
     resources:
       limits:
@@ -276,7 +278,37 @@ cet:
       java:
         heapSize: "2048m"
       redis:
-        enabled: false
+        enabled: true
+      receivers:
+        config:
+          - name: et-receiver-hit
+            type: hit
+            autoscaling: false
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-agent
+            type: agent
+            autoscaling: false
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-sql
+            type: sql
+            autoscaling: false
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-decompile
+            type: decompile
+            autoscaling: false
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
     replicaCount: 1
     resources:
       limits:

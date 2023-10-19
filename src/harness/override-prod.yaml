@@ -277,75 +277,7 @@ cet:
       limits:
         memory: 2Gi
       requests:
-        cpu: 100m
-        memory: 2Gi
-  et-receiver-agent:
-    autoscaling:
-      enabled: true
-      maxReplicas: 3
-    et:
-      java:
-        heapSize: "1600m"
-      redisQueue:
-        type: agent
-    name: et-receiver-agent
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 250m
-        memory: 2Gi
-  et-receiver-decompile:
-    autoscaling:
-      enabled: true
-      maxReplicas: 3
-    et:
-      java:
-        heapSize: "1600m"
-      redisQueue:
-        type: decompile
-    name: et-receiver-decompile
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 250m
-        memory: 2Gi
-  et-receiver-hit:
-    autoscaling:
-      enabled: true
-      maxReplicas: 3
-    et:
-      java:
-        heapSize: "1600m"
-      redisQueue:
-        type: hit
-    name: et-receiver-hit
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 250m
-        memory: 2Gi
-  et-receiver-sql:
-    autoscaling:
-      enabled: true
-      maxReplicas: 3
-    et:
-      java:
-        heapSize: "1600m"
-      redisQueue:
-        type: sql
-    name: et-receiver-sql
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 250m
+        cpu: 500m
         memory: 2Gi
   et-service:
     et:
@@ -353,6 +285,44 @@ cet:
         heapSize: "6400m"
       redis:
         enabled: true
+      receivers:
+        config:
+          - name: et-receiver-hit
+            type: hit
+            autoscaling: true
+            minReplicas: 1
+            maxReplicas: 3
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-agent
+            type: agent
+            autoscaling: true
+            minReplicas: 1
+            maxReplicas: 3
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-sql
+            type: sql
+            autoscaling: true
+            minReplicas: 1
+            maxReplicas: 3
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+          - name: et-receiver-decompile
+            type: decompile
+            autoscaling: true
+            minReplicas: 1
+            maxReplicas: 3
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
     replicaCount: 2
     resources:
       limits:
