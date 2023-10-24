@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.9.2](https://img.shields.io/badge/Version-0.9.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80220](https://img.shields.io/badge/AppVersion-1.0.80220-informational?style=flat-square)
+![Version: 0.9.3](https://img.shields.io/badge/Version-0.9.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80220](https://img.shields.io/badge/AppVersion-1.0.80220-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -85,17 +85,17 @@ docker.io/bitnami/clickhouse:23.3.13-debian-11-r0
 docker.io/bitnami/minio:2023.7.18-debian-11-r2
 docker.io/bitnami/postgresql:14.8.0-debian-11-r17
 docker.io/chaosnative/argoexec:v3.4.10
-docker.io/chaosnative/chaos-exporter:1.19.0
-docker.io/chaosnative/chaos-go-runner-base:1.19.0
-docker.io/chaosnative/chaos-go-runner-io:1.19.0
-docker.io/chaosnative/chaos-go-runner-time:1.19.0
-docker.io/chaosnative/chaos-go-runner:1.19.0
-docker.io/chaosnative/chaos-operator:1.19.0
-docker.io/chaosnative/chaos-runner:1.19.0
-docker.io/chaosnative/harness-chaos-log-watcher:1.19.1
-docker.io/chaosnative/harness-k8s-chaos-infrastructure-upgrader:1.19.0
-docker.io/chaosnative/k8s:1.19.0
-docker.io/chaosnative/litmus-checker:1.19.0
+docker.io/chaosnative/chaos-exporter:1.22.0
+docker.io/chaosnative/chaos-go-runner-base:1.22.0
+docker.io/chaosnative/chaos-go-runner-io:1.22.0
+docker.io/chaosnative/chaos-go-runner-time:1.22.0
+docker.io/chaosnative/chaos-go-runner:1.22.0
+docker.io/chaosnative/chaos-operator:1.22.1
+docker.io/chaosnative/chaos-runner:1.22.0
+docker.io/chaosnative/harness-chaos-log-watcher:1.22.0
+docker.io/chaosnative/harness-k8s-chaos-infrastructure-upgrader:1.22.0
+docker.io/chaosnative/k8s:1.22.0
+docker.io/chaosnative/litmus-checker:1.22.0
 docker.io/chaosnative/source-probe:ci
 docker.io/chaosnative/workflow-controller:v3.4.10
 docker.io/curlimages/curl:8.1.2
@@ -144,12 +144,12 @@ docker.io/harness/ng-manager-signed:80219
 docker.io/harness/pipeline-service-signed:1.41.3
 docker.io/harness/platform-service-signed:80000
 docker.io/harness/policy-mgmt:v1.63.0
-docker.io/harness/smp-chaos-k8s-ifs-signed:1.19.0
-docker.io/harness/smp-chaos-linux-infra-controller-signed:1.19.0
-docker.io/harness/smp-chaos-linux-infra-server-signed:1.19.0
-docker.io/harness/smp-chaos-manager-signed:1.19.2
-docker.io/harness/smp-chaos-subscriber-signed:1.19.0
-docker.io/harness/smp-chaos-web-signed:1.19.3
+docker.io/harness/smp-chaos-k8s-ifs-signed:1.22.0
+docker.io/harness/smp-chaos-linux-infra-controller-signed:1.22.0
+docker.io/harness/smp-chaos-linux-infra-server-signed:1.22.0
+docker.io/harness/smp-chaos-manager-signed:1.22.3
+docker.io/harness/smp-chaos-subscriber-signed:1.22.0
+docker.io/harness/smp-chaos-web-signed:1.22.5
 docker.io/harness/sto-plugin:1.13.0
 docker.io/harness/stocore-signed:v1.64.1
 docker.io/harness/stomanager-signed:80101-000
