@@ -110,6 +110,35 @@ entries:
   chaos:
   - apiVersion: v2
     appVersion: 0.6.0
+    created: "2023-10-24T06:25:39.367534484Z"
+    dependencies:
+    - name: chaos-common
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.3
+    - name: chaos-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.3
+    - name: chaos-web
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.3
+    - name: chaos-k8s-ifs
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.3
+    - name: chaos-linux-ifs
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.3
+    - name: chaos-linux-ifc
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.3
+    description: A Helm chart for harness chaos module
+    digest: 5bf032ff0b18d6d50ad85c9f2b57e5ecbbb11b0d25aeaf9f00a7d6f7755f709b
+    name: chaos
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/chaos-0.9.3/chaos-0.9.3.tgz
+    version: 0.9.3
+  - apiVersion: v2
+    appVersion: 0.6.0
     created: "2023-09-30T06:11:04.701904463Z"
     dependencies:
     - name: chaos-common
@@ -7996,4 +8025,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2023-10-12T19:11:58.609409174Z"
+generated: "2023-10-24T06:25:40.423217347Z"
