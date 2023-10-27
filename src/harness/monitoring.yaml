@@ -1,33 +1,33 @@
-platform:
-  mongodb:
-    metrics:
-      enabled: true
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9216'
-      prometheus.io/scrape: 'true'
-  redis:
-    metrics:
-      enabled: true
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9121'
-      prometheus.io/scrape: 'true'
-  timescaledb:
-    prometheus:
-      enabled: true
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9187'
-      prometheus.io/scrape: 'true'
-infra:
-  postgresql:
-    metrics:
-      enabled: true
-    podAnnotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9187'
-      prometheus.io/scrape: 'true'
+bootstrap:
+  database: 
+    mongodb:
+      metrics:
+        enabled: true
+      podAnnotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: '9216'
+        prometheus.io/scrape: 'true'
+    redis:
+      metrics:
+        enabled: true
+      podAnnotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: '9121'
+        prometheus.io/scrape: 'true'
+    timescaledb:
+      prometheus:
+        enabled: true
+      podAnnotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: '9187'
+        prometheus.io/scrape: 'true'
+    postgresql:
+      metrics:
+        enabled: true
+      podAnnotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: '9187'
+        prometheus.io/scrape: 'true'
 global:
   monitoring:
     enabled: true
