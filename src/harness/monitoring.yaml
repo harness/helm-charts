@@ -28,8 +28,8 @@ bootstrap:
         prometheus.io/path: /metrics
         prometheus.io/port: '9187'
         prometheus.io/scrape: 'true'
-    global:
-      monitoring:
-        enabled: true
-        port: 8889
-        path: /metrics
+global:
+  monitoring:
+    enabled: true
+      port: 8889
+      path: /metrics
