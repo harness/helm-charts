@@ -31,5 +31,5 @@ bootstrap:
 global:
   monitoring:
     enabled: true
-      port: 8889
-      path: /metrics
+    port: 8889
+    path: /metrics
