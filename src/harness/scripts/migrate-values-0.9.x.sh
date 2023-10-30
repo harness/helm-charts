@@ -58,6 +58,17 @@ else
   exit 1
 fi
 
+required_yq_version="4.35.0"
+installed_yq_version=$(yq --version | cut -d ' ' -f 4 | sed 's/v//')
+
+# Compare versions
+if [[ "$(printf '%s\n' "$required_yq_version" "$installed_yq_version" | sort -V | head -n1)" != "$required_yq_version" ]]; then
+    echo "ERROR: yq version $installed_yq_version is less than $required_yq_version"
+    exit 1
+fi
+
+echo "yq version $installed_yq_version is compatible, required version is $required_yq_version"
+
 old_file=$overrideFile
 echo -e "\nInput File Name: $old_file"
 
