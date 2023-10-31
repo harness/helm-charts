@@ -251,10 +251,6 @@ ccm:
     stackDriverLoggingEnabled: false
   cloud-info:
     replicaCount: 2
-  cloud-info:
-    replicaCount: 2
-  event-service:
-    replicaCount: 2
   event-service:
     replicaCount: 2
   telescopes:
