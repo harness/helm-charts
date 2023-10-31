@@ -64,9 +64,9 @@ if [ $# -eq 1 ]; then
     rm "${pulled_file}" || handle_error "Failed to remove temporary file: ${pulled_file}"
 
     # Cleanup: Remove the pulled images
-    for image in ${pulled}; do
-        docker rmi -f ${image}
-    done
+    #for image in ${pulled}; do
+    #    docker rmi -f ${image}
+    #done
 else
     # Loop through each list
     for list in ${lists[*]}; do
@@ -109,8 +109,8 @@ else
         rm "${pulled_file}" || handle_error "Failed to remove temporary file: ${pulled_file}"
 
         # Cleanup: Remove the pulled images
-        for image in ${pulled}; do
-            docker rmi -f ${image}
-        done
+        #for image in ${pulled}; do
+        #    docker rmi -f ${image}
+        #done
     done
 fi
