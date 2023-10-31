@@ -4,39 +4,39 @@ dependencies:
 - condition: global.ccm.enabled
   name: ccm
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231031.95159.915
+  version: 0.10.0-qa.20231031.112550.752
 - condition: global.cd.enabled
   name: cd
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231031.95159.915
+  version: 0.10.0-qa.20231031.112550.752
 - condition: global.cet.enabled
   name: cet
   repository: gs://smp-helm-charts/qa
-  version: 0.11.0-qa.20231031.95159.915
+  version: 0.11.0-qa.20231031.112550.752
 - condition: global.chaos.enabled
   name: chaos
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231031.95159.915
+  version: 0.10.0-qa.20231031.112550.752
 - condition: global.ci.enabled
   name: ci
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231031.95159.915
+  version: 0.10.0-qa.20231031.112550.752
 - condition: global.ff.enabled
   name: ff
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231031.95159.915
+  version: 0.10.0-qa.20231031.112550.752
 - name: platform
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231031.95159.915
+  version: 0.10.0-qa.20231031.112550.752
 - condition: global.srm.enabled
   name: srm
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231031.95159.915
+  version: 0.10.0-qa.20231031.112550.752
 - condition: global.sto.enabled
   name: sto
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231031.95159.915
+  version: 0.10.0-qa.20231031.112550.752
 description: Helm Chart for deploying Harness.
 name: harness
 type: application
-version: 0.10.0-qa.20231031.95159.915
+version: 0.10.0-qa.20231031.112550.752
