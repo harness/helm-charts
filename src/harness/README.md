@@ -271,6 +271,7 @@ quay.io/argoproj/argocd:v2.7.8
 | global.ng | object | `{"enabled":true}` | Enable to install NG (Next Generation Harness Platform) |
 | global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install Next Generation Custom Dashboards (Beta) |
 | global.opa | object | `{"enabled":false}` | Enable to install Open Policy Agent (OPA) |
+| global.overrideValidation | object | `{"restructuredValues":false}` | Enable to disable validation checks |
 | global.proxy | object | `{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""}` | Set global.proxy.protocol to http or https depending on the proxy configuration |
 | global.saml | object | `{"autoaccept":false}` | SAML auto acceptance. Enabled will not send invites to email and autoaccepts |
 | global.smtpCreateSecret | object | `{"enabled":false}` | Method to create a secret for your SMTP server |

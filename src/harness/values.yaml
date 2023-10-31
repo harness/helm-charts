@@ -177,6 +177,9 @@ global:
   # -- Enable to install Open Policy Agent (OPA)
   opa:
     enabled: false
+  # -- Enable to disable validation checks
+  overrideValidation:
+    restructuredValues: false
   # --  SAML auto acceptance. Enabled will not send invites to email and autoaccepts
   saml:
     autoaccept: false
