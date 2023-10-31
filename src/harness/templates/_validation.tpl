@@ -9,115 +9,170 @@
 {{- $validationErrors := "" }}
 {{/* platform */}}
 {{/* ti-service */}}
-{{- if and (index .Values "platform") (index .Values "platform" "ti-service") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "ti-service" "srcLocation" "platform.ti-service" "destLocation" "ci.ti-service")) }}
+{{- if (index .Values "platform") }}
+    {{- if (index .Values "platform" "ti-service") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "ti-service" "srcLocation" "platform.ti-service" "destLocation" "ci.ti-service")) }}
+    {{- end }}
 {{- end }}
 {{/* cv-nextgen */}}
-{{- if and (index .Values "platform") (index .Values "platform" "cv-nextgen") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "cv-nextgen" "srcLocation" "platform.cv-nextgen" "destLocation" "srm.cv-nextgen")) }}
+{{- if (index .Values "platform") }}
+    {{- if (index .Values "platform" "cv-nextgen") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "cv-nextgen" "srcLocation" "platform.cv-nextgen" "destLocation" "srm.cv-nextgen")) }}
+    {{- end }}
 {{- end }}
 {{/* verification-svc */}}
-{{- if and (index .Values "platform") (index .Values "platform" "verification-svc") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "verification-svc" "srcLocation" "platform.verification-svc" "destLocation" "srm.verification-svc")) }}
+{{- if (index .Values "platform") }}
+    {{- if (index .Values "platform" "verification-svc") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "verification-svc" "srcLocation" "platform.verification-svc" "destLocation" "srm.verification-svc")) }}
+    {{- end }}
 {{- end }}
 {{/* le-nextgen */}}
-{{- if and (index .Values "platform") (index .Values "platform" "le-nextgen") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "le-nextgen" "srcLocation" "platform.le-nextgen" "destLocation" "srm.le-nextgen")) }}
+{{- if (index .Values "platform") }}
+    {{- if (index .Values "platform" "le-nextgen") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "le-nextgen" "srcLocation" "platform.le-nextgen" "destLocation" "srm.le-nextgen")) }}
+    {{- end }}
 {{- end }}
 {{/* harness-secrets */}}
-{{- if and (index .Values "platform") (index .Values "platform" "harness-secrets") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "harness-secrets" "srcLocation" "platform.harness-secrets" "destLocation" "platform.bootstrap.harness-secrets")) }}
+{{- if (index .Values "platform") }}
+    {{- if (index .Values "platform" "harness-secrets") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "harness-secrets" "srcLocation" "platform.harness-secrets" "destLocation" "platform.bootstrap.harness-secrets")) }}
+    {{- end }}
 {{- end }}
 {{/* minio */}}
-{{- if and (index .Values "platform") (index .Values "platform" "minio") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "minio" "srcLocation" "platform.minio" "destLocation" "platform.bootstrap.database.minio")) }}
+{{- if (index .Values "platform") }}
+    {{- if (index .Values "platform" "minio") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "minio" "srcLocation" "platform.minio" "destLocation" "platform.bootstrap.database.minio")) }}
+    {{- end }}
 {{- end }}
 {{/* mongo */}}
-{{- if and (index .Values "platform") (index .Values "platform" "mongo") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "mongo" "srcLocation" "platform.mongodb" "destLocation" "platform.bootstrap.database.mongodb")) }}
+{{- if (index .Values "platform") }}
+    {{- if (index .Values "platform" "mongo") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "mongo" "srcLocation" "platform.mongodb" "destLocation" "platform.bootstrap.database.mongodb")) }}
+    {{- end }}
 {{- end }}
 {{/* redis */}}
-{{- if and (index .Values "platform") (index .Values "platform" "timescaledb") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "redis" "srcLocation" "platform.redis" "destLocation" "platform.bootstrap.database.redis")) }}
+{{- if (index .Values "platform") }}
+    {{- if (index .Values "platform" "timescaledb") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "redis" "srcLocation" "platform.redis" "destLocation" "platform.bootstrap.database.redis")) }}
+    {{- end }}
 {{- end }}
 {{/* timescaledb */}}
-{{- if and (index .Values "platform") (index .Values "platform" "timescaledb") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "timescaledb" "srcLocation" "platform.timescaledb" "destLocation" "platform.bootstrap.database.timescaledb")) }}
+{{- if (index .Values "platform") }}
+    {{- if (index .Values "platform" "timescaledb") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "timescaledb" "srcLocation" "platform.timescaledb" "destLocation" "platform.bootstrap.database.timescaledb")) }}
+    {{- end }}
 {{- end }}
 {{/* infra */}}
 {{/* postgresql */}}
-{{- if and (index .Values "infra") (index .Values "infra" "postgresql") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "postgresql" "srcLocation" "infra.postgresql" "destLocation" "platform.bootstrap.database.postgresql")) }}
+{{- if (index .Values "infra") }}
+    {{- if (index .Values "infra" "postgresql") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "postgresql" "srcLocation" "infra.postgresql" "destLocation" "platform.bootstrap.database.postgresql")) }}
+    {{- end }}
 {{- end }}
 {{/* gitops */}}
-{{- if index .Values "gitops" }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "gitops" "srcLocation" "gitops" "destLocation" "cd.gitops")) }}
+{{- if (index .Values "gitops") }}
+    {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "gitops" "srcLocation" "gitops" "destLocation" "cd.gitops")) }}
 {{- end }}
 {{/* ccm */}}
 {{/* clickhouse */}}
-{{- if and (index .Values "ccm") (index .Values "ccm" "clickhouse") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "clickhouse" "srcLocation" "ccm.clickhouse" "destLocation" "global.database.clickhouse")) }}
+{{- if (index .Values "ccm") }}
+    {{- if (index .Values "ccm" "clickhouse") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "clickhouse" "srcLocation" "ccm.clickhouse" "destLocation" "global.database.clickhouse")) }}
+    {{- end }}
 {{- end }}
 {{/* nextgen-ce */}}
-{{- if and (index .Values "ccm") (index .Values "ccm" "nextgen-ce") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "nextgen-ce" "srcLocation" "ccm.nextgen-ce" "destLocation" "global.database.ce-nextgen")) }}
+{{- if (index .Values "ccm") }}
+    {{- if (index .Values "ccm" "nextgen-ce") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "nextgen-ce" "srcLocation" "ccm.nextgen-ce" "destLocation" "global.database.ce-nextgen")) }}
+    {{- end }}
 {{- end }}
 {{/* ngcustomdashboard */}}
 {{/* ng-custom-dashboards */}}
-{{- if and (index .Values "ngcustomdashboard") (index .Values "ngcustomdashboard" "ng-custom-dashboards") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "ng-custom-dashboards" "srcLocation" "ngcustomdashboard.ng-custom-dashboards" "destLocation" "platform.ng-custom-dashboards")) }}
+{{- if (index .Values "ngcustomdashboard") }}
+    {{- if (index .Values "ngcustomdashboard" "ng-custom-dashboards") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "ng-custom-dashboards" "srcLocation" "ngcustomdashboard.ng-custom-dashboards" "destLocation" "platform.ng-custom-dashboards")) }}
+    {{- end }}
 {{- end }}
 {{/* looker */}}
-{{- if and (index .Values "ngcustomdashboard") (index .Values "ngcustomdashboard" "looker") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "looker" "srcLocation" "ngcustomdashboard.looker" "destLocation" "platform.looker")) }}
+{{- if (index .Values "ngcustomdashboard") }}
+    {{- if (index .Values "ngcustomdashboard" "looker") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "looker" "srcLocation" "ngcustomdashboard.looker" "destLocation" "platform.looker")) }}
+    {{- end }}
 {{- end }}
 {{/* policy-mgmt */}}
-{{- if and (index .Values "policy-mgmt") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "policy-mgmt" "srcLocation" "policy-mgmts" "destLocation" "platform.policy-mgmt")) }}
+{{- if (index .Values "policy-mgmt") }}
+    {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "policy-mgmt" "srcLocation" "policy-mgmts" "destLocation" "platform.policy-mgmt")) }}
 {{- end }}
 {{/* cet */}}
 {{/* enable-receivers */}}
-{{- if and (index .Values "srm") (index .Values "srm" "enable-receivers") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "enable-receivers" "srcLocation" "srm.enable-receivers" "destLocation" "cet.enable-receivers")) }}
+{{- if (index .Values "srm") }}
+    {{- if (index .Values "srm" "enable-receivers") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "enable-receivers" "srcLocation" "srm.enable-receivers" "destLocation" "cet.enable-receivers")) }}
+    {{- end }}
 {{- end }}
 {{/* et-service */}}
-{{- if and (index .Values "srm") (index .Values "srm" "et-service") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-service" "srcLocation" "srm.et-service" "destLocation" "cet.et-service")) }}
+{{- if (index .Values "srm") }}
+    {{- if (index .Values "srm" "et-service") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-service" "srcLocation" "srm.et-service" "destLocation" "cet.et-service")) }}
+    {{- end }}
 {{- end }}
 {{/* et-collector */}}
-{{- if and (index .Values "srm") (index .Values "srm" "et-collector") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-collector" "srcLocation" "srm.et-collector" "destLocation" "cet.et-collector")) }}
+{{- if (index .Values "srm") }}
+    {{- if (index .Values "srm" "et-collector") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-collector" "srcLocation" "srm.et-collector" "destLocation" "cet.et-collector")) }}
+    {{- end }}
 {{- end }}
 {{/* et-receiver-decompile */}}
-{{- if and (index .Values "srm") (index .Values "srm" "et-receiver-decompile") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-decompile" "srcLocation" "srm.et-receiver-decompile" "destLocation" "cet.et-receiver-decompile")) }}
+{{- if (index .Values "srm") }}
+    {{- if (index .Values "srm" "et-receiver-decompile") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-decompile" "srcLocation" "srm.et-receiver-decompile" "destLocation" "cet.et-receiver-decompile")) }}
+    {{- end }}
 {{- end }}
 {{/* et-receiver-hit */}}
-{{- if and (index .Values "srm") (index .Values "srm" "et-receiver-hit") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-hit" "srcLocation" "srm.et-receiver-hit" "destLocation" "cet.et-receiver-hit")) }}
+{{- if (index .Values "srm") }}
+    {{- if (index .Values "srm" "et-receiver-hit") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-hit" "srcLocation" "srm.et-receiver-hit" "destLocation" "cet.et-receiver-hit")) }}
+    {{- end }}
 {{- end }}
 {{/* et-receiver-sql */}}
-{{- if and (index .Values "srm") (index .Values "srm" "et-receiver-sql") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-sql" "srcLocation" "srm.et-receiver-sql" "destLocation" "cet.et-receiver-sql")) }}
+{{- if (index .Values "srm") }}
+    {{- if (index .Values "srm" "et-receiver-sql") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-sql" "srcLocation" "srm.et-receiver-sql" "destLocation" "cet.et-receiver-sql")) }}
+    {{- end }}
 {{- end }}
 {{/* et-receiver-agent */}}
-{{- if and (index .Values "srm") (index .Values "srm" "et-receiver-agent") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-agent" "srcLocation" "srm.et-receiver-agent" "destLocation" "cet.et-receiver-agent")) }}
+{{- if (index .Values "srm") }}
+    {{- if (index .Values "srm" "et-receiver-agent") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-agent" "srcLocation" "srm.et-receiver-agent" "destLocation" "cet.et-receiver-agent")) }}
+    {{- end }}
 {{- end }}
 {{/* chaos */}}
 {{/* chaos-driver */}}
-{{- if and (index .Values "chaos") (index .Values "chaos" "chaos-driver") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "chaos-driver" "srcLocation" "chaos.chaos-driver" "destLocation" "")) }}
+{{- if (index .Values "chaos") }}
+    {{- if (index .Values "chaos" "chaos-driver") }}
+        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "chaos-driver" "srcLocation" "chaos.chaos-driver" "destLocation" "")) }}
+    {{- end }}
 {{- end }}
+
 {{/* global */}}
 {{/* nginx */}}
-{{- if and (index .Values "global") (index .Values "global" "ingress") (index .Values "global" "ingress" "nginx") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "nginx" "srcLocation" "global.ingress.nginx" "destLocation" "platform.bootstrap.networking.nginx")) }}
+{{- if (index .Values "global") }}
+    {{- if (index .Values "global" "ingress") }}
+        {{- if (index .Values "global" "ingress" "nginx") }}
+            {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "nginx" "srcLocation" "global.ingress.nginx" "destLocation" "platform.bootstrap.networking.nginx")) }}
+        {{- end }}
+    {{- end }}
 {{- end }}
+
 {{/* defaultbackend */}}
-{{- if and (index .Values "global") (index .Values "global" "ingress") (index .Values "global" "ingress" "defaultbackend") }}
-{{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "defaultbackend" "srcLocation" "global.ingress.defaultbackend" "destLocation" "platform.bootstrap.networking.defaultbackend")) }}
-{{- end }}
+{{- if (index .Values "global") }}
+    {{- if (index .Values "global" "ingress") }}
+        {{- if (index .Values "global" "ingress" "defaultbackend") }}
+            {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "defaultbackend" "srcLocation" "global.ingress.defaultbackend" "destLocation" "platform.bootstrap.networking.defaultbackend")) }}
+        {{- end }}
+    {{- end }}
+            {{- end }}
+
 {{- if gt (len $validationErrors) 0 }}
 {{- $validationErrorHeading := printf "\n\n Validation Error: \n values/override.yaml files require changes to work with the new Harness Helm Charts structure \n\n" }}
 {{- $validationErrorHeading = printf "%s In harness-0.9.x, Harness helm charts have been restructured and the impacted fields in provided values/override.yaml need to be migrated by following the steps below \n\n" $validationErrorHeading }}

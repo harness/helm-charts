@@ -1,30 +1,30 @@
 dependencies:
 - name: ccm
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231030.124609.564
+  version: 0.10.0-qa.20231031.95159.915
 - name: cd
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231030.124609.564
+  version: 0.10.0-qa.20231031.95159.915
 - name: cet
   repository: gs://smp-helm-charts/qa
-  version: 0.11.0-qa.20231030.124609.564
+  version: 0.11.0-qa.20231031.95159.915
 - name: chaos
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231030.124609.564
+  version: 0.10.0-qa.20231031.95159.915
 - name: ci
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231030.124609.564
+  version: 0.10.0-qa.20231031.95159.915
 - name: ff
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231030.124609.564
+  version: 0.10.0-qa.20231031.95159.915
 - name: platform
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231030.124609.564
+  version: 0.10.0-qa.20231031.95159.915
 - name: srm
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231030.124609.564
+  version: 0.10.0-qa.20231031.95159.915
 - name: sto
   repository: gs://smp-helm-charts/qa
-  version: 0.10.0-qa.20231030.124609.564
-digest: sha256:0e94e27d7bf6c4af0387b4f4082db385cb84bd0e9eb161c9312f8248d6a94325
-generated: "2023-10-30T19:47:16.544307386Z"
+  version: 0.10.0-qa.20231031.95159.915
+digest: sha256:a9ad32bfc87d753f9ada0182706757e17a65094ecc49a3d682730069bcb9e062
+generated: "2023-10-31T16:53:01.048746222Z"
