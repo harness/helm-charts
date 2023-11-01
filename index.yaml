@@ -155,6 +155,23 @@ entries:
     - https://github.com/harness/helm-charts/releases/download/cet-0.11.0/cet-0.11.0.tgz
     version: 0.11.0
   - apiVersion: v2
+    appVersion: 5.28.2
+    created: "2023-11-01T19:57:57.559393563Z"
+    dependencies:
+    - name: et-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.10.1
+    - name: et-collector
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.10.2
+    description: A Helm chart for Harness CET
+    digest: fa8a58177d136035078132ca30855b700d1a7ae378c3016920da33713f505025
+    name: cet
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/cet-0.10.0/cet-0.10.0.tgz
+    version: 0.10.0
+  - apiVersion: v2
     appVersion: 5.23.1
     created: "2023-09-30T06:11:04.506939756Z"
     dependencies:
@@ -8349,4 +8366,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2023-11-01T19:38:17.144876763Z"
+generated: "2023-11-01T19:57:58.765509226Z"
