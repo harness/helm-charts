@@ -37,6 +37,7 @@
     haproxy
     gitops-service-signed
     ubuntu
+    ng-dashboard-aggregator-signed
 
 [ci]:
     ti-service-signed
@@ -80,6 +81,7 @@
     nikto-job-runner
     nmap-job-runner
     prowler-job-runner
+    anchore-job-runner
 
 [ff]:
     ff-postgres-migration-signed
