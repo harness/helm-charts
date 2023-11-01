@@ -18,7 +18,7 @@ docker.io/chaosnative/workflow-controller:v3.4.10
 docker.io/curlimages/curl:8.1.2
 docker.io/haproxy:lts-alpine3.17
 docker.io/harness/accesscontrol-service-signed:80302
-docker.io/harness/batch-processing-signed:81101-000
+docker.io/harness/batch-processing-signed:81102-000
 docker.io/harness/cdcdata-signed:80909
 docker.io/harness/ce-anomaly-detection-signed:70037
 docker.io/harness/ce-cloud-info-signed:10303
@@ -43,7 +43,7 @@ docker.io/harness/ff-server-signed:1.1079.1
 docker.io/harness/ff-timescale-migration-signed:1.945.0
 docker.io/harness/gateway-signed:0.10.1
 docker.io/harness/gitops-agent:v0.62.1
-docker.io/harness/gitops-service-signed:v0.81.2
+docker.io/harness/gitops-service-signed:v0.81.3
 docker.io/harness/helm-init-container:latest
 docker.io/harness/le-nextgen-signed:68305
 docker.io/harness/learning-engine-onprem-signed:67903
