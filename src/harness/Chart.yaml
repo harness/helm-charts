@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: 1.0.80220
+appVersion: 1.0.80917
 dependencies:
 - condition: global.ccm.enabled
   name: ccm
