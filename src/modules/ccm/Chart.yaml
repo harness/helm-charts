@@ -15,7 +15,7 @@ dependencies:
   version: 0.9.0
 - name: batch-processing
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.10.4
+  version: 0.11.2
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.10.0
@@ -37,7 +37,7 @@ dependencies:
   version: 0.9.0
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.10.3
+  version: 0.11.2
 - condition: global.lwd.enabled
   name: dkron
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts

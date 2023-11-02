@@ -10,7 +10,7 @@ handle_error() {
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Provide lists of image names
-lists=("cdng_images.txt" "ci_images.txt" "platform_images.txt" "ccm_images.tgz" 
+lists=("cdng_images.txt" "ci_images.txt" "platform_images.txt" "ccm_images.txt" 
 "ce_images.txt" "sto_images.txt" "cet_images.txt" "ff_images.txt")
 
 pull_image() {
