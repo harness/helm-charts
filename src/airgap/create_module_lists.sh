@@ -68,10 +68,15 @@ while IFS= read -r line; do
 done < "$INPUT_FILE"
 
 #Check if module_image files are not empty
-if [[ -n $MODULE_IMAGE_FILE && ! -s $MODULE_IMAGE_FILE ]]; then
-  echo "Error: Module image file $MODULE_IMAGE_FILE is empty"
-  exit 1
-fi
+for file in "${generated_files[@]}"; do
+  if [[ -s $file ]]; then
+    num_images=$(wc -l < "$file")
+    echo "Number of images in $file: $num_images"
+  else
+    echo "Error: Module image file $file is empty"
+    exit 1
+  fi
+done
 
 lines_not_read_flag=0
 
