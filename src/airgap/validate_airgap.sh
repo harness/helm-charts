@@ -47,3 +47,10 @@ for module_name in "${MODULE_NAMES[@]}"; do
 
     echo "--------------------------------"
 done
+
+if [ ${#MISSING_FILES[@]} -gt 0 ]; then
+    echo "Missing image files:"
+    for file in "${MISSING_FILES[@]}"; do
+        echo "$file"
+    done
+fi
