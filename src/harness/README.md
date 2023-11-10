@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.10.0](https://img.shields.io/badge/Version-0.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.10.1](https://img.shields.io/badge/Version-0.10.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -18,7 +18,7 @@ Use the following command to add the Harness chart repository to your Helm insta
 $ helm repo add harness https://harness.github.io/helm-charts
 ```
 ## Requirements
-* [Istio](https://istio.io). This Helm chart includes Istio service mesh as an optional dependency and requires its installation. For information about how to download and install Istio into your Kubernetes clusters, go to [Getting Started](https://istio.io/latest/docs/setup/getting-started/) in the Istio documentation.
+* [Istio](https://isio/io). This Helm chart includes Istio service mesh as an optional dependency and requires its installation. For information about how to download and install Istio into your Kubernetes clusters, go to [Getting Started](https://istio.io/latest/docs/setup/getting-started/) in the Istio documentation.
 
 ## Install the chart
 Use the following process to install the Helm chart.
@@ -101,7 +101,7 @@ docker.io/chaosnative/workflow-controller:v3.4.10
 docker.io/curlimages/curl:8.1.2
 docker.io/haproxy:lts-alpine3.17
 docker.io/harness/accesscontrol-service-signed:80302
-docker.io/harness/batch-processing-signed:81102-000
+docker.io/harness/batch-processing-signed:81103-000
 docker.io/harness/cdcdata-signed:80909
 docker.io/harness/ce-anomaly-detection-signed:70037
 docker.io/harness/ce-cloud-info-signed:10303

@@ -18,7 +18,7 @@ docker.io/chaosnative/workflow-controller:v3.4.10
 docker.io/curlimages/curl:8.1.2
 docker.io/haproxy:lts-alpine3.17
 docker.io/harness/accesscontrol-service-signed:80302
-docker.io/harness/batch-processing-signed:81102-000
+docker.io/harness/batch-processing-signed:81103-000
 docker.io/harness/cdcdata-signed:80909
 docker.io/harness/ce-anomaly-detection-signed:70037
 docker.io/harness/ce-cloud-info-signed:10303
