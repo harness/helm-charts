@@ -28,7 +28,20 @@ for file1 in "${folder1_files[@]}"; do
 done
 
 test_input="${test_files[*]}"
-echo "Running tests for $test_input files"
 
-helm unittest $test_input $folder1_path --with-subchart=false
+# Regex to remove the trim copying/deleting log spam
+regex_pattern='^[0-9]{4}/[0-9]{2}/[0-9]{2} ([0-9]{2}:[0-9]{2}:[0-9]{2}) (trim (copying|deleting) "(.*)")'
 
+command_output=$(helm unittest $test_input $folder1_path --with-subchart=false)
+exit_code=$?
+
+# Cleaning the output from the trim copying/deleting log spam
+cleaned_output=$(echo "$command_output" | awk -v pattern="$regex_pattern" '$0 !~ pattern')
+
+# Printing the cleaned output
+printf "%s\n" "$cleaned_output"
+
+# Exit if the tests failed
+if [ $exit_code -ne 0 ]; then
+    exit 1
+fi
