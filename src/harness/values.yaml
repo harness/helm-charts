@@ -23,6 +23,9 @@ global:
   # -- Enable to install Continuous Integration (CI)
   ci:
     enabled: false
+  # -- Enable to install Software Supply Chain Assurance (SSCA)
+  ssca:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
