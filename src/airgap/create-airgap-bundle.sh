@@ -10,8 +10,8 @@ handle_error() {
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Provide lists of image names
-lists=("cdng_images.txt" "ci_images.txt" "platform_images.txt" "ccm_images.txt" 
-"ce_images.txt" "sto_images.txt" "cet_images.txt" "ff_images.txt")
+lists=("cdng_images.txt" "ci_images.txt" "platform_images.txt" "ccm_images.txt"
+"ce_images.txt" "sto_images.txt" "cet_images.txt" "ff_images.txt" "ssca_images.txt")
 
 pull_image() {
     i="$1"
@@ -32,7 +32,7 @@ if [ $# -eq 1 ]; then
 
     base_name=$(basename "$image_list_file" .txt)
     images_file="${base_name}.tgz"
-    
+
     # Create a temporary file to store the list of successfully pulled images
     pulled_file="$(mktemp)"
 
@@ -82,7 +82,7 @@ else
     pulled_file="$(mktemp)"
 
     pids=()
-    
+
     # Download images in parallel
     while IFS= read -r i; do
         [ -z "${i}" ] && continue
@@ -110,6 +110,6 @@ else
     for image in ${pulled}; do
             docker rmi -f ${image}
     done
-    
+
   done
 fi

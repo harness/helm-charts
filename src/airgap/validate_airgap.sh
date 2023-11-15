@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODULE_NAMES=("platform" "ccm" "cdng" "ci" "ce" "sto" "cet" "ff")
+MODULE_NAMES=("platform" "ccm" "cdng" "ci" "ce" "sto" "cet" "ff" "ssca")
 
 abort() {
     echo "Error: $1"
@@ -19,7 +19,7 @@ for module_name in "${MODULE_NAMES[@]}"; do
     [[ ! -f "${TXT_FILE}" ]] && abort "${TXT_FILE} not found!"
 
     echo "Matching images for ${TGZ_FILE} and ${TXT_FILE}:"
-    
+
     mismatched=false
 
     # Count the number of images in .tgz and .txt
@@ -32,7 +32,7 @@ for module_name in "${MODULE_NAMES[@]}"; do
 
     while IFS= read -r line; do
         line_without_prefix="${line#docker.io/}"
-        
+
         if [[ "$IMAGES_LIST" =~ "$line" || "$IMAGES_LIST" =~ "$line_without_prefix" ]]; then
             echo "$line"
         else
