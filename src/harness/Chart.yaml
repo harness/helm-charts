@@ -36,6 +36,10 @@ dependencies:
   name: sto
   repository: https://harness.github.io/helm-charts
   version: 0.10.0
+- condition: global.ssca.enabled
+  name: ssca
+  repository: https://harness.github.io/helm-charts
+  version: 0.10.0
 description: Helm Chart for deploying Harness.
 name: harness
 type: application
