@@ -17,6 +17,10 @@ dependencies:
   name: verification-svc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.18.0
+- condition: global.cg.enabled
+  name: srm-ui
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.0.0  
 description: Helm chart for Harness SRM
 name: srm
 type: application
