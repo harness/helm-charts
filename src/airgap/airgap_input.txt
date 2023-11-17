@@ -1,4 +1,4 @@
-[platform]: 
+[platform]:
     le-nextgen-signed
     ci-scm-signed
     template-service-signed
@@ -30,7 +30,7 @@
     verification-service-signed
     learning-engine-onprem-signed
     ui-signed
-    
+
 [cdng]:
     argocd
     gitops-agent
@@ -127,3 +127,9 @@
     harness-k8s-chaos-infrastructure-upgrader
     k8s
     litmus-checker
+
+[ssca]:
+    ssca-plugin
+    slsa-plugin
+    ssca-manager-signed
+    ssca-ui-signed
