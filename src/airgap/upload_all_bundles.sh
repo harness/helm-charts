@@ -3,7 +3,7 @@
 upload_to_bucket() {
     export GOOGLE_APPLICATION_CREDENTIALS=$1
     gsutil_command=("gsutil" "cp" "$2" "$3")
-    
+
     if ! "${gsutil_command[@]}"; then
         echo "An error occurred while uploading the file: $?"
         exit 1
@@ -25,7 +25,7 @@ service_account_file=$1
 release_number=$2
 
 # Array of files to upload
-files=("platform_images.tgz" "cdng_images.tgz" "ccm_images.tgz" "cet_images.tgz" "ce_images.tgz" "ff_images.tgz" "ci_images.tgz" "sto_images.tgz")
+files=("platform_images.tgz" "cdng_images.tgz" "ccm_images.tgz" "cet_images.tgz" "ce_images.tgz" "ff_images.tgz" "ci_images.tgz" "sto_images.tgz" "ssca_images.tgz")
 
 # Create an empty file and upload it to the destination bucket path
 touch empty_file
