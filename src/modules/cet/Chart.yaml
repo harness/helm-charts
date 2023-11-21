@@ -3,10 +3,10 @@ appVersion: 5.28.2
 dependencies:
 - name: et-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.10.1
+  version: 0.12.2
 - name: et-collector
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.10.2
+  version: 0.12.1
 description: A Helm chart for Harness CET
 name: cet
 type: application
