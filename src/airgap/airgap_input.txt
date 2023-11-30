@@ -39,6 +39,7 @@
     gitops-service-signed
     ubuntu
     ng-dashboard-aggregator-signed
+    gitops-agent-installer-helper
 
 [ci]:
     ti-service-signed
@@ -126,6 +127,7 @@
     chaos-go-runner-time
     chaos-go-runner
     harness-k8s-chaos-infrastructure-upgrader
+    harness-smp-chaos-bg-processor
     k8s
     litmus-checker
 
