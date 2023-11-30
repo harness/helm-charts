@@ -81,6 +81,7 @@ docker.io/redis:6.2.12-alpine
 docker.io/redis:6.2.14-alpine
 docker.io/timescale/timescaledb-ha:pg13-ts2.9-oss-latest
 docker.io/ubuntu:20.04
+harness/anchore-job-runner:latest
 harness/aqua-trivy-job-runner:latest
 harness/aws-ecr-job-runner:latest
 harness/aws-security-hub-job-runner:latest
