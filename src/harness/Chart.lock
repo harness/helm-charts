@@ -1,30 +1,33 @@
 dependencies:
 - name: ccm
   repository: https://harness.github.io/helm-charts
-  version: 0.10.0
+  version: 0.11.0
 - name: cd
   repository: https://harness.github.io/helm-charts
-  version: 0.10.0
+  version: 0.11.0
 - name: cet
   repository: https://harness.github.io/helm-charts
-  version: 0.10.0
+  version: 0.11.0
 - name: chaos
   repository: https://harness.github.io/helm-charts
-  version: 0.10.0
+  version: 0.11.0
 - name: ci
   repository: https://harness.github.io/helm-charts
-  version: 0.10.0
+  version: 0.11.0
 - name: ff
   repository: https://harness.github.io/helm-charts
-  version: 0.10.0
+  version: 0.11.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.10.0
+  version: 0.11.0
 - name: srm
   repository: https://harness.github.io/helm-charts
-  version: 0.10.0
+  version: 0.11.0
 - name: sto
   repository: https://harness.github.io/helm-charts
-  version: 0.10.0
-digest: sha256:73bc59f1bb24c7ca80d6fdb3762b5c2d4c4b28d2e07e7c11defbd313fdf2a49e
-generated: "2023-11-01T21:08:23.544171448Z"
+  version: 0.11.0
+- name: ssca
+  repository: https://harness.github.io/helm-charts
+  version: 0.11.0
+digest: sha256:add89b159cb6c48eccfdc378c97d53b867871a10adb28d8735c8559af2a3369e
+generated: "2023-11-30T05:36:25.647296321Z"
