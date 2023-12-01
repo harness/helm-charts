@@ -60,7 +60,7 @@ docker.io/harness/ng-auth-ui-signed:1.12.0
 docker.io/harness/ng-ce-ui:0.47.3
 docker.io/harness/ng-dashboard-aggregator-signed:81308
 docker.io/harness/ng-manager-signed:81308
-docker.io/harness/pipeline-service-signed:1.49.8
+docker.io/harness/pipeline-service-signed:1.49.12
 docker.io/harness/platform-service-signed:80800
 docker.io/harness/policy-mgmt:v1.68.0
 docker.io/harness/smp-chaos-k8s-ifs-signed:1.24.2
@@ -83,7 +83,6 @@ docker.io/redis:6.2.12-alpine
 docker.io/redis:6.2.14-alpine
 docker.io/timescale/timescaledb-ha:pg13-ts2.9-oss-latest
 docker.io/ubuntu:20.04
-harness/anchore-job-runner:latest
 harness/aqua-trivy-job-runner:latest
 harness/aws-ecr-job-runner:latest
 harness/aws-security-hub-job-runner:latest
