@@ -4,6 +4,6 @@ dependencies:
   version: 0.11.1
 - name: sto-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 2.11.0
-digest: sha256:2187ac68941332ce761be64a692634f59baaea2a8ba2b880fa27afa66694c23f
-generated: "2023-11-30T05:24:53.2554255Z"
+  version: 2.11.1
+digest: sha256:01debaa208d2d2b51caa164ca11207bfd0dacbf9166e8238a60bd532b0f9f88d
+generated: "2023-12-01T10:39:30.732177766Z"
