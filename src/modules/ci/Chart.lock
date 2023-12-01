@@ -4,6 +4,6 @@ dependencies:
   version: 2.11.2
 - name: ti-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 2.11.4
-digest: sha256:702d088434a8eda31f9c52f95b7c466f573d6193477493990967e620310b1f31
-generated: "2023-11-30T05:24:57.891069538Z"
+  version: 2.11.5
+digest: sha256:e51d3410003829bdc4727205ac03d8e6774ed1d996e06a8c9201369b8283b586
+generated: "2023-12-01T10:39:31.373747213Z"
