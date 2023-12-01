@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.11.0](https://img.shields.io/badge/Version-0.11.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.11.1](https://img.shields.io/badge/Version-0.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -143,7 +143,7 @@ docker.io/harness/ng-auth-ui-signed:1.12.0
 docker.io/harness/ng-ce-ui:0.47.3
 docker.io/harness/ng-dashboard-aggregator-signed:81308
 docker.io/harness/ng-manager-signed:81308
-docker.io/harness/pipeline-service-signed:1.49.8
+docker.io/harness/pipeline-service-signed:1.49.12
 docker.io/harness/platform-service-signed:80800
 docker.io/harness/policy-mgmt:v1.68.0
 docker.io/harness/smp-chaos-k8s-ifs-signed:1.24.2
@@ -152,6 +152,8 @@ docker.io/harness/smp-chaos-linux-infra-server-signed:1.24.1
 docker.io/harness/smp-chaos-manager-signed:1.24.7
 docker.io/harness/smp-chaos-web-signed:1.24.6
 docker.io/harness/srm-ui-signed:1.0.1
+docker.io/harness/ssca-manager-signed:1.3.0
+docker.io/harness/ssca-ui-signed:0.1.0
 docker.io/harness/stocore-signed:v1.72.0
 docker.io/harness/stomanager-signed:81000-000
 docker.io/harness/telescopes-signed:10302
@@ -182,8 +184,10 @@ harness/nikto-job-runner:latest
 harness/nmap-job-runner:latest
 harness/owasp-dependency-check-job-runner:latest
 harness/prowler-job-runner:latest
+harness/slsa-plugin:0.12.0
 harness/snyk-job-runner:latest
 harness/sonarqube-agent-job-runner:latest
+harness/ssca-plugin:0.12.2
 harness/sto-plugin:1.19.0
 harness/sto-plugin:latest
 harness/twistlock-job-runner:latest
