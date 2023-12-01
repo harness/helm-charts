@@ -7,8 +7,8 @@ dependencies:
 - condition: global.ng.enabled
   name: ti-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 2.11.4
+  version: 2.11.5
 description: A Helm chart for Kubernetes
 name: ci
 type: application
-version: 0.11.0
+version: 0.11.1
