@@ -3,7 +3,7 @@ suite: test deployment
 templates:
   - deployment.yaml
   - config.yaml
-  - secrets.yaml
+  - secret.yaml
 release:
   namespace: harness-smp
 tests:
