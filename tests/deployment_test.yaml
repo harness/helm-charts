@@ -1,0 +1,300 @@
+---
+suite: test deployment
+templates:
+  - deployment.yaml
+  - config.yaml
+  - secret.yaml
+release:
+  namespace: harness-smp
+tests:
+  - it: should template without any override
+    templates:
+      - deployment.yaml
+    asserts:
+      - notFailedTemplate: {}
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.namespace
+          value: harness-smp
+
+  - it: should work with common annotations (deployment and podSpec)
+    templates:
+      - deployment.yaml
+    set:
+      global.commonAnnotations: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+      - isSubset:
+          path: spec.template.metadata.annotations
+          content:
+            foo: bar
+            hello: world
+
+  - it: should work with common labels (deployment and podSpec)
+    templates:
+      - deployment.yaml
+    set:
+      global.commonLabels: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: metadata.labels
+          content:
+            foo: bar
+            hello: world
+      - isSubset:
+          path: spec.template.metadata.labels
+          content:
+            foo: bar
+            hello: world
+
+  - it: should work with common annotations and labels
+    templates:
+      - deployment.yaml
+    set:
+      global.commonAnnotations: {foo: bar, hello: world}
+      global.commonLabels: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+      - isSubset:
+          path: spec.template.metadata.annotations
+          content:
+            foo: bar
+            hello: world
+      - isSubset:
+          path: metadata.labels
+          content:
+            foo: bar
+            hello: world
+      - isSubset:
+          path: spec.template.metadata.labels
+          content:
+            foo: bar
+            hello: world
+
+  - it: validate replicaCount when autoscaling is disabled
+    templates:
+      - deployment.yaml
+    set:
+      autoscaling.enabled: false
+      replicaCount: 3
+    asserts:
+      - equal:
+          path: spec.replicas
+          value: 3
+
+  - it: validate replicaCount when autoscaling is disabled
+    templates:
+      - deployment.yaml
+    set:
+      autoscaling.enabled: true
+    asserts:
+      - isNull:
+          path: spec.replicas
+
+  - it: validate strategy values (maxUnavailable and maxSurge)
+    templates:
+      - deployment.yaml
+    set:
+      maxSurge: 4
+      maxUnavailable: 2
+    asserts:
+      - equal:
+          path: spec.strategy.rollingUpdate.maxSurge
+          value: 4
+      - equal:
+          path: spec.strategy.rollingUpdate.maxUnavailable
+          value: 2
+
+  - it: validate podAnnotations
+    templates:
+      - deployment.yaml
+    set:
+      podAnnotations: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: spec.template.metadata.annotations
+          content:
+            foo: bar
+            hello: world
+
+  - it: validate podLabels
+    templates:
+      - deployment.yaml
+    set:
+      podLabels: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: spec.template.metadata.labels
+          content:
+            foo: bar
+            hello: world
+
+  - it: validate podSecurityContext
+    templates:
+      - deployment.yaml
+    set:
+      podSecurityContext: {fsGroup: 2000}
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext.fsGroup
+          value: 2000
+
+  - it: validate podAnnotations and commonAnnotations in pod spec
+    templates:
+      - deployment.yaml
+    set:
+      podAnnotations: {pod: annotated, add: this}
+      global.commonAnnotations: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: spec.template.metadata.annotations
+          content:
+            pod: annotated
+            add: this
+            foo: bar
+            hello: world
+
+  - it: validate podLabels and commonLabels in pod spec
+    templates:
+      - deployment.yaml
+    set:
+      podLabels: {pod: labeled, add: this}
+      global.commonLabels: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: spec.template.metadata.labels
+          content:
+            pod: labeled
+            add: this
+            foo: bar
+            hello: world
+
+
+  - it: validate main container values
+    templates:
+      - deployment.yaml
+    set:
+      image:
+        registry: docker.io
+        repository: harness/feature-signed
+        tag: 808xx
+        pullPolicy: Always
+        pullSecrets: [{name: mysecret}]
+      securityContext: {runAsUser: 1000}
+      lifecycleHooks:
+        preStop:
+          exec:
+            command: ["/bin/sh", "-c", "echo Hello"]
+      extraVolumeMounts: [{name: extras, mountPath: /extras}]
+      extraVolumes: [{name: extras, emptyDir: {}}]
+      resources:
+        limits:
+          cpu: 200m
+          memory: 512Mi
+        requests:
+          cpu: 100m
+          memory: 256Mi
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].imagePullPolicy
+          value: Always
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.runAsUser
+          value: 1000
+      - isSubset:
+          path: spec.template.spec.containers[0].lifecycle.preStop.exec
+          content:
+            command:
+              - "/bin/sh"
+              - "-c"
+              - "echo Hello"
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: extras
+            mountPath: /extras
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: extras
+            emptyDir: {}
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: docker.io/harness/feature-signed:808xx
+
+  - it: validate image with global image registry overrdide
+    templates:
+      - deployment.yaml
+    set:
+      global.imageRegistry: us.gcr.io
+      image:
+        registry: docker.io
+        repository: harness/feature-signed
+        tag: 808xx
+        pullPolicy: Always
+        pullSecrets: [{name: mysecret}]
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: us.gcr.io/harness/feature-signed:808xx
+
+  - it: validate nodeSelector value
+    templates:
+      - deployment.yaml
+    set:
+      nodeSelector: {disktype: ssd}
+    asserts:
+      - isSubset:
+          path: spec.template.spec.nodeSelector
+          content:
+            disktype: ssd
+
+  - it: validate tolerations value
+    templates:
+      - deployment.yaml
+    set:
+      tolerations:
+        - key: "key"
+          operator: "Equal"
+          value: "value"
+          effect: "NoSchedule"
+    asserts:
+      - contains:
+          path: spec.template.spec.tolerations
+          content:
+            key: "key"
+            operator: "Equal"
+            value: "value"
+            effect: "NoSchedule"
+
+  - it: template with all values set
+    templates:
+      - deployment.yaml
+    set:
+      global.commonLabels: {foo: bar, hello: world}
+      global.commonAnnotations: {foo: bar, hello: world}
+      autoscaling.enabled: false
+      podAnnotations: {pod: annotated, add: this}
+      podLabels: {pod: labeled, add: this}
+      podSecurityContext: {fsGroup: 2000}
+      securityContext: {runAsUser: 1000}
+      nodeSelector: {disktype: ssd}
+      tolerations:
+        - key: "key"
+          operator: "Equal"
+          value: "value"
+          effect: "NoSchedule"
+      maxSurge: 4
+      maxUnavailable: 2
+      replicaCount: 3
+    asserts:
+      - notFailedTemplate: {}
