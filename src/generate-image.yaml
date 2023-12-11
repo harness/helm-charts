@@ -34,5 +34,7 @@ global:
     enabled: true
   sto:
     enabled: true
+  ssca:
+    enabled: true
 cet:
   enable-receivers: true

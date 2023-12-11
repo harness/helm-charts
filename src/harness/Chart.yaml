@@ -20,22 +20,22 @@ dependencies:
 - condition: global.ci.enabled
   name: ci
   repository: https://harness.github.io/helm-charts
-  version: 0.11.0
+  version: 0.11.1
 - condition: global.ff.enabled
   name: ff
   repository: https://harness.github.io/helm-charts
   version: 0.11.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.11.0
+  version: 0.11.2
 - condition: global.srm.enabled
   name: srm
   repository: https://harness.github.io/helm-charts
-  version: 0.11.0
+  version: 0.11.1
 - condition: global.sto.enabled
   name: sto
   repository: https://harness.github.io/helm-charts
-  version: 0.11.0
+  version: 0.11.1
 - condition: global.ssca.enabled
   name: ssca
   repository: https://harness.github.io/helm-charts
@@ -43,4 +43,4 @@ dependencies:
 description: Helm Chart for deploying Harness.
 name: harness
 type: application
-version: 0.11.0
+version: 0.11.2
