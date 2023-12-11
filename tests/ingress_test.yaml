@@ -1,0 +1,236 @@
+---
+suite: test ingress
+templates:
+  - ingress.yaml
+release:
+  namespace: harness-smp
+set:
+  global.ingress.enabled: true
+tests:
+  - it: should template without any override
+    asserts:
+      - notFailedTemplate: {}
+      - isKind:
+          of: Ingress
+
+  - it: should work with common annotations
+    set:
+      global.commonAnnotations: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+
+  - it: should work with common labels
+    set:
+      global.commonLabels: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: metadata.labels
+          content:
+            foo: bar
+            hello: world
+
+  - it: should work with common annotations and labels
+    set:
+      global.commonAnnotations: {foo: bar, hello: world}
+      global.commonLabels: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+      - isSubset:
+          path: metadata.labels
+          content:
+            foo: bar
+            hello: world
+
+  - it: should work with ingress annotations
+    set:
+      ingress.annotations: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+
+  - it: should work with ingress objects annotations
+    set:
+      global.ingress.objects.annotations: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+
+  - it: should work with common annotations and ingress annotations
+    set:
+      global.commonAnnotations: {foo: bar, hello: world}
+      ingress.annotations: {service: annotated, add: this}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+            service: annotated
+            add: this
+
+  - it: should work with common annotations and ingress objects annotations
+    set:
+      global.commonAnnotations: {foo: bar, hello: world}
+      global.ingress.objects.annotations: {service: annotated, add: this}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+            service: annotated
+            add: this
+
+  - it: should work with ingress annotations and ingress objects annotations
+    set:
+      ingress.annotations: {foo: bar, hello: world}
+      global.ingress.objects.annotations: {service: annotated, add: this}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+            service: annotated
+            add: this
+
+  - it: should work with all annotations (ingress, ingress objects and common)
+    set:
+      global.commonAnnotations: {foo: bar, hello: world}
+      global.ingress.objects.annotations: {objects: annotated}
+      ingress.annotations: {service: annotated, add: this}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+            service: annotated
+            add: this
+            objects: annotated
+
+  - it: should work with ingress class name
+    set:
+      global.ingress.className: nginx
+    asserts:
+      - equal:
+          path: spec.ingressClassName
+          value: nginx
+
+  - it: should work with single ingress host
+    set:
+      global.ingress.hosts: [example.com]
+    asserts:
+      - lengthEqual:
+          path: spec.rules
+          count: 1
+      - equal:
+          path: spec.rules[0].host
+          value: example.com
+
+  - it: should work with multiple ingress hosts
+    set:
+      global.ingress.hosts: [example.com, example2.com, example3.com]
+    asserts:
+      - lengthEqual:
+          path: spec.rules
+          count: 3
+      - equal:
+          path: spec.rules[0].host
+          value: example.com
+      - equal:
+          path: spec.rules[1].host
+          value: example2.com
+      - equal:
+          path: spec.rules[2].host
+          value: example3.com
+
+  - it: should work with TLS enabled and hosts provided
+    set:
+      global:
+        ingress:
+          tls:
+            enabled: true
+            secretName: test-tls
+          hosts: [example.com, example2.com]
+    asserts:
+      - lengthEqual:
+          path: spec.tls
+          count: 1
+      - contains:
+          path: spec.tls
+          content:
+            hosts:
+              - example.com
+              - example2.com
+            secretName: test-tls
+
+  - it: should work with all values
+    set:
+      global:
+        commonAnnotations: {foo: bar, hello: world}
+        commonLabels: {foo: bar, hello: world}
+        ingress:
+          objects:
+            annotations: {objects: annotated}
+          className: nginx
+          tls:
+            enabled: true
+            secretName: test-tls
+          hosts: [example.com, example2.com, example3.com]
+      ingress:
+        annotations: {service: annotated, add: this}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+            service: annotated
+            add: this
+            objects: annotated
+      - isSubset:
+          path: metadata.labels
+          content:
+            foo: bar
+            hello: world
+      - lengthEqual:
+          path: spec.tls
+          count: 1
+      - lengthEqual:
+          path: spec.rules
+          count: 3
+      - equal:
+          path: spec.ingressClassName
+          value: nginx
+      - equal:
+          path: spec.rules[0].host
+          value: example.com
+      - equal:
+          path: spec.rules[1].host
+          value: example2.com
+      - equal:
+          path: spec.rules[2].host
+          value: example3.com
+      - contains:
+          path: spec.tls
+          content:
+            hosts:
+              - example.com
+              - example2.com
+              - example3.com
+            secretName: test-tls
