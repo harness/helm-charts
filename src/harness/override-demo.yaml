@@ -471,14 +471,17 @@ platform:
         tolerations: []
         podAnnotations: {}
         replicaCount: 1
+        persistentVolumes:
+          data:
+            size: 100Gi
+          wal:
+            size: 1Gi
         resources:
           limits:
             memory: 512Mi
           requests:
             cpu: 0.3
             memory: 512Mi
-        storage:
-          capacity: 10Gi
     harness-secrets:
       enabled: true
     networking:

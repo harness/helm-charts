@@ -393,6 +393,13 @@ platform:
         prometheus:
           enabled: false
         tolerations: []
+        persistentVolumes:
+          data:
+            enabled: true
+            size: 100Gi
+          wal:
+            enabled: true
+            size: 1Gi
     harness-secrets:
       enabled: true
       # -- learning-engine (taints, tolerations, and so on)

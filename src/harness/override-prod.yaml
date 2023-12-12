@@ -480,14 +480,17 @@ platform:
           enabled: false
         enabled: true
         replicaCount: 2
+        persistentVolumes:
+          data:
+            size: 100Gi
+          wal:
+            size: 1Gi
         resources:
           limits:
             memory: 2048Mi
           requests:
             cpu: 1
             memory: 2048Mi
-        storage:
-          capacity: 120Gi
     harness-secrets:
       enabled: true
     networking:
