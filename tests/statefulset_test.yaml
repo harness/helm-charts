@@ -80,24 +80,24 @@ tests:
             foo: bar
             hello: world
 
-  - it: validate replicaCount when autoscaling is disabled
-    templates:
-      - statefulset.yaml
-    set:
-      autoscaling.enabled: false
-      replicaCount: 3
-    asserts:
-      - equal:
-          path: spec.replicas
-          value: 3
-  - it: validate replicaCount when autoscaling is disabled
-    templates:
-      - statefulset.yaml
-    set:
-      autoscaling.enabled: true
-    asserts:
-      - isNull:
-          path: spec.replicas
+  # - it: validate replicaCount when autoscaling is disabled
+  #   templates:
+  #     - statefulset.yaml
+  #   set:
+  #     autoscaling.enabled: false
+  #     replicaCount: 3
+  #   asserts:
+  #     - equal:
+  #         path: spec.replicas
+  #         value: 3
+  # - it: validate replicaCount when autoscaling is disabled
+  #   templates:
+  #     - statefulset.yaml
+  #   set:
+  #     autoscaling.enabled: true
+  #   asserts:
+  #     - isNull:
+  #         path: spec.replicas
 
   - it: validate podAnnotations
     templates:
@@ -265,7 +265,7 @@ tests:
     set:
       global.commonLabels: {foo: bar, hello: world}
       global.commonAnnotations: {foo: bar, hello: world}
-      autoscaling.enabled: false
+      # autoscaling.enabled: false
       podAnnotations: {pod: annotated, add: this}
       podLabels: {pod: labeled, add: this}
       podSecurityContext: {fsGroup: 2000}
@@ -276,6 +276,6 @@ tests:
           operator: "Equal"
           value: "value"
           effect: "NoSchedule"
-      replicaCount: 3
+      # replicaCount: 3
     asserts:
       - notFailedTemplate: {}

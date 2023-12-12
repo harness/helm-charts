@@ -1,9 +1,9 @@
 dependencies:
 - name: sto-core
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.10.0
+  version: 0.11.1
 - name: sto-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.17.2
-digest: sha256:de8c847e94d442f67b26fb8948474461bd3eea87c93409781e8aae3c5e13a70c
-generated: "2023-11-01T19:27:47.840762031Z"
+  version: 2.11.1
+digest: sha256:01debaa208d2d2b51caa164ca11207bfd0dacbf9166e8238a60bd532b0f9f88d
+generated: "2023-12-01T10:39:30.732177766Z"
