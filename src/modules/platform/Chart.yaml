@@ -76,6 +76,10 @@ dependencies:
   name: looker
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.10.0
+- condition: global.servicediscoverymanager.enabled
+  name: service-discovery-manager
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.1.2
 description: Helm chart for Harness Platform
 name: platform
 type: application

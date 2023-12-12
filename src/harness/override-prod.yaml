@@ -182,6 +182,9 @@ global:
   ngcustomdashboard:
     # -- Enable to install  NG Custom Dashboards Component
     enabled: false
+  servicediscoverymanager:
+  # -- Enable to install Service Discovery Manager (Beta)
+    enabled: false
   opa:
     # -- Enable to install Open Policy Agent
     enabled: false
