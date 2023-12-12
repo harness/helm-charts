@@ -176,6 +176,9 @@ global:
     enabled: true
   # -- Enable to install Next Generation Custom Dashboards (Beta)
   ngcustomdashboard:
+    enabled: false  
+  servicediscoverymanager:
+  # -- Enable to install Service Discovery Manager (Beta)
     enabled: false
   # -- Enable to install Open Policy Agent (OPA)
   opa:
