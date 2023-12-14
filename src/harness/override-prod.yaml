@@ -480,6 +480,11 @@ platform:
           enabled: false
         enabled: true
         replicaCount: 2
+        # Increasing persistentVolumes size while upgrading a helm deployment
+        # will fail because these values are immutable for a statefulset.
+        # To increase the size, it requires to delete the statefulset
+        # and then upgrade. For more information follow this document
+        # https://developer.harness.io/docs/self-managed-enterprise-edition/advanced-configurations/increase-pv-size-statefulsets
         persistentVolumes:
           data:
             size: 100Gi
