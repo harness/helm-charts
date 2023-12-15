@@ -31,7 +31,7 @@ global:
   opa:
     enabled: true
   servicediscoverymanager:
-    enabled: false
+    enabled: true
   srm:
     enabled: true
   sto:
