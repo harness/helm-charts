@@ -189,7 +189,11 @@ tests:
         tag: 808xx
         pullPolicy: Always
         pullSecrets: [{name: mysecret}]
+      # Most services use securityContext in values
       securityContext: {runAsUser: 1000}
+      # Few of the services use containerSecurityContext in values
+      containerSecurityContext:
+        runAsUser: 1000
       lifecycleHooks:
         preStop:
           exec:
@@ -286,7 +290,11 @@ tests:
       podAnnotations: {pod: annotated, add: this}
       podLabels: {pod: labeled, add: this}
       podSecurityContext: {fsGroup: 2000}
+      # Most services use securityContext in values
       securityContext: {runAsUser: 1000}
+      # Few of the services use containerSecurityContext in values
+      containerSecurityContext:
+        runAsUser: 1000
       nodeSelector: {disktype: ssd}
       tolerations:
         - key: "key"
