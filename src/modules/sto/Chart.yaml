@@ -10,4 +10,4 @@ dependencies:
 description: Helm chart for Harness STO
 name: sto
 type: application
-version: 0.11.1
+version: 0.12.0
