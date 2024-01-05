@@ -70,7 +70,7 @@ docker.io/harness/smp-chaos-k8s-ifs-signed:1.25.1
 docker.io/harness/smp-chaos-linux-infra-controller-signed:1.25.0
 docker.io/harness/smp-chaos-linux-infra-server-signed:1.25.0
 docker.io/harness/smp-chaos-manager-signed:1.25.4
-docker.io/harness/smp-chaos-db-upgrade-agent-signed
+docker.io/harness/smp-chaos-db-upgrade-agent-signed:1.25.1
 docker.io/harness/smp-chaos-web-signed:1.25.3
 docker.io/harness/srm-ui-signed:0.9.0
 docker.io/harness/ssca-manager-signed:1.5.0
