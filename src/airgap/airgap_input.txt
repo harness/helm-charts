@@ -108,6 +108,7 @@
     telescopes-signed
     ce-cloud-info-signed
     clickhouse
+    ccm-gcp-smp-signed
 
 [ce]:
     workflow-controller
