@@ -67,5 +67,5 @@ done
 # Remove duplicates one more time in case minimal images have added any
 awk -F: '{ print $1 ":" $2 }' ${OUTPUT_DIR}/images.txt | sort -u > ${OUTPUT_DIR}/images_tmp.txt
 mv ${OUTPUT_DIR}/images_tmp.txt ${OUTPUT_DIR}/images.txt
-
+sed -i '' -e '/index\.docker\.io\/chaosnative:/d' -e '/^$/d' ${OUTPUT_DIR}/images.txt
 exit 0
