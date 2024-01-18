@@ -40,3 +40,8 @@ global:
     enabled: true
 cet:
   enable-receivers: true
+chaos:
+  chaos-manager:
+    jobs:
+      chaos_db_upgrade:
+        enabled: true
