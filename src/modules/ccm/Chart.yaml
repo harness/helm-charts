@@ -6,38 +6,38 @@ dependencies:
   version: 0.9.2
 - name: anomaly-detection
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.10.0
+  version: 1.1.0
 - name: cloud-info
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.10.0
+  version: 1.1.1
 - name: telescopes
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.9.0
 - name: batch-processing
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.13.5
+  version: 1.1.0
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.11.0
 - condition: global.lwd.enabled
   name: lwd-faktory
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.9.0
+  version: 1.6.1
 - condition: global.lwd.enabled
   name: lwd
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.9.1
+  version: 1.2.0
 - condition: global.lwd.enabled
   name: lwd-worker
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.9.0
+  version: 1.2.0
 - condition: global.lwd.autocud.enabled
   name: lwd-autocud
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.9.0
+  version: 1.1.0
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 2.13.3
+  version: 1.1.1
 - condition: global.lwd.enabled
   name: dkron
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
