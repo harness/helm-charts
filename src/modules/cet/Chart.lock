@@ -1,9 +1,9 @@
 dependencies:
 - name: et-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 5.32.2
+  version: 5.32.4
 - name: et-collector
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 5.32.3
-digest: sha256:7a8b11d6e5042a7208157dc1bb81263fece5e96cc4f282735b95c64c18243733
-generated: "2024-01-05T16:23:07.673238811Z"
+  version: 5.32.4
+digest: sha256:5972edfe8691e14598fd58d96a913a3984cb54acff16d0c79a55a445e0cc3d11
+generated: "2024-01-29T16:09:43.077887918Z"
