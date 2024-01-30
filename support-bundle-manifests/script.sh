@@ -11,7 +11,7 @@ export NAMESPACE="$1"
 export RELEASE_NAME="$2"
 MODULE="${3:-all}"  # Use 'all' if module is not provided
 
-BASE_URL="https://raw.githubusercontent.com/harness/helm-charts/main/src/support-bundle-manifests"
+BASE_URL="https://raw.githubusercontent.com/harness/helm-charts/main/support-bundle-manifests"
 
 case "$MODULE" in
   "all")
