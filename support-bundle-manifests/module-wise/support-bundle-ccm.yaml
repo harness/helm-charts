@@ -14,9 +14,9 @@ spec:
 
 
     - exec:
-        name: logs/cv-nextgen
+        name: logs/nextgen-ce
         selector:
-          - app.kubernetes.io/name=cv-nextgen
+          - app.kubernetes.io/name=nextgen-ce
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         command:
           - "/bin/bash"
@@ -33,53 +33,14 @@ spec:
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: cv-nextgen
-        includeAllData: true
-
-
-    - logs:
-        name: logs/le-nextgen
-        selector:
-          - app.kubernetes.io/name=le-nextgen
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: le-nextgen
-        includeAllData: true
-
-
-    - logs:
-        name: logs/learning-engine
-        selector:
-          - app.kubernetes.io/name=learning-engine
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: learning-engine
-        includeAllData: true
-
-
-    - logs:
-        name: logs/srm-ui
-        selector:
-          - app.kubernetes.io/name=srm-ui
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: srm-ui
+        name: nextgen-ce
         includeAllData: true
 
 
     - exec:
-        name: logs/verification-svc
+        name: logs/anomaly-detection
         selector:
-          - app.kubernetes.io/name=verification-svc
+          - app.kubernetes.io/name=anomaly-detection
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         command:
           - "/bin/bash"
@@ -96,7 +57,175 @@ spec:
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: verification-svc
+        name: anomaly-detection
+        includeAllData: true
+
+
+    - exec:
+        name: logs/batch-processing
+        selector:
+          - app.kubernetes.io/name=batch-processing
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: batch-processing
+        includeAllData: true
+
+
+    - exec:
+        name: logs/cloud-info
+        selector:
+          - app.kubernetes.io/name=cloud-info
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: cloud-info
+        includeAllData: true
+
+
+    - exec:
+        name: logs/event-service
+        selector:
+          - app.kubernetes.io/name=event-service
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: event-service
+        includeAllData: true
+
+
+    - exec:
+        name: logs/ng-ce-ui
+        selector:
+          - app.kubernetes.io/name=ng-ce-ui
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ng-ce-ui
+        includeAllData: true
+
+
+    - exec:
+        name: logs/telescopes
+        selector:
+          - app.kubernetes.io/name=telescopes
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: telescopes
+        includeAllData: true
+
+
+    - exec:
+        name: logs/ng-ce-ui
+        selector:
+          - app.kubernetes.io/name=ng-ce-ui
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ng-ce-ui
+        includeAllData: true
+
+
+    - exec:
+        name: logs/looker
+        selector:
+          - app.kubernetes.io/name=looker
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: looker
         includeAllData: true
 
 
@@ -148,11 +277,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/debezium-service
         selector:
           - app.kubernetes.io/name=debezium-service
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -209,11 +349,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/log-service
         selector:
           - app.kubernetes.io/name=log-service
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -246,11 +397,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/ng-custom-dashboards
         selector:
           - app.kubernetes.io/name=ng-custom-dashboards
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -379,11 +541,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/scm
         selector:
           - app.kubernetes.io/name=scm
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -392,11 +565,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/service-discovery-manager
         selector:
           - app.kubernetes.io/name=service-discovery-manager
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:

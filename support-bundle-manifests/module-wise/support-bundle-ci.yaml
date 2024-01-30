@@ -13,16 +13,51 @@ spec:
         collectValues: true
 
 
-    - logs:
-        name: logs/gitops
+    - exec:
+        name: logs/ci-manager
         selector:
-          - app.kubernetes.io/name=gitops
+          - app.kubernetes.io/name=ci-manager
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: gitops
+        name: ci-manager
+        includeAllData: true
+
+
+    - exec:
+        name: logs/ti-service
+        selector:
+          - app.kubernetes.io/name=ti-service
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ti-service
         includeAllData: true
 
 
@@ -74,11 +109,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/debezium-service
         selector:
           - app.kubernetes.io/name=debezium-service
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -135,11 +181,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/log-service
         selector:
           - app.kubernetes.io/name=log-service
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -172,11 +229,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/ng-custom-dashboards
         selector:
           - app.kubernetes.io/name=ng-custom-dashboards
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -305,11 +373,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/scm
         selector:
           - app.kubernetes.io/name=scm
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -318,11 +397,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/service-discovery-manager
         selector:
           - app.kubernetes.io/name=service-discovery-manager
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:

@@ -14,9 +14,9 @@ spec:
 
 
     - exec:
-        name: logs/nextgen-ce
+        name: logs/et-service
         selector:
-          - app.kubernetes.io/name=nextgen-ce
+          - app.kubernetes.io/name=et-service
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         command:
           - "/bin/bash"
@@ -33,53 +33,14 @@ spec:
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: nextgen-ce
-        includeAllData: true
-
-
-    - logs:
-        name: logs/anomaly-detection
-        selector:
-          - app.kubernetes.io/name=anomaly-detection
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: anomaly-detection
-        includeAllData: true
-
-
-    - logs:
-        name: logs/batch-processing
-        selector:
-          - app.kubernetes.io/name=batch-processing
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: batch-processing
-        includeAllData: true
-
-
-    - logs:
-        name: logs/cloud-info
-        selector:
-          - app.kubernetes.io/name=cloud-info
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: cloud-info
+        name: et-service
         includeAllData: true
 
 
     - exec:
-        name: logs/event-service
+        name: logs/et-collector
         selector:
-          - app.kubernetes.io/name=event-service
+          - app.kubernetes.io/name=et-collector
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         command:
           - "/bin/bash"
@@ -96,59 +57,7 @@ spec:
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: event-service
-        includeAllData: true
-
-
-    - logs:
-        name: logs/ng-ce-ui
-        selector:
-          - app.kubernetes.io/name=ng-ce-ui
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ng-ce-ui
-        includeAllData: true
-
-
-    - logs:
-        name: logs/telescopes
-        selector:
-          - app.kubernetes.io/name=telescopes
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: telescopes
-        includeAllData: true
-
-
-    - logs:
-        name: logs/ng-ce-ui
-        selector:
-          - app.kubernetes.io/name=ng-ce-ui
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ng-ce-ui
-        includeAllData: true
-
-
-    - logs:
-        name: logs/looker
-        selector:
-          - app.kubernetes.io/name=looker
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: looker
+        name: et-collector
         includeAllData: true
 
 
@@ -200,11 +109,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/debezium-service
         selector:
           - app.kubernetes.io/name=debezium-service
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -261,11 +181,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/log-service
         selector:
           - app.kubernetes.io/name=log-service
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -298,11 +229,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/ng-custom-dashboards
         selector:
           - app.kubernetes.io/name=ng-custom-dashboards
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -431,11 +373,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/scm
         selector:
           - app.kubernetes.io/name=scm
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -444,11 +397,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/service-discovery-manager
         selector:
           - app.kubernetes.io/name=service-discovery-manager
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:

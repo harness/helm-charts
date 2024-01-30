@@ -14,9 +14,9 @@ spec:
 
 
     - exec:
-        name: logs/ssca-manager
+        name: logs/chaos-web
         selector:
-          - app.kubernetes.io/name=ssca-manager
+          - app.kubernetes.io/name=chaos-web
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         command:
           - "/bin/bash"
@@ -33,20 +33,103 @@ spec:
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ssca-manager
+        name: chaos-web
         includeAllData: true
 
 
-    - logs:
-        name: logs/ssca-ui
+    - exec:
+        name: logs/chaos-manager
         selector:
-          - app.kubernetes.io/name=ssca-ui
+          - app.kubernetes.io/name=chaos-manager
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ssca-ui
+        name: chaos-manager
+        includeAllData: true
+
+
+    - exec:
+        name: logs/chaos-linux-ifs
+        selector:
+          - app.kubernetes.io/name=chaos-linux-ifs
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: chaos-linux-ifs
+        includeAllData: true
+
+
+    - exec:
+        name: logs/chaos-linux-ifc
+        selector:
+          - app.kubernetes.io/name=chaos-linux-ifc
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: chaos-linux-ifc
+        includeAllData: true
+
+
+    - exec:
+        name: logs/chaos-k8s-ifs
+        selector:
+          - app.kubernetes.io/name=chaos-k8s-ifs
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: chaos-k8s-ifs
         includeAllData: true
 
 
@@ -98,11 +181,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/debezium-service
         selector:
           - app.kubernetes.io/name=debezium-service
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -159,11 +253,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/log-service
         selector:
           - app.kubernetes.io/name=log-service
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -196,11 +301,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/ng-custom-dashboards
         selector:
           - app.kubernetes.io/name=ng-custom-dashboards
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -329,11 +445,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/scm
         selector:
           - app.kubernetes.io/name=scm
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
@@ -342,11 +469,22 @@ spec:
         includeAllData: true
 
 
-    - logs:
+    - exec:
         name: logs/service-discovery-manager
         selector:
           - app.kubernetes.io/name=service-discovery-manager
         namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            logs_path="/opt/harness/logs"
+            num_files=3
+
+            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
+                echo "==> $file &lt;=="
+                cat "$file"
+            done
         timeout: 30s
 
     - configMap:
