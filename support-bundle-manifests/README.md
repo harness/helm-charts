@@ -1,25 +1,37 @@
 
 # Support Bundle Manifests
 
-These example manifests provide a one file solution to collect relevant data for the modules having issues. It contains a manifest file for each module which can be passed to the support bundle utility. For information on how to run the utility, refer here[TODO]
+These example manifests provide a one file solution to collect relevant data for the modules having issues. It contains a manifest file for each module which can be passed to the support bundle utility. For information on how to run the utility, [refer here](https://developer.harness.io/docs/self-managed-enterprise-edition/support-bundle-utility)
+
+## Which support bundle to use?
+
+- If you are not sure which module is having issues or have issues with multiple modules, you can use the `support-bundle-all.yaml` manifest which contains all the services. This should be the go to manifest for most of the cases.
+
+- If you are having issues with a specific module, you can use the manifest for that module, which is present inside `module-wise` directory.
 
 ## How to use
 
-After you have followed the installation instructions, do the following steps to ready the support bundle manifest for use
+### Pre-requisites
 
-#### Step 1:
+- yq (v4 or above) (For installation instructions, refer [here](https://github.com/mikefarah/yq?tab=readme-ov-file#install))
 
-- Replace `YOUR-RELEASE-NAMESPACE-HERE` with the namespace in which Harness is installed. Make this change at all places in the manifest.
+After you have followed the installation instructions, run the following command to prepare the support bundle manifest. This script downloads the required manifest from the repository and prepares it for use. Change <your-namespace> with the namespace in which Harness is installed and <your-release-name> with the name of the helm release for Harness.
 
-#### Step 2
+```bash
+bash <(curl -sSL https://raw.githubusercontent.com/harness/helm-charts/main/support-bundle-manifests/script.sh) <your-namespace> <your-release-name>
+```
 
-- Replace `YOUR-RELEASE-NAME-HERE` with the name of the helm release for Harness. Make this change at all places in the manifest.
+This will create a file named `support-bundle.yaml` in the current directory. You can use this file to collect the support bundle.
 
-Now you can provide this manifest to the support bundle utility to collect relevant data.
+If you want to download a module specific manifest, you can use the following command.
+
+```bash
+bash <(curl -sSL https://raw.githubusercontent.com/harness/helm-charts/main/support-bundle-manifests/script.sh) <your-namespace> <your-release-name> <module-name>
+```
 
 ## Manifest Categories
 
-The manifests are divided into categories based on modules. The following list provides what services are included in each manifest. Based on what module you are having issue with select the appropriate manifest
+The manifests are divided into categories based on modules and are present inside the `module-wise` directory. The following list provides what services are included in each manifest. Based on what module you are having issue with select the appropriate manifest
 
 ### Cloud Cost Management
 
