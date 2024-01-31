@@ -1,0 +1,437 @@
+global:
+  database:
+    clickhouse:
+      enabled: false
+  lwd:
+    autocud:
+      enabled: false
+    enabled: false
+ci:
+  ci-manager:
+    additionalConfigs:
+      ASYNC_DELEGATE_RESPONSE_THREAD_COUNT: "20"
+      DISTRIBUTED_LOCK_IMPLEMENTATION: "REDIS"
+      PLAN_CREATOR_SERVICE_EXECUTOR_POOL_CORE_SIZE: "150"
+      PLAN_CREATOR_SERVICE_EXECUTOR_POOL_MAX_SIZE: "200"
+      PMS_SDK_EXECUTION_POOL_MAX_SIZE: "500"
+      PMS_SDK_EXECUTION_POOL_CORE_SIZE: "300"
+    autoscaling:
+      enabled: false
+    java:
+      memory: "4096m"
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 3
+        memory: 6Gi
+      requests:
+        cpu: 3
+        memory: 6Gi
+    securityContext: {}
+ff:
+  ff-pushpin-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 0
+  ff-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 0
+platform:
+  access-control:
+    autoscaling:
+      enabled: false
+    # Update the following configuration if using external mongo
+    # mongoSSL:
+    #     enabled: true
+    # mongoHosts:
+    # - "shard-1"
+    # - "shard-2"
+    java:
+      memory: 3g
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 5Gi
+      requests:
+        cpu: 1
+        memory: 5Gi
+  bootstrap:
+    networking:
+      nginx:
+        resources:
+          limits:
+            cpu: 5
+            memory: 10Gi
+          requests:
+            cpu: 5
+            memory: 10Gi
+        replicaCount: 1
+      defaultbackend:
+        # -- Create will deploy a default backend into your cluster
+        create: true
+        resources:
+          limits:
+            memory: 20Mi
+          requests:
+            cpu: 10m
+            memory: 20Mi
+    database:
+      timescaledb:
+        autoscaling:
+          enabled: false
+        enabled: true
+        replicaCount: 1
+        resources:
+          limits:
+            cpu: 1
+            memory: 2048Mi
+          requests:
+            cpu: 1
+            memory: 2048Mi
+        storage:
+          capacity: 120Gi
+      postgresql:
+        auth:
+          existingSecret: postgres
+        primary:
+          persistence:
+            size: 200Gi
+          resources:
+            limits:
+              cpu: 4
+              memory: 8192Mi
+            requests:
+              cpu: 4
+              memory: 8192Mi
+      minio:
+        resources:
+          requests:
+            cpu: 1
+            memory: 1Gi
+      redis:
+        redis:
+          resources:
+            limits:
+              cpu: 8
+              memory: 30Gi
+            requests:
+              cpu: 8
+              memory: 30Gi
+      mongodb:
+        replicaCount: 3
+        resources:
+          limits:
+            memory: 8192Mi
+          requests:
+            cpu: 3
+            memory: 8192Mi
+        persistence:
+          size: 200Gi
+        args:
+          - "--wiredTigerCacheSizeGB=3"
+  gateway:
+    additionalConfigs:
+      JAVA_ADVANCED_FLAGS: "-Dreactor.netty.ioWorkerCount=1024"
+    autoscaling:
+      enabled: false
+    java:
+      memory: 3072
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 4Gi
+      requests:
+        cpu: 1
+        memory: 4Gi
+  harness-manager:
+    additionalConfigs:
+      REDIS_NETTY_THREADS: "32"
+    external_graphql_rate_limit: "500"
+    autoscaling:
+      enabled: false
+    featureFlags:
+      ADDITIONAL: "DELEGATE_TASK_LOAD_DISTRIBUTION,USE_K8S_API_FOR_STEADY_STATE_CHECK,PIE_STATIC_YAML_SCHEMA,PIE_GIT_BI_DIRECTIONAL_SYNC"
+      Base: "LDAP_SSO_PROVIDER,ASYNC_ARTIFACT_COLLECTION,JIRA_INTEGRATION,AUDIT_TRAIL_UI,GDS_TIME_SERIES_SAVE_PER_MINUTE,STACKDRIVER_SERVICEGUARD,BATCH_SECRET_DECRYPTION,TIME_SERIES_SERVICEGUARD_V2,TIME_SERIES_WORKFLOW_V2,CUSTOM_DASHBOARD,GRAPHQL,CV_FEEDBACKS,LOGS_V2_247,UPGRADE_JRE,LOG_STREAMING_INTEGRATION,NG_HARNESS_APPROVAL,GIT_SYNC_NG,NG_SHOW_DELEGATE,NG_CG_TASK_ASSIGNMENT_ISOLATION,CI_OVERVIEW_PAGE,AZURE_CLOUD_PROVIDER_VALIDATION_ON_DELEGATE,TERRAFORM_AWS_CP_AUTHENTICATION,NG_TEMPLATES,NEW_DEPLOYMENT_FREEZE,HELM_CHART_AS_ARTIFACT,RESOLVE_DEPLOYMENT_TAGS_BEFORE_EXECUTION,WEBHOOK_TRIGGER_AUTHORIZATION,GITHUB_WEBHOOK_AUTHENTICATION,CUSTOM_MANIFEST,GIT_ACCOUNT_SUPPORT,AZURE_WEBAPP,LDAP_GROUP_SYNC_JOB_ITERATOR,POLLING_INTERVAL_CONFIGURABLE,APPLICATION_DROPDOWN_MULTISELECT,USER_GROUP_AS_EXPRESSION,RESOURCE_CONSTRAINT_SCOPE_PIPELINE_ENABLED,NG_TEMPLATE_GITX,ELK_HEALTH_SOURCE,NG_ENABLE_LDAP_CHECK,CVNG_METRIC_THRESHOLD,SRM_HOST_SAMPLING_ENABLE,SRM_ENABLE_HEALTHSOURCE_CLOUDWATCH_METRICS,NG_SETTINGS"
+      CCM: "CENG_ENABLED,CCM_MICRO_FRONTEND,NODE_RECOMMENDATION_AGGREGATE"
+      CD: "CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION,CDS_GITHUB_APP_AUTHENTICATION"
+      CDB: "NG_DASHBOARDS"
+      CET: "CET_ENABLED,SRM_CODE_ERROR_NOTIFICATIONS,SRM_ET_RESOLVED_EVENTS,SRM_ET_CRITICAL_EVENTS"
+      CHAOS: "CHAOS_ENABLED"
+      CI: "CING_ENABLED,CI_INDIRECT_LOG_UPLOAD,CI_LE_STATUS_REST_ENABLED"
+      FF: "CFNG_ENABLED"
+      GitOps: "GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN"
+      NG: "ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE,PL_ENABLE_JIT_USER_PROVISION"
+      OPA: "OPA_PIPELINE_GOVERNANCE,OPA_GIT_GOVERNANCE"
+      SAMLAutoAccept: "AUTO_ACCEPT_SAML_ACCOUNT_INVITES,PL_NO_EMAIL_FOR_SAML_ACCOUNT_INVITES"
+      SRM: "CVNG_ENABLED"
+      STO: "SECURITY,SECURITY_STAGE,STO_CI_PIPELINE_SECURITY,STO_API_V2"
+    java:
+      memory: "4096"
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 3
+        memory: 12Gi
+      requests:
+        cpu: 3
+        memory: 12Gi
+  log-service:
+    additionalConfigs:
+      GOGC: "50"
+      # Update the following configuration if using external redis
+#      LOG_SERVICE_REDIS_MASTER_NAME: "test-redis"
+#      LOG_SERVICE_REDIS_USE_SENTINEL: "false"
+#      LOG_SERVICE_REDIS_ENDPOINT: "<host>:<port>"
+    redis:
+      disableWatcher: true
+    replicaCount: 1
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        cpu: 3
+        memory: 12Gi
+      requests:
+        cpu: 3
+        memory: 12Gi
+    securityContext: {}
+  ng-manager:
+    additionalConfigs:
+      PLAN_CREATOR_SERVICE_EXECUTOR_POOL_CORE_SIZE: "150"
+      PLAN_CREATOR_SERVICE_EXECUTOR_POOL_MAX_SIZE: "200"
+    autoscaling:
+      enabled: false
+    java:
+      memory: "4096m"
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 2
+        memory: 6Gi
+      requests:
+        cpu: 2
+        memory: 6Gi
+    probes:
+      readinessProbe:
+        httpGet:
+          path: /health
+          port: http-ng-manager
+        timeoutSeconds: 1
+        periodSeconds: 5
+        failureThreshold: 3
+        successThreshold: 1
+      livenessProbe:
+        httpGet:
+          path: /health/liveness
+          port: http-ng-manager
+        timeoutSeconds: 10
+        periodSeconds: 60
+        failureThreshold: 5
+        successThreshold: 1
+  pipeline-service:
+    additionalConfigs:
+      PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS: "true"
+      PLAN_CREATOR_MERGE_SERVICE_EXECUTOR_POOL_CORE_SIZE: "20"
+      PLAN_CREATOR_MERGE_SERVICE_EXECUTOR_POOL_MAX_SIZE: "100"
+      PLAN_CREATOR_SERVICE_EXECUTOR_POOL_CORE_SIZE: "20"
+      PLAN_CREATOR_SERVICE_EXECUTOR_POOL_MAX_SIZE: "100"
+      PMS_WEBHOOK_EVENT_CONSUMER_THREAD_COUNT: "15"
+    autoscaling:
+      enabled: false
+    java:
+      memory: "6g"
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 4
+        memory: 10Gi
+      requests:
+        cpu: 4
+        memory: 10Gi
+    securityContext: {}
+  scm-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 0.5
+        memory: 1Gi
+      requests:
+        cpu: 0.5
+        memory: 1Gi
+  template-service:
+    autoscaling:
+      enabled: false
+    java:
+      memory: "2g"
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 8Gi
+      requests:
+        cpu: 1
+        memory: 8Gi
+  ti-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    jobresources:
+      limits:
+        cpu: 1
+        memory: 3072Mi
+      requests:
+        cpu: 1
+        memory: 3072Mi
+    resources:
+      limits:
+        cpu: 1
+        memory: 6Gi
+      requests:
+        cpu: 1
+        memory: 6Gi
+  change-data-capture:
+    appLogLevel: INFO
+    replicaCount: 1
+    java:
+      memory: "2g"
+    resources:
+      limits:
+        cpu: 4
+        memory: 6Gi
+      requests:
+        cpu: 4
+        memory: 6Gi
+    autoscaling:
+      enabled: false
+  next-gen-ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 0.5
+        memory: 512Mi
+      requests:
+        cpu: 0.5
+        memory: 512Mi
+  ng-auth-ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 0.1
+        memory: 102Mi
+      requests:
+        cpu: 0.1
+        memory: 102Mi
+  platform-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    java:
+      memory: "3072m"
+    resources:
+      limits:
+        cpu: 0.5
+        memory: 3Gi
+      requests:
+        cpu: 0.5
+        memory: 3Gi
+  policy-mgmt:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 0.3
+        memory: 1Gi
+      requests:
+        cpu: 0.3
+        memory: 1Gi
+  ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 10m
+        memory: 50Mi
+      requests:
+        cpu: 10m
+        memory: 50Mi
+  ng-dashboard-aggregator:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 0.25
+        memory: 2Gi
+      requests:
+        cpu: 0.25
+        memory: 2Gi
+cd:
+  gitops:
+    appLogLevel: INFO
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 2
+        memory: 2Gi
+      requests:
+        cpu: 2
+        memory: 2Gi
+    autoscaling:
+      enabled: false
+sto:
+  sto-core:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1500Mi
+      requests:
+        cpu: 500m
+        memory: 1500Mi
+  sto-manager:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 3
+        memory: 6Gi
+      requests:
+        cpu: 3
+        memory: 6Gi
+srm:
+  verification-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 0.3
+        memory: 4096Mi
+      requests:
+        cpu: 0.3
+        memory: 4096Mi
+    probes:
+      livenessProbe:
+        failureThreshold: 5
+        httpGet:
+          path: /verification/health
+          port: verification
+          scheme: HTTP
+        initialDelaySeconds: 300
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
