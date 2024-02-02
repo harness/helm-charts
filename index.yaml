@@ -3,6 +3,58 @@ entries:
   ccm:
   - apiVersion: v2
     appVersion: 1.546.0
+    created: "2024-02-02T11:54:40.344987787Z"
+    dependencies:
+    - name: event-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.2
+    - name: anomaly-detection
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.1.0
+    - name: cloud-info
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.1.2
+    - name: telescopes
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.0
+    - name: batch-processing
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.1.1
+    - name: ng-ce-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.11.1
+    - condition: global.lwd.enabled
+      name: lwd-faktory
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.0
+    - condition: global.lwd.enabled
+      name: lwd
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.2.0
+    - condition: global.lwd.enabled
+      name: lwd-worker
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.0
+    - condition: global.lwd.autocud.enabled
+      name: lwd-autocud
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.1.0
+    - name: ce-nextgen
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.1.5
+    - condition: global.lwd.enabled
+      name: dkron
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.9.1
+    description: A Helm chart for Harness Cloud Cost Management (CCM) module
+    digest: d3483eaa0ba5346879bf45f9114f98e5fa34fa0021c57c2bdac7f22699c28b00
+    name: ccm
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/ccm-0.13.1/ccm-0.13.1.tgz
+    version: 0.13.1
+  - apiVersion: v2
+    appVersion: 1.546.0
     created: "2024-01-29T16:33:40.837607085Z"
     dependencies:
     - name: event-service
@@ -10041,4 +10093,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2024-02-02T09:03:57.435624345Z"
+generated: "2024-02-02T11:54:41.941086902Z"
