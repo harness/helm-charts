@@ -9,8 +9,7 @@ metadata:
     {{- include "harnesscommon.tplvalues.render" ( dict "value" .Values.global.commonLabels "context" $ ) | nindent 4 }}
   {{- end }}
   annotations:
-    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
-    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook": post-upgrade
 spec:
   template:
     spec:
@@ -42,7 +41,7 @@ spec:
         {{- include "harnesscommon.secrets.manageEnv" (dict "ctx" $ "variableName" "MINIO_SERVER_SECRET_KEY" "overrideEnvName" "MINIO_SERVER_SECRET_KEY" "providedSecretValues" (list "platform.log-service.s3.secretAccessKey") "defaultKubernetesSecretName" $logServiceValues.logServiceS3SecretAccessKey.name "defaultKubernetesSecretKey" $logServiceValues.logServiceS3SecretAccessKey.key "extKubernetesSecretCtxs" (list .Values.global.database.minio.secrets.kubernetesSecrets) "esoSecretCtxs" (list (dict "secretCtxIdentifier" $globalMinioESOSecretIdentifier "secretCtx" .Values.global.database.minio.secrets.secretManagement.externalSecretsOperator))) | indent 8 }}
         image: bitnami/minio-client:2023.10.4-debian-11-r1
         command: [ "/opt/bitnami/scripts/minio-client/entrypoint.sh" ]
-        args: ["/opt/bitnami/scripts/minio-client/run.sh", "cp", "--recursive", "/data/", "minio/logs" ]
+        args: ["/opt/bitnami/scripts/minio-client/run.sh", "cp", "--recursive", "/data/logs/", "minio/logs" ]
         volumeMounts:
         - name: data
           mountPath: /data
