@@ -32,7 +32,6 @@
     ui-signed
     srm-ui-signed
     smp-service-discovery-server
-    debezium-service-signed
 [cdng]:
     argocd
     gitops-agent
