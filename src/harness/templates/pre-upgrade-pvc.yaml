@@ -1,0 +1,17 @@
+{{- if .Values.global.database.minio.mergeLogs }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-backup
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "1"
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: {{ .Values.global.storageClass }}
+{{- end }}
