@@ -28,6 +28,8 @@ global:
     enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
+    minio:
+      mergeLogs: false
     clickhouse:
       enabled: false
     # -- settings to deploy mongo in-cluster or configure to use external mongo source
@@ -176,7 +178,7 @@ global:
     enabled: true
   # -- Enable to install Next Generation Custom Dashboards (Beta)
   ngcustomdashboard:
-    enabled: false  
+    enabled: false
   servicediscoverymanager:
   # -- Enable to install Service Discovery Manager (Beta)
     enabled: false
