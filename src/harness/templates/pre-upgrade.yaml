@@ -1,0 +1,54 @@
+{{- if .Values.global.database.minio.mergeLogs }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: backup-minio
+  namespace: {{ .Release.Namespace }}
+  labels:
+  {{- if .Values.global.commonLabels }}
+    {{- include "harnesscommon.tplvalues.render" ( dict "value" .Values.global.commonLabels "context" $ ) | nindent 4 }}
+  {{- end }}
+  annotations:
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook": pre-upgrade
+spec:
+  template:
+    spec:
+      securityContext:
+        fsGroupChangePolicy: Always
+        sysctls: []
+        supplementalGroups: []
+        fsGroup: 1001
+      containers:
+      - name: copy
+        securityContext:
+          seLinuxOptions: null
+          runAsUser: 1001
+          runAsNonRoot: true
+          privileged: false
+          readOnlyRootFilesystem: false
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: "RuntimeDefault"
+        env:
+        {{- $globalMinioESOSecretIdentifier := include "harnesscommon.secrets.globalESOSecretCtxIdentifier" (dict "ctx" $ "ctxIdentifier" "minio") }}
+        {{- $logServiceValues := index .Values.platform "log-service" }}
+        {{- include "harnesscommon.secrets.manageEnv" (dict "ctx" $ "variableName" "MINIO_SERVER_SECRET_KEY" "overrideEnvName" "MINIO_SERVER_SECRET_KEY" "providedSecretValues" (list "platform.log-service.s3.secretAccessKey") "defaultKubernetesSecretName" $logServiceValues.logServiceS3SecretAccessKey.name "defaultKubernetesSecretKey" $logServiceValues.logServiceS3SecretAccessKey.key "extKubernetesSecretCtxs" (list .Values.global.database.minio.secrets.kubernetesSecrets) "esoSecretCtxs" (list (dict "secretCtxIdentifier" $globalMinioESOSecretIdentifier "secretCtx" .Values.global.database.minio.secrets.secretManagement.externalSecretsOperator))) | indent 8 }}
+        - name: MINIO_SERVER_HOST
+          value: 'minio'
+        - name: MINIO_SERVER_ACCESS_KEY
+          value: 'admin'
+        image: bitnami/minio-client:2023.10.4-debian-11-r1
+        command: [ "/opt/bitnami/scripts/minio-client/entrypoint.sh" ]
+        args: ["/opt/bitnami/scripts/minio-client/run.sh", "cp", "--recursive", "minio/logs", "/data/"]
+        volumeMounts:
+        - name: data
+          mountPath: /data
+      restartPolicy: Never
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: minio-backup
+{{- end }}
