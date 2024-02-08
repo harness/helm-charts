@@ -352,8 +352,6 @@ platform:
         affinity: {}
         nodeSelector: {}
         tolerations: []
-        persistence:
-          mountPath: /bitnami/minio/data
       mongodb:
         affinity: {}
         arbiter:
