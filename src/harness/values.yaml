@@ -241,6 +241,12 @@ global:
       tag: "latest"
       digest: ""
       imagePullSecrets: []
+  fileLogging:
+    enabled: true
+    path: "/opt/harness/logs/service.log"
+    maxFileSize: 50MB
+    maxBackupFileCount: 10
+    totalFileSizeCap: 600MB
 ccm:
   # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
   batch-processing:
