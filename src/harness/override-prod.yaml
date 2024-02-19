@@ -18,6 +18,7 @@ global:
   # -- Add common labels to all objects
   commonLabels: {}
   cdc:
+    # -- Enable to install Change data capture
     enabled: true
   ccm:
     # -- Enable to install Cloud Cloud Management
