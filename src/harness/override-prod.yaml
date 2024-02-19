@@ -17,6 +17,8 @@ global:
   commonAnnotations: {}
   # -- Add common labels to all objects
   commonLabels: {}
+  cdc:
+    enabled: true
   ccm:
     # -- Enable to install Cloud Cloud Management
     enabled: false
