@@ -22,13 +22,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -46,13 +69,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -70,13 +116,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -94,13 +163,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -118,13 +210,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -142,13 +257,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -166,13 +304,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -190,13 +351,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -214,13 +398,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -238,13 +445,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -262,13 +492,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -286,13 +539,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -310,13 +586,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -334,13 +633,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -358,13 +680,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -382,13 +727,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -406,66 +774,41 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         name: gitops
-        includeAllData: true
-
-
-    - exec:
-        name: logs/et-service
-        selector:
-          - app.kubernetes.io/name=et-service
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: et-service
-        includeAllData: true
-
-
-    - exec:
-        name: logs/et-collector
-        selector:
-          - app.kubernetes.io/name=et-collector
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: et-collector
         includeAllData: true
 
 
@@ -478,13 +821,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -502,570 +868,41 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         name: ff-pushpin-service
-        includeAllData: true
-
-
-    - exec:
-        name: logs/cv-nextgen
-        selector:
-          - app.kubernetes.io/name=cv-nextgen
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: cv-nextgen
-        includeAllData: true
-
-
-    - exec:
-        name: logs/le-nextgen
-        selector:
-          - app.kubernetes.io/name=le-nextgen
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: le-nextgen
-        includeAllData: true
-
-
-    - exec:
-        name: logs/learning-engine
-        selector:
-          - app.kubernetes.io/name=learning-engine
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: learning-engine
-        includeAllData: true
-
-
-    - exec:
-        name: logs/srm-ui
-        selector:
-          - app.kubernetes.io/name=srm-ui
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: srm-ui
-        includeAllData: true
-
-
-    - exec:
-        name: logs/verification-svc
-        selector:
-          - app.kubernetes.io/name=verification-svc
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: verification-svc
-        includeAllData: true
-
-
-    - exec:
-        name: logs/sto-manager
-        selector:
-          - app.kubernetes.io/name=sto-manager
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: sto-manager
-        includeAllData: true
-
-
-    - exec:
-        name: logs/sto-core
-        selector:
-          - app.kubernetes.io/name=sto-core
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: sto-core
-        includeAllData: true
-
-
-    - exec:
-        name: logs/nextgen-ce
-        selector:
-          - app.kubernetes.io/name=nextgen-ce
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: nextgen-ce
-        includeAllData: true
-
-
-    - exec:
-        name: logs/anomaly-detection
-        selector:
-          - app.kubernetes.io/name=anomaly-detection
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: anomaly-detection
-        includeAllData: true
-
-
-    - exec:
-        name: logs/batch-processing
-        selector:
-          - app.kubernetes.io/name=batch-processing
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: batch-processing
-        includeAllData: true
-
-
-    - exec:
-        name: logs/cloud-info
-        selector:
-          - app.kubernetes.io/name=cloud-info
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: cloud-info
-        includeAllData: true
-
-
-    - exec:
-        name: logs/event-service
-        selector:
-          - app.kubernetes.io/name=event-service
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: event-service
-        includeAllData: true
-
-
-    - exec:
-        name: logs/ng-ce-ui
-        selector:
-          - app.kubernetes.io/name=ng-ce-ui
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ng-ce-ui
-        includeAllData: true
-
-
-    - exec:
-        name: logs/telescopes
-        selector:
-          - app.kubernetes.io/name=telescopes
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: telescopes
-        includeAllData: true
-
-
-    - exec:
-        name: logs/ng-ce-ui
-        selector:
-          - app.kubernetes.io/name=ng-ce-ui
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ng-ce-ui
-        includeAllData: true
-
-
-    - exec:
-        name: logs/looker
-        selector:
-          - app.kubernetes.io/name=looker
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: looker
-        includeAllData: true
-
-
-    - exec:
-        name: logs/chaos-web
-        selector:
-          - app.kubernetes.io/name=chaos-web
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: chaos-web
-        includeAllData: true
-
-
-    - exec:
-        name: logs/chaos-manager
-        selector:
-          - app.kubernetes.io/name=chaos-manager
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: chaos-manager
-        includeAllData: true
-
-
-    - exec:
-        name: logs/chaos-linux-ifs
-        selector:
-          - app.kubernetes.io/name=chaos-linux-ifs
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: chaos-linux-ifs
-        includeAllData: true
-
-
-    - exec:
-        name: logs/chaos-linux-ifc
-        selector:
-          - app.kubernetes.io/name=chaos-linux-ifc
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: chaos-linux-ifc
-        includeAllData: true
-
-
-    - exec:
-        name: logs/chaos-k8s-ifs
-        selector:
-          - app.kubernetes.io/name=chaos-k8s-ifs
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: chaos-k8s-ifs
-        includeAllData: true
-
-
-    - exec:
-        name: logs/ci-manager
-        selector:
-          - app.kubernetes.io/name=ci-manager
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ci-manager
-        includeAllData: true
-
-
-    - exec:
-        name: logs/ti-service
-        selector:
-          - app.kubernetes.io/name=ti-service
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
-            done
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ti-service
         includeAllData: true
 
 
@@ -1078,13 +915,36 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -1102,17 +962,1215 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
-
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
                 cat "$file"
             done
+        args: []
         timeout: 30s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         name: ssca-ui
+        includeAllData: true
+
+
+    - exec:
+        name: logs/nextgen-ce
+        selector:
+          - app.kubernetes.io/name=nextgen-ce
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: nextgen-ce
+        includeAllData: true
+
+
+    - exec:
+        name: logs/anomaly-detection
+        selector:
+          - app.kubernetes.io/name=anomaly-detection
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: anomaly-detection
+        includeAllData: true
+
+
+    - exec:
+        name: logs/batch-processing
+        selector:
+          - app.kubernetes.io/name=batch-processing
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: batch-processing
+        includeAllData: true
+
+
+    - exec:
+        name: logs/cloud-info
+        selector:
+          - app.kubernetes.io/name=cloud-info
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: cloud-info
+        includeAllData: true
+
+
+    - exec:
+        name: logs/event-service
+        selector:
+          - app.kubernetes.io/name=event-service
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: event-service
+        includeAllData: true
+
+
+    - exec:
+        name: logs/ng-ce-ui
+        selector:
+          - app.kubernetes.io/name=ng-ce-ui
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ng-ce-ui
+        includeAllData: true
+
+
+    - exec:
+        name: logs/telescopes
+        selector:
+          - app.kubernetes.io/name=telescopes
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: telescopes
+        includeAllData: true
+
+
+    - exec:
+        name: logs/ng-ce-ui
+        selector:
+          - app.kubernetes.io/name=ng-ce-ui
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ng-ce-ui
+        includeAllData: true
+
+
+    - exec:
+        name: logs/looker
+        selector:
+          - app.kubernetes.io/name=looker
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: looker
+        includeAllData: true
+
+
+    - exec:
+        name: logs/et-service
+        selector:
+          - app.kubernetes.io/name=et-service
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: et-service
+        includeAllData: true
+
+
+    - exec:
+        name: logs/et-collector
+        selector:
+          - app.kubernetes.io/name=et-collector
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: et-collector
+        includeAllData: true
+
+
+    - exec:
+        name: logs/chaos-web
+        selector:
+          - app.kubernetes.io/name=chaos-web
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: chaos-web
+        includeAllData: true
+
+
+    - exec:
+        name: logs/chaos-manager
+        selector:
+          - app.kubernetes.io/name=chaos-manager
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: chaos-manager
+        includeAllData: true
+
+
+    - exec:
+        name: logs/chaos-linux-ifs
+        selector:
+          - app.kubernetes.io/name=chaos-linux-ifs
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: chaos-linux-ifs
+        includeAllData: true
+
+
+    - exec:
+        name: logs/chaos-linux-ifc
+        selector:
+          - app.kubernetes.io/name=chaos-linux-ifc
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: chaos-linux-ifc
+        includeAllData: true
+
+
+    - exec:
+        name: logs/chaos-k8s-ifs
+        selector:
+          - app.kubernetes.io/name=chaos-k8s-ifs
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: chaos-k8s-ifs
+        includeAllData: true
+
+
+    - exec:
+        name: logs/ci-manager
+        selector:
+          - app.kubernetes.io/name=ci-manager
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ci-manager
+        includeAllData: true
+
+
+    - exec:
+        name: logs/ti-service
+        selector:
+          - app.kubernetes.io/name=ti-service
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ti-service
+        includeAllData: true
+
+
+    - exec:
+        name: logs/cv-nextgen
+        selector:
+          - app.kubernetes.io/name=cv-nextgen
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: cv-nextgen
+        includeAllData: true
+
+
+    - exec:
+        name: logs/le-nextgen
+        selector:
+          - app.kubernetes.io/name=le-nextgen
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: le-nextgen
+        includeAllData: true
+
+
+    - exec:
+        name: logs/learning-engine
+        selector:
+          - app.kubernetes.io/name=learning-engine
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: learning-engine
+        includeAllData: true
+
+
+    - exec:
+        name: logs/srm-ui
+        selector:
+          - app.kubernetes.io/name=srm-ui
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: srm-ui
+        includeAllData: true
+
+
+    - exec:
+        name: logs/verification-svc
+        selector:
+          - app.kubernetes.io/name=verification-svc
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: verification-svc
+        includeAllData: true
+
+
+    - exec:
+        name: logs/sto-manager
+        selector:
+          - app.kubernetes.io/name=sto-manager
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: sto-manager
+        includeAllData: true
+
+
+    - exec:
+        name: logs/sto-core
+        selector:
+          - app.kubernetes.io/name=sto-core
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH=$1
+            START_TIME=$2
+            END_TIME=$3
+            if [ -z $FILE_PATH ]; then
+              FILE_PATH = "/opt/harness/logs/pod*.log"
+            fi
+            all_files=($(ls $FILE_PATH))
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+                echo "\n==================> $file &lt;==================\n"
+                cat "$file"
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: sto-core
         includeAllData: true
 

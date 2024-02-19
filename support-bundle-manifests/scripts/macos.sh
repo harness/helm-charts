@@ -119,10 +119,7 @@ yq -i '(.. | select(has("releaseName")) | .releaseName) = env(RELEASE_NAME)' $MA
 
 if [ -z "$END_TIME" ]; then
     yq -i '(.. | select(has("args")) | .args) = ["'"${NUM_FILES}"'", "'"${FILEPATH}"'", "'"${START_TIME}"'"]' $MANIFEST_FILENAME
-    # sed -i 's/args: \[\]|args: \[170,170\]/g' $MANIFEST_FILENAME
-    # awk '{gsub("args: \\[\\]", "args: [\"" ENVIRON["NUM_FILES"] "\", \"" ENVIRON["START_TIME"] "\"]")}1' $MANIFEST_FILENAME > temp && mv temp $MANIFEST_FILENAME
 
 else
     yq -i '(.. | select(has("args")) | .args) = ["'"${NUM_FILES}"'", "'"${FILEPATH}"'", "'"${START_TIME}"'", "'"${END_TIME}"'"]' $MANIFEST_FILENAME
-    # awk '{gsub("args: \\[\\]", "args: [\"" ENVIRON["NUM_FILES"] "\", \"" ENVIRON["START_TIME"] "\", \"" ENVIRON["END_TIME"]"\"]")}1' $MANIFEST_FILENAME > temp && mv temp $MANIFEST_FILENAME
 fi
