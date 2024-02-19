@@ -7,6 +7,7 @@ global:
   commonLabels: {}
   # -- Enable to install Cloud Cost Management (CCM) (Beta)
   cdc:
+    # -- Enable to install Change data capture
     enabled: true
   ccm:
     enabled: false
