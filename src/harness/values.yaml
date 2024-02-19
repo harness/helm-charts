@@ -6,6 +6,8 @@ global:
   # -- Add common labels to all objects
   commonLabels: {}
   # -- Enable to install Cloud Cost Management (CCM) (Beta)
+  cdc:
+    enabled: true
   ccm:
     enabled: false
   # -- Enable to install Continuous Deployment (CD)
