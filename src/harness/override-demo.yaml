@@ -17,6 +17,9 @@ global:
   commonAnnotations: {}
   # -- Add common labels to all objects
   commonLabels: {}
+  ti:
+    # -- Enable to install ti service
+    enabled: false
   cdc:
     # -- Enable to install Change data capture
     enabled: false
