@@ -60,6 +60,13 @@ process_tgz_file() {
 
   # Load the Docker image from a .tgz file
   load_output=$(docker load -i "$file" 2>&1)
+
+  # Check the exit status of docker load
+  local exit_status=$?
+  if [ $exit_status -ne 0 ]; then
+    echo "Failed to load Docker image from $file"
+    exit $exit_status
+  fi
   
   # Extract the image names and tags
   while IFS= read -r line; do
