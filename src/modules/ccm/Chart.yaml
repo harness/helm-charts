@@ -18,7 +18,7 @@ dependencies:
   version: 1.5.1
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.63.1
+  version: 0.13.0
 - condition: global.lwd.enabled
   name: lwd-faktory
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
