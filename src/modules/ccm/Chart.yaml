@@ -41,7 +41,7 @@ dependencies:
 - condition: global.lwd.enabled
   name: dkron
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 3.2.3
+  version: 0.9.1
 description: A Helm chart for Harness Cloud Cost Management (CCM) module
 name: ccm
 type: application
