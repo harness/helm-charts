@@ -42,12 +42,17 @@ debug_log() {
 }
 
 cleanup() {
-  echo "Cleaning up temporary files..."
-  if [ -n "$tgz_directory" ]; then
-    rm -rf "$tgz_directory"/*.tgz || debug_log "Failed to clean up .tgz files in directory."
-  elif [ -n "$tgz_file" ]; then
-    rm -f "$tgz_file" || debug_log "Failed to remove .tgz file."
-  fi
+  echo "Cleaning up Docker images..."
+  # Iterate through verified_images array to remove images from the local Docker environment
+  for image in "${verified_images[@]}"; do
+    # Extracting the image ID from the registry path and tag
+    local image_id=$(docker images -q "$image")
+    if [[ ! -z "$image_id" ]]; then
+      docker rmi "$image_id" || debug_log "Failed to remove Docker image: $image"
+    else
+      debug_log "Image not found or already removed: $image"
+    fi
+  done
 }
 
 # Parse command-line arguments
@@ -94,14 +99,6 @@ process_tgz_file() {
 
   debug_log "Loading Docker image from $file..."
   load_result=$(docker load -q -i "$file" 2>&1)
-  
-  if [[ "$load_result" =~ *"Error processing tar file"* ]]; then
-    echo "Error loading image from $file: $load_result"
-    failed_images+=("$file")
-    ((fail_count++))
-    error_occurred=true
-    return 1
-  fi
 
   # Check the exit status of docker load
   local exit_status=$?
