@@ -7,10 +7,6 @@ spec:
   collectors:
     - clusterResources:
         exclude: true
-    - helm:
-        releaseName: YOUR-RELEASE-NAME-HERE
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        collectValues: true
 
 
     - exec:
@@ -798,104 +794,6 @@ spec:
 
 
     - exec:
-        name: logs/et-service
-        selector:
-          - app.kubernetes.io/name=et-service
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            NUM_FILES=$0
-            FILE_PATH="$1"
-            START_TIME=$2
-            END_TIME=$3
-
-            all_files=( $FILE_PATH )
-            if [ ${#all_files[@]} -eq 0 ]; then
-              all_files=($(ls /opt/harness/logs/pod*.log))
-            fi
-
-            if [ -z "$START_TIME" ]; then
-                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
-            else
-                for filename in "${all_files[@]}"; do
-                  file_time=$(stat -c "%Y" "$filename")
-                  # Check if START_TIME is provided and filter files accordingly
-                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
-                      continue
-                  fi
-                  # Check if END_TIME is provided and filter files accordingly
-                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
-                      continue
-                  fi
-                  # Add file to the list
-                  files+=("$filename")
-              done
-            fi
-            for file in "${files[@]}"; do
-              echo "====================> File: $file &lt;===================="
-              cat $file
-            done
-        args: []
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: et-service
-        includeAllData: true
-
-
-    - exec:
-        name: logs/et-collector
-        selector:
-          - app.kubernetes.io/name=et-collector
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            NUM_FILES=$0
-            FILE_PATH="$1"
-            START_TIME=$2
-            END_TIME=$3
-
-            all_files=( $FILE_PATH )
-            if [ ${#all_files[@]} -eq 0 ]; then
-              all_files=($(ls /opt/harness/logs/pod*.log))
-            fi
-
-            if [ -z "$START_TIME" ]; then
-                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
-            else
-                for filename in "${all_files[@]}"; do
-                  file_time=$(stat -c "%Y" "$filename")
-                  # Check if START_TIME is provided and filter files accordingly
-                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
-                      continue
-                  fi
-                  # Check if END_TIME is provided and filter files accordingly
-                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
-                      continue
-                  fi
-                  # Add file to the list
-                  files+=("$filename")
-              done
-            fi
-            for file in "${files[@]}"; do
-              echo "====================> File: $file &lt;===================="
-              cat $file
-            done
-        args: []
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: et-collector
-        includeAllData: true
-
-
-    - exec:
         name: logs/chaos-web
         selector:
           - app.kubernetes.io/name=chaos-web
@@ -1141,6 +1039,104 @@ spec:
 
 
     - exec:
+        name: logs/ci-manager
+        selector:
+          - app.kubernetes.io/name=ci-manager
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ci-manager
+        includeAllData: true
+
+
+    - exec:
+        name: logs/ti-service
+        selector:
+          - app.kubernetes.io/name=ti-service
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ti-service
+        includeAllData: true
+
+
+    - exec:
         name: logs/ff-service
         selector:
           - app.kubernetes.io/name=ff-service
@@ -1235,6 +1231,251 @@ spec:
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         name: ff-pushpin-service
+        includeAllData: true
+
+
+    - exec:
+        name: logs/sto-manager
+        selector:
+          - app.kubernetes.io/name=sto-manager
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: sto-manager
+        includeAllData: true
+
+
+    - exec:
+        name: logs/sto-core
+        selector:
+          - app.kubernetes.io/name=sto-core
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: sto-core
+        includeAllData: true
+
+
+    - exec:
+        name: logs/et-service
+        selector:
+          - app.kubernetes.io/name=et-service
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: et-service
+        includeAllData: true
+
+
+    - exec:
+        name: logs/et-collector
+        selector:
+          - app.kubernetes.io/name=et-collector
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: et-collector
+        includeAllData: true
+
+
+    - exec:
+        name: logs/gitops
+        selector:
+          - app.kubernetes.io/name=gitops
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: gitops
         includeAllData: true
 
 
@@ -1480,6 +1721,104 @@ spec:
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         name: verification-svc
+        includeAllData: true
+
+
+    - exec:
+        name: logs/ssca-manager
+        selector:
+          - app.kubernetes.io/name=ssca-manager
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ssca-manager
+        includeAllData: true
+
+
+    - exec:
+        name: logs/ssca-ui
+        selector:
+          - app.kubernetes.io/name=ssca-ui
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
+            done
+        args: []
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: ssca-ui
         includeAllData: true
 
 
@@ -1921,348 +2260,5 @@ spec:
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         name: looker
-        includeAllData: true
-
-
-    - exec:
-        name: logs/gitops
-        selector:
-          - app.kubernetes.io/name=gitops
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            NUM_FILES=$0
-            FILE_PATH="$1"
-            START_TIME=$2
-            END_TIME=$3
-
-            all_files=( $FILE_PATH )
-            if [ ${#all_files[@]} -eq 0 ]; then
-              all_files=($(ls /opt/harness/logs/pod*.log))
-            fi
-
-            if [ -z "$START_TIME" ]; then
-                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
-            else
-                for filename in "${all_files[@]}"; do
-                  file_time=$(stat -c "%Y" "$filename")
-                  # Check if START_TIME is provided and filter files accordingly
-                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
-                      continue
-                  fi
-                  # Check if END_TIME is provided and filter files accordingly
-                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
-                      continue
-                  fi
-                  # Add file to the list
-                  files+=("$filename")
-              done
-            fi
-            for file in "${files[@]}"; do
-              echo "====================> File: $file &lt;===================="
-              cat $file
-            done
-        args: []
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: gitops
-        includeAllData: true
-
-
-    - exec:
-        name: logs/ci-manager
-        selector:
-          - app.kubernetes.io/name=ci-manager
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            NUM_FILES=$0
-            FILE_PATH="$1"
-            START_TIME=$2
-            END_TIME=$3
-
-            all_files=( $FILE_PATH )
-            if [ ${#all_files[@]} -eq 0 ]; then
-              all_files=($(ls /opt/harness/logs/pod*.log))
-            fi
-
-            if [ -z "$START_TIME" ]; then
-                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
-            else
-                for filename in "${all_files[@]}"; do
-                  file_time=$(stat -c "%Y" "$filename")
-                  # Check if START_TIME is provided and filter files accordingly
-                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
-                      continue
-                  fi
-                  # Check if END_TIME is provided and filter files accordingly
-                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
-                      continue
-                  fi
-                  # Add file to the list
-                  files+=("$filename")
-              done
-            fi
-            for file in "${files[@]}"; do
-              echo "====================> File: $file &lt;===================="
-              cat $file
-            done
-        args: []
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ci-manager
-        includeAllData: true
-
-
-    - exec:
-        name: logs/ti-service
-        selector:
-          - app.kubernetes.io/name=ti-service
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            NUM_FILES=$0
-            FILE_PATH="$1"
-            START_TIME=$2
-            END_TIME=$3
-
-            all_files=( $FILE_PATH )
-            if [ ${#all_files[@]} -eq 0 ]; then
-              all_files=($(ls /opt/harness/logs/pod*.log))
-            fi
-
-            if [ -z "$START_TIME" ]; then
-                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
-            else
-                for filename in "${all_files[@]}"; do
-                  file_time=$(stat -c "%Y" "$filename")
-                  # Check if START_TIME is provided and filter files accordingly
-                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
-                      continue
-                  fi
-                  # Check if END_TIME is provided and filter files accordingly
-                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
-                      continue
-                  fi
-                  # Add file to the list
-                  files+=("$filename")
-              done
-            fi
-            for file in "${files[@]}"; do
-              echo "====================> File: $file &lt;===================="
-              cat $file
-            done
-        args: []
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ti-service
-        includeAllData: true
-
-
-    - exec:
-        name: logs/ssca-manager
-        selector:
-          - app.kubernetes.io/name=ssca-manager
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            NUM_FILES=$0
-            FILE_PATH="$1"
-            START_TIME=$2
-            END_TIME=$3
-
-            all_files=( $FILE_PATH )
-            if [ ${#all_files[@]} -eq 0 ]; then
-              all_files=($(ls /opt/harness/logs/pod*.log))
-            fi
-
-            if [ -z "$START_TIME" ]; then
-                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
-            else
-                for filename in "${all_files[@]}"; do
-                  file_time=$(stat -c "%Y" "$filename")
-                  # Check if START_TIME is provided and filter files accordingly
-                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
-                      continue
-                  fi
-                  # Check if END_TIME is provided and filter files accordingly
-                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
-                      continue
-                  fi
-                  # Add file to the list
-                  files+=("$filename")
-              done
-            fi
-            for file in "${files[@]}"; do
-              echo "====================> File: $file &lt;===================="
-              cat $file
-            done
-        args: []
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ssca-manager
-        includeAllData: true
-
-
-    - exec:
-        name: logs/ssca-ui
-        selector:
-          - app.kubernetes.io/name=ssca-ui
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            NUM_FILES=$0
-            FILE_PATH="$1"
-            START_TIME=$2
-            END_TIME=$3
-
-            all_files=( $FILE_PATH )
-            if [ ${#all_files[@]} -eq 0 ]; then
-              all_files=($(ls /opt/harness/logs/pod*.log))
-            fi
-
-            if [ -z "$START_TIME" ]; then
-                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
-            else
-                for filename in "${all_files[@]}"; do
-                  file_time=$(stat -c "%Y" "$filename")
-                  # Check if START_TIME is provided and filter files accordingly
-                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
-                      continue
-                  fi
-                  # Check if END_TIME is provided and filter files accordingly
-                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
-                      continue
-                  fi
-                  # Add file to the list
-                  files+=("$filename")
-              done
-            fi
-            for file in "${files[@]}"; do
-              echo "====================> File: $file &lt;===================="
-              cat $file
-            done
-        args: []
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: ssca-ui
-        includeAllData: true
-
-
-    - exec:
-        name: logs/sto-manager
-        selector:
-          - app.kubernetes.io/name=sto-manager
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            NUM_FILES=$0
-            FILE_PATH="$1"
-            START_TIME=$2
-            END_TIME=$3
-
-            all_files=( $FILE_PATH )
-            if [ ${#all_files[@]} -eq 0 ]; then
-              all_files=($(ls /opt/harness/logs/pod*.log))
-            fi
-
-            if [ -z "$START_TIME" ]; then
-                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
-            else
-                for filename in "${all_files[@]}"; do
-                  file_time=$(stat -c "%Y" "$filename")
-                  # Check if START_TIME is provided and filter files accordingly
-                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
-                      continue
-                  fi
-                  # Check if END_TIME is provided and filter files accordingly
-                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
-                      continue
-                  fi
-                  # Add file to the list
-                  files+=("$filename")
-              done
-            fi
-            for file in "${files[@]}"; do
-              echo "====================> File: $file &lt;===================="
-              cat $file
-            done
-        args: []
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: sto-manager
-        includeAllData: true
-
-
-    - exec:
-        name: logs/sto-core
-        selector:
-          - app.kubernetes.io/name=sto-core
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            NUM_FILES=$0
-            FILE_PATH="$1"
-            START_TIME=$2
-            END_TIME=$3
-
-            all_files=( $FILE_PATH )
-            if [ ${#all_files[@]} -eq 0 ]; then
-              all_files=($(ls /opt/harness/logs/pod*.log))
-            fi
-
-            if [ -z "$START_TIME" ]; then
-                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
-            else
-                for filename in "${all_files[@]}"; do
-                  file_time=$(stat -c "%Y" "$filename")
-                  # Check if START_TIME is provided and filter files accordingly
-                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
-                      continue
-                  fi
-                  # Check if END_TIME is provided and filter files accordingly
-                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
-                      continue
-                  fi
-                  # Add file to the list
-                  files+=("$filename")
-              done
-            fi
-            for file in "${files[@]}"; do
-              echo "====================> File: $file &lt;===================="
-              cat $file
-            done
-        args: []
-        timeout: 30s
-
-    - configMap:
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: sto-core
         includeAllData: true
 
