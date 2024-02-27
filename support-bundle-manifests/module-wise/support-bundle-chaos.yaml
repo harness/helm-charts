@@ -23,13 +23,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -48,8 +50,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -70,13 +72,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -95,8 +99,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -117,13 +121,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -142,8 +148,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -164,13 +170,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -189,8 +197,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -211,13 +219,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -236,8 +246,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -258,13 +268,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -283,8 +295,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -305,13 +317,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -330,8 +344,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -352,13 +366,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -377,8 +393,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -399,13 +415,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -424,8 +442,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -446,13 +464,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -471,8 +491,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -493,13 +513,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -518,8 +540,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -540,13 +562,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -565,8 +589,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -587,13 +611,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -612,8 +638,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -634,13 +660,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -659,8 +687,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -681,13 +709,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -706,8 +736,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -728,13 +758,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -753,8 +785,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -775,13 +807,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -800,8 +834,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -822,13 +856,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -847,8 +883,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -869,13 +905,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -894,8 +932,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -916,13 +954,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -941,8 +981,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
@@ -963,13 +1003,15 @@ spec:
           - "-c"
           - |
             NUM_FILES=$0
-            FILE_PATH=$1
+            FILE_PATH="$1"
             START_TIME=$2
             END_TIME=$3
-            if [ -z $FILE_PATH ]; then
-              FILE_PATH = "/opt/harness/logs/pod*.log"
+
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
             fi
-            all_files=($(ls $FILE_PATH))
+
             if [ -z "$START_TIME" ]; then
                 files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
             else
@@ -988,8 +1030,8 @@ spec:
               done
             fi
             for file in "${files[@]}"; do
-                echo "\n==================> $file &lt;==================\n"
-                cat "$file"
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
         args: []
         timeout: 30s
