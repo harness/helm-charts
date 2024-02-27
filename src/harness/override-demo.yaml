@@ -40,6 +40,35 @@ global:
   ci:
     # -- Enable to install CI
     enabled: true
+  ff:
+    # -- Enable to install  Feature Flags Component
+    enabled: false
+  gitops:
+    # -- Enable to install GitOps
+    enabled: false
+  migrator:
+    enabled: false
+  ngcustomdashboard:
+    # -- Enable to install  NG Custom Dashboards Component
+    enabled: false
+  servicediscoverymanager:
+  # -- Enable to install Service Discovery Manager (Beta)
+    enabled: false
+  opa:
+    # -- Enable to install Open Policy Agent
+    enabled: false
+  srm:
+    # -- Enable to install SRM
+    enabled: false
+  ssca:
+    # -- Enable to install Software Supply Chain Assurance (SSCA)
+    enabled: false
+  sto:
+    # -- Enable to install STO
+    enabled: false  
+  mongoSSL: false
+  ng:
+    enabled: true  
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
@@ -106,12 +135,6 @@ global:
       sslEnabled: false
       ## - key within secret containing username
       userKey: "username"
-  ff:
-    # -- Enable to install  Feature Flags Component
-    enabled: false
-  gitops:
-    # -- Enable to install GitOps
-    enabled: false
   ha: false
   # -- Global Docker image registry
   imageRegistry: ""
@@ -180,20 +203,6 @@ global:
     autocud:
       enabled: false
     enabled: false
-  migrator:
-    enabled: false
-  mongoSSL: false
-  ng:
-    enabled: true
-  ngcustomdashboard:
-    # -- Enable to install  NG Custom Dashboards Component
-    enabled: false  
-  servicediscoverymanager:
-  # -- Enable to install Service Discovery Manager (Beta)
-    enabled: false
-  opa:
-    # -- Enable to install Open Policy Agent
-    enabled: false
   # -- Set global.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce, iam to go through proxy
   # -- Set global.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
   # -- Set global.proxy.port to proxy port, it takes integer value
@@ -212,16 +221,7 @@ global:
   smtpCreateSecret:
     # -- Enable to create SMTP secretFile
     enabled: false
-  srm:
-    # -- Enable to install SRM
-    enabled: false
-  ssca:
-    # -- Enable to install Software Supply Chain Assurance (SSCA)
-    enabled: false
   stackDriverLoggingEnabled: false
-  sto:
-    # -- Enable to install STO
-    enabled: false
   # -- set storageClass for third party applications
   storageClass: ""
   storageClassName: ""
@@ -333,40 +333,64 @@ chaos:
     replicaCount: 1
     resources:
       limits:
-        memory: 512Mi
+        memory: 256Mi
       requests:
-        cpu: 600m
-        memory: 512Mi
+        cpu: 128m
+        memory: 256Mi
   chaos-web:
     replicaCount: 1
     resources:
       limits:
-        memory: 512Mi
+        memory: 128Mi
       requests:
-        cpu: 500m
-        memory: 512Mi
+        cpu: 64m
+        memory: 128Mi 
+  chaos-k8s-ifs:
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi 
+  chaos-linux-ifc:
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi 
+  chaos-linux-ifs:
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
 ci:
   ci-manager:
     autoscaling:
       enabled: false
     java:
-      memory: "2048m"
+      memory: "512m"
     replicaCount: 1
     resources:
       limits:
-        memory: 3000Mi
+        memory: 1280Mi
       requests:
-        cpu: 0.5
-        memory: 3000Mi
+        cpu: 256m
+        memory: 1280Mi
   ti-service:
     autoscaling:
       enabled: false
     jobresources:
       limits:
-        memory: 1400Mi
+        memory: 256Mi
       requests:
-        cpu: 0.5
-        memory: 1400Mi
+        cpu: 32m
+        memory: 256Mi
     replicaCount: 1
     resources:
       limits:
@@ -382,7 +406,7 @@ platform:
     autoscaling:
       enabled: false
     java:
-      memory: 512m
+      memory: 384m
     # -- set mongoHosts for external database hosts
     # -- mongoHosts:
     # -- - replica1.host.com:27017
@@ -395,10 +419,10 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        memory: 4096Mi
+        memory: 768Mi
       requests:
-        cpu: 1
-        memory: 4096Mi
+        cpu: 128m
+        memory: 768Mi
   bootstrap:
     database:
       clickhouse:
@@ -427,10 +451,10 @@ platform:
         replicaCount: 1
         resources:
           limits:
-            memory: 2048Mi
+            memory: 1024Mi
           requests:
-            cpu: 1
-            memory: 2048Mi
+            cpu: 500m
+            memory: 1024Mi
       postgresql:
         auth:
           existingSecret: "postgres"
@@ -455,10 +479,10 @@ platform:
         redis:
           resources:
             limits:
-              memory: 2048Mi
+              memory: 256Mi
             requests:
               cpu: 1
-              memory: 2048Mi
+              memory: 256Mi
         replicaCount: 3
         sentinel:
           resources:
@@ -503,6 +527,12 @@ platform:
         # -- Create will deploy a default backend into your cluster
         create: false
       nginx:
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 32m
+            memory: 512Mi
         affinity: {}
         controller:
           # -- annotations to be addded to ingress Controller
@@ -536,45 +566,57 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        memory: 100Mi
+        memory: 50Mi
       requests:
-        cpu: 200m
-        memory: 100Mi
+        cpu: 50m
+        memory: 50Mi
   gateway:
     autoscaling:
       enabled: false
     java:
-      memory: 1024
+      memory: 768
     replicaCount: 1
     resources:
       limits:
-        memory: 1300Mi
+        memory: 1280Mi
       requests:
-        cpu: 0.2
-        memory: 1300Mi
+        cpu: 0.1
+        memory: 1280Mi
   harness-manager:
     autoscaling:
       enabled: false
     external_graphql_rate_limit: "500"
     java:
-      memory: "2048"
+      memory: "1024"
     replicaCount: 1
     resources:
       limits:
-        memory: 3000Mi
+        memory: 2048Mi
       requests:
         cpu: 0.5
-        memory: 3000Mi
+        memory: 2048Mi
   log-service:
     autoscaling:
       enabled: false
     replicaCount: 1
     resources:
       limits:
-        memory: 1400Mi
+        memory: 256Mi
       requests:
-        cpu: 0.5
-        memory: 1400Mi
+        cpu: 64m
+        memory: 256Mi
+  ng-dashboard-aggregator:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    java:
+      memory: "1024"
+    resources:
+      limits:
+        memory: 2048Mi
+      requests:
+        cpu: 64m
+        memory: 2048Mi      
   looker:
     config:
       # -- clickhouse database name
@@ -617,45 +659,58 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        memory: 200Mi
+        memory: 100Mi
       requests:
-        cpu: 0.2
-        memory: 200Mi
+        cpu: 0.1
+        memory: 100Mi
   ng-auth-ui:
     autoscaling:
       enabled: false
     replicaCount: 1
     resources:
       limits:
-        memory: 200Mi
+        memory: 64Mi
       requests:
-        cpu: 0.2
-        memory: 200Mi
+        cpu: 32m
+        memory: 64Mi
   ng-custom-dashboards:
     config:
       # -- Required: domain name of your looker instance, this must be accessible by users in your organisation
       lookerPubDomain: ''
       # -- Required: HTTP scheme used, either http or https
       lookerPubScheme: 'https'
+    memory: 384
     resources:
       limits:
-        memory: 1Gi
+        memory: 512Mi
       requests:
-        cpu: 1
-        memory: 500Mi
+        cpu: 100m
+        memory: 512Mi
   ng-manager:
     autoscaling:
       enabled: false
     java:
-      memory: "4096m"
+      memory: "1024m"
     replicaCount: 1
     resources:
       limits:
-        memory: 6144Mi
+        memory: 2048Mi
       requests:
-        cpu: 0.5
-        memory: 6144Mi
+        cpu: 256m
+        memory: 2048Mi
   pipeline-service:
+    autoscaling:
+      enabled: false
+    java:
+      memory: "768m"
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 2048Mi
+      requests:
+        cpu: 512m
+        memory: 2048Mi
+  platform-service:
     autoscaling:
       enabled: false
     java:
@@ -665,30 +720,18 @@ platform:
       limits:
         memory: 1400Mi
       requests:
-        cpu: 0.5
+        cpu: 256m
         memory: 1400Mi
-  platform-service:
-    autoscaling:
-      enabled: false
-    java:
-      memory: "2048m"
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 3000Mi
-      requests:
-        cpu: 0.5
-        memory: 3000Mi
   scm-service:
     autoscaling:
       enabled: false
     replicaCount: 1
     resources:
       limits:
-        memory: 512Mi
+        memory: 256Mi
       requests:
-        cpu: 0.1
-        memory: 512Mi
+        cpu: 64m
+        memory: 256Mi
   template-service:
     autoscaling:
       enabled: false
@@ -699,7 +742,7 @@ platform:
       limits:
         memory: 1500Mi
       requests:
-        cpu: 0.5
+        cpu: 256m
         memory: 1500Mi
   ui:
     autoscaling:
@@ -761,17 +804,17 @@ sto:
     replicaCount: 1
     resources:
       limits:
-        memory: 500Mi
+        memory: 256Mi
       requests:
-        cpu: 500m
-        memory: 500Mi
+        cpu: 128m
+        memory: 256Mi
   sto-manager:
     autoscaling:
       enabled: false
     replicaCount: 1
     resources:
       limits:
-        memory: 3072Mi
+        memory: 1.5Gi
       requests:
-        cpu: 1
-        memory: 3072Mi
+        cpu: 256m
+        memory: 1.5Gi
