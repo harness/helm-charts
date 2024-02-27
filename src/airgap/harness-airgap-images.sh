@@ -41,7 +41,7 @@ debug_log() {
   fi
 }
 
-cleanup() {
+cleanup_images() {
   echo "Cleaning up Docker images..."
   # Iterate through verified_images array to remove images from the local Docker environment
   for image in "${verified_images[@]}"; do
@@ -56,7 +56,7 @@ cleanup() {
 }
 
 # Parse command-line arguments
-while getopts "hr:f:dDc:" opt; do
+while getopts "hr:f:d:Dc:" opt; do
   case "$opt" in
     h) show_help ;;
     r) registry="$OPTARG" ;;
@@ -169,5 +169,5 @@ if [ ${#failed_images[@]} -gt 0 ]; then
 fi
 
 if [ "$cleanup" = true ]; then
-    cleanup
+    cleanup_images
 fi
