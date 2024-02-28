@@ -32,7 +32,7 @@ date_to_epoch() {
 }
 
 # Check if all required arguments are provided
-if [ "$#" -lt 3 ]; then
+if [ "$#" -lt 2 ]; then
   echo "Usage: $0 <namespace> <release_name>"
   echo "Flags"
   echo "--module <module-name>(optional): If not provided, all modules will be selected"
@@ -40,7 +40,7 @@ if [ "$#" -lt 3 ]; then
   echo "--between <start_time> <end_time> (YYYY-DD-MM)(optional): Log duration to fetch"
   echo "--number-of-files <num_files>(optional): Number of log files to fetch (default: 2)"
   echo "--filepath <filepath>(optional): File path of logs, default is /opt/harness/logs/pods*.log"
-  echo "provide `*.log` in the filepath at the end"
+  echo "provide '*.log' in the filepath at the end"
   exit 1
 fi
 
@@ -116,6 +116,7 @@ curl -o $MANIFEST_FILENAME "$DOWNLOAD_URL"
 
 yq -i '(.. | select(has("namespace")) | .namespace) = env(NAMESPACE)' $MANIFEST_FILENAME
 yq -i '(.. | select(has("releaseName")) | .releaseName) = env(RELEASE_NAME)' $MANIFEST_FILENAME
+yq -i '.spec.collectors[0].clusterResources.namespaces = [env(NAMESPACE)]' $MANIFEST_FILENAME
 
 if [ -z "$END_TIME" ]; then
     yq -i '(.. | select(has("args")) | .args) = ["'"${NUM_FILES}"'", "'"${FILEPATH}"'", "'"${START_TIME}"'"]' $MANIFEST_FILENAME

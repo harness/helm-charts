@@ -34,10 +34,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/harness/helm-charts/main/supp
 ```
 
 For Windows:
-
-```bash
-bash <(curl -sSL https://raw.githubusercontent.com/harness/helm-charts/main/support-bundle-manifests/scripts/windows.ps1) <your-namespace> <your-release-name>
-```
+Support yet to be added
 
 This will create a file named `support-bundle.yaml` in the current directory. You can use this file to collect the support bundle.
 
