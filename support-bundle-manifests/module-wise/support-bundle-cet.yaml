@@ -6,7 +6,7 @@ metadata:
 spec:
   collectors:
     - clusterResources:
-        exclude: true
+        namespaces: []
 
 
     - exec:
