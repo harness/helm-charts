@@ -4,42 +4,42 @@ dependencies:
 - condition: global.ccm.enabled
   name: ccm
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.14.1
 - condition: global.cd.enabled
   name: cd
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.14.1
 - condition: global.cet.enabled
   name: cet
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.14.1
 - condition: global.chaos.enabled
   name: chaos
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.14.1
 - condition: global.ci.enabled
   name: ci
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.14.1
 - condition: global.ff.enabled
   name: ff
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.14.1
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.14.1
 - condition: global.srm.enabled
   name: srm
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.14.1
 - condition: global.sto.enabled
   name: sto
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.14.1
 - condition: global.ssca.enabled
   name: ssca
   repository: https://harness.github.io/helm-charts
-  version: 0.14.0
+  version: 0.14.1
 description: Helm Chart for deploying Harness.
 name: harness
 type: application

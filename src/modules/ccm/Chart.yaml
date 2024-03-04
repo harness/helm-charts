@@ -45,4 +45,4 @@ dependencies:
 description: A Helm chart for Harness Cloud Cost Management (CCM) module
 name: ccm
 type: application
-version: 0.14.0
+version: 0.14.1
