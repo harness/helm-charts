@@ -1,9 +1,9 @@
 dependencies:
 - name: ci-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.6.11
+  version: 1.12.5
 - name: ti-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 2.11.6
-digest: sha256:29879d8070bdae856f91ef82ed06155f89a6ea8c7e06b30518c8dfe99ac42e33
-generated: "2024-01-29T16:09:36.441025145Z"
+  version: 1.8.1
+digest: sha256:e9b3c1b803f711cb1a8bc833149736861c45a3102a6660aca4d42fe489b8aed6
+generated: "2024-03-04T04:46:19.953073136Z"
