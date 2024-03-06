@@ -1124,56 +1124,6 @@ entries:
   harness:
   - apiVersion: v2
     appVersion: 1.0.80917
-    created: "2024-03-04T05:09:30.775514376Z"
-    dependencies:
-    - condition: global.ccm.enabled
-      name: ccm
-      repository: https://harness.github.io/helm-charts
-      version: 0.14.0
-    - condition: global.cd.enabled
-      name: cd
-      repository: https://harness.github.io/helm-charts
-      version: 0.14.0
-    - condition: global.cet.enabled
-      name: cet
-      repository: https://harness.github.io/helm-charts
-      version: 0.14.0
-    - condition: global.chaos.enabled
-      name: chaos
-      repository: https://harness.github.io/helm-charts
-      version: 0.14.0
-    - condition: global.ci.enabled
-      name: ci
-      repository: https://harness.github.io/helm-charts
-      version: 0.14.0
-    - condition: global.ff.enabled
-      name: ff
-      repository: https://harness.github.io/helm-charts
-      version: 0.14.0
-    - name: platform
-      repository: https://harness.github.io/helm-charts
-      version: 0.14.0
-    - condition: global.srm.enabled
-      name: srm
-      repository: https://harness.github.io/helm-charts
-      version: 0.14.0
-    - condition: global.sto.enabled
-      name: sto
-      repository: https://harness.github.io/helm-charts
-      version: 0.14.0
-    - condition: global.ssca.enabled
-      name: ssca
-      repository: https://harness.github.io/helm-charts
-      version: 0.14.0
-    description: Helm Chart for deploying Harness.
-    digest: b196df9f24b027b76b2db74bfe10f408305e9d48789f1797c90e9575125fa2b6
-    name: harness
-    type: application
-    urls:
-    - https://github.com/harness/helm-charts/releases/download/harness-0.14.0/harness-0.14.0.tgz
-    version: 0.14.0
-  - apiVersion: v2
-    appVersion: 1.0.80917
     created: "2024-02-13T18:49:07.251566858Z"
     dependencies:
     - condition: global.ccm.enabled
@@ -10930,4 +10880,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2024-03-04T05:09:30.776374048Z"
+generated: "2024-03-04T04:56:38.250412058Z"
