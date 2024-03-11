@@ -6,11 +6,7 @@ metadata:
 spec:
   collectors:
     - clusterResources:
-        exclude: true
-    - helm:
-        releaseName: YOUR-RELEASE-NAME-HERE
-        namespace: YOUR-RELEASE-NAMESPACE-HERE
-        collectValues: true
+        namespaces: []
 
 
     - exec:
@@ -22,13 +18,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -46,13 +67,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -70,13 +116,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -94,13 +165,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -118,13 +214,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -142,13 +263,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -166,13 +312,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -190,13 +361,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -214,13 +410,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -238,13 +459,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -262,13 +508,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -286,13 +557,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -310,13 +606,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -334,13 +655,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -358,13 +704,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -382,13 +753,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -406,13 +802,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
@@ -430,13 +851,38 @@ spec:
           - "/bin/bash"
           - "-c"
           - |
-            logs_path="/opt/harness/logs"
-            num_files=3
+            NUM_FILES=$0
+            FILE_PATH="$1"
+            START_TIME=$2
+            END_TIME=$3
 
-            for file in $(ls $logs_path/pod*.log | sort -n -k1,1 | tail -n $num_files); do
-                echo "==> $file &lt;=="
-                cat "$file"
+            all_files=( $FILE_PATH )
+            if [ ${#all_files[@]} -eq 0 ]; then
+              all_files=($(ls /opt/harness/logs/pod*.log))
+            fi
+
+            if [ -z "$START_TIME" ]; then
+                files=($(ls $FILE_PATH -tr | tail -n $NUM_FILES))
+            else
+                for filename in "${all_files[@]}"; do
+                  file_time=$(stat -c "%Y" "$filename")
+                  # Check if START_TIME is provided and filter files accordingly
+                  if [ -n "$START_TIME" ] && [ "$file_time" -lt "$START_TIME" ]; then
+                      continue
+                  fi
+                  # Check if END_TIME is provided and filter files accordingly
+                  if [ -n "$END_TIME" ] && [ "$file_time" -gt "$END_TIME" ]; then
+                      continue
+                  fi
+                  # Add file to the list
+                  files+=("$filename")
+              done
+            fi
+            for file in "${files[@]}"; do
+              echo "====================> File: $file &lt;===================="
+              cat $file
             done
+        args: []
         timeout: 30s
 
     - configMap:
