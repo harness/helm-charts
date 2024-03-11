@@ -206,9 +206,9 @@ spec:
 
 
     - exec:
-        name: logs/manager
+        name: logs/harness-manager
         selector:
-          - app.kubernetes.io/name=manager
+          - app.kubernetes.io/name=harness-manager
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         command:
           - "/bin/bash"
@@ -790,5 +790,70 @@ spec:
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         name: template-service
+        includeAllData: true
+
+
+    - logs:
+        name: logs/bootstrap-timescaledb
+        selector:
+          - app.kubernetes.io/name=bootstrap-timescaledb
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: bootstrap-timescaledb
+        includeAllData: true
+
+
+    - logs:
+        name: logs/minio
+        selector:
+          - app.kubernetes.io/name=minio
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: minio
+        includeAllData: true
+
+
+    - logs:
+        name: logs/mongodb
+        selector:
+          - app.kubernetes.io/name=mongodb
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: mongodb
+        includeAllData: true
+
+
+    - logs:
+        name: logs/postgresql
+        selector:
+          - app.kubernetes.io/name=postgresql
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: postgresql
+        includeAllData: true
+
+
+    - logs:
+        name: logs/redis
+        selector:
+          - app.kubernetes.io/name=redis
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        timeout: 30s
+
+    - configMap:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        name: redis
         includeAllData: true
 
