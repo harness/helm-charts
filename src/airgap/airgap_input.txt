@@ -85,6 +85,8 @@
     nmap-job-runner
     prowler-job-runner
     anchore-job-runner
+    osv-job-runner
+    aqua-security-job-runner
 
 [ff]:
     ff-postgres-migration-signed
