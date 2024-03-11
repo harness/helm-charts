@@ -34,7 +34,15 @@ bash <(curl -sSL https://raw.githubusercontent.com/harness/helm-charts/main/supp
 ```
 
 For Windows:
-Support yet to be added
+
+***Pre-requisite***: powershell-yaml module is required. Install using `Install-Module -Name powershell-yaml` command
+
+```powershell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/harness/helm-charts/main/support-bundle-manifests/scripts/windows.ps1" -OutFile "windows.ps1"
+
+./windows.ps1 <your-namespace> <your-release-name>
+```
+
 
 This will create a file named `support-bundle.yaml` in the current directory. You can use this file to collect the support bundle.
 
