@@ -11,4 +11,4 @@ dependencies:
 description: A Helm chart for Kubernetes
 name: ci
 type: application
-version: 0.14.1
+version: 0.15.0
