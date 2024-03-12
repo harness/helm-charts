@@ -7,7 +7,7 @@ dependencies:
   version: 1.35.3
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.0.0-snapshot-2024-03-11-03-01-34-5e51e2c
+  version: 1.0.0-snapshot-2024-03-12-09-01-45-f34878
 - condition: global.cdc.enabled
   name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
