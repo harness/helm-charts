@@ -19,29 +19,9 @@ dependencies:
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.6.1
-- condition: global.lwd.enabled
-  name: lwd-faktory
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.13.0
-- condition: global.lwd.enabled
-  name: lwd
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.13.0
-- condition: global.lwd.enabled
-  name: lwd-worker
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.13.0
-- condition: global.lwd.autocud.enabled
-  name: lwd-autocud
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.4.0
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.8.1
-- condition: global.lwd.enabled
-  name: dkron
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.9.1
 description: A Helm chart for Harness Cloud Cost Management (CCM) module
 name: ccm
 type: application
