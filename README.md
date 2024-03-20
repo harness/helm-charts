@@ -18,7 +18,7 @@ Create a namespace for your installation
 ```
 $ kubectl create namespace <namespace>
 ```
-Download the override.yaml file from https://github.com/harness/helm-charts/blob/main/override.yaml and put relevant configurations in it.
+Download the override.yaml file from [here](https://github.com/harness/helm-charts/blob/main/src/harness/override-demo.yaml) and put relevant configurations in it.
 
 Installing the helm chart
 ```
