@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.14.4](https://img.shields.io/badge/Version-0.14.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.14.5](https://img.shields.io/badge/Version-0.14.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -104,7 +104,7 @@ docker.io/chaosnative/source-probe:ci
 docker.io/chaosnative/workflow-controller:v3.4.14
 docker.io/curlimages/curl:8.1.2
 docker.io/haproxy:lts-alpine3.18
-docker.io/harness/accesscontrol-service-signed:1.33.1
+docker.io/harness/accesscontrol-service-signed:1.33.2
 docker.io/harness/argocd:v2.9.4
 docker.io/harness/batch-processing-signed:1.5.1
 docker.io/harness/ccm-gcp-smp-signed:10057
@@ -143,7 +143,7 @@ docker.io/harness/looker-signed:23.20.39
 docker.io/harness/manager-signed:1.15.12
 docker.io/harness/migrator-signed:1.22.0
 docker.io/harness/mongo:4.4.22
-docker.io/harness/nextgenui-signed:1.7.4
+docker.io/harness/nextgenui-signed:1.7.5
 docker.io/harness/ng-auth-ui-signed:1.18.2
 docker.io/harness/ng-ce-ui:0.63.2
 docker.io/harness/ng-dashboard-aggregator-signed:1.4.0
