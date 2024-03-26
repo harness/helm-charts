@@ -7,6 +7,10 @@ spec:
   collectors:
     - clusterResources:
         namespaces: []
+    - helm:
+        namespace: YOUR-RELEASE-NAMESPACE-HERE
+        releaseName: YOUR-RELEASE-NAME-HERE
+        collectValues: true
 
 
     - exec:
