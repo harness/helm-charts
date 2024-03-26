@@ -1235,15 +1235,15 @@ spec:
 
 
     - logs:
-        name: logs/bootstrap-timescaledb
+        name: logs/harness-timescaledb
         selector:
-          - app.kubernetes.io/name=bootstrap-timescaledb
+          - app.kubernetes.io/name=harness-timescaledb
         namespace: YOUR-RELEASE-NAMESPACE-HERE
         timeout: 120s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: bootstrap-timescaledb
+        name: harness-timescaledb
         includeAllData: true
 
 
