@@ -19,15 +19,15 @@ dependencies:
   version: 0.14.1
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.14.6
+  version: 0.14.7
 - name: srm
   repository: https://harness.github.io/helm-charts
   version: 0.14.1
 - name: sto
   repository: https://harness.github.io/helm-charts
-  version: 0.14.1
+  version: 0.14.6
 - name: ssca
   repository: https://harness.github.io/helm-charts
   version: 0.14.1
-digest: sha256:c97777434d1957f26473c6267dcb02e7bcf90ccd391789b68201a440c5b46113
-generated: "2024-03-21T13:53:52.587320804Z"
+digest: sha256:17a98ef905c84e4d86dda66bbfa647b30061589eb612961ec861dfb43327a900
+generated: "2024-03-26T10:28:49.622425058Z"
