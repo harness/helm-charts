@@ -98,7 +98,7 @@ if [ -z "$FILEPATH" ]; then
     FILEPATH="/opt/harness/logs/pod*.log"
 fi
 
-BASE_URL="https://raw.githubusercontent.com/harness/helm-charts/main/support-bundle-manifests"
+BASE_URL="https://raw.githubusercontent.com/harness/helm-charts/0192c9b60c47323f35efd86573774e4885b07c8f/support-bundle-manifests"
 
 case "$MODULE" in
   "all")
