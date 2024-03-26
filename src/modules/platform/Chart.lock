@@ -28,7 +28,7 @@ dependencies:
   version: 1.22.0
 - name: next-gen-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.7.5
+  version: 1.7.6
 - name: ng-auth-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.18.2
@@ -65,5 +65,5 @@ dependencies:
 - name: service-discovery-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.2.0
-digest: sha256:72a1cf3d37e94106308635264ffa33d58d57b1e35ad909caabfd1b13be93e089
-generated: "2024-03-21T13:41:05.838192375Z"
+digest: sha256:09d646b95623da94e649ce279cabf58db216ba3ad6baceac4b87f6e2e9244cdd
+generated: "2024-03-26T10:00:46.037191319Z"
