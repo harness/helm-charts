@@ -113,7 +113,7 @@
     ccm-gcp-smp-signed
 
 [ce]:
-    workflow-controller
+    chaos-workflow-controller
     argoexec
     chaos-exporter
     chaos-operator
