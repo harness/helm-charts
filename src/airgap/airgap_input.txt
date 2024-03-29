@@ -135,7 +135,6 @@
     chaos-k8s
     litmus-checker
     smp-chaos-db-upgrade-agent-signed
-    harness-smp-chaos-bg-processor
     chaos-ddcr
 
 [ssca]:
