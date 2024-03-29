@@ -50,7 +50,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -99,7 +99,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -148,7 +148,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -197,7 +197,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -246,7 +246,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -295,7 +295,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -344,7 +344,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -393,7 +393,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -442,7 +442,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -491,7 +491,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -540,7 +540,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -589,7 +589,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -638,7 +638,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -687,7 +687,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -736,7 +736,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -785,7 +785,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -834,7 +834,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -883,7 +883,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -932,7 +932,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -981,7 +981,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -1030,7 +1030,7 @@ spec:
               cat $file
             done
         args: []
-        timeout: 30s
+        timeout: 300s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -1039,15 +1039,15 @@ spec:
 
 
     - logs:
-        name: logs/bootstrap-timescaledb
+        name: logs/harness-timescaledb
         selector:
-          - app.kubernetes.io/name=bootstrap-timescaledb
+          - app.kubernetes.io/name=harness-timescaledb
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
+        timeout: 120s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        name: bootstrap-timescaledb
+        name: harness-timescaledb
         includeAllData: true
 
 
@@ -1056,7 +1056,7 @@ spec:
         selector:
           - app.kubernetes.io/name=minio
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
+        timeout: 120s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -1069,7 +1069,7 @@ spec:
         selector:
           - app.kubernetes.io/name=mongodb
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
+        timeout: 120s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -1082,7 +1082,7 @@ spec:
         selector:
           - app.kubernetes.io/name=postgresql
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
+        timeout: 120s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
@@ -1095,7 +1095,7 @@ spec:
         selector:
           - app.kubernetes.io/name=redis
         namespace: YOUR-RELEASE-NAMESPACE-HERE
-        timeout: 30s
+        timeout: 120s
 
     - configMap:
         namespace: YOUR-RELEASE-NAMESPACE-HERE
