@@ -13,27 +13,12 @@ dependencies:
   version: 1.1.0
 - name: batch-processing
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.5.1
+  version: 1.8.3
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.13.0
-- name: lwd-faktory
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.9.0
-- name: lwd
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.9.0
-- name: lwd-worker
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.9.0
-- name: lwd-autocud
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.1.0
+  version: 1.6.1
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.5.2
-- name: dkron
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.9.1
-digest: sha256:4e4720038f94770a8ab9f1a83979a900c206f0956bf1cfaabb8a28320a6dcfc9
-generated: "2024-03-04T04:46:29.194509333Z"
+  version: 1.8.2
+digest: sha256:76cf28a72a4041a471a7a968f99f4e1afc4b3cd041d11f9e6ecc580e33e78afa
+generated: "2024-03-29T06:39:08.564744478Z"
