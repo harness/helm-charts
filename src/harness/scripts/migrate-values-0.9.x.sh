@@ -198,25 +198,6 @@ yq eval '(select(has("policy-mgmt")) | .platform.policy-mgmt = .policy-mgmt | de
 echo "Migrated policy-mgmt to platform.policy-mgmt "
 echo
 
-## cet
-echo -e "\n----------------------------------------\n cet \n----------------------------------------"
-# - no changes since 0.8.x , however 0.7.x cet charts moved from srm.* to cet.*. Added harmless redundant yq conditions
-yq eval '(select(has("srm") and .srm | has("enable-receivers")) | .cet.enable-receivers = .srm.enable-receivers | del(.srm.enable-receivers)) // .' -i "$newOverrideFile"
-echo "Migrated srm.enable-receivers to cet.enable-receivers "
-yq eval '(select(has("srm") and .srm | has("et-service")) | .cet.et-service = .srm.et-service | del(.srm.et-service)) // .' -i "$newOverrideFile"
-echo "Migrated srm.et-service to cet.et-service "
-yq eval '(select(has("srm") and .srm | has("et-collector")) | .cet.et-collector = .srm.et-collector | del(.srm.et-collector)) // .' -i "$newOverrideFile"
-echo "Migrated srm.et-collectorto cet.et-collector "
-yq eval '(select(has("srm") and .srm | has("et-receiver-decompile")) | .cet.et-receiver-decompile = .srm.et-receiver-decompile | del(.srm.et-receiver-decompile)) // .' -i "$newOverrideFile"
-echo "Migrated srm.et-receiver-decompile to cet.et-receiver-decompile "
-yq eval '(select(has("srm") and .srm | has("et-receiver-hit")) | .cet.et-receiver-hit = .srm.et-receiver-hit | del(.srm.et-receiver-hit)) // .' -i "$newOverrideFile"
-echo "Migrated srm.et-receiver-hit to cet.et-receiver-hit "
-yq eval '(select(has("srm") and .srm | has("et-receiver-sql")) | .cet.et-receiver-sql = .srm.et-receiver-sql | del(.srm.et-receiver-sql)) // .' -i "$newOverrideFile"
-echo "Migrated srm.et-receiver-sql to cet.et-receiver-sql"
-yq eval '(select(has("srm") and .srm | has("et-receiver-agent")) | .cet.et-receiver-agent = .srm.et-receiver-agent | del(.srm.et-receiver-agent)) // .' -i "$newOverrideFile"
-echo "Migrated srm.et-receiver-agent to cet.et-receiver-agent "
-echo
-
 #################### chaos ####################
 yq eval 'del(.chaos.chaos-driver)' -i "$newOverrideFile"
 

@@ -29,9 +29,6 @@ global:
   cd:
     # -- Enable to install CD
     enabled: true
-  cet:
-    # -- Enable to install CET
-    enabled: false
   cg:
     enabled: false
   chaos:
@@ -266,68 +263,6 @@ ccm:
       httpsProxyUrl: http://localhost
   event-service:
     stackDriverLoggingEnabled: false
-cet:
-  enable-receivers: true
-  et-collector:
-    autoscaling:
-      enabled: false
-    et:
-      java:
-        heapSize: "1600m"
-      redis:
-        enabled: true
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 100m
-        memory: 2Gi
-  et-service:
-    autoscaling:
-      enabled: false
-    et:
-      java:
-        heapSize: "2048m"
-      redis:
-        enabled: true
-      receivers:
-        config:
-          - name: et-receiver-hit
-            type: hit
-            autoscaling: false
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 2Gi
-          - name: et-receiver-agent
-            type: agent
-            autoscaling: false
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 2Gi
-          - name: et-receiver-sql
-            type: sql
-            autoscaling: false
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 2Gi
-          - name: et-receiver-decompile
-            type: decompile
-            autoscaling: false
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 2Gi
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 3Gi
-      requests:
-        cpu: 100m
-        memory: 3Gi
 chaos:
   chaos-manager:
     replicaCount: 1

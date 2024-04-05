@@ -37,9 +37,6 @@ docker.io/harness/delegate-proxy-signed:81011_minimal
 docker.io/harness/delegate:24.02.82402
 docker.io/harness/delegate:24.02.82402.minimal
 docker.io/harness/delegate:latest
-docker.io/harness/error-tracking-signed:5.34.0
-docker.io/harness/et-collector-signed:5.34.0
-docker.io/harness/et-receiver-signed:5.34.0
 docker.io/harness/event-service-signed:79404-000
 docker.io/harness/ff-postgres-migration-signed:1.1094.0
 docker.io/harness/ff-pushpin-signed:1.0.11

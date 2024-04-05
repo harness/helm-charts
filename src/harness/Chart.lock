@@ -5,9 +5,6 @@ dependencies:
 - name: cd
   repository: https://harness.github.io/helm-charts
   version: 0.15.0
-- name: cet
-  repository: https://harness.github.io/helm-charts
-  version: 0.15.0
 - name: chaos
   repository: https://harness.github.io/helm-charts
   version: 0.15.0

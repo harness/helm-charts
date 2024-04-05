@@ -126,15 +126,6 @@ The manifests are divided into categories based on modules and are present insid
 
 - gitops
 
-### Continous Error Tracking
-
-#### Manifest Name: `support-bundle-cet.yaml`
-
-#### Services List (excluding platform services)
-
-- et-service
-- et-collector
-
 ### Chaos
 
 #### Manifest Name: `support-bundle-chaos.yaml`
