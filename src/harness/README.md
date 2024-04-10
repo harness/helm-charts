@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.15.0](https://img.shields.io/badge/Version-0.15.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.15.1](https://img.shields.io/badge/Version-0.15.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -95,7 +95,7 @@ docker.io/harness/batch-processing-signed:1.8.3
 docker.io/harness/ccm-gcp-smp-signed:10057
 docker.io/harness/cdcdata-signed:1.5.3
 docker.io/harness/ce-anomaly-detection-signed:1.1.0
-docker.io/harness/ce-cloud-info-signed:1.3.1
+docker.io/harness/ce-cloud-info-signed:1.3.2
 docker.io/harness/ce-nextgen-signed:1.8.2
 docker.io/harness/chaos-argoexec:v3.4.16
 docker.io/harness/chaos-ddcr:1.32.0
@@ -132,7 +132,7 @@ docker.io/harness/ff-timescale-migration-signed:1.1094.0
 docker.io/harness/gateway-signed:1.23.2
 docker.io/harness/gitops-agent-installer-helper:v0.0.1
 docker.io/harness/gitops-agent:v0.67.4
-docker.io/harness/gitops-service-signed:1.4.3
+docker.io/harness/gitops-service-signed:1.4.4
 docker.io/harness/helm-init-container:latest
 docker.io/harness/k8s-chaos-infrastructure-upgrader:1.32.0
 docker.io/harness/le-nextgen-signed:1.1.0
