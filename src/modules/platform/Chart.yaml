@@ -84,6 +84,10 @@ dependencies:
   name: service-discovery-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.2.0
+- condition: global.ng.enabled
+  name: audit-streaming-service
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.0.0
 description: Helm chart for Harness Platform
 name: platform
 type: application
