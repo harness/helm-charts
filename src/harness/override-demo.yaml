@@ -329,6 +329,8 @@ cet:
         cpu: 100m
         memory: 3Gi
 chaos:
+  chaos-common:
+    installLinuxCRDs: false
   chaos-manager:
     replicaCount: 1
     resources:
@@ -362,6 +364,22 @@ chaos:
         cpu: 64m
         memory: 128Mi 
   chaos-linux-ifs:
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
+  chaos-machine-ifc:
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi 
+  chaos-machine-ifs:
     replicaCount: 1
     resources:
       limits:
