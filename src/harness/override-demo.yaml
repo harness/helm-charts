@@ -1,6 +1,9 @@
 chaos:
+  chaos-common:
+    installLinuxCRDs: false
   chaos-manager:
-    replicaCount: 1
+    autoscaling:
+      enabled: false
     resources:
       limits:
         memory: 256Mi
@@ -8,15 +11,17 @@ chaos:
         cpu: 128m
         memory: 256Mi
   chaos-web:
-    replicaCount: 1
+    autoscaling:
+      enabled: false
     resources:
       limits:
         memory: 128Mi
       requests:
         cpu: 64m
-        memory: 128Mi 
+        memory: 128Mi
   chaos-k8s-ifs:
-    replicaCount: 1
+    autoscaling:
+      enabled: false
     resources:
       limits:
         memory: 128Mi
@@ -24,7 +29,8 @@ chaos:
         cpu: 64m
         memory: 128Mi 
   chaos-linux-ifc:
-    replicaCount: 1
+    autoscaling:
+      enabled: false
     resources:
       limits:
         memory: 128Mi
@@ -32,7 +38,26 @@ chaos:
         cpu: 64m
         memory: 128Mi 
   chaos-linux-ifs:
-    replicaCount: 1
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
+  chaos-machine-ifc:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
+  chaos-machine-ifs:
+    autoscaling:
+      enabled: false
     resources:
       limits:
         memory: 128Mi
@@ -89,19 +114,9 @@ platform:
         defaultBuckets: "logs"
         fullnameOverride: "minio"
         mode: standalone
-        affinity: {}
-        nodeSelector: {}
-        tolerations: []
-        podAnnotations: {}
         persistence:
           size: 10Gi
       mongodb:
-        arbiter:
-          affinity: {}
-          nodeSelector: {}
-          tolerations: []
-          annotations: {}
-          podAnnotations: {}
         extraFlags:
           - "--wiredTigerCacheSizeGB=0.5"
         persistence:
@@ -117,23 +132,15 @@ platform:
         auth:
           existingSecret: "postgres"
         primary:
-          affinity: {}
-          nodeSelector: {}
-          tolerations: []
-          podAnnotations: {}
           persistence:
             size: 8Gi
           resources:
             limits:
-              memory: 4Gi
+              memory: 1Gi
             requests:
-              cpu: 2
-              memory: 4Gi
+              cpu: 500m
+              memory: 1Gi
       redis:
-        affinity: {}
-        nodeSelector: {}
-        tolerations: []
-        podAnnotations: {}
         redis:
           resources:
             limits:
@@ -157,10 +164,6 @@ platform:
       timescaledb:
         autoscaling:
           enabled: false
-        affinity: {}
-        nodeSelector: {}
-        tolerations: []
-        podAnnotations: {}
         replicaCount: 1
         # Increasing persistentVolumes size while upgrading a helm deployment
         # will fail because these values are immutable for a statefulset.
@@ -178,12 +181,14 @@ platform:
           requests:
             cpu: 0.3
             memory: 512Mi
-    harness-secrets:
-      enabled: true
     networking:
       defaultbackend:
-        # -- Create will deploy a default backend into your cluster
-        create: false
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 32m
+            memory: 512Mi
       nginx:
         resources:
           limits:
@@ -191,22 +196,7 @@ platform:
           requests:
             cpu: 32m
             memory: 512Mi
-        affinity: {}
-        controller:
-          # -- annotations to be addded to ingress Controller
-          annotations: {}
-        # -- Create Nginx Controller.  True will deploy a controller into your cluster
-        create: false
-        healthNodePort: ""
-        healthPort: ""
-        httpNodePort: ""
-        httpsNodePort: ""
-        loadBalancerEnabled: false
-        loadBalancerIP: '0.0.0.0'
-        nodeSelector: {}
-        tolerations: []
   change-data-capture:
-    appLogLevel: INFO
     autoscaling:
       enabled: false
     java:
@@ -243,7 +233,6 @@ platform:
   harness-manager:
     autoscaling:
       enabled: false
-    external_graphql_rate_limit: "500"
     java:
       memory: "1024"
     replicaCount: 1
@@ -276,29 +265,12 @@ platform:
         cpu: 64m
         memory: 2048Mi      
   looker:
-    config:
-      # -- clickhouse database name
-      clickhouseDatabase: 'ccm'
-      # -- Leave empty if not deploying Clickhouse.
-      # -- clickhouse hostname
-      clickhouseHost: 'clickhouse'
-      # -- clickhouse port
-      clickhousePort: '8123'
-      # -- clickhouse user
-      clickhouseUser: 'default'
-    ingress:
-      hosts: []
-      tls:
-        secretName: ''
     resources:
       limits:
         memory: 8Gi
       requests:
         cpu: 2
         memory: 8Gi
-    secrets:
-      # -- Required: Looker license key
-      lookerLicenseKey: ""
   migrator:
     autoscaling:
       enabled: false
@@ -332,11 +304,6 @@ platform:
         cpu: 32m
         memory: 64Mi
   ng-custom-dashboards:
-    config:
-      # -- Required: domain name of your looker instance, this must be accessible by users in your organisation
-      lookerPubDomain: ''
-      # -- Required: HTTP scheme used, either http or https
-      lookerPubScheme: 'https'
     memory: 384
     resources:
       limits:

@@ -1,6 +1,9 @@
 chaos:
+  chaos-common:
+    installLinuxCRDs: false
   chaos-manager:
-    replicaCount: 1
+    autoscaling:
+      enabled: false
     resources:
       limits:
         memory: 256Mi
@@ -8,15 +11,17 @@ chaos:
         cpu: 128m
         memory: 256Mi
   chaos-web:
-    replicaCount: 1
+    autoscaling:
+      enabled: false
     resources:
       limits:
         memory: 128Mi
       requests:
         cpu: 64m
-        memory: 128Mi 
+        memory: 128Mi
   chaos-k8s-ifs:
-    replicaCount: 1
+    autoscaling:
+      enabled: false
     resources:
       limits:
         memory: 128Mi
@@ -24,7 +29,8 @@ chaos:
         cpu: 64m
         memory: 128Mi 
   chaos-linux-ifc:
-    replicaCount: 1
+    autoscaling:
+      enabled: false
     resources:
       limits:
         memory: 128Mi
@@ -32,7 +38,26 @@ chaos:
         cpu: 64m
         memory: 128Mi 
   chaos-linux-ifs:
-    replicaCount: 1
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
+  chaos-machine-ifc:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
+  chaos-machine-ifs:
+    autoscaling:
+      enabled: false
     resources:
       limits:
         memory: 128Mi
@@ -43,13 +68,13 @@ ci:
   ci-manager:
     autoscaling:
       enabled: true
-      minReplicas: 1
-      maxReplicas: 4
+      minReplicas: 4
+      maxReplicas: 6
       targetCPU: 80
       targetMemory: 80
     java:
       memory: "2048m"
-    replicaCount: 1
+    replicaCount: 4
     resources:
       limits:
         memory: 3Gi
@@ -73,27 +98,16 @@ ci:
         cpu: 0.5
         memory: 1400Mi
 platform:
-  # -- Feature list to enable within platform.  Contact Harness for value
   access-control:
-    appLogLevel: INFO
     autoscaling:
       enabled: true
-      minReplicas: 1
-      maxReplicas: 4
+      minReplicas: 4
+      maxReplicas: 6
       targetCPU: 80
       targetMemory: 80
     java:
       memory: 384m
-    # -- set mongoHosts for external database hosts
-    # -- mongoHosts:
-    # -- - replica1.host.com:27017
-    # -- - replica2.host.com:27017
-    # -- - replica3.host.com:27017
-    mongoHosts: []
-    # -- enable mongoSSL for external database connections
-    mongoSSL:
-      enabled: false
-    replicaCount: 1
+    replicaCount: 4
     resources:
       limits:
         memory: 1536Mi
@@ -108,19 +122,9 @@ platform:
         defaultBuckets: "logs"
         fullnameOverride: "minio"
         mode: standalone
-        affinity: {}
-        nodeSelector: {}
-        tolerations: []
-        podAnnotations: {}
         persistence:
           size: 10Gi
       mongodb:
-        arbiter:
-          affinity: {}
-          nodeSelector: {}
-          tolerations: []
-          annotations: {}
-          podAnnotations: {}
         extraFlags:
           - "--wiredTigerCacheSizeGB=0.5"
         persistence:
@@ -128,18 +132,15 @@ platform:
         replicaCount: 1
         resources:
           limits:
-            memory: 1024Mi
+            cpu: 6
+            memory: 6Gi
           requests:
-            cpu: 500m
-            memory: 1024Mi
+            cpu: 6
+            memory: 6Gi
       postgresql:
         auth:
           existingSecret: "postgres"
         primary:
-          affinity: {}
-          nodeSelector: {}
-          tolerations: []
-          podAnnotations: {}
           persistence:
             size: 8Gi
           resources:
@@ -149,17 +150,13 @@ platform:
               cpu: 2
               memory: 4Gi
       redis:
-        affinity: {}
-        nodeSelector: {}
-        tolerations: []
-        podAnnotations: {}
         redis:
           resources:
             limits:
-              memory: 256Mi
+              memory: 512Mi
             requests:
-              cpu: 1
-              memory: 256Mi
+              cpu: 1.5
+              memory: 512Mi
         replicaCount: 3
         sentinel:
           resources:
@@ -176,10 +173,6 @@ platform:
       timescaledb:
         autoscaling:
           enabled: false
-        affinity: {}
-        nodeSelector: {}
-        tolerations: []
-        podAnnotations: {}
         replicaCount: 1
         # Increasing persistentVolumes size while upgrading a helm deployment
         # will fail because these values are immutable for a statefulset.
@@ -197,12 +190,14 @@ platform:
           requests:
             cpu: 0.3
             memory: 512Mi
-    harness-secrets:
-      enabled: true
     networking:
       defaultbackend:
-        # -- Create will deploy a default backend into your cluster
-        create: false
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 32m
+            memory: 512Mi
       nginx:
         resources:
           limits:
@@ -210,22 +205,7 @@ platform:
           requests:
             cpu: 32m
             memory: 512Mi
-        affinity: {}
-        controller:
-          # -- annotations to be addded to ingress Controller
-          annotations: {}
-        # -- Create Nginx Controller.  True will deploy a controller into your cluster
-        create: false
-        healthNodePort: ""
-        healthPort: ""
-        httpNodePort: ""
-        httpsNodePort: ""
-        loadBalancerEnabled: false
-        loadBalancerIP: '0.0.0.0'
-        nodeSelector: {}
-        tolerations: []
   change-data-capture:
-    appLogLevel: INFO
     autoscaling:
       enabled: false
     java:
@@ -250,13 +230,13 @@ platform:
   gateway:
     autoscaling:
       enabled: true
-      minReplicas: 1
-      maxReplicas: 4
+      minReplicas: 4
+      maxReplicas: 6
       targetCPU: 80
       targetMemory: 80
     java:
       memory: 1536
-    replicaCount: 1
+    replicaCount: 4
     resources:
       limits:
         memory: 3072Mi
@@ -266,14 +246,13 @@ platform:
   harness-manager:
     autoscaling:
       enabled: true
-      minReplicas: 1
-      maxReplicas: 4
+      minReplicas: 4
+      maxReplicas: 6
       targetCPU: 80
       targetMemory: 80
-    external_graphql_rate_limit: "500"
     java:
       memory: "2048"
-    replicaCount: 1
+    replicaCount: 4
     resources:
       limits:
         memory: 4Gi
@@ -281,13 +260,7 @@ platform:
         cpu: 1
         memory: 4Gi
   log-service:
-    autoscaling:
-      enabled: true
-      minReplicas: 1
-      maxReplicas: 4
-      targetCPU: 80
-      targetMemory: 80
-    replicaCount: 1
+    replicaCount: 3
     resources:
       limits:
         memory: 2Gi
@@ -307,29 +280,12 @@ platform:
         cpu: 64m
         memory: 2048Mi      
   looker:
-    config:
-      # -- clickhouse database name
-      clickhouseDatabase: 'ccm'
-      # -- Leave empty if not deploying Clickhouse.
-      # -- clickhouse hostname
-      clickhouseHost: 'clickhouse'
-      # -- clickhouse port
-      clickhousePort: '8123'
-      # -- clickhouse user
-      clickhouseUser: 'default'
-    ingress:
-      hosts: []
-      tls:
-        secretName: ''
     resources:
       limits:
         memory: 8Gi
       requests:
         cpu: 2
         memory: 8Gi
-    secrets:
-      # -- Required: Looker license key
-      lookerLicenseKey: ""
   migrator:
     autoscaling:
       enabled: false
@@ -363,11 +319,6 @@ platform:
         cpu: 32m
         memory: 64Mi
   ng-custom-dashboards:
-    config:
-      # -- Required: domain name of your looker instance, this must be accessible by users in your organisation
-      lookerPubDomain: ''
-      # -- Required: HTTP scheme used, either http or https
-      lookerPubScheme: 'https'
     memory: 384
     resources:
       limits:
@@ -378,13 +329,13 @@ platform:
   ng-manager:
     autoscaling:
       enabled: true
-      minReplicas: 1
-      maxReplicas: 4
+      minReplicas: 4
+      maxReplicas: 6
       targetCPU: 80
       targetMemory: 80
     java:
       memory: "2048m"
-    replicaCount: 1
+    replicaCount: 4
     resources:
       limits:
         memory: 4Gi
@@ -394,13 +345,13 @@ platform:
   pipeline-service:
     autoscaling:
       enabled: true
-      minReplicas: 1
-      maxReplicas: 4
+      minReplicas: 4
+      maxReplicas: 6
       targetCPU: 80
       targetMemory: 80
     java:
       memory: "3072m"
-    replicaCount: 1
+    replicaCount: 4
     resources:
       limits:
         memory: 4Gi
@@ -410,13 +361,13 @@ platform:
   platform-service:
     autoscaling:
       enabled: true
-      minReplicas: 1
-      maxReplicas: 4
+      minReplicas: 4
+      maxReplicas: 6
       targetCPU: 80
       targetMemory: 80
     java:
       memory: "1536m"
-    replicaCount: 1
+    replicaCount: 4
     resources:
       limits:
         memory: 2Gi
@@ -455,49 +406,6 @@ platform:
       requests:
         cpu: 0.2
         memory: 200Mi
-srm:
-  cv-nextgen:
-    autoscaling:
-      enabled: false
-    java:
-      memory: 1024
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 1440Mi
-      requests:
-        cpu: 0.5
-        memory: 1440Mi
-  le-nextgen:
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 512Mi
-      requests:
-        cpu: 0.5
-        memory: 512Mi
-  learning-engine:
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 512Mi
-      requests:
-        cpu: 0.5
-        memory: 512Mi
-  verification-svc:
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 1024Mi
-      requests:
-        cpu: 0.5
-        memory: 1024Mi
 sto:
   sto-core:
     autoscaling:
