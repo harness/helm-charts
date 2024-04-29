@@ -351,6 +351,17 @@ platform:
       requests:
         cpu: 512m
         memory: 2048Mi
+  queue-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+    resources:
+      limits:
+        memory: 250Mi
+      requests:
+        cpu: 100m
+        memory: 250Mi
   platform-service:
     autoscaling:
       enabled: false
