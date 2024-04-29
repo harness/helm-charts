@@ -353,7 +353,7 @@ platform:
         memory: 2048Mi
   queue-service:
     autoscaling:
-      enabled: true
+      enabled: false
       minReplicas: 2
       maxReplicas: 5
     resources:

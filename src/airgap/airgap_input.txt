@@ -34,6 +34,7 @@
     smp-service-discovery-server
     debezium-service-signed
     audit-event-streaming-signed
+    queue-service-signed
 [cdng]:
     argocd
     gitops-agent
