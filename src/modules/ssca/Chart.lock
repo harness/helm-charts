@@ -1,9 +1,9 @@
 dependencies:
 - name: ssca-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.9.1
+  version: 1.9.2
 - name: ssca-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.6.1
-digest: sha256:86104cf8d9239a03eb5fcf0aafe5f1d9380f98fdabb5e632621f9de96a0e3b01
-generated: "2024-03-29T06:39:07.26545055Z"
+digest: sha256:232014b78f1b9656e534eff55a2450f5b4ae0fac2d6f43922f475dcd81789fdb
+generated: "2024-04-30T17:18:01.836437987Z"
