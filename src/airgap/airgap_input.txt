@@ -34,6 +34,8 @@
     smp-service-discovery-server-signed
     debezium-service-signed
     audit-event-streaming-signed
+    service-discovery-collector
+    service-discovery-k8s-lifecycle-agent
 [cdng]:
     argocd
     gitops-agent
