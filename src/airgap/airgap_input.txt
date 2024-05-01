@@ -132,7 +132,7 @@
     chaos-go-runner-time
     chaos-go-runner
     k8s-chaos-infrastructure-upgrader
-    smp-chaos-bg-processor
+    smp-chaos-bg-processor-signed
     chaos-k8s
     litmus-checker
     smp-chaos-db-upgrade-agent-signed
