@@ -1,7 +1,7 @@
 dependencies:
 - name: ccm
   repository: https://harness.github.io/helm-charts
-  version: 0.15.1
+  version: 0.15.2
 - name: cd
   repository: https://harness.github.io/helm-charts
   version: 0.15.1
@@ -29,5 +29,5 @@ dependencies:
 - name: ssca
   repository: https://harness.github.io/helm-charts
   version: 0.15.0
-digest: sha256:a777482febbcd1aaaae74c1ad9f2751b8faef44d1f459474da8985337f98119f
-generated: "2024-04-10T14:46:20.542977025Z"
+digest: sha256:37ecc7380a08e798fbd143efad133daa8eb50f83dcb65a08901d857472a86379
+generated: "2024-05-01T20:09:33.084229163Z"
