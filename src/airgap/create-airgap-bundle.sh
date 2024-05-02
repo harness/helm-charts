@@ -19,7 +19,7 @@ pull_image() {
         echo "Image pull success: ${i}"
         echo "${i}" >> "${pulled_file}"
     else
-        handle_error "Image pull failed: ${i}"
+        echo "Image pull failed: ${i}" >> "${error_file}"
     fi
 }
 
@@ -35,6 +35,8 @@ if [ $# -eq 1 ]; then
 
     # Create a temporary file to store the list of successfully pulled images
     pulled_file="$(mktemp)"
+    error_file="$(mktemp)"
+
 
     pids=()
 
@@ -50,6 +52,12 @@ if [ $# -eq 1 ]; then
     done
     # Wait for all background tasks to finish
     wait
+    # Check for errors in background tasks
+    if [ -s "${error_file}" ]; then
+        echo "Errors occurred during image pulling:"
+        cat "${error_file}" >&2
+        exit 1
+    fi
 
     # Get the list of successfully pulled images
     pulled=$(cat "${pulled_file}")
@@ -60,6 +68,7 @@ if [ $# -eq 1 ]; then
 
     # Remove temporary file
     rm "${pulled_file}" || handle_error "Failed to remove temporary file: ${pulled_file}"
+    rm "${error_file}" || handle_error "Failed to remove temporary file: ${error_file}"
 
     # Cleanup: Remove the pulled images
     #for image in ${pulled}; do
@@ -106,6 +115,7 @@ else
 
     # Remove temporary file
     rm "${pulled_file}" || handle_error "Failed to remove temporary file: ${pulled_file}"
+
     Cleanup: Remove the pulled images
     for image in ${pulled}; do
             docker rmi -f ${image}
