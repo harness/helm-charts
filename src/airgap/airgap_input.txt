@@ -23,7 +23,6 @@
     timescaledb-ha
     postgresql
     dashboard-service-signed
-    looker-signed
     policy-mgmt
     curl
     migrator-signed
