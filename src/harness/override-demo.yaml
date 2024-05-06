@@ -354,8 +354,7 @@ platform:
   queue-service:
     autoscaling:
       enabled: false
-      minReplicas: 1
-      maxReplicas: 1
+    replicaCount: 1
     resources:
       limits:
         memory: 250Mi
