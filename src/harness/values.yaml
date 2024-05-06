@@ -32,6 +32,9 @@ global:
   # -- Enable to install Software Supply Chain Assurance (SSCA)
   ssca:
     enabled: false
+  # -- Enable to install Internal Developer Portal (IDP)
+  idp:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
@@ -525,6 +528,8 @@ platform:
       SSCA: "SSCA_ENABLED,SSCA_MANAGER_ENABLED,SSCA_SLSA_COMPLIANCE"
       # -- STO Feature Flags (activated when global.sto is enabled)
       STO: "STO_BASELINE_REGEX,STO_STEP_PALETTE_BURP_ENTERPRISE,STO_STEP_PALETTE_CODEQL,STO_STEP_PALETTE_FOSSA,STO_STEP_PALETTE_GIT_LEAKS,STO_STEP_PALETTE_SEMGREP"
+      # -- IDP Feature Flags (activated when global.idp is enabled)
+      IDP: "IDP_ENABLED"
     nodeSelector: {}
     tolerations: []
   # -- log-service (taints, tolerations, and so on)
