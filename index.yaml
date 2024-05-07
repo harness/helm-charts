@@ -1518,6 +1518,56 @@ entries:
     version: 0.16.0
   - apiVersion: v2
     appVersion: 1.0.80917
+    created: "2024-05-07T14:37:01.563809907Z"
+    dependencies:
+    - condition: global.ccm.enabled
+      name: ccm
+      repository: https://harness.github.io/helm-charts
+      version: 0.15.2
+    - condition: global.cd.enabled
+      name: cd
+      repository: https://harness.github.io/helm-charts
+      version: 0.15.1
+    - condition: global.cet.enabled
+      name: cet
+      repository: https://harness.github.io/helm-charts
+      version: 0.15.0
+    - condition: global.chaos.enabled
+      name: chaos
+      repository: https://harness.github.io/helm-charts
+      version: 0.15.0
+    - condition: global.ci.enabled
+      name: ci
+      repository: https://harness.github.io/helm-charts
+      version: 0.15.0
+    - condition: global.ff.enabled
+      name: ff
+      repository: https://harness.github.io/helm-charts
+      version: 0.15.0
+    - name: platform
+      repository: https://harness.github.io/helm-charts
+      version: 0.15.3
+    - condition: global.srm.enabled
+      name: srm
+      repository: https://harness.github.io/helm-charts
+      version: 0.15.0
+    - condition: global.sto.enabled
+      name: sto
+      repository: https://harness.github.io/helm-charts
+      version: 0.15.0
+    - condition: global.ssca.enabled
+      name: ssca
+      repository: https://harness.github.io/helm-charts
+      version: 0.15.0
+    description: Helm Chart for deploying Harness.
+    digest: 7c95b24a78d40243d0fdc68bb69f05669ffa0d9534886b19ee4f1cf7a06bbd1f
+    name: harness
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-0.15.3/harness-0.15.3.tgz
+    version: 0.15.3
+  - apiVersion: v2
+    appVersion: 1.0.80917
     created: "2024-05-01T20:16:02.114501807Z"
     dependencies:
     - condition: global.ccm.enabled
@@ -12337,4 +12387,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2024-05-07T14:22:38.121185715Z"
+generated: "2024-05-07T14:37:01.564943926Z"
