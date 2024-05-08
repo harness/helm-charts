@@ -64,35 +64,23 @@ chaos:
       requests:
         cpu: 64m
         memory: 128Mi
-  chaos-machine-ifc:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 128Mi
-      requests:
-        cpu: 64m
-        memory: 128Mi 
-  chaos-machine-ifs:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 128Mi
-      requests:
-        cpu: 64m
-        memory: 128Mi
 ci:
   ci-manager:
     autoscaling:
-      enabled: false
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 4
+      targetCPU: 80
+      targetMemory: 80
     java:
-      memory: "512m"
-    replicaCount: 1
+      memory: "2048m"
+    replicaCount: 3
     resources:
       limits:
-        memory: 1280Mi
+        memory: 3Gi
       requests:
-        cpu: 256m
-        memory: 1280Mi
+        cpu: 2
+        memory: 3Gi
   ti-service:
     autoscaling:
       enabled: false
@@ -112,16 +100,20 @@ ci:
 platform:
   access-control:
     autoscaling:
-      enabled: false
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 4
+      targetCPU: 80
+      targetMemory: 80
     java:
       memory: 384m
-    replicaCount: 1
+    replicaCount: 3
     resources:
       limits:
-        memory: 768Mi
+        memory: 1536Mi
       requests:
-        cpu: 128m
-        memory: 768Mi
+        cpu: 1
+        memory: 1536Mi
   bootstrap:
     database:
       clickhouse:
@@ -140,10 +132,10 @@ platform:
         replicaCount: 1
         resources:
           limits:
-            memory: 1024Mi
+            memory: 4096Mi
           requests:
-            cpu: 500m
-            memory: 1024Mi
+            cpu: 4
+            memory: 4096Mi
       postgresql:
         auth:
           existingSecret: "postgres"
@@ -152,18 +144,18 @@ platform:
             size: 8Gi
           resources:
             limits:
-              memory: 1Gi
+              memory: 4Gi
             requests:
-              cpu: 500m
-              memory: 1Gi
+              cpu: 2
+              memory: 4Gi
       redis:
         redis:
           resources:
             limits:
-              memory: 256Mi
+              memory: 512Mi
             requests:
-              cpu: 1
-              memory: 256Mi
+              cpu: 1.5
+              memory: 512Mi
         replicaCount: 3
         sentinel:
           resources:
@@ -236,38 +228,44 @@ platform:
         memory: 50Mi
   gateway:
     autoscaling:
-      enabled: false
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 4
+      targetCPU: 80
+      targetMemory: 80
     java:
-      memory: 768
-    replicaCount: 1
+      memory: 1536
+    replicaCount: 3
     resources:
       limits:
-        memory: 1280Mi
+        memory: 3072Mi
       requests:
-        cpu: 0.1
-        memory: 1280Mi
+        cpu: 256m
+        memory: 3072Mi
   harness-manager:
     autoscaling:
-      enabled: false
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 4
+      targetCPU: 80
+      targetMemory: 80
     java:
-      memory: "1024"
-    replicaCount: 1
+      memory: "2048"
+    replicaCount: 3
     resources:
       limits:
-        memory: 2048Mi
+        memory: 4Gi
       requests:
-        cpu: 0.5
-        memory: 2048Mi
+        cpu: 1
+        memory: 4Gi
   log-service:
-    autoscaling:
-      enabled: false
-    replicaCount: 1
+    replicaCount: 3
     resources:
       limits:
-        memory: 256Mi
+        memory: 2Gi
       requests:
-        cpu: 64m
-        memory: 256Mi
+        cpu: 1
+        memory: 2Gi
   ng-dashboard-aggregator:
     autoscaling:
       enabled: false
@@ -329,32 +327,41 @@ platform:
         memory: 512Mi
   ng-manager:
     autoscaling:
-      enabled: false
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 4
+      targetCPU: 80
+      targetMemory: 80
     java:
-      memory: "1024m"
-    replicaCount: 1
+      memory: "2048m"
+    replicaCount: 3
     resources:
       limits:
-        memory: 2048Mi
+        memory: 4Gi
       requests:
-        cpu: 256m
-        memory: 2048Mi
+        cpu: 2
+        memory: 4Gi
   pipeline-service:
     autoscaling:
-      enabled: false
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 4
+      targetCPU: 80
+      targetMemory: 80
     java:
-      memory: "768m"
-    replicaCount: 1
+      memory: "3072m"
+    replicaCount: 3
     resources:
       limits:
-        memory: 2048Mi
+        memory: 4Gi
       requests:
-        cpu: 512m
-        memory: 2048Mi
+        cpu: 2
+        memory: 4Gi
   queue-service:
     autoscaling:
-      enabled: false
-    replicaCount: 1
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 2
     resources:
       limits:
         memory: 250Mi
@@ -363,16 +370,20 @@ platform:
         memory: 250Mi
   platform-service:
     autoscaling:
-      enabled: false
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 4
+      targetCPU: 80
+      targetMemory: 80
     java:
-      memory: "1024m"
-    replicaCount: 1
+      memory: "1536m"
+    replicaCount: 3
     resources:
       limits:
-        memory: 1400Mi
+        memory: 2Gi
       requests:
-        cpu: 256m
-        memory: 1400Mi
+        cpu: 1
+        memory: 2Gi
   scm-service:
     autoscaling:
       enabled: false

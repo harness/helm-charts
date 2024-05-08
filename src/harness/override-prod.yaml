@@ -270,8 +270,13 @@ cd:
       enabled: false
     replicaCount: 2
 chaos:
+  chaos-common:
+    installLinuxCRDs: false
   chaos-manager:
-    replicaCount: 3
+    autoscaling:
+      enabled: true
+      targetCPU: "80"
+      targetMemory: "80"
     resources:
       limits:
         memory: 512Mi
@@ -279,7 +284,65 @@ chaos:
         cpu: 600m
         memory: 512Mi
   chaos-web:
-    replicaCount: 3
+    autoscaling:
+      enabled: true
+      targetCPU: "80"
+      targetMemory: "80"
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+  chaos-k8s-ifs:
+    autoscaling:
+      enabled: true
+      targetCPU: "80"
+      targetMemory: "80"
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi 
+  chaos-linux-ifc:
+    autoscaling:
+      enabled: true
+      targetCPU: "80"
+      targetMemory: "80"
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi 
+  chaos-linux-ifs:
+    autoscaling:
+      enabled: true
+      targetCPU: "80"
+      targetMemory: "80"
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+  chaos-machine-ifc:
+    autoscaling:
+      enabled: true
+      targetCPU: "80"
+      targetMemory: "80"
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi 
+  chaos-machine-ifs:
+    autoscaling:
+      enabled: true
+      targetCPU: "80"
+      targetMemory: "80"
     resources:
       limits:
         memory: 512Mi
@@ -608,6 +671,17 @@ platform:
       requests:
         cpu: 1
         memory: 6144Mi
+  queue-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 2
+    resources:
+      limits:
+        memory: 250Mi
+      requests:
+        cpu: 100m
+        memory: 250Mi
   platform-service:
     autoscaling:
       enabled: true

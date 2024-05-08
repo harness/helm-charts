@@ -299,6 +299,23 @@ chaos:
   chaos-web:
     nodeSelector: {}
     tolerations: []
+  chaos-common:
+    installLinuxCRDs: false
+  chaos-k8s-ifs:
+    nodeSelector: {}
+    tolerations: [] 
+  chaos-linux-ifc:
+    nodeSelector: {}
+    tolerations: []
+  chaos-linux-ifs:
+    nodeSelector: {}
+    tolerations: []
+  chaos-machine-ifc:
+    nodeSelector: {}
+    tolerations: []
+  chaos-machine-ifs:
+    nodeSelector: {}
+    tolerations: []
 # -- Install the Continuous Integration (CI) manager pod
 ci:
   ci-manager:

@@ -19,7 +19,8 @@ pull_image() {
         echo "Image pull success: ${i}"
         echo "${i}" >> "${pulled_file}"
     else
-        handle_error "Image pull failed: ${i}"
+        echo "Failed to pull image '${image}' from list '${list}'" >&2
+        failed=1
     fi
 }
 
@@ -33,24 +34,35 @@ if [ $# -eq 1 ]; then
     base_name=$(basename "$image_list_file" .txt)
     images_file="${base_name}.tgz"
 
+    failed=0
     # Create a temporary file to store the list of successfully pulled images
     pulled_file="$(mktemp)"
 
-    pids=()
+    for list in ${lists[*]}; do
+        if [[ ! -f $list ]]; then
+            echo "Error: File $list not found."
+            exit 1
+        fi
 
-    # Download images in parallel
-    while IFS= read -r i; do
-        [ -z "${i}" ] && continue
-        pull_image "${i}" &
-        pids+=($!)
-    done < "${image_list_file}"
+        pids=()
 
-    for pid in ${pids[*]}; do
-        wait $pid || handle_error "Failed background task with PID: $pid"
+        # Download images in parallel
+        while IFS= read -r i; do
+            [ -z "${i}" ] && continue
+            pull_image "${i}" &
+            pids+=($!)
+        done < "${image_list_file}"
+
+        for pid in ${pids[*]}; do
+            wait $pid || handle_error "Failed background task with PID: $pid"
+        done
+        # Wait for all background tasks to finish
+        wait
     done
-    # Wait for all background tasks to finish
-    wait
-
+    if [ $failed -eq 1 ]; then
+        echo "Some images failed to pull. Please check the error messages above." >&2
+        exit 1
+    fi
     # Get the list of successfully pulled images
     pulled=$(cat "${pulled_file}")
 
