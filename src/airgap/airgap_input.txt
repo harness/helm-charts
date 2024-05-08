@@ -96,11 +96,6 @@
     ff-server-signed
     ff-timescale-migration-signed
 
-[cet]:
-    error-tracking-signed
-    et-collector-signed
-    et-receiver-signed
-
 [ccm]:
     batch-processing-signed
     ce-anomaly-detection-signed

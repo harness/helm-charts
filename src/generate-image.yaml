@@ -3,8 +3,6 @@ global:
     enabled: true
   cd:
     enabled: true
-  cet:
-    enabled: true
   cg:
     enabled: true
   chaos:
@@ -38,8 +36,6 @@ global:
     enabled: true
   ssca:
     enabled: true
-cet:
-  enable-receivers: true
 chaos:
   chaos-manager:
     jobs:

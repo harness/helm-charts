@@ -29,9 +29,6 @@ global:
   cd:
     # -- Enable to install CD
     enabled: true
-  cet:
-    # -- Enable to install CET
-    enabled: false
   cg:
     enabled: false
   chaos:
@@ -272,72 +269,6 @@ cd:
     autoscaling:
       enabled: false
     replicaCount: 2
-cet:
-  enable-receivers: true
-  et-collector:
-    et:
-      java:
-        heapSize: "1600m"
-      redis:
-        enabled: true
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 500m
-        memory: 2Gi
-  et-service:
-    et:
-      java:
-        heapSize: "6400m"
-      redis:
-        enabled: true
-      receivers:
-        config:
-          - name: et-receiver-hit
-            type: hit
-            autoscaling: true
-            minReplicas: 1
-            maxReplicas: 3
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 2Gi
-          - name: et-receiver-agent
-            type: agent
-            autoscaling: true
-            minReplicas: 1
-            maxReplicas: 3
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 2Gi
-          - name: et-receiver-sql
-            type: sql
-            autoscaling: true
-            minReplicas: 1
-            maxReplicas: 3
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 2Gi
-          - name: et-receiver-decompile
-            type: decompile
-            autoscaling: true
-            minReplicas: 1
-            maxReplicas: 3
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 2Gi
-    replicaCount: 2
-    resources:
-      limits:
-        memory: 8Gi
-      requests:
-        cpu: 500m
-        memory: 8Gi
 chaos:
   chaos-common:
     installLinuxCRDs: false

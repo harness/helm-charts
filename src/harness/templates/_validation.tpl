@@ -103,49 +103,6 @@
 {{- if (index .Values "policy-mgmt") }}
     {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "policy-mgmt" "srcLocation" "policy-mgmts" "destLocation" "platform.policy-mgmt")) }}
 {{- end }}
-{{/* cet */}}
-{{/* enable-receivers */}}
-{{- if (index .Values "srm") }}
-    {{- if (index .Values "srm" "enable-receivers") }}
-        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "enable-receivers" "srcLocation" "srm.enable-receivers" "destLocation" "cet.enable-receivers")) }}
-    {{- end }}
-{{- end }}
-{{/* et-service */}}
-{{- if (index .Values "srm") }}
-    {{- if (index .Values "srm" "et-service") }}
-        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-service" "srcLocation" "srm.et-service" "destLocation" "cet.et-service")) }}
-    {{- end }}
-{{- end }}
-{{/* et-collector */}}
-{{- if (index .Values "srm") }}
-    {{- if (index .Values "srm" "et-collector") }}
-        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-collector" "srcLocation" "srm.et-collector" "destLocation" "cet.et-collector")) }}
-    {{- end }}
-{{- end }}
-{{/* et-receiver-decompile */}}
-{{- if (index .Values "srm") }}
-    {{- if (index .Values "srm" "et-receiver-decompile") }}
-        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-decompile" "srcLocation" "srm.et-receiver-decompile" "destLocation" "cet.et-receiver-decompile")) }}
-    {{- end }}
-{{- end }}
-{{/* et-receiver-hit */}}
-{{- if (index .Values "srm") }}
-    {{- if (index .Values "srm" "et-receiver-hit") }}
-        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-hit" "srcLocation" "srm.et-receiver-hit" "destLocation" "cet.et-receiver-hit")) }}
-    {{- end }}
-{{- end }}
-{{/* et-receiver-sql */}}
-{{- if (index .Values "srm") }}
-    {{- if (index .Values "srm" "et-receiver-sql") }}
-        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-sql" "srcLocation" "srm.et-receiver-sql" "destLocation" "cet.et-receiver-sql")) }}
-    {{- end }}
-{{- end }}
-{{/* et-receiver-agent */}}
-{{- if (index .Values "srm") }}
-    {{- if (index .Values "srm" "et-receiver-agent") }}
-        {{- $validationErrors = printf "%s \n %s" $validationErrors (include "restructuredValuesValidationErrMessage" (dict "serviceName" "et-receiver-agent" "srcLocation" "srm.et-receiver-agent" "destLocation" "cet.et-receiver-agent")) }}
-    {{- end }}
-{{- end }}
 {{/* chaos */}}
 {{/* chaos-driver */}}
 {{- if (index .Values "chaos") }}

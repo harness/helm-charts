@@ -9,10 +9,6 @@ dependencies:
   name: cd
   repository: https://harness.github.io/helm-charts
   version: 0.16.0
-- condition: global.cet.enabled
-  name: cet
-  repository: https://harness.github.io/helm-charts
-  version: 0.16.0
 - condition: global.chaos.enabled
   name: chaos
   repository: https://harness.github.io/helm-charts
