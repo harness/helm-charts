@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.16.0](https://img.shields.io/badge/Version-0.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.16.1](https://img.shields.io/badge/Version-0.16.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -143,13 +143,13 @@ docker.io/harness/litmus-checker:1.34.0
 docker.io/harness/log-service-signed:1.2.0
 docker.io/harness/looker-signed:23.20.39
 docker.io/harness/manager-signed:1.22.9
-docker.io/harness/migrator-signed:1.44.0
+docker.io/harness/migrator-signed:1.59.0
 docker.io/harness/mongo:4.4.22
 docker.io/harness/nextgenui-signed:1.14.5
 docker.io/harness/ng-auth-ui-signed:1.20.0
 docker.io/harness/ng-ce-ui:1.9.5
 docker.io/harness/ng-dashboard-aggregator-signed:1.10.0
-docker.io/harness/ng-manager-signed:1.31.4
+docker.io/harness/ng-manager-signed:1.31.8
 docker.io/harness/pipeline-service-signed:1.68.2
 docker.io/harness/platform-service-signed:1.17.1
 docker.io/harness/policy-mgmt:1.3.0
