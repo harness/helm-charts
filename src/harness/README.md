@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.14.7](https://img.shields.io/badge/Version-0.14.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.14.8](https://img.shields.io/badge/Version-0.14.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -147,7 +147,7 @@ docker.io/harness/nextgenui-signed:1.7.6
 docker.io/harness/ng-auth-ui-signed:1.18.2
 docker.io/harness/ng-ce-ui:0.63.2
 docker.io/harness/ng-dashboard-aggregator-signed:1.4.0
-docker.io/harness/ng-manager-signed:1.24.7
+docker.io/harness/ng-manager-signed:1.24.9
 docker.io/harness/pipeline-service-signed:1.61.5
 docker.io/harness/platform-service-signed:1.12.0
 docker.io/harness/policy-mgmt:v1.71.1
