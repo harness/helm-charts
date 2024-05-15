@@ -16,4 +16,4 @@ dependencies:
 description: A Helm chart for Harness IDP
 name: idp
 type: application
-version: 0.20.0
+version: 0.21.0
