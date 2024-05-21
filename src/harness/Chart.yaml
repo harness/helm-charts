@@ -36,10 +36,6 @@ dependencies:
   name: ssca
   repository: https://harness.github.io/helm-charts
   version: 0.17.0
-- condition: global.idp.enabled
-  name: idp
-  repository: https://harness.github.io/helm-charts
-  version: 0.17.0
 description: Helm Chart for deploying Harness.
 name: harness
 type: application
