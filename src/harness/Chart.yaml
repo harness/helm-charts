@@ -43,4 +43,4 @@ dependencies:
 description: Helm Chart for deploying Harness.
 name: harness
 type: application
-version: 0.16.1
+version: 0.16.2
