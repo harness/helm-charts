@@ -22,7 +22,9 @@ $ helm repo add harness https://harness.github.io/helm-charts
 
 ## Install the chart
 Use the following process to install the Helm chart.
+
 1. Create a namespace for your installation.
+
 ```
 $ kubectl create namespace <namespace>
 ```
@@ -30,6 +32,7 @@ $ kubectl create namespace <namespace>
 2. Create the override.yaml file using your environment settings:
 
 Install the Helm chart:
+
 ```
 $  helm install my-release harness/harness-prod -n <namespace> -f override.yaml
 ```
@@ -41,13 +44,17 @@ Verify your installation by accessing the Harness application and creating your 
 Use the following instructions to upgrade Harness Helm chart to a later version.
 
 1. Obtain the `release-name` that identifies the installed release:
+
 ```
 $ helm ls -n <namespace>
 ```
+
 2. Retrieve configuration information for the installed release from the old-values.yaml file:
+
 ```
 $ helm get values my-release > old_values.yaml
 ```
+
 3. Modify the values of the old_values.yaml file as your configuration requires.
 
 4. Use the `helm upgrade` command to update the chart:
