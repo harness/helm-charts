@@ -80,6 +80,17 @@ tests:
             foo: bar
             hello: world
 
+
+  - it: should have pod anti-affinity rules
+    asserts:
+      - exists:
+          path: spec.template.spec.affinity.podAntiAffinity  
+
+  - it: should have requiredDuringSchedulingIgnoredDuringExecution rule
+    asserts:
+      - exists:
+          path: spec.template.spec.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution        
+
   # - it: validate replicaCount when autoscaling is disabled
   #   templates:
   #     - deployment.yaml
