@@ -135,6 +135,108 @@ process_tgz_file() {
   done <<< "$load_result" # to avoid subshell (success_count)
 }
 
+# Get DockerHub credentials and image details from arguments <required for looker image pull>
+DOCKERHUB_USERNAME="$1"
+DOCKERHUB_PASSWORD="$2"
+RELEASE_VERSION="$3"
+
+if [ -n "$DOCKERHUB_USERNAME" ] && [ -n "$DOCKERHUB_PASSWORD" ] && [ -n "$RELEASE_VERSION" ]; then
+  # Log in to DockerHub
+  echo "Logging in to DockerHub..."
+  echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+
+  # Check if login was successful
+  if [ $? -ne 0 ]; then
+    echo "Docker login failed. Please check your credentials."
+    exit 1
+  fi
+
+  # Check if harness-${RELEASE_VERSION}.tgz already exists
+    if [ -f "harness-${RELEASE_VERSION}.tgz" ]; then
+      echo "Removing existing harness-${RELEASE_VERSION}.tgz..."
+      rm "harness-${RELEASE_VERSION}.tgz"
+    fi
+
+    # Check if harness-${RELEASE_VERSION} already exists
+    if [ -d "harness-${RELEASE_VERSION}" ]; then
+      echo "Deleting existing target folder: harness-${RELEASE_VERSION}"
+      rm -rf "harness-${RELEASE_VERSION}"
+  fi
+
+  # Download the harness-0.17.0.tgz file
+    DOWNLOAD_URL="https://github.com/harness/helm-charts/releases/download/harness-${RELEASE_VERSION}/harness-${RELEASE_VERSION}.tgz"
+    echo "Downloading $DOWNLOAD_URL..."
+    curl -L -o "harness-${RELEASE_VERSION}.tgz" "$DOWNLOAD_URL"
+    # Check if the download was successful
+    if [ $? -ne 0 ]; then
+      echo "Failed to download harness-${RELEASE_VERSION}.tgz"
+      exit 1
+    fi
+
+    echo "Successfully downloaded harness-${RELEASE_VERSION}.tgz"
+
+    # Extract the contents of the archive
+    echo "Extracting harness-${RELEASE_VERSION}.tgz..."
+    mkdir "harness-${RELEASE_VERSION}"
+    tar -xzvf "harness-${RELEASE_VERSION}.tgz" -C "harness-${RELEASE_VERSION}"
+
+    #Fetching looker image tag
+  echo "Searching for 'looker' in images.txt..."
+  IMAGE_TAG=$(grep "looker" "harness-${RELEASE_VERSION}/harness/images.txt")
+
+  if [ -z "$IMAGE_TAG" ]; then
+    echo "Image tag for $IMAGE_NAME not found in images.txt"
+    exit 1
+  fi
+
+  # Pull the Docker image from the private repository
+  echo "Pulling image $IMAGE_TAG..."
+  docker pull $IMAGE_TAG
+
+  #Push looker image to private registery
+  debug_log "Tagging and pushing image $IMAGE_TAG to $registry"
+  looker_image=$(echo "$IMAGE_TAG" | sed 's/^[^\/]*\///')
+  if ! check_image_in_registry "$registry/$looker_image"; then
+    if docker tag "$IMAGE_TAG" "$registry/$looker_image" && docker push "$registry/$looker_image"; then
+      echo "Successfully pushed $looker_image to $registry"
+      ((success_count++))
+      verified_images+=("$registry/$looker_image")
+    else
+      debug_log "Failed to tag or push image $looker_image"
+      failed_images+=("$looker_image")
+      ((fail_count++))
+      error_occurred=true
+    fi
+  else
+    verified_images+=("$looker_image")
+  fi
+
+  # Check if pull was successful
+  if [ $? -ne 0 ]; then
+    echo "Failed to pull the Docker image. Please check the repository and image details."
+    exit 1
+  fi
+
+  echo "Successfully pulled the Docker image: $DOCKERHUB_REPOSITORY/$IMAGE"
+
+  # Optionally, log out from DockerHub
+  echo "Logging out from DockerHub..."
+  docker logout
+
+  #Cleaning up the folders
+  if [ -f "harness-${RELEASE_VERSION}.tgz" ]; then
+    echo "Removing existing harness-${RELEASE_VERSION}.tgz..."
+    rm "harness-${RELEASE_VERSION}.tgz"
+  fi
+
+  if [ -d "harness-${RELEASE_VERSION}" ]; then
+    echo "Deleting existing target folder: harness-${RELEASE_VERSION}"
+    rm -rf "harness-${RELEASE_VERSION}"
+  fi
+else
+    echo "DOCKERHUB_USERNAME, DOCKERHUB_PASSWORD & RELEASE_VERSION are not set. Cannot pull looker image"
+fi
+
 # Process the specified .tgz file or directory
 if [[ -n "$tgz_file" ]]; then
   process_tgz_file "$tgz_file"
