@@ -16,7 +16,7 @@
     gateway-signed
     helm-init-container
     manager-signed
-    mongo
+    mongodb
     ng-auth-ui-signed
     redis
     upgrader
