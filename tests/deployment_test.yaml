@@ -89,6 +89,8 @@ tests:
           path: spec.template.spec.affinity.podAntiAffinity  
 
   - it: should have requiredDuringSchedulingIgnoredDuringExecution rule
+    templates:
+      - deployment.yaml
     asserts:
       - exists:
           path: spec.template.spec.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution        
