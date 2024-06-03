@@ -48,13 +48,13 @@ while IFS= read -r line; do
     if [[ -z $image || $image == [* ]]; then
       continue
     fi
-    # Skip images that start with "docker.io/harness/looker-signed"
-    if [[ "$image" == docker.io/harness/looker-signed* ]]; then
-      echo "Skipping image '$image'"
+   
+    MATCHING_LINES=$(grep -F "/$image:" "$IMAGES_TXT")
+     # Skip images that start with "docker.io/harness/looker-signed"
+    if [[ "$MATCHING_LINES" == docker.io/harness/looker-signed* ]]; then
+      echo "Skipping image '$MATCHING_LINES'"
       continue
     fi
-    MATCHING_LINES=$(grep -F "/$image:" "$IMAGES_TXT")
-
     if [[ -n $MATCHING_LINES ]]; then
       while IFS= read -r matching_line; do
         lines_read["$matching_line"]=1
