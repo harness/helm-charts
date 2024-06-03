@@ -50,7 +50,7 @@ while IFS= read -r line; do
     fi
 
     MATCHING_LINES=$(grep -F "/$image:" "$IMAGES_TXT")
-    echo $MATCHING_LINES
+
     if [[ -n $MATCHING_LINES ]]; then
       while IFS= read -r matching_line; do
         lines_read["$matching_line"]=1
