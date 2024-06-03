@@ -82,6 +82,8 @@ tests:
 
 
   - it: should have pod anti-affinity rules
+    templates:
+      - deployment.yaml
     asserts:
       - exists:
           path: spec.template.spec.affinity.podAntiAffinity  
