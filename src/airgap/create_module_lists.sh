@@ -48,10 +48,10 @@ while IFS= read -r line; do
     if [[ -z $image || $image == [* ]]; then
       continue
     fi
-
+   
     MATCHING_LINES=$(grep -F "/$image:" "$IMAGES_TXT")
-
-    if [[ -n $MATCHING_LINES ]]; then
+  
+    if [[ -n $MATCHING_LINES && "$MATCHING_LINES" != docker.io/harness/looker-signed* ]]; then
       while IFS= read -r matching_line; do
         lines_read["$matching_line"]=1
       done <<< "$MATCHING_LINES"
@@ -76,7 +76,7 @@ fi
 lines_not_read_flag=0
 
 while IFS= read -r line; do
-  if [[ -z ${lines_read["$line"]} ]]; then
+  if [[ -z ${lines_read["$line"]} && "$line" != docker.io/harness/looker-signed* ]]; then
     echo "$line"
     lines_not_read_flag=1
   fi
