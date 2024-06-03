@@ -76,7 +76,7 @@ fi
 lines_not_read_flag=0
 
 while IFS= read -r line; do
-  if [[ -z ${lines_read["$line"]} ]]; then
+  if [[ -z ${lines_read["$line"]} && "$line" != docker.io/harness/looker-signed* ]]; then
     echo "$line"
     lines_not_read_flag=1
   fi
