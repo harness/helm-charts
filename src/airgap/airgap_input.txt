@@ -30,7 +30,7 @@
     learning-engine-onprem-signed
     ui-signed
     srm-ui-signed
-    smp-service-discovery-server
+    smp-service-discovery-server-signed
     debezium-service-signed
     audit-event-streaming-signed
     queue-service-signed
