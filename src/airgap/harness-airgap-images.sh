@@ -245,7 +245,7 @@ if [[ "$response" == "yes" ]]; then
       rm -rf "harness-${RELEASE_VERSION}"
     fi
 else
-    echo "DOCKERHUB_USERNAME, DOCKERHUB_PASSWORD & RELEASE_VERSION are not set. Cannot pull looker image"
+    echo "DOCKERHUB_USERNAME, DOCKERHUB_PASSWORD & RELEASE_VERSION are not set. Will not pull looker image"
 fi
 fi
 
