@@ -16,7 +16,7 @@
     gateway-signed
     helm-init-container
     manager-signed
-    mongo
+    mongodb
     ng-auth-ui-signed
     redis
     upgrader
@@ -30,10 +30,12 @@
     learning-engine-onprem-signed
     ui-signed
     srm-ui-signed
-    smp-service-discovery-server
+    smp-service-discovery-server-signed
     debezium-service-signed
     audit-event-streaming-signed
     queue-service-signed
+    service-discovery-collector
+    service-discovery-k8s-lifecycle-agent
 [cdng]:
     argocd
     gitops-agent
@@ -88,6 +90,7 @@
     anchore-job-runner
     osv-job-runner
     aqua-security-job-runner
+    wiz-job-runner
 
 [ff]:
     ff-postgres-migration-signed
@@ -127,7 +130,7 @@
     chaos-go-runner-time
     chaos-go-runner
     k8s-chaos-infrastructure-upgrader
-    smp-chaos-bg-processor
+    smp-chaos-bg-processor-signed
     chaos-k8s
     litmus-checker
     smp-chaos-db-upgrade-agent-signed
