@@ -174,7 +174,7 @@ if [[ "$response" == "yes" ]]; then
         rm -rf "harness-${RELEASE_VERSION}"
     fi
 
-    # Download the harness-0.17.0.tgz file
+    # Download the harness-<RELEASE_VERSION>.tgz file
       DOWNLOAD_URL="https://github.com/harness/helm-charts/releases/download/harness-${RELEASE_VERSION}/harness-${RELEASE_VERSION}.tgz"
       echo "Downloading $DOWNLOAD_URL..."
       curl -L -o "harness-${RELEASE_VERSION}.tgz" "$DOWNLOAD_URL"
