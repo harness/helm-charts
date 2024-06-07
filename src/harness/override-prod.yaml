@@ -188,9 +188,6 @@ global:
   servicediscoverymanager:
   # -- Enable to install Service Discovery Manager (Beta)
     enabled: false
-  opa:
-    # -- Enable to install Open Policy Agent
-    enabled: false
   # -- Set global.proxy.enabled to true if we want calls aws sdk calls to organization, cur, ce, iam to go through proxy
   # -- Set global.proxy.host to proxy host or Ip(ex: localhost, 127.0.0.1)
   # -- Set global.proxy.port to proxy port, it takes integer value

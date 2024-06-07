@@ -183,9 +183,9 @@ global:
   servicediscoverymanager:
   # -- Enable to install Service Discovery Manager (Beta)
     enabled: false
-  # -- Enable to install Open Policy Agent (OPA)
+  # -- Default Enabled, As required by multiple services now (OPA)
   opa:
-    enabled: false
+    enabled: true
   # -- Enable to disable validation checks
   overrideValidation:
     restructuredValues: false
