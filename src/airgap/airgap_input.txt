@@ -143,3 +143,6 @@
     slsa-plugin
     ssca-manager-signed
     ssca-ui-signed
+
+[db-devops]:
+    db-devops-service
