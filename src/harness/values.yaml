@@ -29,9 +29,6 @@ global:
   # -- Enable to install Software Supply Chain Assurance (SSCA)
   ssca:
     enabled: false
-  # -- Enable to install Database Devops (DB Devops)
-  dbdevops:
-    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
