@@ -580,6 +580,21 @@ entries:
   cd:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-06-19T13:50:27.007193279Z"
+    dependencies:
+    - condition: global.gitops.enabled
+      name: gitops
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.11.6
+    description: Helm chart for Harness CD
+    digest: 97dd7c1580acaeea9a23c596016e3b562f464feea91c28fa9c3ce137c269b5aa
+    name: cd
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/cd-0.17.1/cd-0.17.1.tgz
+    version: 0.17.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-05-31T20:33:32.081613359Z"
     dependencies:
     - condition: global.gitops.enabled
@@ -13171,6 +13186,23 @@ entries:
   sto:
   - apiVersion: v2
     appVersion: 0.0.79001
+    created: "2024-06-19T13:50:28.375957564Z"
+    dependencies:
+    - name: sto-core
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.94.7
+    - name: sto-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.25.1
+    description: Helm chart for Harness STO
+    digest: b1862b73a5b15cae80fc569b6b72f56165d7d250a36e1e1191d37e542144ae22
+    name: sto
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/sto-0.17.1/sto-0.17.1.tgz
+    version: 0.17.1
+  - apiVersion: v2
+    appVersion: 0.0.79001
     created: "2024-05-31T20:33:33.470795227Z"
     dependencies:
     - name: sto-core
@@ -13356,4 +13388,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2024-05-31T20:46:04.662816356Z"
+generated: "2024-06-19T13:50:28.376878352Z"
