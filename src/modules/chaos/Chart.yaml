@@ -1,9 +1,6 @@
 apiVersion: v2
 appVersion: 0.6.0
 dependencies:
-- name: chaos-common
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.32.1
 - name: chaos-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.32.4
