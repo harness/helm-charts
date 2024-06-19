@@ -4,7 +4,7 @@ dependencies:
   version: 0.17.0
 - name: cd
   repository: https://harness.github.io/helm-charts
-  version: 0.17.0
+  version: 0.17.1
 - name: chaos
   repository: https://harness.github.io/helm-charts
   version: 0.17.0
@@ -22,9 +22,9 @@ dependencies:
   version: 0.17.0
 - name: sto
   repository: https://harness.github.io/helm-charts
-  version: 0.17.0
+  version: 0.17.1
 - name: ssca
   repository: https://harness.github.io/helm-charts
   version: 0.17.0
-digest: sha256:4eef4fd1b94058ca2232ea5bc26f1cb2df0656585872d721a277ec78f4a16ef3
-generated: "2024-05-31T20:37:52.302694712Z"
+digest: sha256:7c7b80d7657cdd585c37ac245b35902dcdedafa3d8c24c1ef0857dbff3de0449
+generated: "2024-06-19T13:54:49.103146486Z"
