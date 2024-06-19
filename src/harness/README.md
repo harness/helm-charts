@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.17.0](https://img.shields.io/badge/Version-0.17.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.17.1](https://img.shields.io/badge/Version-0.17.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -132,7 +132,7 @@ docker.io/harness/ff-timescale-migration-signed:1.1094.0
 docker.io/harness/gateway-signed:1.27.3
 docker.io/harness/gitops-agent-installer-helper:v0.0.1
 docker.io/harness/gitops-agent:v0.74.1
-docker.io/harness/gitops-service-signed:1.11.1
+docker.io/harness/gitops-service-signed:1.11.6
 docker.io/harness/helm-init-container:latest
 docker.io/harness/k8s-chaos-infrastructure-upgrader:1.36.0
 docker.io/harness/le-nextgen-signed:1.3.0
@@ -164,7 +164,7 @@ docker.io/harness/smp-service-discovery-server-signed:0.16.1
 docker.io/harness/srm-ui-signed:1.5.0
 docker.io/harness/ssca-manager-signed:1.10.5
 docker.io/harness/ssca-ui-signed:0.7.3
-docker.io/harness/stocore-signed:1.94.5
+docker.io/harness/stocore-signed:1.94.7
 docker.io/harness/stomanager-signed:1.25.1
 docker.io/harness/telescopes-signed:1.1.0
 docker.io/harness/template-service-signed:1.37.1
@@ -300,7 +300,7 @@ plugins/s3:1.3.0
 | global.monitoring | object | `{"enabled":false,"path":"/metrics","port":8889}` | Enable monitoring for all harness services: disabled by default |
 | global.ng | object | `{"enabled":true}` | Enable to install NG (Next Generation Harness Platform) |
 | global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install Next Generation Custom Dashboards (Beta) |
-| global.opa | object | `{"enabled":false}` | Enable to install Open Policy Agent (OPA) |
+| global.opa | object | `{"enabled":true}` | Default Enabled, As required by multiple services now (OPA) |
 | global.overrideValidation | object | `{"restructuredValues":false}` | Enable to disable validation checks |
 | global.proxy | object | `{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""}` | Set global.proxy.protocol to http or https depending on the proxy configuration |
 | global.saml | object | `{"autoaccept":false}` | SAML auto acceptance. Enabled will not send invites to email and autoaccepts |
