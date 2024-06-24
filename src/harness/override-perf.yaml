@@ -307,6 +307,7 @@ platform:
       SDK_RESPONSE_EVENT_POOL_MAX_SIZE: "300"
     autoscaling:
       enabled: false
+      targetCPU: 70
     java:
       memory: "6g"
     replicaCount: 1
