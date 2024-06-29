@@ -40,7 +40,7 @@ dependencies:
   version: 1.24.9
 - name: pipeline-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.61.5
+  version: 1.61.7
 - name: platform-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.12.0
@@ -65,5 +65,5 @@ dependencies:
 - name: service-discovery-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.2.0
-digest: sha256:e0bd24e764fa5dad3240371cd7f01b7232dedb6e43cc1b737190f734c1e1c679
-generated: "2024-05-14T04:43:52.308402123Z"
+digest: sha256:f8109b68ef5a54e23c1c87c5dbb96dc2c211805beef4cc02f7c6eeb6631609c3
+generated: "2024-06-29T12:01:20.71459574Z"
