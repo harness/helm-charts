@@ -2045,6 +2045,56 @@ entries:
     version: 0.15.0
   - apiVersion: v2
     appVersion: 1.0.80917
+    created: "2024-06-29T12:17:18.507487847Z"
+    dependencies:
+    - condition: global.ccm.enabled
+      name: ccm
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.cd.enabled
+      name: cd
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.cet.enabled
+      name: cet
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.chaos.enabled
+      name: chaos
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.ci.enabled
+      name: ci
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.ff.enabled
+      name: ff
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - name: platform
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.11
+    - condition: global.srm.enabled
+      name: srm
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.sto.enabled
+      name: sto
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.6
+    - condition: global.ssca.enabled
+      name: ssca
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    description: Helm Chart for deploying Harness.
+    digest: 7feb2248413829824b12ce27865325d2feeb2dc9017224fbc42ff9011caaccd6
+    name: harness
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-0.14.11/harness-0.14.11.tgz
+    version: 0.14.11
+  - apiVersion: v2
+    appVersion: 1.0.80917
     created: "2024-05-14T04:59:15.334831029Z"
     dependencies:
     - condition: global.ccm.enabled
@@ -13528,4 +13578,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2024-06-29T12:07:11.084781623Z"
+generated: "2024-06-29T12:17:18.508768104Z"
