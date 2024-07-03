@@ -143,3 +143,4 @@
     slsa-plugin
     ssca-manager-signed
     ssca-ui-signed
+    ssca-cdxgen-plugin
