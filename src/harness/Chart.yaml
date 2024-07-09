@@ -24,7 +24,7 @@ dependencies:
 - name: platform
   repository: https://harness.github.io/helm-charts
   version: 0.18.0
-- condition: global.srm.enabled
+- condition: global.cd.enabled
   name: srm
   repository: https://harness.github.io/helm-charts
   version: 0.18.0
