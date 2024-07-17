@@ -30,7 +30,7 @@ global:
   ssca:
     enabled: false
   # -- Enable to install Database Devops (DB Devops)
-  dbdevops:
+  dbops:
     enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
