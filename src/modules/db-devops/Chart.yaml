@@ -2,10 +2,10 @@ apiVersion: v2
 appVersion: 1.0.0
 dependencies:
 - condition: global.dbdevops.enabled
-  name: db-devops-service 
+  name: db-devops-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.0.0
 description: A Helm chart for Harness DB devops
-name: db-devops 
+name: db-devops
 type: application
-version: 0.18.0
+version: 0.19.0
