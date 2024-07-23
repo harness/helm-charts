@@ -36,13 +36,14 @@
     queue-service-signed
     service-discovery-collector
     service-discovery-k8s-lifecycle-agent
+    ubuntu
+    ng-dashboard-aggregator-signed
+
 [cdng]:
     argocd
     gitops-agent
     haproxy
     gitops-service-signed
-    ubuntu
-    ng-dashboard-aggregator-signed
     gitops-agent-installer-helper
 
 [ci]:
