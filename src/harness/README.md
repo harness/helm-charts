@@ -34,7 +34,7 @@ $ kubectl create namespace <namespace>
 Install the Helm chart:
 
 ```
-$  helm install my-release harness/harness-prod -n <namespace> -f override.yaml
+$  helm install my-release harness/harness -n <namespace> -f override.yaml
 ```
 
 ### Access the application
