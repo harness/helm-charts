@@ -1,6 +1,9 @@
 apiVersion: v2
 appVersion: 1.0.80917
 dependencies:
+- name: harness-common
+  version: 1.x.x
+  repository: https://harness.github.io/helm-common
 - condition: global.ccm.enabled
   name: ccm
   repository: https://harness.github.io/helm-charts
