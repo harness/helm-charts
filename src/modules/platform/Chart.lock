@@ -19,7 +19,7 @@ dependencies:
   version: 1.27.3
 - name: harness-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.27.9
+  version: 1.27.11
 - name: log-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.4.1
@@ -37,7 +37,7 @@ dependencies:
   version: 1.18.0
 - name: ng-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.36.10
+  version: 1.36.11
 - name: pipeline-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.73.4
@@ -71,5 +71,5 @@ dependencies:
 - name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.2.0
-digest: sha256:d3d0f218275196ff480c5afbe1a54d82399ae685a16a4606fa45809eadaf5ce4
-generated: "2024-05-31T20:24:47.795154281Z"
+digest: sha256:c793ee1df5700454b94160f044b60064cef887044f83e6fdeaa2982989cdfdfe
+generated: "2024-08-02T16:18:52.960669626Z"
