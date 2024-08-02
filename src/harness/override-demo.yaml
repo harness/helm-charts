@@ -55,31 +55,6 @@ chaos:
       requests:
         cpu: 64m
         memory: 128Mi
-  chaos-machine-ifs:
-    autoscaling:
-      enabled: false
-    resources:
-      limits:
-        memory: 128Mi
-      requests:
-        cpu: 64m
-        memory: 128Mi
-  chaos-machine-ifc:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 128Mi
-      requests:
-        cpu: 64m
-        memory: 128Mi 
-  chaos-machine-ifs:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 128Mi
-      requests:
-        cpu: 64m
-        memory: 128Mi
 ci:
   ci-manager:
     autoscaling:
