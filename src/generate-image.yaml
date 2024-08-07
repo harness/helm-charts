@@ -41,3 +41,10 @@ chaos:
     jobs:
       chaos_db_upgrade:
         enabled: true
+platform:
+  bootstrap:
+    networking:
+      nginx:
+        create: true
+      defaultbackend:
+        create: true
