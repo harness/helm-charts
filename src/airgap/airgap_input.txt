@@ -38,6 +38,8 @@
     service-discovery-k8s-lifecycle-agent
     ubuntu
     ng-dashboard-aggregator-signed
+    ingress-nginx/controller
+    defaultbackend-amd64
 
 [cdng]:
     argocd
