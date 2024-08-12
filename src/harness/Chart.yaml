@@ -4,11 +4,11 @@ dependencies:
 - condition: global.ccm.enabled
   name: ccm
   repository: https://harness.github.io/helm-charts
-  version: 0.18.2
+  version: 0.18.0
 - condition: global.cd.enabled
   name: cd
   repository: https://harness.github.io/helm-charts
-  version: 0.18.2
+  version: 0.18.0
 - condition: global.chaos.enabled
   name: chaos
   repository: https://harness.github.io/helm-charts
@@ -16,14 +16,14 @@ dependencies:
 - condition: global.ci.enabled
   name: ci
   repository: https://harness.github.io/helm-charts
-  version: 0.18.2
+  version: 0.18.0
 - condition: global.ff.enabled
   name: ff
   repository: https://harness.github.io/helm-charts
   version: 0.18.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.18.2
+  version: 0.18.1
 - condition: global.srm.enabled
   name: srm
   repository: https://harness.github.io/helm-charts
@@ -39,4 +39,4 @@ dependencies:
 description: Helm Chart for deploying Harness.
 name: harness
 type: application
-version: 0.18.2
+version: 0.18.1
