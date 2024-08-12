@@ -147,5 +147,5 @@
     ssca-manager-signed
     ssca-ui-signed
 
-[dbdevops]:
+[db-devops]:
     db-devops-service
