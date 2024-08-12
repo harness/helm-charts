@@ -35,6 +35,7 @@ docker.io/harness/ci-manager-signed:1.35.10
 docker.io/harness/ci-scm-signed:1.7.1
 docker.io/harness/cv-nextgen-signed:1.23.0
 docker.io/harness/dashboard-service-signed:1.66.0
+docker.io/harness/db-devops-service-signed:1.1.6
 docker.io/harness/debezium-service-signed:1.16.1
 docker.io/harness/delegate-proxy-signed:81011_3
 docker.io/harness/delegate-proxy-signed:81011_minimal
