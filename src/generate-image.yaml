@@ -36,6 +36,8 @@ global:
     enabled: true
   ssca:
     enabled: true
+  dbops:
+    enabled: true
 chaos:
   chaos-manager:
     jobs:
