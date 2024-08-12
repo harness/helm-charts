@@ -38,6 +38,7 @@ while IFS= read -r line; do
 
     > "$MODULE_IMAGE_FILE"
     generated_files+=("$MODULE_IMAGE_FILE")
+    cat $MODULE_IMAGE_FILE
     echo "Created module file: $MODULE_IMAGE_FILE"
      
   elif [[ -n $MODULE_IMAGE_FILE ]]; then
