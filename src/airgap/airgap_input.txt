@@ -144,6 +144,8 @@
 [ssca]:
     ssca-plugin
     slsa-plugin
+    ssca-cdxgen-plugin
+    ssca-compliance-plugin
     ssca-manager-signed
     ssca-ui-signed
 
