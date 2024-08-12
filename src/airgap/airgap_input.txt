@@ -148,4 +148,4 @@
     ssca-ui-signed
 
 [db-devops]:
-    db-devops-service
+    db-devops-service-signed
