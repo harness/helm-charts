@@ -4,7 +4,7 @@ dependencies:
   version: 1.52.4
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.6.0
+  version: 1.6.1
 - name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.24.0
@@ -71,5 +71,5 @@ dependencies:
 - name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.2.0
-digest: sha256:406d77838a647044ca9493eb8a4d892ec3cbca3b3ade70fb2031f31cc40e93c1
-generated: "2024-08-12T16:27:45.883590003Z"
+digest: sha256:8d07338aab3a002b97d8f2552aff547e4e8ef9ea7b112bfa9f1b043a0f5b8f57
+generated: "2024-08-16T09:03:46.300749184Z"
