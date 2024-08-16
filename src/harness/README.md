@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.19.0](https://img.shields.io/badge/Version-0.19.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.19.1](https://img.shields.io/badge/Version-0.19.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -118,6 +118,7 @@ docker.io/harness/ci-manager-signed:1.35.10
 docker.io/harness/ci-scm-signed:1.7.1
 docker.io/harness/cv-nextgen-signed:1.23.0
 docker.io/harness/dashboard-service-signed:1.66.0
+docker.io/harness/db-devops-service-signed:1.1.6
 docker.io/harness/debezium-service-signed:1.16.1
 docker.io/harness/delegate-proxy-signed:81011_3
 docker.io/harness/delegate-proxy-signed:81011_minimal
