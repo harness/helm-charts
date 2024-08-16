@@ -463,6 +463,12 @@ platform:
       ADDITIONAL: ""
     nodeSelector: {}
     tolerations: []
+    immutable_delegate_docker_image:
+      image:
+        registry: docker.io
+        repository: harness/delegate
+        tag: 00.00.00000
+        digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
     affinity: {}
