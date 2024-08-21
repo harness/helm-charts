@@ -37,28 +37,20 @@ if [ $# -eq 1 ]; then
     failed=0
     # Create a temporary file to store the list of successfully pulled images
     pulled_file="$(mktemp)"
+    pids=()
+    # Download images in parallel
+    while IFS= read -r i; do
+        [ -z "${i}" ] && continue
+        pull_image "${i}" &
+        pids+=($!)
+    done < "${image_list_file}"
 
-    for list in ${lists[*]}; do
-        if [[ ! -f $list ]]; then
-            echo "Error: File $list not found."
-            exit 1
-        fi
-
-        pids=()
-
-        # Download images in parallel
-        while IFS= read -r i; do
-            [ -z "${i}" ] && continue
-            pull_image "${i}" &
-            pids+=($!)
-        done < "${image_list_file}"
-
-        for pid in ${pids[*]}; do
-            wait $pid || handle_error "Failed background task with PID: $pid"
-        done
-        # Wait for all background tasks to finish
-        wait
+    for pid in ${pids[*]}; do
+        wait $pid || handle_error "Failed background task with PID: $pid"
     done
+    # Wait for all background tasks to finish
+    wait
+    
     if [ $failed -eq 1 ]; then
         echo "Some images failed to pull. Please check the error messages above." >&2
         exit 1
