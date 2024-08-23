@@ -56,6 +56,7 @@ platform:
       USER_ITERATOR_INTERVAL: "20000"
       ACL_RECONCILIATION_ITERATOR_ENABLED: "true"
       ACL_RECONCILIATION_ITERATOR_INTERVAL: "259200"
+      MONGODB_SSL_ENABLED: "true"
     autoscaling:
       enabled: false
     # Update the following configuration if using external mongo
