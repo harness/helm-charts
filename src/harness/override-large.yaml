@@ -129,7 +129,7 @@ platform:
           - "--wiredTigerCacheSizeGB=0.5"
         persistence:
           size: 20Gi
-        replicaCount: 1
+        replicaCount: 3
         resources:
           limits:
             cpu: 6
