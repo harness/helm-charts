@@ -20,14 +20,14 @@ dependencies:
 - condition: global.ci.enabled
   name: ci
   repository: https://harness.github.io/helm-charts
-  version: 0.14.1
+  version: 0.14.12
 - condition: global.ff.enabled
   name: ff
   repository: https://harness.github.io/helm-charts
   version: 0.14.1
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.14.11
+  version: 0.14.12
 - condition: global.srm.enabled
   name: srm
   repository: https://harness.github.io/helm-charts
