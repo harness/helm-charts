@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.18.0](https://img.shields.io/badge/Version-0.18.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.41.9](https://img.shields.io/badge/AppVersion-1.41.9-informational?style=flat-square)
+![Version: 0.20.0](https://img.shields.io/badge/Version-0.20.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -22,9 +22,7 @@ $ helm repo add harness https://harness.github.io/helm-charts
 
 ## Install the chart
 Use the following process to install the Helm chart.
-
 1. Create a namespace for your installation.
-
 ```
 $ kubectl create namespace <namespace>
 ```
@@ -32,9 +30,8 @@ $ kubectl create namespace <namespace>
 2. Create the override.yaml file using your environment settings:
 
 Install the Helm chart:
-
 ```
-$  helm install my-release harness/harness -n <namespace> -f override.yaml
+$  helm install my-release harness/harness-prod -n <namespace> -f override.yaml
 ```
 
 ### Access the application
@@ -44,17 +41,13 @@ Verify your installation by accessing the Harness application and creating your 
 Use the following instructions to upgrade Harness Helm chart to a later version.
 
 1. Obtain the `release-name` that identifies the installed release:
-
 ```
 $ helm ls -n <namespace>
 ```
-
 2. Retrieve configuration information for the installed release from the old-values.yaml file:
-
 ```
 $ helm get values my-release > old_values.yaml
 ```
-
 3. Modify the values of the old_values.yaml file as your configuration requires.
 
 4. Use the `helm upgrade` command to update the chart:
@@ -89,93 +82,99 @@ If your cluster is in an air-gapped environment, your deployment requires the fo
 
 ```
 docker.io/bitnami/clickhouse:23.9.2-debian-11-r0
-docker.io/bitnami/minio:2023.10.7-debian-11-r2
+docker.io/bitnami/minio:2024.3.30-debian-12-r2
+docker.io/bitnami/mongodb:5.0.24
+docker.io/bitnami/postgresql:14.11.0-debian-11-r17
 docker.io/bitnami/postgresql:14.9.0-debian-11-r60
-docker.io/chaosnative/harness-chaos-log-watcher:1.22.0
-docker.io/chaosnative/smp-service-discovery-server:0.10.0
-docker.io/chaosnative/source-probe:ci
-docker.io/curlimages/curl:8.1.2
+docker.io/chaosnative/harness-chaos-log-watcher:1.41.0
+docker.io/curlimages/curl:8.7.1
 docker.io/haproxy:lts-alpine3.18
-docker.io/harness/accesscontrol-service-signed:1.35.5
-docker.io/harness/argocd:v2.9.4
-docker.io/harness/batch-processing-signed:1.8.3
+docker.io/harness/accesscontrol-service-signed:1.56.1
+docker.io/harness/argocd:v2.10.14
+docker.io/harness/audit-event-streaming-signed:1.9.0
+docker.io/harness/batch-processing-signed:1.24.12
 docker.io/harness/ccm-gcp-smp-signed:10057
-docker.io/harness/cdcdata-signed:1.5.3
+docker.io/harness/cdcdata-signed:1.25.1
 docker.io/harness/ce-anomaly-detection-signed:1.1.0
-docker.io/harness/ce-cloud-info-signed:1.3.1
-docker.io/harness/ce-nextgen-signed:1.8.2
+docker.io/harness/ce-cloud-info-signed:1.3.2
+docker.io/harness/ce-nextgen-signed:1.27.2
 docker.io/harness/chaos-argoexec:v3.4.16
-docker.io/harness/chaos-ddcr:1.32.0
-docker.io/harness/chaos-exporter:1.32.0
-docker.io/harness/chaos-go-runner-base:1.32.0
-docker.io/harness/chaos-go-runner-io:1.32.0
-docker.io/harness/chaos-go-runner-time:1.32.0
-docker.io/harness/chaos-go-runner:1.32.0
-docker.io/harness/chaos-k8s:1.32.0
-docker.io/harness/chaos-log-watcher:1.32.0
-docker.io/harness/chaos-operator:1.32.0
-docker.io/harness/chaos-runner:1.32.0
-docker.io/harness/chaos-subscriber:1.32.0
+docker.io/harness/chaos-ddcr:1.41.0
+docker.io/harness/chaos-exporter:1.41.0
+docker.io/harness/chaos-go-runner-base:1.41.0
+docker.io/harness/chaos-go-runner-io:1.41.0
+docker.io/harness/chaos-go-runner-time:1.41.0
+docker.io/harness/chaos-go-runner:1.41.0
+docker.io/harness/chaos-k8s:1.41.0
+docker.io/harness/chaos-log-watcher:1.41.0
+docker.io/harness/chaos-machine-ifc-signed:1.41.0
+docker.io/harness/chaos-machine-ifs-signed:1.41.0
+docker.io/harness/chaos-operator:1.41.0
+docker.io/harness/chaos-runner:1.41.0
+docker.io/harness/chaos-subscriber:1.41.0
 docker.io/harness/chaos-workflow-controller:v3.4.16
-docker.io/harness/ci-manager-signed:1.13.2
-docker.io/harness/ci-scm-signed:1.3.2
-docker.io/harness/cv-nextgen-signed:1.15.0
-docker.io/harness/dashboard-service-signed:1.60.1
-docker.io/harness/debezium-service-signed:1.0.1
+docker.io/harness/ci-manager-signed:1.41.3
+docker.io/harness/ci-scm-signed:1.7.1
+docker.io/harness/cv-nextgen-signed:1.23.0
+docker.io/harness/dashboard-service-signed:1.69.0
+docker.io/harness/db-devops-service-signed:1.4.2
+docker.io/harness/debezium-service-signed:1.16.1
 docker.io/harness/delegate-proxy-signed:81011_3
 docker.io/harness/delegate-proxy-signed:81011_minimal
-docker.io/harness/delegate:24.02.82402
-docker.io/harness/delegate:24.02.82402.minimal
+docker.io/harness/delegate:24.07.83611
+docker.io/harness/delegate:24.07.83611.minimal
 docker.io/harness/delegate:latest
-docker.io/harness/event-service-signed:79404-000
+docker.io/harness/event-service-signed:1.5.1
 docker.io/harness/ff-postgres-migration-signed:1.1094.0
 docker.io/harness/ff-pushpin-signed:1.0.11
 docker.io/harness/ff-pushpin-worker-signed:1.1079.1
 docker.io/harness/ff-server-signed:1.1094.0
 docker.io/harness/ff-timescale-migration-signed:1.1094.0
-docker.io/harness/gateway-signed:1.23.2
+docker.io/harness/gateway-signed:1.31.2
 docker.io/harness/gitops-agent-installer-helper:v0.0.1
-docker.io/harness/gitops-agent:v0.67.4
-docker.io/harness/gitops-service-signed:1.4.3
+docker.io/harness/gitops-agent:v0.78.0
+docker.io/harness/gitops-service-signed:1.15.2
 docker.io/harness/helm-init-container:latest
-docker.io/harness/k8s-chaos-infrastructure-upgrader:1.32.0
-docker.io/harness/le-nextgen-signed:1.1.0
-docker.io/harness/learning-engine-onprem-signed:1.1.0
-docker.io/harness/litmus-checker:1.32.0
-docker.io/harness/log-service-signed:1.2.0
-docker.io/harness/looker-signed:23.20.39
-docker.io/harness/manager-signed:1.18.9
-docker.io/harness/migrator-signed:1.31.0
-docker.io/harness/mongo:4.4.22
-docker.io/harness/nextgenui-signed:1.10.8
-docker.io/harness/ng-auth-ui-signed:1.19.0
-docker.io/harness/ng-ce-ui:1.6.1
-docker.io/harness/ng-dashboard-aggregator-signed:1.7.1
-docker.io/harness/ng-manager-signed:1.27.12
-docker.io/harness/pipeline-service-signed:1.64.2
-docker.io/harness/platform-service-signed:1.14.1
-docker.io/harness/policy-mgmt:v1.71.1
-docker.io/harness/smp-chaos-bg-processor:1.32.4
-docker.io/harness/smp-chaos-db-upgrade-agent-signed:1.32.4
-docker.io/harness/smp-chaos-k8s-ifs-signed:1.32.2
-docker.io/harness/smp-chaos-linux-infra-controller-signed:1.32.0
-docker.io/harness/smp-chaos-linux-infra-server-signed:1.32.0
-docker.io/harness/smp-chaos-manager-signed:1.32.4
-docker.io/harness/smp-chaos-web-signed:1.32.2
-docker.io/harness/srm-ui-signed:1.4.1
-docker.io/harness/ssca-manager-signed:1.9.1
-docker.io/harness/ssca-ui-signed:0.6.1
-docker.io/harness/stocore-signed:1.86.2
-docker.io/harness/stomanager-signed:1.13.0
+docker.io/harness/k8s-chaos-infrastructure-upgrader:1.41.0
+docker.io/harness/le-nextgen-signed:1.3.0
+docker.io/harness/learning-engine-onprem-signed:1.3.0
+docker.io/harness/litmus-checker:1.41.0
+docker.io/harness/log-service-signed:1.9.2
+docker.io/harness/looker-signed:1.1.0
+docker.io/harness/manager-signed:1.42.3
+docker.io/harness/migrator-signed:1.107.0
+docker.io/harness/nextgenui-signed:1.37.5
+docker.io/harness/ng-auth-ui-signed:1.27.0
+docker.io/harness/ng-ce-ui:1.24.1
+docker.io/harness/ng-dashboard-aggregator-signed:1.28.0
+docker.io/harness/ng-manager-signed:1.51.9
+docker.io/harness/pipeline-service-signed:1.89.2
+docker.io/harness/platform-service-signed:1.34.2
+docker.io/harness/policy-mgmt:1.8.2
+docker.io/harness/queue-service-signed:1.2.0
+docker.io/harness/service-discovery-collector:0.21.1
+docker.io/harness/smp-chaos-bg-processor-signed:1.41.7
+docker.io/harness/smp-chaos-db-upgrade-agent-signed:1.41.7
+docker.io/harness/smp-chaos-k8s-ifs-signed:1.41.1
+docker.io/harness/smp-chaos-linux-infra-controller-signed:1.41.2
+docker.io/harness/smp-chaos-linux-infra-server-signed:1.41.1
+docker.io/harness/smp-chaos-manager-signed:1.41.7
+docker.io/harness/smp-chaos-web-signed:1.41.1
+docker.io/harness/smp-service-discovery-server-signed:0.21.1
+docker.io/harness/source-probe:main-latest
+docker.io/harness/srm-ui-signed:1.5.0
+docker.io/harness/ssca-manager-signed:1.15.1
+docker.io/harness/ssca-ui-signed:0.12.1
+docker.io/harness/stocore-signed:1.106.0
+docker.io/harness/stomanager-signed:1.37.0
 docker.io/harness/telescopes-signed:1.1.0
-docker.io/harness/template-service-signed:1.29.0
-docker.io/harness/ti-service-signed:1.12.1
-docker.io/harness/ti-service-signed:release-223
-docker.io/harness/ui-signed:1.10.0
+docker.io/harness/template-service-signed:1.51.0
+docker.io/harness/ti-service-signed:1.27.0
+docker.io/harness/ui-signed:1.22.0
 docker.io/harness/upgrader:latest
-docker.io/harness/verification-service-signed:1.17.0
-docker.io/redis:6.2.12-alpine
+docker.io/harness/verification-service-signed:1.42.0
 docker.io/redis:6.2.14-alpine
+docker.io/redis:7.2.4-alpine
 docker.io/timescale/timescaledb-ha:pg13-ts2.9-oss-latest
 docker.io/ubuntu:20.04
 harness/anchore-job-runner:latest
@@ -188,10 +187,10 @@ harness/blackduckhub-job-runner:latest
 harness/brakeman-job-runner:latest
 harness/checkmarx-job-runner:latest
 harness/ci-addon:1.16.26
-harness/ci-addon:1.16.37
+harness/ci-addon:1.16.56
 harness/ci-lite-engine:1.16.26
-harness/ci-lite-engine:1.16.37
-harness/drone-git:1.5.0-rootless
+harness/ci-lite-engine:1.16.56
+harness/drone-git:1.5.8-rootless
 harness/fossa-job-runner:latest
 harness/grype-job-runner:latest
 harness/nikto-job-runner:latest
@@ -199,26 +198,29 @@ harness/nmap-job-runner:latest
 harness/osv-job-runner:latest
 harness/owasp-dependency-check-job-runner:latest
 harness/prowler-job-runner:latest
-harness/slsa-plugin:0.18.0
+harness/slsa-plugin:0.20.1
 harness/snyk-job-runner:latest
 harness/sonarqube-agent-job-runner:latest
-harness/ssca-plugin:0.12.2
-harness/ssca-plugin:0.18.1
-harness/sto-plugin:1.25.0
+harness/ssca-cdxgen-plugin:0.20.2
+harness/ssca-compliance-plugin:latest
+harness/ssca-plugin:0.20.1
 harness/sto-plugin:latest
 harness/twistlock-job-runner:latest
 harness/veracode-agent-job-runner:latest
 harness/whitesource-agent-job-runner:latest
+harness/wiz-job-runner:latest
 harness/zap-job-runner:latest
-plugins/artifactory:1.5.1
-plugins/cache:1.6.7
-plugins/gcs:1.5.2
-plugins/kaniko-acr:1.8.8
-plugins/kaniko-ecr:1.8.8
-plugins/kaniko-gcr:1.8.8
-plugins/kaniko:1.8.8
+plugins/artifactory:1.6.0
+plugins/cache:1.7.2
+plugins/gcs:1.6.0
+plugins/kaniko-acr:1.10.0
+plugins/kaniko-ecr:1.10.0
+plugins/kaniko-gcr:1.10.0
+plugins/kaniko:1.10.0
 plugins/s3:1.2.7
-plugins/s3:1.3.0
+plugins/s3:1.4.0
+registry.k8s.io/defaultbackend-amd64:1.5
+registry.k8s.io/ingress-nginx/controller:v1.3.0
 
 ```
 ## Values
@@ -233,6 +235,17 @@ plugins/s3:1.3.0
 | ccm.ce-nextgen.stackDriverLoggingEnabled | bool | `false` | Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure |
 | ccm.cloud-info.proxy | object | `{"httpsProxyEnabled":false,"httpsProxyUrl":"http://localhost"}` | Set ccm.cloud-info.proxy.httpsProxyUrl to proxy url(ex: http://localhost:8080, if http proxy is running on localhost port 8080) |
 | ccm.event-service | object | `{"stackDriverLoggingEnabled":false}` | Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure |
+| chaos.chaos-common.installLinuxCRDs | bool | `false` |  |
+| chaos.chaos-k8s-ifs.nodeSelector | object | `{}` |  |
+| chaos.chaos-k8s-ifs.tolerations | list | `[]` |  |
+| chaos.chaos-linux-ifc.nodeSelector | object | `{}` |  |
+| chaos.chaos-linux-ifc.tolerations | list | `[]` |  |
+| chaos.chaos-linux-ifs.nodeSelector | object | `{}` |  |
+| chaos.chaos-linux-ifs.tolerations | list | `[]` |  |
+| chaos.chaos-machine-ifc.nodeSelector | object | `{}` |  |
+| chaos.chaos-machine-ifc.tolerations | list | `[]` |  |
+| chaos.chaos-machine-ifs.nodeSelector | object | `{}` |  |
+| chaos.chaos-machine-ifs.tolerations | list | `[]` |  |
 | chaos.chaos-manager.nodeSelector | object | `{}` |  |
 | chaos.chaos-manager.tolerations | list | `[]` |  |
 | chaos.chaos-web.nodeSelector | object | `{}` |  |
@@ -260,6 +273,7 @@ plugins/s3:1.3.0
 | global.database.mongo.userKey | string | `""` | provide the userKey to reference mongo username |
 | global.database.redis.hosts | list | `["<internal-endpoint-with-port>"]` | provide host name for redis |
 | global.database.timescaledb.hosts | list | `["hostname.timescale.com:5432"]` | provide host name for timescaledb |
+| global.dbops | object | `{"enabled":false}` | Enable to install Database Devops (DB Devops) |
 | global.ff | object | `{"enabled":false}` | Enable to install Feature Flags (FF) |
 | global.fileLogging.enabled | bool | `true` |  |
 | global.fileLogging.maxBackupFileCount | int | `10` |  |
@@ -290,7 +304,7 @@ plugins/s3:1.3.0
 | global.monitoring | object | `{"enabled":false,"path":"/metrics","port":8889}` | Enable monitoring for all harness services: disabled by default |
 | global.ng | object | `{"enabled":true}` | Enable to install NG (Next Generation Harness Platform) |
 | global.ngcustomdashboard | object | `{"enabled":false}` | Enable to install Next Generation Custom Dashboards (Beta) |
-| global.opa | object | `{"enabled":false}` | Enable to install Open Policy Agent (OPA) |
+| global.opa | object | `{"enabled":true}` | Default Enabled, As required by multiple services now (OPA) |
 | global.overrideValidation | object | `{"restructuredValues":false}` | Enable to disable validation checks |
 | global.proxy | object | `{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""}` | Set global.proxy.protocol to http or https depending on the proxy configuration |
 | global.saml | object | `{"autoaccept":false}` | SAML auto acceptance. Enabled will not send invites to email and autoaccepts |
@@ -313,7 +327,7 @@ plugins/s3:1.3.0
 | global.waitForInitContainer.image.registry | string | `"docker.io"` |  |
 | global.waitForInitContainer.image.repository | string | `"harness/helm-init-container"` |  |
 | global.waitForInitContainer.image.tag | string | `"latest"` |  |
-| platform | object | `{"access-control":{"affinity":{},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"tolerations":[]},"bootstrap":{"database":{"clickhouse":{"enabled":false},"minio":{"affinity":{},"nodeSelector":{},"tolerations":[]},"mongodb":{"affinity":{},"arbiter":{"affinity":{},"nodeSelector":{},"tolerations":[]},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9216","prometheus.io/scrape":"false"},"tolerations":[]},"postgresql":{"auth":{"existingSecret":"postgres"},"metrics":{"enabled":false},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"}},"redis":{"affinity":{},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9121","prometheus.io/scrape":"false"},"tolerations":[]},"timescaledb":{"affinity":{},"nodeSelector":{},"persistentVolumes":{"data":{"enabled":true,"size":"100Gi"},"wal":{"enabled":true,"size":"1Gi"}},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"},"prometheus":{"enabled":false},"tolerations":[]}},"harness-secrets":{"enabled":true},"networking":{"defaultbackend":{"create":false,"resources":{"limits":{"memory":"20Mi"},"requests":{"cpu":"10m","memory":"20Mi"}}},"nginx":{"affinity":{},"controller":{"annotations":{}},"create":false,"healthNodePort":"","healthPort":"","httpNodePort":"","httpsNodePort":"","loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nodeSelector":{},"resources":{"limits":{"memory":"512Mi"},"requests":{"cpu":"0.5","memory":"512Mi"}},"tolerations":[]}}},"change-data-capture":{"affinity":{},"nodeSelector":{},"tolerations":[]},"delegate-proxy":{"affinity":{},"nodeSelector":{},"tolerations":[]},"gateway":{"affinity":{},"nodeSelector":{},"tolerations":[]},"harness-manager":{"affinity":{},"featureFlags":{"ADDITIONAL":"","Base":"ASYNC_ARTIFACT_COLLECTION,JIRA_INTEGRATION,AUDIT_TRAIL_UI,GDS_TIME_SERIES_SAVE_PER_MINUTE,STACKDRIVER_SERVICEGUARD,TIME_SERIES_SERVICEGUARD_V2,TIME_SERIES_WORKFLOW_V2,CUSTOM_DASHBOARD,GRAPHQL,CV_FEEDBACKS,LOGS_V2_247,UPGRADE_JRE,LOG_STREAMING_INTEGRATION,NG_HARNESS_APPROVAL,GIT_SYNC_NG,NG_CG_TASK_ASSIGNMENT_ISOLATION,CI_OVERVIEW_PAGE,AZURE_CLOUD_PROVIDER_VALIDATION_ON_DELEGATE,TERRAFORM_AWS_CP_AUTHENTICATION,NG_TEMPLATES,NEW_DEPLOYMENT_FREEZE,HELM_CHART_AS_ARTIFACT,RESOLVE_DEPLOYMENT_TAGS_BEFORE_EXECUTION,WEBHOOK_TRIGGER_AUTHORIZATION,GITHUB_WEBHOOK_AUTHENTICATION,CUSTOM_MANIFEST,GIT_ACCOUNT_SUPPORT,AZURE_WEBAPP,POLLING_INTERVAL_CONFIGURABLE,APPLICATION_DROPDOWN_MULTISELECT,RESOURCE_CONSTRAINT_SCOPE_PIPELINE_ENABLED,NG_TEMPLATE_GITX,ELK_HEALTH_SOURCE,CVNG_METRIC_THRESHOLD,SRM_HOST_SAMPLING_ENABLE,SRM_ENABLE_HEALTHSOURCE_CLOUDWATCH_METRICS,CDS_SHELL_VARIABLES_EXPORT,CDS_TAS_NG,CD_TRIGGER_V2,CDS_NG_TRIGGER_MULTI_ARTIFACTS,ACCOUNT_BASIC_ROLE,PL_ENABLE_BASIC_ROLE_FOR_PROJECTS_ORGS,CD_NG_DOCKER_ARTIFACT_DIGEST,CDS_SERVICE_OVERRIDES_2_0,NG_SVC_ENV_REDESIGN,NG_EXECUTION_INPUT,CDS_SERVICENOW_REFRESH_TOKEN_AUTH,SERVICE_DASHBOARD_V2,CDS_OrgAccountLevelServiceEnvEnvGroup,CDC_SERVICE_DASHBOARD_REVAMP_NG,PL_FORCE_DELETE_CONNECTOR_SECRET,POST_PROD_ROLLBACK,PIE_STATIC_YAML_SCHEMA,SPG_SIDENAV_COLLAPSE,CI_LE_STATUS_REST_ENABLED,HOSTED_BUILDS,CIE_HOSTED_VMS,ENABLE_K8_BUILDS,CI_DISABLE_RESOURCE_OPTIMIZATION,CI_OUTPUT_VARIABLES_AS_ENV,CDS_GITHUB_APP_AUTHENTICATION,CDS_REMOVE_TIME_BUCKET_GAPFILL_QUERY,CDS_CONTAINER_STEP_GROUP,CDS_SUPPORT_EXPRESSION_REMOTE_TERRAFORM_VAR_FILES_NG,CDS_AWS_CDK,DISABLE_WINRM_COMMAND_ENCODING_NG,SKIP_ADDING_TRACK_LABEL_SELECTOR_IN_ROLLING,CDS_HTTP_STEP_NG_CERTIFICATE,ENABLE_CERT_VALIDATION,CDS_GET_SERVICENOW_STANDARD_TEMPLATE,CDS_ENABLE_NEW_PARAMETER_FIELD_PROCESSOR,SRM_MICRO_FRONTEND,CVNG_TEMPLATE_MONITORED_SERVICE,PIE_ASYNC_FILTER_CREATION,PL_DISCOVERY_ENABLE,PIE_GIT_BI_DIRECTIONAL_SYNC,CDS_METHOD_INVOCATION_NEW_FLOW_EXPRESSION_ENGINE,CD_NG_DYNAMIC_PROVISIONING_ENV_V2,CDS_HELM_MULTIPLE_MANIFEST_SUPPORT_NG,CDS_SERVERLESS_V2,CDP_AWS_SAM,CDS_IMPROVED_HELM_DEPLOYMENT_TRACKING,CDS_K8S_APPLY_MANIFEST_WITHOUT_SERVICE_NG,CDS_HELM_FETCH_CHART_METADATA_NG","CCM":"CENG_ENABLED,CCM_MICRO_FRONTEND,NODE_RECOMMENDATION_AGGREGATE","CD":"CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION","CDB":"NG_DASHBOARDS","CHAOS":"CHAOS_ENABLED","CI":"CING_ENABLED,CI_INDIRECT_LOG_UPLOAD,CI_LE_STATUS_REST_ENABLED","FF":"CFNG_ENABLED","GitOps":"GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN,GITOPS_ORG_LEVEL","NG":"ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE,PL_ENABLE_JIT_USER_PROVISION","OPA":"OPA_PIPELINE_GOVERNANCE,OPA_GIT_GOVERNANCE","SAMLAutoAccept":"AUTO_ACCEPT_SAML_ACCOUNT_INVITES,PL_NO_EMAIL_FOR_SAML_ACCOUNT_INVITES","SRM":"CVNG_ENABLED","SSCA":"SSCA_ENABLED,SSCA_MANAGER_ENABLED,SSCA_SLSA_COMPLIANCE","STO":"STO_BASELINE_REGEX,STO_STEP_PALETTE_BURP_ENTERPRISE,STO_STEP_PALETTE_CODEQL,STO_STEP_PALETTE_FOSSA,STO_STEP_PALETTE_GIT_LEAKS,STO_STEP_PALETTE_SEMGREP"},"nodeSelector":{},"tolerations":[]},"log-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"looker":{"affinity":{},"nodeSelector":{},"tolerations":[]},"migrator":{"affinity":{},"nodeSelector":{},"tolerations":[]},"next-gen-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-auth-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-custom-dashboards":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"pipeline-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"platform-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"scm-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"template-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ui":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for platform-level services (always deployed by default to support all services) |
+| platform | object | `{"access-control":{"affinity":{},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"tolerations":[]},"bootstrap":{"database":{"clickhouse":{"enabled":false},"minio":{"affinity":{},"nodeSelector":{},"tolerations":[]},"mongodb":{"affinity":{},"arbiter":{"affinity":{},"nodeSelector":{},"tolerations":[]},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9216","prometheus.io/scrape":"false"},"tolerations":[]},"postgresql":{"auth":{"existingSecret":"postgres"},"metrics":{"enabled":false},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"}},"redis":{"affinity":{},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9121","prometheus.io/scrape":"false"},"tolerations":[]},"timescaledb":{"affinity":{},"nodeSelector":{},"persistentVolumes":{"data":{"enabled":true,"size":"100Gi"},"wal":{"enabled":true,"size":"1Gi"}},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"},"prometheus":{"enabled":false},"tolerations":[]}},"harness-secrets":{"enabled":true},"networking":{"defaultbackend":{"create":false,"resources":{"limits":{"memory":"20Mi"},"requests":{"cpu":"10m","memory":"20Mi"}}},"nginx":{"affinity":{},"controller":{"annotations":{}},"create":false,"healthNodePort":"","healthPort":"","httpNodePort":"","httpsNodePort":"","loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nodeSelector":{},"resources":{"limits":{"memory":"512Mi"},"requests":{"cpu":"0.5","memory":"512Mi"}},"tolerations":[]}}},"change-data-capture":{"affinity":{},"nodeSelector":{},"tolerations":[]},"delegate-proxy":{"affinity":{},"nodeSelector":{},"tolerations":[]},"gateway":{"affinity":{},"nodeSelector":{},"tolerations":[]},"harness-manager":{"affinity":{},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harness/delegate","tag":"24.07.83611"}},"nodeSelector":{},"tolerations":[]},"log-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"looker":{"affinity":{},"nodeSelector":{},"tolerations":[]},"migrator":{"affinity":{},"nodeSelector":{},"tolerations":[]},"next-gen-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-auth-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-custom-dashboards":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"pipeline-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"platform-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"scm-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"template-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ui":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for platform-level services (always deployed by default to support all services) |
 | platform.access-control | object | `{"affinity":{},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
 | platform.access-control.mongoHosts | list | `[]` | - replica3.host.com:27017 |
 | platform.access-control.mongoSSL | object | `{"enabled":false}` | enable mongoSSL for external database connections |
@@ -323,23 +337,9 @@ plugins/s3:1.3.0
 | platform.change-data-capture | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | change-data-capture settings (taints, tolerations, and so on) |
 | platform.delegate-proxy | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | delegate proxy settings (taints, tolerations, and so on) |
 | platform.gateway | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | gateway settings (taints, tolerations, and so on) |
-| platform.harness-manager | object | `{"affinity":{},"featureFlags":{"ADDITIONAL":"","Base":"ASYNC_ARTIFACT_COLLECTION,JIRA_INTEGRATION,AUDIT_TRAIL_UI,GDS_TIME_SERIES_SAVE_PER_MINUTE,STACKDRIVER_SERVICEGUARD,TIME_SERIES_SERVICEGUARD_V2,TIME_SERIES_WORKFLOW_V2,CUSTOM_DASHBOARD,GRAPHQL,CV_FEEDBACKS,LOGS_V2_247,UPGRADE_JRE,LOG_STREAMING_INTEGRATION,NG_HARNESS_APPROVAL,GIT_SYNC_NG,NG_CG_TASK_ASSIGNMENT_ISOLATION,CI_OVERVIEW_PAGE,AZURE_CLOUD_PROVIDER_VALIDATION_ON_DELEGATE,TERRAFORM_AWS_CP_AUTHENTICATION,NG_TEMPLATES,NEW_DEPLOYMENT_FREEZE,HELM_CHART_AS_ARTIFACT,RESOLVE_DEPLOYMENT_TAGS_BEFORE_EXECUTION,WEBHOOK_TRIGGER_AUTHORIZATION,GITHUB_WEBHOOK_AUTHENTICATION,CUSTOM_MANIFEST,GIT_ACCOUNT_SUPPORT,AZURE_WEBAPP,POLLING_INTERVAL_CONFIGURABLE,APPLICATION_DROPDOWN_MULTISELECT,RESOURCE_CONSTRAINT_SCOPE_PIPELINE_ENABLED,NG_TEMPLATE_GITX,ELK_HEALTH_SOURCE,CVNG_METRIC_THRESHOLD,SRM_HOST_SAMPLING_ENABLE,SRM_ENABLE_HEALTHSOURCE_CLOUDWATCH_METRICS,CDS_SHELL_VARIABLES_EXPORT,CDS_TAS_NG,CD_TRIGGER_V2,CDS_NG_TRIGGER_MULTI_ARTIFACTS,ACCOUNT_BASIC_ROLE,PL_ENABLE_BASIC_ROLE_FOR_PROJECTS_ORGS,CD_NG_DOCKER_ARTIFACT_DIGEST,CDS_SERVICE_OVERRIDES_2_0,NG_SVC_ENV_REDESIGN,NG_EXECUTION_INPUT,CDS_SERVICENOW_REFRESH_TOKEN_AUTH,SERVICE_DASHBOARD_V2,CDS_OrgAccountLevelServiceEnvEnvGroup,CDC_SERVICE_DASHBOARD_REVAMP_NG,PL_FORCE_DELETE_CONNECTOR_SECRET,POST_PROD_ROLLBACK,PIE_STATIC_YAML_SCHEMA,SPG_SIDENAV_COLLAPSE,CI_LE_STATUS_REST_ENABLED,HOSTED_BUILDS,CIE_HOSTED_VMS,ENABLE_K8_BUILDS,CI_DISABLE_RESOURCE_OPTIMIZATION,CI_OUTPUT_VARIABLES_AS_ENV,CDS_GITHUB_APP_AUTHENTICATION,CDS_REMOVE_TIME_BUCKET_GAPFILL_QUERY,CDS_CONTAINER_STEP_GROUP,CDS_SUPPORT_EXPRESSION_REMOTE_TERRAFORM_VAR_FILES_NG,CDS_AWS_CDK,DISABLE_WINRM_COMMAND_ENCODING_NG,SKIP_ADDING_TRACK_LABEL_SELECTOR_IN_ROLLING,CDS_HTTP_STEP_NG_CERTIFICATE,ENABLE_CERT_VALIDATION,CDS_GET_SERVICENOW_STANDARD_TEMPLATE,CDS_ENABLE_NEW_PARAMETER_FIELD_PROCESSOR,SRM_MICRO_FRONTEND,CVNG_TEMPLATE_MONITORED_SERVICE,PIE_ASYNC_FILTER_CREATION,PL_DISCOVERY_ENABLE,PIE_GIT_BI_DIRECTIONAL_SYNC,CDS_METHOD_INVOCATION_NEW_FLOW_EXPRESSION_ENGINE,CD_NG_DYNAMIC_PROVISIONING_ENV_V2,CDS_HELM_MULTIPLE_MANIFEST_SUPPORT_NG,CDS_SERVERLESS_V2,CDP_AWS_SAM,CDS_IMPROVED_HELM_DEPLOYMENT_TRACKING,CDS_K8S_APPLY_MANIFEST_WITHOUT_SERVICE_NG,CDS_HELM_FETCH_CHART_METADATA_NG","CCM":"CENG_ENABLED,CCM_MICRO_FRONTEND,NODE_RECOMMENDATION_AGGREGATE","CD":"CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION","CDB":"NG_DASHBOARDS","CHAOS":"CHAOS_ENABLED","CI":"CING_ENABLED,CI_INDIRECT_LOG_UPLOAD,CI_LE_STATUS_REST_ENABLED","FF":"CFNG_ENABLED","GitOps":"GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN,GITOPS_ORG_LEVEL","NG":"ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE,PL_ENABLE_JIT_USER_PROVISION","OPA":"OPA_PIPELINE_GOVERNANCE,OPA_GIT_GOVERNANCE","SAMLAutoAccept":"AUTO_ACCEPT_SAML_ACCOUNT_INVITES,PL_NO_EMAIL_FOR_SAML_ACCOUNT_INVITES","SRM":"CVNG_ENABLED","SSCA":"SSCA_ENABLED,SSCA_MANAGER_ENABLED,SSCA_SLSA_COMPLIANCE","STO":"STO_BASELINE_REGEX,STO_STEP_PALETTE_BURP_ENTERPRISE,STO_STEP_PALETTE_CODEQL,STO_STEP_PALETTE_FOSSA,STO_STEP_PALETTE_GIT_LEAKS,STO_STEP_PALETTE_SEMGREP"},"nodeSelector":{},"tolerations":[]}` | harness-manager (taints, tolerations, and so on) |
-| platform.harness-manager.featureFlags | object | `{"ADDITIONAL":"","Base":"ASYNC_ARTIFACT_COLLECTION,JIRA_INTEGRATION,AUDIT_TRAIL_UI,GDS_TIME_SERIES_SAVE_PER_MINUTE,STACKDRIVER_SERVICEGUARD,TIME_SERIES_SERVICEGUARD_V2,TIME_SERIES_WORKFLOW_V2,CUSTOM_DASHBOARD,GRAPHQL,CV_FEEDBACKS,LOGS_V2_247,UPGRADE_JRE,LOG_STREAMING_INTEGRATION,NG_HARNESS_APPROVAL,GIT_SYNC_NG,NG_CG_TASK_ASSIGNMENT_ISOLATION,CI_OVERVIEW_PAGE,AZURE_CLOUD_PROVIDER_VALIDATION_ON_DELEGATE,TERRAFORM_AWS_CP_AUTHENTICATION,NG_TEMPLATES,NEW_DEPLOYMENT_FREEZE,HELM_CHART_AS_ARTIFACT,RESOLVE_DEPLOYMENT_TAGS_BEFORE_EXECUTION,WEBHOOK_TRIGGER_AUTHORIZATION,GITHUB_WEBHOOK_AUTHENTICATION,CUSTOM_MANIFEST,GIT_ACCOUNT_SUPPORT,AZURE_WEBAPP,POLLING_INTERVAL_CONFIGURABLE,APPLICATION_DROPDOWN_MULTISELECT,RESOURCE_CONSTRAINT_SCOPE_PIPELINE_ENABLED,NG_TEMPLATE_GITX,ELK_HEALTH_SOURCE,CVNG_METRIC_THRESHOLD,SRM_HOST_SAMPLING_ENABLE,SRM_ENABLE_HEALTHSOURCE_CLOUDWATCH_METRICS,CDS_SHELL_VARIABLES_EXPORT,CDS_TAS_NG,CD_TRIGGER_V2,CDS_NG_TRIGGER_MULTI_ARTIFACTS,ACCOUNT_BASIC_ROLE,PL_ENABLE_BASIC_ROLE_FOR_PROJECTS_ORGS,CD_NG_DOCKER_ARTIFACT_DIGEST,CDS_SERVICE_OVERRIDES_2_0,NG_SVC_ENV_REDESIGN,NG_EXECUTION_INPUT,CDS_SERVICENOW_REFRESH_TOKEN_AUTH,SERVICE_DASHBOARD_V2,CDS_OrgAccountLevelServiceEnvEnvGroup,CDC_SERVICE_DASHBOARD_REVAMP_NG,PL_FORCE_DELETE_CONNECTOR_SECRET,POST_PROD_ROLLBACK,PIE_STATIC_YAML_SCHEMA,SPG_SIDENAV_COLLAPSE,CI_LE_STATUS_REST_ENABLED,HOSTED_BUILDS,CIE_HOSTED_VMS,ENABLE_K8_BUILDS,CI_DISABLE_RESOURCE_OPTIMIZATION,CI_OUTPUT_VARIABLES_AS_ENV,CDS_GITHUB_APP_AUTHENTICATION,CDS_REMOVE_TIME_BUCKET_GAPFILL_QUERY,CDS_CONTAINER_STEP_GROUP,CDS_SUPPORT_EXPRESSION_REMOTE_TERRAFORM_VAR_FILES_NG,CDS_AWS_CDK,DISABLE_WINRM_COMMAND_ENCODING_NG,SKIP_ADDING_TRACK_LABEL_SELECTOR_IN_ROLLING,CDS_HTTP_STEP_NG_CERTIFICATE,ENABLE_CERT_VALIDATION,CDS_GET_SERVICENOW_STANDARD_TEMPLATE,CDS_ENABLE_NEW_PARAMETER_FIELD_PROCESSOR,SRM_MICRO_FRONTEND,CVNG_TEMPLATE_MONITORED_SERVICE,PIE_ASYNC_FILTER_CREATION,PL_DISCOVERY_ENABLE,PIE_GIT_BI_DIRECTIONAL_SYNC,CDS_METHOD_INVOCATION_NEW_FLOW_EXPRESSION_ENGINE,CD_NG_DYNAMIC_PROVISIONING_ENV_V2,CDS_HELM_MULTIPLE_MANIFEST_SUPPORT_NG,CDS_SERVERLESS_V2,CDP_AWS_SAM,CDS_IMPROVED_HELM_DEPLOYMENT_TRACKING,CDS_K8S_APPLY_MANIFEST_WITHOUT_SERVICE_NG,CDS_HELM_FETCH_CHART_METADATA_NG","CCM":"CENG_ENABLED,CCM_MICRO_FRONTEND,NODE_RECOMMENDATION_AGGREGATE","CD":"CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION","CDB":"NG_DASHBOARDS","CHAOS":"CHAOS_ENABLED","CI":"CING_ENABLED,CI_INDIRECT_LOG_UPLOAD,CI_LE_STATUS_REST_ENABLED","FF":"CFNG_ENABLED","GitOps":"GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN,GITOPS_ORG_LEVEL","NG":"ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE,PL_ENABLE_JIT_USER_PROVISION","OPA":"OPA_PIPELINE_GOVERNANCE,OPA_GIT_GOVERNANCE","SAMLAutoAccept":"AUTO_ACCEPT_SAML_ACCOUNT_INVITES,PL_NO_EMAIL_FOR_SAML_ACCOUNT_INVITES","SRM":"CVNG_ENABLED","SSCA":"SSCA_ENABLED,SSCA_MANAGER_ENABLED,SSCA_SLSA_COMPLIANCE","STO":"STO_BASELINE_REGEX,STO_STEP_PALETTE_BURP_ENTERPRISE,STO_STEP_PALETTE_CODEQL,STO_STEP_PALETTE_FOSSA,STO_STEP_PALETTE_GIT_LEAKS,STO_STEP_PALETTE_SEMGREP"}` | Feature Flags |
+| platform.harness-manager | object | `{"affinity":{},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harness/delegate","tag":"24.07.83611"}},"nodeSelector":{},"tolerations":[]}` | harness-manager (taints, tolerations, and so on) |
+| platform.harness-manager.featureFlags | object | `{"ADDITIONAL":""}` | Feature Flags |
 | platform.harness-manager.featureFlags.ADDITIONAL | string | `""` | Additional Feature Flag (placeholder to add any other featureFlags) |
-| platform.harness-manager.featureFlags.Base | string | `"ASYNC_ARTIFACT_COLLECTION,JIRA_INTEGRATION,AUDIT_TRAIL_UI,GDS_TIME_SERIES_SAVE_PER_MINUTE,STACKDRIVER_SERVICEGUARD,TIME_SERIES_SERVICEGUARD_V2,TIME_SERIES_WORKFLOW_V2,CUSTOM_DASHBOARD,GRAPHQL,CV_FEEDBACKS,LOGS_V2_247,UPGRADE_JRE,LOG_STREAMING_INTEGRATION,NG_HARNESS_APPROVAL,GIT_SYNC_NG,NG_CG_TASK_ASSIGNMENT_ISOLATION,CI_OVERVIEW_PAGE,AZURE_CLOUD_PROVIDER_VALIDATION_ON_DELEGATE,TERRAFORM_AWS_CP_AUTHENTICATION,NG_TEMPLATES,NEW_DEPLOYMENT_FREEZE,HELM_CHART_AS_ARTIFACT,RESOLVE_DEPLOYMENT_TAGS_BEFORE_EXECUTION,WEBHOOK_TRIGGER_AUTHORIZATION,GITHUB_WEBHOOK_AUTHENTICATION,CUSTOM_MANIFEST,GIT_ACCOUNT_SUPPORT,AZURE_WEBAPP,POLLING_INTERVAL_CONFIGURABLE,APPLICATION_DROPDOWN_MULTISELECT,RESOURCE_CONSTRAINT_SCOPE_PIPELINE_ENABLED,NG_TEMPLATE_GITX,ELK_HEALTH_SOURCE,CVNG_METRIC_THRESHOLD,SRM_HOST_SAMPLING_ENABLE,SRM_ENABLE_HEALTHSOURCE_CLOUDWATCH_METRICS,CDS_SHELL_VARIABLES_EXPORT,CDS_TAS_NG,CD_TRIGGER_V2,CDS_NG_TRIGGER_MULTI_ARTIFACTS,ACCOUNT_BASIC_ROLE,PL_ENABLE_BASIC_ROLE_FOR_PROJECTS_ORGS,CD_NG_DOCKER_ARTIFACT_DIGEST,CDS_SERVICE_OVERRIDES_2_0,NG_SVC_ENV_REDESIGN,NG_EXECUTION_INPUT,CDS_SERVICENOW_REFRESH_TOKEN_AUTH,SERVICE_DASHBOARD_V2,CDS_OrgAccountLevelServiceEnvEnvGroup,CDC_SERVICE_DASHBOARD_REVAMP_NG,PL_FORCE_DELETE_CONNECTOR_SECRET,POST_PROD_ROLLBACK,PIE_STATIC_YAML_SCHEMA,SPG_SIDENAV_COLLAPSE,CI_LE_STATUS_REST_ENABLED,HOSTED_BUILDS,CIE_HOSTED_VMS,ENABLE_K8_BUILDS,CI_DISABLE_RESOURCE_OPTIMIZATION,CI_OUTPUT_VARIABLES_AS_ENV,CDS_GITHUB_APP_AUTHENTICATION,CDS_REMOVE_TIME_BUCKET_GAPFILL_QUERY,CDS_CONTAINER_STEP_GROUP,CDS_SUPPORT_EXPRESSION_REMOTE_TERRAFORM_VAR_FILES_NG,CDS_AWS_CDK,DISABLE_WINRM_COMMAND_ENCODING_NG,SKIP_ADDING_TRACK_LABEL_SELECTOR_IN_ROLLING,CDS_HTTP_STEP_NG_CERTIFICATE,ENABLE_CERT_VALIDATION,CDS_GET_SERVICENOW_STANDARD_TEMPLATE,CDS_ENABLE_NEW_PARAMETER_FIELD_PROCESSOR,SRM_MICRO_FRONTEND,CVNG_TEMPLATE_MONITORED_SERVICE,PIE_ASYNC_FILTER_CREATION,PL_DISCOVERY_ENABLE,PIE_GIT_BI_DIRECTIONAL_SYNC,CDS_METHOD_INVOCATION_NEW_FLOW_EXPRESSION_ENGINE,CD_NG_DYNAMIC_PROVISIONING_ENV_V2,CDS_HELM_MULTIPLE_MANIFEST_SUPPORT_NG,CDS_SERVERLESS_V2,CDP_AWS_SAM,CDS_IMPROVED_HELM_DEPLOYMENT_TRACKING,CDS_K8S_APPLY_MANIFEST_WITHOUT_SERVICE_NG,CDS_HELM_FETCH_CHART_METADATA_NG"` | Base flags for all modules(enabled by Default) |
-| platform.harness-manager.featureFlags.CCM | string | `"CENG_ENABLED,CCM_MICRO_FRONTEND,NODE_RECOMMENDATION_AGGREGATE"` | CCM Feature Flags (activated when global.ccm is enabled) |
-| platform.harness-manager.featureFlags.CD | string | `"CDS_AUTO_APPROVAL,CDS_NG_TRIGGER_SELECTIVE_STAGE_EXECUTION"` | CD Feature Flags (activated when global.cd is enabled) |
-| platform.harness-manager.featureFlags.CDB | string | `"NG_DASHBOARDS"` | Custom Dashboard Flags (activated when global.dashboards is enabled) |
-| platform.harness-manager.featureFlags.CHAOS | string | `"CHAOS_ENABLED"` | CHAOS Feature Flags (activated when global.chaos is enabled) |
-| platform.harness-manager.featureFlags.CI | string | `"CING_ENABLED,CI_INDIRECT_LOG_UPLOAD,CI_LE_STATUS_REST_ENABLED"` | CI Feature Flags (activated when global.ci is enabled) |
-| platform.harness-manager.featureFlags.FF | string | `"CFNG_ENABLED"` | FF Feature Flags (activated when global.ff is enabled) |
-| platform.harness-manager.featureFlags.GitOps | string | `"GITOPS_ONPREM_ENABLED,CUSTOM_ARTIFACT_NG,SERVICE_DASHBOARD_V2,OPTIMIZED_GIT_FETCH_FILES,MULTI_SERVICE_INFRA,ENV_GROUP,NG_SVC_ENV_REDESIGN,GITOPS_ORG_LEVEL"` | GitOps Feature Flags (activated when global.gitops is enabled) |
-| platform.harness-manager.featureFlags.NG | string | `"ENABLE_DEFAULT_NG_EXPERIENCE_FOR_ONPREM,NEXT_GEN_ENABLED,NEW_LEFT_NAVBAR_SETTINGS,SPG_SIDENAV_COLLAPSE,PL_ENABLE_JIT_USER_PROVISION"` | NG Specific Feature Flags(activated when global.ng is enabled) |
-| platform.harness-manager.featureFlags.OPA | string | `"OPA_PIPELINE_GOVERNANCE,OPA_GIT_GOVERNANCE"` | OPA (activated when global.opa is enabled) |
-| platform.harness-manager.featureFlags.SAMLAutoAccept | string | `"AUTO_ACCEPT_SAML_ACCOUNT_INVITES,PL_NO_EMAIL_FOR_SAML_ACCOUNT_INVITES"` | AutoAccept Feature Flags |
-| platform.harness-manager.featureFlags.SRM | string | `"CVNG_ENABLED"` | SRM Flags (activated when global.srm is enabled) |
-| platform.harness-manager.featureFlags.SSCA | string | `"SSCA_ENABLED,SSCA_MANAGER_ENABLED,SSCA_SLSA_COMPLIANCE"` | SSCA Feature Flags (activated when global.ssca is enabled) |
-| platform.harness-manager.featureFlags.STO | string | `"STO_BASELINE_REGEX,STO_STEP_PALETTE_BURP_ENTERPRISE,STO_STEP_PALETTE_CODEQL,STO_STEP_PALETTE_FOSSA,STO_STEP_PALETTE_GIT_LEAKS,STO_STEP_PALETTE_SEMGREP"` | STO Feature Flags (activated when global.sto is enabled) |
 | platform.log-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
 | platform.migrator | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | migrator (taints, tolerations, and so on) |
 | platform.next-gen-ui | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | next-gen-ui (Next Generation User Interface) (taints, tolerations, and so on) |
@@ -367,4 +367,4 @@ plugins/s3:1.3.0
 | sto.sto-manager | object | `{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Install the STO manager |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.13.1](https://github.com/norwoodj/helm-docs/releases/v1.13.1)
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)
