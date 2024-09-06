@@ -65,7 +65,7 @@ docker.io/harness/nextgenui-signed:1.30.6
 docker.io/harness/ng-auth-ui-signed:1.26.0
 docker.io/harness/ng-ce-ui:1.21.6
 docker.io/harness/ng-dashboard-aggregator-signed:1.25.0
-docker.io/harness/ng-manager-signed:1.45.11
+docker.io/harness/ng-manager-signed:1.45.12
 docker.io/harness/pipeline-service-signed:1.83.1
 docker.io/harness/platform-service-signed:1.30.4
 docker.io/harness/policy-mgmt:1.6.1
