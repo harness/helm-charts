@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.20.0](https://img.shields.io/badge/Version-0.20.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.20.2](https://img.shields.io/badge/Version-0.20.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -133,7 +133,7 @@ docker.io/harness/ff-timescale-migration-signed:1.1094.0
 docker.io/harness/gateway-signed:1.31.2
 docker.io/harness/gitops-agent-installer-helper:v0.0.1
 docker.io/harness/gitops-agent:v0.78.0
-docker.io/harness/gitops-service-signed:1.15.2
+docker.io/harness/gitops-service-signed:1.15.4
 docker.io/harness/helm-init-container:latest
 docker.io/harness/k8s-chaos-infrastructure-upgrader:1.41.0
 docker.io/harness/le-nextgen-signed:1.3.0
@@ -141,7 +141,7 @@ docker.io/harness/learning-engine-onprem-signed:1.3.0
 docker.io/harness/litmus-checker:1.41.0
 docker.io/harness/log-service-signed:1.9.2
 docker.io/harness/looker-signed:1.1.0
-docker.io/harness/manager-signed:1.42.3
+docker.io/harness/manager-signed:1.42.5
 docker.io/harness/migrator-signed:1.107.0
 docker.io/harness/nextgenui-signed:1.37.5
 docker.io/harness/ng-auth-ui-signed:1.27.0
