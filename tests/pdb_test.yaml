@@ -4,6 +4,9 @@ templates:
   - pdb.yaml
 release:
   namespace: harness-smp
+set:
+  global.pdb.create: true
+  pdb.create: true
 tests:
   - it: should template without any override
     asserts:
