@@ -8,4 +8,4 @@ dependencies:
 description: A Helm chart for Harness DB devops
 name: db-devops
 type: application
-version: 0.20.0
+version: 0.21.0
