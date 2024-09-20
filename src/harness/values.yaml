@@ -182,9 +182,9 @@ global:
     enabled: true
   # -- Enable to install Next Generation Custom Dashboards (Beta)
   ngcustomdashboard:
-    enabled: false  
+    enabled: false
   servicediscoverymanager:
-  # -- Enable to install Service Discovery Manager (Beta)
+    # -- Enable to install Service Discovery Manager (Beta)
     enabled: false
   # -- Default Enabled, As required by multiple services now (OPA)
   opa:
@@ -306,7 +306,7 @@ chaos:
     installLinuxCRDs: false
   chaos-k8s-ifs:
     nodeSelector: {}
-    tolerations: [] 
+    tolerations: []
   chaos-linux-ifc:
     nodeSelector: {}
     tolerations: []
@@ -467,7 +467,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 00.00.00000
+        tag: 24.08.83804
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
