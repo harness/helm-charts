@@ -469,7 +469,7 @@ platform:
       # -- Additional Feature Flag (placeholder to add any other featureFlags)
       ADDITIONAL: ""
     nodeSelector: {}
-    tolerations: []
+    tolerations: {}
     immutable_delegate_docker_image:
       image:
         registry: docker.io
