@@ -253,6 +253,13 @@ global:
     maxFileSize: 50MB
     maxBackupFileCount: 10
     totalFileSizeCap: 600MB
+  # To enable PDB, set create to true
+  pdb:
+    create: false
+    # Set the percentage or absolute value for minAvailable or maxUnavailable
+    # If both are set, K8s will throw an error
+    # minAvailable: "50%"
+    # maxUnavailable: "50%"
 ccm:
   # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
   batch-processing:
@@ -462,7 +469,7 @@ platform:
       # -- Additional Feature Flag (placeholder to add any other featureFlags)
       ADDITIONAL: ""
     nodeSelector: {}
-    tolerations: []
+    tolerations: {}
     immutable_delegate_docker_image:
       image:
         registry: docker.io
