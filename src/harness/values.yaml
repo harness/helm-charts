@@ -255,7 +255,7 @@ global:
     totalFileSizeCap: 600MB
   # To enable PDB, set create to true
   pdb:
-    create: false
+    create: true
     # Set the percentage or absolute value for minAvailable or maxUnavailable
     # If both are set, K8s will throw an error
     # minAvailable: "50%"
