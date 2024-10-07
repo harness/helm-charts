@@ -4,11 +4,43 @@ templates:
   - pdb.yaml
 release:
   namespace: harness-smp
-set:
-  global.pdb.create: true
-  pdb.create: true
 tests:
+  - it: should fail if pdb is not defined in global or local
+    asserts:
+      - notExists:
+          path: global.pdb
+      - notExists:
+          path: pdb
+
+  - it: should not enable PodDisruptionBudget if global.pdb.create and pdb.create are false
+    set:
+      global.pdb.create: false
+      pdb.create: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should enable PodDisruptionBudget if global.pdb.create is true
+    set:
+      global.pdb.create: true
+      pdb.create: false
+    asserts:
+      - notFailedTemplate: { }
+      - isKind:
+          of: PodDisruptionBudget
+
+  - it: should enable PodDisruptionBudget if pdb.create is true
+    set:
+      global.pdb.create: false
+      pdb.create: true
+    asserts:
+      - notFailedTemplate: { }
+      - isKind:
+          of: PodDisruptionBudget
+
   - it: should template without any override
+    set:
+      global.pdb.create: true
     asserts:
       - notFailedTemplate: {}
       - isKind:
@@ -19,6 +51,7 @@ tests:
 
   - it: should work with common annotations
     set:
+      global.pdb.create: true
       global.commonAnnotations: {foo: bar, hello: world}
     asserts:
       - isSubset:
@@ -29,6 +62,7 @@ tests:
 
   - it: should work with common labels
     set:
+      global.pdb.create: true
       global.commonLabels: {foo: bar, hello: world}
     asserts:
       - isSubset:
@@ -39,6 +73,7 @@ tests:
 
   - it: should work with common annotations and labels
     set:
+      global.pdb.create: true
       global.commonAnnotations: {foo: bar, hello: world}
       global.commonLabels: {foo: bar, hello: world}
     asserts:
@@ -54,6 +89,54 @@ tests:
             hello: world
 
   - it: should validate the selector labels are present
+    set:
+      global.pdb.create: true
     asserts:
       - exists:
           path: spec.selector.matchLabels
+
+  - it: default minAvailable should be set to 50%
+    set:
+      global.pdb.create: true
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: "50%"
+
+  - it: minAvailable should be set to 3
+    set:
+      global.pdb.create: true
+      global.pdb.minAvailable: 3
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: 3
+
+  - it: maxUnavailable should be set to 2
+    set:
+      global.pdb.create: true
+      global.pdb.maxUnavailable: 2
+    asserts:
+      - equal:
+          path: spec.maxUnavailable
+          value: 2
+
+  - it: when both minAvailable and maxUnavailable are set, minAvailable should take precedence
+    set:
+      global.pdb.create: true
+      global.pdb.minAvailable: 3
+      global.pdb.maxUnavailable: 2
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: 3
+
+  - it: should allow overriding minAvailable at the template level
+    set:
+      global.pdb.create: true
+      global.pdb.minAvailable: 3
+      pdb.minAvailable: 5
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: 5
