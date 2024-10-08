@@ -1,4 +1,4 @@
-{{- if .Values.global.database.mongo.installed }}
+{{- if or .Values.global.database.mongo.installed .Values.upgrades.mongoFCVUpgrade.enabled}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -12,10 +12,11 @@ spec:
     spec:
       containers:
       - name: mongo-dynamic-upgrade
-        image: {{ include "common.images.image" (dict "imageRoot" .Values.upgrades.mongoFCVUpgradeImage "global" .Values.global) }}
+        image: {{ include "common.images.image" (dict "imageRoot" .Values.upgrades.mongoFCVUpgrade.image "global" .Values.global) }}
         command: ["/bin/sh", "-c"]
         args:
         - |
+
           # Get the current MongoDB server version
           server_version=$(mongosh --quiet --eval 'db.version()' $MONGO_URI)
           major_version=$(echo $server_version | cut -d '.' -f 1)
