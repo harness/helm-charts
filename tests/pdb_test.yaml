@@ -1,4 +1,3 @@
----
 suite: test pod disruption budget
 templates:
   - pdb.yaml
@@ -8,6 +7,32 @@ set:
   global.pdb.create: true
   pdb.create: true
 tests:
+  - it: should not enable PodDisruptionBudget if global.pdb.create and pdb.create are false
+    set:
+      global.pdb.create: false
+      pdb.create: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should enable PodDisruptionBudget if global.pdb.create is true
+    set:
+      global.pdb.create: true
+      pdb.create: false
+    asserts:
+      - notFailedTemplate: { }
+      - isKind:
+          of: PodDisruptionBudget
+
+  - it: should enable PodDisruptionBudget if pdb.create is true
+    set:
+      global.pdb.create: false
+      pdb.create: true
+    asserts:
+      - notFailedTemplate: { }
+      - isKind:
+          of: PodDisruptionBudget
+
   - it: should template without any override
     asserts:
       - notFailedTemplate: {}
@@ -57,3 +82,93 @@ tests:
     asserts:
       - exists:
           path: spec.selector.matchLabels
+
+  - it: default minAvailable should be set to 50%
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: "50%"
+
+  - it: minAvailable should be set to 3
+    set:
+      global.pdb.minAvailable: 3
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: 3
+
+  - it: maxUnavailable should be set to 2
+    set:
+      global.pdb.maxUnavailable: 2
+    asserts:
+      - equal:
+          path: spec.maxUnavailable
+          value: 2
+
+  - it: when both minAvailable and maxUnavailable are set, minAvailable should take precedence
+    set:
+      global.pdb.minAvailable: 3
+      global.pdb.maxUnavailable: 2
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: 3
+
+  - it: should allow overriding minAvailable at the template level
+    set:
+      global.pdb.minAvailable: 3
+      pdb.minAvailable: 5
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: 5
+          
+  - it: when global.pdb.maxUnavailable and pdb.minAvailable are both set, minAvailable should take precedence
+    set:
+      global.pdb.maxUnavailable: 3
+      pdb.minAvailable: 4
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: 4
+
+  - it: when pdb.maxUnavailable and global.pdb.minAvailable are both set, minAvailable should take precedence
+    set:
+      pdb.maxUnavailable: 4
+      global.pdb.minAvailable: 5
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: 5
+
+  - it: should handle maxUnavailable as percentage
+    set:
+      pdb.maxUnavailable: "30%"
+    asserts:
+      - equal:
+          path: spec.maxUnavailable
+          value: "30%"
+
+  - it: should handle minAvailable as percentage
+    set:
+      pdb.minAvailable: "60%"
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: "60%"
+
+  - it: should handle global.pdb.minAvailable as percentage
+    set:
+      global.pdb.minAvailable: "75%"
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: "75%"
+
+  - it: should handle global.pdb.maxUnavailable as percentage
+    set:
+      global.pdb.maxUnavailable: "40%"
+    asserts:
+      - equal:
+          path: spec.maxUnavailable
+          value: "40%"
