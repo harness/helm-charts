@@ -593,10 +593,10 @@ platform:
         secretName: ''
     resources:
       limits:
-        memory: 8Gi
+        memory: 12Gi
       requests:
         cpu: 2
-        memory: 8Gi
+        memory: 12Gi
     secrets:
       # -- Required: Looker license key
       lookerLicenseKey: ""
