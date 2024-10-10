@@ -35,7 +35,6 @@
     audit-event-streaming-signed
     queue-service-signed
     service-discovery-collector
-    service-discovery-k8s-lifecycle-agent
     ubuntu
     ng-dashboard-aggregator-signed
     ingress-nginx/controller
@@ -63,6 +62,16 @@
     s3
     sto-plugin
     ci-manager-signed
+    buildx-acr
+    buildx-ecr
+    buildx-gar
+    buildx-gcr
+    buildx
+    docker
+    ecr
+    gar
+    gcr
+    acr
 
 [sto]:
     ci-addon
@@ -120,7 +129,6 @@
     chaos-operator
     chaos-runner
     chaos-log-watcher
-    harness-chaos-log-watcher
     chaos-subscriber
     smp-chaos-k8s-ifs-signed
     smp-chaos-linux-infra-controller-signed
@@ -144,6 +152,8 @@
 [ssca]:
     ssca-plugin
     slsa-plugin
+    ssca-cdxgen-plugin
+    ssca-compliance-plugin
     ssca-manager-signed
     ssca-ui-signed
 
