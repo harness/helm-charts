@@ -184,7 +184,7 @@ global:
   ngcustomdashboard:
     enabled: false
   servicediscoverymanager:
-  # -- Enable to install Service Discovery Manager (Beta)
+    # -- Enable to install Service Discovery Manager (Beta)
     enabled: false
   # -- Default Enabled, As required by multiple services now (OPA)
   opa:
@@ -474,7 +474,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 00.00.00000
+        tag: 24.08.83804
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
