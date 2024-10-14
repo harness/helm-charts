@@ -76,6 +76,8 @@ $ helm uninstall my-release -n <namespace>
 
 This command removes the Kubernetes components that are associated with the chart and deletes the release.
 
+Please propose changes for the helm deployment, raise a review request to @pratmit
+
 ## Images for disconnected networks
 
 If your cluster is in an air-gapped environment, your deployment requires the following images:
