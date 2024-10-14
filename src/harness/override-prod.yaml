@@ -432,8 +432,6 @@ platform:
             cpu: 4
             memory: 8192Mi
       postgresql:
-        auth:
-          existingSecret: "postgres"
         primary:
           affinity: {}
           nodeSelector: {}
