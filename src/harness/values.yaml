@@ -376,8 +376,6 @@ platform:
           prometheus.io/scrape: 'false'
         tolerations: []
       postgresql:
-        auth:
-          existingSecret: "postgres"
         metrics:
           enabled: false
         podAnnotations:

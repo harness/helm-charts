@@ -138,8 +138,6 @@ platform:
             cpu: 6
             memory: 6Gi
       postgresql:
-        auth:
-          existingSecret: "postgres"
         primary:
           persistence:
             size: 8Gi
