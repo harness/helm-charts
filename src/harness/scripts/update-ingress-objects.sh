@@ -2,10 +2,16 @@
 
 read -p "Enter Namespace: " NAMESPACE
 read -p "Enter Harness Upgrade version (eg: 0.20.0): " VERSION
-# Assign input argument to variable
+if [[ "$VERSION" == "0.21."* ]]; then
+  read -p "Enter Helm Release Name (You can check release name by running 'helm ls -n $NAMESPACE'): " RELEASE_NAME
+fi
 
 # Perform actions based on the version
-if [[ "$VERSION" == "0.20."* ]]; then
+if [[ "$VERSION" == "0.21."* ]]; then
+  OLD_INGRESS_NAMES=("log-service" "pipeline-service-smp-v1-apis" "access-control" "ci-manager" "template-service" "ssca-manager" "ssca-manager-smp-v1-apis" "ng-ce-ui" "chaos-manager" "migrator-api" "next-gen-ui" "ng-dashboard-aggregator" "chaos-k8s-ifs" "verification-svc" "ssca-ui" "ng-auth-ui" "nextgen-ce" "service-discovery-manager" "${RELEASE_NAME}-gitops" "${RELEASE_NAME}-sto-manager")
+  NEW_INGRESS_NAMES=("log-service-0" "pipeline-service-v1-apis" "access-control-service" "ci-manager-0" "template-service-0" "ssca-manager-0" "ssca-manager-v1-apis" "ng-ce-ui-0" "chaos-manager-0" "migrator-0" "next-gen-ui-0" "ng-dashboard-aggregator-0" "chaos-k8s-ifs-0" "verification-svc-0" "ssca-ui-0" "ng-auth-ui-0" "nextgen-ce-0" "service-discovery-manager-0" "gitops-http" "sto-manager-0")
+
+elif [[ "$VERSION" == "0.20."* ]]; then
   OLD_INGRESS_NAMES=("log-service" "pipeline-service-smp-v1-apis" "access-control" "ci-manager" "template-service" "ssca-manager" "ssca-manager-smp-v1-apis")
   NEW_INGRESS_NAMES=("log-service-0" "pipeline-service-v1-apis" "access-control-service" "ci-manager-0" "template-service-0" "ssca-manager-0" "ssca-manager-v1-apis")
 

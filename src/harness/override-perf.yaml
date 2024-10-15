@@ -110,8 +110,6 @@ platform:
         storage:
           capacity: 120Gi
       postgresql:
-        auth:
-          existingSecret: postgres
         primary:
           persistence:
             size: 200Gi
