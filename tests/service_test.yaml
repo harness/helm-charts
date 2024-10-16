@@ -13,6 +13,8 @@ tests:
       - equal:
           path: metadata.namespace
           value: harness-smp
+      - exists:
+          path: spec.selector
 
   - it: should work with common annotations
     set:
@@ -72,3 +74,24 @@ tests:
             hello: world
             service: annotated
             add: this
+
+  - it: validate service type
+    set:
+      service.type: Random
+    asserts:
+      - equal:
+          path: spec.type
+          value: Random
+
+  - it: validate atleast one port exists
+    asserts:
+      - exists:
+          path: spec.ports
+      - exists:
+          path: spec.ports[0].name
+      - exists:
+          path: spec.ports[0].port
+      - exists:
+          path: spec.ports[0].protocol
+      - exists:
+          path: spec.ports[0].targetPort
