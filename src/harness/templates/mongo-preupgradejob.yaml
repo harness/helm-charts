@@ -1,0 +1,69 @@
+{{- if or .Values.global.database.mongo.installed .Values.upgrades.mongoFCVUpgrade.enabled}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-fcv-upgrade-5
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "0"
+    {{- if .Values.global.istio.enabled }}
+    sidecar.istio.io/inject: "false"
+    {{- end }}
+spec:
+  template:
+    spec:
+      serviceAccountName: mongodb-replicaset-chart
+      containers:
+      - name: mongo-dynamic-upgrade
+        securityContext:
+          runAsUser: 1001
+          runAsNonRoot: true
+        image: {{ include "common.images.image" (dict "imageRoot" .Values.upgrades.mongoFCVUpgrade.image "global" .Values.global) }}
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+
+          # Get the current MongoDB server version
+          server_version=$(mongosh --quiet --eval 'db.version()' $MONGO_URI)
+          major_version=$(echo $server_version | cut -d '.' -f 1)
+          echo "MongoDB Server Version: $server_version (Major Version: $major_version)"
+
+          if [ "$major_version" = "4" ]; then
+            desired_fcv="4.4"
+          elif [ "$major_version" = "5" ]; then
+            desired_fcv="5.0"
+          elif [ "$major_version" = "6" ]; then
+            desired_fcv="6.0"
+          else
+            echo "Unsupported MongoDB version: $server_version"
+            exit 1
+          fi
+
+          # Get the current feature compatibility version
+          current_fcv=$(mongosh --quiet --eval 'db.adminCommand({getParameter: 1, featureCompatibilityVersion: 1}).featureCompatibilityVersion.version' $MONGO_URI)
+          echo "Current FCV: $current_fcv"
+
+          # Check if the current FCV matches the desired FCV
+          if [ "$current_fcv" != "$desired_fcv" ]; then
+            echo "Upgrading FCV to $desired_fcv..."
+            mongosh --eval "db.adminCommand({setFeatureCompatibilityVersion: '$desired_fcv'})" $MONGO_URI
+          else
+            echo "FCV is already at $desired_fcv. No upgrade needed."
+          fi
+        env:
+        - name: MONGO_USER
+          valueFrom:
+            secretKeyRef:
+              name: harness-secrets
+              key: mongodbUsername
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-replicaset-chart
+              key: mongodb-root-password
+        - name: MONGO_URI
+          value: 'mongodb://$(MONGO_USER):$(MONGO_PASSWORD)@mongodb-replicaset-chart-0.mongodb-replicaset-chart/?authSource=admin'
+      restartPolicy: Never
+  backoffLimit: 5
+{{- end }}
