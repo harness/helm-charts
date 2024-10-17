@@ -23,6 +23,6 @@
 {{- if semverCompare ">= 1.27.0-0" $version }}
   {{- printf "Mongo Upgrade Check looks good!" }}
 {{- else }}
-  {{ fail "[ERROR] Your mongo version is on mongo 4.4, Please upgrade to SMP 0.17.0 to 0.21.0 to install Mongo 5 to continue Mongo 6 utilization" }}
+  {{ fail "[ERROR] You are currently using SMP with MongoDB 4.4 and a direct upgrade to MongoDB 6.0 is not possible. Since SMP 0.22.0 and above uses Mongo 6.0, please, upgrade to SMP versions 0.17.0 through 0.21.0, which will install MongoDB 5.0. After that, you can upgrade to SMP 0.22.0 or later, which will update MongoDB to version 6.0." }}
 {{- end }}
 {{- end }}
