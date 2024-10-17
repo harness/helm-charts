@@ -1,0 +1,83 @@
+---
+suite: test role binding
+templates:
+  - rolebinding.yaml
+release:
+  name: harness-smp
+  namespace: harness-smp
+set:
+  nameOverride: my-chart-name
+  serviceAccount.create: true
+tests:
+  - it: should not create rolebinding if serviceAccount.create is false
+    set:
+      serviceAccount.create: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should template without any override
+    asserts:
+      - notFailedTemplate: {}
+      - isKind:
+          of: RoleBinding
+      - equal:
+          path: metadata.namespace
+          value: harness-smp
+      - equal:
+          path: metadata.name
+          value: my-chart-name-role-binding
+
+  - it: validate roleref
+    asserts:
+      - isSubset:
+          path: roleRef
+          content:
+            apiGroup: rbac.authorization.k8s.io
+            kind: Role
+            name: my-chart-name-role
+
+  - it: validate subjects
+    asserts:
+      - isSubset:
+          path: subjects[0]
+          content:
+            kind: ServiceAccount
+            name: my-chart-name
+            namespace: harness-smp
+
+#  - it: should work with common annotations
+#    set:
+#      global.commonAnnotations: {foo: bar, hello: world}
+#    asserts:
+#      - isSubset:
+#          path: metadata.annotations
+#          content:
+#            foo: bar
+#            hello: world
+#
+#  - it: should work with common labels
+#    set:
+#      global.commonLabels: {foo: bar, hello: world}
+#    asserts:
+#      - isSubset:
+#          path: metadata.labels
+#          content:
+#            foo: bar
+#            hello: world
+#
+#  - it: should work with common annotations and labels
+#    set:
+#      global.commonAnnotations: {foo: bar, hello: world}
+#      global.commonLabels: {foo: bar, hello: world}
+#    asserts:
+#      - isSubset:
+#          path: metadata.annotations
+#          content:
+#            foo: bar
+#            hello: world
+#      - isSubset:
+#          path: metadata.labels
+#          content:
+#            foo: bar
+#            hello: world
