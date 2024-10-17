@@ -106,9 +106,6 @@ global:
   ff:
     # -- Enable to install  Feature Flags Component
     enabled: false
-  gitops:
-    # -- Enable to install GitOps
-    enabled: false
   ha: true
   # -- Global Docker image registry
   imageRegistry: ""
