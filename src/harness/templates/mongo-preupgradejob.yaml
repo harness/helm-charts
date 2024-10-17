@@ -7,11 +7,18 @@ metadata:
   annotations:
     "helm.sh/hook": pre-upgrade
     "helm.sh/hook-weight": "0"
+    {{- if .Values.global.istio.enabled }}
+    sidecar.istio.io/inject: "false"
+    {{- end }}
 spec:
   template:
     spec:
+      serviceAccountName: mongodb-replicaset-chart
       containers:
       - name: mongo-dynamic-upgrade
+        securityContext:
+          runAsUser: 1001
+          runAsNonRoot: true
         image: {{ include "common.images.image" (dict "imageRoot" .Values.upgrades.mongoFCVUpgrade.image "global" .Values.global) }}
         command: ["/bin/sh", "-c"]
         args:
