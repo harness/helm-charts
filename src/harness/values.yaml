@@ -101,9 +101,6 @@ global:
   # -- Enable to install Feature Flags (FF)
   ff:
     enabled: false
-  # -- Enable to install gitops
-  gitops:
-    enabled: false
   # -- High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV
   ha: true
   # -- This private Docker image registry will override any registries that are defined in subcharts.
