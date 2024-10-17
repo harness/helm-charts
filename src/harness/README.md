@@ -289,7 +289,6 @@ registry.k8s.io/ingress-nginx/controller:v1.3.0
 | global.fileLogging.maxFileSize | string | `"50MB"` |  |
 | global.fileLogging.path | string | `"/opt/harness/logs/service.log"` |  |
 | global.fileLogging.totalFileSizeCap | string | `"600MB"` |  |
-| global.gitops | object | `{"enabled":false}` | Enable to install gitops |
 | global.ha | bool | `true` | High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV |
 | global.imageRegistry | string | `""` | This private Docker image registry will override any registries that are defined in subcharts. |
 | global.ingress | object | `{"className":"harness","enabled":false,"hosts":["myhost.example.com"],"ingressGatewayServiceUrl":"","objects":{"annotations":{}},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
