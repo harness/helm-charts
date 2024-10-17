@@ -46,38 +46,38 @@ tests:
             name: my-chart-name
             namespace: harness-smp
 
-#  - it: should work with common annotations
-#    set:
-#      global.commonAnnotations: {foo: bar, hello: world}
-#    asserts:
-#      - isSubset:
-#          path: metadata.annotations
-#          content:
-#            foo: bar
-#            hello: world
-#
-#  - it: should work with common labels
-#    set:
-#      global.commonLabels: {foo: bar, hello: world}
-#    asserts:
-#      - isSubset:
-#          path: metadata.labels
-#          content:
-#            foo: bar
-#            hello: world
-#
-#  - it: should work with common annotations and labels
-#    set:
-#      global.commonAnnotations: {foo: bar, hello: world}
-#      global.commonLabels: {foo: bar, hello: world}
-#    asserts:
-#      - isSubset:
-#          path: metadata.annotations
-#          content:
-#            foo: bar
-#            hello: world
-#      - isSubset:
-#          path: metadata.labels
-#          content:
-#            foo: bar
-#            hello: world
+ - it: should work with common annotations
+   set:
+     global.commonAnnotations: {foo: bar, hello: world}
+   asserts:
+     - isSubset:
+         path: metadata.annotations
+         content:
+           foo: bar
+           hello: world
+
+ - it: should work with common labels
+   set:
+     global.commonLabels: {foo: bar, hello: world}
+   asserts:
+     - isSubset:
+         path: metadata.labels
+         content:
+           foo: bar
+           hello: world
+
+ - it: should work with common annotations and labels
+   set:
+     global.commonAnnotations: {foo: bar, hello: world}
+     global.commonLabels: {foo: bar, hello: world}
+   asserts:
+     - isSubset:
+         path: metadata.annotations
+         content:
+           foo: bar
+           hello: world
+     - isSubset:
+         path: metadata.labels
+         content:
+           foo: bar
+           hello: world
