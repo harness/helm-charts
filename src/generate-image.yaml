@@ -14,8 +14,6 @@ global:
       enabled: true
   ff:
     enabled: true
-  gitops:
-    enabled: true
   lwd:
     autocud:
       enabled: false
