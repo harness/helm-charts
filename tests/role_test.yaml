@@ -95,7 +95,7 @@ tests:
  - it: should work with common annotations and labels
    set:
      global.commonAnnotations: {foo: bar, hello: world}
-     global.commonLabels: {foao: bar, hello: world}
+     global.commonLabels: {baz: cux, tem: run}
    asserts:
      - isSubset:
          path: metadata.annotations
@@ -105,5 +105,5 @@ tests:
      - isSubset:
          path: metadata.labels
          content:
-           foo: bar
-           hello: world
+           baz: cux
+           tem: run
