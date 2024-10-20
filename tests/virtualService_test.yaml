@@ -78,6 +78,7 @@ tests:
 
   - it: should work with provided gateways
     set:
+      global.istio.gateway.create: false
       global.istio.virtualService.gateways: ["test-gateway", "test-gateway2"]
     asserts:
       - lengthEqual:
@@ -129,3 +130,89 @@ tests:
       - equal:
           path: spec.hosts[2]
           value: test-host3
+
+  - it: should handle prefix match paths
+    set:
+      virtualService.objects:
+        - name: random
+          pathMatchType: prefix
+          pathRewrite: "/"
+          paths:
+            - path: '{{ .Values.global.istio.virtualService.pathPrefix }}/path/'
+              backend:
+                service:
+                  name: random_service
+                  port: 1000
+    asserts:
+      - contains:
+          path: spec.http
+          content:
+            match:
+              - uri:
+                  prefix: /path/
+            name: random-0
+            rewrite:
+              uri: /
+            route:
+              - destination:
+                  host: random_service
+                  port:
+                    number: 1000
+
+  - it: should handle regex match paths
+    set:
+      virtualService.objects:
+        - name: random
+          pathMatchType: regex
+          pathRewrite: "/\\1"
+          paths:
+            - path: '{{ .Values.global.istio.virtualService.pathPrefix }}/path/'
+              backend:
+                service:
+                  name: random_service
+                  port: 1000
+    asserts:
+      - contains:
+          path: spec.http
+          content:
+            match:
+              - uri:
+                  regex: /path/
+            name: random-0
+            rewrite:
+              uriRegexRewrite:
+                match: /path/
+                rewrite: /\1
+            route:
+              - destination:
+                  host: random_service
+                  port:
+                    number: 1000
+
+  - it: should handle exact match paths
+    set:
+      virtualService.objects:
+        - name: random
+          pathMatchType: exact
+          pathRewrite: "/newPath/"
+          paths:
+            - path: '{{ .Values.global.istio.virtualService.pathPrefix }}/path/'
+              backend:
+                service:
+                  name: random_service
+                  port: 1000
+    asserts:
+      - contains:
+          path: spec.http
+          content:
+            match:
+              - uri:
+                  exact: /path/
+            name: random-0
+            rewrite:
+              uri: /newPath/
+            route:
+              - destination:
+                  host: random_service
+                  port:
+                    number: 1000
