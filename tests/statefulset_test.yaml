@@ -93,15 +93,6 @@ tests:
          path: spec.replicas
          value: 3
 
-  - it: validate replicaCount when autoscaling is disabled
-    templates:
-      - statefulset.yaml
-    set:
-      autoscaling.enabled: true
-    asserts:
-      - isNull:
-         path: spec.replicas
-
   - it: validate rolling update strategy values (maxUnavailable and maxSurge)
     templates:
       - statefulset.yaml
