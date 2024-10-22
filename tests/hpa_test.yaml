@@ -4,7 +4,6 @@ templates:
   - hpa.yaml
 set:
   autoscaling.enabled: true
-  nameOverride: my-chart-name
 release:
   name: harness-smp
   namespace: harness-smp
@@ -62,6 +61,8 @@ tests:
             hello: world
 
   - it: should validate that selectorLabels are added to the metadata.labels
+    set:
+      nameOverride: my-chart-name
     asserts:
       - isSubset:
           path: metadata.labels
