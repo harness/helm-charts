@@ -18,7 +18,7 @@ dependencies:
   version: 1.18.0
 - name: delegate-proxy
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.0.0-delegate-proxy-fix-ce37d9
+  version: 1.0.0-delegate-proxy-fix-
 - name: gateway
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.36.4
