@@ -6,11 +6,181 @@ templates:
 
 set:
   autoscaling.enabled: true
+  global.kubeVersion: 1.30.0
 
 release:
   namespace: harness-smp
 
 tests:
+  - it: should test autoscaling.targetCPU
+    set:
+      autoscaling:
+        targetCPU: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "cpu"
+      - isSubset:
+          path: spec.metrics[0].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+
+  - it: should test autoscaling.targetMemory
+    set:
+      autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - isSubset:
+          path: spec.metrics[0].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+
+  - it: should test global.autoscaling.targetCPU
+    set:
+      global.autoscaling.targetCPU: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "cpu"
+      - isSubset:
+          path: spec.metrics[0].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+
+  - it: should test global.autoscaling.targetCPU
+    set:
+      global.autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - isSubset:
+          path: spec.metrics[0].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+
+  - it: should test autoscaling.targetCPU and autoscaling.targetMemory
+    set:
+      autoscaling.targetCPU: "80%"
+      autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - isSubset:
+          path: spec.metrics[0].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+      - equal:
+          path: spec.metrics[1].resource.name
+          value: "cpu"
+      - isSubset:
+          path: spec.metrics[1].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+
+  - it: should test global.autoscaling.targetCPU and global.autoscaling.targetMemory
+    set:
+      global.autoscaling.targetCPU: "80%"
+      global.autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - isSubset:
+          path: spec.metrics[0].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+      - equal:
+          path: spec.metrics[1].resource.name
+          value: "cpu"
+      - isSubset:
+          path: spec.metrics[1].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+
+  - it: should test autoscaling.targetCPU and global.autoscaling.targetCPU
+    set:
+      global.autoscaling.targetCPU: "70%"
+      autoscaling.targetCPU: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "cpu"
+      - isSubset:
+          path: spec.metrics[0].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+
+  - it: should test autoscaling.targetMemory and global.autoscaling.targetMemory
+    set:
+      global.autoscaling.targetMemory: "70%"
+      autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - isSubset:
+          path: spec.metrics[0].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+
+  - it: should test autoscaling.targetCPU and global.autoscaling.targetMemory
+    set:
+      autoscaling.targetCPU: "80%"
+      global.autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - isSubset:
+          path: spec.metrics[0].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+      - equal:
+          path: spec.metrics[1].resource.name
+          value: "cpu"
+      - isSubset:
+          path: spec.metrics[1].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+
+  - it: should test global.autoscaling.targetCPU and autoscaling.targetMemory
+    set:
+      global.autoscaling.targetCPU: "80%"
+      autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - isSubset:
+          path: spec.metrics[0].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+      - equal:
+          path: spec.metrics[1].resource.name
+          value: "cpu"
+      - isSubset:
+          path: spec.metrics[1].resource.target
+          content:
+            type: Utilization
+            averageUtilization: "80%"
+
   - it: should template without any override
     asserts:
       - notFailedTemplate: {}
@@ -56,90 +226,11 @@ tests:
             foo: bar
             hello: world
 
-  # TODO: Add Deployment or STS
-  # TODO: Add match for spec.scaleTargetRef.name with metadata.name
-  - it: should validate target ref is present
-    asserts:
-      - exists:
-          path: spec.scaleTargetRef
-      # - equal:
-      #     path: spec.scaleTargetRef.kind
-      #     value: Deployment
-      # - equal:
-      #     path: spec.scaleTargetRef.name
-      #     value: metadata.name
-
-  - it: validate API version for Kubernetes version 1.22.2
-    set:
-      global.kubeVersion: 1.22.2
-    asserts:
-      - equal:
-          path: apiVersion
-          value: autoscaling/v2beta2
-
-  - it: validate API version for Kubernetes version 1.23.0
-    set:
-      global.kubeVersion: 1.23.0
+  - it: validate API version for Kubernetes version >1.23.0
     asserts:
       - equal:
           path: apiVersion
           value: autoscaling/v2
-
-  - it: validate target CPU for Kubernetes version 1.22.2
-    set:
-      global.kubeVersion: 1.22.2
-      autoscaling:
-        targetCPU: 500m
-    asserts:
-      - equal:
-          path: spec.metrics[0].resource.name
-          value: cpu
-      - equal:
-          path: spec.metrics[0].resource.targetAverageUtilization
-          value: 500m
-
-  - it: validate target CPU for Kubernetes version 1.23.0
-    set:
-      global.kubeVersion: 1.23.0
-      autoscaling:
-        targetCPU: 500m
-    asserts:
-      - equal:
-          path: spec.metrics[0].resource.name
-          value: cpu
-      - isSubset:
-          path: spec.metrics[0].resource.target
-          content:
-            type: Utilization
-            averageUtilization: 500m
-
-  - it: validate target Memory for Kubernetes version 1.22.2
-    set:
-      global.kubeVersion: 1.22.2
-      autoscaling:
-        targetMemory: 500Mi
-    asserts:
-      - equal:
-          path: spec.metrics[0].resource.name
-          value: memory
-      - equal:
-          path: spec.metrics[0].resource.targetAverageUtilization
-          value: 500Mi
-
-  - it: validate target Memory for Kubernetes version 1.23.0
-    set:
-      global.kubeVersion: 1.23.0
-      autoscaling:
-        targetMemory: 500Mi
-    asserts:
-      - equal:
-          path: spec.metrics[0].resource.name
-          value: memory
-      - isSubset:
-          path: spec.metrics[0].resource.target
-          content:
-            type: Utilization
-            averageUtilization: 500Mi
 
   - it: should work with minReplicas provided
     set:
@@ -168,3 +259,233 @@ tests:
       - equal:
           path: spec.maxReplicas
           value: 10
+
+  - it: should not enable HorizontalPodAutoscaler if global.autoscaling.enabled and autoscaling.enabled are false
+    set:
+      global.autoscaling.enabled: false
+      autoscaling.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should enable HorizontalPodAutoscaler if global.autoscaling.enabled is true
+    set:
+      global.autoscaling.enabled: true
+      autoscaling.enabled: false
+    asserts:
+      - notFailedTemplate: { }
+      - isKind:
+          of: HorizontalPodAutoscaler
+
+  - it: should enable HorizontalPodAutoscaler if autoscaling.enabled is true
+    set:
+      global.autoscaling.enabled: false
+      autoscaling.enabled: true
+    asserts:
+      - notFailedTemplate: { }
+      - isKind:
+          of: HorizontalPodAutoscaler
+
+  - it: should validate the scaleTargetRef labels are present
+    asserts:
+      - exists:
+          path: spec.scaleTargetRef.name
+      - exists:
+          path: spec.scaleTargetRef.kind
+
+  - it: default minReplicas should be set to 2
+    asserts:
+      - equal:
+          path: spec.minReplicas
+          value: 2
+          
+  - it: default maxReplicas should be set to 100
+    asserts:
+      - equal:
+          path: spec.maxReplicas
+          value: 100
+
+  - it: minReplicas should be set to 3
+    set:
+      global.autoscaling.minReplicas: 3
+    asserts:
+      - equal:
+          path: spec.minReplicas
+          value: 3
+
+  - it: maxReplicas should be set to 2
+    set:
+      global.autoscaling.maxReplicas: 2
+    asserts:
+      - equal:
+          path: spec.maxReplicas
+          value: 2
+
+  - it: should allow overriding minReplicas at the template level
+    set:
+      global.autoscaling.minReplicas: 3
+      autoscaling.minReplicas: 5
+    asserts:
+      - equal:
+          path: spec.minReplicas
+          value: 5
+
+  # Test for K8s Versions <1.23.0
+  - it: validate API version for Kubernetes version 1.22.2
+    set:
+      global.kubeVersion: 1.22.2
+    asserts:
+      - equal:
+          path: apiVersion
+          value: autoscaling/v2beta2
+
+  - it: should test autoscaling.targetCPU
+    set:
+      global.kubeVersion: 1.22.2
+      autoscaling:
+        targetCPU: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "cpu"
+      - equal:
+          path: spec.metrics[0].resource.targetAverageUtilization
+          value: "80%"
+
+  - it: should test autoscaling.targetMemory
+    set:
+      global.kubeVersion: 1.22.2
+      autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - equal:
+          path: spec.metrics[0].resource.targetAverageUtilization
+          value: "80%"
+
+  - it: should test global.autoscaling.targetCPU
+    set:
+      global.kubeVersion: 1.22.2
+      global.autoscaling.targetCPU: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "cpu"
+      - equal:
+          path: spec.metrics[0].resource.targetAverageUtilization
+          value: "80%"
+
+  - it: should test global.autoscaling.targetCPU
+    set:
+      global.kubeVersion: 1.22.2
+      global.autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - equal:
+          path: spec.metrics[0].resource.targetAverageUtilization
+          value: "80%"
+
+  - it: should test autoscaling.targetCPU and autoscaling.targetMemory
+    set:
+      global.kubeVersion: 1.22.2
+      autoscaling.targetCPU: "80%"
+      autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - equal:
+          path: spec.metrics[0].resource.targetAverageUtilization
+          value: "80%"
+      - equal:
+          path: spec.metrics[1].resource.name
+          value: "cpu"
+      - equal:
+          path: spec.metrics[1].resource.targetAverageUtilization
+          value: "80%"
+
+  - it: should test global.autoscaling.targetCPU and global.autoscaling.targetMemory
+    set:
+      global.kubeVersion: 1.22.2
+      global.autoscaling.targetCPU: "80%"
+      global.autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - equal:
+          path: spec.metrics[0].resource.targetAverageUtilization
+          value: "80%"
+      - equal:
+          path: spec.metrics[1].resource.name
+          value: "cpu"
+      - equal:
+          path: spec.metrics[1].resource.targetAverageUtilization
+          value: "80%"
+
+  - it: should test autoscaling.targetCPU and global.autoscaling.targetCPU
+    set:
+      global.kubeVersion: 1.22.2
+      global.autoscaling.targetCPU: "70%"
+      autoscaling.targetCPU: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "cpu"
+      - equal:
+          path: spec.metrics[0].resource.targetAverageUtilization
+          value: "80%"
+
+  - it: should test autoscaling.targetMemory and global.autoscaling.targetMemory
+    set:
+      global.kubeVersion: 1.22.2
+      global.autoscaling.targetMemory: "70%"
+      autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - equal:
+          path: spec.metrics[0].resource.targetAverageUtilization
+          value: "80%"
+
+  - it: should test autoscaling.targetCPU and global.autoscaling.targetMemory
+    set:
+      global.kubeVersion: 1.22.2
+      autoscaling.targetCPU: "80%"
+      global.autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - equal:
+          path: spec.metrics[0].resource.targetAverageUtilization
+          value: "80%"
+      - equal:
+          path: spec.metrics[1].resource.name
+          value: "cpu"
+      - equal:
+          path: spec.metrics[1].resource.targetAverageUtilization
+          value: "80%"
+
+  - it: should test global.autoscaling.targetCPU and autoscaling.targetMemory
+    set:
+      global.kubeVersion: 1.22.2
+      global.autoscaling.targetCPU: "80%"
+      autoscaling.targetMemory: "80%"
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.name
+          value: "memory"
+      - equal:
+          path: spec.metrics[0].resource.targetAverageUtilization
+          value: "80%"
+      - equal:
+          path: spec.metrics[1].resource.name
+          value: "cpu"
+      - equal:
+          path: spec.metrics[1].resource.targetAverageUtilization
+          value: "80%"
