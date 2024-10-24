@@ -1,16 +1,20 @@
 ---
 suite: test horizontal pod autoscaler
-
 templates:
   - hpa.yaml
-
 set:
   autoscaling.enabled: true
-
 release:
+  name: harness-smp
   namespace: harness-smp
-
 tests:
+  - it: should not template when autoscaling is disabled
+    set:
+      autoscaling.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
   - it: should template without any override
     asserts:
       - notFailedTemplate: {}
@@ -56,18 +60,30 @@ tests:
             foo: bar
             hello: world
 
+  - it: should validate that selectorLabels are added to the metadata.labels
+    set:
+      nameOverride: my-chart-name
+    asserts:
+      - isSubset:
+          path: metadata.labels
+          content:
+            app.kubernetes.io/name: my-chart-name
+            app.kubernetes.io/instance: harness-smp
+            app.kubernetes.io/managed-by: Helm
+
   # TODO: Add Deployment or STS
   # TODO: Add match for spec.scaleTargetRef.name with metadata.name
   - it: should validate target ref is present
     asserts:
       - exists:
           path: spec.scaleTargetRef
-      # - equal:
-      #     path: spec.scaleTargetRef.kind
-      #     value: Deployment
-      # - equal:
-      #     path: spec.scaleTargetRef.name
-      #     value: metadata.name
+      - equal:
+           path: spec.scaleTargetRef.kind
+           value: Deployment
+      - exists:
+          path: spec.scaleTargetRef.name
+      - exists:
+          path: spec.scaleTargetRef.apiVersion
 
   - it: validate API version for Kubernetes version 1.22.2
     set:
@@ -168,3 +184,15 @@ tests:
       - equal:
           path: spec.maxReplicas
           value: 10
+
+  - it: should work with behavior provided
+    set:
+      autoscaling.behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 300
+    asserts:
+      - isSubset:
+          path: spec.behavior
+          content:
+              scaleDown:
+                stabilizationWindowSeconds: 300

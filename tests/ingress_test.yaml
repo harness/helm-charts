@@ -7,6 +7,13 @@ release:
 set:
   global.ingress.enabled: true
 tests:
+  - it: should not create any ingress when disabled
+    set:
+      global.ingress.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
   - it: should template without any override
     asserts:
       - notFailedTemplate: {}
@@ -130,6 +137,21 @@ tests:
       - equal:
           path: spec.ingressClassName
           value: nginx
+
+  - it: should work with hosts disabled
+    set:
+      global.ingress.disableHostInIngress: true
+      service:
+        annotations: { }
+        type: ClusterIP
+        protocol: TCP
+        port: 1000
+    asserts:
+      - equal:
+          path: spec.rules[0].http.paths[0].backend.service.port.number
+          value: 1000
+      - notExists:
+          path: spec.rules[0].host
 
   - it: should work with single ingress host
     set:
