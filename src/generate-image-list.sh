@@ -54,8 +54,8 @@ awk -F: '{ print $1 ":" $2 }' ${OUTPUT_DIR}/images_tmp.txt | sort -u > ${OUTPUT_
 rm ${OUTPUT_DIR}/images_tmp.txt
 
 # Add minimal images
-IMAGES=("docker.io/harness/delegate:[0-9.]+" "docker.io/harness/delegate-proxy-signed:[0-9.]+")
-SUFFIX=(".minimal" "_minimal")
+IMAGES=("docker.io/harness/delegate:[0-9.]+")
+SUFFIX=(".minimal")
 for i in "${!IMAGES[@]}"
 do
     MATCHES=$(grep -oE "${IMAGES[i]}" "${OUTPUT_DIR}/images.txt")
