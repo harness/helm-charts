@@ -41,27 +41,26 @@ for i in "${!OLD_INGRESS_NAMES[@]}"; do
   OLD_INGRESS_NAME=${OLD_INGRESS_NAMES[$i]}
   NEW_INGRESS_NAME=${NEW_INGRESS_NAMES[$i]}
 
-  echo "Updating $OLD_INGRESS_NAME to $NEW_INGRESS_NAME"
   # Check if the Ingress object exists in the specified namespace
-  # if kubectl get ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE" > /dev/null 2>&1; then
-  #   echo "Updating $OLD_INGRESS_NAME."
+  if kubectl get ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE" > /dev/null 2>&1; then
+    echo "Updating $OLD_INGRESS_NAME."
 
-  #   # Download the Ingress manifest
-  #   kubectl get ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE" -o yaml > ingress-manifest.yaml
+    # Download the Ingress manifest
+    kubectl get ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE" -o yaml > ingress-manifest.yaml
 
-  #   # Update the name in the manifest
-  #   yq -i ".metadata.name = \"$NEW_INGRESS_NAME\"" ingress-manifest.yaml
+    # Update the name in the manifest
+    yq -i ".metadata.name = \"$NEW_INGRESS_NAME\"" ingress-manifest.yaml
 
-  #   # Delete the old Ingress object
-  #   kubectl delete ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE"
+    # Delete the old Ingress object
+    kubectl delete ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE"
 
-  #   # Apply the updated Ingress manifest
-  #   kubectl apply -f ingress-manifest.yaml -n "$NAMESPACE"
+    # Apply the updated Ingress manifest
+    kubectl apply -f ingress-manifest.yaml -n "$NAMESPACE"
 
-  #   # Clean up
-  #   rm ingress-manifest.yaml
+    # Clean up
+    rm ingress-manifest.yaml
 
-  #   echo "Updated $OLD_INGRESS_NAME to $NEW_INGRESS_NAME."
+    echo "Updated $OLD_INGRESS_NAME to $NEW_INGRESS_NAME."
 
-  # fi
+  fi
 done
