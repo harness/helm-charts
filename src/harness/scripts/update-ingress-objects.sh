@@ -9,7 +9,7 @@ fi
 # Perform actions based on the version
 if [[ "$VERSION" == "0.22."* ]]; then
   OLD_INGRESS_NAMES=("log-service" "pipeline-service-smp-v1-apis" "access-control" "ci-manager" "template-service" "ssca-manager" "ssca-manager-smp-v1-apis" "ng-ce-ui" "chaos-manager" "migrator-api" "next-gen-ui" "ng-dashboard-aggregator" "chaos-k8s-ifs" "verification-svc" "ssca-ui" "ng-auth-ui" "nextgen-ce" "service-discovery-manager" "${RELEASE_NAME}-gitops" "${RELEASE_NAME}-sto-manager" "cv-nextgen" "cv-nextgen-smp-v1-apis" "gateway" "${RELEASE_NAME}-policy-mgmt" "ng-custom-dashboards" "telescopes")
-  NEW_INGRESS_NAMES=("log-service-0" "pipeline-service-v1-apis" "access-control-service" "ci-manager-0" "template-service-0" "ssca-manager-0" "ssca-manager-v1-apis" "ng-ce-ui-0" "chaos-manager-0" "migrator-0" "next-gen-ui-0" "ng-dashboard-aggregator-0" "chaos-k8s-ifs-0" "verification-svc-0" "ssca-ui-0" "ng-auth-ui-0" "nextgen-ce-0" "service-discovery-manager-0" "gitops-http" "sto-manager-0" "cv-nextgen-0" "cv-nextgen-1" "gateway-0" "gitops-http" "ng-custom-dashboards-0" "policy-mgmt-0" "telescopes-0")
+  NEW_INGRESS_NAMES=("log-service-0" "pipeline-service-v1-apis" "access-control-service" "ci-manager-0" "template-service-0" "ssca-manager-0" "ssca-manager-v1-apis" "ng-ce-ui-0" "chaos-manager-0" "migrator-0" "next-gen-ui-0" "ng-dashboard-aggregator-0" "chaos-k8s-ifs-0" "verification-svc-0" "ssca-ui-0" "ng-auth-ui-0" "nextgen-ce-0" "service-discovery-manager-0" "gitops-http" "sto-manager-0" "cv-nextgen-0" "cv-nextgen-1" "gateway-0" "policy-mgmt-0" "ng-custom-dashboards-0" "telescopes-0")
 
 elif [[ "$VERSION" == "0.21."* ]]; then
   OLD_INGRESS_NAMES=("log-service" "pipeline-service-smp-v1-apis" "access-control" "ci-manager" "template-service" "ssca-manager" "ssca-manager-smp-v1-apis" "ng-ce-ui" "chaos-manager" "migrator-api" "next-gen-ui" "ng-dashboard-aggregator" "chaos-k8s-ifs" "verification-svc" "ssca-ui" "ng-auth-ui" "nextgen-ce" "service-discovery-manager" "${RELEASE_NAME}-gitops" "${RELEASE_NAME}-sto-manager")
@@ -41,26 +41,27 @@ for i in "${!OLD_INGRESS_NAMES[@]}"; do
   OLD_INGRESS_NAME=${OLD_INGRESS_NAMES[$i]}
   NEW_INGRESS_NAME=${NEW_INGRESS_NAMES[$i]}
 
+  echo "Updating $OLD_INGRESS_NAME to $NEW_INGRESS_NAME"
   # Check if the Ingress object exists in the specified namespace
-  if kubectl get ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE" > /dev/null 2>&1; then
-    echo "Updating $OLD_INGRESS_NAME."
+  # if kubectl get ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE" > /dev/null 2>&1; then
+  #   echo "Updating $OLD_INGRESS_NAME."
 
-    # Download the Ingress manifest
-    kubectl get ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE" -o yaml > ingress-manifest.yaml
+  #   # Download the Ingress manifest
+  #   kubectl get ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE" -o yaml > ingress-manifest.yaml
 
-    # Update the name in the manifest
-    yq -i ".metadata.name = \"$NEW_INGRESS_NAME\"" ingress-manifest.yaml
+  #   # Update the name in the manifest
+  #   yq -i ".metadata.name = \"$NEW_INGRESS_NAME\"" ingress-manifest.yaml
 
-    # Delete the old Ingress object
-    kubectl delete ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE"
+  #   # Delete the old Ingress object
+  #   kubectl delete ingress "$OLD_INGRESS_NAME" -n "$NAMESPACE"
 
-    # Apply the updated Ingress manifest
-    kubectl apply -f ingress-manifest.yaml -n "$NAMESPACE"
+  #   # Apply the updated Ingress manifest
+  #   kubectl apply -f ingress-manifest.yaml -n "$NAMESPACE"
 
-    # Clean up
-    rm ingress-manifest.yaml
+  #   # Clean up
+  #   rm ingress-manifest.yaml
 
-    echo "Updated $OLD_INGRESS_NAME to $NEW_INGRESS_NAME."
+  #   echo "Updated $OLD_INGRESS_NAME to $NEW_INGRESS_NAME."
 
-  fi
+  # fi
 done
