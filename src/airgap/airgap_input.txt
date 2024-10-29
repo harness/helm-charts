@@ -46,6 +46,7 @@
     haproxy
     gitops-service-signed
     gitops-agent-installer-helper
+    shellcheck
 
 [ci]:
     ti-service-signed
