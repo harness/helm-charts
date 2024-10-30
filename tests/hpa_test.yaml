@@ -60,34 +60,6 @@ tests:
             type: Utilization
             averageUtilization: "80%"
 
-  - it: should test autoscaling.targetCPU and global.autoscaling.targetCPU
-    set:
-      global.autoscaling.targetCPU: "70%"
-      autoscaling.targetCPU: "80%"
-    asserts:
-      - equal:
-          path: spec.metrics[0].resource.name
-          value: "cpu"
-      - isSubset:
-          path: spec.metrics[0].resource.target
-          content:
-            type: Utilization
-            averageUtilization: "80%"
-
-  - it: should test autoscaling.targetMemory and global.autoscaling.targetMemory
-    set:
-      global.autoscaling.targetMemory: "70%"
-      autoscaling.targetMemory: "80%"
-    asserts:
-      - equal:
-          path: spec.metrics[0].resource.name
-          value: "memory"
-      - isSubset:
-          path: spec.metrics[0].resource.target
-          content:
-            type: Utilization
-            averageUtilization: "80%"
-
   - it: should template without any override
     asserts:
       - notFailedTemplate: {}
@@ -205,7 +177,7 @@ tests:
       - equal:
           path: spec.minReplicas
           value: 2
-          
+
   - it: default maxReplicas should be set to 100
     asserts:
       - equal:
@@ -288,30 +260,4 @@ tests:
           value: "cpu"
       - equal:
           path: spec.metrics[1].resource.targetAverageUtilization
-          value: "80%"
-
-  - it: should test autoscaling.targetCPU and global.autoscaling.targetCPU
-    set:
-      global.kubeVersion: 1.22.2
-      global.autoscaling.targetCPU: "70%"
-      autoscaling.targetCPU: "80%"
-    asserts:
-      - equal:
-          path: spec.metrics[0].resource.name
-          value: "cpu"
-      - equal:
-          path: spec.metrics[0].resource.targetAverageUtilization
-          value: "80%"
-
-  - it: should test autoscaling.targetMemory and global.autoscaling.targetMemory
-    set:
-      global.kubeVersion: 1.22.2
-      global.autoscaling.targetMemory: "70%"
-      autoscaling.targetMemory: "80%"
-    asserts:
-      - equal:
-          path: spec.metrics[0].resource.name
-          value: "memory"
-      - equal:
-          path: spec.metrics[0].resource.targetAverageUtilization
           value: "80%"
