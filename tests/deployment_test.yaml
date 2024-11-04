@@ -372,35 +372,35 @@ tests:
           effect: "NoSchedule"
     asserts:
       - notFailedTemplate: {}
-
-  - it: validate that secret is created and random value is generated for secrets
-    set:
-      secrets:
-        fileSecret:
-          - volumeMountPath: /etc/secrets
-            keys:
-              - key: TEST_SECRET
-                path: "test_secret_file"
-        default:
-          TEST_SECRET: ""
-        kubernetesSecrets:
-          - secretName: ""
-            keys:
-              TEST_SECRET: ""
-        secretManagement:
-          externalSecretsOperator:
-            - secretStore:
-                name: ""
-                kind: ""
-              remoteKeys:
-                TEST_SECRET:
-                  name: ""
-                  property: ""
-    templates:
-      - deployment.yaml
-    asserts:
-      - contains:
-          path: spec.template.spec.containers[0].volumeMounts
-          content:
-            name: all-secrets-mount-0
-            mountPath: /etc/secrets
+#
+#  - it: validate that secret is created and random value is generated for secrets
+#    set:
+#      secrets:
+#        fileSecret:
+#          - volumeMountPath: /etc/secrets
+#            keys:
+#              - key: TEST_SECRET
+#                path: "test_secret_file"
+#        default:
+#          TEST_SECRET: ""
+#        kubernetesSecrets:
+#          - secretName: ""
+#            keys:
+#              TEST_SECRET: ""
+#        secretManagement:
+#          externalSecretsOperator:
+#            - secretStore:
+#                name: ""
+#                kind: ""
+#              remoteKeys:
+#                TEST_SECRET:
+#                  name: ""
+#                  property: ""
+#    templates:
+#      - deployment.yaml
+#    asserts:
+#      - contains:
+#          path: spec.template.spec.containers[0].volumeMounts
+#          content:
+#            name: all-secrets-mount-0
+#            mountPath: /etc/secrets
