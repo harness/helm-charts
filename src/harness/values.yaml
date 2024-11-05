@@ -563,6 +563,8 @@ sto:
     nodeSelector: {}
     tolerations: []
 upgrades:
+  versionLookups:
+    enabled: true
   mongoFCVUpgrade:
     enabled: true
     image:
