@@ -564,6 +564,8 @@ sto:
     tolerations: []
 
 upgrades:
+  versionLookups:
+    enabled: true
   mongoFCVUpgrade:
     enabled: true
     image:
