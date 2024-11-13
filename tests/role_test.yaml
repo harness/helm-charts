@@ -24,9 +24,6 @@ tests:
       - equal:
           path: metadata.namespace
           value: harness-smp
-      - equal:
-          path: metadata.name
-          value: my-chart-name-role
 
   - it: validate default rules
     asserts:

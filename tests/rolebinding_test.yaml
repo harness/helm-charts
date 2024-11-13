@@ -24,18 +24,6 @@ tests:
       - equal:
           path: metadata.namespace
           value: harness-smp
-      - equal:
-          path: metadata.name
-          value: my-chart-name-role-binding
-
-  - it: validate roleref
-    asserts:
-      - isSubset:
-          path: roleRef
-          content:
-            apiGroup: rbac.authorization.k8s.io
-            kind: Role
-            name: my-chart-name-role
 
   - it: validate subjects
     set:

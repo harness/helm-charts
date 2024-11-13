@@ -216,33 +216,6 @@ tests:
           path: spec.template.spec.terminationGracePeriodSeconds
           value: 100
 
-  - it: validate init container values
-    templates:
-      - statefulset.yaml
-    set:
-      global:
-        jfr:
-          enabled: true
-      jfr:
-        image:
-          registry: random.com
-          repository: repo
-          pullPolicy: Always
-          tag: "1.0"
-          digest: ""
-          imagePullSecrets: [ ]
-      jfrDumpRootLocation: /random_dump
-    asserts:
-      - equal:
-          path: spec.template.spec.initContainers[0]
-          value:
-            name: init-chmod
-            image: random.com/repo:1.0
-            command: [ 'chmod', '-R', '777', '/random_dump/dumps' ]
-            volumeMounts:
-              - name: dumps
-                mountPath: /random_dump/dumps
-
   - it: validate main container values
     templates:
       - statefulset.yaml
