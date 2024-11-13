@@ -469,7 +469,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 24.08.83804
+        tag: 24.09.83900
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -562,7 +562,6 @@ sto:
       enabled: false
     nodeSelector: {}
     tolerations: []
-
 upgrades:
   versionLookups:
     enabled: true
