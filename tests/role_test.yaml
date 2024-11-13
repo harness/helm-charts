@@ -1,0 +1,106 @@
+---
+suite: test role
+templates:
+  - role.yaml
+release:
+  name: harness-smp
+  namespace: harness-smp
+set:
+  nameOverride: my-chart-name
+  serviceAccount.create: true
+tests:
+  - it: should not create role if serviceAccount.create is false
+    set:
+      serviceAccount.create: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should template without any override
+    asserts:
+      - notFailedTemplate: {}
+      - isKind:
+          of: Role
+      - equal:
+          path: metadata.namespace
+          value: harness-smp
+
+  - it: validate default rules
+    asserts:
+      - contains:
+          path: rules
+          content:
+            apiGroups:
+              - ""
+            resources:
+              - endpoints
+            verbs:
+              - get
+      - contains:
+          path: rules
+          content:
+            apiGroups:
+              - ""
+            resources:
+              - pods
+            verbs:
+              - get
+              - list
+              - watch
+
+  - it: should work with custom rules
+    set:
+      rbac:
+        rules:
+          - apiGroups:
+              - ""
+            resources:
+              - "foo"
+            verbs:
+              - bar
+    asserts:
+      - contains:
+          path: rules
+          content:
+            apiGroups:
+              - ""
+            resources:
+              - foo
+            verbs:
+              - bar
+
+  - it: should work with common annotations
+    set:
+      global.commonAnnotations: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+
+  - it: should work with common labels
+    set:
+      global.commonLabels: {foo: bar, hello: world}
+    asserts:
+      - isSubset:
+         path: metadata.labels
+         content:
+           foo: bar
+           hello: world
+
+  - it: should work with common annotations and labels
+    set:
+      global.commonAnnotations: {foo: bar, hello: world}
+      global.commonLabels: {baz: cux, tem: run}
+    asserts:
+      - isSubset:
+          path: metadata.annotations
+          content:
+            foo: bar
+            hello: world
+      - isSubset:
+          path: metadata.labels
+          content:
+            baz: cux
+            tem: run

@@ -3,7 +3,7 @@ suite: test statefulset
 templates:
   - statefulset.yaml
   - config.yaml
-  - secrets.yaml
+  - secret.yaml
 release:
   namespace: harness-smp
 tests:
@@ -17,6 +17,8 @@ tests:
       - equal:
           path: metadata.namespace
           value: harness-smp
+      - exists:
+          path: spec.selector.matchLabels
 
   - it: should work with common annotations (deployment and podSpec)
     templates:
@@ -80,24 +82,44 @@ tests:
             foo: bar
             hello: world
 
-  # - it: validate replicaCount when autoscaling is disabled
-  #   templates:
-  #     - statefulset.yaml
-  #   set:
-  #     autoscaling.enabled: false
-  #     replicaCount: 3
-  #   asserts:
-  #     - equal:
-  #         path: spec.replicas
-  #         value: 3
-  # - it: validate replicaCount when autoscaling is disabled
-  #   templates:
-  #     - statefulset.yaml
-  #   set:
-  #     autoscaling.enabled: true
-  #   asserts:
-  #     - isNull:
-  #         path: spec.replicas
+  - it: validate replicaCount when autoscaling is disabled
+    templates:
+       - statefulset.yaml
+    set:
+      autoscaling.enabled: false
+      replicaCount: 3
+    asserts:
+      - equal:
+         path: spec.replicas
+         value: 3
+
+  - it: validate rolling update strategy values (maxUnavailable and maxSurge)
+    templates:
+      - statefulset.yaml
+    set:
+      updateStrategy.type: RollingUpdate
+      updateStrategy.rollingUpdate.maxSurge: 4
+      updateStrategy.rollingUpdate.maxUnavailable: 2
+    asserts:
+      - equal:
+          path: spec.updateStrategy.type
+          value: RollingUpdate
+      - equal:
+          path: spec.updateStrategy.rollingUpdate.maxSurge
+          value: 4
+      - equal:
+          path: spec.updateStrategy.rollingUpdate.maxUnavailable
+          value: 2
+
+  - it: validate recreate strategy
+    templates:
+      - statefulset.yaml
+    set:
+      updateStrategy.type: Recreate
+    asserts:
+      - equal:
+          path: spec.updateStrategy.type
+          value: Recreate
 
   - it: validate podAnnotations
     templates:
@@ -163,6 +185,37 @@ tests:
             foo: bar
             hello: world
 
+  - it: validate scheduler name
+    templates:
+      - statefulset.yaml
+    set:
+      schedulerName: random
+    asserts:
+      - equal:
+          path: spec.template.spec.schedulerName
+          value: random
+
+  - it: validate service account name
+    templates:
+      - statefulset.yaml
+    set:
+      serviceAccount:
+        name: random
+    asserts:
+      - equal:
+          path: spec.template.spec.serviceAccountName
+          value: random
+
+  - it: validate termination grace period seconds
+    templates:
+      - statefulset.yaml
+    set:
+      terminationGracePeriodSeconds: 100
+    asserts:
+      - equal:
+          path: spec.template.spec.terminationGracePeriodSeconds
+          value: 100
+
   - it: validate main container values
     templates:
       - statefulset.yaml
@@ -176,7 +229,7 @@ tests:
       securityContext: {runAsUser: 1000}
       # Few of the services use containerSecurityContext in values
       containerSecurityContext:
-        runAsUser: 1000      
+        runAsUser: 1000
       lifecycleHooks:
         preStop:
           exec:
