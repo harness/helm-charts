@@ -61,6 +61,7 @@ tests:
           content:
             foo: bar
             hello: world
+    documentIndex: 0
 
   - it: should work with both service annotations and common annotations
     set:
@@ -74,6 +75,7 @@ tests:
             hello: world
             service: annotated
             add: this
+    documentIndex: 0
 
   - it: validate service type
     set:
