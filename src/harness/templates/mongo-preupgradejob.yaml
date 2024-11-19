@@ -1,4 +1,4 @@
-{{- if or .Values.global.database.mongo.installed .Values.upgrades.mongoFCVUpgrade.enabled}}
+{{- if and .Values.global.database.mongo.installed .Values.upgrades.mongoFCVUpgrade.enabled}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -14,6 +14,15 @@ spec:
   template:
     spec:
       serviceAccountName: mongodb-replicaset-chart
+      {{- if .Values.upgrades.mongoFCVUpgrade.nodeSelector }}
+      nodeSelector: {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.upgrades.mongoFCVUpgrade.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.upgrades.mongoFCVUpgrade.affinity }}
+      affinity: {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.upgrades.mongoFCVUpgrade.affinity "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.upgrades.mongoFCVUpgrade.tolerations }}
+      tolerations: {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.upgrades.mongoFCVUpgrade.tolerations "context" $) | nindent 8 }}
+      {{- end }}
       containers:
       - name: mongo-dynamic-upgrade
         securityContext:
