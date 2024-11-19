@@ -1,4 +1,4 @@
-{{- if or .Values.global.database.mongo.installed .Values.upgrades.mongoFCVUpgrade.enabled}}
+{{- if and .Values.global.database.mongo.installed .Values.upgrades.mongoFCVUpgrade.enabled}}
 apiVersion: batch/v1
 kind: Job
 metadata:
