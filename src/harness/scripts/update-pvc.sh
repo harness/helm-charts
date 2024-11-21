@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Check if the correct number of arguments is provided
-if [ "$#" -ne 12 ]; then
-    echo "Usage: $0 --namespace <namespace> --overridefile <overridefile> --newsize <newsize> --database <database> --helmrelease <releasename> --chart <chart>"
-    exit 1
-fi
-
 # Parse arguments
 NAMESPACE=""
 OVERRIDEFILE=""
@@ -14,38 +8,12 @@ DATABASE=""
 RELEASE=""
 CHART=""
 
-while [[ "$#" -gt 0 ]]; do
-    case "$1" in
-        --namespace)
-            NAMESPACE="$2"
-            shift 2
-            ;;
-        --overridefile)
-            OVERRIDEFILE="$2"
-            shift 2
-            ;;
-        --newsize)
-            NEWSIZE="$2"
-            shift 2
-            ;;
-        --database)
-            DATABASE="$2"
-            shift 2
-            ;;
-        --helmrelease)
-            RELEASE="$2"
-            shift 2
-            ;;
-        --chart)
-            CHART="$2"
-            shift 2
-            ;;
-        *)
-            echo "Unknown option: $1"
-            exit 1
-            ;;
-    esac
-done
+read -p "Enter Namespace: " NAMESPACE
+read -p "Enter Override file: " OVERRIDEFILE
+read -p "Enter new pvc size in Gi (eg: 30Gi): " NEWSIZE
+read -p "Enter database to increase pvc size (mongodb, timescaledb, minio, postgresql, timescaledb-wal): " DATABASE
+read -p "Enter release name: " RELEASE
+read -p "Enter chart path/name: " CHART 
 
 # Check if yq is installed
 if ! command -v yq &>/dev/null; then
@@ -122,7 +90,7 @@ if [ "$DATABASE" == "mongodb" ]; then
 elif [ "$DATABASE" == "postgresql" ]; then
     STATEFULSET_NAME=$(kubectl get statefulset -n "$NAMESPACE" -l app.kubernetes.io/name=postgresql -o jsonpath="{.items[0].metadata.name}")
 elif [ "$DATABASE" == "minio" ]; then
-    STATEFULSET_NAME=$(kubectl get statefulset -n "$NAMESPACE" -l app.kubernetes.io/name=minio -o jsonpath="{.items[0].metadata.name}")
+    STATEFULSET_NAME=$(kubectl get deployment -n "$NAMESPACE" -l app.kubernetes.io/name=minio -o jsonpath="{.items[0].metadata.name}")
 elif [ "$DATABASE" == "timescaledb" ]; then
     STATEFULSET_NAME=$(kubectl get statefulset -n "$NAMESPACE" -l app=timescaledb-single-chart -o jsonpath="{.items[0].metadata.name}")
 elif [ "$DATABASE" == "timescaledb-wal" ]; then
@@ -137,7 +105,11 @@ if [ -z "$STATEFULSET_NAME" ]; then
     exit 1
 fi
 
+if [ "$DATABASE" == "minio" ]; then
+kubectl delete deployment "$STATEFULSET_NAME" -n "$NAMESPACE" --cascade=orphan
+else
 kubectl delete statefulset "$STATEFULSET_NAME" -n "$NAMESPACE" --cascade=orphan
+fi
 
 if [ $? -ne 0 ]; then
     echo "Error: Failed to delete StatefulSet $STATEFULSET_NAME"
