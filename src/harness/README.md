@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.22.1](https://img.shields.io/badge/Version-0.22.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.22.2](https://img.shields.io/badge/Version-0.22.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -96,7 +96,7 @@ docker.io/harness/ccm-gcp-smp-signed:10057
 docker.io/harness/cdcdata-signed:1.36.0
 docker.io/harness/ce-anomaly-detection-signed:1.2.0
 docker.io/harness/ce-cloud-info-signed:1.3.3
-docker.io/harness/ce-nextgen-signed:1.31.7
+docker.io/harness/ce-nextgen-signed:1.31.8
 docker.io/harness/chaos-argoexec:v3.4.16
 docker.io/harness/chaos-ddcr:1.47.0
 docker.io/harness/chaos-exporter:1.47.0
@@ -374,10 +374,13 @@ registry.k8s.io/ingress-nginx/controller:v1.3.0
 | sto | object | `{"sto-core":{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]},"sto-manager":{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]}}` | Config for Security Test Orchestration (STO) |
 | sto.sto-core | object | `{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Install the STO core |
 | sto.sto-manager | object | `{"affinity":{},"autoscaling":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Install the STO manager |
+| upgrades.mongoFCVUpgrade.affinity | object | `{}` |  |
 | upgrades.mongoFCVUpgrade.enabled | bool | `true` |  |
 | upgrades.mongoFCVUpgrade.image.registry | string | `"docker.io"` |  |
 | upgrades.mongoFCVUpgrade.image.repository | string | `"bitnami/mongodb"` |  |
 | upgrades.mongoFCVUpgrade.image.tag | string | `"6.0.13"` |  |
+| upgrades.mongoFCVUpgrade.nodeSelector | object | `{}` |  |
+| upgrades.mongoFCVUpgrade.tolerations | list | `[]` |  |
 | upgrades.versionLookups.enabled | bool | `true` |  |
 
 ----------------------------------------------
