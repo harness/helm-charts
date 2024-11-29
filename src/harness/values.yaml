@@ -1,6 +1,9 @@
 global:
   # -- Airgap functionality. Disabled by default
   airgap: "false"
+  # -- Enable to set auto-scaling globally
+  autoscaling:
+    enabled: true
   # -- Add common annotations to all objects
   commonAnnotations: {}
   # -- Add common labels to all objects
