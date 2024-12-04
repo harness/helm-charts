@@ -73,6 +73,7 @@
     gar
     gcr
     acr
+    traceable-job-runner
 
 [sto]:
     ci-addon
