@@ -160,3 +160,9 @@
 
 [db-devops]:
     db-devops-service-signed
+
+[code]:
+    code-api-signed
+    code-githa-signed
+    code-gitrpc-signed
+    code-search-signed
