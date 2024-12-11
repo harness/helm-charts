@@ -7,7 +7,7 @@ docker.io/curlimages/curl:8.7.1
 docker.io/haproxy:lts-alpine3.18
 docker.io/harness/accesscontrol-service-signed:1.64.1
 docker.io/harness/argocd:v2.10.14
-docker.io/harness/audit-event-streaming-signed:1.12.1
+docker.io/harness/audit-event-streaming-signed:1.13.0
 docker.io/harness/batch-processing-signed:1.31.2
 docker.io/harness/ccm-gcp-smp-signed:10057
 docker.io/harness/cdcdata-signed:1.37.4
