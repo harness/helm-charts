@@ -28,4 +28,4 @@ dependencies:
 description: A Helm chart for harness chaos module
 name: chaos
 type: application
-version: 0.23.0
+version: 0.24.0
