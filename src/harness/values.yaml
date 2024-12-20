@@ -35,6 +35,9 @@ global:
   # -- Enable to install Database Devops (DB Devops)
   dbops:
     enabled: false
+  # -- Enable to install Harness Code services (CODE)
+  code:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
