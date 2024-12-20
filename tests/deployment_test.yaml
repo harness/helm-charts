@@ -111,11 +111,11 @@ tests:
       - deployment.yaml
     set:
       autoscaling.enabled: false
-      replicaCount: 1
+      replicaCount: 3
     asserts:
       - equal:
           path: spec.replicas
-          value: 1
+          value: 3
 
   - it: validate rolling update strategy values (maxUnavailable and maxSurge)
     templates:
