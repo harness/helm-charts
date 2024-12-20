@@ -209,6 +209,9 @@ global:
   ssca:
     # -- Enable to install Software Supply Chain Assurance (SSCA)
     enabled: false
+  code:
+    # -- Enable to install Harness Code (SCM)
+    enabled: false
   stackDriverLoggingEnabled: false
   sto:
     # -- Enable to install STO
