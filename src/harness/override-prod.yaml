@@ -249,7 +249,7 @@ ccm:
       GCP_PROJECT_ID: "placeHolder"
       S3_SYNC_CONFIG_BUCKET_NAME: "placeHolder"
       S3_SYNC_CONFIG_REGION: "placeHolder"
-    replicaCount: 1
+    replicaCount: 2
     stackDriverLoggingEnabled: false
   ce-nextgen:
     cloudProviderConfig:
