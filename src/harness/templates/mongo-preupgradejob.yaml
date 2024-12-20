@@ -13,6 +13,7 @@ metadata:
 spec:
   template:
     spec:
+      {{- include "common.images.pullSecrets" (dict "images" (list .Values.upgrades.mongoFCVUpgrade.image) "global" .Values.global) | nindent 6 }}
       serviceAccountName: mongodb-replicaset-chart
       {{- if .Values.upgrades.mongoFCVUpgrade.nodeSelector }}
       nodeSelector: {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.upgrades.mongoFCVUpgrade.nodeSelector "context" $) | nindent 8 }}

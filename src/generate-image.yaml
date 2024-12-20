@@ -1,4 +1,6 @@
 global:
+  monitoring:
+    enabled: true
   ccm:
     enabled: true
   cd:
