@@ -38,6 +38,8 @@ global:
     enabled: true
   dbops:
     enabled: true
+  code:
+    enabled: true
 chaos:
   chaos-manager:
     jobs:
