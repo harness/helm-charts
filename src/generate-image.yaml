@@ -50,3 +50,16 @@ platform:
         create: true
       defaultbackend:
         create: true
+    database:
+      mongodb:
+        metrics:
+          enabled: true
+      redis:
+        metrics:
+          enabled: true
+      timescaledb:
+        prometheus:
+          enabled: true
+      postgresql:
+        metrics:
+          enabled: true
