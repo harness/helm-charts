@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.23.0](https://img.shields.io/badge/Version-0.23.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.24.0](https://img.shields.io/badge/Version-0.24.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -82,99 +82,105 @@ If your cluster is in an air-gapped environment, your deployment requires the fo
 
 ```
 docker.io/bitnami/clickhouse:23.9.2-debian-11-r0
-docker.io/bitnami/minio:2024.3.30-debian-12-r2
+docker.io/bitnami/minio:2024.9.22-debian-12-r1
 docker.io/bitnami/mongodb:6.0.13
 docker.io/bitnami/postgresql:14.11.0-debian-11-r17
 docker.io/bitnami/postgresql:14.9.0-debian-11-r60
+docker.io/busybox:1.35.0
 docker.io/curlimages/curl:8.7.1
 docker.io/haproxy:lts-alpine3.18
-docker.io/harness/accesscontrol-service-signed:1.64.1
+docker.io/harness/accesscontrol-service-signed:1.68.0
 docker.io/harness/argocd:v2.10.14
-docker.io/harness/audit-event-streaming-signed:1.12.1
-docker.io/harness/batch-processing-signed:1.31.2
+docker.io/harness/audit-event-streaming-signed:1.15.0
+docker.io/harness/batch-processing-signed:1.31.7
 docker.io/harness/ccm-gcp-smp-signed:10057
-docker.io/harness/cdcdata-signed:1.37.4
-docker.io/harness/ce-anomaly-detection-signed:1.4.0
+docker.io/harness/cdcdata-signed:1.39.2
+docker.io/harness/ce-anomaly-detection-signed:1.4.1
 docker.io/harness/ce-cloud-info-signed:1.7.0
-docker.io/harness/ce-nextgen-signed:1.34.4
+docker.io/harness/ce-nextgen-signed:1.34.6
 docker.io/harness/chaos-argoexec:v3.4.16
-docker.io/harness/chaos-ddcr:1.47.0
-docker.io/harness/chaos-exporter:1.47.0
-docker.io/harness/chaos-go-runner-base:1.47.0
-docker.io/harness/chaos-go-runner-io:1.47.0
-docker.io/harness/chaos-go-runner-time:1.47.0
-docker.io/harness/chaos-go-runner:1.47.0
-docker.io/harness/chaos-k8s:1.47.0
-docker.io/harness/chaos-log-watcher:1.47.0
-docker.io/harness/chaos-machine-ifc-signed:1.47.2
-docker.io/harness/chaos-machine-ifs-signed:1.47.3
-docker.io/harness/chaos-operator:1.47.0
-docker.io/harness/chaos-runner:1.47.0
-docker.io/harness/chaos-subscriber:1.47.0
+docker.io/harness/chaos-ddcr:1.49.1
+docker.io/harness/chaos-exporter:1.49.0
+docker.io/harness/chaos-go-runner-base:1.49.0
+docker.io/harness/chaos-go-runner-io:1.49.0
+docker.io/harness/chaos-go-runner-time:1.49.0
+docker.io/harness/chaos-go-runner:1.49.0
+docker.io/harness/chaos-k8s:1.49.0
+docker.io/harness/chaos-log-watcher:1.49.0
+docker.io/harness/chaos-machine-ifc-signed:1.49.0
+docker.io/harness/chaos-machine-ifs-signed:1.49.0
+docker.io/harness/chaos-operator:1.49.0
+docker.io/harness/chaos-runner:1.49.0
+docker.io/harness/chaos-subscriber:1.49.0
 docker.io/harness/chaos-workflow-controller:v3.4.16
-docker.io/harness/ci-manager-signed:1.51.8
+docker.io/harness/ci-manager-signed:1.57.5
 docker.io/harness/ci-scm-signed:1.17.1
-docker.io/harness/cv-nextgen-signed:1.27.4
-docker.io/harness/dashboard-service-signed:1.74.4
-docker.io/harness/db-devops-service-signed:1.13.1
+docker.io/harness/code-api-signed:1.27.5
+docker.io/harness/code-githa-signed:1.27.2
+docker.io/harness/code-gitrpc-signed:1.27.3
+docker.io/harness/code-search-signed:1.27.2
+docker.io/harness/cv-nextgen-signed:1.30.6
+docker.io/harness/dashboard-service-signed:1.78.1
+docker.io/harness/db-devops-service-signed:1.20.0
 docker.io/harness/debezium-service-signed:1.21.0
 docker.io/harness/delegate-proxy-signed:1.1.1
-docker.io/harness/delegate:24.10.84200
-docker.io/harness/delegate:24.10.84200.minimal
+docker.io/harness/delegate:24.11.84503
+docker.io/harness/delegate:24.11.84503.minimal
 docker.io/harness/event-service-signed:1.12.4
 docker.io/harness/ff-postgres-migration-signed:1.1094.0
 docker.io/harness/ff-pushpin-signed:1.0.11
 docker.io/harness/ff-pushpin-worker-signed:1.1079.1
 docker.io/harness/ff-server-signed:1.1094.0
 docker.io/harness/ff-timescale-migration-signed:1.1094.0
-docker.io/harness/gateway-signed:1.37.1
+docker.io/harness/gateway-signed:1.38.0
 docker.io/harness/gitops-agent-installer-helper:v0.0.2
-docker.io/harness/gitops-agent:v0.80.0
-docker.io/harness/gitops-service-signed:1.19.4
-docker.io/harness/helm-init-container:1.0.0
-docker.io/harness/k8s-chaos-infrastructure-upgrader:1.47.0
+docker.io/harness/gitops-agent:v0.81.0
+docker.io/harness/gitops-service-signed:1.20.6
+docker.io/harness/helm-init-container:1.2.0
+docker.io/harness/helm-init-container:latest
+docker.io/harness/k8s-chaos-infrastructure-upgrader:1.49.0
 docker.io/harness/le-nextgen-signed:1.5.6
 docker.io/harness/learning-engine-onprem-signed:1.3.2
-docker.io/harness/litmus-checker:1.47.0
-docker.io/harness/log-service-signed:1.14.5
-docker.io/harness/looker-signed:1.5.0
-docker.io/harness/manager-signed:1.58.8
+docker.io/harness/litmus-checker:1.49.0
+docker.io/harness/log-service-signed:1.14.6
+docker.io/harness/looker-signed:1.7.0
+docker.io/harness/manager-signed:1.64.5
 docker.io/harness/migrator-signed:1.116.2
-docker.io/harness/nextgenui-signed:1.48.17
-docker.io/harness/ng-auth-ui-signed:1.28.3
-docker.io/harness/ng-ce-ui:1.31.5
-docker.io/harness/ng-dashboard-aggregator-signed:1.30.1
-docker.io/harness/ng-manager-signed:1.62.11
-docker.io/harness/pipeline-service-signed:1.101.11
-docker.io/harness/platform-service-signed:1.42.3
-docker.io/harness/policy-mgmt:1.10.3
+docker.io/harness/nextgenui-signed:1.54.4
+docker.io/harness/ng-auth-ui-signed:1.29.0
+docker.io/harness/ng-ce-ui:1.33.1
+docker.io/harness/ng-dashboard-aggregator-signed:1.33.0
+docker.io/harness/ng-manager-signed:1.68.4
+docker.io/harness/pipeline-service-signed:1.107.4
+docker.io/harness/platform-service-signed:1.46.1
+docker.io/harness/policy-mgmt:1.11.0
 docker.io/harness/queue-service-signed:1.6.1
-docker.io/harness/service-discovery-collector:0.27.0
-docker.io/harness/smp-chaos-bg-processor-signed:1.47.4
-docker.io/harness/smp-chaos-db-upgrade-agent-signed:1.47.4
-docker.io/harness/smp-chaos-k8s-ifs-signed:1.47.4
-docker.io/harness/smp-chaos-linux-infra-controller-signed:1.47.2
-docker.io/harness/smp-chaos-linux-infra-server-signed:1.47.4
-docker.io/harness/smp-chaos-manager-signed:1.47.4
-docker.io/harness/smp-chaos-web-signed:1.47.9
-docker.io/harness/smp-service-discovery-server-signed:0.27.1
+docker.io/harness/service-discovery-collector:0.29.0
+docker.io/harness/smp-chaos-bg-processor-signed:1.49.2
+docker.io/harness/smp-chaos-db-upgrade-agent-signed:1.49.2
+docker.io/harness/smp-chaos-k8s-ifs-signed:1.49.1
+docker.io/harness/smp-chaos-linux-infra-controller-signed:1.49.0
+docker.io/harness/smp-chaos-linux-infra-server-signed:1.49.0
+docker.io/harness/smp-chaos-manager-signed:1.49.2
+docker.io/harness/smp-chaos-web-signed:1.49.0
+docker.io/harness/smp-service-discovery-server-signed:0.29.0
 docker.io/harness/source-probe:main-latest
-docker.io/harness/srm-ui-signed:1.5.2
-docker.io/harness/ssca-manager-signed:1.19.1
-docker.io/harness/ssca-ui-signed:0.15.2
-docker.io/harness/stocore-signed:1.117.2
-docker.io/harness/stomanager-signed:1.44.1
+docker.io/harness/srm-ui-signed:1.6.0
+docker.io/harness/ssca-manager-signed:1.20.1
+docker.io/harness/ssca-ui-signed:0.17.1
+docker.io/harness/stocore-signed:1.120.4
+docker.io/harness/stomanager-signed:1.46.0
 docker.io/harness/telescopes-signed:1.3.2
-docker.io/harness/template-service-signed:1.63.2
-docker.io/harness/ti-service-signed:1.34.1
+docker.io/harness/template-service-signed:1.69.1
+docker.io/harness/ti-service-signed:1.42.1
 docker.io/harness/ui-signed:1.22.0
 docker.io/harness/upgrader:latest
-docker.io/harness/verification-service-signed:1.53.1
+docker.io/harness/verification-service-signed:1.59.0
 docker.io/koalaman/shellcheck:v0.5.0
+docker.io/prom/statsd-exporter:latest
 docker.io/redis:6.2.14-alpine
 docker.io/redis:7.2.4-alpine
-docker.io/timescale/timescaledb-ha:pg13-ts2.9-oss-latest
-docker.io/ubuntu:20.04
+docker.io/timescale/timescaledb-ha:pg13.16-ts2.15.3-oss
 harness/anchore-job-runner:latest
 harness/aqua-security-job-runner:latest
 harness/aqua-trivy-job-runner:latest
@@ -185,10 +191,10 @@ harness/blackduckhub-job-runner:latest
 harness/brakeman-job-runner:latest
 harness/checkmarx-job-runner:latest
 harness/ci-addon:1.16.26
-harness/ci-addon:1.16.58
+harness/ci-addon:1.16.61
 harness/ci-lite-engine:1.16.26
-harness/ci-lite-engine:1.16.58
-harness/drone-git:1.6.1-rootless
+harness/ci-lite-engine:1.16.61
+harness/drone-git:1.6.2-rootless
 harness/fossa-job-runner:latest
 harness/grype-job-runner:latest
 harness/nikto-job-runner:latest
@@ -210,24 +216,25 @@ harness/whitesource-agent-job-runner:latest
 harness/wiz-job-runner:latest
 harness/zap-job-runner:latest
 plugins/acr:20.18.4
-plugins/artifactory:1.7.0
-plugins/buildx-acr:1.2.4
-plugins/buildx-ecr:1.2.4
-plugins/buildx-gar:1.2.4
-plugins/buildx-gcr:1.2.4
-plugins/buildx:1.1.16
+plugins/artifactory:1.7.1
+plugins/buildx-acr:1.2.7
+plugins/buildx-ecr:1.2.7
+plugins/buildx-gar:1.2.7
+plugins/buildx-gcr:1.2.7
+plugins/buildx:1.1.20
 plugins/cache:1.7.3
+plugins/cache:1.8.0
 plugins/docker:20.18.4
 plugins/ecr:20.18.4
 plugins/gar:20.18.4
 plugins/gcr:20.18.4
-plugins/gcs:1.6.0
+plugins/gcs:1.6.1
 plugins/kaniko-acr:1.10.1
 plugins/kaniko-ecr:1.10.2
 plugins/kaniko-gcr:1.10.1
 plugins/kaniko:1.10.1
 plugins/s3:1.2.7
-plugins/s3:1.4.3
+plugins/s3:1.5.0
 registry.k8s.io/defaultbackend-amd64:1.5
 registry.k8s.io/ingress-nginx/controller:v1.3.0
 
@@ -261,7 +268,7 @@ registry.k8s.io/ingress-nginx/controller:v1.3.0
 | chaos.chaos-web.tolerations | list | `[]` |  |
 | ci | object | `{"ci-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ti-service":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Install the Continuous Integration (CI) manager pod |
 | enabled | bool | `false` |  |
-| ff.ff-pushpin-service.waitForInitContainer.image.tag | string | `"1.0.0"` |  |
+| ff.ff-pushpin-service.waitForInitContainer.image.tag | string | `"1.2.0"` |  |
 | global.airgap | string | `"false"` | Airgap functionality. Disabled by default |
 | global.autoscaling | object | `{"enabled":true}` | Enable to set auto-scaling globally |
 | global.awsServiceEndpointUrls | object | `{"cloudwatchEndPointUrl":"https://monitoring.us-east-2.amazonaws.com","ecsEndPointUrl":"https://ecs.us-east-2.amazonaws.com","enabled":false,"endPointRegion":"us-east-2","stsEndPointUrl":"https://sts.us-east-2.amazonaws.com"}` | Set global.awsServiceEndpointUrls.cloudwatchEndPointUrl to set cloud watch endpoint url |
@@ -271,6 +278,7 @@ registry.k8s.io/ingress-nginx/controller:v1.3.0
 | global.cg | object | `{"enabled":false}` | Enable to install First Generation Harness Platform (disabled by default) |
 | global.chaos | object | `{"enabled":false}` | Enable to install Chaos Engineering (CE) (Beta) |
 | global.ci | object | `{"enabled":false}` | Enable to install Continuous Integration (CI) |
+| global.code | object | `{"enabled":false}` | Enable to install Harness Code services (CODE) |
 | global.commonAnnotations | object | `{}` | Add common annotations to all objects |
 | global.commonLabels | object | `{}` | Add common labels to all objects |
 | global.database | object | `{"clickhouse":{"enabled":false},"mongo":{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""},"postgres":{"extraArgs":"","hosts":["<postgres ip>:5432"],"installed":true,"passwordKey":"password","protocol":"postgres","secretName":"postgres-secret","userKey":"user"},"redis":{"hosts":["<internal-endpoint-with-port>"],"installed":true,"passwordKey":"password","secretName":"redis-user-pass","userKey":"username"},"timescaledb":{"certKey":"cert","certName":"tsdb-cert","hosts":["hostname.timescale.com:5432"],"installed":true,"passwordKey":"password","secretName":"tsdb-secret","sslEnabled":false,"userKey":"username"}}` | provide overrides to use in-cluster database or configure to use external databases |
@@ -337,8 +345,8 @@ registry.k8s.io/ingress-nginx/controller:v1.3.0
 | global.waitForInitContainer.image.pullPolicy | string | `"Always"` |  |
 | global.waitForInitContainer.image.registry | string | `"docker.io"` |  |
 | global.waitForInitContainer.image.repository | string | `"harness/helm-init-container"` |  |
-| global.waitForInitContainer.image.tag | string | `"1.0.0"` |  |
-| platform | object | `{"access-control":{"affinity":{},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"tolerations":[]},"bootstrap":{"database":{"clickhouse":{"enabled":false},"minio":{"affinity":{},"nodeSelector":{},"tolerations":[]},"mongodb":{"affinity":{},"arbiter":{"affinity":{},"nodeSelector":{},"tolerations":[]},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9216","prometheus.io/scrape":"false"},"tolerations":[]},"postgresql":{"metrics":{"enabled":false},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"}},"redis":{"affinity":{},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9121","prometheus.io/scrape":"false"},"tolerations":[]},"timescaledb":{"affinity":{},"nodeSelector":{},"persistentVolumes":{"data":{"enabled":true,"size":"100Gi"},"wal":{"enabled":true,"size":"1Gi"}},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"},"prometheus":{"enabled":false},"tolerations":[]}},"harness-secrets":{"enabled":true},"networking":{"defaultbackend":{"create":false,"resources":{"limits":{"memory":"20Mi"},"requests":{"cpu":"10m","memory":"20Mi"}}},"nginx":{"affinity":{},"controller":{"annotations":{}},"create":false,"healthNodePort":"","healthPort":"","httpNodePort":"","httpsNodePort":"","loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nodeSelector":{},"resources":{"limits":{"memory":"512Mi"},"requests":{"cpu":"0.5","memory":"512Mi"}},"tolerations":[]}}},"change-data-capture":{"affinity":{},"nodeSelector":{},"tolerations":[]},"delegate-proxy":{"affinity":{},"nodeSelector":{},"tolerations":[]},"gateway":{"affinity":{},"nodeSelector":{},"tolerations":[]},"harness-manager":{"affinity":{},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harness/delegate","tag":"24.10.84200"}},"nodeSelector":{},"tolerations":{}},"log-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"looker":{"affinity":{},"nodeSelector":{},"tolerations":[]},"migrator":{"affinity":{},"nodeSelector":{},"tolerations":[]},"next-gen-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-auth-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-custom-dashboards":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"pipeline-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"platform-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"scm-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"template-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ui":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for platform-level services (always deployed by default to support all services) |
+| global.waitForInitContainer.image.tag | string | `"1.2.0"` |  |
+| platform | object | `{"access-control":{"affinity":{},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"tolerations":[]},"bootstrap":{"database":{"clickhouse":{"enabled":false},"minio":{"affinity":{},"nodeSelector":{},"tolerations":[]},"mongodb":{"affinity":{},"arbiter":{"affinity":{},"nodeSelector":{},"tolerations":[]},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9216","prometheus.io/scrape":"false"},"tolerations":[]},"postgresql":{"metrics":{"enabled":false},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"}},"redis":{"affinity":{},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9121","prometheus.io/scrape":"false"},"tolerations":[]},"timescaledb":{"affinity":{},"nodeSelector":{},"persistentVolumes":{"data":{"enabled":true,"size":"100Gi"},"wal":{"enabled":true,"size":"1Gi"}},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"},"prometheus":{"enabled":false},"tolerations":[]}},"harness-secrets":{"enabled":true},"networking":{"defaultbackend":{"create":false,"resources":{"limits":{"memory":"20Mi"},"requests":{"cpu":"10m","memory":"20Mi"}}},"nginx":{"affinity":{},"controller":{"annotations":{}},"create":false,"healthNodePort":"","healthPort":"","httpNodePort":"","httpsNodePort":"","loadBalancerEnabled":false,"loadBalancerIP":"0.0.0.0","nodeSelector":{},"resources":{"limits":{"memory":"512Mi"},"requests":{"cpu":"0.5","memory":"512Mi"}},"tolerations":[]}}},"change-data-capture":{"affinity":{},"nodeSelector":{},"tolerations":[]},"delegate-proxy":{"affinity":{},"nodeSelector":{},"tolerations":[]},"gateway":{"affinity":{},"nodeSelector":{},"tolerations":[]},"harness-manager":{"affinity":{},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harness/delegate","tag":"24.11.84503"}},"nodeSelector":{},"tolerations":{}},"log-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"looker":{"affinity":{},"nodeSelector":{},"tolerations":[]},"migrator":{"affinity":{},"nodeSelector":{},"tolerations":[]},"next-gen-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-auth-ui":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-custom-dashboards":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-manager":{"affinity":{},"nodeSelector":{},"tolerations":[]},"pipeline-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"platform-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"scm-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"template-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ui":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for platform-level services (always deployed by default to support all services) |
 | platform.access-control | object | `{"affinity":{},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
 | platform.access-control.mongoHosts | list | `[]` | - replica3.host.com:27017 |
 | platform.access-control.mongoSSL | object | `{"enabled":false}` | enable mongoSSL for external database connections |
@@ -348,7 +356,7 @@ registry.k8s.io/ingress-nginx/controller:v1.3.0
 | platform.change-data-capture | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | change-data-capture settings (taints, tolerations, and so on) |
 | platform.delegate-proxy | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | delegate proxy settings (taints, tolerations, and so on) |
 | platform.gateway | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | gateway settings (taints, tolerations, and so on) |
-| platform.harness-manager | object | `{"affinity":{},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harness/delegate","tag":"24.10.84200"}},"nodeSelector":{},"tolerations":{}}` | harness-manager (taints, tolerations, and so on) |
+| platform.harness-manager | object | `{"affinity":{},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harness/delegate","tag":"24.11.84503"}},"nodeSelector":{},"tolerations":{}}` | harness-manager (taints, tolerations, and so on) |
 | platform.harness-manager.featureFlags | object | `{"ADDITIONAL":""}` | Feature Flags |
 | platform.harness-manager.featureFlags.ADDITIONAL | string | `""` | Additional Feature Flag (placeholder to add any other featureFlags) |
 | platform.log-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
