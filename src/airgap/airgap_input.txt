@@ -35,7 +35,6 @@
     audit-event-streaming-signed
     queue-service-signed
     service-discovery-collector
-    ubuntu
     ng-dashboard-aggregator-signed
     ingress-nginx/controller
     defaultbackend-amd64
