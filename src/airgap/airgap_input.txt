@@ -38,6 +38,7 @@
     ng-dashboard-aggregator-signed
     ingress-nginx/controller
     defaultbackend-amd64
+    prom/statsd-exporter
 
 [cdng]:
     argocd
@@ -166,3 +167,4 @@
     code-githa-signed
     code-gitrpc-signed
     code-search-signed
+    busybox
