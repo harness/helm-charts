@@ -18,6 +18,8 @@ ci:
       PLAN_CREATOR_SERVICE_EXECUTOR_POOL_MAX_SIZE: "200"
       PMS_SDK_EXECUTION_POOL_CORE_SIZE: "300"
       PMS_SDK_EXECUTION_POOL_MAX_SIZE: "500"
+      ADDON_IMAGE: "harness/ci-addon:1.16.51"
+      LE_IMAGE: "harness/ci-lite-engine:1.16.51"
     autoscaling:
       enabled: false
     java:
@@ -208,6 +210,8 @@ platform:
     additionalConfigs:
       GOGC: "50"
       LOG_SERVICE_REDIS_DISABLE_EXPIRY_WATCHER: "false"
+      LOG_SERVICE_STREAM_USE_PROTOBUF: "true"
+      LOG_SERVICE_UPLOAD_USING_LINK_ENABLED: "true"
       # Update the following configuration if using external redis
 #      LOG_SERVICE_REDIS_MASTER_NAME: "test-redis"
 #      LOG_SERVICE_REDIS_USE_SENTINEL: "false"
