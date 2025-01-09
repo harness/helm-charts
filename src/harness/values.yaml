@@ -247,7 +247,7 @@ global:
       registry: docker.io
       repository: harness/helm-init-container
       pullPolicy: Always
-      tag: "1.0.0"
+      tag: "1.2.0"
       digest: ""
       imagePullSecrets: []
   fileLogging:
@@ -475,7 +475,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 24.10.84200
+        tag: 24.11.84503
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -584,4 +584,4 @@ ff:
   ff-pushpin-service:
     waitForInitContainer:
       image:
-        tag: 1.0.0
+        tag: 1.2.0
