@@ -13,7 +13,7 @@ read -p "Enter Override file path (eg: ./override-values.yaml): " OVERRIDEFILE
 read -p "Enter new pvc size in Gi (eg: 30Gi): " NEWSIZE
 read -p "Enter the required database name which requires size change (options are: mongodb, timescaledb, minio, postgresql, timescaledb-wal): " DATABASE
 read -p "Enter release name: " RELEASE
-read -p "Enter chart path/name/version (eg: harness/harness --version 0.x.y): " CHART 
+read -p "Enter chart path/nme/version (eg: harness/harness --version 0.x.y): " CHART 
 
 # Check if yq is installed
 if ! command -v yq &>/dev/null; then
