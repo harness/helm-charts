@@ -12,11 +12,11 @@ if [[ $(echo "$MAJOR_MINOR_VERSION >= 0.21" | bc) -eq 1 ]]; then
 fi
 
 # Re-check Upgrade version
-read -p "Are you sure Harness Upgrade version is $VERSION ? (Yes | No): " CONFIRM_RESPONSE
+read -p "Updating Ingress objects for upgrade to Harness version: $VERSION. Continue? (Yes | No): " CONFIRM_RESPONSE
 CONFIRM_RESPONSE=$(echo "$CONFIRM_RESPONSE" | tr '[:upper:]' '[:lower:]')
 
 if [[ "${CONFIRM_RESPONSE}" != "yes" ]]; then
-  echo "Existing.. "
+  echo "Exiting.. "
   exit 1
 fi
 
