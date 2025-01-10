@@ -11,6 +11,15 @@ if [[ $(echo "$MAJOR_MINOR_VERSION >= 0.21" | bc) -eq 1 ]]; then
   read -p "Enter Helm Release Name (You can check release name by running 'helm ls -n $NAMESPACE'): " RELEASE_NAME
 fi
 
+# Re-check Upgrade version
+read -p "Updating Ingress objects for upgrade to Harness version: $VERSION. Continue? (Yes | No): " CONFIRM_RESPONSE
+CONFIRM_RESPONSE=$(echo "$CONFIRM_RESPONSE" | tr '[:upper:]' '[:lower:]')
+
+if [[ "${CONFIRM_RESPONSE}" != "yes" ]]; then
+  echo "Exiting.. "
+  exit 1
+fi
+
 # Perform actions based on the version
 if [[ "$VERSION" == "0.24."* ]]; then
   OLD_INGRESS_NAMES=("log-service" "pipeline-service-smp-v1-apis" "access-control" "ci-manager" "template-service" "ssca-manager" "ssca-manager-smp-v1-apis" "ng-ce-ui" "chaos-manager" "migrator-api" "next-gen-ui" "ng-dashboard-aggregator" "chaos-k8s-ifs" "verification-svc" "ssca-ui" "ng-auth-ui" "nextgen-ce" "service-discovery-manager" "${RELEASE_NAME}-gitops" "${RELEASE_NAME}-sto-manager" "cv-nextgen" "cv-nextgen-smp-v1-apis" "gateway" "${RELEASE_NAME}-policy-mgmt" "ng-custom-dashboards" "telescopes" "cloud-info" "debezium-service" "event-service-api" "queue-service" "srm-ui")
