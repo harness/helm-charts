@@ -47,6 +47,10 @@ dependencies:
   name: code
   repository: https://harness.github.io/helm-charts
   version: 0.24.0
+- condition: global.iacm.enabled
+  name: iacm
+  repository: https://harness.github.io/helm-charts
+  version: 0.24.0
 description: Helm Chart for deploying Harness.
 kubeVersion: '>=1.25.0-0'
 name: harness
