@@ -20,10 +20,10 @@ dependencies:
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.1.1
 - name: gateway
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  repository: oci://us-west1-docker.pkg.dev/gar-dev-setup/docker/gateway
   version: 1.41.0
 - name: harness-manager
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  repository: oci://us-west1-docker.pkg.dev/gar-dev-setup/docker/harness-manager
   version: 1.68.1
 - condition: global.ng.enabled
   name: log-service
@@ -46,7 +46,7 @@ dependencies:
   version: 1.33.0
 - condition: global.ng.enabled
   name: ng-manager
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  repository: oci://us-west1-docker.pkg.dev/gar-dev-setup/docker/ng-manager
   version: 1.72.0
 - condition: global.ng.enabled
   name: pipeline-service
