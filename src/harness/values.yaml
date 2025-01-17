@@ -585,3 +585,22 @@ ff:
     waitForInitContainer:
       image:
         tag: 1.2.0
+iacm:
+  iac-server:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+  iacm-manager:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+  iac-cloud-cost-api:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
