@@ -15,7 +15,7 @@ global:
     clickhouse:
       enabled: true
   ff:
-    enabled: true
+    enabled: false
   lwd:
     autocud:
       enabled: false
