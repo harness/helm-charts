@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODULE_NAMES=("platform" "ccm" "cdng" "ci" "ce" "sto" "ff" "ssca" "dbdevops" "code" "iacm")
+MODULE_NAMES=("platform" "ccm" "cdng" "ci" "ce" "sto" "ff" "ssca" "dbdevops" "code")
 
 abort() {
     echo "Error: $1"
