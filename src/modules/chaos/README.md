@@ -183,14 +183,6 @@ dependencies:
 | chaos-manager.image.registry | string | `"docker.io"` |  |
 | chaos-manager.image.repository | string | `"chaosnative/harness-smp-chaos-manager"` |  |
 | chaos-manager.image.tag | string | `"0.11.1"` |  |
-| chaos-manager.jobs.chaos_db_upgrade.enabled | bool | `false` |  |
-| chaos-manager.jobs.chaos_db_upgrade.image.digest | string | `""` |  |
-| chaos-manager.jobs.chaos_db_upgrade.image.imagePullSecrets | list | `[]` |  |
-| chaos-manager.jobs.chaos_db_upgrade.image.pullPolicy | string | `"Always"` |  |
-| chaos-manager.jobs.chaos_db_upgrade.image.registry | string | `"docker.io"` |  |
-| chaos-manager.jobs.chaos_db_upgrade.image.repository | string | `"chaosnative/harness-smp-chaos-db-upgrade-agent"` |  |
-| chaos-manager.jobs.chaos_db_upgrade.image.tag | string | `"0.11.0"` |  |
-| chaos-manager.jobs.chaos_db_upgrade.slackURLToNotify | string | `"no-url"` |  |
 | chaos-manager.litmusChaosExporterImage.image.digest | string | `""` |  |
 | chaos-manager.litmusChaosExporterImage.image.registry | string | `"docker.io"` |  |
 | chaos-manager.litmusChaosExporterImage.image.repository | string | `"chaosnative/chaos-exporter"` |  |
