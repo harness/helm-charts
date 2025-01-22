@@ -424,3 +424,36 @@ sto:
       requests:
         cpu: 256m
         memory: 1.5Gi
+iacm:
+  iacm-manager:
+    autoscaling:
+      enabled: false
+    java:
+      memory: "512m"
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 1280Mi
+      requests:
+        cpu: 256m
+        memory: 1280Mi
+  iac-server:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi
+  iac-cloud-pricing-api: 
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi

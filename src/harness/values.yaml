@@ -571,7 +571,7 @@ sto:
 upgrades:
   versionLookups:
     enabled: true
-  mongoFCVUpgrade:
+  mongo FCVUpgrade:
     enabled: true
     affinity: {}
     nodeSelector: {}
@@ -587,6 +587,9 @@ ff:
         tag: 1.2.0
 iacm:
   iac-server:
+    config:
+      ENABLE_SMP: "true"
+      FF_ENABLED: "false"
     affinity: {}
     autoscaling:
       enabled: false
@@ -598,7 +601,7 @@ iacm:
       enabled: false
     nodeSelector: {}
     tolerations: []
-  iac-cloud-cost-api:
+  iac-cloud-pricing-api:
     affinity: {}
     autoscaling:
       enabled: false
