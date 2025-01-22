@@ -171,4 +171,4 @@
     harness_terraform
     iac-server-signed
     iacm-manager-signed
-    iac-cloud-cost-api-signed
+    iac-cloud-pricing-api-signed
