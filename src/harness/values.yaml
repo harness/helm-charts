@@ -571,7 +571,7 @@ sto:
 upgrades:
   versionLookups:
     enabled: true
-  mongo FCVUpgrade:
+  mongoFCVUpgrade:
     enabled: true
     affinity: {}
     nodeSelector: {}
