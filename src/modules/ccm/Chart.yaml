@@ -3,7 +3,7 @@ appVersion: 1.546.0
 dependencies:
 - name: event-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.12.1
+  version: 1.12.4
 - name: anomaly-detection
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.4.1
