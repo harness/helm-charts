@@ -41,6 +41,7 @@
     redis_exporter
     postgres-exporter
     mongodb-exporter
+    statsd-exporter
 
 [cdng]:
     argocd
@@ -139,10 +140,10 @@
     chaos-go-runner
     k8s-chaos-infrastructure-upgrader
     smp-chaos-bg-processor-signed
-    litmus-checker
     chaos-ddcr
     chaos-machine-ifc-signed
     chaos-machine-ifs-signed
+    chaos-ddcr-faults
 
 [ssca]:
     ssca-plugin
@@ -151,6 +152,7 @@
     ssca-compliance-plugin
     ssca-manager-signed
     ssca-ui-signed
+    ssca-artifact-signing-plugin
 
 [db-devops]:
     db-devops-service-signed
