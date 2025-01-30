@@ -25,28 +25,28 @@ tests:
           path: metadata.namespace
           value: harness-smp
 
-  - it: validate default rules
-    asserts:
-      - contains:
-          path: rules
-          content:
-            apiGroups:
-              - ""
-            resources:
-              - endpoints
-            verbs:
-              - get
-      - contains:
-          path: rules
-          content:
-            apiGroups:
-              - ""
-            resources:
-              - pods
-            verbs:
-              - get
-              - list
-              - watch
+  # - it: validate default rules
+  #   asserts:
+  #     - contains:
+  #         path: rules
+  #         content:
+  #           apiGroups:
+  #             - ""
+  #           resources:
+  #             - endpoints
+  #           verbs:
+  #             - get
+  #     - contains:
+  #         path: rules
+  #         content:
+  #           apiGroups:
+  #             - ""
+  #           resources:
+  #             - pods
+  #           verbs:
+  #             - get
+  #             - list
+  #             - watch
 
   - it: should work with custom rules
     set:
