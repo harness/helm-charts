@@ -139,7 +139,6 @@
     chaos-go-runner
     k8s-chaos-infrastructure-upgrader
     smp-chaos-bg-processor-signed
-    chaos-k8s
     litmus-checker
     chaos-ddcr
     chaos-machine-ifc-signed
