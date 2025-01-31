@@ -7,9 +7,6 @@ dependencies:
 - name: iacm-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.1.0
-- name: iac-cloud-pricing-api
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.1.0
 description: Helm chart for Harness IACM
 name: iacm
 type: application

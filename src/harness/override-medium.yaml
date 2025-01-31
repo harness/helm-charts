@@ -462,13 +462,4 @@ iacm:
       requests:
         cpu: 128m
         memory: 256Mi
-  iac-cloud-pricing-api: 
-    autoscaling:
-      enabled: false
-      replicaCount: 2
-    resources:
-      limits:
-        memory: 256Mi
-      requests:
-        cpu: 128m
-        memory: 256Mi
+

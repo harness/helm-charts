@@ -601,9 +601,3 @@ iacm:
       enabled: false
     nodeSelector: {}
     tolerations: []
-  iac-cloud-pricing-api:
-    affinity: {}
-    autoscaling:
-      enabled: false
-    nodeSelector: {}
-    tolerations: []

@@ -808,12 +808,3 @@ iacm:
       requests:
         cpu: 500m
         memory: 500Mi
-  iac-cloud-pricing-api: 
-    autoscaling:
-      enabled: true
-      minReplicas: 2
-    resources:
-      limits:
-        memory: 500Mi
-      requests:
-        cpu: 500m
