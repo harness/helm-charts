@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.24.2](https://img.shields.io/badge/Version-0.24.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.24.3](https://img.shields.io/badge/Version-0.24.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -92,12 +92,12 @@ docker.io/haproxy:lts-alpine3.18
 docker.io/harness/accesscontrol-service-signed:1.68.0
 docker.io/harness/argocd:v2.10.14
 docker.io/harness/audit-event-streaming-signed:1.15.0
-docker.io/harness/batch-processing-signed:1.31.8
+docker.io/harness/batch-processing-signed:1.35.7
 docker.io/harness/ccm-gcp-smp-signed:10057
 docker.io/harness/cdcdata-signed:1.39.2
 docker.io/harness/ce-anomaly-detection-signed:1.4.1
 docker.io/harness/ce-cloud-info-signed:1.7.0
-docker.io/harness/ce-nextgen-signed:1.34.7
+docker.io/harness/ce-nextgen-signed:1.38.5
 docker.io/harness/chaos-argoexec:v3.4.16
 docker.io/harness/chaos-ddcr:1.49.1
 docker.io/harness/chaos-exporter:1.49.0
@@ -143,12 +143,12 @@ docker.io/harness/le-nextgen-signed:1.5.6
 docker.io/harness/learning-engine-onprem-signed:1.3.2
 docker.io/harness/litmus-checker:1.49.0
 docker.io/harness/log-service-signed:1.14.6
-docker.io/harness/looker-signed:1.7.1
+docker.io/harness/looker-signed:1.7.2
 docker.io/harness/manager-signed:1.64.5
 docker.io/harness/migrator-signed:1.116.2
 docker.io/harness/nextgenui-signed:1.54.4
 docker.io/harness/ng-auth-ui-signed:1.29.0
-docker.io/harness/ng-ce-ui:1.33.1
+docker.io/harness/ng-ce-ui:1.35.4
 docker.io/harness/ng-dashboard-aggregator-signed:1.33.0
 docker.io/harness/ng-manager-signed:1.68.8
 docker.io/harness/pipeline-service-signed:1.107.4
