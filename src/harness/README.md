@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.25.0](https://img.shields.io/badge/Version-0.25.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.25.1](https://img.shields.io/badge/Version-0.25.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -93,12 +93,12 @@ docker.io/haproxy:lts-alpine3.18
 docker.io/harness/accesscontrol-service-signed:1.70.1
 docker.io/harness/argocd:v2.13.2
 docker.io/harness/audit-event-streaming-signed:1.17.0
-docker.io/harness/batch-processing-signed:1.35.3
+docker.io/harness/batch-processing-signed:1.35.7
 docker.io/harness/ccm-gcp-smp-signed:10057
 docker.io/harness/cdcdata-signed:1.41.0
 docker.io/harness/ce-anomaly-detection-signed:1.4.1
 docker.io/harness/ce-cloud-info-signed:1.7.0
-docker.io/harness/ce-nextgen-signed:1.38.4
+docker.io/harness/ce-nextgen-signed:1.38.5
 docker.io/harness/chaos-argoexec:v3.4.16
 docker.io/harness/chaos-ddcr-faults:1.53.0
 docker.io/harness/chaos-ddcr:1.53.0
@@ -138,7 +138,7 @@ docker.io/harness/k8s-chaos-infrastructure-upgrader:1.53.0
 docker.io/harness/le-nextgen-signed:1.5.6
 docker.io/harness/learning-engine-onprem-signed:1.3.2
 docker.io/harness/log-service-signed:1.17.3
-docker.io/harness/looker-signed:1.7.1
+docker.io/harness/looker-signed:1.7.2
 docker.io/harness/manager-signed:1.68.4
 docker.io/harness/migrator-signed:1.116.2
 docker.io/harness/nextgenui-signed:1.58.4
