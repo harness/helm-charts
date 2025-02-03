@@ -6,6 +6,10 @@ release:
 set:
   global.pdb.create: true
   pdb.create: true
+  pdb.maxUnavailable: ""
+  pdb.minAvailable: ""
+  global.pdb.maxUnavailable: ""
+  global.pdb.minAvailable: ""
 tests:
   - it: should not enable PodDisruptionBudget if global.pdb.create and pdb.create are false
     set:
