@@ -61,7 +61,7 @@ docker.io/harness/learning-engine-onprem-signed:1.3.2
 docker.io/harness/litmus-checker:1.49.0
 docker.io/harness/log-service-signed:1.14.6
 docker.io/harness/looker-signed:1.7.2
-docker.io/harness/manager-signed:1.64.5
+docker.io/harness/manager-signed:1.64.9
 docker.io/harness/migrator-signed:1.116.2
 docker.io/harness/nextgenui-signed:1.54.4
 docker.io/harness/ng-auth-ui-signed:1.29.0
