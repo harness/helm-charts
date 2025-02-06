@@ -4932,6 +4932,56 @@ entries:
     version: 0.15.0
   - apiVersion: v2
     appVersion: 1.0.80917
+    created: "2025-02-06T20:05:35.424839121Z"
+    dependencies:
+    - condition: global.ccm.enabled
+      name: ccm
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.cd.enabled
+      name: cd
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.cet.enabled
+      name: cet
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.chaos.enabled
+      name: chaos
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.ci.enabled
+      name: ci
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.12
+    - condition: global.ff.enabled
+      name: ff
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - name: platform
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.13
+    - condition: global.srm.enabled
+      name: srm
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    - condition: global.sto.enabled
+      name: sto
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.6
+    - condition: global.ssca.enabled
+      name: ssca
+      repository: https://harness.github.io/helm-charts
+      version: 0.14.1
+    description: Helm Chart for deploying Harness.
+    digest: 330b0b13d3041f50d688d6236cabdec8721330380c2b3eecdb2303f420cae852
+    name: harness
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-0.14.13/harness-0.14.13.tgz
+    version: 0.14.13
+  - apiVersion: v2
+    appVersion: 1.0.80917
     created: "2024-06-29T12:17:18.507487847Z"
     dependencies:
     - condition: global.ccm.enabled
@@ -19849,4 +19899,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2025-02-06T19:53:49.892927649Z"
+generated: "2025-02-06T20:05:35.425759381Z"
