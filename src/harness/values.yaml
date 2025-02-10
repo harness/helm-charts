@@ -587,9 +587,6 @@ ff:
         tag: 1.2.0
 iacm:
   iac-server:
-    config:
-      ENABLE_SMP: "true"
-      FF_ENABLED: "false"
     affinity: {}
     autoscaling:
       enabled: false
