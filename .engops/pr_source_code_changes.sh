@@ -12,8 +12,6 @@
 # 1. Given a change set (PR diff), what constitutes a change to a service?
 # 2. Given you've determined a set of files has changed a service, which service was changed?
 #
-# As this repository is a single-service repository, there is no concern with number 2 above.
-#
 # This script endeavors to answer question number one - which files constitute a change to a service
 # Given an input file which is the git diff from a PR
 # this script should determine what file changes in the diff
@@ -23,23 +21,26 @@
 # file names are returned in the output file.
 #
 # Inputs
-# $1 - the git diff from the pull request
+# $1 - File containing unique changed files
 # $2 - the output file which should ultimately contain file names from the diff that affect a service
 #
 # See BT-10437 for more information
-# See https://harness.atlassian.net/wiki/spaces/ENGOPS/pages/22218015100/Multi-service+repositories+-+Mapping+file+changes+to+affected+services+for+CX+Tagging+Communication
+#
+# Called by https://harness0.harness.io/ng/account/l7B_kbSEQD2wjrM7PShm5w/all/orgs/Audit/projects/Engops_Audit/pipelines/PRMergedGithub/pipeline-studio/?storeType=INLINE
+# Unlike other scripts for detecting changes, this one doesn't receive a git diff, rather a unique list of files changed by the git update.
 #
 # Owner: Engops
 # Author: Marc Batchelor
 ###################################################
-prDiff=$1
+echo "Arguments: " $*
+uniqueFileNamesFile=$1
 sourceDiffNames=$2
-if [ -z "$prDiff" ]; then
+if [ -z "$uniqueFileNamesFile" ]; then
   echo "Missing input PR Difference file."
   exit 1
 fi
-if [ ! -f "$prDiff" ]; then
-  echo "Input file $prDiff does not exist and is required."
+if [ ! -f "$uniqueFileNamesFile" ]; then
+  echo "Input file $uniqueFileNamesFile does not exist and is required."
   exit 2
 fi
 if [ -z "$sourceDiffNames" ]; then
@@ -53,8 +54,8 @@ fi
 
 
 # Java files (and other files) which end up in jars - these are kept in .../src/main/x/x/x/* 
-cat "$diffResp" | grep -E "^diff .*java$" | grep -v "/test/" | sed 's/diff --git a\///' | sed 's/ b\/.*$//' > $sourceDiffNames
+cat "$uniqueFileNamesFile" | grep -E ".*.java$" | grep -v "/test/" > $sourceDiffNames
 # go files (without tests)
-cat "$diffResp" | grep -E "^diff .*.go$|^diff .*.mod$" | grep -v "test_"| sed 's/diff --git a\///' | sed 's/ b\/.*$//' >> $sourceDiffNames
-# Other potential source files
-cat "$diffResp" | grep -E "^diff .*.(css|gradle|graphql|gv|html|iml|js|json|mustache|pl|properties|proto|ps1|py|pyc|qbg|repo|rs|sh|sha256|sql|sum|tf|tgz|tpl|xml|yaml|yml)$" | sed 's/diff --git a\///' | sed 's/ b\/.*$//' >> $sourceDiffNames
+cat "$uniqueFileNamesFile" | grep -E ".*.go$|.*.mod$" | grep -v "test_" >> $sourceDiffNames
+# Other source files
+cat "$uniqueFileNamesFile" | grep -E ".*.(Dockerfile|Dockerfile.cov|Dockerfile.dev|bazel|c|cc|conf|css|ejs|eslintrc|gitmodules|go|golang|gradle|gv|graphql|h|html|iml|js|json|less|mod|pipeline|mustache|pl|png|properties|ps1|proto|py|pyc|qbg|repo|rs|sh|sha256|sql|sum|svg|tf|tgz|tmpl|tpl|ts|tsx|xml|yaml|yml)$" >> $sourceDiffNames
