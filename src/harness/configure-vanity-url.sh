@@ -13,7 +13,7 @@ accountId="$2"
 subdomainUrl="$3"
 
 MONGO_PASS=$(kubectl get secret -n $namespace mongodb-replicaset-chart -o jsonpath={.data.mongodb-root-password} | base64 --decode)
-kubectl exec -it mongodb-replicaset-chart-0 -n $namespace -- mongo <<EOF
+kubectl exec -it mongodb-replicaset-chart-0 -n $namespace -- mongosh <<EOF
 use admin
 db.auth('admin', '${MONGO_PASS}')
 use gateway
