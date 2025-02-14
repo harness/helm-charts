@@ -11,7 +11,7 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Provide lists of image names
 lists=("cdng_images.txt" "ci_images.txt" "platform_images.txt" "ccm_images.txt"
-"ce_images.txt" "sto_images.txt" "ssca_images.txt" "dbdevops_images.txt" "code_images.txt")
+"ce_images.txt" "sto_images.txt" "ssca_images.txt" "dbdevops_images.txt" "code_images.txt" "iacm_images.txt")
 
 pull_image() {
     i="$1"

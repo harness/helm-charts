@@ -163,3 +163,11 @@
     code-gitrpc-signed
     code-search-signed
     busybox
+
+[iacm]:
+    drone-git
+    ci-lite-engine
+    ci-addon
+    harness_terraform
+    iac-server-signed
+    iacm-manager-signed

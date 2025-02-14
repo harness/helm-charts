@@ -436,3 +436,31 @@ sto:
       requests:
         cpu: 256m
         memory: 1.5Gi
+iacm:
+  iacm-manager:
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 6
+      targetCPU: 80
+      targetMemory: 80
+    java:
+      memory: "2048m"
+    replicaCount: 4
+    resources:
+      limits:
+        memory: 3Gi
+      requests:
+        cpu: 2
+        memory: 3Gi
+  iac-server:
+    autoscaling:
+      enabled: false
+    replicaCount: 2
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi
+

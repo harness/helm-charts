@@ -40,6 +40,8 @@ global:
     enabled: true
   code:
     enabled: true
+iacm:
+  enabled: true
 platform:
   bootstrap:
     networking:
