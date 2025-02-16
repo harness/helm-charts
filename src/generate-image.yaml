@@ -20,8 +20,6 @@ global:
     autocud:
       enabled: false
     enabled: false
-  migrator:
-    enabled: true
   ng:
     enabled: true
   ngcustomdashboard:

@@ -174,8 +174,6 @@ global:
     autocud:
       enabled: false
     enabled: false
-  migrator:
-    enabled: false
   mongoSSL: false
   ng:
     enabled: true
@@ -598,18 +596,6 @@ platform:
     secrets:
       # -- Required: Looker license key
       lookerLicenseKey: ""
-  migrator:
-    autoscaling:
-      enabled: true
-      minReplicas: 2
-    java:
-      memory: "2048"
-    resources:
-      limits:
-        memory: 3000Mi
-      requests:
-        cpu: 2
-        memory: 3000Mi
   next-gen-ui:
     autoscaling:
       enabled: true
@@ -744,26 +730,6 @@ srm:
       requests:
         cpu: 4
         memory: 6132Mi
-  learning-engine:
-    autoscaling:
-      enabled: true
-      minReplicas: 2
-    resources:
-      limits:
-        memory: 6132Mi
-      requests:
-        cpu: 4
-        memory: 6132Mi
-  verification-svc:
-    autoscaling:
-      enabled: true
-      minReplicas: 2
-    resources:
-      limits:
-        memory: 2048Mi
-      requests:
-        cpu: 1
-        memory: 2048Mi
 sto:
   sto-core:
     autoscaling:

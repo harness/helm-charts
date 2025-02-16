@@ -164,9 +164,7 @@ The manifests are divided into categories based on modules and are present insid
 
 - cv-nextgen
 - le-nextgen
-- learning-engine
 - srm-ui
-- verification-svc
 
 ### SSCA
 
@@ -200,7 +198,6 @@ The manifests are divided into categories based on modules and are present insid
 - gateway
 - manager
 - log-service
-- migrator
 - ng-custom-dashboards
 - ng-dashboard-aggregator
 - ng-manager
