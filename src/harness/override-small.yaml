@@ -283,18 +283,6 @@ platform:
       requests:
         cpu: 2
         memory: 8Gi
-  migrator:
-    autoscaling:
-      enabled: false
-    java:
-      memory: "2048"
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 3000Mi
-      requests:
-        cpu: 0.5
-        memory: 3000Mi
   next-gen-ui:
     autoscaling:
       enabled: false

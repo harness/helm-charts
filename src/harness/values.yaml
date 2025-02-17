@@ -171,8 +171,6 @@ global:
     autocud:
       enabled: false
     enabled: false
-  migrator:
-    enabled: false
   # -- Enable SSL for MongoDB service
   mongoSSL: false
   # -- Enable monitoring for all harness services: disabled by default
@@ -414,7 +412,6 @@ platform:
             size: 1Gi
     harness-secrets:
       enabled: true
-      # -- learning-engine (taints, tolerations, and so on)
     networking:
       defaultbackend:
         # -- Create will deploy a default backend into your cluster
@@ -486,11 +483,6 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  # -- migrator (taints, tolerations, and so on)
-  migrator:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
   # -- next-gen-ui (Next Generation User Interface) (taints, tolerations, and so on)
   next-gen-ui:
     affinity: {}
@@ -544,14 +536,7 @@ srm:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  learning-engine:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-  verification-svc:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
+
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core

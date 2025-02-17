@@ -25,9 +25,6 @@
     dashboard-service-signed
     policy-mgmt
     curl
-    migrator-signed
-    verification-service-signed
-    learning-engine-onprem-signed
     ui-signed
     srm-ui-signed
     smp-service-discovery-server-signed
