@@ -472,7 +472,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.01.84800
+        tag: 25.02.85201
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -536,7 +536,6 @@ srm:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
