@@ -1,18 +1,18 @@
 dependencies:
 - name: cv-nextgen
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  repository: oci://us-west1-docker.pkg.dev/platform-205701/harness-qa-artifacts
   version: 1.23.0
 - name: le-nextgen
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  repository: oci://us-west1-docker.pkg.dev/platform-205701/harness-qa-artifacts
   version: 1.3.0
 - name: learning-engine
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  repository: oci://us-west1-docker.pkg.dev/platform-205701/harness-qa-artifacts
   version: 1.3.0
 - name: verification-svc
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  repository: oci://us-west1-docker.pkg.dev/platform-205701/harness-qa-artifacts
   version: 1.42.0
 - name: srm-ui
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  repository: oci://us-west1-docker.pkg.dev/platform-205701/harness-qa-artifacts
   version: 1.5.0
 digest: sha256:d02df4a8a8072908ee7548a8c27c56998227e5ef8721eaff66881516ddfc9a7f
 generated: "2024-09-03T09:28:07.63017938Z"

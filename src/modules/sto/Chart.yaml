@@ -2,10 +2,10 @@ apiVersion: v2
 appVersion: 0.0.79001
 dependencies:
 - name: sto-core
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  repository: oci://us-west1-docker.pkg.dev/platform-205701/harness-qa-artifacts
   version: 1.106.0
 - name: sto-manager
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  repository: oci://us-west1-docker.pkg.dev/platform-205701/harness-qa-artifacts
   version: 1.37.0
 description: Helm chart for Harness STO
 name: sto
