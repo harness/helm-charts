@@ -245,7 +245,7 @@ global:
       repository: harness/helm-init-container
       pullPolicy: Always
       tag: "latest"
-      digest: ""
+      digest: "sha256:a9d5052318c02f2253a662d78a400f21949e27acd98420dc49f44eb3bb67fa5c"
       imagePullSecrets: []
   fileLogging:
     enabled: true
@@ -468,7 +468,7 @@ platform:
         registry: docker.io
         repository: harness/delegate
         tag: 24.07.83611
-        digest: ""
+        digest: "sha256:8eb3364708620635f83304e58671f8a16cbb43bbbafec67208ba801b0e6a4975"
   # -- log-service (taints, tolerations, and so on)
   log-service:
     affinity: {}
