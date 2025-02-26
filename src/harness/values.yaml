@@ -370,6 +370,8 @@ platform:
           tolerations: []
         metrics:
           enabled: false
+          image:
+            tag: 0.40.0-debian-12-r40
         nodeSelector: {}
         podAnnotations:
           prometheus.io/path: /metrics
