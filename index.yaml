@@ -1092,6 +1092,21 @@ entries:
   cd:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-03-03T23:10:24.276131517Z"
+    dependencies:
+    - condition: global.cd.enabled
+      name: gitops
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.25.5
+    description: Helm chart for Harness CD
+    digest: 7a9629707e5dd42fdce1a1b1ee92ed1341498e5439848adaae8d9150abacf6c5
+    name: cd
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/cd-0.26.2/cd-0.26.2.tgz
+    version: 0.26.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-02-28T11:18:34.617322239Z"
     dependencies:
     - condition: global.cd.enabled
@@ -13676,6 +13691,23 @@ entries:
   iacm:
   - apiVersion: v2
     appVersion: 0.0.79001
+    created: "2025-03-03T23:10:25.156665651Z"
+    dependencies:
+    - name: iac-server
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.119.5
+    - name: iacm-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.65.2
+    description: Helm chart for Harness IACM
+    digest: 89551debf665392ce002ad77c9d4fa05e511101c76a593c1dd7aea89c8e1301c
+    name: iacm
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/iacm-0.25.1/iacm-0.25.1.tgz
+    version: 0.25.1
+  - apiVersion: v2
+    appVersion: 0.0.79001
     created: "2025-02-28T11:18:35.626158792Z"
     dependencies:
     - name: iac-server
@@ -20618,4 +20650,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2025-02-28T11:48:35.459550402Z"
+generated: "2025-03-03T23:10:26.027261686Z"
