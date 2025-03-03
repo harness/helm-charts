@@ -6,8 +6,8 @@ dependencies:
   version: 1.119.5
 - name: iacm-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.65.1
+  version: 1.65.2
 description: Helm chart for Harness IACM
 name: iacm
 type: application
-version: 0.25.0
+version: 0.25.1
