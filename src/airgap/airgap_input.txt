@@ -74,6 +74,7 @@
     gcr
     acr
     traceable-job-runner
+    harness-cache-server
 
 [sto]:
     ci-addon
@@ -168,3 +169,4 @@
     harness_terraform
     iac-server-signed
     iacm-manager-signed
+    harness_terraform_vm

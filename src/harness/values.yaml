@@ -370,6 +370,8 @@ platform:
           tolerations: []
         metrics:
           enabled: false
+          image:
+            tag: 0.40.0-debian-12-r40
         nodeSelector: {}
         podAnnotations:
           prometheus.io/path: /metrics
@@ -472,7 +474,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.01.84800
+        tag: 25.02.85201
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -536,7 +538,6 @@ srm:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
