@@ -49,11 +49,11 @@ docker.io/harness/event-service-signed:1.12.4
 docker.io/harness/gateway-signed:1.41.7
 docker.io/harness/gitops-agent-installer-helper:v0.0.3
 docker.io/harness/gitops-agent:v0.86.2
-docker.io/harness/gitops-service-signed:1.25.3
+docker.io/harness/gitops-service-signed:1.25.5
 docker.io/harness/helm-init-container:1.2.0
 docker.io/harness/helm-init-container:latest
 docker.io/harness/iac-server-signed:1.119.5
-docker.io/harness/iacm-manager-signed:1.65.1
+docker.io/harness/iacm-manager-signed:1.65.2
 docker.io/harness/k8s-chaos-infrastructure-upgrader:1.54.0
 docker.io/harness/le-nextgen-signed:1.5.6
 docker.io/harness/log-service-signed:1.17.3

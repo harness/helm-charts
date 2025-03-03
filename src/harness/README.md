@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.26.0](https://img.shields.io/badge/Version-0.26.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.26.2](https://img.shields.io/badge/Version-0.26.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -132,11 +132,11 @@ docker.io/harness/event-service-signed:1.12.4
 docker.io/harness/gateway-signed:1.41.7
 docker.io/harness/gitops-agent-installer-helper:v0.0.3
 docker.io/harness/gitops-agent:v0.86.2
-docker.io/harness/gitops-service-signed:1.25.3
+docker.io/harness/gitops-service-signed:1.25.5
 docker.io/harness/helm-init-container:1.2.0
 docker.io/harness/helm-init-container:latest
 docker.io/harness/iac-server-signed:1.119.5
-docker.io/harness/iacm-manager-signed:1.65.1
+docker.io/harness/iacm-manager-signed:1.65.2
 docker.io/harness/k8s-chaos-infrastructure-upgrader:1.54.0
 docker.io/harness/le-nextgen-signed:1.5.6
 docker.io/harness/log-service-signed:1.17.3
