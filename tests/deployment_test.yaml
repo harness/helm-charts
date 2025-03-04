@@ -372,7 +372,34 @@ tests:
           effect: "NoSchedule"
     asserts:
       - notFailedTemplate: {}
-#
+  
+  - it: should have liveness probe configured
+    templates:
+      - deployment.yaml
+    asserts:
+      - exists:
+          path: spec.template.spec.containers[0].livenessProbe
+
+  - it: should have readiness probe configured
+    templates:
+      - deployment.yaml
+    asserts:
+      - exists:
+          path: spec.template.spec.containers[0].readinessProbe
+
+  - it: should have container security context configured
+    templates:
+      - deployment.yaml
+    asserts:
+      - exists:
+          path: spec.template.spec.containers[0].securityContext
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.runAsNonRoot
+          value: true
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.runAsUser
+          value: 65534
+
 #  - it: validate that secret is created and random value is generated for secrets
 #    set:
 #      secrets:
