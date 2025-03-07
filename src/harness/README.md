@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.26.2](https://img.shields.io/badge/Version-0.26.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.26.3](https://img.shields.io/badge/Version-0.26.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -94,12 +94,12 @@ docker.io/haproxy:lts-alpine3.18
 docker.io/harness/accesscontrol-service-signed:1.74.1
 docker.io/harness/argocd:v2.13.5
 docker.io/harness/audit-event-streaming-signed:1.21.0
-docker.io/harness/batch-processing-signed:1.38.5
+docker.io/harness/batch-processing-signed:1.38.6
 docker.io/harness/ccm-gcp-smp-signed:10057
 docker.io/harness/cdcdata-signed:1.41.0
 docker.io/harness/ce-anomaly-detection-signed:1.4.1
 docker.io/harness/ce-cloud-info-signed:1.7.1
-docker.io/harness/ce-nextgen-signed:1.41.7
+docker.io/harness/ce-nextgen-signed:1.41.8
 docker.io/harness/chaos-argoexec:v3.4.16
 docker.io/harness/chaos-ddcr-faults:1.54.0
 docker.io/harness/chaos-ddcr:1.54.0
@@ -132,7 +132,7 @@ docker.io/harness/event-service-signed:1.12.4
 docker.io/harness/gateway-signed:1.41.7
 docker.io/harness/gitops-agent-installer-helper:v0.0.3
 docker.io/harness/gitops-agent:v0.86.2
-docker.io/harness/gitops-service-signed:1.25.5
+docker.io/harness/gitops-service-signed:1.25.6
 docker.io/harness/helm-init-container:1.2.0
 docker.io/harness/helm-init-container:latest
 docker.io/harness/iac-server-signed:1.119.5
@@ -140,7 +140,7 @@ docker.io/harness/iacm-manager-signed:1.65.2
 docker.io/harness/k8s-chaos-infrastructure-upgrader:1.54.0
 docker.io/harness/le-nextgen-signed:1.5.6
 docker.io/harness/log-service-signed:1.17.3
-docker.io/harness/looker-signed:1.7.7
+docker.io/harness/looker-signed:1.7.8
 docker.io/harness/manager-signed:1.72.2
 docker.io/harness/nextgenui-signed:1.61.7
 docker.io/harness/ng-auth-ui-signed:1.32.0
