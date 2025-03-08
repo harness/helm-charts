@@ -39,6 +39,11 @@ while IFS= read -r line; do
     > "$MODULE_IMAGE_FILE"
     generated_files+=("$MODULE_IMAGE_FILE")
     echo "Created module file: $MODULE_IMAGE_FILE"
+
+    # Remove this file from MODULE_IMAGE_FILES array if it exists
+    if [[ " ${MODULE_IMAGE_FILES[*]} " =~ " $MODULE_IMAGE_FILE " ]]; then
+        MODULE_IMAGE_FILES=("${MODULE_IMAGE_FILES[@]/$MODULE_IMAGE_FILE}")
+    fi
      
   elif [[ -n $MODULE_IMAGE_FILE ]]; then
     # Trim leading/trailing whitespaces from the image
@@ -84,6 +89,13 @@ done < "$IMAGES_TXT"
 
 if [[ $lines_not_read_flag -eq 1 ]]; then
   echo "Error: The above lines were not read from $IMAGES_TXT:"
+  exit 1
+fi
+
+# Check if any expected module files were not generated
+if [[ -n "${MODULE_IMAGE_FILES[*]}" ]]; then
+  echo "Error: The following expected module files were not generated:"
+  printf '%s\n' "${MODULE_IMAGE_FILES[@]}"
   exit 1
 fi
 
