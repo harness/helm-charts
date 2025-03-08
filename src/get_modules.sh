@@ -44,7 +44,7 @@ while read -r value; do
 done < <(grep "name:" "$HELM_CHARTS_DIR/src/harness/Chart.yaml" | awk -F 'name:' '{print $2}')
 
 # Get unique entries
-get_unique() { echo "$@" | tr ' ' '\n' | /usr/bin/sort -u | tr '\n' ' '; }
+get_unique() { printf "%s\n" "$@" | /usr/bin/sort -u | tr '\n' ' ' | sed 's/ $//'; }
 
 # Get unique values and export as space-separated strings
 export MODULES=$(get_unique "${MODULES[@]}")
@@ -52,6 +52,6 @@ export MODULE_IMAGE_FILES=$(get_unique "${MODULE_IMAGE_FILES[@]}")
 export MODULE_IMAGE_ZIP_FILES=$(get_unique "${MODULE_IMAGE_ZIP_FILES[@]}")
 
 # Print the arrays (optional, for verification)
-echo "Modules: ${MODULES[*]}"
-echo "Image files: ${MODULE_IMAGE_FILES[*]}"
-echo "Image zip files: ${MODULE_IMAGE_ZIP_FILES[*]}"
+echo "Modules: $MODULES"
+echo "Image files: $MODULE_IMAGE_FILES"
+echo "Image zip files: $MODULE_IMAGE_ZIP_FILES"
