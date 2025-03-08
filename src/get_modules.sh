@@ -51,10 +51,9 @@ MODULES=($(get_unique "${MODULES[*]}"))
 MODULE_IMAGE_FILES=($(get_unique "${MODULE_IMAGE_FILES[*]}"))
 MODULE_IMAGE_ZIP_FILES=($(get_unique "${MODULE_IMAGE_ZIP_FILES[*]}"))
 
-# Export the arrays (must source the script to access these)
-export MODULES
-export MODULE_IMAGE_FILES
-export MODULE_IMAGE_ZIP_FILES
+export MODULES=${MODULES[@]}
+export MODULE_IMAGE_FILES=${MODULE_IMAGE_FILES[@]}
+export MODULE_IMAGE_ZIP_FILES=${MODULE_IMAGE_ZIP_FILES[@]}
 
 # Print the arrays (optional, for verification)
 echo "Modules: ${MODULES[*]}"
