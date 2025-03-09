@@ -41,11 +41,7 @@ while IFS= read -r line; do
     echo "Created module file: $MODULE_IMAGE_FILE"
 
     # Remove this file from MODULE_IMAGE_FILES array if it exists
-    echo "==Module image files begin==: ${MODULE_IMAGE_FILES[@]}"
-    if [[ " ${MODULE_IMAGE_FILES[*]} " =~ " $MODULE_IMAGE_FILE " ]]; then
-        MODULE_IMAGE_FILES=("${MODULE_IMAGE_FILES[@]/$MODULE_IMAGE_FILE}")
-    fi
-    echo "==Module image files end==: ${MODULE_IMAGE_FILES[@]}"
+    MODULE_IMAGE_FILES=($(echo "${MODULE_IMAGE_FILES[*]}" | sed "s/$MODULE_IMAGE_FILE//g" | tr -s ' '))
      
   elif [[ -n $MODULE_IMAGE_FILE ]]; then
     # Trim leading/trailing whitespaces from the image
