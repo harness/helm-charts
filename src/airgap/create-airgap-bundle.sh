@@ -10,8 +10,14 @@ handle_error() {
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Provide lists of image names
-lists=("cdng_images.txt" "ci_images.txt" "platform_images.txt" "ccm_images.txt"
-"ce_images.txt" "sto_images.txt" "ssca_images.txt" "dbdevops_images.txt" "code_images.txt" "iacm_images.txt")
+for moduleImageFile in $MODULE_IMAGE_FILES; do
+    lists+=("$moduleImageFile")
+done
+
+if [ ${#lists[@]} -le 2 ]; then # validation with 2 to make sure multiple elements are in list
+    echo "Error: No module image list provided. List: ${lists[@]}" >&2
+    exit 1
+fi
 
 pull_image() {
     i="$1"
