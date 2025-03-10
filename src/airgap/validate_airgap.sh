@@ -7,7 +7,7 @@ abort() {
     exit 1
 }
 
-for module_name in "${MODULE_NAMES[@]}"; do
+for module_name in "${MODULE_NAMES[*]}"; do
     echo "Validating ${module_name}..."
     TGZ_FILE="${module_name}_images.tgz"
     TXT_FILE="${module_name}_images.txt"

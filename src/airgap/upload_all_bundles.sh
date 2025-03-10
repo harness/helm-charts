@@ -32,7 +32,7 @@ touch empty_file
 gsutil cp empty_file "$bucket_path/$release_number/"
 
 # Iterate over the files and upload each one
-for file in "${files[@]}"; do
+for file in "${files[*]}"; do
     upload_to_bucket "$service_account_file" "$file" "$bucket_path/$release_number/$file"
 done
 
