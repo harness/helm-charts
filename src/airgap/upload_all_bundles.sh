@@ -25,7 +25,7 @@ service_account_file=$1
 release_number=$2
 
 # Array of files to upload
-files=("${MODULE_IMAGE_ZIP_FILES[@]}")
+files=("${MODULE_IMAGE_ZIP_FILES[*]}")
 
 # Create an empty file and upload it to the destination bucket path
 touch empty_file

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODULE_NAMES=("${MODULES[@]}")
+MODULE_NAMES=("${MODULES[*]}")
 
 abort() {
     echo "Error: $1"

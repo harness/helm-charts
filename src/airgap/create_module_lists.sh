@@ -91,9 +91,9 @@ if [[ $lines_not_read_flag -eq 1 ]]; then
 fi
 
 # Check if any expected module files were not generated
-if (( ${#MODULE_IMAGE_FILES[@]} > 0 )); then
+if [ ${#MODULE_IMAGE_FILES[*]} -gt 0 ]; then
   echo "Error: The following expected module files were not generated:"
-  printf '%s\n' "${MODULE_IMAGE_FILES[@]}"
+  printf '%s\n' "${MODULE_IMAGE_FILES[*]}"
   exit 1
 fi
 

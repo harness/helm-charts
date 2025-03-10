@@ -10,7 +10,7 @@ handle_error() {
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Provide lists of image names
-lists=("${MODULE_IMAGE_FILES[@]}")
+lists=("${MODULE_IMAGE_FILES[*]}")
 
 pull_image() {
     i="$1"
