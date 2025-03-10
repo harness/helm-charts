@@ -1,14 +1,11 @@
 #!/bin/bash
 
 for module_name in $MODULES; do
-    echo "*********"
-    echo $module_name
     MODULE_NAMES+=("$module_name")
-    echo "*********"
 done
 
-if [ $(echo "${MODULE_NAMES[@]}" | wc -w) -le 2 ]; then
-    echo "Error: No module names provided. Lists: ${MODULE_NAMES[@]}" >&2
+if [ ${#MODULE_NAMES[@]} -le 2 ]; then # validation with 2 to make sure multiple elements are in list
+    echo "Error: No module names provided. List: ${MODULE_NAMES[@]}" >&2
     exit 1
 fi
 

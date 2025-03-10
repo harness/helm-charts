@@ -28,6 +28,16 @@ declare -a generated_files
 
 MODULE_IMAGE_FILE=""
 
+EXPECTED_MODULE_IMAGE_FILES=()
+for moduleImageFile in $MODULE_IMAGE_FILES; do
+  EXPECTED_MODULE_IMAGE_FILES+=("$moduleImageFile")
+done
+
+if [ ${#EXPECTED_MODULE_IMAGE_FILES[@]} -le 2 ]; then # validation with 2 to make sure multiple elements are in list
+    echo "Error: No module image list provided. List: ${EXPECTED_MODULE_IMAGE_FILES[@]}" >&2
+    exit 1
+fi
+
 while IFS= read -r line; do
   # Check if the line starts with "["
   if [[ $line == [* ]]; then
@@ -40,8 +50,8 @@ while IFS= read -r line; do
     generated_files+=("$MODULE_IMAGE_FILE")
     echo "Created module file: $MODULE_IMAGE_FILE"
 
-    # Remove this file from MODULE_IMAGE_FILES array if it exists
-    MODULE_IMAGE_FILES=($(echo "${MODULE_IMAGE_FILES[*]}" | sed "s/$MODULE_IMAGE_FILE//g" | tr -s ' '))
+    # Remove this file from EXPECTED_MODULE_IMAGE_FILES array if it exists
+    EXPECTED_MODULE_IMAGE_FILES=($(echo "${EXPECTED_MODULE_IMAGE_FILES[*]}" | sed "s/$MODULE_IMAGE_FILE//g" | tr -s ' '))
      
   elif [[ -n $MODULE_IMAGE_FILE ]]; then
     # Trim leading/trailing whitespaces from the image
@@ -91,9 +101,9 @@ if [[ $lines_not_read_flag -eq 1 ]]; then
 fi
 
 # Check if any expected module files were not generated
-if [ ${#MODULE_IMAGE_FILES[*]} -gt 0 ]; then
+if [ ${#EXPECTED_MODULE_IMAGE_FILES[@]} -gt 0 ]; then
   echo "Error: The following expected module files were not generated:"
-  printf '%s\n' "${MODULE_IMAGE_FILES[*]}"
+  printf '%s\n' "${EXPECTED_MODULE_IMAGE_FILES[*]}"
   exit 1
 fi
 

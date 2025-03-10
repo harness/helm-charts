@@ -11,13 +11,11 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Provide lists of image names
 for moduleImageFile in $MODULE_IMAGE_FILES; do
-    echo "*****"
-    echo $moduleImageFile
-    echo "*****"
     lists+=("$moduleImageFile")
 done
-if [ $(echo "${lists[@]}" | wc -w) -le 2 ]; then
-    echo "Error: No image lists provided. Lists: ${lists[@]}" >&2
+
+if [ ${#lists[@]} -le 2 ]; then # validation with 2 to make sure multiple elements are in list
+    echo "Error: No module image list provided. List: ${lists[@]}" >&2
     exit 1
 fi
 
