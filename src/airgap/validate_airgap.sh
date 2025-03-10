@@ -1,13 +1,23 @@
 #!/bin/bash
 
-MODULE_NAMES=("${MODULES[*]}")
+for module_name in "$MODULES"; do
+    echo "*********"
+    echo $module_name
+    MODULE_NAMES+=("$module_name")
+    echo "*********"
+done
+
+if [ $(echo "${MODULE_NAMES[@]}" | wc -w) -le 2 ]; then
+    echo "Error: No module names provided. Lists: ${MODULE_NAMES[@]}" >&2
+    exit 1
+fi
 
 abort() {
     echo "Error: $1"
     exit 1
 }
 
-for module_name in "${MODULE_NAMES[*]}"; do
+for module_name in "${MODULE_NAMES[@]}"; do
     echo "Validating ${module_name}..."
     TGZ_FILE="${module_name}_images.tgz"
     TXT_FILE="${module_name}_images.txt"
