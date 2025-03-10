@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for module_name in "$MODULES"; do
+for module_name in $MODULES; do
     echo "*********"
     echo $module_name
     MODULE_NAMES+=("$module_name")
