@@ -32,14 +32,14 @@ for module_name in "${MODULE_NAMES[@]}"; do
     fi
 
     while IFS= read -r line; do
-      line_without_prefix="${line#docker.io/}"
-    
-      if [[ "$IMAGES_LIST" =~ "$line" || "$IMAGES_LIST" =~ "$line_without_prefix" ]]; then
-          echo "$line"
-      else
-          mismatched=true
-          echo "Mismatch found: $line"
-      fi
+        line_without_prefix="${line#docker.io/}"
+        
+        if [[ "$IMAGES_LIST" =~ "$line" || "$IMAGES_LIST" =~ "$line_without_prefix" ]]; then
+            echo "$line"
+        else
+            mismatched=true
+            echo "Mismatch found: $line"
+        fi
     done < "${TXT_FILE}"
 
     if $mismatched; then
