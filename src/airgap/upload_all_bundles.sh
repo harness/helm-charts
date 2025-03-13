@@ -25,7 +25,14 @@ service_account_file=$1
 release_number=$2
 
 # Array of files to upload
-files=("platform_images.tgz" "cdng_images.tgz" "ccm_images.tgz" "ce_images.tgz" "ff_images.tgz" "ci_images.tgz" "sto_images.tgz" "ssca_images.tgz")
+for moduleImageZipFile in $MODULE_IMAGE_ZIP_FILES; do
+    files+=("$moduleImageZipFile")
+done
+
+if [ ${#files[@]} -le 2 ]; then # validation with 2 to make sure multiple elements are in list
+    echo "Error: No module image zip files provided. Files: ${files[@]}" >&2
+    exit 1
+fi
 
 # Create an empty file and upload it to the destination bucket path
 touch empty_file
