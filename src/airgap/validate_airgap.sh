@@ -1,6 +1,13 @@
 #!/bin/bash
 
-MODULE_NAMES=("platform" "ccm" "cdng" "ci" "ce" "sto" "ff" "ssca" "dbdevops" "code")
+for module_name in $MODULES; do
+    MODULE_NAMES+=("$module_name")
+done
+
+if [ ${#MODULE_NAMES[@]} -le 2 ]; then # validation with 2 to make sure multiple elements are in list
+    echo "Error: No module names provided. List: ${MODULE_NAMES[@]}" >&2
+    exit 1
+fi
 
 abort() {
     echo "Error: $1"
@@ -8,6 +15,7 @@ abort() {
 }
 
 for module_name in "${MODULE_NAMES[@]}"; do
+    echo "Validating ${module_name}..."
     TGZ_FILE="${module_name}_images.tgz"
     TXT_FILE="${module_name}_images.txt"
 
