@@ -50,5 +50,5 @@ dependencies:
 description: Helm Chart for deploying Harness.
 kubeVersion: '>=1.25.0-0'
 name: harness
-type: applications
+type: application
 version: 0.26.3
