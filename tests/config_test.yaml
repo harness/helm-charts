@@ -1,5 +1,5 @@
 ---
-suite: test config
+suite: test configs
 templates:
   - config.yaml
 release:
