@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.26.3](https://img.shields.io/badge/Version-0.26.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.26.4](https://img.shields.io/badge/Version-0.26.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -129,7 +129,7 @@ docker.io/harness/delegate-proxy-signed:1.1.1
 docker.io/harness/delegate:25.02.85201
 docker.io/harness/delegate:25.02.85201.minimal
 docker.io/harness/event-service-signed:1.12.4
-docker.io/harness/gateway-signed:1.41.7
+docker.io/harness/gateway-signed:1.41.8
 docker.io/harness/gitops-agent-installer-helper:v0.0.3
 docker.io/harness/gitops-agent:v0.86.2
 docker.io/harness/gitops-service-signed:1.25.6
@@ -143,7 +143,7 @@ docker.io/harness/log-service-signed:1.17.3
 docker.io/harness/looker-signed:1.7.8
 docker.io/harness/manager-signed:1.72.2
 docker.io/harness/nextgenui-signed:1.61.7
-docker.io/harness/ng-auth-ui-signed:1.32.0
+docker.io/harness/ng-auth-ui-signed:1.32.2
 docker.io/harness/ng-ce-ui:1.37.8
 docker.io/harness/ng-dashboard-aggregator-signed:1.39.0
 docker.io/harness/ng-manager-signed:1.76.7
