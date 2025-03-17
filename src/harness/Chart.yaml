@@ -48,7 +48,7 @@ dependencies:
   repository: https://harness.github.io/helm-charts
   version: 0.26.0
 description: Helm Chart for deploying Harness.
-kubeVersion: '>=1.25.0-0'
+kubeVersion: '>=1.27.0-0'
 name: harness
 type: application
 version: 0.26.1
