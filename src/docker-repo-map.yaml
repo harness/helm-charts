@@ -60,6 +60,10 @@ chaos-manager:
       image:
         registry: docker.io
         repository: harness/smp-chaos-bg-processor-signed
+  chaosHubImage:
+    image:
+      registry: docker.io
+      repository: harness/enterprise-chaos-hub-signed
 chaos-web:
   image:
     registry: docker.io

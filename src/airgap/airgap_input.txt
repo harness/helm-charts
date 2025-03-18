@@ -142,6 +142,7 @@
     chaos-machine-ifc-signed
     chaos-machine-ifs-signed
     chaos-ddcr-faults
+    enterprise-chaos-hub-signed
 
 [ssca]:
     ssca-plugin
