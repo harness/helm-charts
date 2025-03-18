@@ -1,1 +1,1 @@
-/src/harness/README.md
+src/harness/README.md
