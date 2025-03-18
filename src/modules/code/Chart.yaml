@@ -4,19 +4,19 @@ dependencies:
 - condition: global.code.enabled
   name: code-api
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.28.7
+  version: 1.31.6
 - condition: global.code.enabled
   name: code-gitrpc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.28.4
+  version: 1.31.0
 - condition: global.code.enabled
   name: code-githa
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.28.0
+  version: 1.31.0
 - condition: global.code.enabled
   name: code-search
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.28.2
+  version: 1.31.0
 description: A Helm chart for Harness CODE
 name: code
 type: application
