@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.26.4](https://img.shields.io/badge/Version-0.26.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.26.7](https://img.shields.io/badge/Version-0.26.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -82,6 +82,7 @@ If your cluster is in an air-gapped environment, your deployment requires the fo
 
 ```
 bewithaman/s3:latest
+docker.io/amazon/aws-cli:latest
 docker.io/bitnami/clickhouse:23.9.2-debian-11-r0
 docker.io/bitnami/minio:2024.9.22-debian-12-r1
 docker.io/bitnami/mongodb-exporter:0.40.0-debian-12-r40
