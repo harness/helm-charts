@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.25.4](https://img.shields.io/badge/Version-0.25.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.25.5](https://img.shields.io/badge/Version-0.25.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -115,7 +115,7 @@ docker.io/harness/chaos-runner:1.53.0
 docker.io/harness/chaos-subscriber:1.53.0
 docker.io/harness/chaos-workflow-controller:v3.4.16
 docker.io/harness/ci-manager-signed:1.61.2
-docker.io/harness/ci-scm-signed:1.18.0
+docker.io/harness/ci-scm-signed:1.18.1
 docker.io/harness/code-api-signed:1.28.2
 docker.io/harness/code-githa-signed:1.28.0
 docker.io/harness/code-gitrpc-signed:1.28.0
