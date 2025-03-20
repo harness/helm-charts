@@ -58,7 +58,7 @@ docker.io/harness/iacm-manager-signed:1.65.2
 docker.io/harness/k8s-chaos-infrastructure-upgrader:1.54.0
 docker.io/harness/le-nextgen-signed:1.5.6
 docker.io/harness/log-service-signed:1.17.3
-docker.io/harness/looker-signed:1.7.8
+docker.io/harness/looker-signed:1.7.10
 docker.io/harness/manager-signed:1.72.2
 docker.io/harness/nextgenui-signed:1.61.7
 docker.io/harness/ng-auth-ui-signed:1.32.2
