@@ -107,6 +107,13 @@
     aqua-security-job-runner
     wiz-job-runner
 
+[ff]:
+    ff-postgres-migration-signed
+    ff-pushpin-signed
+    ff-pushpin-worker-signed
+    ff-server-signed
+    ff-timescale-migration-signed
+
 [ccm]:
     batch-processing-signed
     ce-anomaly-detection-signed
