@@ -3351,6 +3351,68 @@ entries:
   harness:
   - apiVersion: v2
     appVersion: 1.0.80917
+    created: "2025-04-03T19:23:27.359786036Z"
+    dependencies:
+    - name: harness-common
+      repository: https://harness.github.io/helm-common
+      version: 1.x.x
+    - condition: global.ccm.enabled
+      name: ccm
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - condition: global.cd.enabled
+      name: cd
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - condition: global.chaos.enabled
+      name: chaos
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - condition: global.ci.enabled
+      name: ci
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - condition: global.ff.enabled
+      name: ff
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - name: platform
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - condition: global.cd.enabled
+      name: srm
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - condition: global.sto.enabled
+      name: sto
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - condition: global.ssca.enabled
+      name: ssca
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - condition: global.dbops.enabled
+      name: db-devops
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - condition: global.code.enabled
+      name: code
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    - condition: global.iacm.enabled
+      name: iacm
+      repository: https://harness.github.io/helm-charts
+      version: 0.27.0
+    description: Helm Chart for deploying Harness.
+    digest: 8e954add32507e90959d39774144d3aa953ae039b27a69ef0a0652614dc950ea
+    kubeVersion: '>=1.27.0-0'
+    name: harness
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-0.27.0/harness-0.27.0.tgz
+    version: 0.27.0
+  - apiVersion: v2
+    appVersion: 1.0.80917
     created: "2025-03-25T19:40:52.739515144Z"
     dependencies:
     - name: harness-common
@@ -22024,4 +22086,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2025-04-03T19:02:30.040086943Z"
+generated: "2025-04-03T19:23:27.360809035Z"
