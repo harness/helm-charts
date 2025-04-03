@@ -39,6 +39,7 @@
     postgres-exporter
     mongodb-exporter
     statsd-exporter
+    aws-cli 
 
 [cdng]:
     argocd
