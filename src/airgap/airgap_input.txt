@@ -39,6 +39,7 @@
     postgres-exporter
     mongodb-exporter
     statsd-exporter
+    aws-cli 
 
 [cdng]:
     argocd
@@ -107,6 +108,13 @@
     aqua-security-job-runner
     wiz-job-runner
 
+[ff]:
+    ff-postgres-migration-signed
+    ff-pushpin-signed
+    ff-pushpin-worker-signed
+    ff-server-signed
+    ff-timescale-migration-signed
+
 [ccm]:
     batch-processing-signed
     ce-anomaly-detection-signed
@@ -142,6 +150,7 @@
     chaos-machine-ifc-signed
     chaos-machine-ifs-signed
     chaos-ddcr-faults
+    enterprise-chaos-hub-signed
 
 [ssca]:
     ssca-plugin

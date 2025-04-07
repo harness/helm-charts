@@ -1,13 +1,13 @@
 apiVersion: v2
-appVersion: 0.0.79001
+appVersion: 0.0.1
 dependencies:
-- name: iac-server
+- name: ff-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.126.1
-- name: iacm-manager
+  version: 0.15.2
+- name: ff-pushpin-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.72.0
-description: Helm chart for Harness IACM
-name: iacm
+  version: 1.1.0
+description: A Helm chart for harness Feature Flags module
+name: ff
 type: application
 version: 0.27.0

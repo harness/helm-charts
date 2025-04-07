@@ -32,6 +32,9 @@ global:
   # -- Enable to install Software Supply Chain Assurance (SSCA)
   ssca:
     enabled: false
+  # -- Enable to install Feature Flags (FF)
+  ff:
+    enabled: false
   # -- Enable to install Database Devops (DB Devops)
   dbops:
     enabled: false
@@ -333,6 +336,11 @@ ci:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    config:
+      INTERNAL_MANAGER_TARGET: '{{ ternary "harness-manager:9879" "dns:///harness-manager-headless:9879" .Values.global.istio.enabled }}'
+      INTERNAL_MANAGER_AUTHORITY: '{{ ternary "harness-manager:9879" "dns:///harness-manager-headless:9879" .Values.global.istio.enabled }}'
+      INTERNAL_PMS_TARGET: '{{ ternary "pipeline-service:12011" "dns:///pipeline-service-headless:12011" .Values.global.istio.enabled }}'
+      INTERNAL_PMS_AUTHORITY: '{{ ternary "pipeline-service:12011" "dns:///pipeline-service-headless:12011" .Values.global.istio.enabled }}'
   ti-service:
     affinity: {}
     nodeSelector: {}
@@ -474,7 +482,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.02.85201
+        tag: 25.02.85305
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -504,11 +512,31 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    config:
+      INTERNAL_MANAGER_AUTHORITY: '{{ ternary "harness-manager:9879" "dns:///harness-manager-headless:9879" .Values.global.istio.enabled }}'
+      INTERNAL_MANAGER_TARGET: '{{ ternary "harness-manager:9879" "dns:///harness-manager-headless:9879" .Values.global.istio.enabled }}'
+      INTERNAL_NG_MANAGER_AUTHORITY: '{{ ternary "ng-manager:13002" "dns:///ng-manager-headless:13002" .Values.global.istio.enabled }}'
+      INTERNAL_NG_MANAGER_TARGET: '{{ ternary "ng-manager:13002" "dns:///ng-manager-headless:13002" .Values.global.istio.enabled }}'
+      INTERNAL_PMS_AUTHORITY: '{{ ternary "pipeline-service:12011" "dns:///pipeline-service-headless:12011" .Values.global.istio.enabled }}'
+      INTERNAL_PMS_GITSYNC_AUTHORITY: '{{ ternary "pipeline-service:14002" "dns:///pipeline-service-headless:14002" .Values.global.istio.enabled }}'
+      INTERNAL_PMS_GITSYNC_TARGET: '{{ ternary "pipeline-service:14002" "dns:///pipeline-service-headless:14002" .Values.global.istio.enabled }}'
+      INTERNAL_PMS_TARGET: '{{ ternary "pipeline-service:12011" "dns:///pipeline-service-headless:12011" .Values.global.istio.enabled }}'
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    config:
+      INTERNAL_CI_MANAGER_AUTHORITY: '{{ ternary "ci-manager:9979" "dns:///ci-manager-headless:9979" .Values.global.istio.enabled }}'
+      INTERNAL_CI_MANAGER_TARGET: '{{ ternary "ci-manager:9979" "dns:///ci-manager-headless:9979" .Values.global.istio.enabled }}'
+      INTERNAL_PIPELINE_SERVICE_AUTHORITY: '{{ ternary "pipeline-service:15302" "dns:///pipeline-service-headless:15302" .Values.global.istio.enabled }}'
+      INTERNAL_PIPELINE_SERVICE_TARGET: '{{ ternary "pipeline-service:15302" "dns:///pipeline-service-headless:15302" .Values.global.istio.enabled }}'
+      INTERNAL_MANAGER_AUTHORITY: '{{ ternary "harness-manager:9879" "dns:///harness-manager-headless:9879" .Values.global.istio.enabled }}'
+      INTERNAL_MANAGER_TARGET: '{{ ternary "harness-manager:9879" "dns:///harness-manager-headless:9879" .Values.global.istio.enabled }}'
+      INTERNAL_NG_MANAGER_AUTHORITY: '{{ ternary "ng-manager:9979" "dns:///ng-manager-headless:9979" .Values.global.istio.enabled }}'
+      INTERNAL_NG_MANAGER_GITSYNC_AUTHORITY: '{{ ternary "ng-manager:13002" "dns:///ng-manager-headless:13002" .Values.global.istio.enabled }}'
+      INTERNAL_NG_MANAGER_GITSYNC_TARGET: '{{ ternary "ng-manager:13002" "dns:///ng-manager-headless:13002" .Values.global.istio.enabled }}'
+      INTERNAL_NG_MANAGER_TARGET: '{{ ternary "ng-manager:9979" "dns:///ng-manager-headless:9979" .Values.global.istio.enabled }}'
   # -- platform-service (Harness platform-related services) (taints, tolerations, and so on)
   platform-service:
     affinity: {}
