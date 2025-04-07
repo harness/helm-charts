@@ -20,6 +20,10 @@ dependencies:
   name: ci
   repository: https://harness.github.io/helm-charts
   version: 0.27.0
+- condition: global.ff.enabled
+  name: ff
+  repository: https://harness.github.io/helm-charts
+  version: 0.27.0
 - name: platform
   repository: https://harness.github.io/helm-charts
   version: 0.27.0
