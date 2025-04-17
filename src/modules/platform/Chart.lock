@@ -19,13 +19,13 @@ dependencies:
   version: 1.42.4
 - name: harness-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.75.6
+  version: 1.75.7
 - name: log-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.19.0
 - name: next-gen-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.9
+  version: 1.63.10
 - name: ng-auth-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.33.1
@@ -68,5 +68,5 @@ dependencies:
 - name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.7.0
-digest: sha256:2b1fbbf230df551c85e798b2cc9491de20db347543cd601fab25fdff11146398
-generated: "2025-04-03T18:24:16.152250937Z"
+digest: sha256:0362b0b8a2a650de9b19fcea1358ad8bbd7af92600b955d9dc0312cd943be73d
+generated: "2025-04-17T14:22:06.422608888Z"
