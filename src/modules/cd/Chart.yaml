@@ -8,4 +8,4 @@ dependencies:
 description: Helm chart for Harness CD
 name: cd
 type: application
-version: 0.27.0
+version: 0.28.0
