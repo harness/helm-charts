@@ -3,28 +3,28 @@ appVersion: 0.6.0
 dependencies:
 - name: chaos-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.3
+  version: 1.57.4
 - name: chaos-web
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.4
+  version: 1.57.1
 - name: chaos-k8s-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.1
+  version: 1.57.3
 - name: chaos-linux-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.0
+  version: 1.57.0
 - name: chaos-linux-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.0
+  version: 1.57.0
 - name: chaos-crd
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.0
+  version: 1.57.0
 - name: chaos-machine-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.0
+  version: 1.57.0
 - name: chaos-machine-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.0
+  version: 1.57.0
 description: A Helm chart for harness chaos module
 name: chaos
 type: application
