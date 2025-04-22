@@ -12,20 +12,20 @@ dependencies:
   version: 1.56.1
 - name: chaos-linux-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.0
+  version: 1.59.0-pl-59078-a3e9f6
 - name: chaos-linux-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.0
+  version: 1.59.0-pl-59078-a3e9f6
 - name: chaos-crd
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.56.0
 - name: chaos-machine-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.0
+  version: 1.59.0-pl-59078-e11746
 - name: chaos-machine-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.56.0
+  version: 1.59.0-pl-59078-e11746
 description: A Helm chart for harness chaos module
 name: chaos
 type: application
-version: 0.27.0
+  version: 1.59.0-pl-59078-e11746
