@@ -21,7 +21,7 @@ dependencies:
   version: 1.1.1
 - name: gateway
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.47.0-pl-59078-b06e97
+  version: 1.47.0-pl-59078-69d705
 - name: harness-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.83.1-pl-59078.new-0f3cac
