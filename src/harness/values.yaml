@@ -362,6 +362,15 @@ platform:
       clickhouse:
         enabled: false
       minio:
+        provisioning:
+          enabled: true
+          buckets:
+            - name: "logs"
+              lifecycle:
+                - id: PipelineLogsRetentionPolicy
+                  prefix: '*'
+                  expiry:
+                    days: 1
         affinity: {}
         nodeSelector: {}
         tolerations: []
