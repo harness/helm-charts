@@ -248,7 +248,7 @@ global:
       registry: docker.io
       repository: harness/helm-init-container
       pullPolicy: Always
-      tag: "1.2.0"
+      tag: "1.3.0"
       digest: ""
       imagePullSecrets: []
   fileLogging:
