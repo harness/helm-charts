@@ -477,7 +477,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.02.85305
+        tag: 25.04.85602
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
