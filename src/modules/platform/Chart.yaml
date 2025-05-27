@@ -4,14 +4,14 @@ dependencies:
 - condition: global.ng.enabled
   name: access-control
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.82.1
+  version: 1.82.2
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.32.0
 - condition: global.cdc.enabled
   name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.41.0
+  version: 1.41.3
 - condition: global.ssca.enabled
   name: debezium-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -21,14 +21,14 @@ dependencies:
   version: 1.1.1
 - name: gateway
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.42.4
+  version: 1.42.7
 - name: harness-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.81.4
+  version: 1.81.5
 - condition: global.ng.enabled
   name: log-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.19.0
+  version: 1.19.1
 - condition: global.ng.enabled
   name: next-gen-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -55,11 +55,11 @@ dependencies:
 - condition: global.ng.enabled
   name: policy-mgmt
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.16.0
+  version: 1.16.1
 - condition: global.ng.enabled
   name: scm-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.20.0
+  version: 1.20.1
 - condition: global.ng.enabled
   name: template-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -87,8 +87,8 @@ dependencies:
 - condition: global.ng.enabled
   name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.7.0
+  version: 1.7.1
 description: Helm chart for Harness Platform
 name: platform
 type: application
-version: 0.28.0
+version: 0.28.1
