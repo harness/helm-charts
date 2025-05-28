@@ -1,0 +1,13 @@
+{{- /*
+This ConfigMap contains the global environment variables
+*/}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: global-smp-config
+  labels:
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    version: {{ .Chart.Version }}
+data:
+  SMP_VERSION: {{ .Chart.Version | quote }}
