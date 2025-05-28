@@ -4,7 +4,7 @@ This ConfigMap contains the global environment variables
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: global-config
+  name: global-smp-config
   labels:
     chart: {{ .Chart.Name }}
     release: {{ .Release.Name }}
