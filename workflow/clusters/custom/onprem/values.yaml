@@ -1,0 +1,99 @@
+global:
+  # -- High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV
+  ha: true
+  # -- This private Docker image registry will override any registries that are defined in subcharts.
+  imageRegistry: ""
+  imagePullSecrets:
+  - regcred
+  # -- Place the license key, Harness support team will provide these
+  license:
+    cg: ''
+    ng: '{{.tfi.harnessLicense}}'
+  # -- Provide your URL for your intended load balancer
+  loadbalancerURL: "{{.tfi.dnsScheme}}://{{.tfi.dns}}"
+  
+  # -- Airgap functionality. Disabled by default
+  airgap: "false"
+  # -- Enable to set auto-scaling globally
+  autoscaling:
+    enabled: true
+
+
+  cdc:
+    # -- Enable to install Change data capture
+    enabled: true
+  ccm:
+    # -- Enable to install Cloud Cost Management (CCM)
+    enabled: {{.tfi.ccm}}
+  # -- Enable to install Continuous Deployment (CD)
+  cd:
+    enabled: {{.tfi.cd}}
+  # -- Enable to install First Generation Harness Platform (disabled by default)
+  cg:
+    enabled: false
+  # -- Enable to install Chaos Engineering (CE) (Beta)
+  chaos:
+    enabled: {{.tfi.chaos}}
+  # -- Enable to install Continuous Integration (CI)
+  ci:
+    enabled: {{.tfi.ci}}
+  # -- Enable to install Software Supply Chain Assurance (SSCA)
+  ssc:
+    enabled: {{.tfi.scs}}
+  # -- Enable to install Feature Flags (FF)
+  ff:
+    enabled: {{.tfi.ff}}
+  # -- Enable to install Security Testing Orchestration (STO)
+  sto:
+    enabled: {{.tfi.sto}}
+  # -- Enable to install Service Reliability Management (SRM)
+  srm:
+    enabled: {{.tfi.srm}}
+  # -- Enable to install Database Devops (DB Devops)
+  dbops:
+    enabled: {{.tfi.dbops}}
+  # -- Enable to install Harness Code services (CODE)
+  code:
+    enabled: {{.tfi.code}}
+  # -- Enable to install Harness Infrastructure As Code Management (IACM)
+  iacm:
+    enabled: {{.tfi.iacm}}
+
+  # -- Add common annotations to all objects
+  commonAnnotations: {}
+  # -- Add common labels to all objects
+  commonLabels: {}
+
+  ingress:
+    enabled: true
+    hosts: 
+    - {{.tfi.dns}}
+    tls:
+      secretName: "{{ .tfModules.terraform.inputs.dns.value }}"
+
+  # -- Configure storage class for Mongo,Timescale,Redis
+  storageClass: ""
+  # -- Configure storage class for Harness
+  storageClassName: ""
+
+volumeClaimTemplates:
+  storageClassName: "{{ .tfModules.terraform.inputs.storageClass.value }}"
+
+
+{{- if eq (getNestedOrDefault "false" . "tfi" "podSecurityContextEnabled") "true" }}
+securityContext:
+  runAsUser: {{ int .tfi.runAsUser }}
+  fsGroup: {{ int .tfi.fsGroup }}
+  runAsNonRoot: true
+  fsGroupChangePolicy: "OnRootMismatch"
+  seccompProfile:
+    type: RuntimeDefault
+
+podSecurityContext:
+  runAsUser: {{ int .tfi.runAsUser }}
+  fsGroup: {{ int .tfi.fsGroup }}
+  runAsNonRoot: true
+  fsGroupChangePolicy: "OnRootMismatch"
+  seccompProfile:
+    type: RuntimeDefault
+{{- end }}
