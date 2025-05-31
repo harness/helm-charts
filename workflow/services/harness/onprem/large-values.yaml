@@ -1,1 +1,454 @@
-/Users/revanth/Work/Repos/helm-charts/src/harness/override-large.yaml
+chaos:
+  chaos-common:
+    installLinuxCRDs: false
+  chaos-manager:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi
+  chaos-web:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
+  chaos-k8s-ifs:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi 
+  chaos-linux-ifc:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi 
+  chaos-linux-ifs:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
+  chaos-machine-ifc:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
+  chaos-machine-ifs:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
+ci:
+  ci-manager:
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 6
+      targetCPU: 80
+      targetMemory: 80
+    java:
+      memory: "2048m"
+    replicaCount: 4
+    resources:
+      limits:
+        memory: 3Gi
+      requests:
+        cpu: 2
+        memory: 3Gi
+  ti-service:
+    autoscaling:
+      enabled: false
+    jobresources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 32m
+        memory: 256Mi
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 1400Mi
+      requests:
+        cpu: 0.5
+        memory: 1400Mi
+platform:
+  access-control:
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 6
+      targetCPU: 80
+      targetMemory: 80
+    java:
+      memory: 384m
+    replicaCount: 4
+    resources:
+      limits:
+        memory: 1536Mi
+      requests:
+        cpu: 1
+        memory: 1536Mi
+  bootstrap:
+    database:
+      clickhouse:
+        enabled: false
+      minio:
+        defaultBuckets: "logs"
+        fullnameOverride: "minio"
+        mode: standalone
+        persistence:
+          size: 10Gi
+      mongodb:
+        extraFlags:
+          - "--wiredTigerCacheSizeGB=0.5"
+        persistence:
+          size: 20Gi
+        replicaCount: 3
+        resources:
+          limits:
+            cpu: 6
+            memory: 6Gi
+          requests:
+            cpu: 6
+            memory: 6Gi
+      postgresql:
+        primary:
+          persistence:
+            size: 8Gi
+          resources:
+            limits:
+              memory: 4Gi
+            requests:
+              cpu: 2
+              memory: 4Gi
+      redis:
+        redis:
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              cpu: 1.5
+              memory: 512Mi
+        replicaCount: 3
+        sentinel:
+          resources:
+            limits:
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+        useAntiAffinity: false
+        volumeClaimTemplate:
+          resources:
+            requests:
+              storage: 10Gi
+      timescaledb:
+        autoscaling:
+          enabled: false
+        replicaCount: 1
+        # Increasing persistentVolumes size while upgrading a helm deployment
+        # will fail because these values are immutable for a statefulset.
+        # To increase the size, it requires to delete the statefulset
+        # and then upgrade. For more information follow this document
+        # https://developer.harness.io/docs/self-managed-enterprise-edition/advanced-configurations/increase-pv-size-statefulsets
+        persistentVolumes:
+          data:
+            size: 100Gi
+          wal:
+            size: 1Gi
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 0.3
+            memory: 512Mi
+    networking:
+      defaultbackend:
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 32m
+            memory: 512Mi
+      nginx:
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 32m
+            memory: 512Mi
+  change-data-capture:
+    autoscaling:
+      enabled: false
+    java:
+      memory: 2048
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 2880Mi
+      requests:
+        cpu: 1
+        memory: 2880Mi
+  delegate-proxy:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 50Mi
+      requests:
+        cpu: 50m
+        memory: 50Mi
+  gateway:
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 6
+      targetCPU: 80
+      targetMemory: 80
+    java:
+      memory: 1536
+    replicaCount: 4
+    resources:
+      limits:
+        memory: 3072Mi
+      requests:
+        cpu: 256m
+        memory: 3072Mi
+  harness-manager:
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 6
+      targetCPU: 80
+      targetMemory: 80
+    java:
+      memory: "2048"
+    replicaCount: 4
+    resources:
+      limits:
+        memory: 4Gi
+      requests:
+        cpu: 1
+        memory: 4Gi
+  log-service:
+    replicaCount: 3
+    resources:
+      limits:
+        memory: 2Gi
+      requests:
+        cpu: 1
+        memory: 2Gi
+  ng-dashboard-aggregator:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    java:
+      memory: "1024"
+    resources:
+      limits:
+        memory: 2048Mi
+      requests:
+        cpu: 64m
+        memory: 2048Mi      
+  looker:
+    resources:
+      limits:
+        memory: 8Gi
+      requests:
+        cpu: 2
+        memory: 8Gi
+  next-gen-ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 100Mi
+      requests:
+        cpu: 0.1
+        memory: 100Mi
+  ng-auth-ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 64Mi
+      requests:
+        cpu: 32m
+        memory: 64Mi
+  ng-custom-dashboards:
+    memory: 384
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 512Mi
+  ng-manager:
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 6
+      targetCPU: 80
+      targetMemory: 80
+    java:
+      memory: "2048m"
+    replicaCount: 4
+    resources:
+      limits:
+        memory: 4Gi
+      requests:
+        cpu: 2
+        memory: 4Gi
+  pipeline-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 6
+      targetCPU: 80
+      targetMemory: 80
+    java:
+      memory: "3072m"
+    replicaCount: 4
+    resources:
+      limits:
+        memory: 4Gi
+      requests:
+        cpu: 2
+        memory: 4Gi
+  queue-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 2
+    resources:
+      limits:
+        memory: 250Mi
+      requests:
+        cpu: 100m
+        memory: 250Mi
+  platform-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 6
+      targetCPU: 80
+      targetMemory: 80
+    java:
+      memory: "1536m"
+    replicaCount: 4
+    resources:
+      limits:
+        memory: 2Gi
+      requests:
+        cpu: 1
+        memory: 2Gi
+  scm-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 64m
+        memory: 256Mi
+  template-service:
+    autoscaling:
+      enabled: false
+    java:
+      memory: "1024m"
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 1500Mi
+      requests:
+        cpu: 256m
+        memory: 1500Mi
+  ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 0.2
+        memory: 200Mi
+sto:
+  sto-core:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi
+  sto-manager:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 1.5Gi
+      requests:
+        cpu: 256m
+        memory: 1.5Gi
+iacm:
+  iacm-manager:
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 6
+      targetCPU: 80
+      targetMemory: 80
+    java:
+      memory: "2048m"
+    replicaCount: 4
+    resources:
+      limits:
+        memory: 3Gi
+      requests:
+        cpu: 2
+        memory: 3Gi
+  iac-server:
+    autoscaling:
+      enabled: false
+    replicaCount: 2
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi
+
