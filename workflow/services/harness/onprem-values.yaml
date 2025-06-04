@@ -1,0 +1,18 @@
+# Root harness.yaml
+
+platform:
+  bootstrap:
+    harness-secrets:      
+      # MongoDB passwords
+      mongodb:
+        password: "{{ .tfModules.terraform.inputs.mongodbPassword.value }}"
+      
+      postgresdb:
+        adminPassword: "{{ .tfModules.terraform.inputs.postgresqlAdminPassword.value }}"
+
+    database:
+      postgresql:
+        global:
+          postgresql:
+            auth:
+              postgresPassword: "{{ .tfModules.terraform.inputs.postgresqlPassword.value }}"
