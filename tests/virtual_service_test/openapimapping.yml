@@ -1,0 +1,28 @@
+harness-core/120-ng-manager/chart:
+    - harness-core/120-ng-manager/contracts/openapi/v1/openapi.yaml
+    - harness-core/440-connector-nextgen/contracts/openapi/v1/openapi.yaml
+    - harness-core/960-continuous-features/src/generated/api/openapi.yaml
+
+harness-core/access-control/chart:
+    - harness-core/access-control/contracts/openapi/v1/openapi.yaml
+    - harness-core/access-control/contracts/openapi/v1/resourcegroup/openapi.yaml
+
+harness-core/pipeline-service/chart:
+    - harness-core/pipeline-service/contracts/openapi/v1/openapi.yaml
+
+harness-core/platform-service/chart:
+    - harness-core/platform-service/modules/audit-service/contracts/openapi/v1/openapi.yaml
+    - harness-core/platform-service/modules/notification-service/contracts/openapi/v1/openapi.yaml
+    - harness-core/platform-service/modules/resource-group-service/contracts/openapi/v1/openapi.yaml
+
+harness-core/srm-service/chart:
+    - harness-core/srm-service/modules/cv-nextgen-service/contracts/openapi/v1/openapi.yaml
+
+harness-core/ssca-manager/chart:
+    - harness-core/ssca-manager/contracts/openapi/v1/openapi.yaml
+
+harness-core/template-service/chart:
+    - harness-core/template-service/contracts/openapi/v1/openapi.yaml
+
+db-devops-service/chart:
+    - db-devops-service/openapi/api.yaml
