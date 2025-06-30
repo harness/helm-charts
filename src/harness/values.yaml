@@ -509,8 +509,6 @@ platform:
     tolerations: []
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
-    config:
-      FF_SERVER_BASE_URL: 'http://ff-service.{{ .Release.Namespace }}.svc.cluster.local:16001/api/1.0'
     affinity: {}
     nodeSelector: {}
     tolerations: []
