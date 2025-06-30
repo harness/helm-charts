@@ -101,18 +101,30 @@ ff-pushpin-service:
       registry: docker.io
       repository: harness/ff-pushpin-worker-signed
 ff-service:
-  image:
-    registry: docker.io
-    repository: harness/ff-server-signed
-  jobs:
-    postgres_migration:
+  ff-admin-server:
+    image:
+      registry: docker.io
+      repository: harness/ff-service-signed
+    job:
       image:
         registry: docker.io
-        repository: harness/ff-postgres-migration-signed
-    timescaledb_migrate:
-      image:
-        registry: docker.io
-        repository: harness/ff-timescale-migration-signed
+        repository: harness/ff-cron-signed
+  ff-client-server:
+    image:
+      registry: docker.io
+      repository: harness/ff-service-signed
+  ff-metrics-server:
+    image:
+      registry: docker.io
+      repository: harness/ff-service-signed
+  ff-psql-migrations:
+    image:
+      registry: docker.io
+      repository: harness/ff-server-primary-db-migration-signed
+  ff-timescale-migrations:
+    image:
+      registry: docker.io
+      repository: harness/ff-server-analytics-db-migration-signed
 gateway:
   image:
     registry: docker.io
