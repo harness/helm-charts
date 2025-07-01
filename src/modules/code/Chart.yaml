@@ -20,4 +20,4 @@ dependencies:
 description: A Helm chart for Harness CODE
 name: code
 type: application
-version: 0.31.0
+version: 0.29.0
