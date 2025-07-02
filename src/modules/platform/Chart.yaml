@@ -24,7 +24,7 @@ dependencies:
   version: 1.48.1
 - name: harness-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.86.3
+  version: 1.86.4
 - condition: global.ng.enabled
   name: log-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -91,4 +91,4 @@ dependencies:
 description: Helm chart for Harness Platform
 name: platform
 type: application
-version: 0.29.0
+version: 0.29.1
