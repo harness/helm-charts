@@ -66,7 +66,7 @@ docker.io/harness/k8s-chaos-infrastructure-upgrader:1.59.0
 docker.io/harness/le-nextgen-signed:1.8.0
 docker.io/harness/log-service-signed:1.19.1
 docker.io/harness/looker-signed:1.7.11
-docker.io/harness/manager-signed:1.86.3
+docker.io/harness/manager-signed:1.86.4
 docker.io/harness/nextgenui-signed:1.75.3
 docker.io/harness/ng-auth-ui-signed:1.35.0
 docker.io/harness/ng-ce-ui:1.47.1
