@@ -12,6 +12,7 @@ declare -a verified_images
 debug=false
 cleanup=false
 error_occurred=false
+create_ecr=false
 
 # Function to display help message
 function show_help {
@@ -21,6 +22,7 @@ function show_help {
   echo "  -d <tgz_directory>  The directory containing .tgz files to process (optional if -f is provided)."
   echo "  -D                  Enable debug mode for detailed logging."
   echo "  -c                  Enable cleanup after script execution."
+  echo "  -e                  Create ECR repository before pushing image. Please run `aws configure` before using this option and export ECR_NAMESPACE and AWS_REGION environment variables"
   exit 1
 }
 
@@ -34,6 +36,40 @@ check_image_in_registry() {
     return 1  # Image does not exist
   fi
 }
+
+create_ecr_repository() {
+  local repository=$1
+  local namespace=${ECR_NAMESPACE}
+  local awsregion=$AWS_REGION
+
+  if [[ -z "$awsregion" ]]; then
+    echo "AWS_REGION is not set. Please export AWS_REGION before using -e option."
+    error_occurred=true
+    return 1
+  fi
+
+  local full_repo_name
+  if [[ -z "$namespace" ]]; then
+    full_repo_name="$repository"
+  else
+    full_repo_name="$namespace/$repository"
+  fi
+
+  debug_log "Checking if repository '$full_repo_name' exists in region '$awsregion'..."
+  if aws ecr describe-repositories --repository-names "$full_repo_name" --region "$awsregion" > /dev/null 2>&1; then
+    debug_log "Repository $full_repo_name already exists."
+  else
+    debug_log "Repository $full_repo_name does not exist. Creating..."
+    if aws ecr create-repository --repository-name "$full_repo_name" --region "$awsregion"; then
+      echo "Successfully created repository: $full_repo_name"
+    else
+      echo "Failed to create repository: $full_repo_name"
+      error_occurred=true
+      return 1
+    fi
+  fi
+}
+
 
 debug_log() {
   if [ "$debug" = true ]; then
@@ -64,6 +100,7 @@ while getopts "hr:f:d:Dc:" opt; do
     d) tgz_directory="$OPTARG" ;;
     D) debug=true ;;
     c) cleanup=true ;;
+    e) create_ecr=true ;;
     *) show_help ;;
   esac
 done
@@ -114,9 +151,13 @@ process_tgz_file() {
     echo "Loading: $line"
     if [[ "$line" =~ Loaded\ image:\ (.+) ]]; then
       local image_info="${BASH_REMATCH[1]}"
-      debug_log "Loaded image: $image_info"
+      local service_name="${image_info%%:*}"
+      debug_log "Loaded image for service $service_name: $image_info"
       
       if ! check_image_in_registry "$registry/$image_info"; then
+        if [ "$create_ecr" = true ]; then
+          create_ecr_repository "$service_name"
+        fi
         debug_log "Tagging and pushing image $image_info to $registry"
         if docker tag "$image_info" "$registry/$image_info" && docker push "$registry/$image_info"; then
           echo "Successfully pushed $image_info to $registry"
