@@ -41,12 +41,35 @@ create_ecr_repository() {
   local repository=$1
   local namespace=${ECR_NAMESPACE}
   local awsregion=$AWS_REGION
+
+  if [[ -z "$awsregion" ]]; then
+    echo "AWS_REGION is not set. Please export AWS_REGION before using -e option."
+    error_occurred=true
+    return 1
+  fi
+
+  local full_repo_name
   if [[ -z "$namespace" ]]; then
-    aws ecr create-repository --repository-name "$repository" --region "$awsregion"
+    full_repo_name="$repository"
   else
-    aws ecr create-repository --repository-name "$namespace/$repository" --region "$awsregion"
+    full_repo_name="$namespace/$repository"
+  fi
+
+  debug_log "Checking if repository '$full_repo_name' exists in region '$awsregion'..."
+  if aws ecr describe-repositories --repository-names "$full_repo_name" --region "$awsregion" > /dev/null 2>&1; then
+    debug_log "Repository $full_repo_name already exists."
+  else
+    debug_log "Repository $full_repo_name does not exist. Creating..."
+    if aws ecr create-repository --repository-name "$full_repo_name" --region "$awsregion"; then
+      echo "Successfully created repository: $full_repo_name"
+    else
+      echo "Failed to create repository: $full_repo_name"
+      error_occurred=true
+      return 1
+    fi
   fi
 }
+
 
 debug_log() {
   if [ "$debug" = true ]; then
