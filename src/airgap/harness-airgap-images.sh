@@ -92,7 +92,7 @@ cleanup_images() {
 }
 
 # Parse command-line arguments
-while getopts "hr:f:d:Dc:" opt; do
+while getopts "hr:f:d:Dce:" opt; do
   case "$opt" in
     h) show_help ;;
     r) registry="$OPTARG" ;;
