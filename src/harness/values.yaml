@@ -569,7 +569,21 @@ upgrades:
       registry: docker.io
       repository: bitnami/mongodb
       tag: 6.0.13
+
 ff:
+  ff-service:
+    ff-admin-server:
+      secrets:
+        default:
+          PLATFORM_AUTH_KEY: "secret"
+    ff-client-server:
+      secrets:
+        default:
+          PLATFORM_AUTH_KEY: "secret"
+    ff-metrics-server:
+      secrets:
+        default:
+          PLATFORM_AUTH_KEY: "secret"
   ff-pushpin-service:
     waitForInitContainer:
       image:
@@ -587,3 +601,4 @@ iacm:
       enabled: false
     nodeSelector: {}
     tolerations: []
+
