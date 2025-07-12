@@ -362,6 +362,14 @@ platform:
       clickhouse:
         enabled: false
       minio:
+        provisioning:
+          enabled: false
+          buckets:
+            - name: "logs"
+              lifecycle:
+                - id: LogServiceRetentionPolicy
+                  expiry:
+                    days: 360
         affinity: {}
         nodeSelector: {}
         tolerations: []
@@ -399,6 +407,13 @@ platform:
           prometheus.io/scrape: 'false'
         tolerations: []
       timescaledb:
+        patroni:
+          bootstrap:
+            dcs:
+              postgresql:
+                parameters:
+                  cron.database_name: postgres
+                  shared_preload_libraries: timescaledb,pg_stat_statements,pg_cron
         affinity: {}
         nodeSelector: {}
         podAnnotations:
@@ -428,6 +443,13 @@ platform:
             cpu: 10m
             memory: 20Mi
       nginx:
+        image:
+          registry: registry.k8s.io
+          repository: ingress-nginx/controller
+          pullPolicy: IfNotPresent
+          tag: "v1.12.2"
+          digest: ""
+          imagePullSecrets: []
         affinity: {}
         controller:
           # -- annotations to be addded to ingress Controller
