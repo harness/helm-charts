@@ -465,6 +465,7 @@ platform:
     tolerations: []
   # -- harness-manager (taints, tolerations, and so on)
   harness-manager:
+    shutdownHooksEnabled: true
     affinity: {}
     # -- These flags are used by the helper function to create the FEATURES config value based off the global.<feature>.enabled boolean
     # -- Feature Flags
@@ -504,11 +505,13 @@ platform:
     tolerations: []
   # -- ng-manager (Next Generation Manager) (taints, tolerations, and so on)
   ng-manager:
+    shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
     tolerations: []
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
+    shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
     tolerations: []
