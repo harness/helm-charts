@@ -109,11 +109,12 @@
     wiz-job-runner
 
 [ff]:
-    ff-postgres-migration-signed
+    ff-cron-signed
+    ff-server-analytics-db-migration-signed
+    ff-server-primary-db-migration-signed
+    ff-service-signed
     ff-pushpin-signed
     ff-pushpin-worker-signed
-    ff-server-signed
-    ff-timescale-migration-signed
 
 [ccm]:
     batch-processing-signed
@@ -151,6 +152,7 @@
     chaos-machine-ifs-signed
     chaos-ddcr-faults
     enterprise-chaos-hub-signed
+    chaos-event-watcher
 
 [ssca]:
     ssca-plugin
