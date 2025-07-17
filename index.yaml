@@ -22296,6 +22296,29 @@ entries:
   srm:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-07-17T08:48:30.633393904Z"
+    dependencies:
+    - condition: global.ng.enabled
+      name: cv-nextgen
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.41.3
+    - condition: global.ng.enabled
+      name: le-nextgen
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.6.1
+    - condition: global.ng.enabled
+      name: srm-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.13.1
+    description: Helm chart for Harness SRM
+    digest: 0bc6fb143d7012e77370e9aa571fd368b75cecb09265cece3000074929946b14
+    name: srm
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/srm-0.30.1/srm-0.30.1.tgz
+    version: 0.30.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-07-14T16:06:01.453615373Z"
     dependencies:
     - condition: global.ng.enabled
@@ -23789,4 +23812,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2025-07-14T16:23:20.866738681Z"
+generated: "2025-07-17T08:48:31.076372999Z"
