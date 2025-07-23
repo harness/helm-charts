@@ -1,10 +1,10 @@
 apiVersion: v2
 appVersion: 1.16.0
 dependencies:
-- condition: global.cd.enabled
-  name: gitops
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.35.3
+  - condition: global.cd.enabled
+    name: gitops
+    repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+    version: 1.37.2
 description: Helm chart for Harness CD
 name: cd
 type: application
