@@ -121,7 +121,7 @@ global:
     enabled: false
     # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
     hosts:
-      - 'myhost.example.com'
+      - "myhost.example.com"
     # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
     # If not set, internal request routing would happen via global.loadbalancerUrl
     ingressGatewayServiceUrl: ""
@@ -147,7 +147,7 @@ global:
         istio: ingressgateway
     # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
     hosts:
-      - '*'
+      - "*"
     # -- set to istio gateway's k8s service FQDN for internal use case. eg "internal-istio-gateway.istio-system.svc.cluster.local"
     # If not set, internal request routing would happen via global.loadbalancerUrl
     istioGatewayServiceUrl: ""
@@ -166,8 +166,8 @@ global:
   kubeVersion: ""
   # -- Place the license key, Harness support team will provide these
   license:
-    cg: ''
-    ng: ''
+    cg: ""
+    ng: ""
   # -- Provide your URL for your intended load balancer
   loadbalancerURL: https://myhostname.example.com
   lwd:
@@ -378,16 +378,16 @@ platform:
         nodeSelector: {}
         podAnnotations:
           prometheus.io/path: /metrics
-          prometheus.io/port: '9216'
-          prometheus.io/scrape: 'false'
+          prometheus.io/port: "9216"
+          prometheus.io/scrape: "false"
         tolerations: []
       postgresql:
         metrics:
           enabled: false
         podAnnotations:
           prometheus.io/path: /metrics
-          prometheus.io/port: '9187'
-          prometheus.io/scrape: 'false'
+          prometheus.io/port: "9187"
+          prometheus.io/scrape: "false"
       redis:
         affinity: {}
         metrics:
@@ -395,16 +395,16 @@ platform:
         nodeSelector: {}
         podAnnotations:
           prometheus.io/path: /metrics
-          prometheus.io/port: '9121'
-          prometheus.io/scrape: 'false'
+          prometheus.io/port: "9121"
+          prometheus.io/scrape: "false"
         tolerations: []
       timescaledb:
         affinity: {}
         nodeSelector: {}
         podAnnotations:
           prometheus.io/path: /metrics
-          prometheus.io/port: '9187'
-          prometheus.io/scrape: 'false'
+          prometheus.io/port: "9187"
+          prometheus.io/scrape: "false"
         prometheus:
           enabled: false
         tolerations: []
@@ -439,14 +439,14 @@ platform:
         httpNodePort: ""
         httpsNodePort: ""
         loadBalancerEnabled: false
-        loadBalancerIP: '0.0.0.0'
+        loadBalancerIP: "0.0.0.0"
         nodeSelector: {}
         resources:
           limits:
-            memory: '512Mi'
+            memory: "512Mi"
           requests:
-            cpu: '0.5'
-            memory: '512Mi'
+            cpu: "0.5"
+            memory: "512Mi"
         tolerations: []
   # -- change-data-capture settings (taints, tolerations, and so on)
   change-data-capture:
@@ -478,7 +478,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.06.86106
+        tag: 25.07.86300
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
