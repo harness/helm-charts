@@ -55,12 +55,15 @@ rm ${OUTPUT_DIR}/images_tmp.txt
 
 # Add minimal images
 IMAGES=("docker.io/harness/delegate:[0-9.]+")
-SUFFIX=(".minimal")
+SUFFIX=(".minimal" ".minimal-fips" "-fips")
 for i in "${!IMAGES[@]}"
 do
     MATCHES=$(grep -oE "${IMAGES[i]}" "${OUTPUT_DIR}/images.txt")
     if [ -n "$MATCHES" ]; then
-        echo "$MATCHES" | sed "s/$/${SUFFIX[i]}/" | tee -a ${OUTPUT_DIR}/images.txt
+        for j in "${!SUFFIX[@]}"
+        do
+          echo "$MATCHES" | sed "s/$/${SUFFIX[j]}/" | tee -a ${OUTPUT_DIR}/images.txt
+        done
     fi
 done
 
