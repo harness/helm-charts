@@ -67,7 +67,7 @@ do
     fi
 done
 
-IMAGES=("harness/aqua-trivy-job-runner:[0-9.]+" "harness/bandit-job-runner:[0-9.]+" "harness/grype-job-runner:[0-9.]+" "harness/osv-job-runner:[0-9.]+" "harness/sonarqube-agent-job-runner:[0-9.]+")
+IMAGES=("harness/semgrep-job-runner:latest" "harness/bandit-job-runner:latest" "harness/aqua-trivy-job-runner:latest"  "harness/gitleaks-trivy-job-runner:latest" "harness/bandit-job-runner:latest" "harness/grype-job-runner:latest"  "harness/osv-job-runner:latest" "harness/sonarqube-agent-job-runner:latest")
 SUFFIX=("-fips")
 for i in "${!IMAGES[@]}"
 do
