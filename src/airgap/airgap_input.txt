@@ -76,6 +76,7 @@
     acr
     traceable-job-runner
     harness-cache-server
+    nexusiq-job-runner
 
 [sto]:
     ci-addon
