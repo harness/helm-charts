@@ -6,4 +6,4 @@ dependencies:
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.1123.1
 digest: sha256:ee06bf9abc12def902f017994ecec2fe2d3c8651acf0d8f1d724de19e4566cf8
-generated: "2025-07-14T15:49:07.827306731Z"
+generated: "2025-08-01T09:07:46.96681923Z"

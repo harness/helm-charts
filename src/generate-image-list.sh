@@ -66,7 +66,6 @@ do
         done
     fi
 done
-
 IMAGES=("harness/aqua-trivy-job-runner:[0-9.]+" "harness/bandit-job-runner:[0-9.]+" "harness/grype-job-runner:[0-9.]+" "harness/osv-job-runner:[0-9.]+" "harness/sonarqube-agent-job-runner:[0-9.]+")
 SUFFIX=("-fips")
 for i in "${!IMAGES[@]}"
