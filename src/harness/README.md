@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.31.0](https://img.shields.io/badge/Version-0.31.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.31.1](https://img.shields.io/badge/Version-0.31.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -176,7 +176,7 @@ docker.io/harness/ssca-ui-signed:0.29.0
 docker.io/harness/stocore-signed:1.149.1
 docker.io/harness/stomanager-signed:1.71.0
 docker.io/harness/telescopes-signed:1.4.0
-docker.io/harness/template-service-signed:1.99.1
+docker.io/harness/template-service-signed:1.99.2
 docker.io/harness/ti-service-signed:1.46.1
 docker.io/harness/ui-signed:1.22.0
 docker.io/harness/upgrader:latest

@@ -93,7 +93,7 @@ docker.io/harness/ssca-ui-signed:0.29.0
 docker.io/harness/stocore-signed:1.149.1
 docker.io/harness/stomanager-signed:1.71.0
 docker.io/harness/telescopes-signed:1.4.0
-docker.io/harness/template-service-signed:1.99.1
+docker.io/harness/template-service-signed:1.99.2
 docker.io/harness/ti-service-signed:1.46.1
 docker.io/harness/ui-signed:1.22.0
 docker.io/harness/upgrader:latest
