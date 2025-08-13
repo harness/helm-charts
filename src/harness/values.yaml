@@ -44,6 +44,9 @@ global:
     # -- Enable to install Harness Infrastructure As Code Management (IACM)
   iacm:
     enabled: false
+    # -- Enable to install Internal Developer Portal (IDP)
+  idp:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
