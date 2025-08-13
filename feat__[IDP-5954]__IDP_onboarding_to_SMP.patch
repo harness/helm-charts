@@ -1,0 +1,406 @@
+Subject: [PATCH] feat: [IDP-5954]: IDP onboarding to SMP
+---
+Index: src/airgap/airgap_input.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/airgap/airgap_input.txt b/src/airgap/airgap_input.txt
+--- a/src/airgap/airgap_input.txt	(revision f6e14e0476e12987ad19f876c6ba0ab63405cbbd)
++++ b/src/airgap/airgap_input.txt	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -182,3 +182,11 @@
+     iac-server-signed
+     iacm-manager-signed
+     harness_terraform_vm
++
++[idp]:
++    idp-service-signed
++    idp-admin-signed
++    idp-app-signed
++    drone-git
++    ci-lite-engine
++    ci-addon
+Index: src/docker-repo-map.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/docker-repo-map.yaml b/src/docker-repo-map.yaml
+--- a/src/docker-repo-map.yaml	(revision f6e14e0476e12987ad19f876c6ba0ab63405cbbd)
++++ b/src/docker-repo-map.yaml	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -285,3 +285,15 @@
+   image:
+     registry: docker.io
+     repository: harness/iacm-manager-signed
++idp-service:
++  image:
++    registry: docker.io
++    repository: harness/idp-service-signed
++idp-admin:
++  image:
++    registry: docker.io
++    repository: harness/idp-admin-signed
++idp-app-ui:
++  image:
++    registry: docker.io
++    repository: harness/idp-app-signed
+\ No newline at end of file
+Index: src/generate-image.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/generate-image.yaml b/src/generate-image.yaml
+--- a/src/generate-image.yaml	(revision f6e14e0476e12987ad19f876c6ba0ab63405cbbd)
++++ b/src/generate-image.yaml	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -40,6 +40,8 @@
+     enabled: true
+   iacm:
+     enabled: true
++  idp:
++    enabled: true
+ platform:
+   bootstrap:
+     networking:
+Index: src/harness/Chart.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/harness/Chart.yaml b/src/harness/Chart.yaml
+--- a/src/harness/Chart.yaml	(revision f6e14e0476e12987ad19f876c6ba0ab63405cbbd)
++++ b/src/harness/Chart.yaml	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -51,6 +51,10 @@
+   name: iacm
+   repository: https://harness.github.io/helm-charts
+   version: 0.31.0
++- condition: global.idp.enabled
++  name: idp
++  repository: https://harness.github.io/helm-charts
++  version: 0.31.0
+ description: Helm Chart for deploying Harness.
+ kubeVersion: '>=1.27.0-0'
+ name: harness
+Index: src/harness/override-demo.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/harness/override-demo.yaml b/src/harness/override-demo.yaml
+--- a/src/harness/override-demo.yaml	(revision f6e14e0476e12987ad19f876c6ba0ab63405cbbd)
++++ b/src/harness/override-demo.yaml	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -435,4 +435,38 @@
+       requests:
+         cpu: 128m
+         memory: 256Mi
+-
++idp:
++  idp-service:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++    java:
++      memory: "4096m"
++    resources:
++      limits:
++        cpu: 4
++        memory: 5Gi
++      requests:
++        cpu: 2
++        memory: 5Gi
++  idp-admin:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++      resources:
++        limits:
++          memory: 128Mi
++        requests:
++          cpu: 128m
++          memory: 128Mi
++  idp-app-ui:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++      resources:
++        limits:
++          cpu: 1536m
++          memory: 2Gi
++        requests:
++          cpu: 512m
++          memory: 1Gi
+\ No newline at end of file
+Index: src/harness/override-large.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/harness/override-large.yaml b/src/harness/override-large.yaml
+--- a/src/harness/override-large.yaml	(revision f6e14e0476e12987ad19f876c6ba0ab63405cbbd)
++++ b/src/harness/override-large.yaml	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -451,4 +451,38 @@
+       requests:
+         cpu: 128m
+         memory: 256Mi
+-
++idp:
++  idp-service:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++    java:
++      memory: "4096m"
++    resources:
++      limits:
++        cpu: 4
++        memory: 5Gi
++      requests:
++        cpu: 2
++        memory: 5Gi
++  idp-admin:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++      resources:
++        limits:
++          memory: 128Mi
++        requests:
++          cpu: 128m
++          memory: 128Mi
++  idp-app-ui:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++      resources:
++        limits:
++          cpu: 1536m
++          memory: 2Gi
++        requests:
++          cpu: 512m
++          memory: 1Gi
+\ No newline at end of file
+Index: src/harness/override-medium.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/harness/override-medium.yaml b/src/harness/override-medium.yaml
+--- a/src/harness/override-medium.yaml	(revision f6e14e0476e12987ad19f876c6ba0ab63405cbbd)
++++ b/src/harness/override-medium.yaml	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -450,4 +450,38 @@
+       requests:
+         cpu: 128m
+         memory: 256Mi
+-
++idp:
++  idp-service:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++    java:
++      memory: "4096m"
++    resources:
++      limits:
++        cpu: 4
++        memory: 5Gi
++      requests:
++        cpu: 2
++        memory: 5Gi
++  idp-admin:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++      resources:
++        limits:
++          memory: 128Mi
++        requests:
++          cpu: 128m
++          memory: 128Mi
++  idp-app-ui:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++      resources:
++        limits:
++          cpu: 1536m
++          memory: 2Gi
++        requests:
++          cpu: 512m
++          memory: 1Gi
+Index: src/harness/override-prod.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/harness/override-prod.yaml b/src/harness/override-prod.yaml
+--- a/src/harness/override-prod.yaml	(revision f6e14e0476e12987ad19f876c6ba0ab63405cbbd)
++++ b/src/harness/override-prod.yaml	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -774,3 +774,38 @@
+       requests:
+         cpu: 500m
+         memory: 500Mi
++idp:
++  idp-service:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++    java:
++      memory: "4096m"
++    resources:
++      limits:
++        cpu: 4
++        memory: 5Gi
++      requests:
++        cpu: 2
++        memory: 5Gi
++  idp-admin:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++      resources:
++        limits:
++          memory: 128Mi
++        requests:
++          cpu: 128m
++          memory: 128Mi
++  idp-app-ui:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++      resources:
++        limits:
++          cpu: 1536m
++          memory: 2Gi
++        requests:
++          cpu: 512m
++          memory: 1Gi
+Index: src/harness/override-small.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/harness/override-small.yaml b/src/harness/override-small.yaml
+--- a/src/harness/override-small.yaml	(revision f6e14e0476e12987ad19f876c6ba0ab63405cbbd)
++++ b/src/harness/override-small.yaml	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -450,4 +450,38 @@
+       requests:
+         cpu: 128m
+         memory: 256Mi
+-
++idp:
++  idp-service:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++    java:
++      memory: "4096m"
++    resources:
++      limits:
++        cpu: 4
++        memory: 5Gi
++      requests:
++        cpu: 2
++        memory: 5Gi
++  idp-admin:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++      resources:
++        limits:
++          memory: 128Mi
++        requests:
++          cpu: 128m
++          memory: 128Mi
++  idp-app-ui:
++    autoscaling:
++      enabled: true
++      minReplicas: 2
++      resources:
++        limits:
++          cpu: 1536m
++          memory: 2Gi
++        requests:
++          cpu: 512m
++          memory: 1Gi
+Index: src/harness/values.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/harness/values.yaml b/src/harness/values.yaml
+--- a/src/harness/values.yaml	(revision f6e14e0476e12987ad19f876c6ba0ab63405cbbd)
++++ b/src/harness/values.yaml	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -44,6 +44,9 @@
+     # -- Enable to install Harness Infrastructure As Code Management (IACM)
+   iacm:
+     enabled: false
++    # -- Enable to install Internal Developer Portal (IDP)
++  idp:
++    enabled: false
+   # -- provide overrides to use in-cluster database or configure to use external databases
+   database:
+     clickhouse:
+Index: src/modules/idp/.helmignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/modules/idp/.helmignore b/src/modules/idp/.helmignore
+new file mode 100644
+--- /dev/null	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
++++ b/src/modules/idp/.helmignore	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -0,0 +1,23 @@
++# Patterns to ignore when building packages.
++# This supports shell glob matching, relative path matching, and
++# negation (prefixed with !). Only one pattern per line.
++.DS_Store
++# Common VCS dirs
++.git/
++.gitignore
++.bzr/
++.bzrignore
++.hg/
++.hgignore
++.svn/
++# Common backup files
++*.swp
++*.bak
++*.tmp
++*.orig
++*~
++# Various IDEs
++.project
++.idea/
++*.tmproj
++.vscode/
+\ No newline at end of file
+Index: src/modules/idp/Chart.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/modules/idp/Chart.yaml b/src/modules/idp/Chart.yaml
+new file mode 100644
+--- /dev/null	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
++++ b/src/modules/idp/Chart.yaml	(revision 0bc5ed51a6bbb7af489c2a0abe3f55f60f9871eb)
+@@ -0,0 +1,19 @@
++apiVersion: v2
++appVersion: 1.16.0
++dependencies:
++  - condition: global.idp.enabled
++    name: idp-service
++    repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
++    version: 1.30.7
++  - condition: global.idp.enabled
++    name: idp-admin
++    repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
++    version: 1.30.0
++  - condition: global.idp.enabled
++    name: idp-app-ui
++    repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
++    version: 1.30.6
++description: A Helm chart for Harness IDP
++name: idp
++type: application
++version: 0.31.0
+\ No newline at end of file
