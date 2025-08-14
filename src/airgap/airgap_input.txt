@@ -182,3 +182,11 @@
     iac-server-signed
     iacm-manager-signed
     harness_terraform_vm
+
+[idp]:
+    idp-service-signed
+    idp-admin-signed
+    idp-app-signed
+    drone-git
+    ci-lite-engine
+    ci-addon

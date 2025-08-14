@@ -51,6 +51,10 @@ dependencies:
   name: iacm
   repository: https://harness.github.io/helm-charts
   version: 0.31.0
+- condition: global.idp.enabled
+  name: idp
+  repository: https://harness.github.io/helm-charts
+  version: 0.31.0
 description: Helm Chart for deploying Harness.
 kubeVersion: '>=1.27.0-0'
 name: harness

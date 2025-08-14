@@ -774,3 +774,38 @@ iacm:
       requests:
         cpu: 500m
         memory: 500Mi
+idp:
+  idp-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    java:
+      memory: "4096m"
+    resources:
+      limits:
+        cpu: 4
+        memory: 5Gi
+      requests:
+        cpu: 2
+        memory: 5Gi
+  idp-admin:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 128m
+          memory: 128Mi
+  idp-app-ui:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      resources:
+        limits:
+          cpu: 1536m
+          memory: 2Gi
+        requests:
+          cpu: 512m
+          memory: 1Gi

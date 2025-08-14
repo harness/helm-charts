@@ -285,3 +285,15 @@ iacm-manager:
   image:
     registry: docker.io
     repository: harness/iacm-manager-signed
+idp-service:
+  image:
+    registry: docker.io
+    repository: harness/idp-service-signed
+idp-admin:
+  image:
+    registry: docker.io
+    repository: harness/idp-admin-signed
+idp-app-ui:
+  image:
+    registry: docker.io
+    repository: harness/idp-app-signed
