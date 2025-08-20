@@ -7,56 +7,56 @@ dependencies:
 - condition: global.ccm.enabled
   name: ccm
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.cd.enabled
   name: cd
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.chaos.enabled
   name: chaos
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.ci.enabled
   name: ci
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.ff.enabled
   name: ff
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.cd.enabled
   name: srm
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.sto.enabled
   name: sto
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.ssca.enabled
   name: ssca
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.dbops.enabled
   name: db-devops
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.code.enabled
   name: code
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.iacm.enabled
   name: iacm
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 - condition: global.idp.enabled
   name: idp
   repository: https://harness.github.io/helm-charts
-  version: 0.31.0
+  version: 0.32.0
 description: Helm Chart for deploying Harness.
 kubeVersion: '>=1.27.0-0'
 name: harness
 type: application
-version: 0.31.0
+version: 0.32.0
