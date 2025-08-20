@@ -1,0 +1,19 @@
+apiVersion: v2
+appVersion: 1.16.0
+dependencies:
+- condition: global.idp.enabled
+  name: idp-service
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.30.7-idp-service-smp-test-622155
+- condition: global.idp.enabled
+  name: idp-admin
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.30.0
+- condition: global.idp.enabled
+  name: idp-app-ui
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.30.7-idp-5954-idp-app-fc06d6
+description: A Helm chart for Harness IDP
+name: idp
+type: application
+version: 0.31.0
