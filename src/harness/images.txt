@@ -56,7 +56,7 @@ docker.io/harness/ff-pushpin-worker-signed:1.1123.1
 docker.io/harness/ff-server-analytics-db-migration-signed:1.1135.0
 docker.io/harness/ff-server-primary-db-migration-signed:1.1135.0
 docker.io/harness/ff-service-signed:1.1135.0
-docker.io/harness/gateway-signed:1.51.0
+docker.io/harness/gateway-signed:1.51.1
 docker.io/harness/gitops-agent-installer-helper:v0.0.3
 docker.io/harness/gitops-agent:v0.97.2
 docker.io/harness/gitops-service-signed:1.37.2
