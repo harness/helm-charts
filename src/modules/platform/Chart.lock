@@ -16,7 +16,7 @@ dependencies:
   version: 1.3.0
 - name: gateway
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.51.0
+  version: 1.51.1
 - name: harness-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.95.3
@@ -68,5 +68,5 @@ dependencies:
 - name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.7.1
-digest: sha256:4135c900f6a02dc490893052c787bad89d23cd6f5e5732818136909fd29b91dc
-generated: "2025-08-07T17:50:50.06922302Z"
+digest: sha256:1f7e9274ad57150bccac59d5b62165acfe34ab579f14072cfd82d955b0bbbd24
+generated: "2025-08-22T11:42:40.938560167Z"
