@@ -128,10 +128,16 @@ def get_chart_path_from_api_spec(api_spec_path, mapping):
     
     return None
 
-def compare_paths(chart_path, api_specs):
+def compare_paths(chart_path, api_specs, repo_name=None):
     """Compare virtual service paths between generated and existing configuration"""
+    # Convert chart path to absolute path in the repository
+    repo_base_path = f"/harness-temp/{repo_name}" if repo_name else "/harness-temp/harness-core"
+    absolute_chart_path = os.path.join(repo_base_path, chart_path)
+    
+    print(f"📁 Looking for chart at: {absolute_chart_path}")
+    
     # Get the service name from Chart.yaml in the chart folder
-    chart_yaml_path = os.path.join(chart_path, 'Chart.yaml')
+    chart_yaml_path = os.path.join(absolute_chart_path, 'Chart.yaml')
     try:
         with open(chart_yaml_path, 'r') as f:
             chart_yaml = yaml.safe_load(f)
@@ -149,17 +155,35 @@ def compare_paths(chart_path, api_specs):
         temp_file = temp.name
     
     try:
+        # Convert API spec paths to absolute paths in the repository
+        repo_base_path = f"/harness-temp/{repo_name}" if repo_name else "/harness-temp/harness-core"
+        absolute_api_specs = []
+        
+        for api_spec in api_specs:
+            # Check if the API spec file exists in the repository
+            absolute_path = os.path.join(repo_base_path, api_spec)
+            if os.path.exists(absolute_path):
+                absolute_api_specs.append(absolute_path)
+                print(f"✅ Found API spec: {absolute_path}")
+            else:
+                print(f"⚠️ API spec not found: {absolute_path}")
+        
+        if not absolute_api_specs:
+            print("❌ No valid API specifications found")
+            os.unlink(temp_file)
+            return False
+        
         # Generate command with all API specs
-        api_specs_args = ' '.join(api_specs)
+        api_specs_args = ' '.join(absolute_api_specs)
         cmd = f"python3 generate_virtualService_paths.py {service_name} {api_specs_args} > {temp_file}"
         run_command(cmd, capture_output=False)
         
         # Get values.yaml path
-        values_file = os.path.join(chart_path, "values.yaml")
+        values_file = os.path.join(absolute_chart_path, "values.yaml")
         if not os.path.isfile(values_file):
-            print(f"Error: values.yaml not found in {chart_path}")
+            print(f"Error: values.yaml not found in {absolute_chart_path}")
             os.unlink(temp_file)
-            sys.exit(1)
+            return False
         
         print("🔄 Comparing virtual service configuration...")
         
@@ -382,7 +406,7 @@ def main():
         for api_spec in api_specs:
             print(f"📥 Processing API spec: {api_spec}")
             
-        if not compare_paths(chart_path, api_specs):
+        if not compare_paths(chart_path, api_specs, args.repo_name):
             success = False
     
     if success:
