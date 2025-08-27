@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
 
+"""
+Virtual Service Path Validation Script
+
+This script validates that virtual service paths in Helm charts match
+the corresponding OpenAPI specifications.
+"""
+
 import os
 import sys
 import subprocess
 import tempfile
 import yaml
+import argparse
+import requests
+import json
 from pathlib import Path
 
 def run_command(cmd, capture_output=True):
@@ -22,8 +32,38 @@ def get_current_dir_name():
     """Get the name of the current directory"""
     return os.path.basename(os.path.abspath(os.getcwd()))
 
+def get_changed_files_from_api(repo_name, pr_number, harness_token):
+    """Get files changed in PR using Harness API"""
+    try:
+        api_url = f"https://harness0.harness.io/gateway/code/api/v1/repos/{repo_name}/pullreq/{pr_number}/diff?accountIdentifier=l7B_kbSEQD2wjrM7PShm5w&orgIdentifier=PROD&projectIdentifier=Harness_Commons&routingId=l7B_kbSEQD2wjrM7PShm5w"
+        
+        headers = {
+            'x-api-key': harness_token
+        }
+        
+        print(f"🔍 Fetching changed files from API: {api_url}")
+        response = requests.get(api_url, headers=headers)
+        
+        if response.status_code != 200:
+            print(f"❌ Error fetching changed files: HTTP {response.status_code}")
+            print(f"Response: {response.text}")
+            return []
+        
+        diff_data = response.json()
+        changed_files = [item['path'] for item in diff_data if 'path' in item]
+        
+        print(f"📁 Found {len(changed_files)} changed files")
+        for file in changed_files:
+            print(f"  - {file}")
+            
+        return changed_files
+        
+    except Exception as e:
+        print(f"❌ Error getting changed files from API: {e}")
+        return []
+
 def get_changed_files(repo_name=None):
-    """Get files changed between current and previous commit"""
+    """Get files changed between current and previous commit (fallback method)"""
     try:
         cmd = "git diff --name-only || true"
         if repo_name:
@@ -36,15 +76,28 @@ def get_changed_files(repo_name=None):
 
 def load_mapping():
     """Load the openapi mapping yaml file"""
-    try:
-        with open('virtual_service_test/openapimapping.yml', 'r') as f:
-            return yaml.safe_load(f)
-    except FileNotFoundError:
-        print("Error: openapimapping.yml file not found")
-        sys.exit(1)
-    except yaml.YAMLError as e:
-        print(f"Error parsing openapimapping.yml: {e}")
-        sys.exit(1)
+    # Try different possible paths for the mapping file
+    possible_paths = [
+        'openapimapping.yml',  # Current directory
+        'virtual_service_test/openapimapping.yml',  # Subdirectory
+        '/harness-temp/helm-charts/tests/virtual_service_test/openapimapping.yml'  # Pipeline path
+    ]
+    
+    for path in possible_paths:
+        try:
+            if os.path.exists(path):
+                print(f"📋 Loading mapping from: {path}")
+                with open(path, 'r') as f:
+                    return yaml.safe_load(f)
+        except yaml.YAMLError as e:
+            print(f"Error parsing {path}: {e}")
+            continue
+    
+    print("❌ Error: openapimapping.yml file not found in any expected location")
+    print("Searched paths:")
+    for path in possible_paths:
+        print(f"  - {path}")
+    sys.exit(1)
 
 def find_api_specs_for_chart(chart_path, mapping):
     """Find all API specs associated with a chart path"""
@@ -247,29 +300,38 @@ def compare_paths(chart_path, api_specs):
             os.unlink(temp_file)
 
 def main():
-    # Check if repo name was provided as command line argument
-    if len(sys.argv) <= 1:
-        print("⚠️ Error: Repository name is required as a command line argument")
-        print("Usage: python3 prcheck.py <repository-name>")
-        print("Example: python3 prcheck.py db-devops-service")
-        sys.exit(1)
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(
+        description='Virtual Service Path Validation Script',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     
-    repo_name = sys.argv[1]
-    print(f"🔍 Repository name provided: {repo_name}")
+    parser.add_argument('--repo_name', required=True,
+                        help='Repository name (e.g., harness-core)')
+    parser.add_argument('--pr_number', required=True,
+                        help='Pull request number')
+    parser.add_argument('--harness_token', required=True,
+                        help='Harness API token')
     
-    # Get changed files
-    changed_files = get_changed_files(repo_name)
+    args = parser.parse_args()
+    
+    print(f"🔍 Repository name: {args.repo_name}")
+    print(f"🔍 PR number: {args.pr_number}")
+    print(f"🔍 Token: {args.harness_token[:10]}...")
+    
+    # Get changed files from Harness API
+    changed_files = get_changed_files_from_api(args.repo_name, args.pr_number, args.harness_token)
     
     if not changed_files:
-        print("No changes to files")
+        print("📝 No changes to files or failed to fetch changes")
         sys.exit(0)
         
     # Load the mapping
     mapping = load_mapping()
     
     # Use provided repo name as directory prefix
-    dir_name = repo_name
-    print(f"🔍 Running in directory: {dir_name}")
+    dir_name = args.repo_name
+    print(f"🔍 Running validation for repository: {dir_name}")
     
     # Set to track charts that need to be validated to avoid duplicates
     charts_to_validate = {}
@@ -289,14 +351,14 @@ def main():
             # Try both with and without prefix
             if file_path.startswith(chart_key) or file_path.endswith(chart_key) or \
                prefixed_path.startswith(chart_key) or prefixed_path.endswith(chart_key):
-                print(f"Chart folder change detected: {chart_key}")
+                print(f"📊 Chart folder change detected: {chart_key}")
                 chart_path = chart_key
                 api_specs = mapping[chart_key]
                 break
                 
         # If not in chart folder, check if it's an api.yaml file
         if not chart_path and ('api.yaml' in file_path or 'openapi.yaml' in file_path):
-            print(f"API spec file change detected: {file_path}")
+            print(f"📄 API spec file change detected: {file_path}")
             for chart_key, spec_files in mapping.items():
                 # Try both with and without prefix
                 if file_path in spec_files or prefixed_path in spec_files:
@@ -318,12 +380,15 @@ def main():
     for chart_path, api_specs in charts_to_validate.items():
         print(f"🔄 Validating chart: {chart_path} with {len(api_specs)} API specs")
         for api_spec in api_specs:
-            print(f"📥 Loaded paths from {api_spec}")
+            print(f"📥 Processing API spec: {api_spec}")
             
         if not compare_paths(chart_path, api_specs):
             success = False
     
-    if not success:
+    if success:
+        print("✅ All virtual service path validations passed!")
+    else:
+        print("❌ Virtual service path validation failed!")
         sys.exit(1)
 
 if __name__ == "__main__":
