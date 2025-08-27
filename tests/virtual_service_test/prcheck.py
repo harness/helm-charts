@@ -131,7 +131,8 @@ def get_chart_path_from_api_spec(api_spec_path, mapping):
 def compare_paths(chart_path, api_specs, repo_name=None):
     """Compare virtual service paths between generated and existing configuration"""
     # Convert chart path to absolute path in the repository
-    repo_base_path = f"/harness-temp/{repo_name}" if repo_name else "/harness-temp/harness-core"
+    # The chart_path already includes the repo name, so we just need the base temp path
+    repo_base_path = "/harness-temp"
     absolute_chart_path = os.path.join(repo_base_path, chart_path)
     
     print(f"📁 Looking for chart at: {absolute_chart_path}")
@@ -156,7 +157,8 @@ def compare_paths(chart_path, api_specs, repo_name=None):
     
     try:
         # Convert API spec paths to absolute paths in the repository
-        repo_base_path = f"/harness-temp/{repo_name}" if repo_name else "/harness-temp/harness-core"
+        # The api_spec paths already include the repo name, so we just need the base temp path
+        repo_base_path = "/harness-temp"
         absolute_api_specs = []
         
         for api_spec in api_specs:
