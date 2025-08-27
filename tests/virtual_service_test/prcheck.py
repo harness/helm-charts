@@ -151,7 +151,7 @@ def compare_paths(chart_path, api_specs):
     try:
         # Generate command with all API specs
         api_specs_args = ' '.join(api_specs)
-        cmd = f"python3 virtual_service_test/generate_virtualService_paths.py {service_name} {api_specs_args} > {temp_file}"
+        cmd = f"python3 generate_virtualService_paths.py {service_name} {api_specs_args} > {temp_file}"
         run_command(cmd, capture_output=False)
         
         # Get values.yaml path
