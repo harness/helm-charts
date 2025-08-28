@@ -540,6 +540,8 @@ platform:
     tolerations: []
 srm:
   cv-nextgen:
+    config:
+      PIPELINE_SERVICE_CLIENT_BASEURL: http://pipeline-service:12001/api/
     affinity: {}
     nodeSelector: {}
     tolerations: []
