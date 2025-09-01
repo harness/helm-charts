@@ -3,7 +3,7 @@ appVersion: 0.0.79001
 dependencies:
 - name: iac-server
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.228.0-iac-4257.conditonally.add.minio.secet-e7b776
+  version: 1.222.1
 - name: iacm-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.93.0
