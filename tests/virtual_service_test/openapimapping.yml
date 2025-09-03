@@ -25,5 +25,11 @@ harness-core/ssca-manager/chart:
 harness-core/template-service/chart:
     - harness-core/template-service/contracts/openapi/v1/openapi.yaml
 
+harness-core/license-manager/chart:
+    - harness-core/license-manager/contracts/openapi/v1/openapi.yaml
+
+harness-core/idp-service/chart:
+    - harness-core/idp-service/contracts/openapi/v1/openapi.yaml
+
 db-devops-service/chart:
     - db-devops-service/openapi/api.yaml
