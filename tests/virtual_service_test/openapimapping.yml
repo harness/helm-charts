@@ -14,6 +14,7 @@ harness-core/platform-service/chart:
     - harness-core/platform-service/modules/audit-service/contracts/openapi/v1/openapi.yaml
     - harness-core/platform-service/modules/notification-service/contracts/openapi/v1/openapi.yaml
     - harness-core/platform-service/modules/streaming-manager-service/contracts/openapi/v1/openapi.yaml
+    - harness-core/resource-group-service/contracts/openapi/v1/openapi.yaml
 
 harness-core/srm-service/chart:
     - harness-core/srm-service/modules/cv-nextgen-service/contracts/openapi/v1/openapi.yaml
