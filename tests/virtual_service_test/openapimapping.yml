@@ -13,7 +13,8 @@ harness-core/pipeline-service/chart:
 harness-core/platform-service/chart:
     - harness-core/platform-service/modules/audit-service/contracts/openapi/v1/openapi.yaml
     - harness-core/platform-service/modules/notification-service/contracts/openapi/v1/openapi.yaml
-    - harness-core/platform-service/modules/resource-group-service/contracts/openapi/v1/openapi.yaml
+    - harness-core/platform-service/modules/streaming-manager-service/contracts/openapi/v1/openapi.yaml
+    - harness-core/resource-group-service/contracts/openapi/v1/openapi.yaml
 
 harness-core/srm-service/chart:
     - harness-core/srm-service/modules/cv-nextgen-service/contracts/openapi/v1/openapi.yaml
@@ -23,6 +24,12 @@ harness-core/ssca-manager/chart:
 
 harness-core/template-service/chart:
     - harness-core/template-service/contracts/openapi/v1/openapi.yaml
+
+harness-core/license-manager/chart:
+    - harness-core/license-manager/contracts/openapi/v1/openapi.yaml
+
+harness-core/idp-service/chart:
+    - harness-core/idp-service/contracts/openapi/v1/openapi.yaml
 
 db-devops-service/chart:
     - db-devops-service/openapi/api.yaml
