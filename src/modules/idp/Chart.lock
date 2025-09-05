@@ -1,12 +1,12 @@
 dependencies:
-- name: cv-nextgen
+- name: idp-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.44.0
-- name: le-nextgen
+  version: 1.30.14
+- name: idp-admin
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.6.6
-- name: srm-ui
+  version: 1.30.0
+- name: idp-app-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.13.1
-digest: sha256:065715fd3674eff8a58f436851c6e213dcda55b486ce4ff12ab369faaff4640e
-generated: "2025-09-05T13:44:28.697560839Z"
+  version: 1.30.15
+digest: sha256:c9fb0a318e10b3cfbdea7ab993e4a1f46e36e491ffcf9951d4dedb9beb0b599f
+generated: "2025-09-05T13:44:21.190657162Z"
