@@ -6,7 +6,7 @@ dependencies:
   version: 1.64.14
 - name: chaos-web
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.64.8
+  version: 1.64.9
 - name: chaos-k8s-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.64.4
@@ -28,4 +28,4 @@ dependencies:
 description: A Helm chart for harness chaos module
 name: chaos
 type: application
-version: 0.32.0
+version: 0.32.1
