@@ -368,6 +368,17 @@ platform:
         affinity: {}
         nodeSelector: {}
         tolerations: []
+      mongodbupgrades:
+        mongoFCVUpgrade:
+          enabled: true
+          ignoreFailure: false
+          affinity: {}
+          nodeSelector: {}
+          tolerations: []
+          # Set a desired fcv then uncomment the below line and mention the fcv version.
+          # desiredFCV: "6.0"
+          resources: {}
+          ttlSecondsAfterFinished: 900
       mongodb:
         affinity: {}
         arbiter:
@@ -563,18 +574,6 @@ sto:
       enabled: false
     nodeSelector: {}
     tolerations: []
-upgrades:
-  versionLookups:
-    enabled: true
-  mongoFCVUpgrade:
-    enabled: true
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    image:
-      registry: docker.io
-      repository: bitnami/mongodb
-      tag: 6.0.13
 ff:
   ff-service:
     ff-admin-server:
@@ -606,3 +605,7 @@ iacm:
       enabled: false
     nodeSelector: {}
     tolerations: []
+
+upgrades:
+  versionLookups:
+    enabled: true
