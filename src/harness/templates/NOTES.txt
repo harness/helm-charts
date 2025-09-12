@@ -18,7 +18,7 @@
 {{ println "" }}
 {{- if .Release.IsUpgrade }}
 {{- if .Values.upgrades.versionLookups.enabled }}
-{{- if .Values.platform.bootstrap.mongodbupgrades.mongoFCVUpgrade.enabled }}
+{{- if .Values.platform.bootstrap.database.mongodbupgrades.mongoFCVUpgrade.enabled }}
 {{- $hm_deployment := lookup "apps/v1" "Deployment" .Release.Namespace "harness-manager" -}}
 {{- $var := $hm_deployment.metadata.labels }}
 {{- $version := ( get $var "helm.sh/chart" ) | trimPrefix "harness-manager-" }}
