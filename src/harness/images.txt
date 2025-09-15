@@ -89,7 +89,7 @@ docker.io/harness/smp-chaos-k8s-ifs-signed:1.64.4
 docker.io/harness/smp-chaos-linux-infra-controller-signed:1.64.0
 docker.io/harness/smp-chaos-linux-infra-server-signed:1.64.0
 docker.io/harness/smp-chaos-manager-signed:1.64.14
-docker.io/harness/smp-chaos-web-signed:1.64.8
+docker.io/harness/smp-chaos-web-signed:1.64.9
 docker.io/harness/smp-service-discovery-server-signed:0.44.2
 docker.io/harness/source-probe:main-latest
 docker.io/harness/srm-ui-signed:1.13.1
