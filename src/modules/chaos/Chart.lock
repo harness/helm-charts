@@ -1,27 +1,27 @@
 dependencies:
 - name: chaos-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.5
+  version: 1.64.14
 - name: chaos-web
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.5
+  version: 1.64.9
 - name: chaos-k8s-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.3
+  version: 1.64.4
 - name: chaos-linux-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.0
+  version: 1.64.0
 - name: chaos-linux-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.0
+  version: 1.64.0
 - name: chaos-crd
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.0
+  version: 1.64.0
 - name: chaos-machine-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.0
+  version: 1.64.0
 - name: chaos-machine-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.0
-digest: sha256:599c404c5cb98e1f8035b8d802265a7f308fa5b7f2fbe6baa0c224466ae27d20
-generated: "2025-08-01T09:07:39.620903866Z"
+  version: 1.64.0
+digest: sha256:a3ec47edbf5b80450c671da9960d01427d3e401391f5270554caa3c04d7627f4
+generated: "2025-09-15T11:01:43.130562298Z"
