@@ -481,7 +481,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.07.86300
+        tag: 25.07.86402
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -540,6 +540,8 @@ platform:
     tolerations: []
 srm:
   cv-nextgen:
+    config:
+      PIPELINE_SERVICE_CLIENT_BASEURL: http://pipeline-service:12001/api/
     affinity: {}
     nodeSelector: {}
     tolerations: []
