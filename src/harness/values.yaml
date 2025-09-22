@@ -391,7 +391,7 @@ platform:
         metrics:
           enabled: false
           image:
-            tag: 0.40.0-debian-12-r40
+            repository: bitnamilegacy/mongodb-exporter
         nodeSelector: {}
         podAnnotations:
           prometheus.io/path: /metrics
@@ -400,6 +400,8 @@ platform:
         tolerations: []
       postgresql:
         metrics:
+          image:
+            repository: bitnamilegacy/postgresql-exporter
           enabled: false
         podAnnotations:
           prometheus.io/path: /metrics
