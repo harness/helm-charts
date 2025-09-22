@@ -399,6 +399,8 @@ platform:
       postgresql:
         metrics:
           enabled: false
+          image:
+            repository: bitnamilegacy/postgres-exporter
         podAnnotations:
           prometheus.io/path: /metrics
           prometheus.io/port: '9187'
