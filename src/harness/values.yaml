@@ -640,4 +640,3 @@ code:
     postgres:
       image:
         repository: "bitnamilegacy/postgresql"
-      
