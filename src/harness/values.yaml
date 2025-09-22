@@ -270,6 +270,9 @@ global:
 ccm:
   # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
   batch-processing:
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
     # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
     awsAccountTagsCollectionJobConfig:
       enabled: true
@@ -564,6 +567,12 @@ srm:
 sto:
   # -- Install the STO core
   sto-core:
+    migrationPostgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
     affinity: {}
     autoscaling:
       enabled: false
@@ -596,6 +605,12 @@ ff:
         tag: 1.2.0
 iacm:
   iac-server:
+    createDb:
+      image:
+        repository: "bitnamilegacy/postgresql"
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
     affinity: {}
     autoscaling:
       enabled: false
@@ -610,3 +625,17 @@ iacm:
 upgrades:
   versionLookups:
     enabled: true
+code:
+  code-search:
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
+  code-githa:
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
+  code-gitrpc:
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
+      
