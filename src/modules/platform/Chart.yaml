@@ -4,66 +4,66 @@ dependencies:
 - condition: global.ng.enabled
   name: access-control
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.99.0
+  version: 1.99.1
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.49.3
 - condition: global.cdc.enabled
   name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.46.1
+  version: 1.46.2
 - condition: global.ssca.enabled
   name: debezium-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.21.6
+  version: 1.21.7
 - name: delegate-proxy
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.3.0
 - name: gateway
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.53.1
+  version: 1.53.3
 - name: harness-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.99.1
+  version: 1.99.3
 - condition: global.ng.enabled
   name: log-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.25.2
+  version: 1.25.3
 - condition: global.ng.enabled
   name: next-gen-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.87.8
+  version: 1.87.12
 - name: ng-auth-ui
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.36.0
-- condition: global.ng.enabled
-  name: ng-dashboard-aggregator
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.64.0
-- condition: global.ng.enabled
-  name: ng-manager
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.101.2
-- condition: global.ng.enabled
-  name: pipeline-service
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.141.1
-- condition: global.ng.enabled
-  name: platform-service
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.78.0
-- condition: global.ng.enabled
-  name: policy-mgmt
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.22.1
-- condition: global.ng.enabled
-  name: scm-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.36.1
 - condition: global.ng.enabled
+  name: ng-dashboard-aggregator
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.64.1
+- condition: global.ng.enabled
+  name: ng-manager
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.101.3
+- condition: global.ng.enabled
+  name: pipeline-service
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.141.4
+- condition: global.ng.enabled
+  name: platform-service
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.78.1
+- condition: global.ng.enabled
+  name: policy-mgmt
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.22.2
+- condition: global.ng.enabled
+  name: scm-service
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.36.2
+- condition: global.ng.enabled
   name: template-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.103.0
+  version: 1.103.1
 - condition: global.cg.enabled
   name: ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -83,11 +83,11 @@ dependencies:
 - condition: global.ng.enabled
   name: audit-event-streaming
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.46.0
+  version: 1.46.1
 - condition: global.ng.enabled
   name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.7.2
+  version: 1.7.3
 description: Helm chart for Harness Platform
 name: platform
 type: application
