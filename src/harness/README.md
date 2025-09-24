@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.32.1](https://img.shields.io/badge/Version-0.32.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.32.2](https://img.shields.io/badge/Version-0.32.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -92,12 +92,12 @@ docker.io/bitnamilegacy/postgresql:14.11.0-debian-11-r17
 docker.io/busybox:1.37.0
 docker.io/curlimages/curl:8.7.1
 docker.io/haproxy:lts-alpine3.18
-docker.io/harness/accesscontrol-service-signed:1.99.0
+docker.io/harness/accesscontrol-service-signed:1.99.1
 docker.io/harness/argocd:v2.14.13
-docker.io/harness/audit-event-streaming-signed:1.46.0
+docker.io/harness/audit-event-streaming-signed:1.46.1
 docker.io/harness/batch-processing-signed:1.58.3
 docker.io/harness/ccm-gcp-smp-signed:100039
-docker.io/harness/cdcdata-signed:1.46.1
+docker.io/harness/cdcdata-signed:1.46.2
 docker.io/harness/ce-anomaly-detection-signed:1.11.0
 docker.io/harness/ce-cloud-info-signed:1.11.1
 docker.io/harness/ce-nextgen-signed:1.61.1
@@ -119,7 +119,7 @@ docker.io/harness/chaos-runner:1.64.0
 docker.io/harness/chaos-subscriber:1.64.0
 docker.io/harness/chaos-workflow-controller:v3.4.16
 docker.io/harness/ci-manager-signed:1.91.5
-docker.io/harness/ci-scm-signed:1.36.1
+docker.io/harness/ci-scm-signed:1.36.2
 docker.io/harness/code-api-signed:1.53.26
 docker.io/harness/code-githa-signed:1.53.0
 docker.io/harness/code-gitrpc-signed:1.53.0
@@ -127,7 +127,7 @@ docker.io/harness/code-search-signed:1.53.0
 docker.io/harness/cv-nextgen-signed:1.44.0
 docker.io/harness/dashboard-service-signed:1.80.15
 docker.io/harness/db-devops-service-signed:1.52.4
-docker.io/harness/debezium-service-signed:1.21.6
+docker.io/harness/debezium-service-signed:1.21.7
 docker.io/harness/delegate-proxy-signed:1.3.0
 docker.io/harness/delegate:25.07.86402
 docker.io/harness/delegate:25.07.86402-fips
@@ -141,7 +141,7 @@ docker.io/harness/ff-pushpin-worker-signed:1.1125.0
 docker.io/harness/ff-server-analytics-db-migration-signed:1.1136.0
 docker.io/harness/ff-server-primary-db-migration-signed:1.1136.0
 docker.io/harness/ff-service-signed:1.1136.0
-docker.io/harness/gateway-signed:1.53.1
+docker.io/harness/gateway-signed:1.53.3
 docker.io/harness/gitops-agent-installer-helper:v0.0.3
 docker.io/harness/gitops-agent:v0.99.0
 docker.io/harness/gitops-service-signed:1.39.4
@@ -154,18 +154,18 @@ docker.io/harness/idp-app-signed:1.30.15
 docker.io/harness/idp-service-signed:1.30.14
 docker.io/harness/k8s-chaos-infrastructure-upgrader:1.64.0
 docker.io/harness/le-nextgen-signed:1.6.6
-docker.io/harness/log-service-signed:1.25.2
+docker.io/harness/log-service-signed:1.25.3
 docker.io/harness/looker-signed:1.7.12
-docker.io/harness/manager-signed:1.99.1
-docker.io/harness/nextgenui-signed:1.87.8
-docker.io/harness/ng-auth-ui-signed:1.36.0
+docker.io/harness/manager-signed:1.99.3
+docker.io/harness/nextgenui-signed:1.87.12
+docker.io/harness/ng-auth-ui-signed:1.36.1
 docker.io/harness/ng-ce-ui:1.57.3
-docker.io/harness/ng-dashboard-aggregator-signed:1.64.0
-docker.io/harness/ng-manager-signed:1.101.2
-docker.io/harness/pipeline-service-signed:1.141.1
-docker.io/harness/platform-service-signed:1.78.0
-docker.io/harness/policy-mgmt:1.22.1
-docker.io/harness/queue-service-signed:1.7.2
+docker.io/harness/ng-dashboard-aggregator-signed:1.64.1
+docker.io/harness/ng-manager-signed:1.101.3
+docker.io/harness/pipeline-service-signed:1.141.4
+docker.io/harness/platform-service-signed:1.78.1
+docker.io/harness/policy-mgmt:1.22.2
+docker.io/harness/queue-service-signed:1.7.3
 docker.io/harness/service-discovery-collector:0.44.0
 docker.io/harness/smp-chaos-bg-processor-signed:1.64.14
 docker.io/harness/smp-chaos-k8s-ifs-signed:1.64.4
@@ -181,7 +181,7 @@ docker.io/harness/ssca-ui-signed:0.31.0
 docker.io/harness/stocore-signed:1.153.4
 docker.io/harness/stomanager-signed:1.71.0
 docker.io/harness/telescopes-signed:1.4.0
-docker.io/harness/template-service-signed:1.103.0
+docker.io/harness/template-service-signed:1.103.1
 docker.io/harness/ti-service-signed:1.46.1
 docker.io/harness/ui-signed:1.22.0
 docker.io/harness/upgrader:latest
