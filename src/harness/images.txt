@@ -74,7 +74,7 @@ docker.io/harness/le-nextgen-signed:1.6.6
 docker.io/harness/log-service-signed:1.25.3
 docker.io/harness/looker-signed:1.7.12
 docker.io/harness/manager-signed:1.99.3
-docker.io/harness/nextgenui-signed:1.87.12
+docker.io/harness/nextgenui-signed:1.87.13
 docker.io/harness/ng-auth-ui-signed:1.36.1
 docker.io/harness/ng-ce-ui:1.57.3
 docker.io/harness/ng-dashboard-aggregator-signed:1.64.1
