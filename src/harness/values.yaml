@@ -589,18 +589,38 @@ ff:
       secrets:
         default:
           PLATFORM_AUTH_KEY: "secret"
+      postgres:
+        image:
+          repository: "bitnamilegacy/postgresql"
     ff-client-server:
       secrets:
         default:
           PLATFORM_AUTH_KEY: "secret"
+      postgres:
+        image:
+          repository: "bitnamilegacy/postgresql"
     ff-metrics-server:
       secrets:
         default:
           PLATFORM_AUTH_KEY: "secret"
+      postgres:
+        image:
+          repository: "bitnamilegacy/postgresql"
   ff-pushpin-service:
     waitForInitContainer:
       image:
         tag: 1.2.0
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
+  ff-psql-migrations:
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
+  ff-timescale-migrations:
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
 iacm:
   iac-server:
     createDb:
@@ -624,6 +644,14 @@ upgrades:
   versionLookups:
     enabled: true
 code:
+  code-api:
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
+    autoai:
+      postgres:
+        image:
+          repository: "bitnamilegacy/postgresql"
   code-search:
     postgres:
       image:
@@ -633,6 +661,11 @@ code:
       image:
         repository: "bitnamilegacy/postgresql"
   code-gitrpc:
+    postgres:
+      image:
+        repository: "bitnamilegacy/postgresql"
+idp:
+  idp-app-ui:
     postgres:
       image:
         repository: "bitnamilegacy/postgresql"
