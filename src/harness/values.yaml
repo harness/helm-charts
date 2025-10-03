@@ -339,10 +339,14 @@ chaos:
 # -- Install the Continuous Integration (CI) manager pod
 ci:
   ci-manager:
+    config:
+      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
   ti-service:
+    config:
+      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -351,6 +355,8 @@ enabled: false
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
+    config:
+      ENV: "SMP"
     affinity: {}
     # -- set mongoHosts for external database hosts
     # -- mongoHosts:
@@ -465,6 +471,8 @@ platform:
         tolerations: []
   # -- change-data-capture settings (taints, tolerations, and so on)
   change-data-capture:
+    config:
+      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -475,11 +483,15 @@ platform:
     tolerations: []
   # -- gateway settings (taints, tolerations, and so on)
   gateway:
+    config:
+      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
   # -- harness-manager (taints, tolerations, and so on)
   harness-manager:
+    config:
+      ENV: "SMP"
     shutdownHooksEnabled: true
     affinity: {}
     # -- These flags are used by the helper function to create the FEATURES config value based off the global.<feature>.enabled boolean
@@ -497,6 +509,8 @@ platform:
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
+    config:
+      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -506,11 +520,15 @@ platform:
     tolerations: []
   # -- next-gen-ui (Next Generation User Interface) (taints, tolerations, and so on)
   next-gen-ui:
+    config:
+      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
   # -- ng-auth-ui (Next Generation Authorization User Interface) (taints, tolerations, and so on)
   ng-auth-ui:
+    config:
+      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -520,18 +538,24 @@ platform:
     tolerations: []
   # -- ng-manager (Next Generation Manager) (taints, tolerations, and so on)
   ng-manager:
+    config:
+      ENV: "SMP"
     shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
     tolerations: []
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
+    config:
+      ENV: "SMP"
     shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
     tolerations: []
   # -- platform-service (Harness platform-related services) (taints, tolerations, and so on)
   platform-service:
+    config:
+      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -542,6 +566,8 @@ platform:
     tolerations: []
   # -- template-service (Harness template-related services) (taints, tolerations, and so on)
   template-service:
+    config:
+      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -554,6 +580,7 @@ srm:
   cv-nextgen:
     config:
       PIPELINE_SERVICE_CLIENT_BASEURL: http://pipeline-service:12001/api/
+      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -578,6 +605,8 @@ sto:
     tolerations: []
   # -- Install the STO manager
   sto-manager:
+    config:
+      ENV: "SMP"
     affinity: {}
     autoscaling:
       enabled: false
