@@ -1,5 +1,5 @@
 bootstrap:
-  database: 
+  database:
     mongodb:
       metrics:
         enabled: true
@@ -33,3 +33,4 @@ global:
     enabled: true
     port: 8889
     path: /metrics
+    managedPlatform: "oss"
