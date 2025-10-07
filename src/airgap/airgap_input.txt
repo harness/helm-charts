@@ -78,6 +78,7 @@
     harness-cache-server
     nexusiq-job-runner
     github-advanced-security-job-runner
+    modelscan-job-runner
 
 [sto]:
     ci-addon
