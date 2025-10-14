@@ -72,7 +72,7 @@ global:
       extraArgs: ""
       ## - host array for external
       hosts:
-        - <postgres ip>:5432
+        - postgres:5432
       ## - set this to false if you want to use external postgre cluster
       installed: true
       ## - key within secret containing password
