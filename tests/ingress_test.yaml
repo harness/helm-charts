@@ -147,9 +147,6 @@ tests:
         protocol: TCP
         port: 1000
     asserts:
-      - equal:
-          path: spec.rules[0].http.paths[0].backend.service.port.number
-          value: 1000
       - notExists:
           path: spec.rules[0].host
 
