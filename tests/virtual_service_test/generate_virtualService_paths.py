@@ -16,8 +16,8 @@ def extract_paths(openapi_spec):
     formatted_paths = set()
 
     for path in paths:
-        # Convert {variables} directly to [^\/.]+ for more precise matching
-        regex_path = re.sub(r'\{[^}]+\}', '[^\\/.]+', path)
+        # Convert {variables} directly to [^\/]+ for more precise matching
+        regex_path = re.sub(r'\{[^}]+\}', '[^\\/]+', path)
         formatted_paths.add(regex_path)
 
     return formatted_paths
