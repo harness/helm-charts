@@ -16,7 +16,7 @@
     gateway-signed
     helm-init-container
     manager-signed
-    mongodb
+    mongo
     ng-auth-ui-signed
     redis
     upgrader
@@ -103,11 +103,13 @@
     fortifyondemand-job-runner
     fossa-job-runner
     gitleaks-job-runner
+    github-advanced-security-job-runner
     grype-job-runner
     nessus-job-runner
     nexusiq-job-runner
     nikto-job-runner
     nmap-job-runner
+    modelscan-job-runner
     osv-job-runner
     owasp-dependency-check-job-runner
     prowler-job-runner
@@ -199,3 +201,21 @@
     iac-server-signed
     iacm-manager-signed
     harness_terraform_vm
+
+[idp]:
+    idp-service-signed
+    idp-admin-signed
+    idp-app-signed
+    drone-git
+    ci-lite-engine
+    ci-addon
+    cookiecutter
+    createcatalog
+    createorganisation
+    createproject
+    createrepo
+    createresource
+    directpush
+    registercatalog
+    slacknotify
+    updatecatalogproperty

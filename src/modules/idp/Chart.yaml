@@ -1,19 +1,19 @@
 apiVersion: v2
 appVersion: 1.16.0
 dependencies:
-- condition: global.ng.enabled
-  name: cv-nextgen
+- condition: global.idp.enabled
+  name: idp-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.44.0
-- condition: global.ng.enabled
-  name: le-nextgen
+  version: 1.31.18
+- condition: global.idp.enabled
+  name: idp-admin
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.10.0
-- condition: global.ng.enabled
-  name: srm-ui
+  version: 1.31.0
+- condition: global.idp.enabled
+  name: idp-app-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.13.1
-description: Helm chart for Harness SRM
-name: srm
+  version: 1.31.9
+description: A Helm chart for Harness IDP
+name: idp
 type: application
 version: 0.33.0

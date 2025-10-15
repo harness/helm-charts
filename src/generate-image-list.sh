@@ -67,15 +67,23 @@ do
     fi
 done
 
-IMAGES=("harness/semgrep-job-runner:latest" "harness/bandit-job-runner:latest" "harness/aqua-trivy-job-runner:latest"  "harness/gitleaks-trivy-job-runner:latest" "harness/bandit-job-runner:latest" "harness/grype-job-runner:latest"  "harness/osv-job-runner:latest" "harness/sonarqube-agent-job-runner:latest")
+IMAGES=("harness/aqua-trivy-job-runner:([0-9.]+|latest)"
+        "harness/bandit-job-runner:([0-9.]+|latest)"
+        "harness/grype-job-runner:([0-9.]+|latest)"
+        "harness/osv-job-runner:([0-9.]+|latest)"
+        "harness/sonarqube-agent-job-runner:([0-9.]+|latest)"
+        "harness/semgrep-job-runner:([0-9.]+|latest)"
+        "harness/gitleaks-trivy-job-runner:([0-9.]+|latest)"
+        "harness/upgrader:([0-9.]+|latest)")
 SUFFIX=("-fips")
+
 for i in "${!IMAGES[@]}"
 do
     MATCHES=$(grep -oE "${IMAGES[i]}" "${OUTPUT_DIR}/images.txt")
     if [ -n "$MATCHES" ]; then
         for j in "${!SUFFIX[@]}"
         do
-          echo "$MATCHES" | sed "s/$/${SUFFIX[j]}/" | tee -a ${OUTPUT_DIR}/images.txt
+          echo "$MATCHES" | sed "s/$/${SUFFIX[j]}/" | tee -a "${OUTPUT_DIR}/images.txt"
         done
     fi
 done

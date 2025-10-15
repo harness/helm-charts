@@ -1,6 +1,6 @@
 dependencies:
 - name: gitops
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.35.3
-digest: sha256:cbe7cf775944dd8d99f9cf783483f8b27b463c852be392f948ecc316e5315ec6
-generated: "2025-07-14T15:49:03.110405862Z"
+  version: 1.41.5
+digest: sha256:39e973991f8473f214cc86a3daa1e9a53a6e2db344ab32cec4799ab3227244fc
+generated: "2025-10-07T14:06:00.890201029Z"
