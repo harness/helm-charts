@@ -72,8 +72,9 @@ IMAGES=("harness/aqua-trivy-job-runner:([0-9.]+|latest)"
         "harness/grype-job-runner:([0-9.]+|latest)"
         "harness/osv-job-runner:([0-9.]+|latest)"
         "harness/sonarqube-agent-job-runner:([0-9.]+|latest)"
+        "harness/semgrep-job-runner:([0-9.]+|latest)"
+        "harness/gitleaks-trivy-job-runner:([0-9.]+|latest)"
         "harness/upgrader:([0-9.]+|latest)")
-        
 SUFFIX=("-fips")
 
 for i in "${!IMAGES[@]}"
