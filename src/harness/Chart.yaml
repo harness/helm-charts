@@ -59,4 +59,4 @@ description: Helm Chart for deploying Harness.
 kubeVersion: '>=1.27.0-0'
 name: harness
 type: application
-version: 0.33.1
+version: 0.33.2
