@@ -58,7 +58,7 @@ dependencies:
   version: 1.87.1
 - name: looker
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.8.1
+  version: 1.8.2
 - name: service-discovery-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.45.0
@@ -68,5 +68,5 @@ dependencies:
 - name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.7.4
-digest: sha256:00e033e92d3c1f825f01cf6628ea987f7c8cf098b48cf6039f621bb8d153cc90
-generated: "2025-10-10T10:53:33.953811194Z"
+digest: sha256:074bdb457c5d922d8527a63f1f5581a7f02d9ee0c75c832e58d21767cc7d0a06
+generated: "2025-10-21T05:41:23.020843808Z"
