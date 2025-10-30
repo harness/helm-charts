@@ -4,7 +4,7 @@ dependencies:
 - condition: global.code.enabled
   name: code-api
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.61.2
+  version: 1.61.4
 - condition: global.code.enabled
   name: code-gitrpc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
