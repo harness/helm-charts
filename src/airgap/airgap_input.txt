@@ -84,7 +84,6 @@
     stomanager-signed
     sto-plugin
     anchore-job-runner
-    app-scan-job-runner
     aqua-security-job-runner
     aqua-trivy-job-runner
     aws-ecr-job-runner
@@ -92,20 +91,10 @@
     bandit-job-runner
     blackduckhub-job-runner
     brakeman-job-runner
-    burp-job-runner
     checkmarx-job-runner
-    checkmarx-one-job-runner
-    checkov-job-runner
-    datatheorem-job-runner
-    docker-content-trust-job-runner
-    docker-image-scan-job-runner
-    fortify-job-runner
-    fortifyondemand-job-runner
     fossa-job-runner
-    gitleaks-job-runner
     github-advanced-security-job-runner
     grype-job-runner
-    nessus-job-runner
     nexusiq-job-runner
     nikto-job-runner
     nmap-job-runner
@@ -113,13 +102,8 @@
     osv-job-runner
     owasp-dependency-check-job-runner
     prowler-job-runner
-    semgrep-job-runner
-    shiftleft-job-runner
     snyk-job-runner
     sonarqube-agent-job-runner
-    sqlmap-job-runner
-    sysdig-job-runner
-    tenableio-job-runner
     traceable-job-runner
     twistlock-job-runner
     veracode-agent-job-runner
