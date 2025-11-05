@@ -74,7 +74,26 @@ if [ $# -eq 1 ]; then
 
     # Save pulled images to a tarball
     echo "Creating ${images_file} with $(echo ${pulled} | wc -w | tr -d '[:space:]') images"
-    docker save $(echo ${pulled}) | gzip --stdout > ${images_file} || handle_error "Failed to create tarball: ${images_file}"
+
+    echo "Starting docker save operation at $(date)"
+    echo "Images to save: ${pulled}"
+    echo "Output file: ${images_file}"
+    
+    # Check available disk space before starting
+    echo "Available disk space:"
+    df -h .
+    
+    # Run docker save with explicit error handling
+    if docker save $(echo ${pulled}) | gzip --stdout > ${images_file}; then
+        echo "Successfully created tarball: ${images_file} at $(date)"
+        echo "Tarball size: $(ls -lh ${images_file} | awk '{print $5}')"
+    else
+        echo "ERROR: docker save command failed at $(date)"
+        echo "Exit code: $?"
+        echo "Available disk space after failure:"
+        df -h .
+        handle_error "Failed to create tarball: ${images_file}"
+    fi
 
     # Remove temporary file
     rm "${pulled_file}" || handle_error "Failed to remove temporary file: ${pulled_file}"
