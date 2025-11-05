@@ -4,21 +4,21 @@ dependencies:
   version: 1.12.4
 - name: anomaly-detection
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.12.0
+  version: 1.15.0
 - name: cloud-info
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.11.1
+  version: 1.12.0
 - name: telescopes
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.4.0
 - name: batch-processing
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.60.8
+  version: 1.64.2
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.59.3
+  version: 1.63.1
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.7
-digest: sha256:7a9b3017af774577f17bb8a9d0c310dc773dd34931660c4e3a46c9fb4c165d42
-generated: "2025-10-10T10:53:41.457804047Z"
+  version: 1.67.6
+digest: sha256:d5abdae1156d29669a6824108d752bc3e86f3a2768706c44eb95fbbe0d800e17
+generated: "2025-11-05T10:26:05.539541089Z"
