@@ -370,6 +370,36 @@ platform:
       enabled: false
     nodeSelector: {}
     tolerations: []
+    ingress:
+      objects:
+        - name: access-control-service
+          annotations:
+            nginx.ingress.kubernetes.io/rewrite-target: /$2
+            nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+            nginx.ingress.kubernetes.io/use-regex: 'true'
+          paths:
+            - path: '{{ .Values.global.ingress.pathPrefix }}/authz(/|$)(.*)'
+        - name: access-control-v1-apis
+          annotations:
+            nginx.ingress.kubernetes.io/rewrite-target: /api/$1
+            nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+            nginx.ingress.kubernetes.io/use-regex: 'true'
+          paths:
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/roles)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/roles/.+)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/orgs/.+/roles)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/orgs/.+/roles/.+)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/orgs/.+/projects/.+/roles)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/orgs/.+/projects/.+/roles/.+)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/role-assignments)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/role-assignments/.+)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/orgs/.+/role-assignments)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/orgs/.+/role-assignments/.+)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/orgs/.+/projects/.+/role-assignments)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/orgs/.+/projects/.+/role-assignments/.+)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/orgs/.+/projects/.+/analyze-access-policies)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/orgs/.+/analyze-access-policies)'
+            - path: '{{ .Values.global.ingress.pathPrefix }}/(v1/analyze-access-policies)'
   bootstrap:
     database:
       clickhouse:
