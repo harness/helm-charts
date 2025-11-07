@@ -460,6 +460,7 @@ platform:
         httpNodePort: ""
         httpsNodePort: ""
         loadBalancerEnabled: false
+        loadBalancerIP: ''
         nodeSelector: {}
         resources:
           limits:
@@ -468,8 +469,6 @@ platform:
             cpu: '0.5'
             memory: '512Mi'
         tolerations: []
-        # -- Set loadBalancerIP to the static IP address associated with your DNS record
-        # -- loadBalancerIP: '0.0.0.0'
   # -- change-data-capture settings (taints, tolerations, and so on)
   change-data-capture:
     config:
