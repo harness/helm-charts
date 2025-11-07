@@ -272,7 +272,8 @@ ccm:
   batch-processing:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.18.0-debian-12-r0"
     # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
     awsAccountTagsCollectionJobConfig:
       enabled: true
@@ -403,6 +404,9 @@ platform:
           prometheus.io/scrape: 'false'
         tolerations: []
       postgresql:
+        image:
+          repository: "harness/postgresql"
+          tag: "14.18.0-debian-12-r0"
         metrics:
           enabled: false
         podAnnotations:
@@ -505,7 +509,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.08.86600
+        tag: 25.10.86901
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -594,10 +598,12 @@ sto:
   sto-core:
     migrationPostgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.18.0-debian-12-r0"
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.18.0-debian-12-r0"
     affinity: {}
     autoscaling:
       enabled: false
@@ -654,10 +660,12 @@ iacm:
   iac-server:
     createDb:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.18.0-debian-12-r0"
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.18.0-debian-12-r0"
     affinity: {}
     autoscaling:
       enabled: false
@@ -676,23 +684,28 @@ code:
   code-api:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.18.0-debian-12-r0"
     autoai:
       postgres:
         image:
-          repository: "bitnamilegacy/postgresql"
+          repository: "harness/postgresql"
+          tag: "14.18.0-debian-12-r0"
   code-search:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.18.0-debian-12-r0"
   code-githa:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.18.0-debian-12-r0"
   code-gitrpc:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.18.0-debian-12-r0"
 idp:
   idp-app-ui:
     postgres:
