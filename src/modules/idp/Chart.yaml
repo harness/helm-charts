@@ -4,11 +4,11 @@ dependencies:
 - condition: global.idp.enabled
   name: idp-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.33.11-snapshot-2025-11-13-11-25-59-70791e
+  version: 1.33.11-snapshot-2025-11-14-08-34-16-6095bc
 - condition: global.idp.enabled
   name: idp-admin
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.33.2-snapshot-2025-11-13-11-25-59-7bcc1f
+  version: 1.33.2-snapshot-2025-11-14-08-34-16-7bcc1f
 - condition: global.idp.enabled
   name: idp-app-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
