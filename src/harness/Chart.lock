@@ -19,7 +19,7 @@ dependencies:
   version: 0.34.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.34.0
+  version: 0.34.1
 - name: srm
   repository: https://harness.github.io/helm-charts
   version: 0.34.0
@@ -41,5 +41,5 @@ dependencies:
 - name: idp
   repository: https://harness.github.io/helm-charts
   version: 0.34.0
-digest: sha256:fe4f35a3029351a14157483ab478b29e8126c1961fa560287114d4b4f6767965
-generated: "2025-11-05T10:55:18.808798192Z"
+digest: sha256:43e20c98cd66226681c775f1de555502299c9d6c987b40f04431fafbab43d734
+generated: "2025-11-17T11:31:09.869560023Z"
