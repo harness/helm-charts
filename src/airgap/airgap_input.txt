@@ -82,6 +82,7 @@
     ci-lite-engine
     stocore-signed
     stomanager-signed
+    ticket-service-signed
     sto-plugin
     anchore-job-runner
     aqua-security-job-runner
