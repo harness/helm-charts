@@ -609,15 +609,6 @@ sto:
       enabled: false
     nodeSelector: {}
     tolerations: []
-  # -- Install the STO manager
-  sto-manager:
-    config:
-      ENV: "SMP"
-    affinity: {}
-    autoscaling:
-      enabled: false
-    nodeSelector: {}
-    tolerations: []
 ff:
   ff-service:
     ff-admin-server:

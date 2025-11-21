@@ -741,16 +741,6 @@ sto:
       requests:
         cpu: 500m
         memory: 500Mi
-  sto-manager:
-    autoscaling:
-      enabled: true
-      minReplicas: 2
-    resources:
-      limits:
-        memory: 3072Mi
-      requests:
-        cpu: 1
-        memory: 3072Mi
 iacm:
   iacm-manager:
     autoscaling:

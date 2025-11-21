@@ -475,17 +475,6 @@ sto:
       requests:
         cpu: 500m
         memory: 1500Mi
-  sto-manager:
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-    resources:
-      limits:
-        cpu: 3
-        memory: 6Gi
-      requests:
-        cpu: 3
-        memory: 6Gi
 srm:
   verification-service:
     autoscaling:
