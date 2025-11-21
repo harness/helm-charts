@@ -205,10 +205,6 @@ sto-core:
   image:
     registry: docker.io
     repository: harness/stocore-signed
-sto-manager:
-  image:
-    registry: docker.io
-    repository: harness/stomanager-signed
 service-discovery-manager:
   image:
     registry: docker.io

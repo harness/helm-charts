@@ -81,7 +81,6 @@
     ci-addon
     ci-lite-engine
     stocore-signed
-    stomanager-signed
     sto-plugin
     anchore-job-runner
     aqua-security-job-runner
