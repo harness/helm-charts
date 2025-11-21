@@ -731,6 +731,16 @@ srm:
         cpu: 4
         memory: 6132Mi
 sto:
+  ticket-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        memory: 500Mi
+      requests:
+        cpu: 500m
+        memory: 500Mi
   sto-core:
     autoscaling:
       enabled: true
