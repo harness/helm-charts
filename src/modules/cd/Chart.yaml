@@ -4,7 +4,7 @@ dependencies:
 - condition: global.cd.enabled
   name: gitops
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.43.1
+  version: 1.45.4-snapshot-2025-11-21-12-00-26-f14d17
 description: Helm chart for Harness CD
 name: cd
 type: application
