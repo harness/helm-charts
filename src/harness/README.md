@@ -178,7 +178,6 @@ docker.io/harness/srm-ui-signed:1.13.1
 docker.io/harness/ssca-manager-signed:1.43.7
 docker.io/harness/ssca-ui-signed:0.34.1
 docker.io/harness/stocore-signed:1.163.3
-docker.io/harness/stomanager-signed:1.71.0
 docker.io/harness/telescopes-signed:1.4.0
 docker.io/harness/template-service-signed:1.114.1
 docker.io/harness/ti-service-signed:1.49.0
@@ -459,9 +458,8 @@ registry.k8s.io/ingress-nginx/controller:v1.12.2
 | srm.le-nextgen.affinity | object | `{}` |  |
 | srm.le-nextgen.nodeSelector | object | `{}` |  |
 | srm.le-nextgen.tolerations | list | `[]` |  |
-| sto | object | `{"sto-core":{"affinity":{},"autoscaling":{"enabled":false},"migrationPostgres":{"image":{"repository":"harness/postgresql","tag":"14.18.0-debian-12-r0"}},"nodeSelector":{},"postgres":{"image":{"repository":"harness/postgresql","tag":"14.18.0-debian-12-r0"}},"tolerations":[]},"sto-manager":{"affinity":{},"autoscaling":{"enabled":false},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]}}` | Config for Security Test Orchestration (STO) |
+| sto | object | `{"sto-core":{"affinity":{},"autoscaling":{"enabled":false},"migrationPostgres":{"image":{"repository":"harness/postgresql","tag":"14.18.0-debian-12-r0"}},"nodeSelector":{},"postgres":{"image":{"repository":"harness/postgresql","tag":"14.18.0-debian-12-r0"}},"tolerations":[]}}` | Config for Security Test Orchestration (STO) |
 | sto.sto-core | object | `{"affinity":{},"autoscaling":{"enabled":false},"migrationPostgres":{"image":{"repository":"harness/postgresql","tag":"14.18.0-debian-12-r0"}},"nodeSelector":{},"postgres":{"image":{"repository":"harness/postgresql","tag":"14.18.0-debian-12-r0"}},"tolerations":[]}` | Install the STO core |
-| sto.sto-manager | object | `{"affinity":{},"autoscaling":{"enabled":false},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]}` | Install the STO manager |
 | upgrades.versionLookups.enabled | bool | `true` |  |
 
 ----------------------------------------------
