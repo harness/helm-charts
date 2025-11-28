@@ -213,6 +213,10 @@ telescopes:
   image:
     registry: docker.io
     repository: harness/telescopes-signed
+ticket-service:
+  image:
+    registry: docker.io
+    repository: harness/ticket-service-signed
 template-service:
   image:
     registry: docker.io
