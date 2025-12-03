@@ -91,4 +91,4 @@ dependencies:
 description: Helm chart for Harness Platform
 name: platform
 type: application
-version: 0.34.0
+version: 0.35.0
