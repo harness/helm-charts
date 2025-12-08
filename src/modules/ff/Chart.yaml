@@ -6,7 +6,7 @@ dependencies:
   version: 1.1139.0
 - name: ff-pushpin-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.1128.0-snapshot-2025-12-08-00-00-35-d0a9da
+  version: 1.1128.0-snapshot-2025-12-08-06-00-29-d0a9da
 description: A Helm chart for harness Feature Flags module
 name: ff
 type: application
