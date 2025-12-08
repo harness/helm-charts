@@ -3,25 +3,25 @@ appVersion: 1.546.0
 dependencies:
 - name: event-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.12.4
+  version: 1.13.0-snapshot-2025-12-08-00-00-35-f3512b
 - name: anomaly-detection
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.15.0
+  version: 1.16.1-snapshot-2025-12-08-00-00-35-2edaa1
 - name: cloud-info
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.12.0
+  version: 1.13.1-snapshot-2025-12-08-00-00-35-9c6632
 - name: telescopes
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.4.0
+  version: 1.5.0-snapshot-2025-12-08-00-00-35-5d9ff6
 - name: batch-processing
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.64.2
+  version: 1.70.3-snapshot-2025-12-08-00-00-35-f3512b
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.1
+  version: 1.69.3-snapshot-2025-12-08-00-00-35-b91502
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.67.6
+  version: 1.73.2-snapshot-2025-12-08-00-00-35-f3512b
 description: A Helm chart for Harness Cloud Cost Management (CCM) module
 name: ccm
 type: application
