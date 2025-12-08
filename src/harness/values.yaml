@@ -494,6 +494,9 @@ platform:
     tolerations: []
   # -- harness-manager (taints, tolerations, and so on)
   harness-manager:
+    upgrader_docker_image:
+      image:
+        tag: 1.9.0
     config:
       ENV: "SMP"
     shutdownHooksEnabled: true
