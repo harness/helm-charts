@@ -352,6 +352,12 @@ ci:
     nodeSelector: {}
     tolerations: []
 enabled: false
+# -- Config for CD services
+cd:
+  gitops:
+    upgraderImage:
+      image:
+        tag: 1.9.0
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
