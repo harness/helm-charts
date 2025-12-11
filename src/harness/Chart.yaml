@@ -7,7 +7,7 @@ dependencies:
 - condition: global.ccm.enabled
   name: ccm
   repository: https://harness.github.io/helm-charts
-  version: 0.34.0
+  version: 0.34.2
 - condition: global.cd.enabled
   name: cd
   repository: https://harness.github.io/helm-charts
@@ -26,7 +26,7 @@ dependencies:
   version: 0.34.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.34.1
+  version: 0.34.2
 - condition: global.cd.enabled
   name: srm
   repository: https://harness.github.io/helm-charts
