@@ -641,6 +641,9 @@ sto:
     tolerations: []
   # -- Install the STO manager
   sto-manager:
+    image:
+      registry: docker.io
+      repository: harness/stomanager-signed
     config:
       ENV: "SMP"
     affinity: {}
