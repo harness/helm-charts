@@ -40,6 +40,7 @@
     mongodb-exporter
     statsd-exporter
     aws-cli 
+    tsdb-to-psql-migrator-signed
 
 [cdng]:
     argocd
