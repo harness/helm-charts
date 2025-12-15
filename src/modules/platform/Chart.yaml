@@ -7,7 +7,7 @@ dependencies:
   version: 1.153.2
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.58.0
+  version: 1.59.0-postgres-rapidfort-testing-4059a5
 - condition: global.cdc.enabled
   name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
