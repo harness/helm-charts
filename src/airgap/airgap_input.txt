@@ -111,6 +111,14 @@
     wiz-job-runner
     zap-job-runner
     refid_cache
+    burp-job-runner
+    checkov-job-runner
+    docker-content-trust-job-runner
+    gitleaks-job-runner
+    semgrep-job-runner
+    semgrep-job-runner
+    shiftleft-job-runner
+    sysdig-job-runner
 
 [ff]:
     ff-cron-signed
