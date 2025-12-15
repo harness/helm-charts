@@ -3,6 +3,38 @@ entries:
   ccm:
   - apiVersion: v2
     appVersion: 1.546.0
+    created: "2025-12-15T20:26:20.80637585Z"
+    dependencies:
+    - name: event-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.13.0
+    - name: anomaly-detection
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.16.1
+    - name: cloud-info
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.13.1
+    - name: telescopes
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.5.0
+    - name: batch-processing
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.68.10
+    - name: ng-ce-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.67.0
+    - name: ce-nextgen
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.71.6
+    description: A Helm chart for Harness Cloud Cost Management (CCM) module
+    digest: 1e11f7408950646050ce1a4c3fa9772ad475c49e990e39278cf208dca9f9c4b1
+    name: ccm
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/ccm-0.35.0/ccm-0.35.0.tgz
+    version: 0.35.0
+  - apiVersion: v2
+    appVersion: 1.546.0
     created: "2025-12-12T09:01:58.666468977Z"
     dependencies:
     - name: event-service
@@ -1444,6 +1476,21 @@ entries:
   cd:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-12-15T20:26:20.993999597Z"
+    dependencies:
+    - condition: global.cd.enabled
+      name: gitops
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.45.5
+    description: Helm chart for Harness CD
+    digest: 01bf7ac57b866774aecfed26fe8e89226d855786eed823bd75677f32e452a18f
+    name: cd
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/cd-0.35.0/cd-0.35.0.tgz
+    version: 0.35.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-11-05T10:50:31.372640515Z"
     dependencies:
     - condition: global.cd.enabled
@@ -2110,6 +2157,41 @@ entries:
     - https://github.com/harness/helm-charts/releases/download/cet-0.9.0/cet-0.9.0.tgz
     version: 0.9.0
   chaos:
+  - apiVersion: v2
+    appVersion: 0.6.0
+    created: "2025-12-15T20:26:21.274001234Z"
+    dependencies:
+    - name: chaos-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.69.6
+    - name: chaos-web
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.69.1
+    - name: chaos-k8s-ifs
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.69.1
+    - name: chaos-linux-ifs
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.69.0
+    - name: chaos-linux-ifc
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.69.0
+    - name: chaos-crd
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.69.0
+    - name: chaos-machine-ifs
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.69.0
+    - name: chaos-machine-ifc
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.69.0
+    description: A Helm chart for harness chaos module
+    digest: 27a4d05a41705189a7a74b72932f6e7017da6f2e6ac32371bff26b6a9da8c5b3
+    name: chaos
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/chaos-0.35.0/chaos-0.35.0.tgz
+    version: 0.35.0
   - apiVersion: v2
     appVersion: 0.6.0
     created: "2025-11-05T10:50:31.604396675Z"
@@ -3051,6 +3133,24 @@ entries:
   ci:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-12-15T20:26:21.48515642Z"
+    dependencies:
+    - name: ci-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.109.9
+    - condition: global.ti.enabled
+      name: ti-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.50.3
+    description: A Helm chart for Kubernetes
+    digest: 6f5f1d1466d5055262f217bdc73a782ff9e731776af6840ec9a92b35dfda3ccf
+    name: ci
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/ci-0.35.0/ci-0.35.0.tgz
+    version: 0.35.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-11-05T10:50:31.81891819Z"
     dependencies:
     - name: ci-manager
@@ -3630,6 +3730,33 @@ entries:
   code:
   - apiVersion: v2
     appVersion: 1.25.0
+    created: "2025-12-15T20:26:21.779119038Z"
+    dependencies:
+    - condition: global.code.enabled
+      name: code-api
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.67.2
+    - condition: global.code.enabled
+      name: code-gitrpc
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.67.0
+    - condition: global.code.enabled
+      name: code-githa
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.67.0
+    - condition: global.code.enabled
+      name: code-search
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.67.0
+    description: A Helm chart for Harness CODE
+    digest: b414c099f37c7a5982433e554d633fa4ef6d892de7f6411236ccdec3586a68a5
+    name: code
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/code-0.35.0/code-0.35.0.tgz
+    version: 0.35.0
+  - apiVersion: v2
+    appVersion: 1.25.0
     created: "2025-11-05T10:50:32.057308574Z"
     dependencies:
     - condition: global.code.enabled
@@ -3928,6 +4055,21 @@ entries:
   db-devops:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-12-15T20:26:22.009601506Z"
+    dependencies:
+    - condition: global.dbops.enabled
+      name: db-devops-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.67.0
+    description: A Helm chart for Harness DB devops
+    digest: 00516263e2f12641530a076fcbfa2c3c2cb9f60c8a240cc741aedf373f65e8e6
+    name: db-devops
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/db-devops-0.35.0/db-devops-0.35.0.tgz
+    version: 0.35.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-11-05T10:50:32.27893878Z"
     dependencies:
     - condition: global.dbops.enabled
@@ -4167,6 +4309,23 @@ entries:
     - https://github.com/harness/helm-charts/releases/download/db-devops-0.19.0/db-devops-0.19.0.tgz
     version: 0.19.0
   ff:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2025-12-15T20:26:22.23178749Z"
+    dependencies:
+    - name: ff-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.1143.0
+    - name: ff-pushpin-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.1128.0
+    description: A Helm chart for harness Feature Flags module
+    digest: 12799ccfac68891fb0c7bc9d62bb1ce667bb5313e16d6b1f4739dbb227afa927
+    name: ff
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/ff-0.35.0/ff-0.35.0.tgz
+    version: 0.35.0
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-11-05T10:50:32.515210923Z"
@@ -16930,6 +17089,23 @@ entries:
   iacm:
   - apiVersion: v2
     appVersion: 0.0.79001
+    created: "2025-12-15T20:26:22.450693361Z"
+    dependencies:
+    - name: iac-server
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.272.1
+    - name: iacm-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.119.0
+    description: Helm chart for Harness IACM
+    digest: 303e5c8ec5ae81515d504785ec6e8b1e2e0db73e68f986e2abbd8cc4a5336ed2
+    name: iacm
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/iacm-0.35.0/iacm-0.35.0.tgz
+    version: 0.35.0
+  - apiVersion: v2
+    appVersion: 0.0.79001
     created: "2025-11-05T10:50:32.78512677Z"
     dependencies:
     - name: iac-server
@@ -17101,6 +17277,29 @@ entries:
   idp:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-12-15T20:26:22.943172025Z"
+    dependencies:
+    - condition: global.idp.enabled
+      name: idp-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.33.18
+    - condition: global.idp.enabled
+      name: idp-admin
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.33.3
+    - condition: global.idp.enabled
+      name: idp-app-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.33.18
+    description: A Helm chart for Harness IDP
+    digest: a78c6004272dd8b7bc59e5e019d9f3040163a0b214b705ba6fef304f98ff1254
+    name: idp
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/idp-0.35.0/idp-0.35.0.tgz
+    version: 0.35.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-11-05T10:50:33.082946711Z"
     dependencies:
     - condition: global.idp.enabled
@@ -17226,6 +17425,104 @@ entries:
     - https://github.com/harness/helm-charts/releases/download/infra-0.3.0/infra-0.3.0.tgz
     version: 0.3.0
   platform:
+  - apiVersion: v2
+    appVersion: 1.16.1
+    created: "2025-12-15T20:26:23.457052686Z"
+    dependencies:
+    - condition: global.ng.enabled
+      name: access-control
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.153.2
+    - name: bootstrap
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.58.0
+    - condition: global.cdc.enabled
+      name: change-data-capture
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.49.1
+    - condition: global.ssca.enabled
+      name: debezium-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.25.0
+    - name: delegate-proxy
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.4.0
+    - name: gateway
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.58.2
+    - name: harness-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.117.2
+    - condition: global.ng.enabled
+      name: log-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.36.2
+    - condition: global.ng.enabled
+      name: next-gen-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.104.6
+    - name: ng-auth-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.37.0
+    - condition: global.ng.enabled
+      name: ng-dashboard-aggregator
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.82.0
+    - condition: global.ng.enabled
+      name: ng-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.118.1
+    - condition: global.ng.enabled
+      name: pipeline-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.158.2
+    - condition: global.ng.enabled
+      name: platform-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.96.0
+    - condition: global.ng.enabled
+      name: policy-mgmt
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.31.3
+    - condition: global.ng.enabled
+      name: scm-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.41.0
+    - condition: global.ng.enabled
+      name: template-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.120.0
+    - condition: global.cg.enabled
+      name: ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.32.0
+    - condition: global.ngcustomdashboard.enabled
+      name: ng-custom-dashboards
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.94.1
+    - condition: global.ngcustomdashboard.enabled
+      name: looker
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.8.6
+    - condition: global.servicediscoverymanager.enabled
+      name: service-discovery-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.49.0
+    - condition: global.ng.enabled
+      name: audit-event-streaming
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.63.1
+    - condition: global.ng.enabled
+      name: queue-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.7.4
+    description: Helm chart for Harness Platform
+    digest: 60c09a9ad2fdd04270d7fdf7be608db600b53dcddbf60e6807a16ae36e572b03
+    name: platform
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/platform-0.35.0/platform-0.35.0.tgz
+    version: 0.35.0
   - apiVersion: v2
     appVersion: 1.16.1
     created: "2025-12-12T09:02:00.979419995Z"
@@ -25413,6 +25710,29 @@ entries:
   srm:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-12-15T20:26:23.68818927Z"
+    dependencies:
+    - condition: global.ng.enabled
+      name: cv-nextgen
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.49.0
+    - condition: global.ng.enabled
+      name: le-nextgen
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.11.0
+    - condition: global.ng.enabled
+      name: srm-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.15.0
+    description: Helm chart for Harness SRM
+    digest: 0d9be48285eb7436c4026048ce36250012316567ba74c7cdcd235a211b9b702b
+    name: srm
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/srm-0.35.0/srm-0.35.0.tgz
+    version: 0.35.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-11-05T10:50:33.988368715Z"
     dependencies:
     - condition: global.ng.enabled
@@ -26217,6 +26537,25 @@ entries:
   ssca:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-12-15T20:26:23.907782137Z"
+    dependencies:
+    - condition: global.ssca.enabled
+      name: ssca-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.46.10
+    - condition: global.ssca.enabled
+      name: ssca-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.36.2
+    description: A Helm chart for Harness SSCA
+    digest: 11975fb1acd8df382bbd757ed541ba5c88f260ee52662ef06085f909a36c5690
+    name: ssca
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/ssca-0.35.0/ssca-0.35.0.tgz
+    version: 0.35.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-11-05T10:50:34.201390683Z"
     dependencies:
     - condition: global.ssca.enabled
@@ -26672,6 +27011,23 @@ entries:
     - https://github.com/harness/helm-charts/releases/download/ssca-0.11.0/ssca-0.11.0.tgz
     version: 0.11.0
   sto:
+  - apiVersion: v2
+    appVersion: 0.0.79001
+    created: "2025-12-15T20:26:24.137703131Z"
+    dependencies:
+    - name: sto-core
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.168.3
+    - name: ticket-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.2.2
+    description: Helm chart for Harness STO
+    digest: b9151533ae0cc8d0fc5dd66b411c16f9048934374572f17f24e0c261fddeabbc
+    name: sto
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/sto-0.35.0/sto-0.35.0.tgz
+    version: 0.35.0
   - apiVersion: v2
     appVersion: 0.0.79001
     created: "2025-11-05T10:50:34.411993282Z"
@@ -27165,4 +27521,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2025-12-12T18:38:08.498116659Z"
+generated: "2025-12-15T20:26:24.140628896Z"
