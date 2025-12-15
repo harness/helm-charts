@@ -439,6 +439,8 @@ platform:
         prometheus:
           enabled: false
         tolerations: []
+        curlImage:
+          tag: "8.17.0"
         persistentVolumes:
           data:
             enabled: true
