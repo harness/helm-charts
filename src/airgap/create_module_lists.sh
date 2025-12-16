@@ -80,6 +80,15 @@ while IFS= read -r line; do
   fi
 done < "$INPUT_FILE"
 
+# Normalize all generated module image files: remove docker.io/ prefix and remove duplicates
+for file in "${generated_files[@]}"; do
+  if [[ -f "$file" ]]; then
+    # Remove docker.io/ prefix if present and remove duplicate lines
+    sed 's|^docker\.io/||' "$file" | sort -u > "${file}.tmp"
+    mv "${file}.tmp" "$file"
+  fi
+done
+
 #Check if module_image files are not empty
 if [[ -n $MODULE_IMAGE_FILE && ! -s $MODULE_IMAGE_FILE ]]; then
   echo "Error: Module image file $MODULE_IMAGE_FILE is empty"

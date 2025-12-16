@@ -92,4 +92,9 @@ done
 awk -F: '{ print $1 ":" $2 }' ${OUTPUT_DIR}/images.txt | sort -u > ${OUTPUT_DIR}/images_tmp.txt
 mv ${OUTPUT_DIR}/images_tmp.txt ${OUTPUT_DIR}/images.txt
 sed -i '' -e '/index\.docker\.io\/chaosnative:/d' -e '/^$/d' ${OUTPUT_DIR}/images.txt
+
+# Remove docker.io/ prefix if present and remove duplicate lines
+sed 's|^docker\.io/||' ${OUTPUT_DIR}/images.txt | sort -u > ${OUTPUT_DIR}/images_tmp.txt
+mv ${OUTPUT_DIR}/images_tmp.txt ${OUTPUT_DIR}/images.txt
+
 exit 0
