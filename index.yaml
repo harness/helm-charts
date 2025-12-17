@@ -3,6 +3,38 @@ entries:
   ccm:
   - apiVersion: v2
     appVersion: 1.546.0
+    created: "2025-12-17T12:03:57.584186226Z"
+    dependencies:
+    - name: event-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.13.0
+    - name: anomaly-detection
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.16.1
+    - name: cloud-info
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.13.1
+    - name: telescopes
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.5.0
+    - name: batch-processing
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.68.10
+    - name: ng-ce-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.67.0
+    - name: ce-nextgen
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.71.7
+    description: A Helm chart for Harness Cloud Cost Management (CCM) module
+    digest: c06180e2d469d265975f322b7f905a9fc890994e260971b422a6e120b565113b
+    name: ccm
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/ccm-0.35.2/ccm-0.35.2.tgz
+    version: 0.35.2
+  - apiVersion: v2
+    appVersion: 1.546.0
     created: "2025-12-15T20:26:20.80637585Z"
     dependencies:
     - name: event-service
@@ -27751,4 +27783,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2025-12-16T18:50:41.60364616Z"
+generated: "2025-12-17T12:04:00.491178181Z"
