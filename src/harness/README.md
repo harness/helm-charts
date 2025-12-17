@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.35.1](https://img.shields.io/badge/Version-0.35.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.35.2](https://img.shields.io/badge/Version-0.35.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -93,7 +93,7 @@ docker.io/harness/ccm-gcp-smp-signed:100070
 docker.io/harness/cdcdata-signed:1.49.1
 docker.io/harness/ce-anomaly-detection-signed:1.16.1
 docker.io/harness/ce-cloud-info-signed:1.13.1
-docker.io/harness/ce-nextgen-signed:1.71.6
+docker.io/harness/ce-nextgen-signed:1.71.7
 docker.io/harness/chaos-ddcr-faults:1.69.0
 docker.io/harness/chaos-ddcr:1.69.0
 docker.io/harness/chaos-event-watcher:1.69.0

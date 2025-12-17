@@ -10,7 +10,7 @@ docker.io/harness/ccm-gcp-smp-signed:100070
 docker.io/harness/cdcdata-signed:1.49.1
 docker.io/harness/ce-anomaly-detection-signed:1.16.1
 docker.io/harness/ce-cloud-info-signed:1.13.1
-docker.io/harness/ce-nextgen-signed:1.71.6
+docker.io/harness/ce-nextgen-signed:1.71.7
 docker.io/harness/chaos-ddcr-faults:1.69.0
 docker.io/harness/chaos-ddcr:1.69.0
 docker.io/harness/chaos-event-watcher:1.69.0
