@@ -19,6 +19,6 @@ dependencies:
   version: 1.67.0
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.71.6
-digest: sha256:488fb2bde29d21d747bb8248c5ccf732d209cf0fae6f57a916c1142b957de4bd
-generated: "2025-12-15T20:13:51.08441286Z"
+  version: 1.71.7
+digest: sha256:7abd2502e65abcb77c5eb48afb5b6b45cdae412b39a664a017873b9556cf68d2
+generated: "2025-12-17T11:51:49.054097474Z"
