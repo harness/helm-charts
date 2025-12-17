@@ -297,3 +297,7 @@ idp-app-ui:
   image:
     registry: docker.io
     repository: harness/idp-app-signed
+component-service:
+  image:
+    registry: docker.io
+    repository: harness/component-service-signed

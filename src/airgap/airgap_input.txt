@@ -24,6 +24,7 @@
     postgresql
     dashboard-service-signed
     policy-mgmt
+    component-service-signed
     curl
     ui-signed
     srm-ui-signed

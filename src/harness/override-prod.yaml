@@ -205,7 +205,17 @@ global:
     # -- Enable to install SRM
     enabled: false
   ssca:
-    # -- Enable to install Software Supply Chain Assurance (SSCA)
+    # -- Enable to install Software Supply Chain Assurance (SSCA)''
+    component-service:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      resources:
+        limits:
+          memory: 500Mi
+        requests:
+          cpu: 500m
+          memory: 500Mi
     enabled: false
   code:
     # -- Enable to install Harness Code (SCM)
