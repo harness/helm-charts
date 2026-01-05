@@ -24,7 +24,7 @@ dependencies:
   version: 1.58.2-vault-integration-cc20eb
 - name: harness-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.124.0-vault-integration-26b96b
+  version: 1.124.1-vault-integration-26b96b
 - condition: global.ng.enabled
   name: log-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
