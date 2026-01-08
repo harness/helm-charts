@@ -563,6 +563,7 @@ platform:
   pipeline-service:
     config:
       ENV: "SMP"
+      PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS: "false"
     shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
