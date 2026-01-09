@@ -3,7 +3,7 @@ appVersion: 0.6.0
 dependencies:
 - name: chaos-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.72.1-vault-integration-4c5abb
+  version: 1.72.1-vault-integration-b8ef9f
 - name: chaos-web
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.66.7
@@ -21,7 +21,7 @@ dependencies:
   version: 1.66.1
 - name: chaos-machine-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.72.0-vault-integration-22243a
+  version: 1.72.0-vault-integration-02af7c
 - name: chaos-machine-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.72.0-vault-integration-22243a
