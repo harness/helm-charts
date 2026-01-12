@@ -1,15 +1,15 @@
 dependencies:
 - name: code-api
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.67.2
+  version: 1.70.2
 - name: code-gitrpc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.67.0
+  version: 1.70.1
 - name: code-githa
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.67.0
+  version: 1.70.0
 - name: code-search
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.67.0
-digest: sha256:6c391429f926766a3b77383b3f7cf963acc940d17360b43c52ae6812e7169e2e
-generated: "2025-12-15T20:13:47.393709856Z"
+  version: 1.70.1
+digest: sha256:2822594bc647c32d7e6654e365fee8a63e3d6993db98845da81b0be75036f599
+generated: "2026-01-12T12:59:36.443694752Z"
