@@ -110,7 +110,7 @@
     whitesource-agent-job-runner
     wiz-job-runner
     zap-job-runner
-    refid_cache
+    refid-cache
     burp-job-runner
     checkov-job-runner
     docker-content-trust-job-runner
