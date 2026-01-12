@@ -342,6 +342,7 @@ ci:
   ci-manager:
     config:
       ENV: "SMP"
+      REFID_CACHE_IMAGE: harness/refid-cache:latest
     affinity: {}
     nodeSelector: {}
     tolerations: []
