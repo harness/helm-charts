@@ -162,6 +162,7 @@
     ssca-manager-signed
     ssca-ui-signed
     ssca-artifact-signing-plugin
+    component-service-signed
 
 [db-devops]:
     db-devops-service-signed
