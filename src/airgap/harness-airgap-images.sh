@@ -22,7 +22,7 @@ function show_help {
   echo "  -d <tgz_directory>  The directory containing .tgz files to process (optional if -f is provided)."
   echo "  -D                  Enable debug mode for detailed logging."
   echo "  -c                  Enable cleanup after script execution."
-  echo "  -e                  Create ECR repository before pushing image. Please run `aws configure` before using this option and export ECR_NAMESPACE and AWS_REGION environment variables"
+  echo "  -e                  Create ECR repository before pushing image. Please run \`aws configure\` before using this option and export ECR_NAMESPACE and AWS_REGION environment variables"
   exit 1
 }
 
