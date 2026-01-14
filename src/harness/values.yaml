@@ -342,6 +342,7 @@ ci:
   ci-manager:
     config:
       ENV: "SMP"
+      REFID_CACHE_IMAGE: harness/refid-cache:latest
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -352,6 +353,12 @@ ci:
     nodeSelector: {}
     tolerations: []
 enabled: false
+# -- Config for CD services
+cd:
+  gitops:
+    upgraderImage:
+      image:
+        tag: 1.9.0
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
@@ -433,6 +440,8 @@ platform:
         prometheus:
           enabled: false
         tolerations: []
+        curlImage:
+          tag: "8.17.0"
         persistentVolumes:
           data:
             enabled: true
@@ -494,6 +503,9 @@ platform:
     tolerations: []
   # -- harness-manager (taints, tolerations, and so on)
   harness-manager:
+    upgrader_docker_image:
+      image:
+        tag: 1.9.0
     config:
       ENV: "SMP"
     shutdownHooksEnabled: true
@@ -509,7 +521,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.10.86901
+        tag: 25.11.87302
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -552,6 +564,7 @@ platform:
   pipeline-service:
     config:
       ENV: "SMP"
+      PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS: "true"
     shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
