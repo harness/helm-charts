@@ -241,6 +241,10 @@ ssca-ui:
   image:
     registry: docker.io
     repository: harness/ssca-ui-signed
+component-service:
+  image:
+    registry: docker.io
+    repository: harness/component-service-signed
 srm-ui:
   image:
     registry: docker.io
