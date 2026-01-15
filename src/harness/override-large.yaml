@@ -399,10 +399,10 @@ platform:
     replicaCount: 1
     resources:
       limits:
-        memory: "10Gi"
+        memory: "1536Mi"
       requests:
-        cpu: "1024m"
-        memory: "10Gi"
+        cpu: 2
+        memory: "512Mi"
   ui:
     autoscaling:
       enabled: false

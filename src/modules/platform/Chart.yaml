@@ -64,7 +64,8 @@ dependencies:
   name: template-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.123.0
-- name: tsdb-to-psql-migrator
+- condition: global.database.tsdbtopsqlmigrator.enabled
+  name: tsdb-to-psql-migrator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.0.0
 - condition: global.cg.enabled
