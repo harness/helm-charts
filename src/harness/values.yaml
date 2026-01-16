@@ -49,6 +49,8 @@ global:
     enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
+    tsdbtopsqlmigrator:
+      enabled: false
     clickhouse:
       enabled: false
     # -- settings to deploy mongo in-cluster or configure to use external mongo source
