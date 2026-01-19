@@ -7,7 +7,7 @@ dependencies:
   version: 1.124.0
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.55.0
+  version: 1.60.0-gokul.pg.migration-72e091
 - condition: global.cdc.enabled
   name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -66,7 +66,7 @@ dependencies:
   version: 1.114.1
 - name: tsdb-to-psql-migrator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.0.0-soumik-migration-ae30df
+  version: 1.0.0-soumik-migration-1-66405d
 - condition: global.cg.enabled
   name: ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
