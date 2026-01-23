@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.35.10](https://img.shields.io/badge/Version-0.35.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.35.11](https://img.shields.io/badge/Version-0.35.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -136,7 +136,7 @@ docker.io/harness/idp-app-signed:1.34.5
 docker.io/harness/idp-service-signed:1.34.15
 docker.io/harness/le-nextgen-signed:1.11.1
 docker.io/harness/log-service-signed:1.36.2
-docker.io/harness/looker-signed:1.8.7
+docker.io/harness/looker-signed:1.8.8
 docker.io/harness/manager-signed:1.120.4
 docker.io/harness/minio:2025.7.18-debian-12-r0
 docker.io/harness/mongo:7.0.28-debian-12-r0
