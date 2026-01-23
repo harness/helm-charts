@@ -53,7 +53,7 @@ docker.io/harness/idp-app-signed:1.34.5
 docker.io/harness/idp-service-signed:1.34.15
 docker.io/harness/le-nextgen-signed:1.11.1
 docker.io/harness/log-service-signed:1.36.2
-docker.io/harness/looker-signed:1.8.7
+docker.io/harness/looker-signed:1.8.8
 docker.io/harness/manager-signed:1.120.4
 docker.io/harness/minio:2025.7.18-debian-12-r0
 docker.io/harness/mongo:7.0.28-debian-12-r0
