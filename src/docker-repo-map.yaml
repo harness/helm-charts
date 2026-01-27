@@ -305,7 +305,3 @@ idp-app-ui:
   image:
     registry: docker.io
     repository: harness/idp-app-signed
-tsdb-to-psql-migrator:
-  image:
-    registry: docker.io
-    repository: harness/tsdb-to-psql-migrator-signed
