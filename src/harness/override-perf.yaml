@@ -363,6 +363,16 @@ platform:
       requests:
         cpu: 1
         memory: 6Gi
+  tsdb-to-psql-migrator:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: "1536Mi"
+      requests:
+        cpu: 2
+        memory: "512Mi"
   change-data-capture:
     appLogLevel: INFO
     replicaCount: 1
