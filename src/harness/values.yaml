@@ -358,7 +358,7 @@ cd:
   gitops:
     upgraderImage:
       image:
-        tag: 1.9.0
+        tag: 1.10.0
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
@@ -505,7 +505,7 @@ platform:
   harness-manager:
     upgrader_docker_image:
       image:
-        tag: 1.9.0
+        tag: 1.10.0
     config:
       ENV: "SMP"
     shutdownHooksEnabled: true
