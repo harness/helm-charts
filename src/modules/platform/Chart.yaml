@@ -4,10 +4,10 @@ dependencies:
 - condition: global.ng.enabled
   name: access-control
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.168.1
+  version: 1.185.0
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.60.0
+  version: 1.58.0
 - condition: global.cdc.enabled
   name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -21,53 +21,53 @@ dependencies:
   version: 1.4.0
 - name: gateway
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.58.2
+  version: 1.59.1
 - name: harness-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.120.4
+  version: 1.126.0
 - condition: global.ng.enabled
   name: log-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.36.2
+  version: 1.38.4
 - condition: global.ng.enabled
   name: next-gen-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.107.2
+  version: 1.113.5
 - name: ng-auth-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.37.3
+  version: 1.38.0
 - condition: global.ng.enabled
   name: ng-dashboard-aggregator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.85.0
+  version: 1.91.0
 - condition: global.ng.enabled
   name: ng-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.121.5
+  version: 1.127.2
 - condition: global.ng.enabled
   name: pipeline-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.161.4
+  version: 1.167.3
 - condition: global.ng.enabled
   name: platform-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.99.0
+  version: 1.105.2
 - condition: global.ng.enabled
   name: policy-mgmt
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.31.3
+  version: 1.34.2
 - condition: global.ng.enabled
   name: scm-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.42.1
+  version: 1.43.0
 - condition: global.ng.enabled
   name: template-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.123.0
+  version: 1.129.1
 - condition: global.cg.enabled
   name: ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.32.2
+  version: 1.32.0
 - condition: global.ngcustomdashboard.enabled
   name: ng-custom-dashboards
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -79,15 +79,15 @@ dependencies:
 - condition: global.servicediscoverymanager.enabled
   name: service-discovery-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.51.0
+  version: 0.52.3
 - condition: global.ng.enabled
   name: audit-event-streaming
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.66.0
+  version: 1.72.0
 - condition: global.ng.enabled
   name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.7.4
+  version: 1.8.0
 description: Helm chart for Harness Platform
 name: platform
 type: application

@@ -3,11 +3,11 @@ appVersion: 1.16.0
 dependencies:
 - name: ci-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.112.2
+  version: 1.118.9
 - condition: global.ti.enabled
   name: ti-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.58.0
+  version: 1.59.2
 description: A Helm chart for Kubernetes
 name: ci
 type: application
