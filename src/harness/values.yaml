@@ -275,7 +275,7 @@ ccm:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
     awsAccountTagsCollectionJobConfig:
       enabled: true
@@ -415,7 +415,7 @@ platform:
       postgresql:
         image:
           repository: "harness/postgresql"
-          tag: "14.18.0-debian-12-r0"
+          tag: "14.20-alpine3.23"
         metrics:
           enabled: false
         podAnnotations:
@@ -618,11 +618,11 @@ sto:
     migrationPostgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     affinity: {}
     autoscaling:
       enabled: false
@@ -636,46 +636,52 @@ ff:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "bitnamilegacy/postgresql"
+          repository: "harness/postgresql"
+          tag: "14.20-alpine3.23"
     ff-client-server:
       secrets:
         default:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "bitnamilegacy/postgresql"
+          repository: "harness/postgresql"
+          tag: "14.20-alpine3.23"
     ff-metrics-server:
       secrets:
         default:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "bitnamilegacy/postgresql"
+          repository: "harness/postgresql"
+          tag: "14.20-alpine3.23"
   ff-pushpin-service:
     waitForInitContainer:
       image:
         tag: 1.2.0
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
   ff-psql-migrations:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
   ff-timescale-migrations:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
 iacm:
   iac-server:
     createDb:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     affinity: {}
     autoscaling:
       enabled: false
@@ -695,29 +701,30 @@ code:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     autoai:
       postgres:
         image:
           repository: "harness/postgresql"
-          tag: "14.18.0-debian-12-r0"
+          tag: "14.20-alpine3.23"
   code-search:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
   code-githa:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
   code-gitrpc:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
 idp:
   idp-app-ui:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
