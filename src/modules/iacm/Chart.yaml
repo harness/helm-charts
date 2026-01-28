@@ -10,4 +10,4 @@ dependencies:
 description: Helm chart for Harness IACM
 name: iacm
 type: application
-version: 0.35.9
+version: 0.36.0
