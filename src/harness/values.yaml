@@ -523,7 +523,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.11.87302
+        tag: 26.01.88201
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -591,9 +591,9 @@ platform:
     nodeSelector: {}
     tolerations: []
   tsdb-to-psql-migrator:
-    extraEnvVars: 
+    extraEnvVars:
       - name: MIGRATION_ENABLED
-        value: "true"  
+        value: "true"
   # -- ui (Harness First CG Ui component) (taints, tolerations, and so on)
   ui:
     affinity: {}
