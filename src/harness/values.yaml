@@ -590,6 +590,10 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+  tsdb-to-psql-migrator:
+    extraEnvVars: 
+      - name: MIGRATION_ENABLED
+        value: "true"  
   # -- ui (Harness First CG Ui component) (taints, tolerations, and so on)
   ui:
     affinity: {}
