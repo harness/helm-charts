@@ -18,10 +18,10 @@ dependencies:
   version: 1.76.1
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.74.6
+  version: 1.74.7
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.78.14
+  version: 1.78.17
 description: A Helm chart for Harness Cloud Cost Management (CCM) module
 name: ccm
 type: application
