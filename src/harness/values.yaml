@@ -269,6 +269,47 @@ global:
     # If both are set, K8s will throw an error
     # minAvailable: "50%"
     # maxUnavailable: "50%"
+  externalSecretsLoader:
+    enabled: false
+    provider: "vault"
+    image:
+      repository: "harness/vault-secret-loader"
+      tag: "1.0.0"
+      pullPolicy: "IfNotPresent"
+    vault:
+      address: ""
+      engine: ""
+      basePath: ""
+      auth:
+        method: "token"
+        # For Token auth:
+        token: "vault-token"
+        # For AppRole:
+        roleId: ""
+        secretId: ""
+        # For Kubernetes auth:
+        role: ""
+    databases:
+      mongo:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        overridePath: ""
+        databaseRole: ""
+      redis:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        overridePath: ""
+        databaseRole: ""
+      postgres:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        basePath: ""
+        databaseRole: ""
+      timescaledb:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        basePath: ""
+        databaseRole: ""
 ccm:
   # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
   batch-processing:
