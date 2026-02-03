@@ -5,7 +5,7 @@ docker.io/haproxy:lts-alpine3.22
 docker.io/harness/accesscontrol-service-signed:1.168.1
 docker.io/harness/argocd:v2.14.21
 docker.io/harness/audit-event-streaming-signed:1.66.0
-docker.io/harness/batch-processing-signed:1.70.17
+docker.io/harness/batch-processing-signed:1.70.18
 docker.io/harness/ccm-gcp-smp-signed:100071
 docker.io/harness/cdcdata-signed:1.49.3
 docker.io/harness/ce-anomaly-detection-signed:1.16.3
