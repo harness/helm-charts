@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.35.11](https://img.shields.io/badge/Version-0.35.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.35.12](https://img.shields.io/badge/Version-0.35.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -88,7 +88,7 @@ docker.io/haproxy:lts-alpine3.22
 docker.io/harness/accesscontrol-service-signed:1.168.1
 docker.io/harness/argocd:v2.14.21
 docker.io/harness/audit-event-streaming-signed:1.66.0
-docker.io/harness/batch-processing-signed:1.70.17
+docker.io/harness/batch-processing-signed:1.70.18
 docker.io/harness/ccm-gcp-smp-signed:100071
 docker.io/harness/cdcdata-signed:1.49.3
 docker.io/harness/ce-anomaly-detection-signed:1.16.3
