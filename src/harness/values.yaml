@@ -365,6 +365,10 @@ cd:
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
+    postgresql:
+      image:
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
     config:
       ENV: "SMP"
     affinity: {}
@@ -614,6 +618,11 @@ srm:
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
+  ticket-service:
+    postgresql:
+      image:
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
   sto-core:
     migrationPostgres:
       image:
