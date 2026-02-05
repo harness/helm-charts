@@ -32,3 +32,6 @@
 {{- end }}
 {{- end }}
 {{- end }}
+{{- if not .Values.ackTsdbMigration }}
+{{- fail "[ERROR] TimescaleDB to PostgreSQL Migration Acknowledgment Required\n\nBefore upgrading, you must:\n1. Read the migration guide: https://developer.harness.io/docs/self-managed-enterprise-edition/advanced-configurations/tsdb-to-postgresql-migration \n2. Set 'ackTsdbMigration: true' in your values.yaml to acknowledge you have reviewed the migration requirements\n" }}
+{{- end }}
