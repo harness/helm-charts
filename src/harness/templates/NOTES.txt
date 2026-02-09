@@ -29,6 +29,9 @@
 {{- else }}
   {{- printf "Mongo Upgrade Check looks good!" }}
 {{- end }}
+{{- if semverCompare "< 1.117.2-0" $version }}
+  {{ fail "[ERROR] Unsupported direct upgrade path. You must first upgrade to SMP 0.35.x before upgrading to SMP 0.36.x. Read the migration guide: https://developer.harness.io/docs/self-managed-enterprise-edition/advanced-configurations/tsdb-to-postgresql-migration." }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- if not .Values.ackTsdbMigration }}
