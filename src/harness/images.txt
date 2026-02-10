@@ -168,6 +168,7 @@ harness/veracode-agent-job-runner:latest
 harness/whitesource-agent-job-runner:latest
 harness/wiz-job-runner:latest
 harness/zap-job-runner:latest
+harness/vault-secret-loader:1.0.1
 plugins/acr:21.2.2
 plugins/artifactory:1.8.3
 plugins/buildx-acr:1.4.3
