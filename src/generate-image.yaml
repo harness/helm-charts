@@ -42,6 +42,8 @@ global:
     enabled: true
   idp:
     enabled: true
+  externalSecretsLoader:
+    enabled: true
 platform:
   bootstrap:
     networking:
