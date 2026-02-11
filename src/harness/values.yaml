@@ -778,4 +778,22 @@ idp:
       image:
         repository: "harness/postgresql"
         tag: "14.20-alpine3.23"
+
 ackTsdbMigration: false
+postmigrationCheck:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: "busybox"
+    tag: "1.35.0"
+    pullPolicy: IfNotPresent
+  resources:
+    limits:
+      memory: 128Mi
+      cpu: 100m
+    requests:
+      memory: 64Mi
+      cpu: 50m
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
