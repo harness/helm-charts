@@ -18,10 +18,10 @@
 {{ println "" }}
 {{- if .Release.IsUpgrade }}
 {{- if .Values.upgrades.versionLookups.enabled }}
-{{- if .Values.platform.bootstrap.database.mongodbupgrades.mongoFCVUpgrade.enabled }}
 {{- $hm_deployment := lookup "apps/v1" "Deployment" .Release.Namespace "harness-manager" -}}
 {{- $var := $hm_deployment.metadata.labels }}
 {{- $version := ( get $var "helm.sh/chart" ) | trimPrefix "harness-manager-" }}
+{{- if .Values.platform.bootstrap.database.mongodbupgrades.mongoFCVUpgrade.enabled }}
 {{- if semverCompare "< 1.27.0-0" $version }}
   {{ fail "[ERROR] You are currently using SMP with MongoDB 4.4 and a direct upgrade to MongoDB 7.0 is not possible. Since SMP 0.22.0 and above uses Mongo 6.0, please, upgrade to SMP versions 0.17.0 through 0.21.0, which will install MongoDB 5.0. After that, you can upgrade to SMP 0.22.0 or later, which will update MongoDB to version 6.0." }}
 {{- else if semverCompare "< 1.48.0-0" $version }}
@@ -30,5 +30,11 @@
   {{- printf "Mongo Upgrade Check looks good!" }}
 {{- end }}
 {{- end }}
+{{- if semverCompare "< 1.117.2-0" $version }}
+  {{ fail "[ERROR] Unsupported direct upgrade path. You must first upgrade to SMP 0.35.x before upgrading to SMP 0.36.x. Read the migration guide: https://developer.harness.io/docs/self-managed-enterprise-edition/advanced-configurations/tsdb-to-postgresql-migration." }}
+{{- end }}
+{{- end }}
+{{- if not .Values.ackTsdbMigration }}
+{{- fail "[ERROR] TimescaleDB to PostgreSQL Migration Acknowledgment Required\n\nBefore upgrading, you must:\n1. Read the migration guide: https://developer.harness.io/docs/self-managed-enterprise-edition/advanced-configurations/tsdb-to-postgresql-migration \n2. Set 'ackTsdbMigration: true' in your values.yaml to acknowledge you have reviewed the migration requirements\n" }}
 {{- end }}
 {{- end }}

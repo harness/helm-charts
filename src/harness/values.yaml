@@ -269,6 +269,47 @@ global:
     # If both are set, K8s will throw an error
     # minAvailable: "50%"
     # maxUnavailable: "50%"
+  externalSecretsLoader:
+    enabled: false
+    provider: "vault"
+    image:
+      repository: "harness/vault-secret-loader"
+      tag: "1.0.1"
+      pullPolicy: "IfNotPresent"
+    vault:
+      address: ""
+      engine: ""
+      basePath: ""
+      auth:
+        method: "token"
+        # For Token auth:
+        token: "vault-token"
+        # For AppRole:
+        roleId: ""
+        secretId: ""
+        # For Kubernetes auth:
+        role: ""
+    databases:
+      mongo:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        overridePath: ""
+        databaseRole: ""
+      redis:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        overridePath: ""
+        databaseRole: ""
+      postgres:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        basePath: ""
+        databaseRole: ""
+      timescaledb:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        basePath: ""
+        databaseRole: ""
 ccm:
   # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
   batch-processing:
@@ -365,6 +406,10 @@ cd:
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
+    postgresql:
+      image:
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
     config:
       ENV: "SMP"
     affinity: {}
@@ -523,7 +568,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.11.87302
+        tag: 26.01.88201
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -591,9 +636,9 @@ platform:
     nodeSelector: {}
     tolerations: []
   tsdb-to-psql-migrator:
-    extraEnvVars: 
+    extraEnvVars:
       - name: MIGRATION_ENABLED
-        value: "true"  
+        value: "true"
   # -- ui (Harness First CG Ui component) (taints, tolerations, and so on)
   ui:
     affinity: {}
@@ -614,6 +659,11 @@ srm:
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
+  ticket-service:
+    postgresql:
+      image:
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
   sto-core:
     migrationPostgres:
       image:
@@ -728,3 +778,4 @@ idp:
       image:
         repository: "harness/postgresql"
         tag: "14.20-alpine3.23"
+ackTsdbMigration: false
