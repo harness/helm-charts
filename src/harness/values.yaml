@@ -49,6 +49,8 @@ global:
     enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
+    tsdbtopsqlmigrator:
+      enabled: true
     clickhouse:
       enabled: false
     # -- settings to deploy mongo in-cluster or configure to use external mongo source
@@ -251,7 +253,7 @@ global:
       registry: docker.io
       repository: harness/helm-init-container
       pullPolicy: Always
-      tag: "1.5.0"
+      tag: "1.7.0"
       digest: ""
       imagePullSecrets: []
   fileLogging:
@@ -267,13 +269,54 @@ global:
     # If both are set, K8s will throw an error
     # minAvailable: "50%"
     # maxUnavailable: "50%"
+  externalSecretsLoader:
+    enabled: false
+    provider: "vault"
+    image:
+      repository: "harness/vault-secret-loader"
+      tag: "1.0.1"
+      pullPolicy: "IfNotPresent"
+    vault:
+      address: ""
+      engine: ""
+      basePath: ""
+      auth:
+        method: "token"
+        # For Token auth:
+        token: "vault-token"
+        # For AppRole:
+        roleId: ""
+        secretId: ""
+        # For Kubernetes auth:
+        role: ""
+    databases:
+      mongo:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        overridePath: ""
+        databaseRole: ""
+      redis:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        overridePath: ""
+        databaseRole: ""
+      postgres:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        basePath: ""
+        databaseRole: ""
+      timescaledb:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        basePath: ""
+        databaseRole: ""
 ccm:
   # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
   batch-processing:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
     awsAccountTagsCollectionJobConfig:
       enabled: true
@@ -358,11 +401,15 @@ cd:
   gitops:
     upgraderImage:
       image:
-        tag: 1.9.0
+        tag: 1.10.0
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
+    postgresql:
+      image:
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
     config:
       ENV: "SMP"
     affinity: {}
@@ -413,7 +460,7 @@ platform:
       postgresql:
         image:
           repository: "harness/postgresql"
-          tag: "14.18.0-debian-12-r0"
+          tag: "14.20-alpine3.23"
         metrics:
           enabled: false
         podAnnotations:
@@ -505,7 +552,7 @@ platform:
   harness-manager:
     upgrader_docker_image:
       image:
-        tag: 1.9.0
+        tag: 1.10.0
     config:
       ENV: "SMP"
     shutdownHooksEnabled: true
@@ -521,7 +568,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 25.11.87302
+        tag: 26.01.88201
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -588,6 +635,10 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+  tsdb-to-psql-migrator:
+    extraEnvVars:
+      - name: MIGRATION_ENABLED
+        value: "true"
   # -- ui (Harness First CG Ui component) (taints, tolerations, and so on)
   ui:
     affinity: {}
@@ -608,15 +659,20 @@ srm:
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
+  ticket-service:
+    postgresql:
+      image:
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
   sto-core:
     migrationPostgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     affinity: {}
     autoscaling:
       enabled: false
@@ -630,46 +686,52 @@ ff:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "bitnamilegacy/postgresql"
+          repository: "harness/postgresql"
+          tag: "14.20-alpine3.23"
     ff-client-server:
       secrets:
         default:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "bitnamilegacy/postgresql"
+          repository: "harness/postgresql"
+          tag: "14.20-alpine3.23"
     ff-metrics-server:
       secrets:
         default:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "bitnamilegacy/postgresql"
+          repository: "harness/postgresql"
+          tag: "14.20-alpine3.23"
   ff-pushpin-service:
     waitForInitContainer:
       image:
         tag: 1.2.0
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
   ff-psql-migrations:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
   ff-timescale-migrations:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
 iacm:
   iac-server:
     createDb:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     affinity: {}
     autoscaling:
       enabled: false
@@ -689,29 +751,31 @@ code:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
     autoai:
       postgres:
         image:
           repository: "harness/postgresql"
-          tag: "14.18.0-debian-12-r0"
+          tag: "14.20-alpine3.23"
   code-search:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
   code-githa:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
   code-gitrpc:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        tag: "14.20-alpine3.23"
 idp:
   idp-app-ui:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
+ackTsdbMigration: false

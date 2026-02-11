@@ -3,11 +3,11 @@ appVersion: 0.0.79001
 dependencies:
 - name: sto-core
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.170.6
+  version: 1.175.7
 - name: ticket-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.2.2
+  version: 1.4.4
 description: Helm chart for Harness STO
 name: sto
 type: application
-version: 0.35.4
+version: 0.36.0

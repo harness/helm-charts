@@ -44,7 +44,7 @@ while read -r value; do
 done < <(grep "name:" "$HELM_CHARTS_DIR/src/harness/Chart.yaml" | awk -F 'name:' '{print $2}')
 
 # Get unique entries
-get_unique() { printf "%s\n" "$@" | /usr/bin/sort -u | tr '\n' ' ' | sed 's/ $//'; }
+get_unique() { printf "%s\n" "$@" | /usr/bin/sort -ur | tr '\n' ' ' | sed 's/ $//'; }
 
 # Get unique values and export as space-separated strings
 export MODULES=$(get_unique "${MODULES[@]}")
