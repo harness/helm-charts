@@ -1,0 +1,117 @@
+{{- if .Values.postmigrationCheck.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-migration-validation
+  namespace: {{ .Release.Namespace }}
+  labels:
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    version: {{ .Chart.Version }}
+    {{- if .Values.global.commonLabels }}
+    {{- include "harnesscommon.tplvalues.render" ( dict "value" .Values.global.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/resource-policy": keep
+    "helm.sh/hook-delete-policy": before-hook-creation
+    {{- if .Values.global.commonAnnotations }}
+    {{- include "harnesscommon.tplvalues.render" ( dict "value" .Values.global.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
+spec:
+  backoffLimit: 1
+  activeDeadlineSeconds: 300
+  template:
+    metadata:
+      name: post-migration-validation
+      labels:
+        app: post-migration-validation
+    spec:
+      restartPolicy: Never
+      {{- with .Values.postmigrationCheck.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.postmigrationCheck.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.postmigrationCheck.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: post-migration-validation
+        image: {{ include "common.images.image" (dict "imageRoot" .Values.postmigrationCheck.image "global" .Values.global) }}
+        imagePullPolicy: {{ .Values.postmigrationCheck.image.pullPolicy | default "IfNotPresent" }}
+        env:
+        - name: CURRENT_VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: global-smp-config
+              key: SMP_VERSION
+              optional: true
+        - name: TARGET_VERSION
+          value: {{ .Chart.Version | quote }}
+        - name: MIGRATION_COMPLETE
+          valueFrom:
+            configMapKeyRef:
+              name: tsdb-to-psql-migrator
+              key: MIGRATION_COMPLETE
+              optional: true
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -e
+          
+          # Validate required environment variables
+          if [ -z "$CURRENT_VERSION" ]; then
+            echo "ERROR: CURRENT_VERSION not found. ConfigMap 'global-smp-config' may not exist."
+            echo "This should not happen during a Helm upgrade. Check your installation."
+            exit 1
+          fi
+
+          echo "Validating upgrade path: $CURRENT_VERSION -> $TARGET_VERSION"
+          echo "MIGRATION_COMPLETE: $MIGRATION_COMPLETE"
+
+          compare_versions() {
+            v1=$(echo "$1" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+            v2=$(echo "$2" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+            
+            v1_maj=$(echo "$v1" | cut -d. -f1)
+            v1_min=$(echo "$v1" | cut -d. -f2)
+            v1_pat=$(echo "$v1" | cut -d. -f3)
+            
+            v2_maj=$(echo "$v2" | cut -d. -f1)
+            v2_min=$(echo "$v2" | cut -d. -f2)
+            v2_pat=$(echo "$v2" | cut -d. -f3)
+            
+            [ "$v1_maj" -lt "$v2_maj" ] && return 0
+            [ "$v1_maj" -gt "$v2_maj" ] && return 1
+            [ "$v1_min" -lt "$v2_min" ] && return 0
+            [ "$v1_min" -gt "$v2_min" ] && return 1
+            [ "$v1_pat" -lt "$v2_pat" ] && return 0
+            return 1
+          }
+          
+          # Validation: version < 0.36.0
+          if compare_versions "$CURRENT_VERSION" "0.36.0"; then
+            echo "ERROR: Upgrade from version $CURRENT_VERSION to $TARGET_VERSION is not supported."
+            echo "Please upgrade to 0.36.x first."
+            exit 1
+          fi
+          
+          # Validation: 0.36.0 <= version < 0.37.0 requires migration check
+          if ! compare_versions "$CURRENT_VERSION" "0.37.0"; then
+            if [ -z "$MIGRATION_COMPLETE" ] || [ "$MIGRATION_COMPLETE" != "true" ]; then
+              echo "ERROR: TSDB to PostgreSQL migration must be completed before upgrade."
+              echo "Current version: $CURRENT_VERSION, Migration status: ${MIGRATION_COMPLETE:-NOT_FOUND}"
+              exit 1
+            fi
+          fi
+          
+          echo "✓ Pre-upgrade validation passed"
+          exit 0
+        {{- with .Values.postmigrationCheck.resources }}
+        resources: {{- toYaml . | nindent 10 }}
+        {{- end }}
+{{- end }}
