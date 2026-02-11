@@ -1,6 +1,9 @@
 global:
   # -- Airgap functionality. Disabled by default
   airgap: "false"
+  # -- Do not change this value. It is used to determine if the installation is on-prem or not.
+  # -- If this value is set to false, it can result in database connectivity issues for postgres.
+  onprem: true
   # -- Enable to set auto-scaling globally
   autoscaling:
     enabled: true
