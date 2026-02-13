@@ -249,6 +249,10 @@ component-service:
   image:
     registry: docker.io
     repository: harness/component-service-signed
+component-analysis-service:
+  image:
+    registry: docker.io
+    repository: harness/component-analysis-service-signed
 srm-ui:
   image:
     registry: docker.io
