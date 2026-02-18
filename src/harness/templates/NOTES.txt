@@ -30,9 +30,6 @@
   {{- printf "Mongo Upgrade Check looks good!" }}
 {{- end }}
 {{- end }}
-{{- if semverCompare "< 1.117.2-0" $version }}
-  {{ fail "[ERROR] Unsupported direct upgrade path. You must first upgrade to SMP 0.35.x before upgrading to SMP 0.36.x. Read the migration guide: https://developer.harness.io/docs/self-managed-enterprise-edition/advanced-configurations/tsdb-to-postgresql-migration." }}
-{{- end }}
 {{- end }}
 {{- if not .Values.ackTsdbMigration }}
 {{- fail "[ERROR] TimescaleDB to PostgreSQL Migration Acknowledgment Required\n\nBefore upgrading, you must:\n1. Read the migration guide: https://developer.harness.io/docs/self-managed-enterprise-edition/advanced-configurations/tsdb-to-postgresql-migration \n2. Set 'ackTsdbMigration: true' in your values.yaml to acknowledge you have reviewed the migration requirements\n" }}

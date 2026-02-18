@@ -40,7 +40,6 @@
     mongodb-exporter
     statsd-exporter
     aws-cli 
-    tsdb-to-psql-migrator-signed
     vault-secret-loader
 
 [cdng]:
