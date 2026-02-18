@@ -571,7 +571,7 @@ platform:
       image:
         registry: docker.io
         repository: harness/delegate
-        tag: 26.01.88201
+        tag: 26.02.88400
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -781,7 +781,6 @@ idp:
       image:
         repository: "harness/postgresql"
         tag: "14.20-alpine3.23"
-
 ackTsdbMigration: false
 postmigrationCheck:
   enabled: true
