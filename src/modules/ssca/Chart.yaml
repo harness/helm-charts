@@ -20,4 +20,4 @@ dependencies:
 description: A Helm chart for Harness SSCA
 name: ssca
 type: application
-version: 0.36.0
+version: 0.37.0
