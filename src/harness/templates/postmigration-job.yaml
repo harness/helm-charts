@@ -62,53 +62,114 @@ spec:
         - -c
         - |
           set -e
-          
-          # Validate required environment variables
+          # Validate CURRENT_VERSION exists
           if [ -z "$CURRENT_VERSION" ]; then
-            echo "ERROR: CURRENT_VERSION not found. ConfigMap 'global-smp-config' may not exist."
-            echo "This should not happen during a Helm upgrade. Check your installation."
-            exit 1
+              echo "ERROR: CURRENT_VERSION not found. ConfigMap 'global-smp-config' may not exist."
+              echo "This should not happen during a Helm upgrade. Check your installation."
+              exit 1
+          fi
+
+          # Validate TARGET_VERSION exists
+          if [ -z "$TARGET_VERSION" ]; then
+              echo "ERROR: TARGET_VERSION not found."
+              exit 1
           fi
 
           echo "Validating upgrade path: $CURRENT_VERSION -> $TARGET_VERSION"
           echo "MIGRATION_COMPLETE: $MIGRATION_COMPLETE"
 
-          compare_versions() {
-            v1=$(echo "$1" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
-            v2=$(echo "$2" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
-            
-            v1_maj=$(echo "$v1" | cut -d. -f1)
-            v1_min=$(echo "$v1" | cut -d. -f2)
-            v1_pat=$(echo "$v1" | cut -d. -f3)
-            
-            v2_maj=$(echo "$v2" | cut -d. -f1)
-            v2_min=$(echo "$v2" | cut -d. -f2)
-            v2_pat=$(echo "$v2" | cut -d. -f3)
-            
-            [ "$v1_maj" -lt "$v2_maj" ] && return 0
-            [ "$v1_maj" -gt "$v2_maj" ] && return 1
-            [ "$v1_min" -lt "$v2_min" ] && return 0
-            [ "$v1_min" -gt "$v2_min" ] && return 1
-            [ "$v1_pat" -lt "$v2_pat" ] && return 0
-            return 1
+          # Extract and validate semver from version string
+          extract_version() {
+              local version_string="$1"
+              local version=$(echo "$version_string" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -n1)
+              echo "$version"
           }
-          
-          # Validation: version < 0.36.0
-          if compare_versions "$CURRENT_VERSION" "0.36.0"; then
-            echo "ERROR: Upgrade from version $CURRENT_VERSION to $TARGET_VERSION is not supported."
-            echo "Please upgrade to 0.36.x first."
-            exit 1
-          fi
-          
-          # Validation: 0.36.0 <= version < 0.37.0 requires migration check
-          if ! compare_versions "$CURRENT_VERSION" "0.37.0"; then
-            if [ -z "$MIGRATION_COMPLETE" ] || [ "$MIGRATION_COMPLETE" != "true" ]; then
-              echo "ERROR: TSDB to PostgreSQL migration must be completed before upgrade."
-              echo "Current version: $CURRENT_VERSION, Migration status: ${MIGRATION_COMPLETE:-NOT_FOUND}"
+
+          # Validate that a version string is valid semver
+          validate_version() {
+              local version="$1"
+              local label="$2"
+              
+              if [ -z "$version" ]; then
+                  echo "ERROR: $label is empty or invalid: '$version'"
+                  return 1
+              fi
+              
+              # Check if version matches semver pattern
+              if ! echo "$version" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+                  echo "ERROR: $label is not a valid semantic version (expected X.Y.Z): '$version'"
+                  return 1
+              fi
+              
+              return 0
+          }
+
+          # Compare two semantic versions
+          # Returns 0 (true) if v1 < v2, 1 (false) otherwise
+          compare_versions() {
+              local v1="$1"
+              local v2="$2"
+              
+              local v1_maj=$(echo "$v1" | cut -d. -f1)
+              local v1_min=$(echo "$v1" | cut -d. -f2)
+              local v1_pat=$(echo "$v1" | cut -d. -f3)
+              
+              local v2_maj=$(echo "$v2" | cut -d. -f1)
+              local v2_min=$(echo "$v2" | cut -d. -f2)
+              local v2_pat=$(echo "$v2" | cut -d. -f3)
+              
+              # Ensure all parts are numeric (should be caught by validate_version, but double-check)
+              if ! [[ "$v1_maj" =~ ^[0-9]+$ ]] || ! [[ "$v1_min" =~ ^[0-9]+$ ]] || ! [[ "$v1_pat" =~ ^[0-9]+$ ]]; then
+                  echo "ERROR: Invalid version format in v1: $v1"
+                  exit 1
+              fi
+              
+              if ! [[ "$v2_maj" =~ ^[0-9]+$ ]] || ! [[ "$v2_min" =~ ^[0-9]+$ ]] || ! [[ "$v2_pat" =~ ^[0-9]+$ ]]; then
+                  echo "ERROR: Invalid version format in v2: $v2"
+                  exit 1
+              fi
+              
+              [ "$v1_maj" -lt "$v2_maj" ] && return 0
+              [ "$v1_maj" -gt "$v2_maj" ] && return 1
+              [ "$v1_min" -lt "$v2_min" ] && return 0
+              [ "$v1_min" -gt "$v2_min" ] && return 1
+              [ "$v1_pat" -lt "$v2_pat" ] && return 0
+              return 1
+          }
+
+          # Extract versions
+          CURRENT_VERSION_CLEAN=$(extract_version "$CURRENT_VERSION")
+          TARGET_VERSION_CLEAN=$(extract_version "$TARGET_VERSION")
+
+          # Validate versions
+          if ! validate_version "$CURRENT_VERSION_CLEAN" "CURRENT_VERSION"; then
+              echo "Original input: '$CURRENT_VERSION'"
               exit 1
-            fi
           fi
-          
+
+          if ! validate_version "$TARGET_VERSION_CLEAN" "TARGET_VERSION"; then
+              echo "Original input: '$TARGET_VERSION'"
+              exit 1
+          fi
+
+          echo "Parsed versions: $CURRENT_VERSION_CLEAN -> $TARGET_VERSION_CLEAN"
+
+          # Validation: version < 0.36.0
+          if compare_versions "$CURRENT_VERSION_CLEAN" "0.36.0"; then
+              echo "ERROR: Upgrade from version $CURRENT_VERSION_CLEAN to $TARGET_VERSION_CLEAN is not supported."
+              echo "Please upgrade to 0.36.x first."
+              exit 1
+          fi
+
+          # Validation: 0.36.0 <= version < 0.37.0 requires migration check
+          if compare_versions "$CURRENT_VERSION_CLEAN" "0.37.0"; then
+              if [ -z "$MIGRATION_COMPLETE" ] || [ "$MIGRATION_COMPLETE" != "true" ]; then
+                  echo "ERROR: TSDB to PostgreSQL migration must be completed before upgrade."
+                  echo "Current version: $CURRENT_VERSION_CLEAN, Migration status: ${MIGRATION_COMPLETE:-NOT_FOUND}"
+                  exit 1
+              fi
+          fi
+
           echo "✓ Pre-upgrade validation passed"
           exit 0
         {{- with .Values.postmigrationCheck.resources }}
