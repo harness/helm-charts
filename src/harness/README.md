@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.36.0](https://img.shields.io/badge/Version-0.36.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.36.2](https://img.shields.io/badge/Version-0.36.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -88,8 +88,8 @@ docker.io/haproxy:lts-alpine3.22
 docker.io/harness/accesscontrol-service-signed:1.184.0
 docker.io/harness/argocd:v3.2.5
 docker.io/harness/audit-event-streaming-signed:1.73.0
-docker.io/harness/batch-processing-signed:1.75.16
-docker.io/harness/ccm-gcp-smp-signed:100072
+docker.io/harness/batch-processing-signed:1.75.18
+docker.io/harness/ccm-gcp-smp-signed:100079
 docker.io/harness/cdcdata-signed:1.49.4
 docker.io/harness/ce-anomaly-detection-signed:1.20.0
 docker.io/harness/ce-cloud-info-signed:1.13.2
@@ -247,6 +247,7 @@ harness/traceable-job-runner:latest
 harness/twistlock-job-runner:latest
 harness/updatecatalogproperty:1.19.0
 harness/upgrader:1.10.0-fips
+harness/vault-secret-loader:1.0.1
 harness/veracode-agent-job-runner:latest
 harness/whitesource-agent-job-runner:latest
 harness/wiz-job-runner:latest
