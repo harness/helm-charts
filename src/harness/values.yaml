@@ -52,8 +52,6 @@ global:
     enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
-    tsdbtopsqlmigrator:
-      enabled: false
     clickhouse:
       enabled: false
     # -- settings to deploy mongo in-cluster or configure to use external mongo source
@@ -638,10 +636,6 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  tsdb-to-psql-migrator:
-    extraEnvVars:
-      - name: MIGRATION_ENABLED
-        value: "true"
   # -- ui (Harness First CG Ui component) (taints, tolerations, and so on)
   ui:
     affinity: {}

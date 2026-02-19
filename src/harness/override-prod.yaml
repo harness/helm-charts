@@ -697,16 +697,6 @@ platform:
       requests:
         cpu: 0.7
         memory: 3000Mi
-  tsdb-to-psql-migrator:
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-    resources:
-      limits:
-        memory: "1536Mi"
-      requests:
-        cpu: 2
-        memory: "512Mi"
   ui:
     autoscaling:
       enabled: true

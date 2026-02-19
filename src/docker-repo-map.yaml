@@ -225,10 +225,6 @@ ti-service:
   image:
     registry: docker.io
     repository: harness/ti-service-signed
-tsdb-to-psql-migrator:
-  image:
-    registry: docker.io
-    repository: harness/tsdb-to-psql-migrator-signed
 ui:
   image:
     registry: docker.io
