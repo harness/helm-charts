@@ -3,10 +3,10 @@ appVersion: 0.0.79001
 dependencies:
 - name: iac-server
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.295.0-snapshot-2026-01-15-00-00-44-4ea5ff
+  version: 1.316.0-snapshot-2026-02-18-13-10-39-5f08c3
 - name: iacm-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.123.1-snapshot-2026-01-15-00-00-44-469d23
+  version: 1.133.1-snapshot-2026-02-18-18-00-32-9885d0
 description: Helm chart for Harness IACM
 name: iacm
 type: application
