@@ -20,11 +20,9 @@
     ng-auth-ui-signed
     redis
     upgrader
-    timescaledb-ha
     postgresql
     dashboard-service-signed
     policy-mgmt
-    curl
     ui-signed
     srm-ui-signed
     smp-service-discovery-server-signed
@@ -39,7 +37,6 @@
     postgres-exporter
     mongodb-exporter
     statsd-exporter
-    aws-cli 
     vault-secret-loader
     busybox
 
