@@ -789,6 +789,8 @@ postmigrationCheck:
     requests:
       memory: 64Mi
       cpu: 50m
+  serviceAccount:
+    name: default
   nodeSelector: {}
   tolerations: []
   affinity: {}

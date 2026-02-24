@@ -29,7 +29,7 @@ spec:
         app: post-migration-validation
     spec:
       {{- include "common.images.pullSecrets" (dict "images" (list .Values.postmigrationCheck.image) "global" .Values.global ) | nindent 6 }}
-      serviceAccountName: {{ default "default" .Values.postmigrationCheck.serviceAccount.name }}
+      serviceAccountName: {{ .Values.postmigrationCheck.serviceAccount.name }}
       restartPolicy: Never
       {{- with .Values.postmigrationCheck.nodeSelector }}
       nodeSelector: {{- toYaml . | nindent 8 }}
