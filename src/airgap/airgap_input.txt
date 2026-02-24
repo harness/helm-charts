@@ -42,6 +42,7 @@
     aws-cli 
     tsdb-to-psql-migrator-signed
     vault-secret-loader
+    busybox
 
 [cdng]:
     argocd
@@ -174,7 +175,6 @@
     code-githa-signed
     code-gitrpc-signed
     code-search-signed
-    busybox
 
 [iacm]:
     drone-git
