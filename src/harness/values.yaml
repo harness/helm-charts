@@ -790,7 +790,7 @@ postmigrationCheck:
       memory: 64Mi
       cpu: 50m
   serviceAccount:
-    name: default
+    name: "default"
   nodeSelector: {}
   tolerations: []
   affinity: {}
