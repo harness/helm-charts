@@ -135,15 +135,17 @@ modules:
     bundle_type: single
     parent: sto
     bucket_path: "sto/scanners"
-    variants:
-      suffixes: ["-fips"]
     images:
       - anchore-job-runner
       - aqua-security-job-runner
-      - aqua-trivy-job-runner
+      - name: aqua-trivy-job-runner
+        variants:
+          suffixes: ["-fips"]
       - aws-ecr-job-runner
       - aws-security-hub-job-runner
-      - bandit-job-runner
+      - name: bandit-job-runner
+        variants:
+          suffixes: ["-fips"]
       - blackduckhub-job-runner
       - brakeman-job-runner
       - burp-job-runner
@@ -153,18 +155,26 @@ modules:
       - fossa-job-runner
       - github-advanced-security-job-runner
       - gitleaks-job-runner
-      - grype-job-runner
+      - name: grype-job-runner
+        variants:
+          suffixes: ["-fips"]
       - modelscan-job-runner
       - nexusiq-job-runner
       - nikto-job-runner
       - nmap-job-runner
-      - osv-job-runner
+      - name: osv-job-runner
+        variants:
+          suffixes: ["-fips"]
       - owasp-dependency-check-job-runner
       - prowler-job-runner
-      - semgrep-job-runner
+      - name: semgrep-job-runner
+        variants:
+          suffixes: ["-fips"]
       - shiftleft-job-runner
       - snyk-job-runner
-      - sonarqube-agent-job-runner
+      - name: sonarqube-agent-job-runner
+        variants:
+          suffixes: ["-fips"]
       - sysdig-job-runner
       - traceable-job-runner
       - twistlock-job-runner

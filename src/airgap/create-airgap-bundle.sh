@@ -49,16 +49,60 @@ if [ -z "$SECTION" ] && [ "$PROCESS_ALL" = false ]; then
     usage
 fi
 
+MAX_PULL_RETRIES="${MAX_PULL_RETRIES:-3}"
+PULL_RETRY_DELAY="${PULL_RETRY_DELAY:-10}"
+MAX_PARALLEL_PULLS="${MAX_PARALLEL_PULLS:-6}"
+
 pull_image() {
     local image="$1"
     local pulled_file="$2"
-    if docker pull --quiet "${image}"; then
-        log_debug "Pulled: ${image}"
-        echo "${image}" >> "${pulled_file}"
-    else
-        log_error "Failed to pull: ${image}"
-        return 1
-    fi
+    local attempt=0
+    local delay="${PULL_RETRY_DELAY}"
+
+    while [ $attempt -lt "${MAX_PULL_RETRIES}" ]; do
+        attempt=$((attempt + 1))
+        if docker pull --quiet "${image}" 2>&1; then
+            log_info "Pulled (attempt ${attempt}): ${image}"
+            echo "${image}" >> "${pulled_file}"
+            return 0
+        fi
+        if [ $attempt -lt "${MAX_PULL_RETRIES}" ]; then
+            log_warn "Pull attempt ${attempt}/${MAX_PULL_RETRIES} failed for: ${image} — retrying in ${delay}s"
+            sleep "${delay}"
+            delay=$((delay * 2))
+        fi
+    done
+
+    log_error "Failed to pull after ${MAX_PULL_RETRIES} attempts: ${image}"
+    return 1
+}
+
+# Run at most MAX_PARALLEL_PULLS pulls concurrently to avoid Docker Hub rate limiting.
+pull_images_bounded() {
+    local pulled_file="$1"
+    shift
+    local images=("$@")
+    local failed=0
+    local pids=()
+    local active=0
+
+    for img in "${images[@]}"; do
+        pull_image "${img}" "${pulled_file}" &
+        pids+=($!)
+        active=$((active + 1))
+
+        if [ "$active" -ge "${MAX_PARALLEL_PULLS}" ]; then
+            wait "${pids[0]}" || failed=1
+            pids=("${pids[@]:1}")
+            active=$((active - 1))
+        fi
+    done
+
+    for pid in "${pids[@]}"; do
+        wait "$pid" || failed=1
+    done
+
+    return $failed
 }
 
 create_combined_bundle() {
@@ -76,21 +120,10 @@ create_combined_bundle() {
 
     local pulled_file
     pulled_file="$(mktemp)"
-    local failed=0
-    local pids=()
 
-    log_info "Pulling ${#images[@]} images for combined bundle: ${section_name}"
+    log_info "Pulling ${#images[@]} images for combined bundle: ${section_name} (parallel limit: ${MAX_PARALLEL_PULLS}, retries: ${MAX_PULL_RETRIES})"
 
-    for img in "${images[@]}"; do
-        pull_image "${img}" "${pulled_file}" &
-        pids+=($!)
-    done
-
-    for pid in "${pids[@]}"; do
-        wait "$pid" || failed=1
-    done
-
-    if [ $failed -eq 1 ]; then
+    if ! pull_images_bounded "${pulled_file}" "${images[@]}"; then
         log_error "Some images failed to pull for section: ${section_name}"
         rm -f "${pulled_file}"
         return 1
@@ -136,21 +169,10 @@ create_single_bundles() {
         local tgz_file="${out_dir}/${img_name}.tgz"
         local pulled_file
         pulled_file="$(mktemp)"
-        local failed=0
-        local pids=()
 
         log_info "Pulling ${#img_tags[@]} tags for single bundle: ${img_name}"
 
-        for img in "${img_tags[@]}"; do
-            pull_image "${img}" "${pulled_file}" &
-            pids+=($!)
-        done
-
-        for pid in "${pids[@]}"; do
-            wait "$pid" || failed=1
-        done
-
-        if [ $failed -eq 1 ]; then
+        if ! pull_images_bounded "${pulled_file}" "${img_tags[@]}"; then
             log_error "Some tags failed to pull for image: ${img_name}"
             rm -f "${pulled_file}"
             return 1
