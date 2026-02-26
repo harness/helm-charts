@@ -80,7 +80,7 @@ modules:
 
   ci-plugins:
     description: "CI Build Plugins"
-    bundle_type: single
+    bundle_type: combined
     parent: ci
     bucket_path: "ci/plugins"
     images:
@@ -245,7 +245,7 @@ modules:
 
   ssca-plugins:
     description: "SSCA Plugins"
-    bundle_type: single
+    bundle_type: combined
     parent: ssca
     bucket_path: "ssca/plugins"
     images:
