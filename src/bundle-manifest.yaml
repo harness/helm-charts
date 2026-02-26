@@ -288,7 +288,7 @@ modules:
 
   iacm-plugins:
     description: "IACM Terraform Plugins"
-    bundle_type: single
+    bundle_type: combined
     parent: iacm
     bucket_path: "iacm/plugins"
     images:
@@ -310,7 +310,7 @@ modules:
 
   idp-plugins:
     description: "IDP Backstage Plugins"
-    bundle_type: single
+    bundle_type: combined
     parent: idp
     bucket_path: "idp/plugins"
     images:

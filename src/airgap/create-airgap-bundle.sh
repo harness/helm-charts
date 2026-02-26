@@ -5,7 +5,6 @@ set -e
 log_info()  { echo "[INFO]  $(date +%H:%M:%S) $*"; }
 log_warn()  { echo "[WARN]  $(date +%H:%M:%S) $*" >&2; }
 log_error() { echo "[ERROR] $(date +%H:%M:%S) $*" >&2; }
-log_debug() { [ "${DEBUG:-false}" = "true" ] && echo "[DEBUG] $(date +%H:%M:%S) $*"; }
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
@@ -87,7 +86,7 @@ pull_images_bounded() {
     local active=0
 
     for img in "${images[@]}"; do
-        pull_image "${img}" "${pulled_file}" &
+        pull_image "${img}" "${pulled_file}" </dev/null &
         pids+=($!)
         active=$((active + 1))
 
@@ -149,6 +148,7 @@ create_single_bundles() {
     local section_name="$1"
     local bucket_path="$2"
     shift 2
+    local section_lines=("$@")
 
     local out_dir="${OUTPUT_DIR}/${bucket_path}"
     mkdir -p "${out_dir}"
@@ -183,18 +183,18 @@ create_single_bundles() {
         local count
         count=$(echo "${pulled}" | wc -w | tr -d '[:space:]')
         log_info "Creating ${tgz_file} with ${count} tags"
-        docker save ${pulled} | gzip --stdout > "${tgz_file}"
+        docker save ${pulled} </dev/null | gzip --stdout > "${tgz_file}"
 
         rm -f "${pulled_file}"
 
         for img in ${pulled}; do
-            docker rmi -f "${img}" 2>/dev/null || true
+            docker rmi -f "${img}" </dev/null 2>/dev/null || true
         done
 
-        log_debug "Single bundle created: ${tgz_file}"
+        log_info "Single bundle created: ${tgz_file}"
     }
 
-    while IFS= read -r line; do
+    for line in "${section_lines[@]}"; do
         if [[ "$line" =~ ^#\ @image= ]]; then
             if [ -n "$current_image_name" ] && [ ${#current_images[@]} -gt 0 ]; then
                 bundle_one_image "$current_image_name" "${current_images[@]}"
@@ -264,7 +264,7 @@ process_section() {
         done
         create_combined_bundle "$section_module" "$section_path" "${images_only[@]}"
     elif [ "$section_type" = "single" ]; then
-        printf '%s\n' "${section_images[@]}" | create_single_bundles "$section_module" "$section_path"
+        create_single_bundles "$section_module" "$section_path" "${section_images[@]}"
     else
         log_error "Unknown bundle type: ${section_type}"
         return 1
