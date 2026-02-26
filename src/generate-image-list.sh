@@ -11,8 +11,9 @@ usage () {
     echo ""
     echo "Options:"
     echo "  -i, --image-gen-input <path>  Path to generate-image.yaml overrides file"
-    echo "  -o, --output-dir <path>       Output directory for images_raw.txt"
+    echo "  -o, --output-dir <path>       Output directory for generated files"
     echo "  -d, --harness-dir <path>      Path to harness chart directory"
+    echo "  -k, --keep-transient          Keep images_raw.txt and images_internal.txt"
     echo "  -h, --help                    Show this help message"
     echo ""
 }
@@ -21,6 +22,7 @@ SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 HARNESS_DIR=${SCRIPT_DIR}/harness
 IMAGE_GEN_INPUT_FILE=${SCRIPT_DIR}/generate-image.yaml
 OUTPUT_DIR=${SCRIPT_DIR}/harness
+KEEP_TRANSIENT=false
 
 while [ $# -gt 0 ]; do
     key="$1"
@@ -37,6 +39,10 @@ while [ $# -gt 0 ]; do
             HARNESS_DIR="$2"
             shift 2
             ;;
+        -k|--keep-transient)
+            KEEP_TRANSIENT=true
+            shift
+            ;;
         -h|--help)
             usage
             exit
@@ -48,6 +54,11 @@ while [ $# -gt 0 ]; do
             ;;
     esac
 done
+
+if ! command -v python3 &>/dev/null; then
+    log_error "python3 not found - cannot resolve bundle manifest"
+    exit 1
+fi
 
 CHART_YAML="${HARNESS_DIR}/Chart.yaml"
 if [ ! -f "${CHART_YAML}" ]; then
@@ -92,14 +103,23 @@ IMAGE_COUNT=$(wc -l < ${OUTPUT_DIR}/images_raw.txt | tr -d '[:space:]')
 log_info "Generated images_raw.txt with ${IMAGE_COUNT} base images (no variants)"
 
 log_info "Resolving bundle manifest to generate images.txt and images_internal.txt"
-if command -v python3 &>/dev/null; then
-    python3 ${SCRIPT_DIR}/generate_bundle_images.py \
-        --manifest ${SCRIPT_DIR}/bundle-manifest.yaml \
-        --raw-images ${OUTPUT_DIR}/images_raw.txt \
-        --output-dir ${OUTPUT_DIR}
+python3 ${SCRIPT_DIR}/generate_bundle_images.py \
+    --manifest ${SCRIPT_DIR}/bundle-manifest.yaml \
+    --raw-images ${OUTPUT_DIR}/images_raw.txt \
+    --output-dir ${OUTPUT_DIR}
+
+if [ -f "${SCRIPT_DIR}/validate_bundle_manifest.py" ]; then
+    log_info "Running bundle manifest validation"
+    python3 ${SCRIPT_DIR}/validate_bundle_manifest.py \
+        --manifest ${SCRIPT_DIR}/bundle-manifest.yaml
+fi
+
+if [ "${KEEP_TRANSIENT}" = false ]; then
+    log_info "Cleaning up transient files"
+    rm -f ${OUTPUT_DIR}/images_raw.txt
+    rm -f ${OUTPUT_DIR}/images_internal.txt
 else
-    log_error "python3 not found - cannot resolve bundle manifest"
-    exit 1
+    log_info "Keeping transient files (--keep-transient)"
 fi
 
 log_info "Image generation complete"

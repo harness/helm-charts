@@ -125,6 +125,76 @@ def process_section(name, config, raw_images, global_variants):
     return customer_lines, internal_lines, resolved_images, excluded_images, errors
 
 
+PIPELINE_BATCH_SIZE = 12
+
+
+def count_pulls(internal_lines):
+    """Count the number of pull operations (non-comment, non-empty lines) in a section."""
+    return sum(1 for l in internal_lines if l.strip() and not l.startswith('#'))
+
+
+def split_single_section_into_batches(name, internal_lines, batch_size):
+    """
+    Split a single-type section's internal lines into batches of batch_size image groups.
+    Returns list of (batch_name, batch_lines) tuples.
+    """
+    header = internal_lines[0]
+    groups = []
+    current_group = []
+
+    for line in internal_lines[1:]:
+        if line.startswith('# @image='):
+            if current_group:
+                groups.append(current_group)
+            current_group = [line]
+        elif line.strip():
+            current_group.append(line)
+
+    if current_group:
+        groups.append(current_group)
+
+    if len(groups) <= batch_size:
+        return [(name, internal_lines)]
+
+    import math
+    num_batches = math.ceil(len(groups) / batch_size)
+    batches = []
+    for b in range(num_batches):
+        batch_groups = groups[b * batch_size:(b + 1) * batch_size]
+        batch_header = header.replace(f"@module={name}", f"@module={name}@{b + 1}")
+        batch_lines = [batch_header]
+        for g in batch_groups:
+            batch_lines.extend(g)
+        batches.append((f"{name}@{b + 1}", batch_lines))
+    return batches
+
+
+def sort_and_batch_internal_sections(sections_data):
+    """
+    Takes list of (name, config, internal_lines) and returns
+    sorted, batched internal text (heaviest pull count first).
+    """
+    entries = []
+    for name, config, internal_lines in sections_data:
+        bundle_type = config.get('bundle_type', 'combined')
+        if bundle_type == 'single':
+            batches = split_single_section_into_batches(name, internal_lines, PIPELINE_BATCH_SIZE)
+        else:
+            batches = [(name, internal_lines)]
+        for batch_name, batch_lines in batches:
+            pulls = count_pulls(batch_lines)
+            entries.append((batch_name, batch_lines, pulls))
+
+    entries.sort(key=lambda x: -x[2])
+
+    all_lines = []
+    for batch_name, batch_lines, pulls in entries:
+        all_lines.extend(batch_lines)
+        all_lines.append('')
+
+    return '\n'.join(all_lines).rstrip() + '\n'
+
+
 def generate(manifest, raw_images):
     """
     Main generation logic. Returns (customer_text, internal_text, all_resolved, all_excluded, all_errors).
@@ -133,10 +203,10 @@ def generate(manifest, raw_images):
     modules = manifest.get('modules', {})
 
     all_customer_lines = []
-    all_internal_lines = []
     all_resolved = []
     all_excluded = []
     all_errors = []
+    sections_data = []
 
     total = len(modules)
 
@@ -154,14 +224,13 @@ def generate(manifest, raw_images):
         all_customer_lines.extend(customer)
         all_customer_lines.append('')
 
-        all_internal_lines.extend(internal)
-        all_internal_lines.append('')
+        sections_data.append((name, config, internal))
         all_resolved.extend(resolved)
         all_excluded.extend(excluded)
         all_errors.extend(errors)
 
     customer_text = '\n'.join(all_customer_lines).rstrip() + '\n'
-    internal_text = '\n'.join(all_internal_lines).rstrip() + '\n'
+    internal_text = sort_and_batch_internal_sections(sections_data)
 
     return customer_text, internal_text, all_resolved, all_excluded, all_errors
 
@@ -170,6 +239,7 @@ def generate_internal_only(manifest, images_txt_path):
     """
     Regenerate images_internal.txt from committed images.txt + manifest.
     Parses section headers in images.txt to map images back to modules.
+    Output is sorted by pull count (heaviest first) with single-type batching.
     """
     modules = manifest.get('modules', {})
 
@@ -204,7 +274,7 @@ def generate_internal_only(manifest, images_txt_path):
                 return True
         return False
 
-    internal_lines = []
+    sections_data = []
     for desc, imgs in sections:
         if desc not in desc_to_module:
             continue
@@ -216,11 +286,12 @@ def generate_internal_only(manifest, images_txt_path):
         non_excluded_imgs = [img for img in imgs if not is_image_excluded(img)]
 
         if parent:
-            internal_lines.append(f"# @module={mod_name} @type={bundle_type} @path={bucket_path} @parent={parent}")
+            header = f"# @module={mod_name} @type={bundle_type} @path={bucket_path} @parent={parent}"
         else:
             requires = ','.join(mod_config.get('requires', []))
-            internal_lines.append(f"# @module={mod_name} @type={bundle_type} @path={bucket_path} @requires={requires}")
+            header = f"# @module={mod_name} @type={bundle_type} @path={bucket_path} @requires={requires}"
 
+        internal_lines = [header]
         if bundle_type == 'single':
             current_base = None
             for img in non_excluded_imgs:
@@ -232,9 +303,10 @@ def generate_internal_only(manifest, images_txt_path):
                 internal_lines.append(img)
         else:
             internal_lines.extend(non_excluded_imgs)
-        internal_lines.append('')
 
-    return '\n'.join(internal_lines).rstrip() + '\n'
+        sections_data.append((mod_name, mod_config, internal_lines))
+
+    return sort_and_batch_internal_sections(sections_data)
 
 
 def main():

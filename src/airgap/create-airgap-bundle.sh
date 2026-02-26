@@ -13,7 +13,7 @@ usage() {
     echo "Usage: $0 --internal-file <path> [--section <name> | --all]"
     echo ""
     echo "  --internal-file  Path to images_internal.txt"
-    echo "  --section        Process a single section (e.g., 'ci' or 'ci/plugins')"
+    echo "  --section        Process a single section (e.g., 'ci', 'sto-scanners@1')"
     echo "  --all            Process all sections"
     echo "  --output-dir     Output directory (default: current directory)"
     exit 1
@@ -122,6 +122,7 @@ create_single_bundles() {
 
     local current_image_name=""
     local current_images=()
+    local processed=0
 
     bundle_one_image() {
         local img_name="$1"
@@ -175,6 +176,7 @@ create_single_bundles() {
         if [[ "$line" =~ ^#\ @image= ]]; then
             if [ -n "$current_image_name" ] && [ ${#current_images[@]} -gt 0 ]; then
                 bundle_one_image "$current_image_name" "${current_images[@]}"
+                processed=$((processed + 1))
             fi
             current_image_name="${line#*@image=}"
             current_images=()
@@ -185,9 +187,10 @@ create_single_bundles() {
 
     if [ -n "$current_image_name" ] && [ ${#current_images[@]} -gt 0 ]; then
         bundle_one_image "$current_image_name" "${current_images[@]}"
+        processed=$((processed + 1))
     fi
 
-    log_info "Single bundles created in: ${out_dir}"
+    log_info "Single bundles created in: ${out_dir} (processed ${processed} image groups)"
 }
 
 process_section() {
@@ -206,11 +209,11 @@ process_section() {
             fi
 
             local mod_val
-            mod_val=$(echo "$line" | grep -oP '@module=\K[^ ]+')
+            mod_val=$(echo "$line" | sed 's/.*@module=\([^ ]*\).*/\1/')
             local type_val
-            type_val=$(echo "$line" | grep -oP '@type=\K[^ ]+')
+            type_val=$(echo "$line" | sed 's/.*@type=\([^ ]*\).*/\1/')
             local path_val
-            path_val=$(echo "$line" | grep -oP '@path=\K[^ ]+')
+            path_val=$(echo "$line" | sed 's/.*@path=\([^ ]*\).*/\1/')
 
             if [ "$mod_val" = "$target_section" ]; then
                 in_section=true
@@ -247,7 +250,7 @@ process_section() {
 }
 
 get_all_sections() {
-    grep -oP '(?<=@module=)[^ ]+' "$INTERNAL_FILE" | sort -u
+    grep '# @module=' "$INTERNAL_FILE" | sed 's/.*@module=\([^ ]*\).*/\1/'
 }
 
 if [ "$PROCESS_ALL" = true ]; then

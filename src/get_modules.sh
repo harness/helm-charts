@@ -48,24 +48,10 @@ echo "Modules: $MODULES"
 echo "Image files: $MODULE_IMAGE_FILES"
 echo "Image zip files: $MODULE_IMAGE_ZIP_FILES"
 
-MANIFEST="$HELM_CHARTS_DIR/src/bundle-manifest.yaml"
-if command -v python3 &>/dev/null && [ -f "$MANIFEST" ]; then
-    export BUNDLE_SECTIONS=$(python3 -c "
-import sys
-try:
-    import yaml
-except ImportError:
-    sys.exit(0)
-with open('$MANIFEST') as f:
-    m = yaml.safe_load(f)
-sections = []
-for name, mod in m.get('modules', {}).items():
-    sections.append(name)
-    for child_name in mod.get('children', {}):
-        sections.append(f'{name}/{child_name}')
-print(' '.join(sections))
-" 2>/dev/null || true)
-    if [ -n "$BUNDLE_SECTIONS" ]; then
-        echo "Bundle sections: $BUNDLE_SECTIONS"
+INTERNAL_FILE="$HELM_CHARTS_DIR/src/harness/images_internal.txt"
+if [ -f "$INTERNAL_FILE" ]; then
+    export BUNDLE_MATRIX=$(grep '# @module=' "$INTERNAL_FILE" | sed 's/.*@module=\([^ ]*\).*/\1/' | tr '\n' ' ' | sed 's/ $//')
+    if [ -n "$BUNDLE_MATRIX" ]; then
+        echo "Bundle matrix: $BUNDLE_MATRIX"
     fi
 fi
