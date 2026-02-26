@@ -1,57 +1,231 @@
 #!/bin/bash
+set -e
 
-for module_name in $MODULES; do
-    MODULE_NAMES+=("$module_name")
-done
+log_info()  { echo "[INFO]  $(date +%H:%M:%S) $*"; }
+log_warn()  { echo "[WARN]  $(date +%H:%M:%S) $*" >&2; }
+log_error() { echo "[ERROR] $(date +%H:%M:%S) $*" >&2; }
+log_debug() { [ "${DEBUG:-false}" = "true" ] && echo "[DEBUG] $(date +%H:%M:%S) $*"; }
 
-if [ ${#MODULE_NAMES[@]} -le 2 ]; then # validation with 2 to make sure multiple elements are in list
-    echo "Error: No module names provided. List: ${MODULE_NAMES[@]}" >&2
-    exit 1
-fi
-
-abort() {
-    echo "Error: $1"
+usage() {
+    echo "Usage: $0 --internal-file <path> [--output-dir <path>]"
+    echo ""
+    echo "  --internal-file  Path to images_internal.txt"
+    echo "  --output-dir     Bundle output directory (default: current directory)"
+    echo ""
+    echo "Validates airgap .tgz bundles against expected images from images_internal.txt."
+    echo "Exits with code 1 if any validation errors are found."
     exit 1
 }
 
-for module_name in "${MODULE_NAMES[@]}"; do
-    echo "Validating ${module_name}..."
-    TGZ_FILE="${module_name}_images.tgz"
-    TXT_FILE="${module_name}_images.txt"
+INTERNAL_FILE=""
+OUTPUT_DIR="."
 
-    [[ ! -f "${TGZ_FILE}" ]] && abort "${TGZ_FILE} not found!"
-
-    # Extract the image tags and format them
-    IMAGES_LIST=$(tar -xzOf "${TGZ_FILE}" manifest.json | jq -r '.[].RepoTags | join("\n")')
-
-    [[ ! -f "${TXT_FILE}" ]] && abort "${TXT_FILE} not found!"
-
-    echo "Matching images for ${TGZ_FILE} and ${TXT_FILE}:"
-
-    mismatched=false
-
-    # Count the number of images in .tgz and .txt
-    num_images_tgz=$(echo "$IMAGES_LIST" | wc -l)
-    num_images_txt=$(wc -l < "${TXT_FILE}")
-
-    if [ "$num_images_tgz" -ne "$num_images_txt" ]; then
-        abort "Number of images in ${TGZ_FILE} does not match ${TXT_FILE}"
-    fi
-
-    while IFS= read -r line; do
-        line_without_prefix="${line#docker.io/}"
-
-        if [[ "$IMAGES_LIST" =~ "$line" || "$IMAGES_LIST" =~ "$line_without_prefix" ]]; then
-            echo "$line"
-        else
-            mismatched=true
-            echo "Mismatch found: $line"
-        fi
-    done < "${TXT_FILE}"
-
-    if $mismatched; then
-        abort "Images in ${TGZ_FILE} and ${TXT_FILE} do not match"
-    fi
-
-    echo "--------------------------------"
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --internal-file) INTERNAL_FILE="$2"; shift 2 ;;
+        --output-dir)    OUTPUT_DIR="$2"; shift 2 ;;
+        -h|--help)       usage ;;
+        *)               log_error "Unknown option: $1"; usage ;;
+    esac
 done
+
+if [ -z "$INTERNAL_FILE" ]; then
+    log_error "Missing required --internal-file"
+    usage
+fi
+
+if [ ! -f "$INTERNAL_FILE" ]; then
+    log_error "File not found: $INTERNAL_FILE"
+    exit 1
+fi
+
+OUTPUT_DIR="$(cd "${OUTPUT_DIR}" 2>/dev/null && pwd)" || {
+    log_error "Output directory not found or not accessible: $OUTPUT_DIR"
+    exit 1
+}
+
+# Portable extraction of @module=, @type=, @path=, @image=
+extract_attr() {
+    echo "$1" | grep -oE "${2}[^ ]+" 2>/dev/null | cut -d= -f2- | head -1
+}
+
+# Get RepoTags from a .tgz (docker save format)
+get_repo_tags_from_tgz() {
+    local tgz="$1"
+    if [ ! -f "$tgz" ]; then
+        return 1
+    fi
+    tar -xzOf "$tgz" manifest.json 2>/dev/null | jq -r '.[].RepoTags[]? // empty' 2>/dev/null || true
+}
+
+# Check if jq is available
+if ! command -v jq &>/dev/null; then
+    log_error "jq is required for validation. Install with: brew install jq (macOS) or apt-get install jq (Linux)"
+    exit 1
+fi
+
+ERRORS=()
+
+# Count total validations for progress [N/M]: combined=1 per section, single=1 per @image
+count_total_validations() {
+    local total=0
+    local stype=""
+    while IFS= read -r line; do
+        if [[ "$line" =~ ^#\ @module= ]]; then
+            stype=$(extract_attr "$line" "@type=")
+            [ "$stype" = "combined" ] && total=$((total + 1))
+        elif [[ "$line" =~ ^#\ @image= ]]; then
+            [ "$stype" = "single" ] && total=$((total + 1))
+        fi
+    done < "$INTERNAL_FILE"
+    echo $total
+}
+
+TOTAL_VALIDATIONS=$(count_total_validations)
+CURRENT_VALIDATION=0
+
+validate_combined_bundle() {
+    local module="$1"
+    local path="$2"
+    shift 2
+    local expected_images=("$@")
+
+    local bundle_name
+    bundle_name=$(echo "${module}" | tr '/' '_')
+    local tgz_path="${OUTPUT_DIR}/${path}/${bundle_name}_images.tgz"
+
+    if [ ! -f "$tgz_path" ]; then
+        ERRORS+=("Combined bundle not found: ${tgz_path}")
+        return
+    fi
+
+    local actual_tags
+    actual_tags=$(get_repo_tags_from_tgz "$tgz_path")
+    if [ -z "$actual_tags" ]; then
+        ERRORS+=("Could not extract RepoTags from ${tgz_path} (invalid or empty manifest)")
+        return
+    fi
+
+    local missing=()
+    for exp in "${expected_images[@]}"; do
+        if ! echo "$actual_tags" | grep -Fxq "$exp" 2>/dev/null; then
+            missing+=("$exp")
+        fi
+    done
+
+    if [ ${#missing[@]} -gt 0 ]; then
+        for m in "${missing[@]}"; do
+            ERRORS+=("Combined bundle ${module}: missing expected image: ${m}")
+        done
+    fi
+}
+
+validate_single_image() {
+    local path="$1"
+    local image_name="$2"
+    shift 2
+    local expected_tags=("$@")
+
+    local tgz_path="${OUTPUT_DIR}/${path}/${image_name}.tgz"
+
+    if [ ! -f "$tgz_path" ]; then
+        ERRORS+=("Single bundle not found: ${tgz_path}")
+        return
+    fi
+
+    local actual_tags
+    actual_tags=$(get_repo_tags_from_tgz "$tgz_path")
+    if [ -z "$actual_tags" ]; then
+        ERRORS+=("Could not extract RepoTags from ${tgz_path} (invalid or empty manifest)")
+        return
+    fi
+
+    local missing=()
+    for exp in "${expected_tags[@]}"; do
+        if ! echo "$actual_tags" | grep -Fxq "$exp" 2>/dev/null; then
+            missing+=("$exp")
+        fi
+    done
+
+    if [ ${#missing[@]} -gt 0 ]; then
+        for m in "${missing[@]}"; do
+            ERRORS+=("Single bundle ${path}/${image_name}: missing expected tag: ${m}")
+        done
+    fi
+}
+
+# Parse and validate
+CURRENT_VALIDATION=0
+in_section=false
+section_module=""
+section_type=""
+section_path=""
+section_images=()
+current_image_name=""
+declare -a current_image_tags_arr
+
+while IFS= read -r line; do
+    if [[ "$line" =~ ^#\ @module= ]]; then
+        if [ "$in_section" = true ]; then
+            # Validate previous section
+            if [ "$section_type" = "combined" ]; then
+                CURRENT_VALIDATION=$((CURRENT_VALIDATION + 1))
+                log_info "[${CURRENT_VALIDATION}/${TOTAL_VALIDATIONS}] Validating: ${section_module} (combined)"
+                validate_combined_bundle "$section_module" "$section_path" "${section_images[@]}"
+            fi
+            # For single, we validate per @image - already done in @image block
+        fi
+
+        section_module=$(extract_attr "$line" "@module=")
+        section_type=$(extract_attr "$line" "@type=")
+        section_path=$(extract_attr "$line" "@path=")
+        section_images=()
+        current_image_name=""
+        current_image_tags_arr=()
+        in_section=true
+
+    elif [[ "$line" =~ ^#\ @image= ]]; then
+        if [ "$section_type" = "single" ] && [ -n "$current_image_name" ] && [ ${#current_image_tags_arr[@]} -gt 0 ]; then
+            CURRENT_VALIDATION=$((CURRENT_VALIDATION + 1))
+            log_info "[${CURRENT_VALIDATION}/${TOTAL_VALIDATIONS}] Validating: ${section_module}/${current_image_name} (single)"
+            validate_single_image "$section_path" "$current_image_name" "${current_image_tags_arr[@]}"
+        fi
+        current_image_name="${line#*@image=}"
+        current_image_name="${current_image_name%% *}"
+        current_image_tags_arr=()
+
+    elif [ "$in_section" = true ] && [ -n "$line" ] && [[ ! "$line" =~ ^# ]]; then
+        if [ "$section_type" = "combined" ]; then
+            section_images+=("$line")
+        else
+            current_image_tags_arr+=("$line")
+        fi
+    fi
+done < "$INTERNAL_FILE"
+
+# Validate last section
+if [ "$in_section" = true ]; then
+    if [ "$section_type" = "combined" ]; then
+        CURRENT_VALIDATION=$((CURRENT_VALIDATION + 1))
+        log_info "[${CURRENT_VALIDATION}/${TOTAL_VALIDATIONS}] Validating: ${section_module} (combined)"
+        validate_combined_bundle "$section_module" "$section_path" "${section_images[@]}"
+    elif [ "$section_type" = "single" ] && [ -n "$current_image_name" ] && [ ${#current_image_tags_arr[@]} -gt 0 ]; then
+        CURRENT_VALIDATION=$((CURRENT_VALIDATION + 1))
+        log_info "[${CURRENT_VALIDATION}/${TOTAL_VALIDATIONS}] Validating: ${section_module}/${current_image_name} (single)"
+        validate_single_image "$section_path" "$current_image_name" "${current_image_tags_arr[@]}"
+    fi
+fi
+
+# Report summary
+echo ""
+log_info "=== VALIDATION SUMMARY ==="
+if [ ${#ERRORS[@]} -gt 0 ]; then
+    log_error "Validation FAILED with ${#ERRORS[@]} error(s):"
+    for i in "${!ERRORS[@]}"; do
+        log_error "  [$((i+1))] ${ERRORS[$i]}"
+    done
+    exit 1
+else
+    log_info "Validation PASSED. All bundles validated successfully."
+    exit 0
+fi

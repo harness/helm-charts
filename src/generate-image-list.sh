@@ -1,13 +1,19 @@
 #!/bin/bash
 
+set -o errexit
+set -o pipefail
+
+log_info()  { echo "[INFO]  $(date +%H:%M:%S) $*"; }
+log_error() { echo "[ERROR] $(date +%H:%M:%S) $*" >&2; }
+
 usage () {
     echo "Usage: $0 [options]"
     echo ""
     echo "Options:"
-    echo "  -i, --image-gen-input ${SCRIPT_DIR}/generate-image.yaml  Path to generate-image.yaml file"
-    echo "  -o, --output-dir ${SCRIPT_DIR}/harness Path to directory in which images.txt is to be generated"
-    echo "  -d, --harness-dir ${SCRIPT_DIR}/harness Path to harness directory"
-    echo "  -h, --help             Show this help message"
+    echo "  -i, --image-gen-input <path>  Path to generate-image.yaml overrides file"
+    echo "  -o, --output-dir <path>       Output directory for images_raw.txt"
+    echo "  -d, --harness-dir <path>      Path to harness chart directory"
+    echo "  -h, --help                    Show this help message"
     echo ""
 }
 
@@ -15,7 +21,6 @@ SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 HARNESS_DIR=${SCRIPT_DIR}/harness
 IMAGE_GEN_INPUT_FILE=${SCRIPT_DIR}/generate-image.yaml
 OUTPUT_DIR=${SCRIPT_DIR}/harness
-
 
 while [ $# -gt 0 ]; do
     key="$1"
@@ -44,53 +49,58 @@ while [ $# -gt 0 ]; do
     esac
 done
 
+CHART_YAML="${HARNESS_DIR}/Chart.yaml"
+if [ ! -f "${CHART_YAML}" ]; then
+    log_error "Chart.yaml not found at ${CHART_YAML}"
+    exit 1
+fi
 
+log_info "Auto-detecting module conditions from Chart.yaml"
+AUTO_ENABLE_FLAGS=""
+while IFS= read -r condition; do
+    condition=$(echo "$condition" | xargs)
+    [ -z "$condition" ] && continue
+    AUTO_ENABLE_FLAGS="${AUTO_ENABLE_FLAGS} --set ${condition}=true"
+done < <(grep "condition:" "${CHART_YAML}" | awk -F'condition:' '{print $2}')
 
-helm template ${HARNESS_DIR} -f  ${IMAGE_GEN_INPUT_FILE} | grep -i image | grep \/ | grep -v imagePullPolicy | grep -v "#" | awk '{$1=$1};1' | sort -u | sed 's/^[^:]*: //g' | sed -e "s/^'//" -e "s/'$//"| sed -e 's/^"//' -e 's/"$//' > ${OUTPUT_DIR}/images_tmp.txt
+if [ -n "${AUTO_ENABLE_FLAGS}" ]; then
+    log_info "Auto-enabled flags:${AUTO_ENABLE_FLAGS}"
+fi
 
-# Remove duplicates based on image name and tag
-awk -F: '{ print $1 ":" $2 }' ${OUTPUT_DIR}/images_tmp.txt | sort -u > ${OUTPUT_DIR}/images.txt
+OVERRIDE_FLAGS=""
+if [ -f "${IMAGE_GEN_INPUT_FILE}" ]; then
+    OVERRIDE_FLAGS="-f ${IMAGE_GEN_INPUT_FILE}"
+    log_info "Using overrides from ${IMAGE_GEN_INPUT_FILE}"
+fi
 
+log_info "Running helm template to extract images"
+helm template ${HARNESS_DIR} ${AUTO_ENABLE_FLAGS} ${OVERRIDE_FLAGS} \
+    | grep -i image | grep \/ | grep -v imagePullPolicy | grep -v "#" \
+    | awk '{$1=$1};1' | sort -u \
+    | sed 's/^[^:]*: //g' \
+    | sed -e "s/^'//" -e "s/'$//" \
+    | sed -e 's/^"//' -e 's/"$//' \
+    > ${OUTPUT_DIR}/images_tmp.txt
+
+awk -F: '{ print $1 ":" $2 }' ${OUTPUT_DIR}/images_tmp.txt | sort -u > ${OUTPUT_DIR}/images_raw.txt
 rm ${OUTPUT_DIR}/images_tmp.txt
 
-# Add minimal images
-IMAGES=("docker.io/harness/delegate:[0-9.]+")
-SUFFIX=(".minimal" ".minimal-fips" "-fips")
-for i in "${!IMAGES[@]}"
-do
-    MATCHES=$(grep -oE "${IMAGES[i]}" "${OUTPUT_DIR}/images.txt")
-    if [ -n "$MATCHES" ]; then
-        for j in "${!SUFFIX[@]}"
-        do
-          echo "$MATCHES" | sed "s/$/${SUFFIX[j]}/" | tee -a ${OUTPUT_DIR}/images.txt
-        done
-    fi
-done
+sed -i '' -e '/index\.docker\.io\/chaosnative:/d' -e '/^$/d' ${OUTPUT_DIR}/images_raw.txt 2>/dev/null || \
+    sed -i -e '/index\.docker\.io\/chaosnative:/d' -e '/^$/d' ${OUTPUT_DIR}/images_raw.txt
 
-IMAGES=("harness/aqua-trivy-job-runner:([0-9.]+|latest)"
-        "harness/bandit-job-runner:([0-9.]+|latest)"
-        "harness/grype-job-runner:([0-9.]+|latest)"
-        "harness/osv-job-runner:([0-9.]+|latest)"
-        "harness/sonarqube-agent-job-runner:([0-9.]+|latest)"
-        "harness/semgrep-job-runner:([0-9.]+|latest)"
-        "harness/gitleaks-trivy-job-runner:([0-9.]+|latest)"
-        "harness/upgrader:([0-9.]+|latest)")
-SUFFIX=("-fips")
+IMAGE_COUNT=$(wc -l < ${OUTPUT_DIR}/images_raw.txt | tr -d '[:space:]')
+log_info "Generated images_raw.txt with ${IMAGE_COUNT} base images (no variants)"
 
-for i in "${!IMAGES[@]}"
-do
-    MATCHES=$(grep -oE "${IMAGES[i]}" "${OUTPUT_DIR}/images.txt")
-    if [ -n "$MATCHES" ]; then
-        for j in "${!SUFFIX[@]}"
-        do
-          echo "$MATCHES" | sed "s/$/${SUFFIX[j]}/" | tee -a "${OUTPUT_DIR}/images.txt"
-        done
-    fi
-done
+log_info "Resolving bundle manifest to generate images.txt and images_internal.txt"
+if command -v python3 &>/dev/null; then
+    python3 ${SCRIPT_DIR}/generate_bundle_images.py \
+        --manifest ${SCRIPT_DIR}/bundle-manifest.yaml \
+        --raw-images ${OUTPUT_DIR}/images_raw.txt \
+        --output-dir ${OUTPUT_DIR}
+else
+    log_error "python3 not found - cannot resolve bundle manifest"
+    exit 1
+fi
 
-# Remove duplicates one more time in case minimal images have added any
-awk -F: '{ print $1 ":" $2 }' ${OUTPUT_DIR}/images.txt | sort -u > ${OUTPUT_DIR}/images_tmp.txt
-mv ${OUTPUT_DIR}/images_tmp.txt ${OUTPUT_DIR}/images.txt
-sed -i '' -e '/index\.docker\.io\/chaosnative:/d' -e '/^$/d' ${OUTPUT_DIR}/images.txt
-
+log_info "Image generation complete"
 exit 0

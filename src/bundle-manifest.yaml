@@ -1,0 +1,317 @@
+version: "1.0"
+
+global_variants:
+  suffixes: []
+
+modules:
+  platform:
+    description: "Core Platform Services (Required for all installations)"
+    bundle_type: combined
+    requires: []
+    bucket_path: "platform"
+    exclude:
+      - looker-signed
+      - tsdb-to-psql-migrator-signed
+    images:
+      - le-nextgen-signed
+      - ci-scm-signed
+      - template-service-signed
+      - platform-service-signed
+      - pipeline-service-signed
+      - ng-manager-signed
+      - nextgenui-signed
+      - minio
+      - log-service-signed
+      - cv-nextgen-signed
+      - cdcdata-signed
+      - accesscontrol-service-signed
+      - delegate-proxy-signed
+      - gateway-signed
+      - helm-init-container
+      - manager-signed
+      - mongo
+      - ng-auth-ui-signed
+      - redis
+      - postgresql
+      - dashboard-service-signed
+      - policy-mgmt
+      - srm-ui-signed
+      - smp-service-discovery-server-signed
+      - debezium-service-signed
+      - audit-event-streaming-signed
+      - queue-service-signed
+      - service-discovery-collector
+      - ng-dashboard-aggregator-signed
+      - ingress-nginx/controller
+      - defaultbackend-amd64
+      - redis_exporter
+      - postgres-exporter
+      - mongodb-exporter
+      - statsd-exporter
+      - vault-secret-loader
+      - component-analysis-service-signed
+
+  platform-agents:
+    description: "Platform Agents (Delegate, Upgrader)"
+    bundle_type: single
+    parent: platform
+    bucket_path: "platform/agents"
+    images:
+      - name: delegate
+        variants:
+          suffixes: [".minimal", ".minimal-fips", "-fips"]
+      - name: upgrader
+        variants:
+          suffixes: ["-fips"]
+
+  ci:
+    description: "Continuous Integration"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "ci"
+    images:
+      - ci-manager-signed
+      - ti-service-signed
+      - ci-addon
+      - ci-lite-engine
+      - drone-git
+      - harness-cache-server
+      - traceable-job-runner
+
+  ci-plugins:
+    description: "CI Build Plugins"
+    bundle_type: single
+    parent: ci
+    bucket_path: "ci/plugins"
+    images:
+      - kaniko
+      - kaniko-acr
+      - kaniko-ecr
+      - kaniko-gcr
+      - artifactory
+      - gcs
+      - cache
+      - s3
+      - sto-plugin
+      - buildx
+      - buildx-acr
+      - buildx-ecr
+      - buildx-gar
+      - buildx-gcr
+      - docker
+      - ecr
+      - gar
+      - gcr
+      - acr
+
+  cdng:
+    description: "Continuous Deployment"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "cdng"
+    images:
+      - argocd
+      - gitops-agent
+      - haproxy
+      - gitops-service-signed
+      - gitops-agent-installer-helper
+      - shellcheck
+
+  sto:
+    description: "Security Testing Orchestration"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "sto"
+    images:
+      - stocore-signed
+      - ticket-service-signed
+      - sto-plugin
+      - ci-addon
+      - ci-lite-engine
+      - refid-cache
+
+  sto-scanners:
+    description: "STO Security Scanners"
+    bundle_type: single
+    parent: sto
+    bucket_path: "sto/scanners"
+    variants:
+      suffixes: ["-fips"]
+    images:
+      - anchore-job-runner
+      - aqua-security-job-runner
+      - aqua-trivy-job-runner
+      - aws-ecr-job-runner
+      - aws-security-hub-job-runner
+      - bandit-job-runner
+      - blackduckhub-job-runner
+      - brakeman-job-runner
+      - burp-job-runner
+      - checkmarx-job-runner
+      - checkov-job-runner
+      - docker-content-trust-job-runner
+      - fossa-job-runner
+      - github-advanced-security-job-runner
+      - gitleaks-job-runner
+      - grype-job-runner
+      - modelscan-job-runner
+      - nexusiq-job-runner
+      - nikto-job-runner
+      - nmap-job-runner
+      - osv-job-runner
+      - owasp-dependency-check-job-runner
+      - prowler-job-runner
+      - semgrep-job-runner
+      - shiftleft-job-runner
+      - snyk-job-runner
+      - sonarqube-agent-job-runner
+      - sysdig-job-runner
+      - traceable-job-runner
+      - twistlock-job-runner
+      - veracode-agent-job-runner
+      - whitesource-agent-job-runner
+      - wiz-job-runner
+      - zap-job-runner
+
+  ff:
+    description: "Feature Flags"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "ff"
+    images:
+      - ff-cron-signed
+      - ff-server-analytics-db-migration-signed
+      - ff-server-primary-db-migration-signed
+      - ff-service-signed
+      - ff-pushpin-signed
+      - ff-pushpin-worker-signed
+
+  ccm:
+    description: "Cloud Cost Management"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "ccm"
+    images:
+      - batch-processing-signed
+      - ce-anomaly-detection-signed
+      - ce-cloud-info-signed
+      - ce-nextgen-signed
+      - event-service-signed
+      - ng-ce-ui
+      - telescopes-signed
+      - clickhouse
+      - ccm-gcp-smp-signed
+
+  ce:
+    description: "Chaos Engineering"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "ce"
+    images:
+      - chaos-log-watcher
+      - smp-chaos-k8s-ifs-signed
+      - smp-chaos-linux-infra-controller-signed
+      - smp-chaos-linux-infra-server-signed
+      - smp-chaos-manager-signed
+      - smp-chaos-web-signed
+      - source-probe
+      - smp-chaos-bg-processor-signed
+      - chaos-ddcr
+      - chaos-machine-ifc-signed
+      - chaos-machine-ifs-signed
+      - chaos-ddcr-faults
+      - enterprise-chaos-hub-signed
+      - chaos-event-watcher
+
+  ssca:
+    description: "Software Supply Chain Assurance"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "ssca"
+    images:
+      - ssca-manager-signed
+      - ssca-ui-signed
+      - component-service-signed
+
+  ssca-plugins:
+    description: "SSCA Plugins"
+    bundle_type: single
+    parent: ssca
+    bucket_path: "ssca/plugins"
+    images:
+      - ssca-plugin
+      - slsa-plugin
+      - ssca-cdxgen-plugin
+      - ssca-compliance-plugin
+      - ssca-artifact-signing-plugin
+
+  dbdevops:
+    description: "Database DevOps"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "dbdevops"
+    images:
+      - db-devops-service-signed
+
+  code:
+    description: "Code Repository"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "code"
+    images:
+      - code-api-signed
+      - code-githa-signed
+      - code-gitrpc-signed
+      - code-search-signed
+      - busybox
+
+  iacm:
+    description: "Infrastructure as Code Management"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "iacm"
+    images:
+      - iac-server-signed
+      - iacm-manager-signed
+      - ci-addon
+      - ci-lite-engine
+
+  iacm-plugins:
+    description: "IACM Terraform Plugins"
+    bundle_type: single
+    parent: iacm
+    bucket_path: "iacm/plugins"
+    images:
+      - drone-git
+      - harness_terraform
+      - harness_terraform_vm
+
+  idp:
+    description: "Internal Developer Portal"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "idp"
+    images:
+      - idp-service-signed
+      - idp-admin-signed
+      - idp-app-signed
+      - ci-addon
+      - ci-lite-engine
+
+  idp-plugins:
+    description: "IDP Backstage Plugins"
+    bundle_type: single
+    parent: idp
+    bucket_path: "idp/plugins"
+    images:
+      - drone-git
+      - cookiecutter
+      - createcatalog
+      - createorganisation
+      - createproject
+      - createrepo
+      - createresource
+      - directpush
+      - registercatalog
+      - slacknotify
+      - updatecatalogproperty

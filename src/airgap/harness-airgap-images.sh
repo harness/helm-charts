@@ -1,319 +1,289 @@
 #!/bin/bash
 
-# Default values
 registry=""
 tgz_file=""
 tgz_directory=""
 success_count=0
 fail_count=0
+skip_count=0
+total_count=0
 declare -a failed_images
-declare -a missing_images
 declare -a verified_images
 debug=false
 cleanup=false
 error_occurred=false
 create_ecr=false
+non_interactive=false
 
-# Function to display help message
+log_info()  { echo "[INFO]  $(date +%H:%M:%S) $*"; }
+log_warn()  { echo "[WARN]  $(date +%H:%M:%S) $*" >&2; }
+log_error() { echo "[ERROR] $(date +%H:%M:%S) $*" >&2; }
+log_debug() { [ "$debug" = true ] && echo "[DEBUG] $(date +%H:%M:%S) $*"; }
+
 function show_help {
-  echo "Usage: $0 -r <registry> [-f <tgz_file> | -d <tgz_directory>]"
-  echo "  -r <registry>       The Artifactory registry name (e.g., artifactory.harness.internal/platform-staging)."
-  echo "  -f <tgz_file>       The name of the .tgz file to process (optional if -d is provided)."
-  echo "  -d <tgz_directory>  The directory containing .tgz files to process (optional if -f is provided)."
-  echo "  -D                  Enable debug mode for detailed logging."
-  echo "  -c                  Enable cleanup after script execution."
-  echo "  -e                  Create ECR repository before pushing image. Please run `aws configure` before using this option and export ECR_NAMESPACE and AWS_REGION environment variables"
-  exit 1
+    echo "Usage: $0 -r <registry> [-f <tgz_file> | -d <tgz_directory>] [options]"
+    echo ""
+    echo "  -r <registry>       Target registry (e.g., artifactory.harness.internal/platform-staging)"
+    echo "  -f <tgz_file>       Single .tgz file to process"
+    echo "  -d <tgz_directory>  Directory containing .tgz files (recursive)"
+    echo "  -D                  Enable debug mode"
+    echo "  -c                  Enable cleanup after processing"
+    echo "  -n                  Non-interactive mode (skip prompts)"
+    echo "  -e                  Create ECR repository before push (requires aws configure)"
+    echo "  -h                  Show this help"
+    exit 1
 }
 
 check_image_in_registry() {
-  local image=$1
-  if docker manifest inspect "$image" > /dev/null 2>&1; then
-    debug_log "Image $image is already present in the registry."
-    return 0  # Image exists
-  else
-    debug_log "Image $image is not present in the registry."
-    return 1  # Image does not exist
-  fi
+    local image=$1
+    if docker manifest inspect "$image" > /dev/null 2>&1; then
+        log_debug "Already in registry: $image"
+        return 0
+    else
+        return 1
+    fi
 }
 
 create_ecr_repository() {
-  local repository=$1
-  local namespace=${ECR_NAMESPACE}
-  local awsregion=$AWS_REGION
+    local repository=$1
+    local namespace=${ECR_NAMESPACE}
+    local awsregion=$AWS_REGION
 
-  if [[ -z "$awsregion" ]]; then
-    echo "AWS_REGION is not set. Please export AWS_REGION before using -e option."
-    error_occurred=true
-    return 1
-  fi
-
-  local full_repo_name
-  if [[ -z "$namespace" ]]; then
-    full_repo_name="$repository"
-  else
-    full_repo_name="$namespace/$repository"
-  fi
-
-  debug_log "Checking if repository '$full_repo_name' exists in region '$awsregion'..."
-  if aws ecr describe-repositories --repository-names "$full_repo_name" --region "$awsregion" > /dev/null 2>&1; then
-    debug_log "Repository $full_repo_name already exists."
-  else
-    debug_log "Repository $full_repo_name does not exist. Creating..."
-    if aws ecr create-repository --repository-name "$full_repo_name" --region "$awsregion"; then
-      echo "Successfully created repository: $full_repo_name"
-    else
-      echo "Failed to create repository: $full_repo_name"
-      error_occurred=true
-      return 1
+    if [[ -z "$awsregion" ]]; then
+        log_error "AWS_REGION is not set"
+        error_occurred=true
+        return 1
     fi
-  fi
-}
 
+    local full_repo_name
+    if [[ -z "$namespace" ]]; then
+        full_repo_name="$repository"
+    else
+        full_repo_name="$namespace/$repository"
+    fi
 
-debug_log() {
-  if [ "$debug" = true ]; then
-    echo "[DEBUG] $1"
-  fi
+    log_debug "Checking ECR repository: $full_repo_name"
+    if aws ecr describe-repositories --repository-names "$full_repo_name" --region "$awsregion" > /dev/null 2>&1; then
+        log_debug "Repository exists: $full_repo_name"
+    else
+        if aws ecr create-repository --repository-name "$full_repo_name" --region "$awsregion"; then
+            log_info "Created ECR repository: $full_repo_name"
+        else
+            log_error "Failed to create ECR repository: $full_repo_name"
+            error_occurred=true
+            return 1
+        fi
+    fi
 }
 
 cleanup_images() {
-  echo "Cleaning up Docker images..."
-  # Iterate through verified_images array to remove images from the local Docker environment
-  for image in "${verified_images[@]}"; do
-    # Extracting the image ID from the registry path and tag
-    local image_id=$(docker images -q "$image")
-    if [[ ! -z "$image_id" ]]; then
-      docker rmi "$image_id" || debug_log "Failed to remove Docker image: $image"
-    else
-      debug_log "Image not found or already removed: $image"
-    fi
-  done
+    log_info "Cleaning up Docker images..."
+    for image in "${verified_images[@]}"; do
+        local image_id=$(docker images -q "$image")
+        if [[ -n "$image_id" ]]; then
+            docker rmi "$image_id" 2>/dev/null || log_debug "Failed to remove: $image"
+        fi
+    done
 }
 
-# Parse command-line arguments
-while getopts "hr:f:d:Dc:" opt; do
-  case "$opt" in
-    h) show_help ;;
-    r) registry="$OPTARG" ;;
-    f) tgz_file="$OPTARG" ;;
-    d) tgz_directory="$OPTARG" ;;
-    D) debug=true ;;
-    c) cleanup=true ;;
-    e) create_ecr=true ;;
-    *) show_help ;;
-  esac
+process_tgz_file() {
+    local file=$1
+    local relative_path="${file#$tgz_directory/}"
+    [ "$relative_path" = "$file" ] && relative_path=$(basename "$file")
+
+    log_debug "Processing: $relative_path"
+
+    local required_space=$(du -ks "$file" | awk '{print $1}')
+    local available_space=$(df -Pk . | awk 'NR==2 {print $4}')
+    if [ "$required_space" -gt "$available_space" ]; then
+        log_error "Insufficient disk space for $relative_path"
+        failed_images+=("$relative_path")
+        ((fail_count++))
+        return 1
+    fi
+
+    local load_result
+    load_result=$(docker load -q -i "$file" 2>&1)
+    local exit_status=$?
+
+    if [ $exit_status -ne 0 ]; then
+        log_error "Failed to load: $relative_path"
+        failed_images+=("$relative_path")
+        ((fail_count++))
+        error_occurred=true
+        return 1
+    fi
+
+    while IFS= read -r line; do
+        if [[ "$line" =~ Loaded\ image:\ (.+) ]]; then
+            local image_info="${BASH_REMATCH[1]}"
+            local service_name="${image_info%%:*}"
+
+            if ! check_image_in_registry "$registry/$image_info"; then
+                if [ "$create_ecr" = true ]; then
+                    create_ecr_repository "$service_name"
+                fi
+
+                if docker tag "$image_info" "$registry/$image_info" && docker push "$registry/$image_info"; then
+                    log_debug "Pushed: $image_info"
+                    ((success_count++))
+                    verified_images+=("$registry/$image_info")
+                else
+                    log_error "Failed to push: $image_info"
+                    failed_images+=("$image_info")
+                    ((fail_count++))
+                    error_occurred=true
+                fi
+            else
+                ((skip_count++))
+                verified_images+=("$image_info")
+            fi
+        fi
+    done <<< "$load_result"
+}
+
+process_looker() {
+    if [ "$non_interactive" = true ]; then
+        log_info "Skipping ng-dashboard (non-interactive mode)"
+        return
+    fi
+
+    read -p "Do you want to install ng-dashboard (yes/no)? " response
+    if [[ "$response" != "yes" ]]; then
+        return
+    fi
+
+    read -p "Enter DockerHub username: " DOCKERHUB_USERNAME
+    read -sp "Enter DockerHub password: " DOCKERHUB_PASSWORD
+    echo
+    read -p "Enter release version: " RELEASE_VERSION
+
+    if [ -z "$DOCKERHUB_USERNAME" ] || [ -z "$DOCKERHUB_PASSWORD" ] || [ -z "$RELEASE_VERSION" ]; then
+        log_warn "Credentials or version not provided, skipping ng-dashboard"
+        return
+    fi
+
+    echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+    if [ $? -ne 0 ]; then
+        log_error "DockerHub login failed"
+        return
+    fi
+
+    local tgz_name="harness-${RELEASE_VERSION}.tgz"
+    local dir_name="harness-${RELEASE_VERSION}"
+    rm -rf "$tgz_name" "$dir_name"
+
+    local url="https://github.com/harness/helm-charts/releases/download/harness-${RELEASE_VERSION}/${tgz_name}"
+    log_info "Downloading $url"
+    curl -L -o "$tgz_name" "$url"
+
+    if [ $? -ne 0 ]; then
+        log_error "Failed to download $tgz_name"
+        return
+    fi
+
+    mkdir "$dir_name"
+    tar -xzf "$tgz_name" -C "$dir_name"
+
+    local looker_tag
+    looker_tag=$(grep "looker" "${dir_name}/harness/images.txt" 2>/dev/null)
+    if [ -z "$looker_tag" ]; then
+        log_warn "Looker image not found in images.txt"
+        rm -rf "$tgz_name" "$dir_name"
+        docker logout
+        return
+    fi
+
+    log_info "Pulling $looker_tag"
+    docker pull "$looker_tag"
+
+    local looker_image
+    looker_image=$(echo "$looker_tag" | sed 's/^[^\/]*\///')
+    if ! check_image_in_registry "$registry/$looker_image"; then
+        if docker tag "$looker_tag" "$registry/$looker_image" && docker push "$registry/$looker_image"; then
+            log_info "Pushed looker: $looker_image"
+            ((success_count++))
+            verified_images+=("$registry/$looker_image")
+        else
+            log_error "Failed to push looker: $looker_image"
+            failed_images+=("$looker_image")
+            ((fail_count++))
+            error_occurred=true
+        fi
+    else
+        verified_images+=("$looker_image")
+    fi
+
+    rm -rf "$tgz_name" "$dir_name"
+    docker logout
+}
+
+while getopts "hr:f:d:Dcne" opt; do
+    case "$opt" in
+        h) show_help ;;
+        r) registry="$OPTARG" ;;
+        f) tgz_file="$OPTARG" ;;
+        d) tgz_directory="$OPTARG" ;;
+        D) debug=true ;;
+        c) cleanup=true ;;
+        n) non_interactive=true ;;
+        e) create_ecr=true ;;
+        *) show_help ;;
+    esac
 done
 
-# Check for mandatory options
 if [ -z "$registry" ]; then
-  echo "Registry not specified!"
-  show_help
-  exit 1
+    log_error "Registry not specified"
+    show_help
 fi
 
 if [ -z "$tgz_file" ] && [ -z "$tgz_directory" ]; then
-  echo "No .tgz file or directory specified!"
-  show_help
-  exit 1
+    log_error "No .tgz file or directory specified"
+    show_help
 fi
 
-process_tgz_file() {
-  local file=$1
-  local load_result
-  echo "Processing $file..."
-  debug_log "Processing $file...This can take a while"
-  
-  #Ensures there is enough storage space for docker load
-  local required_space=$(du -ks "$file" | awk '{print $1}')
-  local available_space=$(df -Pk . | awk 'NR==2 {print $4}')
-  if [ "$required_space" -gt "$available_space" ]; then
-    debug_log "Insufficient disk space to load $file"
-    failed_images+=("$file")
-    ((fail_count++))
-    return 1
-  fi
+process_looker
 
-  debug_log "Loading Docker image from $file..."
-  load_result=$(docker load -q -i "$file" 2>&1)
-
-  # Check the exit status of docker load
-  local exit_status=$?
-  if [ $exit_status -ne 0 ]; then
-    echo "Failed to load Docker image from $file"
-    ((fail_count++))
-    error_occurred=true
-    return 1
-  fi
-  
-  # Extract the image names and tags
-  while IFS= read -r line; do
-    echo "Loading: $line"
-    if [[ "$line" =~ Loaded\ image:\ (.+) ]]; then
-      local image_info="${BASH_REMATCH[1]}"
-      local service_name="${image_info%%:*}"
-      debug_log "Loaded image for service $service_name: $image_info"
-      
-      if ! check_image_in_registry "$registry/$image_info"; then
-        if [ "$create_ecr" = true ]; then
-          create_ecr_repository "$service_name"
-        fi
-        debug_log "Tagging and pushing image $image_info to $registry"
-        if docker tag "$image_info" "$registry/$image_info" && docker push "$registry/$image_info"; then
-          echo "Successfully pushed $image_info to $registry"
-          ((success_count++))
-          verified_images+=("$registry/$image_info")
-        else
-          debug_log "Failed to tag or push image $image_info"
-          failed_images+=("$image_info")
-          ((fail_count++))
-          error_occurred=true
-        fi
-      else
-        verified_images+=("$image_info")
-      fi
-    fi
-  done <<< "$load_result" # to avoid subshell (success_count)
-}
-
-# Get DockerHub credentials and image details from arguments <required for looker image pull>
-read -p "Do you want to install ng-dashboard (yes/no)? " response
-if [[ "$response" == "yes" ]]; then
-  read -p "Enter DockerHub username: " DOCKERHUB_USERNAME
-  read -sp "Enter DockerHub password: " DOCKERHUB_PASSWORD
-  echo
-  read -p "Enter release version: " RELEASE_VERSION
-  if [ -n "$DOCKERHUB_USERNAME" ] && [ -n "$DOCKERHUB_PASSWORD" ] && [ -n "$RELEASE_VERSION" ]; then
-    # Log in to DockerHub
-    echo "Logging in to DockerHub..."
-    echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
-
-    # Check if login was successful
-    if [ $? -ne 0 ]; then
-      echo "Docker login failed. Please check your credentials."
-      exit 1
-    fi
-
-    # Check if harness-${RELEASE_VERSION}.tgz already exists
-      if [ -f "harness-${RELEASE_VERSION}.tgz" ]; then
-        echo "Removing existing harness-${RELEASE_VERSION}.tgz..."
-        rm "harness-${RELEASE_VERSION}.tgz"
-      fi
-
-      # Check if harness-${RELEASE_VERSION} already exists
-      if [ -d "harness-${RELEASE_VERSION}" ]; then
-        echo "Deleting existing target folder: harness-${RELEASE_VERSION}"
-        rm -rf "harness-${RELEASE_VERSION}"
-    fi
-
-    # Download the harness-<RELEASE_VERSION>.tgz file
-      DOWNLOAD_URL="https://github.com/harness/helm-charts/releases/download/harness-${RELEASE_VERSION}/harness-${RELEASE_VERSION}.tgz"
-      echo "Downloading $DOWNLOAD_URL..."
-      curl -L -o "harness-${RELEASE_VERSION}.tgz" "$DOWNLOAD_URL"
-      # Check if the download was successful
-      if [ $? -ne 0 ]; then
-        echo "Failed to download harness-${RELEASE_VERSION}.tgz"
-        exit 1
-      fi
-
-      echo "Successfully downloaded harness-${RELEASE_VERSION}.tgz"
-
-      # Extract the contents of the archive
-      echo "Extracting harness-${RELEASE_VERSION}.tgz..."
-      mkdir "harness-${RELEASE_VERSION}"
-      tar -xzvf "harness-${RELEASE_VERSION}.tgz" -C "harness-${RELEASE_VERSION}"
-
-      #Fetching looker image tag
-    echo "Searching for 'looker' in images.txt..."
-    IMAGE_TAG=$(grep "looker" "harness-${RELEASE_VERSION}/harness/images.txt")
-
-    if [ -z "$IMAGE_TAG" ]; then
-      echo "Image tag for $IMAGE_NAME not found in images.txt"
-      exit 1
-    fi
-
-    # Pull the Docker image from the private repository
-    echo "Pulling image $IMAGE_TAG..."
-    docker pull $IMAGE_TAG
-
-    #Push looker image to private registery
-    debug_log "Tagging and pushing image $IMAGE_TAG to $registry"
-    looker_image=$(echo "$IMAGE_TAG" | sed 's/^[^\/]*\///')
-    if ! check_image_in_registry "$registry/$looker_image"; then
-      if docker tag "$IMAGE_TAG" "$registry/$looker_image" && docker push "$registry/$looker_image"; then
-        echo "Successfully pushed $looker_image to $registry"
-        ((success_count++))
-        verified_images+=("$registry/$looker_image")
-      else
-        debug_log "Failed to tag or push image $looker_image"
-        failed_images+=("$looker_image")
-        ((fail_count++))
-        error_occurred=true
-      fi
-    else
-      verified_images+=("$looker_image")
-    fi
-
-    # Check if pull was successful
-    if [ $? -ne 0 ]; then
-      echo "Failed to pull the Docker image. Please check the repository and image details."
-      exit 1
-    fi
-
-    echo "Successfully pulled the Docker image: $DOCKERHUB_REPOSITORY/$IMAGE"
-
-    # Optionally, log out from DockerHub
-    echo "Logging out from DockerHub..."
-    docker logout
-
-    #Cleaning up the folders
-    if [ -f "harness-${RELEASE_VERSION}.tgz" ]; then
-      echo "Removing existing harness-${RELEASE_VERSION}.tgz..."
-      rm "harness-${RELEASE_VERSION}.tgz"
-    fi
-
-    if [ -d "harness-${RELEASE_VERSION}" ]; then
-      echo "Deleting existing target folder: harness-${RELEASE_VERSION}"
-      rm -rf "harness-${RELEASE_VERSION}"
-    fi
-else
-    echo "DOCKERHUB_USERNAME, DOCKERHUB_PASSWORD & RELEASE_VERSION are not set. Will not pull looker image"
-fi
-fi
-
-# Process the specified .tgz file or directory
 if [[ -n "$tgz_file" ]]; then
-  process_tgz_file "$tgz_file"
+    total_count=1
+    log_info "[1/1] Processing: $(basename "$tgz_file")"
+    process_tgz_file "$tgz_file"
 elif [[ -n "$tgz_directory" ]]; then
-  for file in "$tgz_directory"/*.tgz; do
-    process_tgz_file "$file"
-  done
-fi
+    mapfile -t tgz_files < <(find "$tgz_directory" -name "*.tgz" -type f | sort)
+    total_count=${#tgz_files[@]}
 
-# Print statistics
-if (( success_count > 0 || fail_count > 0 )); then
-    echo "Total successful pushes: $success_count"
-    echo "Total failed pushes: $fail_count"
-elif [[ "$error_occurred" = false ]]; then
-    echo "No new images were pushed."
-else
-    echo "Errors occurred during processing. Please review the error messages above."
-fi
+    if [ $total_count -eq 0 ]; then
+        log_error "No .tgz files found in $tgz_directory"
+        exit 1
+    fi
 
-if [ ${#verified_images[@]} -gt 0 ]; then
-    debug_log "Verified images in the registry:"
-    for image in "${verified_images[@]}"; do
-        debug_log "  - $image"
+    log_info "Found ${total_count} .tgz files in ${tgz_directory} (recursive)"
+    for idx in "${!tgz_files[@]}"; do
+        local_file="${tgz_files[$idx]}"
+        relative="${local_file#$tgz_directory/}"
+        log_info "[$(( idx + 1 ))/${total_count}] ${relative}"
+        process_tgz_file "$local_file"
     done
 fi
 
+echo ""
+log_info "=== SUMMARY ==="
+log_info "Total bundles processed: ${total_count}"
+log_info "Images pushed: ${success_count}"
+log_info "Images skipped (already in registry): ${skip_count}"
+log_info "Images failed: ${fail_count}"
+
 if [ ${#failed_images[@]} -gt 0 ]; then
-    echo "Failed to process images:"
-    for image in "${failed_images[@]}"; do
-        debug_log "  - $image"
+    log_error "Failed images:"
+    for img in "${failed_images[@]}"; do
+        log_error "  - $img"
     done
 fi
 
 if [ "$cleanup" = true ]; then
     cleanup_images
+fi
+
+if [ "$error_occurred" = true ]; then
+    exit 1
 fi
