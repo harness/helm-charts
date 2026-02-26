@@ -50,8 +50,8 @@ echo "Image zip files: $MODULE_IMAGE_ZIP_FILES"
 
 INTERNAL_FILE="$HELM_CHARTS_DIR/src/harness/images_internal.txt"
 if [ -f "$INTERNAL_FILE" ]; then
-    export BUNDLE_MATRIX=$(grep '# @module=' "$INTERNAL_FILE" | sed 's/.*@module=\([^ ]*\).*/\1/' | tr '\n' ' ' | sed 's/ $//')
-    if [ -n "$BUNDLE_MATRIX" ]; then
-        echo "Bundle matrix: $BUNDLE_MATRIX"
+    export BUNDLE_SECTIONS=$(grep '# @module=' "$INTERNAL_FILE" | sed 's/.*@module=\([^ ]*\).*/\1/' | tr '\n' ' ' | sed 's/ $//')
+    if [ -n "$BUNDLE_SECTIONS" ]; then
+        echo "Bundle sections: $BUNDLE_SECTIONS"
     fi
 fi
