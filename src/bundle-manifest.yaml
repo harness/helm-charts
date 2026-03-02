@@ -1,7 +1,7 @@
 version: "1.0"
 
-global_variants:
-  suffixes: []
+global:
+  variants: []
 
 modules:
   platform:
@@ -11,7 +11,6 @@ modules:
     bucket_path: "platform"
     exclude:
       - looker-signed
-      - tsdb-to-psql-migrator-signed
     images:
       - le-nextgen-signed
       - ci-scm-signed
@@ -50,6 +49,8 @@ modules:
       - statsd-exporter
       - vault-secret-loader
       - component-analysis-service-signed
+      - ui-signed
+
 
   platform-agents:
     description: "Platform Agents (Delegate, Upgrader)"
@@ -58,11 +59,9 @@ modules:
     bucket_path: "platform/agents"
     images:
       - name: delegate
-        variants:
-          suffixes: [".minimal", ".minimal-fips", "-fips"]
+        variants: [".minimal", ".minimal-fips", "-fips"]
       - name: upgrader
-        variants:
-          suffixes: ["-fips"]
+        variants: ["-fips"]
 
   ci:
     description: "Continuous Integration"
@@ -139,13 +138,11 @@ modules:
       - anchore-job-runner
       - aqua-security-job-runner
       - name: aqua-trivy-job-runner
-        variants:
-          suffixes: ["-fips"]
+        variants: ["-fips"]
       - aws-ecr-job-runner
       - aws-security-hub-job-runner
       - name: bandit-job-runner
-        variants:
-          suffixes: ["-fips"]
+        variants: ["-fips"]
       - blackduckhub-job-runner
       - brakeman-job-runner
       - burp-job-runner
@@ -156,25 +153,21 @@ modules:
       - github-advanced-security-job-runner
       - gitleaks-job-runner
       - name: grype-job-runner
-        variants:
-          suffixes: ["-fips"]
+        variants: ["-fips"]
       - modelscan-job-runner
       - nexusiq-job-runner
       - nikto-job-runner
       - nmap-job-runner
       - name: osv-job-runner
-        variants:
-          suffixes: ["-fips"]
+        variants: ["-fips"]
       - owasp-dependency-check-job-runner
       - prowler-job-runner
       - name: semgrep-job-runner
-        variants:
-          suffixes: ["-fips"]
+        variants: ["-fips"]
       - shiftleft-job-runner
       - snyk-job-runner
       - name: sonarqube-agent-job-runner
-        variants:
-          suffixes: ["-fips"]
+        variants: ["-fips"]
       - sysdig-job-runner
       - traceable-job-runner
       - twistlock-job-runner

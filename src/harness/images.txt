@@ -37,6 +37,7 @@ docker.io/harness/mongodb-exporter:0.40.0-debian-12-r40
 docker.io/harness/statsd-exporter:1.0-prometheus-busybox-1
 harness/vault-secret-loader:1.0.2
 docker.io/harness/component-analysis-service-signed:1.1.7
+docker.io/harness/ui-signed:1.32.3
 
 ### Platform Agents (Delegate, Upgrader)
 docker.io/harness/delegate:26.02.88404

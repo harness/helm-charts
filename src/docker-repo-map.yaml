@@ -2,15 +2,15 @@
 access-control:
   image:
     registry: docker.io
-    repository: harnesssecure/accesscontrol-service-signed
+    repository: harness/accesscontrol-service-signed
 anomaly-detection:
   image:
     registry: docker.io
-    repository: harnesssecure/ce-anomaly-detection-signed
+    repository: harness/ce-anomaly-detection-signed
 batch-processing:
   image:
     registry: docker.io
-    repository: harnesssecure/batch-processing-signed
+    repository: harness/batch-processing-signed
 bootstrap:
   image:
     registry: docker.io
@@ -18,11 +18,11 @@ bootstrap:
 ce-nextgen:
   image:
     registry: docker.io
-    repository: harnesssecure/ce-nextgen-signed
+    repository: harness/ce-nextgen-signed
 change-data-capture:
   image:
     registry: docker.io
-    repository: harnesssecure/cdcdata-signed
+    repository: harness/cdcdata-signed
 chaos-common:
   image:
     registry: docker.io
@@ -34,274 +34,274 @@ chaos-crd:
 chaos-machine-ifc:
   image:
     registry: docker.io
-    repository: harnesssecure/chaos-machine-ifc-signed
+    repository: harness/chaos-machine-ifc-signed
 chaos-machine-ifs:
   image:
     registry: docker.io
-    repository: harnesssecure/chaos-machine-ifs-signed
+    repository: harness/chaos-machine-ifs-signed
 chaos-k8s-ifs:
   image:
     registry: docker.io
-    repository: harnesssecure/smp-chaos-k8s-ifs-signed
+    repository: harness/smp-chaos-k8s-ifs-signed
 chaos-linux-ifc:
   image:
     registry: docker.io
-    repository: harnesssecure/smp-chaos-linux-infra-controller-signed
+    repository: harness/smp-chaos-linux-infra-controller-signed
 chaos-linux-ifs:
   image:
     registry: docker.io
-    repository: harnesssecure/smp-chaos-linux-infra-server-signed
+    repository: harness/smp-chaos-linux-infra-server-signed
 chaos-manager:
   image:
     registry: docker.io
-    repository: harnesssecure/smp-chaos-manager-signed
+    repository: harness/smp-chaos-manager-signed
   jobs:
     bg_processor:
       image:
         registry: docker.io
-        repository: harnesssecure/smp-chaos-bg-processor-signed
+        repository: harness/smp-chaos-bg-processor-signed
   chaosHubImage:
     image:
       registry: docker.io
-      repository: harnesssecure/enterprise-chaos-hub-signed
+      repository: harness/enterprise-chaos-hub-signed
 chaos-web:
   image:
     registry: docker.io
-    repository: harnesssecure/smp-chaos-web-signed
+    repository: harness/smp-chaos-web-signed
 ci-manager:
   image:
     registry: docker.io
-    repository: harnesssecure/ci-manager-signed
+    repository: harness/ci-manager-signed
 cloud-info:
   image:
     registry: docker.io
-    repository: harnesssecure/ce-cloud-info-signed
+    repository: harness/ce-cloud-info-signed
 cv-nextgen:
   image:
     registry: docker.io
-    repository: harnesssecure/cv-nextgen-signed
+    repository: harness/cv-nextgen-signed
 debezium-service:
   image:
     registry: docker.io
-    repository: harnesssecure/debezium-service-signed
+    repository: harness/debezium-service-signed
 delegate-proxy:
   image:
     registry: docker.io
-    repository: harnesssecure/delegate-proxy-signed
+    repository: harness/delegate-proxy-signed
 event-service:
   image:
     registry: docker.io
-    repository: harnesssecure/event-service-signed
+    repository: harness/event-service-signed
 ff-pushpin-service:
   image:
     registry: docker.io
-    repository: harnesssecure/ff-pushpin-signed
+    repository: harness/ff-pushpin-signed
   pushpinworker:
     image:
       registry: docker.io
-      repository: harnesssecure/ff-pushpin-worker-signed
+      repository: harness/ff-pushpin-worker-signed
 ff-service:
   ff-admin-server:
     image:
       registry: docker.io
-      repository: harnesssecure/ff-service-signed
+      repository: harness/ff-service-signed
     job:
       image:
         registry: docker.io
-        repository: harnesssecure/ff-cron-signed
+        repository: harness/ff-cron-signed
   ff-client-server:
     image:
       registry: docker.io
-      repository: harnesssecure/ff-service-signed
+      repository: harness/ff-service-signed
   ff-metrics-server:
     image:
       registry: docker.io
-      repository: harnesssecure/ff-service-signed
+      repository: harness/ff-service-signed
   ff-psql-migrations:
     image:
       registry: docker.io
-      repository: harnesssecure/ff-server-primary-db-migration-signed
+      repository: harness/ff-server-primary-db-migration-signed
   ff-timescale-migrations:
     image:
       registry: docker.io
-      repository: harnesssecure/ff-server-analytics-db-migration-signed
+      repository: harness/ff-server-analytics-db-migration-signed
 gateway:
   image:
     registry: docker.io
-    repository: harnesssecure/gateway-signed
+    repository: harness/gateway-signed
 gitops:
   image:
     registry: docker.io
-    repository: harnesssecure/gitops-service-signed
+    repository: harness/gitops-service-signed
 harness-manager:
   image:
     registry: docker.io
-    repository: harnesssecure/manager-signed
+    repository: harness/manager-signed
 le-nextgen:
   image:
     registry: docker.io
-    repository: harnesssecure/le-nextgen-signed
+    repository: harness/le-nextgen-signed
 learning-engine:
   image:
     registry: docker.io
-    repository: harnesssecure/learning-engine-onprem-signed
+    repository: harness/learning-engine-onprem-signed
 log-service:
   image:
     registry: docker.io
-    repository: harnesssecure/log-service-signed
+    repository: harness/log-service-signed
 looker:
   image:
     registry: docker.io
-    repository: harnesssecure/looker-signed
+    repository: harness/looker-signed
 migrator:
   image:
     registry: docker.io
-    repository: harnesssecure/migrator-signed
+    repository: harness/migrator-signed
 next-gen-ui:
   image:
     registry: docker.io
-    repository: harnesssecure/nextgenui-signed
+    repository: harness/nextgenui-signed
 ng-auth-ui:
   image:
     registry: docker.io
-    repository: harnesssecure/ng-auth-ui-signed
+    repository: harness/ng-auth-ui-signed
 ng-ce-ui:
   image:
     registry: docker.io
-    repository: harnesssecure/ng-ce-ui
+    repository: harness/ng-ce-ui
 ng-custom-dashboards:
   image:
     registry: docker.io
-    repository: harnesssecure/dashboard-service-signed
+    repository: harness/dashboard-service-signed
 ng-dashboard-aggregator:
   image:
     registry: docker.io
-    repository: harnesssecure/ng-dashboard-aggregator-signed
+    repository: harness/ng-dashboard-aggregator-signed
 ng-manager:
   image:
     registry: docker.io
-    repository: harnesssecure/ng-manager-signed
+    repository: harness/ng-manager-signed
 pipeline-service:
   image:
     registry: docker.io
-    repository: harnesssecure/pipeline-service-signed
+    repository: harness/pipeline-service-signed
 platform-service:
   image:
     registry: docker.io
-    repository: harnesssecure/platform-service-signed
+    repository: harness/platform-service-signed
 policy-mgmt:
   image:
     registry: docker.io
-    repository: harnesssecure/policy-mgmt
+    repository: harness/policy-mgmt
 redis-stream-monitor:
   image:
     registry: docker.io
-    repository: harnesssecure/redis-stream-monitor
+    repository: harness/redis-stream-monitor
 scm-service:
   image:
     registry: docker.io
-    repository: harnesssecure/ci-scm-signed
+    repository: harness/ci-scm-signed
 sto-core:
   image:
     registry: docker.io
-    repository: harnesssecure/stocore-signed
+    repository: harness/stocore-signed
 service-discovery-manager:
   image:
     registry: docker.io
-    repository: harnesssecure/smp-service-discovery-server-signed
+    repository: harness/smp-service-discovery-server-signed
 telescopes:
   image:
     registry: docker.io
-    repository: harnesssecure/telescopes-signed
+    repository: harness/telescopes-signed
 ticket-service:
   image:
     registry: docker.io
-    repository: harnesssecure/ticket-service-signed
+    repository: harness/ticket-service-signed
 template-service:
   image:
     registry: docker.io
-    repository: harnesssecure/template-service-signed
+    repository: harness/template-service-signed
 ti-service:
   image:
     registry: docker.io
-    repository: harnesssecure/ti-service-signed
+    repository: harness/ti-service-signed
 ui:
   image:
     registry: docker.io
-    repository: harnesssecure/ui-signed
+    repository: harness/ui-signed
 verification-svc:
   image:
     registry: docker.io
-    repository: harnesssecure/verification-service-signed
+    repository: harness/verification-service-signed
 ssca-manager:
   image:
     registry: docker.io
-    repository: harnesssecure/ssca-manager-signed
+    repository: harness/ssca-manager-signed
 ssca-ui:
   image:
     registry: docker.io
-    repository: harnesssecure/ssca-ui-signed
+    repository: harness/ssca-ui-signed
 component-service:
   image:
     registry: docker.io
-    repository: harnesssecure/component-service-signed
+    repository: harness/component-service-signed
 component-analysis-service:
   image:
     registry: docker.io
-    repository: harnesssecure/component-analysis-service-signed
+    repository: harness/component-analysis-service-signed
 srm-ui:
   image:
     registry: docker.io
-    repository: harnesssecure/srm-ui-signed
+    repository: harness/srm-ui-signed
 audit-event-streaming:
   image:
     registry: docker.io
-    repository: harnesssecure/audit-event-streaming-signed
+    repository: harness/audit-event-streaming-signed
 queue-service:
   image:
     registry: docker.io
-    repository: harnesssecure/queue-service-signed
+    repository: harness/queue-service-signed
 db-devops-service:
   image:
     registry: docker.io
-    repository: harnesssecure/db-devops-service-signed
+    repository: harness/db-devops-service-signed
 code-api:
   image:
     registry: docker.io
-    repository: harnesssecure/code-api-signed
+    repository: harness/code-api-signed
 code-gitrpc:
   image:
     registry: docker.io
-    repository: harnesssecure/code-gitrpc-signed
+    repository: harness/code-gitrpc-signed
 code-githa:
   image:
     registry: docker.io
-    repository: harnesssecure/code-githa-signed
+    repository: harness/code-githa-signed
 code-search:
   image:
     registry: docker.io
-    repository: harnesssecure/code-search-signed
+    repository: harness/code-search-signed
 helm-init-container:
   image:
     registry: docker.io
-    repository: harnesssecure/helm-init-container
+    repository: harness/helm-init-container
 iac-server:
   image:
     registry: docker.io
-    repository: harnesssecure/iac-server-signed
+    repository: harness/iac-server-signed
 iacm-manager:
   image:
     registry: docker.io
-    repository: harnesssecure/iacm-manager-signed
+    repository: harness/iacm-manager-signed
 idp-service:
   image:
     registry: docker.io
-    repository: harnesssecure/idp-service-signed
+    repository: harness/idp-service-signed
 idp-admin:
   image:
     registry: docker.io
-    repository: harnesssecure/idp-admin-signed
+    repository: harness/idp-admin-signed
 idp-app-ui:
   image:
     registry: docker.io
-    repository: harnesssecure/idp-app-signed
+    repository: harness/idp-app-signed

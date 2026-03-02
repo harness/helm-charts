@@ -75,13 +75,39 @@ while IFS= read -r condition; do
 done < <(grep "condition:" "${CHART_YAML}" | awk -F'condition:' '{print $2}')
 
 if [ -n "${AUTO_ENABLE_FLAGS}" ]; then
-    log_info "Auto-enabled flags:${AUTO_ENABLE_FLAGS}"
+    log_info "Auto-enabled module flags:${AUTO_ENABLE_FLAGS}"
 fi
+
+
+# Auto-flip all enabled:false and create:false keys from values.yaml to true.
+# Covers sub-component flags (metrics exporters, ingress, monitoring, etc.)
+# not listed as Chart.yaml conditions. See auto-enable-flags.py for BLOCKLIST.
+VALUES_YAML="${HARNESS_DIR}/values.yaml"
+VALUES_FLAGS=""
+if [ -f "${VALUES_YAML}" ]; then
+    log_info "Scanning ${VALUES_YAML} for disabled flags to enable"
+    while IFS= read -r flag; do
+        [ -z "$flag" ] && continue
+        VALUES_FLAGS="${VALUES_FLAGS} ${flag}"
+    done < <(python3 "${SCRIPT_DIR}/auto-enable-flags.py" "${VALUES_YAML}")
+    if [ -n "${VALUES_FLAGS}" ]; then
+        log_info "Auto-enabled values flags:${VALUES_FLAGS}"
+    fi
+fi
+
+AUTO_ENABLE_FLAGS="${AUTO_ENABLE_FLAGS}${VALUES_FLAGS}"
+
 
 OVERRIDE_FLAGS=""
 if [ -f "${IMAGE_GEN_INPUT_FILE}" ]; then
-    OVERRIDE_FLAGS="-f ${IMAGE_GEN_INPUT_FILE}"
-    log_info "Using overrides from ${IMAGE_GEN_INPUT_FILE}"
+    log_info "Extracting --set flags from ${IMAGE_GEN_INPUT_FILE}"
+    while IFS= read -r flag; do
+        [ -z "$flag" ] && continue
+        OVERRIDE_FLAGS="${OVERRIDE_FLAGS} ${flag}"
+    done < <(python3 "${SCRIPT_DIR}/auto-enable-flags.py" --mode true "${IMAGE_GEN_INPUT_FILE}")
+    if [ -n "${OVERRIDE_FLAGS}" ]; then
+        log_info "Override flags from ${IMAGE_GEN_INPUT_FILE}:${OVERRIDE_FLAGS}"
+    fi
 fi
 
 log_info "Running helm template to extract images"

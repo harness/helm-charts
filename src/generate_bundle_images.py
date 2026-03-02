@@ -39,35 +39,43 @@ def find_matching_images(short_name, raw_images):
     return [img for img in raw_images if pattern in img]
 
 
-def resolve_variants(image_entry, section_variants, global_variants):
+def get_image_name(entry):
+    """Return the short name from a plain string or dict image entry."""
+    return entry['name'] if isinstance(entry, dict) else entry
+
+
+def get_image_variants(entry, section_variants, global_variants):
     """
-    Resolve variant suffixes using cascading: image > section > global.
-    Returns list of suffixes to append to each base tag.
+    Resolve variant suffixes using cascading: inline entry > section > global.
+
+    Image entries may be:
+      - plain string: inherit from section or global
+      - dict with 'variants': use those directly
+      - dict with 'extra_variants': append to inherited list
     """
-    if isinstance(image_entry, dict) and 'variants' in image_entry:
-        suffixes = image_entry['variants'].get('suffixes', [])
-        extra = image_entry['variants'].get('extra_suffixes', [])
-        if extra:
-            parent_suffixes = section_variants.get('suffixes', []) if section_variants else global_variants.get('suffixes', [])
-            return list(set(parent_suffixes + extra))
-        return suffixes
+    if isinstance(entry, dict):
+        if 'variants' in entry:
+            return entry['variants']
+        if 'extra_variants' in entry:
+            parent = section_variants.get('variants', []) if section_variants else global_variants.get('variants', [])
+            return list(set(parent + entry['extra_variants']))
 
     if section_variants:
-        return section_variants.get('suffixes', [])
+        return section_variants.get('variants', [])
 
-    return global_variants.get('suffixes', [])
-
-
-def get_image_short_name(image_entry):
-    if isinstance(image_entry, dict):
-        return image_entry['name']
-    return image_entry
+    return global_variants.get('variants', [])
 
 
 def process_section(name, config, raw_images, global_variants):
     """
     Process a single module section uniformly.
-    Returns (customer_lines, internal_lines, resolved_images, excluded_images, errors).
+    Returns (customer_lines, internal_lines, resolved_images, errors).
+
+    For single bundle-type sections each variant (base tag + suffix) gets its own
+    @image= group marker so the pipeline treats them as independent bundles.
+
+    Excluded images (module-level exclude list) appear in customer_lines (images.txt)
+    but are omitted from internal_lines so they are never bundled.
     """
     bundle_type = config.get('bundle_type', 'combined')
     bucket_path = config.get('bucket_path', name)
@@ -80,7 +88,6 @@ def process_section(name, config, raw_images, global_variants):
     customer_lines = []
     internal_lines = []
     resolved_images = []
-    excluded_images = []
     errors = []
 
     if parent:
@@ -92,37 +99,45 @@ def process_section(name, config, raw_images, global_variants):
     internal_lines.append(internal_header)
 
     for short_name in exclude_list:
-        matches = find_matching_images(short_name, raw_images)
-        for match in matches:
+        for match in find_matching_images(short_name, raw_images):
             customer_lines.append(match)
             resolved_images.append(match)
-            excluded_images.append(match)
 
     for image_entry in images_list:
-        short_name = get_image_short_name(image_entry)
+        short_name = get_image_name(image_entry)
         matches = find_matching_images(short_name, raw_images)
 
         if not matches:
             errors.append(f"Image '{short_name}' in section '{name}' not found in images_raw.txt")
             continue
 
-        suffixes = resolve_variants(image_entry, section_variants, global_variants)
-
-        if bundle_type == 'single':
-            internal_lines.append(f"# @image={short_name}")
+        variants = get_image_variants(image_entry, section_variants, global_variants)
 
         for match in matches:
             customer_lines.append(match)
             resolved_images.append(match)
-            internal_lines.append(match)
 
-            for suffix in suffixes:
-                variant_image = f"{match}{suffix}"
-                customer_lines.append(variant_image)
-                resolved_images.append(variant_image)
-                internal_lines.append(variant_image)
+            if bundle_type == 'single':
+                # Base image gets its own group
+                internal_lines.append(f"# @image={short_name}")
+                internal_lines.append(match)
 
-    return customer_lines, internal_lines, resolved_images, excluded_images, errors
+                # Each variant is a separate group so they bundle independently
+                for variant in variants:
+                    variant_image = f"{match}{variant}"
+                    internal_lines.append(f"# @image={short_name}{variant}")
+                    internal_lines.append(variant_image)
+                    customer_lines.append(variant_image)
+                    resolved_images.append(variant_image)
+            else:
+                internal_lines.append(match)
+                for variant in variants:
+                    variant_image = f"{match}{variant}"
+                    customer_lines.append(variant_image)
+                    resolved_images.append(variant_image)
+                    internal_lines.append(variant_image)
+
+    return customer_lines, internal_lines, resolved_images, errors
 
 
 PIPELINE_BATCH_SIZE = 12
@@ -199,7 +214,10 @@ def generate(manifest, raw_images):
     """
     Main generation logic. Returns (customer_text, internal_text, all_resolved, all_excluded, all_errors).
     """
-    global_variants = manifest.get('global_variants', {'suffixes': []})
+    global_cfg = manifest.get('global', {})
+    # global.variants is a flat list of variant suffixes applied to all images
+    global_variants_list = global_cfg.get('variants', [])
+    global_variants = {'variants': global_variants_list}
     modules = manifest.get('modules', {})
 
     all_customer_lines = []
@@ -214,7 +232,7 @@ def generate(manifest, raw_images):
         parent = config.get('parent')
         log.info(f"[{idx}/{total}] Processing: {name}")
 
-        customer, internal, resolved, excluded, errors = process_section(
+        customer, internal, resolved, errors = process_section(
             name, config, raw_images, global_variants
         )
 
@@ -226,7 +244,6 @@ def generate(manifest, raw_images):
 
         sections_data.append((name, config, internal))
         all_resolved.extend(resolved)
-        all_excluded.extend(excluded)
         all_errors.extend(errors)
 
     customer_text = '\n'.join(all_customer_lines).rstrip() + '\n'
@@ -293,13 +310,13 @@ def generate_internal_only(manifest, images_txt_path):
 
         internal_lines = [header]
         if bundle_type == 'single':
-            current_base = None
+            # Each image tag (base and variant) gets its own @image= group.
+            # Derive the group label from the tag: strip registry/org prefix and
+            # use everything after the last '/' up to (but not including) the ':'.
             for img in non_excluded_imgs:
-                base = img.rsplit(':', 1)[0] if ':' in img else img
-                short = base.rsplit('/', 1)[-1] if '/' in base else base
-                if short != current_base:
-                    internal_lines.append(f"# @image={short}")
-                    current_base = short
+                tag_part = img.rsplit(':', 1)[0] if ':' in img else img
+                short = tag_part.rsplit('/', 1)[-1] if '/' in tag_part else tag_part
+                internal_lines.append(f"# @image={short}")
                 internal_lines.append(img)
         else:
             internal_lines.extend(non_excluded_imgs)

@@ -54,18 +54,22 @@ def load_lines_with_headers(path):
     return lines, headers
 
 
-def get_all_short_names(modules):
+def get_image_name(entry):
+    return entry['name'] if isinstance(entry, dict) else entry
+
+
+def get_all_short_names(manifest):
     names = set()
-    for mod_config in modules.values():
+    for mod_config in manifest.get('modules', {}).values():
         for entry in mod_config.get('images', []):
-            names.add(entry['name'] if isinstance(entry, dict) else entry)
+            names.add(get_image_name(entry))
         names.update(mod_config.get('exclude', []))
     return names
 
 
-def get_excluded_short_names(modules):
+def get_excluded_short_names(manifest):
     excluded = set()
-    for mod_config in modules.values():
+    for mod_config in manifest.get('modules', {}).values():
         excluded.update(mod_config.get('exclude', []))
     return excluded
 
@@ -129,8 +133,8 @@ def validate(args):
     images_txt_lines, images_txt_headers = load_lines_with_headers(args.images_txt) if args.images_txt else ([], [])
     internal_lines = load_lines(args.internal_txt) if args.internal_txt and os.path.exists(args.internal_txt) else []
 
-    all_short_names = get_all_short_names(modules)
-    excluded_names = get_excluded_short_names(modules)
+    all_short_names = get_all_short_names(manifest)
+    excluded_names = get_excluded_short_names(manifest)
     root_modules = get_root_modules(modules)
 
     # Check 1: Every image in images_raw.txt maps to a manifest entry
@@ -220,19 +224,25 @@ def validate(args):
     # Check 8: Section header count matches
     check_num += 1
     log.info(f"[{check_num}/{total_checks}] Checking section counts...")
-    expected_sections = len(modules)
     if images_txt_headers:
         actual_sections = len(images_txt_headers)
+        expected_sections = len(modules)
         if actual_sections != expected_sections:
             errors.append(f"images.txt has {actual_sections} sections but manifest defines {expected_sections}")
 
     # Check 9: Image count consistency (images.txt vs images_internal.txt)
+    # images.txt includes excluded images (in their module section); images_internal.txt does not.
     check_num += 1
     log.info(f"[{check_num}/{total_checks}] Checking image count consistency...")
     if images_txt_lines and internal_lines:
-        diff = len(images_txt_lines) - len(internal_lines)
+        excluded_count = sum(
+            1 for img in images_txt_lines
+            if any(f"/{ex}:" in img for ex in excluded_names)
+        )
+        bundled_in_txt = len(images_txt_lines) - excluded_count
+        diff = bundled_in_txt - len(internal_lines)
         if diff < 0:
-            errors.append(f"images_internal.txt has more images ({len(internal_lines)}) than images.txt ({len(images_txt_lines)})")
+            errors.append(f"images_internal.txt has more images ({len(internal_lines)}) than bundled images in images.txt ({bundled_in_txt})")
         elif diff > 0 and excluded_names:
             log.info(f"  images.txt has {diff} more images than images_internal.txt (expected: excluded images)")
         elif diff > 0:
@@ -254,7 +264,7 @@ def validate(args):
     log.info(f"[{check_num}/{total_checks}] Checking variant definitions...")
     for mod_name, mod_config in modules.items():
         for entry in mod_config.get('images', []):
-            if isinstance(entry, dict) and 'variants' in entry:
+            if isinstance(entry, dict) and ('variants' in entry or 'extra_variants' in entry):
                 if entry['name'] not in all_short_names:
                     errors.append(f"Variant defined for '{entry['name']}' in '{mod_name}' but image not in manifest")
 
@@ -264,7 +274,7 @@ def validate(args):
         if mod_config.get('parent'):
             continue
         for entry in mod_config.get('images', []):
-            short = entry['name'] if isinstance(entry, dict) else entry
+            short = get_image_name(entry)
             image_module_map.setdefault(short, []).append(mod_name)
     for img, mods in image_module_map.items():
         if len(mods) > 1:
