@@ -67,11 +67,29 @@ copy_image() {
     local attempt=0
     local delay="${PULL_RETRY_DELAY}"
 
+    # skopeo docker-archive rejects refs whose first path component looks like a
+    # hostname (contains a '.' or ':', e.g. "docker.io").  Passing the full ref
+    # "docker.io/harness/foo:1.0" causes skopeo to write RepoTags: null, which
+    # breaks `docker load` and bundle validation.
+    #
+    # Fix: strip only the registry hostname prefix (e.g. "docker.io/", "gcr.io/")
+    # while keeping the org/name:tag portion intact.  This means the archive stores
+    # "harness/foo:1.0" which docker load restores under that exact ref — preserving
+    # backward compatibility for customers who retag using the org-qualified name.
+    #
+    local archive_tag
+    local first_segment="${image%%/*}"
+    if echo "$first_segment" | grep -qE '[.:]'; then
+        archive_tag="${image#*/}"
+    else
+        archive_tag="${image}"
+    fi
+
     while [ $attempt -lt "${MAX_PULL_RETRIES}" ]; do
         attempt=$((attempt + 1))
         if skopeo copy --quiet \
             --override-arch "${SKOPEO_ARCH}" --override-os "${SKOPEO_OS}" \
-            "docker://${image}" "docker-archive:${output_tar}:${image}" 2>&1; then
+            "docker://${image}" "docker-archive:${output_tar}:${archive_tag}" 2>&1; then
             log_info "Copied (attempt ${attempt}): ${image}"
             return 0
         fi

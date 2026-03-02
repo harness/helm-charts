@@ -49,13 +49,32 @@ extract_attr() {
     echo "$1" | grep -oE "${2}[^ ]+" 2>/dev/null | cut -d= -f2- | head -1
 }
 
-# Get RepoTags from a .tgz (docker save format)
 get_repo_tags_from_tgz() {
     local tgz="$1"
     if [ ! -f "$tgz" ]; then
         return 1
     fi
-    tar -xzOf "$tgz" manifest.json 2>/dev/null | jq -r '.[].RepoTags[]? // empty' 2>/dev/null || true
+    local raw_tags
+    raw_tags=$(tar -xzOf "$tgz" manifest.json 2>/dev/null | jq -r '.[].RepoTags[]? // empty' 2>/dev/null || true)
+    while IFS= read -r tag; do
+        [ -n "$tag" ] && strip_registry "$tag"
+    done <<< "$raw_tags"
+}
+
+# Normalise an image ref by stripping the registry hostname prefix if present.
+# Applied to BOTH the expected ref (from images_internal.txt) and the actual
+# RepoTag (from the bundle), so comparison works regardless of whether the
+# bundle was created with docker save (stores full ref) or skopeo (stores
+# org/name:tag without registry hostname).
+#
+strip_registry() {
+    local ref="$1"
+    local first="${ref%%/*}"
+    if echo "$first" | grep -qE '[.:]'; then
+        echo "${ref#*/}"
+    else
+        echo "${ref}"
+    fi
 }
 
 # Check if jq is available
@@ -108,7 +127,9 @@ validate_combined_bundle() {
 
     local missing=()
     for exp in "${expected_images[@]}"; do
-        if ! echo "$actual_tags" | grep -Fxq "$exp" 2>/dev/null; then
+        local norm_exp
+        norm_exp=$(strip_registry "$exp")
+        if ! echo "$actual_tags" | grep -Fxq "$norm_exp" 2>/dev/null; then
             missing+=("$exp")
         fi
     done
@@ -142,7 +163,9 @@ validate_single_image() {
 
     local missing=()
     for exp in "${expected_tags[@]}"; do
-        if ! echo "$actual_tags" | grep -Fxq "$exp" 2>/dev/null; then
+        local norm_exp
+        norm_exp=$(strip_registry "$exp")
+        if ! echo "$actual_tags" | grep -Fxq "$norm_exp" 2>/dev/null; then
             missing+=("$exp")
         fi
     done

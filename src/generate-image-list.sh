@@ -81,7 +81,7 @@ fi
 
 # Auto-flip all enabled:false and create:false keys from values.yaml to true.
 # Covers sub-component flags (metrics exporters, ingress, monitoring, etc.)
-# not listed as Chart.yaml conditions. See auto-enable-flags.py for BLOCKLIST.
+# not listed as Chart.yaml conditions. See smp-tools.py auto-enable-flags for BLOCKLIST.
 VALUES_YAML="${HARNESS_DIR}/values.yaml"
 VALUES_FLAGS=""
 if [ -f "${VALUES_YAML}" ]; then
@@ -89,7 +89,7 @@ if [ -f "${VALUES_YAML}" ]; then
     while IFS= read -r flag; do
         [ -z "$flag" ] && continue
         VALUES_FLAGS="${VALUES_FLAGS} ${flag}"
-    done < <(python3 "${SCRIPT_DIR}/auto-enable-flags.py" "${VALUES_YAML}")
+    done < <(python3 "${SCRIPT_DIR}/smp-tools.py" auto-enable-flags "${VALUES_YAML}")
     if [ -n "${VALUES_FLAGS}" ]; then
         log_info "Auto-enabled values flags:${VALUES_FLAGS}"
     fi
@@ -104,7 +104,7 @@ if [ -f "${IMAGE_GEN_INPUT_FILE}" ]; then
     while IFS= read -r flag; do
         [ -z "$flag" ] && continue
         OVERRIDE_FLAGS="${OVERRIDE_FLAGS} ${flag}"
-    done < <(python3 "${SCRIPT_DIR}/auto-enable-flags.py" --mode true "${IMAGE_GEN_INPUT_FILE}")
+    done < <(python3 "${SCRIPT_DIR}/smp-tools.py" auto-enable-flags --mode true "${IMAGE_GEN_INPUT_FILE}")
     if [ -n "${OVERRIDE_FLAGS}" ]; then
         log_info "Override flags from ${IMAGE_GEN_INPUT_FILE}:${OVERRIDE_FLAGS}"
     fi
@@ -129,16 +129,14 @@ IMAGE_COUNT=$(wc -l < ${OUTPUT_DIR}/images_raw.txt | tr -d '[:space:]')
 log_info "Generated images_raw.txt with ${IMAGE_COUNT} base images (no variants)"
 
 log_info "Resolving bundle manifest to generate images.txt and images_internal.txt"
-python3 ${SCRIPT_DIR}/generate_bundle_images.py \
+python3 ${SCRIPT_DIR}/smp-tools.py bundle-images \
     --manifest ${SCRIPT_DIR}/bundle-manifest.yaml \
     --raw-images ${OUTPUT_DIR}/images_raw.txt \
     --output-dir ${OUTPUT_DIR}
 
-if [ -f "${SCRIPT_DIR}/validate_bundle_manifest.py" ]; then
-    log_info "Running bundle manifest validation"
-    python3 ${SCRIPT_DIR}/validate_bundle_manifest.py \
-        --manifest ${SCRIPT_DIR}/bundle-manifest.yaml
-fi
+log_info "Running bundle manifest validation"
+python3 ${SCRIPT_DIR}/smp-tools.py validate-bundle \
+    --manifest ${SCRIPT_DIR}/bundle-manifest.yaml
 
 if [ "${KEEP_TRANSIENT}" = false ]; then
     log_info "Cleaning up transient files"
