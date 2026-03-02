@@ -4,7 +4,7 @@ set -e
 log_info()  { echo "[INFO]  $(date +%H:%M:%S) $*"; }
 log_warn()  { echo "[WARN]  $(date +%H:%M:%S) $*" >&2; }
 log_error() { echo "[ERROR] $(date +%H:%M:%S) $*" >&2; }
-log_debug() { [ "${DEBUG:-false}" = "true" ] && echo "[DEBUG] $(date +%H:%M:%S) $*"; }
+log_debug() { [ "${DEBUG:-false}" = "true" ] && echo "[DEBUG] $(date +%H:%M:%S) $*" || true; }
 
 usage() {
     echo "Usage: $0 --internal-file <path> [--output-dir <path>]"
@@ -14,6 +14,9 @@ usage() {
     echo ""
     echo "Validates airgap .tgz bundles against expected images from images_internal.txt."
     echo "Exits with code 1 if any validation errors are found."
+    echo ""
+    echo "Environment:"
+    echo "  DEBUG=true   Enable debug logging (shows actual vs expected when validation fails)"
     exit 1
 }
 
@@ -45,8 +48,9 @@ OUTPUT_DIR="$(cd "${OUTPUT_DIR}" 2>/dev/null && pwd)" || {
 }
 
 # Portable extraction of @module=, @type=, @path=, @image=
+# Uses || true because grep returns 1 when no match; with set -e that would exit the script
 extract_attr() {
-    echo "$1" | grep -oE "${2}[^ ]+" 2>/dev/null | cut -d= -f2- | head -1
+    echo "$1" | grep -oE "${2}[^ ]+" 2>/dev/null | cut -d= -f2- | head -1 || true
 }
 
 get_repo_tags_from_tgz() {
@@ -54,10 +58,14 @@ get_repo_tags_from_tgz() {
     if [ ! -f "$tgz" ]; then
         return 1
     fi
-    local raw_tags
-    raw_tags=$(tar -xzOf "$tgz" manifest.json 2>/dev/null | jq -r '.[].RepoTags[]? // empty' 2>/dev/null || true)
+    local raw_tags tar_out
+    tar_out=$(tar -xzOf "$tgz" manifest.json 2>&1) || true
+    raw_tags=$(echo "$tar_out" | jq -r '.[].RepoTags[]? // empty' 2>/dev/null || true)
+    if [ -z "$raw_tags" ] && [ -n "$tar_out" ]; then
+        log_debug "tar/jq failed for ${tgz}: $(echo "$tar_out" | head -5)"
+    fi
     while IFS= read -r tag; do
-        [ -n "$tag" ] && strip_registry "$tag"
+        [ -n "$tag" ] && strip_registry "$tag" || true
     done <<< "$raw_tags"
 }
 
@@ -70,7 +78,8 @@ get_repo_tags_from_tgz() {
 strip_registry() {
     local ref="$1"
     local first="${ref%%/*}"
-    if echo "$first" | grep -qE '[.:]'; then
+    # grep -q returns 1 when no match; use [[ ]] to avoid set -e exit
+    if [[ "$first" =~ [.:] ]]; then
         echo "${ref#*/}"
     else
         echo "${ref}"
@@ -92,9 +101,9 @@ count_total_validations() {
     while IFS= read -r line; do
         if [[ "$line" =~ ^#\ @module= ]]; then
             stype=$(extract_attr "$line" "@type=")
-            [ "$stype" = "combined" ] && total=$((total + 1))
+            [ "$stype" = "combined" ] && total=$((total + 1)) || true
         elif [[ "$line" =~ ^#\ @image= ]]; then
-            [ "$stype" = "single" ] && total=$((total + 1))
+            [ "$stype" = "single" ] && total=$((total + 1)) || true
         fi
     done < "$INTERNAL_FILE"
     echo $total
@@ -115,13 +124,18 @@ validate_combined_bundle() {
 
     if [ ! -f "$tgz_path" ]; then
         ERRORS+=("Combined bundle not found: ${tgz_path}")
+        log_debug "Expected path: ${tgz_path} (module=${module}, path=${path})"
         return
+    fi
+
+    if [ ${#expected_images[@]} -eq 0 ]; then
+        log_warn "Combined bundle ${module}: no expected images in manifest (section may be misconfigured)"
     fi
 
     local actual_tags
     actual_tags=$(get_repo_tags_from_tgz "$tgz_path")
     if [ -z "$actual_tags" ]; then
-        ERRORS+=("Could not extract RepoTags from ${tgz_path} (invalid or empty manifest)")
+        ERRORS+=("Could not extract RepoTags from ${tgz_path} (invalid or empty manifest; run DEBUG=true for tar/jq details)")
         return
     fi
 
@@ -138,6 +152,10 @@ validate_combined_bundle() {
         for m in "${missing[@]}"; do
             ERRORS+=("Combined bundle ${module}: missing expected image: ${m}")
         done
+        if [ "${DEBUG:-false}" = "true" ]; then
+            log_debug "Bundle ${tgz_path} contains: $(echo "$actual_tags" | tr '\n' ' ')"
+            log_debug "Expected but missing: ${missing[*]}"
+        fi
     fi
 }
 
@@ -151,13 +169,18 @@ validate_single_image() {
 
     if [ ! -f "$tgz_path" ]; then
         ERRORS+=("Single bundle not found: ${tgz_path}")
+        log_debug "Expected path: ${tgz_path} (path=${path}, image=${image_name})"
         return
+    fi
+
+    if [ ${#expected_tags[@]} -eq 0 ]; then
+        log_warn "Single bundle ${path}/${image_name}: no expected tags in manifest (section may be misconfigured)"
     fi
 
     local actual_tags
     actual_tags=$(get_repo_tags_from_tgz "$tgz_path")
     if [ -z "$actual_tags" ]; then
-        ERRORS+=("Could not extract RepoTags from ${tgz_path} (invalid or empty manifest)")
+        ERRORS+=("Could not extract RepoTags from ${tgz_path} (invalid or empty manifest; run DEBUG=true for tar/jq details)")
         return
     fi
 
@@ -174,6 +197,10 @@ validate_single_image() {
         for m in "${missing[@]}"; do
             ERRORS+=("Single bundle ${path}/${image_name}: missing expected tag: ${m}")
         done
+        if [ "${DEBUG:-false}" = "true" ]; then
+            log_debug "Bundle ${tgz_path} contains: $(echo "$actual_tags" | tr '\n' ' ')"
+            log_debug "Expected but missing: ${missing[*]}"
+        fi
     fi
 }
 
@@ -247,8 +274,9 @@ if [ ${#ERRORS[@]} -gt 0 ]; then
     for i in "${!ERRORS[@]}"; do
         log_error "  [$((i+1))] ${ERRORS[$i]}"
     done
+    log_error "Run with DEBUG=true for more details (e.g. actual vs expected image tags)"
     exit 1
 else
-    log_info "Validation PASSED. All bundles validated successfully."
+    log_info "Validation PASSED: ${TOTAL_VALIDATIONS} bundle(s) validated successfully."
     exit 0
 fi
