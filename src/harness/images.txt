@@ -30,10 +30,10 @@ docker.io/harness/dashboard-service-signed:1.98.0
 docker.io/harness/db-devops-service-signed:1.76.2
 docker.io/harness/debezium-service-signed:1.25.0
 docker.io/harness/delegate-proxy-signed:1.6.0
-docker.io/harness/delegate:26.01.88201
-docker.io/harness/delegate:26.01.88201-fips
-docker.io/harness/delegate:26.01.88201.minimal
-docker.io/harness/delegate:26.01.88201.minimal-fips
+docker.io/harness/delegate:26.02.88404
+docker.io/harness/delegate:26.02.88404-fips
+docker.io/harness/delegate:26.02.88404.minimal
+docker.io/harness/delegate:26.02.88404.minimal-fips
 docker.io/harness/enterprise-chaos-hub-signed:1.72.18
 docker.io/harness/event-service-signed:1.14.0
 docker.io/harness/ff-cron-signed:1.1148.0
@@ -91,7 +91,7 @@ docker.io/harness/telescopes-signed:1.6.0
 docker.io/harness/template-service-signed:1.130.0
 docker.io/harness/ti-service-signed:1.60.4
 docker.io/harness/ticket-service-signed:1.4.4
-docker.io/harness/tsdb-to-psql-migrator-signed:1.5.0
+docker.io/harness/tsdb-to-psql-migrator-signed:1.7.0
 docker.io/harness/ui-signed:1.32.3
 docker.io/harness/upgrader:1.10.0
 docker.io/koalaman/shellcheck:v0.5.0
