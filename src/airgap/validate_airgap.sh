@@ -4,7 +4,6 @@ set -e
 log_info()  { echo "[INFO]  $(date +%H:%M:%S) $*"; }
 log_warn()  { echo "[WARN]  $(date +%H:%M:%S) $*" >&2; }
 log_error() { echo "[ERROR] $(date +%H:%M:%S) $*" >&2; }
-log_debug() { [ "${DEBUG:-false}" = "true" ] && echo "[DEBUG] $(date +%H:%M:%S) $*" || true; }
 
 usage() {
     echo "Usage: $0 --internal-file <path> [--output-dir <path>]"
@@ -16,7 +15,7 @@ usage() {
     echo "Exits with code 1 if any validation errors are found."
     echo ""
     echo "Environment:"
-    echo "  DEBUG=true   Enable debug logging (shows actual vs expected when validation fails)"
+    echo "  VALIDATE_PARALLEL=N   Run up to N validations in parallel (default: 8)"
     exit 1
 }
 
@@ -77,9 +76,9 @@ get_repo_tags_from_tgz() {
     fi
 
     if [ -z "$raw_tags" ] && [ -n "$tar_out" ]; then
-        log_debug "tar/jq failed for ${tgz}: $(echo "$tar_out" | head -5)"
+        log_info "tar/jq failed for ${tgz}: $(echo "$tar_out" | head -5)"
     elif [ -z "$raw_tags" ]; then
-        log_debug "Archive contents of ${tgz}: $(tar -tzf "$tgz" 2>/dev/null | head -10)"
+        log_info "Archive contents of ${tgz}: $(tar -tzf "$tgz" 2>/dev/null | head -10)"
     fi
 
     while IFS= read -r tag; do
@@ -108,26 +107,12 @@ if ! command -v jq &>/dev/null; then
     exit 1
 fi
 
+VALIDATE_PARALLEL="${VALIDATE_PARALLEL:-8}"
+[ "$VALIDATE_PARALLEL" -lt 1 ] && VALIDATE_PARALLEL=1
 ERRORS=()
+ERRORS_FILE=""
 
-# Count total validations for progress [N/M]: combined=1 per section, single=1 per @image
-count_total_validations() {
-    local total=0
-    local stype=""
-    while IFS= read -r line; do
-        if [[ "$line" =~ ^#\ @module= ]]; then
-            stype=$(extract_attr "$line" "@type=")
-            [ "$stype" = "combined" ] && total=$((total + 1)) || true
-        elif [[ "$line" =~ ^#\ @image= ]]; then
-            [ "$stype" = "single" ] && total=$((total + 1)) || true
-        fi
-    done < "$INTERNAL_FILE"
-    echo $total
-}
-
-TOTAL_VALIDATIONS=$(count_total_validations)
-CURRENT_VALIDATION=0
-
+# Outputs errors to stdout (one per line). Caller collects into ERRORS or file.
 validate_combined_bundle() {
     local module="$1"
     local path="$2"
@@ -139,8 +124,8 @@ validate_combined_bundle() {
     local tgz_path="${OUTPUT_DIR}/${path}/${bundle_name}_images.tgz"
 
     if [ ! -f "$tgz_path" ]; then
-        ERRORS+=("Combined bundle not found: ${tgz_path}")
-        log_debug "Expected path: ${tgz_path} (module=${module}, path=${path})"
+        log_info "Combined bundle path checked: ${tgz_path}"
+        echo "Combined bundle not found: ${tgz_path}"
         return
     fi
 
@@ -151,30 +136,24 @@ validate_combined_bundle() {
     local actual_tags
     actual_tags=$(get_repo_tags_from_tgz "$tgz_path")
     if [ -z "$actual_tags" ]; then
-        ERRORS+=("Could not extract RepoTags from ${tgz_path} (invalid or empty manifest; run DEBUG=true for tar/jq details)")
+        echo "Could not extract RepoTags from ${tgz_path} (invalid or empty manifest)"
         return
     fi
 
-    local missing=()
-    for exp in "${expected_images[@]}"; do
-        local norm_exp
-        norm_exp=$(strip_registry "$exp")
-        if ! echo "$actual_tags" | grep -Fxq "$norm_exp" 2>/dev/null; then
-            missing+=("$exp")
-        fi
-    done
+    local expected_norm
+    expected_norm=$(for exp in "${expected_images[@]}"; do strip_registry "$exp"; done | sort -u)
+    local missing_norm
+    missing_norm=$(comm -23 <(echo "$expected_norm") <(echo "$actual_tags" | sort -u) 2>/dev/null) || true
 
-    if [ ${#missing[@]} -gt 0 ]; then
-        for m in "${missing[@]}"; do
-            ERRORS+=("Combined bundle ${module}: missing expected image: ${m}")
-        done
-        if [ "${DEBUG:-false}" = "true" ]; then
-            log_debug "Bundle ${tgz_path} contains: $(echo "$actual_tags" | tr '\n' ' ')"
-            log_debug "Expected but missing: ${missing[*]}"
-        fi
+    if [ -n "$missing_norm" ]; then
+        log_info "Combined ${module}: expected=$(echo "$expected_norm" | tr '\n' ' '), actual=$(echo "$actual_tags" | tr '\n' ' ')"
+        while IFS= read -r m; do
+            [ -n "$m" ] && echo "Combined bundle ${module}: missing expected image: ${m}"
+        done <<< "$missing_norm"
     fi
 }
 
+# Outputs errors to stdout (one per line). Caller collects into ERRORS or file.
 validate_single_image() {
     local path="$1"
     local image_name="$2"
@@ -186,36 +165,55 @@ validate_single_image() {
         return
     fi
 
-    # Bundle name comes from @image= in images_internal.txt (e.g. aqua-trivy-job-runner-latest-fips.tgz)
     local tgz_path="${OUTPUT_DIR}/${path}/${image_name}.tgz"
 
     if [ ! -f "$tgz_path" ]; then
-        ERRORS+=("Single bundle not found: ${tgz_path}")
-        log_debug "Expected path: ${tgz_path} (path=${path}, @image=${image_name})"
+        log_info "Single bundle path checked: ${tgz_path}"
+        echo "Single bundle not found: ${tgz_path}"
         return
     fi
 
     local actual_tags
     actual_tags=$(get_repo_tags_from_tgz "$tgz_path")
     if [ -z "$actual_tags" ]; then
-        ERRORS+=("Could not extract RepoTags from ${tgz_path} (invalid or empty manifest; run DEBUG=true for tar/jq details)")
+        echo "Could not extract RepoTags from ${tgz_path} (invalid or empty manifest)"
         return
     fi
 
-    for exp in "${expected_tags[@]}"; do
-        local norm_exp
-        norm_exp=$(strip_registry "$exp")
-        if ! echo "$actual_tags" | grep -Fxq "$norm_exp" 2>/dev/null; then
-            ERRORS+=("Single bundle ${path}/${image_name}: missing expected tag: ${exp}")
-            if [ "${DEBUG:-false}" = "true" ]; then
-                log_debug "Bundle ${tgz_path} contains: $(echo "$actual_tags" | tr '\n' ' ')"
-            fi
-        fi
-    done
+    local expected_norm
+    expected_norm=$(for exp in "${expected_tags[@]}"; do strip_registry "$exp"; done | sort -u)
+    local missing_norm
+    missing_norm=$(comm -23 <(echo "$expected_norm") <(echo "$actual_tags" | sort -u) 2>/dev/null) || true
+
+    if [ -n "$missing_norm" ]; then
+        log_info "Single ${path}/${image_name}: expected=$(echo "$expected_norm" | tr '\n' ' '), actual=$(echo "$actual_tags" | tr '\n' ' ')"
+        while IFS= read -r m; do
+            [ -n "$m" ] && echo "Single bundle ${path}/${image_name}: missing expected tag: ${m}"
+        done <<< "$missing_norm"
+    fi
 }
 
-# Parse and validate
-CURRENT_VALIDATION=0
+# Collect validation tasks
+declare -a TASK_TYPE TASK_MODULE TASK_PATH TASK_NAME TASK_EXPECTED
+
+run_one_validation() {
+    local type="$1"
+    local module="$2"
+    local path="$3"
+    local name="$4"
+    shift 4
+    local expected=("$@")
+    local out
+    if [ "$type" = "combined" ]; then
+        out=$(validate_combined_bundle "$module" "$path" "${expected[@]}" 2>/dev/null) || true
+    else
+        out=$(validate_single_image "$path" "$name" "${expected[@]}" 2>/dev/null) || true
+    fi
+    [ -n "$out" ] && echo "$out"
+    true
+}
+
+# Parse and collect tasks
 in_section=false
 section_module=""
 section_type=""
@@ -227,13 +225,13 @@ declare -a current_image_tags_arr
 while IFS= read -r line; do
     if [[ "$line" =~ ^#\ @module= ]]; then
         if [ "$in_section" = true ]; then
-            # Validate previous section
             if [ "$section_type" = "combined" ]; then
-                CURRENT_VALIDATION=$((CURRENT_VALIDATION + 1))
-                log_info "[${CURRENT_VALIDATION}/${TOTAL_VALIDATIONS}] Validating: ${section_module} (combined)"
-                validate_combined_bundle "$section_module" "$section_path" "${section_images[@]}"
+                TASK_TYPE+=("combined")
+                TASK_MODULE+=("$section_module")
+                TASK_PATH+=("$section_path")
+                TASK_NAME+=("")
+                TASK_EXPECTED+=("${section_images[*]}")
             fi
-            # For single, we validate per @image - already done in @image block
         fi
 
         section_module=$(extract_attr "$line" "@module=")
@@ -246,9 +244,11 @@ while IFS= read -r line; do
 
     elif [[ "$line" =~ ^#\ @image= ]]; then
         if [ "$section_type" = "single" ] && [ -n "$current_image_name" ] && [ ${#current_image_tags_arr[@]} -gt 0 ]; then
-            CURRENT_VALIDATION=$((CURRENT_VALIDATION + 1))
-            log_info "[${CURRENT_VALIDATION}/${TOTAL_VALIDATIONS}] Validating: ${section_module}/${current_image_name} (single)"
-            validate_single_image "$section_path" "$current_image_name" "${current_image_tags_arr[@]}"
+            TASK_TYPE+=("single")
+            TASK_MODULE+=("$section_module")
+            TASK_PATH+=("$section_path")
+            TASK_NAME+=("$current_image_name")
+            TASK_EXPECTED+=("${current_image_tags_arr[*]}")
         fi
         current_image_name="${line#*@image=}"
         current_image_name="${current_image_name%% *}"
@@ -263,18 +263,67 @@ while IFS= read -r line; do
     fi
 done < "$INTERNAL_FILE"
 
-# Validate last section
 if [ "$in_section" = true ]; then
     if [ "$section_type" = "combined" ]; then
-        CURRENT_VALIDATION=$((CURRENT_VALIDATION + 1))
-        log_info "[${CURRENT_VALIDATION}/${TOTAL_VALIDATIONS}] Validating: ${section_module} (combined)"
-        validate_combined_bundle "$section_module" "$section_path" "${section_images[@]}"
+        TASK_TYPE+=("combined")
+        TASK_MODULE+=("$section_module")
+        TASK_PATH+=("$section_path")
+        TASK_NAME+=("")
+        TASK_EXPECTED+=("${section_images[*]}")
     elif [ "$section_type" = "single" ] && [ -n "$current_image_name" ] && [ ${#current_image_tags_arr[@]} -gt 0 ]; then
-        CURRENT_VALIDATION=$((CURRENT_VALIDATION + 1))
-        log_info "[${CURRENT_VALIDATION}/${TOTAL_VALIDATIONS}] Validating: ${section_module}/${current_image_name} (single)"
-        validate_single_image "$section_path" "$current_image_name" "${current_image_tags_arr[@]}"
+        TASK_TYPE+=("single")
+        TASK_MODULE+=("$section_module")
+        TASK_PATH+=("$section_path")
+        TASK_NAME+=("$current_image_name")
+        TASK_EXPECTED+=("${current_image_tags_arr[*]}")
     fi
 fi
+
+# Run validations in parallel
+ERRORS_FILE=$(mktemp)
+trap "rm -f $ERRORS_FILE" EXIT
+
+export -f run_one_validation validate_combined_bundle validate_single_image get_repo_tags_from_tgz strip_registry log_info 2>/dev/null || true
+export OUTPUT_DIR
+
+running=0
+total=${#TASK_TYPE[@]}
+declare -a pids=()
+
+for ((i=0; i<total; i++)); do
+    type="${TASK_TYPE[$i]}"
+    module="${TASK_MODULE[$i]}"
+    path="${TASK_PATH[$i]}"
+    name="${TASK_NAME[$i]}"
+    expected_str="${TASK_EXPECTED[$i]}"
+    expected_arr=()
+    [ -n "$expected_str" ] && read -ra expected_arr <<< "$expected_str"
+
+    if [ "$type" = "combined" ]; then
+        label="${module} (combined)"
+    else
+        label="${module}/${name} (single)"
+    fi
+    log_info "[$((i + 1))/${total}] Validating: ${label}"
+
+    (
+        run_one_validation "$type" "$module" "$path" "$name" "${expected_arr[@]}"
+    ) >> "$ERRORS_FILE" 2>&1 &
+    pids+=($!)
+
+    running=$((running + 1))
+    if [ "$running" -ge "$VALIDATE_PARALLEL" ]; then
+        wait "${pids[0]}" 2>/dev/null || true
+        pids=("${pids[@]:1}")
+        running=$((running - 1))
+    fi
+done
+for pid in "${pids[@]}"; do wait "$pid" 2>/dev/null || true; done
+
+# Collect errors
+while IFS= read -r line; do
+    [ -n "$line" ] && ERRORS+=("$line")
+done < "$ERRORS_FILE"
 
 # Report summary
 echo ""
@@ -284,9 +333,9 @@ if [ ${#ERRORS[@]} -gt 0 ]; then
     for i in "${!ERRORS[@]}"; do
         log_error "  [$((i+1))] ${ERRORS[$i]}"
     done
-    log_error "Run with DEBUG=true for more details (e.g. actual vs expected image tags)"
+    log_error "See actual vs expected above for each failed bundle."
     exit 1
 else
-    log_info "Validation PASSED: ${TOTAL_VALIDATIONS} bundle(s) validated successfully."
+    log_info "Validation PASSED: ${total} bundle(s) validated successfully."
     exit 0
 fi
