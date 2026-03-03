@@ -52,7 +52,7 @@ dependencies:
   version: 1.130.0
 - name: tsdb-to-psql-migrator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.5.0
+  version: 1.7.0
 - name: ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.32.3
@@ -71,5 +71,5 @@ dependencies:
 - name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.8.0
-digest: sha256:667274fd7c2419b00274403550869392554c639b7ef25f48eed4d39edefdae6d
-generated: "2026-02-10T04:45:49.86151392Z"
+digest: sha256:2f13c40ea5af8bfebcc4694f27c7c36af2e2c5b8a233325eebd2a5fcd77ae39e
+generated: "2026-03-03T12:34:38.786133309Z"
