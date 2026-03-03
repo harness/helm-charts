@@ -58,12 +58,30 @@ get_repo_tags_from_tgz() {
     if [ ! -f "$tgz" ]; then
         return 1
     fi
-    local raw_tags tar_out
-    tar_out=$(tar -xzOf "$tgz" manifest.json 2>&1) || true
-    raw_tags=$(echo "$tar_out" | jq -r '.[].RepoTags[]? // empty' 2>/dev/null || true)
+    local raw_tags tar_out manifest_path
+
+    # Try manifest.json, then ./manifest.json (tar -cf -C dir . stores with ./ prefix)
+    for manifest_path in "manifest.json" "./manifest.json"; do
+        tar_out=$(tar -xzOf "$tgz" "$manifest_path" 2>&1) || true
+        raw_tags=$(echo "$tar_out" | jq -r '.[].RepoTags[]? // empty' 2>/dev/null || true)
+        [ -n "$raw_tags" ] && break
+    done
+
+    # Fallback: find manifest.json path from archive listing (handles varying tar implementations)
+    if [ -z "$raw_tags" ]; then
+        manifest_path=$(tar -tzf "$tgz" 2>/dev/null | grep -E 'manifest\.json$' | head -1)
+        if [ -n "$manifest_path" ]; then
+            tar_out=$(tar -xzOf "$tgz" "$manifest_path" 2>&1) || true
+            raw_tags=$(echo "$tar_out" | jq -r '.[].RepoTags[]? // empty' 2>/dev/null || true)
+        fi
+    fi
+
     if [ -z "$raw_tags" ] && [ -n "$tar_out" ]; then
         log_debug "tar/jq failed for ${tgz}: $(echo "$tar_out" | head -5)"
+    elif [ -z "$raw_tags" ]; then
+        log_debug "Archive contents of ${tgz}: $(tar -tzf "$tgz" 2>/dev/null | head -10)"
     fi
+
     while IFS= read -r tag; do
         [ -n "$tag" ] && strip_registry "$tag" || true
     done <<< "$raw_tags"
