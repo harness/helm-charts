@@ -105,6 +105,10 @@ def get_image_variants(entry, section_variants, global_variants):
       - plain string: inherit from section or global
       - dict with 'variants': use those directly
       - dict with 'extra_variants': append to inherited list
+      - dict with 'variants_only: true': same as 'variants' but the base image is
+        suppressed from output (only the variant images are emitted). The base tag
+        is still resolved from images_raw.txt so that the versioned variant tags can
+        be constructed correctly.
     """
     if isinstance(entry, dict):
         if 'variants' in entry:
@@ -165,19 +169,24 @@ def process_section(name, config, raw_images, global_variants):
             continue
 
         variants = get_image_variants(image_entry, section_variants, global_variants)
+        # When variants_only=True the base image is used only as a tag anchor; it is
+        # never written to customer or internal output.  Requires 'variants' to be set.
+        variants_only = isinstance(image_entry, dict) and image_entry.get('variants_only', False)
 
         # For single bundles, use only the first match as base; variants are constructed from it.
         # Each @image= gets a unique name (short_name for base, short_name+variant for variants).
         match_iter = [matches[0]] if bundle_type == 'single' and matches else matches
 
         for match in match_iter:
-            customer_lines.append(match)
-            resolved_images.append(match)
+            if not variants_only:
+                customer_lines.append(match)
+                resolved_images.append(match)
 
             if bundle_type == 'single':
-                # Base image gets its own group
-                internal_lines.append(f"# @image={short_name}")
-                internal_lines.append(match)
+                if not variants_only:
+                    # Base image gets its own group
+                    internal_lines.append(f"# @image={short_name}")
+                    internal_lines.append(match)
 
                 # Each variant is a separate group so they bundle independently.
                 # Normalize variant for bundle name: .minimal -> -minimal, -fips -> -fips
@@ -189,7 +198,8 @@ def process_section(name, config, raw_images, global_variants):
                     customer_lines.append(variant_image)
                     resolved_images.append(variant_image)
             else:
-                internal_lines.append(match)
+                if not variants_only:
+                    internal_lines.append(match)
                 for variant in variants:
                     variant_image = f"{match}{variant}"
                     customer_lines.append(variant_image)

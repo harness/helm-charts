@@ -13,7 +13,7 @@ usage() {
     echo "  release_number        Release version (e.g., 1.0.0)"
     echo ""
     echo "Uploads the bundle output directory to gs://smp-airgap-bundles/<release_number>/"
-    echo "Also uploads bundle-manifest.yaml and images.txt to the release folder."
+    echo "Uploads bundle-manifest.yaml and images.txt."
     exit 1
 }
 
@@ -92,7 +92,7 @@ FILE_COUNT_AFTER=0
 FILE_COUNT_BEFORE=$(find "${OUTPUT_DIR}" -type f 2>/dev/null | wc -l | tr -d '[:space:]')
 
 log_info "Running gsutil -m rsync -r..."
-gsutil -m rsync -r "${OUTPUT_DIR}" "${RELEASE_PATH}/"
+gsutil -m rsync -r -x "images_internal\.txt$" "${OUTPUT_DIR}" "${RELEASE_PATH}/"
 
 # Upload manifest and images.txt to release folder root
 log_info "Uploading bundle-manifest.yaml and images.txt to ${RELEASE_PATH}/"

@@ -9,10 +9,8 @@ modules:
     bundle_type: combined
     requires: []
     bucket_path: "platform"
-    exclude:
-      - looker-signed
     images:
-      - le-nextgen-signed
+      - busybox
       - ci-scm-signed
       - template-service-signed
       - platform-service-signed
@@ -21,7 +19,6 @@ modules:
       - nextgenui-signed
       - minio
       - log-service-signed
-      - cv-nextgen-signed
       - cdcdata-signed
       - accesscontrol-service-signed
       - delegate-proxy-signed
@@ -32,9 +29,7 @@ modules:
       - ng-auth-ui-signed
       - redis
       - postgresql
-      - dashboard-service-signed
       - policy-mgmt
-      - srm-ui-signed
       - smp-service-discovery-server-signed
       - debezium-service-signed
       - audit-event-streaming-signed
@@ -46,11 +41,11 @@ modules:
       - redis_exporter
       - postgres-exporter
       - mongodb-exporter
-      - statsd-exporter
       - vault-secret-loader
-      - component-analysis-service-signed
       - ui-signed
-
+      - name: delegate
+        variants: [".minimal", ".minimal-fips"]
+        variants_only: true
 
   platform-agents:
     description: "Platform Agents (Delegate, Upgrader)"
@@ -63,6 +58,40 @@ modules:
       - name: upgrader
         variants: ["-fips"]
 
+  dashboard:
+    description: "Dashboard"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "dashboard"
+    exclude:
+      - looker-signed
+    images:
+      - dashboard-service-signed
+      - statsd-exporter
+
+  cdng:
+    description: "Continuous Deployment"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "cdng"
+    images:
+      - gitops-service-signed
+      - gitops-agent-installer-helper
+      - cv-nextgen-signed
+      - le-nextgen-signed
+      - srm-ui-signed
+
+  cdng-agents:
+    description: "CD Agents"
+    bundle_type: single
+    parent: cdng
+    bucket_path: "cdng/agents"
+    images:
+      - argocd
+      - gitops-agent
+      - haproxy
+      - shellcheck
+
   ci:
     description: "Continuous Integration"
     bundle_type: combined
@@ -71,11 +100,6 @@ modules:
     images:
       - ci-manager-signed
       - ti-service-signed
-      - ci-addon
-      - ci-lite-engine
-      - drone-git
-      - harness-cache-server
-      - traceable-job-runner
 
   ci-plugins:
     description: "CI Build Plugins"
@@ -83,6 +107,10 @@ modules:
     parent: ci
     bucket_path: "ci/plugins"
     images:
+      - ci-addon
+      - ci-lite-engine
+      - drone-git
+      - harness-cache-server
       - kaniko
       - kaniko-acr
       - kaniko-ecr
@@ -91,7 +119,6 @@ modules:
       - gcs
       - cache
       - s3
-      - sto-plugin
       - buildx
       - buildx-acr
       - buildx-ecr
@@ -103,19 +130,6 @@ modules:
       - gcr
       - acr
 
-  cdng:
-    description: "Continuous Deployment"
-    bundle_type: combined
-    requires: [platform]
-    bucket_path: "cdng"
-    images:
-      - argocd
-      - gitops-agent
-      - haproxy
-      - gitops-service-signed
-      - gitops-agent-installer-helper
-      - shellcheck
-
   sto:
     description: "Security Testing Orchestration"
     bundle_type: combined
@@ -124,10 +138,17 @@ modules:
     images:
       - stocore-signed
       - ticket-service-signed
+      - refid-cache
+
+  sto-plugins:
+    description: "STO Plugins"
+    bundle_type: combined
+    parent: sto
+    bucket_path: "sto/plugins"
+    images:
       - sto-plugin
       - ci-addon
       - ci-lite-engine
-      - refid-cache
 
   sto-scanners:
     description: "STO Security Scanners"
@@ -211,7 +232,6 @@ modules:
     requires: [platform]
     bucket_path: "ce"
     images:
-      - chaos-log-watcher
       - smp-chaos-k8s-ifs-signed
       - smp-chaos-linux-infra-controller-signed
       - smp-chaos-linux-infra-server-signed
@@ -219,11 +239,19 @@ modules:
       - smp-chaos-web-signed
       - source-probe
       - smp-chaos-bg-processor-signed
-      - chaos-ddcr
       - chaos-machine-ifc-signed
       - chaos-machine-ifs-signed
-      - chaos-ddcr-faults
       - enterprise-chaos-hub-signed
+
+  ce-plugins:
+    description: "Chaos Engineering Plugins"
+    bundle_type: combined
+    parent: ce
+    bucket_path: "ce/plugins"
+    images:
+      - chaos-log-watcher
+      - chaos-ddcr
+      - chaos-ddcr-faults
       - chaos-event-watcher
 
   ssca:
@@ -235,6 +263,7 @@ modules:
       - ssca-manager-signed
       - ssca-ui-signed
       - component-service-signed
+      - component-analysis-service-signed
 
   ssca-plugins:
     description: "SSCA Plugins"
@@ -266,7 +295,6 @@ modules:
       - code-githa-signed
       - code-gitrpc-signed
       - code-search-signed
-      - busybox
 
   iacm:
     description: "Infrastructure as Code Management"
@@ -276,8 +304,6 @@ modules:
     images:
       - iac-server-signed
       - iacm-manager-signed
-      - ci-addon
-      - ci-lite-engine
 
   iacm-plugins:
     description: "IACM Terraform Plugins"
@@ -285,6 +311,8 @@ modules:
     parent: iacm
     bucket_path: "iacm/plugins"
     images:
+      - ci-addon
+      - ci-lite-engine
       - drone-git
       - harness_terraform
       - harness_terraform_vm
@@ -298,8 +326,6 @@ modules:
       - idp-service-signed
       - idp-admin-signed
       - idp-app-signed
-      - ci-addon
-      - ci-lite-engine
 
   idp-plugins:
     description: "IDP Backstage Plugins"
@@ -307,6 +333,8 @@ modules:
     parent: idp
     bucket_path: "idp/plugins"
     images:
+      - ci-addon
+      - ci-lite-engine
       - drone-git
       - cookiecutter
       - createcatalog

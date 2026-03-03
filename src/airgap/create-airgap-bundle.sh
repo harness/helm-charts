@@ -154,12 +154,15 @@ merge_and_compress() {
             rm -rf "${merge_dir}"
             return 1
         }
+        # Normalize RepoTags to match docker save format (strip docker.io/ and docker.io/library/)
+        this_manifest=$(echo "${this_manifest}" | jq -c '[.[] | .RepoTags = [.RepoTags[]? | sub("^docker.io/library/"; "") | sub("^docker.io/"; "")]]')
         combined_manifest=$(echo "${combined_manifest}" | jq --argjson new "${this_manifest}" '. + $new')
 
         # Layers and configs are content-addressed; duplicates overwrite harmlessly.
         tar -xf "$tar_file" -C "${merge_dir}"
     done
 
+    rm -f "${merge_dir}/manifest.json"
     echo "${combined_manifest}" > "${merge_dir}/manifest.json"
 
     # Put manifest.json first so validation can extract it without decompressing entire archive

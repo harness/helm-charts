@@ -87,24 +87,19 @@ get_repo_tags_from_tgz() {
     done <<< "$raw_tags"
 }
 
-# Normalise an image ref by stripping registry hostname and library/ prefix.
-# Skopeo may store short-name refs as docker.io/library/name:tag; we must
-# normalise both expected (from images_internal.txt) and actual (from bundle)
-# to the same form for comparison.
+# Normalise an image ref by stripping the registry hostname prefix if present.
+# Bundles are written in docker-save format (harness/foo:tag, defaultbackend-amd64:tag).
+# Expected refs from images_internal.txt may include registry (docker.io/, registry.k8s.io/).
+# We strip so both sides compare as org/name:tag or name:tag.
 #
 strip_registry() {
     local ref="$1"
-    local first
-    while [[ "$ref" == */* ]]; do
-        first="${ref%%/*}"
-        # Strip if first component looks like registry (has . or :) or is "library"
-        if [[ "$first" =~ [.:] ]] || [[ "$first" = "library" ]]; then
-            ref="${ref#*/}"
-        else
-            break
-        fi
-    done
-    echo "$ref"
+    local first="${ref%%/*}"
+    if [[ "$first" =~ [.:] ]]; then
+        echo "${ref#*/}"
+    else
+        echo "${ref}"
+    fi
 }
 
 # Check if jq is available
