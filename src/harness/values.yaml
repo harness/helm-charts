@@ -400,6 +400,10 @@ enabled: false
 # -- Config for CD services
 cd:
   gitops:
+    agentRedisImage:
+      image:
+        repository: harness/redis
+        tag: "7.4.7-jammy"
     upgraderImage:
       image:
         tag: 1.10.0
