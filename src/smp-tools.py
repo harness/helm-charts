@@ -166,7 +166,11 @@ def process_section(name, config, raw_images, global_variants):
 
         variants = get_image_variants(image_entry, section_variants, global_variants)
 
-        for match in matches:
+        # For single bundles, use only the first match as base; variants are constructed from it.
+        # Each @image= gets a unique name (short_name for base, short_name+variant for variants).
+        match_iter = [matches[0]] if bundle_type == 'single' and matches else matches
+
+        for match in match_iter:
             customer_lines.append(match)
             resolved_images.append(match)
 
@@ -175,10 +179,12 @@ def process_section(name, config, raw_images, global_variants):
                 internal_lines.append(f"# @image={short_name}")
                 internal_lines.append(match)
 
-                # Each variant is a separate group so they bundle independently
+                # Each variant is a separate group so they bundle independently.
+                # Normalize variant for bundle name: .minimal -> -minimal, -fips -> -fips
                 for variant in variants:
                     variant_image = f"{match}{variant}"
-                    internal_lines.append(f"# @image={short_name}{variant}")
+                    suffix = variant.lstrip('.-').replace('.', '-')
+                    internal_lines.append(f"# @image={short_name}-{suffix}")
                     internal_lines.append(variant_image)
                     customer_lines.append(variant_image)
                     resolved_images.append(variant_image)
@@ -361,10 +367,27 @@ def bundle_generate_internal_only(manifest, images_txt_path):
 
         internal_lines = [header]
         if bundle_type == 'single':
+            # Build short_name -> variants from manifest (sort by length desc to match longest first)
+            variants_by_short = {}
+            for entry in mod_config.get('images', []):
+                short = entry['name'] if isinstance(entry, dict) else entry
+                variants = entry.get('variants', []) if isinstance(entry, dict) else []
+                variants_by_short[short] = sorted(variants, key=len, reverse=True)
+
             for img in non_excluded_imgs:
                 tag_part = img.rsplit(':', 1)[0] if ':' in img else img
-                short = tag_part.rsplit('/', 1)[-1] if '/' in tag_part else tag_part
-                internal_lines.append(f"# @image={short}")
+                base_name = tag_part.rsplit('/', 1)[-1] if '/' in tag_part else tag_part
+                tag = img.rsplit(':', 1)[1] if ':' in img else 'latest'
+                variants = variants_by_short.get(base_name, [])
+                # Match tag to variant: base uses base_name, variants use base_name-variant_suffix
+                bundle_name = base_name
+                for v in variants:
+                    if tag.endswith(v):
+                        # Normalize .minimal -> -minimal, -fips -> -fips
+                        suffix = v.lstrip('.-').replace('.', '-')
+                        bundle_name = f"{base_name}-{suffix}"
+                        break
+                internal_lines.append(f"# @image={bundle_name}")
                 internal_lines.append(img)
         else:
             internal_lines.extend(non_excluded_imgs)

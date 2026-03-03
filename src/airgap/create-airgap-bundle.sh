@@ -162,7 +162,10 @@ merge_and_compress() {
 
     echo "${combined_manifest}" > "${merge_dir}/manifest.json"
 
-    tar -cf - -C "${merge_dir}" . | pigz > "${tgz_file}"
+    # Put manifest.json first so validation can extract it without decompressing entire archive
+    ( cd "${merge_dir}" && { echo manifest.json; find . -mindepth 1 ! -path ./manifest.json | sort; } ) \
+        | tar -cf - -C "${merge_dir}" -T - \
+        | pigz > "${tgz_file}"
     rm -rf "${merge_dir}"
 }
 
@@ -241,7 +244,7 @@ create_single_bundles() {
     local out_dir="${OUTPUT_DIR}/${bucket_path}"
     mkdir -p "${out_dir}"
 
-    # Parse all image groups before dispatching so we can parallelize.
+    # Parse all image groups. Each @image= defines a unique bundle name (from images_internal.txt)
     local -a group_names=()
     local -a group_tags=()
     local current_name=""
@@ -254,6 +257,7 @@ create_single_bundles() {
                 group_tags+=("$current_tags")
             fi
             current_name="${line#*@image=}"
+            current_name="${current_name%% *}"
             current_tags=""
         elif [ -n "$line" ] && [[ ! "$line" =~ ^# ]]; then
             current_tags="${current_tags:+${current_tags}$'\n'}${line}"

@@ -60,14 +60,14 @@ get_repo_tags_from_tgz() {
     fi
     local raw_tags tar_out manifest_path
 
-    # Try manifest.json, then ./manifest.json (tar -cf -C dir . stores with ./ prefix)
+    # Try manifest.json first (fast when it's first in archive - create-airgap-bundle puts it there)
     for manifest_path in "manifest.json" "./manifest.json"; do
         tar_out=$(tar -xzOf "$tgz" "$manifest_path" 2>&1) || true
         raw_tags=$(echo "$tar_out" | jq -r '.[].RepoTags[]? // empty' 2>/dev/null || true)
         [ -n "$raw_tags" ] && break
     done
 
-    # Fallback: find manifest.json path from archive listing (handles varying tar implementations)
+    # Fallback: find manifest.json from archive listing (handles older bundles, varying tar implementations)
     if [ -z "$raw_tags" ]; then
         manifest_path=$(tar -tzf "$tgz" 2>/dev/null | grep -E 'manifest\.json$' | head -1)
         if [ -n "$manifest_path" ]; then
@@ -87,21 +87,24 @@ get_repo_tags_from_tgz() {
     done <<< "$raw_tags"
 }
 
-# Normalise an image ref by stripping the registry hostname prefix if present.
-# Applied to BOTH the expected ref (from images_internal.txt) and the actual
-# RepoTag (from the bundle), so comparison works regardless of whether the
-# bundle was created with docker save (stores full ref) or skopeo (stores
-# org/name:tag without registry hostname).
+# Normalise an image ref by stripping registry hostname and library/ prefix.
+# Skopeo may store short-name refs as docker.io/library/name:tag; we must
+# normalise both expected (from images_internal.txt) and actual (from bundle)
+# to the same form for comparison.
 #
 strip_registry() {
     local ref="$1"
-    local first="${ref%%/*}"
-    # grep -q returns 1 when no match; use [[ ]] to avoid set -e exit
-    if [[ "$first" =~ [.:] ]]; then
-        echo "${ref#*/}"
-    else
-        echo "${ref}"
-    fi
+    local first
+    while [[ "$ref" == */* ]]; do
+        first="${ref%%/*}"
+        # Strip if first component looks like registry (has . or :) or is "library"
+        if [[ "$first" =~ [.:] ]] || [[ "$first" = "library" ]]; then
+            ref="${ref#*/}"
+        else
+            break
+        fi
+    done
+    echo "$ref"
 }
 
 # Check if jq is available
@@ -183,16 +186,18 @@ validate_single_image() {
     shift 2
     local expected_tags=("$@")
 
+    if [ ${#expected_tags[@]} -eq 0 ]; then
+        log_warn "Single bundle ${path}/${image_name}: no expected tags in manifest (section may be misconfigured)"
+        return
+    fi
+
+    # Bundle name comes from @image= in images_internal.txt (e.g. aqua-trivy-job-runner-latest-fips.tgz)
     local tgz_path="${OUTPUT_DIR}/${path}/${image_name}.tgz"
 
     if [ ! -f "$tgz_path" ]; then
         ERRORS+=("Single bundle not found: ${tgz_path}")
-        log_debug "Expected path: ${tgz_path} (path=${path}, image=${image_name})"
+        log_debug "Expected path: ${tgz_path} (path=${path}, @image=${image_name})"
         return
-    fi
-
-    if [ ${#expected_tags[@]} -eq 0 ]; then
-        log_warn "Single bundle ${path}/${image_name}: no expected tags in manifest (section may be misconfigured)"
     fi
 
     local actual_tags
@@ -202,24 +207,16 @@ validate_single_image() {
         return
     fi
 
-    local missing=()
     for exp in "${expected_tags[@]}"; do
         local norm_exp
         norm_exp=$(strip_registry "$exp")
         if ! echo "$actual_tags" | grep -Fxq "$norm_exp" 2>/dev/null; then
-            missing+=("$exp")
+            ERRORS+=("Single bundle ${path}/${image_name}: missing expected tag: ${exp}")
+            if [ "${DEBUG:-false}" = "true" ]; then
+                log_debug "Bundle ${tgz_path} contains: $(echo "$actual_tags" | tr '\n' ' ')"
+            fi
         fi
     done
-
-    if [ ${#missing[@]} -gt 0 ]; then
-        for m in "${missing[@]}"; do
-            ERRORS+=("Single bundle ${path}/${image_name}: missing expected tag: ${m}")
-        done
-        if [ "${DEBUG:-false}" = "true" ]; then
-            log_debug "Bundle ${tgz_path} contains: $(echo "$actual_tags" | tr '\n' ' ')"
-            log_debug "Expected but missing: ${missing[*]}"
-        fi
-    fi
 }
 
 # Parse and validate
