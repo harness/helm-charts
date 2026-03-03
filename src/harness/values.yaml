@@ -557,7 +557,7 @@ platform:
   harness-manager:
     upgrader_docker_image:
       image:
-        tag: 1.10.0
+        tag: 1.11.0
     config:
       ENV: "SMP"
     shutdownHooksEnabled: true
