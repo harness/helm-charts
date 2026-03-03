@@ -91,8 +91,9 @@ FILE_COUNT_AFTER=0
 # Count files before (approximate)
 FILE_COUNT_BEFORE=$(find "${OUTPUT_DIR}" -type f 2>/dev/null | wc -l | tr -d '[:space:]')
 
-log_info "Running gsutil -m rsync -r..."
-gsutil -m rsync -r -x "images_internal\.txt$" "${OUTPUT_DIR}" "${RELEASE_PATH}/"
+# gcloud storage rsync is faster than gsutil -m rsync (better built-in parallelization)
+log_info "Running gcloud storage rsync -r..."
+gcloud storage rsync -r --exclude="images_internal\.txt$" "${OUTPUT_DIR}" "${RELEASE_PATH}/"
 
 # Upload manifest and images.txt to release folder root
 log_info "Uploading bundle-manifest.yaml and images.txt to ${RELEASE_PATH}/"
