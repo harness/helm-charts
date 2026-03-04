@@ -317,7 +317,7 @@ ccm:
     postgres:
       image:
         repository: "harness/postgresql"
-        tag: ""
+        tag: "14.20-alpine3.23"
     # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
     awsAccountTagsCollectionJobConfig:
       enabled: true
@@ -414,7 +414,7 @@ platform:
     postgresql:
       image:
         repository: "harness/postgresql"
-        tag: ""
+        tag: "14.20-alpine3.23"
     config:
       ENV: "SMP"
     affinity: {}
