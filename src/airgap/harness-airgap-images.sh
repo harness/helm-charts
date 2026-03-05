@@ -34,6 +34,22 @@ log_done()  { printf "${GREEN}  ✓${RESET} %s\n" "$*"; }
 log_skip()  { printf "${DIM}  ↷ skipped: %s${RESET}\n" "$*"; }
 log_fail()  { printf "${RED}  ✗ failed:  %s${RESET}\n" "$*" >&2; }
 
+_spin() {
+    local pid="$1" msg="$2"
+    local frames=(⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏)
+    local i=0
+    if [ -t 1 ]; then
+        tput civis 2>/dev/null || true
+        while kill -0 "$pid" 2>/dev/null; do
+            printf "\r  ${CYAN}%s${RESET}  %s " "${frames[$((i % 10))]}" "$msg"
+            sleep 0.1
+            i=$((i + 1))
+        done
+        tput cnorm 2>/dev/null || true
+        printf "\r\033[K"   # erase spinner line
+    fi
+}
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Defaults
 # ─────────────────────────────────────────────────────────────────────────────
@@ -97,10 +113,64 @@ EOF
 # Helpers
 # ─────────────────────────────────────────────────────────────────────────────
 
-# Returns 0 if the image already exists in the registry (skip push).
+# Returns 0 (skip push) if the remote tag exists AND its config digest matches
+# the local image's ID.  Returns 1 (push needed) if the tag is absent or
+# the content differs (stale tag → will overwrite).
+#
+# Args: <local_image_ref>  <remote_image_ref>
+#
+# Digest comparison works for single-arch images (config digest == image ID).
+# For multi-arch manifest lists we fall back to tag-existence only, because
+# the top-level manifest has no single config digest to compare against.
 check_image_in_registry() {
-    local image="$1"
-    docker manifest inspect "$image" >/dev/null 2>&1
+    local local_ref="$1"
+    local remote_ref="$2"
+
+    # ── 1. Does the tag exist at all? ─────────────────────────────────────────
+    local manifest_json
+    manifest_json=$(docker manifest inspect "$remote_ref" 2>/dev/null) || return 1
+    [ -z "$manifest_json" ] && return 1
+
+    # ── 2. Get the local image config digest ─────────────────────────────────
+    local local_id
+    local_id=$(docker inspect --format='{{.Id}}' "$local_ref" 2>/dev/null) || return 1
+    [ -z "$local_id" ] && return 1
+
+    # ── 3. Extract the remote config digest (python3 for safe JSON parsing) ───
+    local remote_digest
+    if command -v python3 &>/dev/null; then
+        remote_digest=$(printf '%s' "$manifest_json" | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+    if 'manifests' in data:          # manifest list / multi-arch
+        print('multiarch')
+    else:
+        print(data.get('config', {}).get('digest', ''))
+except Exception:
+    print('')
+" 2>/dev/null) || remote_digest=""
+    else
+        # Fallback: crude grep — works for the common single-arch manifest layout
+        remote_digest=$(printf '%s' "$manifest_json" \
+            | grep -o '"config"[^}]*"digest":"sha256:[^"]*"' \
+            | grep -o 'sha256:[^"]*' | head -1 || true)
+    fi
+
+    case "$remote_digest" in
+        "multiarch")
+            # Can't compare digests for a manifest list; tag exists → skip.
+            return 0 ;;
+        "$local_id")
+            # Exact content match — nothing to push.
+            return 0 ;;
+        "")
+            # Couldn't parse digest; fall back to "tag exists → skip".
+            return 0 ;;
+        *)
+            # Tag exists but content differs → push (overwrite stale tag).
+            return 1 ;;
+    esac
 }
 
 create_ecr_repository() {
@@ -157,7 +227,7 @@ process_tgz_file() {
 
     printf "\n${BOLD}[%d/%d]${RESET} %s  ${DIM}(%s)${RESET}\n" "$idx" "$total" "$relative_path" "$file_size"
 
-    # Disk space check
+    # ── Disk space check ─────────────────────────────────────────────────────
     local required_kb available_kb
     required_kb=$(du -ks "$file" | awk '{print $1}')
     available_kb=$(df -Pk . | awk 'NR==2 {print $4}')
@@ -170,10 +240,24 @@ process_tgz_file() {
         return 1
     fi
 
-    # Load the bundle
+    # ── Load the bundle ───────────────────────────────────────────────────────
+    # Use pv for byte-level progress when available; fall back to a spinner.
     log_debug "Running: docker load -i ${file}"
-    local load_output load_rc=0
-    load_output=$(docker load -i "$file" 2>&1) || load_rc=$?
+    local load_tmp load_rc=0
+    load_tmp=$(mktemp)
+
+    if command -v pv &>/dev/null; then
+        pv -N "  loading" "$file" | docker load > "$load_tmp" 2>&1 || load_rc=$?
+    else
+        docker load -i "$file" > "$load_tmp" 2>&1 &
+        local load_pid=$!
+        _spin "$load_pid" "Loading ${relative_path}"
+        wait "$load_pid" 2>/dev/null || load_rc=$?
+    fi
+
+    local load_output
+    load_output=$(cat "$load_tmp")
+    rm -f "$load_tmp"
 
     if [ "$load_rc" -ne 0 ]; then
         log_fail "docker load failed for ${relative_path}"
@@ -185,26 +269,32 @@ process_tgz_file() {
         return 1
     fi
 
-    # Tag and push every loaded image
-    local bundle_pushed=0 bundle_skipped=0 bundle_failed=0
+    # Count and report loaded images
+    local loaded_count
+    loaded_count=$(echo "$load_output" | grep -c "^Loaded image" 2>/dev/null || echo 0)
+    log_info "Loaded ${BOLD}${loaded_count}${RESET} image(s) from ${DIM}${relative_path}${RESET}"
+
+    # ── Tag and push every loaded image ──────────────────────────────────────
+    local bundle_pushed=0 bundle_skipped=0 bundle_failed=0 img_idx=0
+
     while IFS= read -r line; do
         local image_ref=""
         if [[ "$line" =~ ^Loaded\ image:\ (.+)$ ]]; then
             image_ref="${BASH_REMATCH[1]}"
         elif [[ "$line" =~ ^Loaded\ image\ ID:\ (.+)$ ]]; then
-            # Multi-arch / manifest-list fallback — use the SHA as-is
             image_ref="${BASH_REMATCH[1]}"
         fi
         [ -z "$image_ref" ] && continue
 
+        img_idx=$((img_idx + 1))
         local target="${registry}/${image_ref}"
         local service_name="${image_ref%%:*}"
-        service_name="${service_name##*/}"  # strip org prefix for ECR repo name
+        service_name="${service_name##*/}"   # strip org prefix for ECR repo name
 
-        log_debug "Loaded: ${image_ref}"
+        printf "  ${DIM}[%d/%d]${RESET} %s\n" "$img_idx" "$loaded_count" "$image_ref"
 
-        if check_image_in_registry "$target"; then
-            log_skip "${image_ref}"
+        if check_image_in_registry "$image_ref" "$target"; then
+            log_skip "digest unchanged — already in registry: ${DIM}${target}${RESET}"
             skip_count=$((skip_count + 1))
             bundle_skipped=$((bundle_skipped + 1))
             verified_images+=("$target")
@@ -215,8 +305,41 @@ process_tgz_file() {
             create_ecr_repository "$service_name" || true
         fi
 
-        if docker tag "$image_ref" "$target" 2>/dev/null \
-            && docker push "$target" 2>&1 | tail -1; then
+        if ! docker tag "$image_ref" "$target" 2>/dev/null; then
+            log_fail "docker tag failed: ${image_ref} → ${target}"
+            failed_images+=("$image_ref")
+            fail_count=$((fail_count + 1))
+            bundle_failed=$((bundle_failed + 1))
+            continue
+        fi
+
+        # Push — stream output directly when on a terminal (native progress bars);
+        # use a spinner + error capture when stdout is not a terminal (CI/scripts).
+        local push_rc=0
+        if [ -t 1 ]; then
+            docker push "$target" || push_rc=$?
+        else
+            local push_tmp push_pid
+            push_tmp=$(mktemp)
+            docker push "$target" > "$push_tmp" 2>&1 &
+            push_pid=$!
+            _spin "$push_pid" "Pushing ${image_ref}"
+            wait "$push_pid" 2>/dev/null || push_rc=$?
+
+            if [ "$push_rc" -ne 0 ]; then
+                cat "$push_tmp" | while IFS= read -r eline; do
+                    printf "    ${RED}│${RESET} ${DIM}%s${RESET}\n" "$eline"
+                done
+            else
+                # Show digest line on success so there's something visible
+                local digest
+                digest=$(grep "digest:" "$push_tmp" 2>/dev/null | tail -1 || true)
+                [ -n "$digest" ] && printf "    ${DIM}%s${RESET}\n" "$digest"
+            fi
+            rm -f "$push_tmp"
+        fi
+
+        if [ "$push_rc" -eq 0 ]; then
             success_count=$((success_count + 1))
             bundle_pushed=$((bundle_pushed + 1))
             verified_images+=("$target")
@@ -229,11 +352,11 @@ process_tgz_file() {
         fi
     done <<< "$load_output"
 
-    # Per-file mini-summary
+    # ── Per-file mini-summary ─────────────────────────────────────────────────
     local parts=""
-    [ "$bundle_pushed"   -gt 0 ] && parts="${parts}  ${GREEN}${bundle_pushed} pushed${RESET}"
-    [ "$bundle_skipped"  -gt 0 ] && parts="${parts}  ${DIM}${bundle_skipped} skipped${RESET}"
-    [ "$bundle_failed"   -gt 0 ] && parts="${parts}  ${RED}${bundle_failed} failed${RESET}"
+    [ "$bundle_pushed"  -gt 0 ] && parts="${parts}  ${GREEN}${bundle_pushed} pushed${RESET}"
+    [ "$bundle_skipped" -gt 0 ] && parts="${parts}  ${DIM}${bundle_skipped} skipped${RESET}"
+    [ "$bundle_failed"  -gt 0 ] && parts="${parts}  ${RED}${bundle_failed} failed${RESET}"
     [ -n "$parts" ] && printf "  └─%s\n" "$parts"
 }
 
@@ -297,8 +420,8 @@ process_looker() {
     looker_image=$(echo "$looker_tag" | sed 's|^[^/]*/||')
     local looker_target="${registry}/${looker_image}"
 
-    if check_image_in_registry "$looker_target"; then
-        log_skip "Looker already in registry: ${looker_target}"
+    if check_image_in_registry "$looker_tag" "$looker_target"; then
+        log_skip "Looker digest unchanged — already in registry: ${looker_target}"
         verified_images+=("$looker_target")
     elif docker tag "$looker_tag" "$looker_target" && docker push "$looker_target"; then
         log_done "Pushed Looker → ${looker_target}"
