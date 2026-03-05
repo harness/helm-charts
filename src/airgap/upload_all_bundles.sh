@@ -32,6 +32,9 @@ if [ ! -f "$SERVICE_ACCOUNT_FILE" ]; then
     exit 1
 fi
 
+# Use Application Default Credentials - ensures gsutil and gcloud storage both use this service account
+export GOOGLE_APPLICATION_CREDENTIALS="${SERVICE_ACCOUNT_FILE}"
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
@@ -81,32 +84,37 @@ if [ -z "$IMAGES_TXT" ]; then
     exit 1
 fi
 
-log_info "Activating gcloud with service account: ${SERVICE_ACCOUNT_FILE}"
+log_info "Using service account: ${SERVICE_ACCOUNT_FILE} (GOOGLE_APPLICATION_CREDENTIALS set)"
 gcloud auth activate-service-account --key-file="${SERVICE_ACCOUNT_FILE}" --quiet
 
+# Create release path first (like old script - avoids bucket-list permission requirements)
+log_info "Creating release path: ${RELEASE_PATH}/"
+touch /tmp/upload_empty
+gsutil cp /tmp/upload_empty "${RELEASE_PATH}/.keep"
+gsutil rm "${RELEASE_PATH}/.keep" 2>/dev/null || true
+rm -f /tmp/upload_empty
+
+# Copy bundle hierarchy using gsutil cp (no rsync/ls - avoids storage.buckets.get)
+# Build temp dir excluding images_internal.txt
+UPLOAD_DIR=$(mktemp -d)
+trap "rm -rf ${UPLOAD_DIR}" EXIT
+for item in "${OUTPUT_DIR}"/*; do
+    [ -e "$item" ] || continue
+    [ "$(basename "$item")" = "images_internal.txt" ] && continue
+    cp -r "$item" "${UPLOAD_DIR}/"
+done
+
 log_info "Uploading bundle hierarchy to ${RELEASE_PATH}/"
-FILE_COUNT_BEFORE=0
-FILE_COUNT_AFTER=0
-
-# Count files before (approximate)
-FILE_COUNT_BEFORE=$(find "${OUTPUT_DIR}" -type f 2>/dev/null | wc -l | tr -d '[:space:]')
-
-# gcloud storage rsync is faster than gsutil -m rsync (better built-in parallelization)
-log_info "Running gcloud storage rsync -r..."
-gcloud storage rsync -r --exclude="images_internal\.txt$" "${OUTPUT_DIR}" "${RELEASE_PATH}/"
+gsutil -m cp -r "${UPLOAD_DIR}/." "${RELEASE_PATH}/"
 
 # Upload manifest and images.txt to release folder root
 log_info "Uploading bundle-manifest.yaml and images.txt to ${RELEASE_PATH}/"
 gsutil cp "${BUNDLE_MANIFEST}" "${RELEASE_PATH}/bundle-manifest.yaml"
 gsutil cp "${IMAGES_TXT}" "${RELEASE_PATH}/images.txt"
 
-# Get file count from GCS (approximate)
-FILE_COUNT_AFTER=$(gsutil ls -r "${RELEASE_PATH}/**" 2>/dev/null | wc -l | tr -d '[:space:]')
-
 echo ""
 log_info "=== UPLOAD SUMMARY ==="
 log_info "Bucket path: ${RELEASE_PATH}/"
-log_info "Files uploaded: ~${FILE_COUNT_AFTER} (including manifest and images.txt)"
 log_info "bundle-manifest.yaml: ${RELEASE_PATH}/bundle-manifest.yaml"
 log_info "images.txt: ${RELEASE_PATH}/images.txt"
 log_info "Upload complete."
