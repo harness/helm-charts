@@ -100,6 +100,8 @@ modules:
     images:
       - ci-manager-signed
       - ti-service-signed
+      - ci-addon
+      - ci-lite-engine
 
   ci-plugins:
     description: "CI Build Plugins"
@@ -107,8 +109,6 @@ modules:
     parent: ci
     bucket_path: "ci/plugins"
     images:
-      - ci-addon
-      - ci-lite-engine
       - drone-git
       - harness-cache-server
       - kaniko
@@ -133,22 +133,14 @@ modules:
   sto:
     description: "Security Testing Orchestration"
     bundle_type: combined
-    requires: [platform]
+    requires: [platform, ci]
     bucket_path: "sto"
     images:
       - stocore-signed
       - ticket-service-signed
       - refid-cache
-
-  sto-plugins:
-    description: "STO Plugins"
-    bundle_type: combined
-    parent: sto
-    bucket_path: "sto/plugins"
-    images:
-      - sto-plugin
-      - ci-addon
-      - ci-lite-engine
+      - name: sto-plugin
+        variants: ["-fips"]
 
   sto-scanners:
     description: "STO Security Scanners"

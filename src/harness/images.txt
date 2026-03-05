@@ -64,8 +64,6 @@ docker.io/koalaman/shellcheck:v0.5.0
 ## Continuous Integration
 docker.io/harness/ci-manager-signed:1.120.5
 docker.io/harness/ti-service-signed:1.60.5
-
-### CI Build Plugins
 harness/ci-addon:1.18.2
 harness/ci-addon:1.18.6
 harness/ci-addon:1.18.7
@@ -78,6 +76,8 @@ harness/ci-lite-engine:1.18.7
 harness/ci-lite-engine:rootless-1.18.2
 harness/ci-lite-engine:rootless-1.18.6
 harness/ci-lite-engine:rootless-1.18.7
+
+### CI Build Plugins
 harness/drone-git:1.7.10-rootless
 harness/drone-git:1.7.15-rootless
 harness/harness-cache-server:1.7.10
@@ -111,21 +111,8 @@ docker.io/harness/stocore-signed:1.180.4
 docker.io/harness/ticket-service-signed:1.4.5
 docker.io/harness/refid-cache:latest
 harness/refid-cache:latest
-
-### STO Plugins
 harness/sto-plugin:latest
-harness/ci-addon:1.18.2
-harness/ci-addon:1.18.6
-harness/ci-addon:1.18.7
-harness/ci-addon:rootless-1.18.2
-harness/ci-addon:rootless-1.18.6
-harness/ci-addon:rootless-1.18.7
-harness/ci-lite-engine:1.18.2
-harness/ci-lite-engine:1.18.6
-harness/ci-lite-engine:1.18.7
-harness/ci-lite-engine:rootless-1.18.2
-harness/ci-lite-engine:rootless-1.18.6
-harness/ci-lite-engine:rootless-1.18.7
+harness/sto-plugin:latest-fips
 
 ### STO Security Scanners
 harness/anchore-job-runner:latest
