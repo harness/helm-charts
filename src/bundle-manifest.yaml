@@ -246,22 +246,22 @@ modules:
       - chaos-ddcr-faults
       - chaos-event-watcher
 
-  scs:
-    description: "Software Chain Security"
+  ssca:
+    description: "Supply Chain Security"
     bundle_type: combined
     requires: [platform]
-    bucket_path: "scs"
+    bucket_path: "ssca"
     images:
       - ssca-manager-signed
       - ssca-ui-signed
       - component-service-signed
       - component-analysis-service-signed
 
-  scs-plugins:
+  ssca-plugins:
     description: "SCS Plugins"
     bundle_type: combined
-    parent: scs
-    bucket_path: "scs/plugins"
+    parent: ssca
+    bucket_path: "ssca/plugins"
     images:
       - ssca-plugin
       - slsa-plugin
