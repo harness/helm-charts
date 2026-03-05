@@ -48,7 +48,7 @@ modules:
         variants_only: true
 
   platform-agents:
-    description: "Platform Agents (Delegate, Upgrader)"
+    description: "Platform Agents"
     bundle_type: single
     parent: platform
     bucket_path: "platform/agents"
@@ -83,7 +83,7 @@ modules:
 
   cdng-agents:
     description: "CD Agents"
-    bundle_type: single
+    bundle_type: combined
     parent: cdng
     bucket_path: "cdng/agents"
     images:
@@ -247,7 +247,7 @@ modules:
       - chaos-event-watcher
 
   ssca:
-    description: "Software Supply Chain Assurance"
+    description: "Software Chain Security"
     bundle_type: combined
     requires: [platform]
     bucket_path: "ssca"
@@ -258,7 +258,7 @@ modules:
       - component-analysis-service-signed
 
   ssca-plugins:
-    description: "SSCA Plugins"
+    description: "SCS Plugins"
     bundle_type: combined
     parent: ssca
     bucket_path: "ssca/plugins"
@@ -298,7 +298,7 @@ modules:
       - iacm-manager-signed
 
   iacm-plugins:
-    description: "IACM Terraform Plugins"
+    description: "IACM Plugins"
     bundle_type: combined
     parent: iacm
     bucket_path: "iacm/plugins"
@@ -320,7 +320,7 @@ modules:
       - idp-app-signed
 
   idp-plugins:
-    description: "IDP Backstage Plugins"
+    description: "IDP Plugins"
     bundle_type: combined
     parent: idp
     bucket_path: "idp/plugins"
