@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.35.12](https://img.shields.io/badge/Version-0.35.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.35.17](https://img.shields.io/badge/Version-0.35.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -90,7 +90,7 @@ docker.io/harness/argocd:v2.14.21
 docker.io/harness/audit-event-streaming-signed:1.66.0
 docker.io/harness/batch-processing-signed:1.70.18
 docker.io/harness/ccm-gcp-smp-signed:100071
-docker.io/harness/cdcdata-signed:1.49.3
+docker.io/harness/cdcdata-signed:1.49.8
 docker.io/harness/ce-anomaly-detection-signed:1.16.3
 docker.io/harness/ce-cloud-info-signed:1.13.1
 docker.io/harness/ce-nextgen-signed:1.73.8
@@ -136,7 +136,7 @@ docker.io/harness/idp-app-signed:1.34.5
 docker.io/harness/idp-service-signed:1.34.15
 docker.io/harness/le-nextgen-signed:1.11.1
 docker.io/harness/log-service-signed:1.36.2
-docker.io/harness/looker-signed:1.8.8
+docker.io/harness/looker-signed:1.8.12
 docker.io/harness/manager-signed:1.120.4
 docker.io/harness/minio:2025.7.18-debian-12-r0
 docker.io/harness/mongo:7.0.28-debian-12-r0
@@ -146,7 +146,7 @@ docker.io/harness/ng-auth-ui-signed:1.37.3
 docker.io/harness/ng-ce-ui:1.69.8
 docker.io/harness/ng-dashboard-aggregator-signed:1.85.0
 docker.io/harness/ng-manager-signed:1.121.5
-docker.io/harness/pipeline-service-signed:1.161.4
+docker.io/harness/pipeline-service-signed:1.161.5
 docker.io/harness/platform-service-signed:1.99.0
 docker.io/harness/policy-mgmt:1.31.3
 docker.io/harness/postgres-exporter:0.16.0-debian-12-r8
