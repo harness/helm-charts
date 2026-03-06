@@ -814,10 +814,12 @@ checkbox_menu() {
         fi
         _drawn=$((_drawn + 1))
 
-        # ── Footer (blank + nav hint + legend = 3 lines) ─────────────────────
-        printf "\n  ${DIM}↑/↓ navigate  Space toggle  a all  n none  Enter confirm${_EL}${RESET}\n" >/dev/tty
-        printf "  ${DIM}[↑] = auto-selected required dependency${_EL}${RESET}\n" >/dev/tty
-        _drawn=$((_drawn + 3))
+        # ── Footer (blank + 4 help lines = 5 lines) ──────────────────────────
+        printf "\n  ${DIM}↑/↓ = navigate.${_EL}${RESET}\n" >/dev/tty
+        printf "  ${DIM}Space = toggle, Enter = confirm.${_EL}${RESET}\n" >/dev/tty
+        printf "  ${DIM}a = all, n = none.${_EL}${RESET}\n" >/dev/tty
+        printf "  ${DIM}[↑] = auto-selected dependency.${_EL}${RESET}\n" >/dev/tty
+        _drawn=$((_drawn + 5))
     }
 
     # Header is printed once (not part of the redraw region)
@@ -1135,10 +1137,20 @@ main() {
     # ── Resolve module dependencies ───────────────────────────────────────────
     local resolved_modules=""
     if [ -n "$MODULES_CSV" ]; then
-        resolved_modules=$(resolve_modules "$parsed" "$MODULES_CSV")
+        # In interactive mode, honor exactly what the user checked in the UI.
+        # In non-interactive/selection-file mode, keep auto-resolving dependencies.
+        if [ "$NON_INTERACTIVE" = true ] || [ -n "${SELECTION_FILE:-}" ]; then
+            resolved_modules=$(resolve_modules "$parsed" "$MODULES_CSV")
+        else
+            resolved_modules=$(echo "$MODULES_CSV" | tr ',' '\n' | awk '{$1=$1}; NF {print}' | paste -sd' ' -)
+        fi
         local resolved_display
         resolved_display=$(echo "$resolved_modules" | tr ' ' ',' | sed 's/^,//')
-        log_info "Modules selected (with auto-resolved deps): ${BOLD}${resolved_display}${RESET}"
+        if [ "$NON_INTERACTIVE" = true ] || [ -n "${SELECTION_FILE:-}" ]; then
+            log_info "Modules selected (with auto-resolved deps): ${BOLD}${resolved_display}${RESET}"
+        else
+            log_info "Modules selected: ${BOLD}${resolved_display}${RESET}"
+        fi
 
         # Show per-module breakdown when selections came from a file or CLI flags
         # (not from the interactive menus, where it would just repeat what was shown)
