@@ -56,8 +56,9 @@ ${BOLD}Required inputs:${RESET}
   --output-dir PATH    Directory to save downloaded bundles  ${DIM}(not needed with --list)${RESET}
 
 ${BOLD}Non-interactive mode also requires:${RESET}
-  --modules LIST       Comma-separated modules   (e.g. platform,ci,sto)
-  --agents LIST        Comma-separated agents    (e.g. delegate,upgrader)
+  --modules LIST       Comma-separated modules      (e.g. platform,ci,sto)
+  --sub-bundles LIST   Optional sub-modules         (e.g. ci-plugins,sto-scanners,all,none)
+  --agents LIST        Comma-separated agents       (e.g. delegate,upgrader,all,none)
                          ${DIM}At least one of --modules or --agents must be provided.${RESET}
 
 ${BOLD}Quick start:${RESET}
@@ -125,6 +126,7 @@ ${BOLD}Agent selection:${RESET}
 
 ${BOLD}Flags:${RESET}
   --non-interactive          Skip all prompts. Requires --modules and/or --agents.
+                             Optionally combine with --sub-bundles for sub-module selection.
   --generate-selection-file [FILE]  Run the interactive selection UI but write a selection
                                     file instead of downloading anything.
                                     Defaults to selection.conf in the current directory.
@@ -1143,24 +1145,11 @@ main() {
         if [ -n "${SELECTION_FILE:-}" ] || [ "$NON_INTERACTIVE" = true ]; then
             print_selection_plan "$parsed" "$resolved_modules"
         fi
-
-        if [ "$GENERATE_SELECTION" = false ]; then
-            log_step "Downloading module bundles"
-            for mod in $resolved_modules; do
-                mod="${mod// /}"
-                [ -z "$mod" ] && continue
-                echo "$parsed" | grep -q "^MODULE|${mod}|" && download_module "$parsed" "$mod"
-            done
-            if [ "$DL_FAILED" -gt 0 ]; then
-                log_error "${DL_FAILED} module bundle(s) failed to download — aborting."
-                log_error "Fix the errors above before downloading sub-bundles or agents."
-                exit 1
-            fi
-        fi
     fi
 
     # ── Sub-bundles (children with combined bundle_type) ─────────────────────
     local available_children=""
+    local children_to_dl=""
     if [ -n "$resolved_modules" ]; then
         for mod in $resolved_modules; do
             mod="${mod// /}"
@@ -1176,8 +1165,6 @@ main() {
     fi
 
     if [ -n "$available_children" ]; then
-        local children_to_dl=""
-
         if [ "$NON_INTERACTIVE" = true ]; then
             # --sub-bundles all  → include every available combined sub-bundle
             # --sub-bundles none → skip all sub-bundles
@@ -1234,24 +1221,10 @@ main() {
                 fi
             done
         fi
-
-        if [ -n "$children_to_dl" ]; then
-            if [ "$GENERATE_SELECTION" = false ]; then
-                # shellcheck disable=SC2086
-                print_download_plan "Sub-bundles" $children_to_dl
-                log_step "Downloading sub-bundles"
-                for child in $children_to_dl; do
-                    child="${child// /}"
-                    [ -z "$child" ] && continue
-                    download_child "$parsed" "$child"
-                done
-            fi
-        else
-            log_skip "No sub-bundles selected"
-        fi
     fi
 
     # ── Agents ────────────────────────────────────────────────────────────────
+    local agents_to_dl=""
     local relevant_agent_sections=""
     if [ -n "$resolved_modules" ]; then
         for mod in $resolved_modules; do
@@ -1271,8 +1244,6 @@ main() {
     fi
 
     if [ -n "$relevant_agent_sections" ]; then
-        local agents_to_dl=""
-
         if [ -n "$AGENTS_CSV" ]; then
             local agents_lower
             agents_lower=$(echo "$AGENTS_CSV" | tr '[:upper:]' '[:lower:]')
@@ -1319,18 +1290,47 @@ main() {
                 fi
             done
         fi
+    fi
+
+    # ── Download phase (after all selections are complete) ───────────────────
+    if [ "$GENERATE_SELECTION" = false ]; then
+        log_step "Starting downloads"
+
+        if [ -n "$resolved_modules" ]; then
+            # shellcheck disable=SC2086
+            print_download_plan "Modules" $resolved_modules
+            log_step "Downloading module bundles"
+            for mod in $resolved_modules; do
+                mod="${mod// /}"
+                [ -z "$mod" ] && continue
+                echo "$parsed" | grep -q "^MODULE|${mod}|" && download_module "$parsed" "$mod"
+            done
+        else
+            log_skip "No modules selected"
+        fi
+
+        if [ -n "$children_to_dl" ]; then
+            # shellcheck disable=SC2086
+            print_download_plan "Sub-bundles" $children_to_dl
+            log_step "Downloading sub-bundles"
+            for child in $children_to_dl; do
+                child="${child// /}"
+                [ -z "$child" ] && continue
+                download_child "$parsed" "$child"
+            done
+        else
+            log_skip "No sub-bundles selected"
+        fi
 
         if [ -n "$agents_to_dl" ]; then
-            if [ "$GENERATE_SELECTION" = false ]; then
-                # shellcheck disable=SC2086
-                print_download_plan "Agents" $agents_to_dl
-                log_step "Downloading agents"
-                for agent in $agents_to_dl; do
-                    agent="${agent// /}"
-                    [ -z "$agent" ] && continue
-                    download_agent "$parsed" "$agent"
-                done
-            fi
+            # shellcheck disable=SC2086
+            print_download_plan "Agents" $agents_to_dl
+            log_step "Downloading agents"
+            for agent in $agents_to_dl; do
+                agent="${agent// /}"
+                [ -z "$agent" ] && continue
+                download_agent "$parsed" "$agent"
+            done
         else
             log_skip "No agents selected"
         fi

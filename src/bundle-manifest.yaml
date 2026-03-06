@@ -76,7 +76,6 @@ modules:
     bucket_path: "cdng"
     images:
       - gitops-service-signed
-      - gitops-agent-installer-helper
       - cv-nextgen-signed
       - le-nextgen-signed
       - srm-ui-signed
@@ -91,6 +90,7 @@ modules:
       - gitops-agent
       - haproxy
       - shellcheck
+      - gitops-agent-installer-helper
 
   ci:
     description: "Continuous Integration"

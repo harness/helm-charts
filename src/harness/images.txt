@@ -50,7 +50,6 @@ docker.io/harness/statsd-exporter:1.0-prometheus-busybox-1
 
 ## Continuous Deployment
 docker.io/harness/gitops-service-signed:1.50.4
-docker.io/harness/gitops-agent-installer-helper:v0.0.9
 docker.io/harness/cv-nextgen-signed:1.55.1
 docker.io/harness/le-nextgen-signed:1.13.0
 docker.io/harness/srm-ui-signed:1.16.0
@@ -60,6 +59,7 @@ docker.io/harness/argocd:v3.2.5
 docker.io/harness/gitops-agent:v0.109.0
 docker.io/haproxy:lts-alpine3.23
 docker.io/koalaman/shellcheck:v0.5.0
+docker.io/harness/gitops-agent-installer-helper:v0.0.9
 
 ## Continuous Integration
 docker.io/harness/ci-manager-signed:1.120.5

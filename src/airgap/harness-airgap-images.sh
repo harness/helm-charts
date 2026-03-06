@@ -276,6 +276,7 @@ EOF
         if [ "$cmd_rc" -ne 0 ] && [ "$alt_src_ref" != "$src_ref" ]; then
             printf "    ${DIM}retrying source tag lookup as %s …${RESET}\n" "$alt_src_ref"
             cmd_rc=0
+            src_ref="$alt_src_ref"
             skopeo copy --remove-signatures \
                 "docker-archive:${skopeo_tar}:${alt_src_ref}" \
                 "docker://${target}" >"$cmd_tmp" 2>&1 || cmd_rc=$?
@@ -295,11 +296,12 @@ EOF
             # skopeo exits non-zero near the end of the operation.
             local verify_tmp verify_rc=0
             verify_tmp=$(mktemp)
+
             skopeo inspect "docker://${target}" >"$verify_tmp" 2>&1 || verify_rc=$?
 
             if [ "$verify_rc" -eq 0 ]; then
                 rm -f "$verify_tmp" "$cmd_tmp"
-                log_warn "skopeo exited ${cmd_rc}, but destination image is present; treating as success"
+                log_info "Destination tag resolves, image push successful."
                 log_done "Copied (verified) → ${target}"
                 success_count=$((success_count + 1))
                 bundle_pushed=$((bundle_pushed + 1))
