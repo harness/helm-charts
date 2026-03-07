@@ -403,7 +403,7 @@ cd:
     agentRedisImage:
       image:
         repository: harness/redis
-        tag: "7.4.7-jammy"
+        tag: "7.4.8-jammy"
     upgraderImage:
       image:
         tag: 1.11.0
