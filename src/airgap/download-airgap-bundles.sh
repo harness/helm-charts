@@ -2,18 +2,15 @@
 #
 # download-airgap-bundles.sh
 #
-# Download airgap bundles for Harness Self-Managed Platform with full manifest
-# awareness:
-#   - Root modules (combined bundles, e.g. platform, ci, sto)
-#   - Sub-bundles attached to a parent (e.g. ci/plugins, sto/scanners)
-#   - Single-image bundles (e.g. platform/agents: delegate, upgrader)
-#     with variant awareness (delegate-fips, delegate.minimal, etc.)
+# Download airgap bundles for Harness Self-Managed Platform.
+# Bundles are referenced by their manifest name regardless of type:
+#   - Root modules      (e.g. platform, ci, sto)
+#   - Sub-bundles       (e.g. ci-plugins, sto-scanners, cdng-agents)
+#   - Agent variants    (e.g. delegate, delegate-fips, upgrader)
 #
 # Usage:
 #   # With version (uses default GCS bucket):
-#   ./download-airgap-bundles.sh \
-#     --version 0.37.0 \
-#     --output-dir ./airgap-bundles
+#   ./download-airgap-bundles.sh --version 0.37.0 --output-dir ./airgap-bundles
 #
 #   # With a custom/self-hosted bundle URL:
 #   ./download-airgap-bundles.sh \
@@ -49,27 +46,26 @@ usage_short() {
     cat <<EOF >&2
 
 ${BOLD}Required inputs:${RESET}
-  --version VERSION    Harness release version  (e.g. 0.37.0)
-                         ${DIM}Uses default GCS bucket: ${DEFAULT_BASE_URL}${RESET}
-  --url URL            Complete base URL to the release directory
-                         ${DIM}(alternative to --version, for self-hosted mirrors)${RESET}
-  --output-dir PATH    Directory to save downloaded bundles  ${DIM}(not needed with --list)${RESET}
+  -v, --version VERSION    Harness release version  (e.g. 0.37.0)
+                             ${DIM}Uses default GCS bucket: ${DEFAULT_BASE_URL}${RESET}
+      --url URL            Complete base URL to the release directory
+                             ${DIM}(alternative to --version, for self-hosted mirrors)${RESET}
+  -o, --output-dir PATH    Directory to save downloaded bundles  ${DIM}(not needed with --list)${RESET}
 
 ${BOLD}Non-interactive mode also requires:${RESET}
-  --modules LIST       Comma-separated modules      (e.g. platform,ci,sto)
-  --sub-bundles LIST   Optional sub-modules         (e.g. ci-plugins,sto-scanners,all,none)
-  --agents LIST        Comma-separated agents       (e.g. delegate,upgrader,all,none)
-                         ${DIM}At least one of --modules or --agents must be provided.${RESET}
+  -b, --bundles LIST       Comma-separated bundle names  (modules, sub-bundles, or agents)
+                             ${DIM}e.g. platform,ci,ci-plugins,delegate,delegate-fips${RESET}
+                             ${DIM}Use 'all' to download everything. Run --list to see names.${RESET}
 
 ${BOLD}Quick start:${RESET}
-  # See what is available before choosing what to download:
-  ./download-airgap-bundles.sh --version 0.37.0 --list
+  # See what is available:
+  ./download-airgap-bundles.sh -v 0.37.0 --list
 
   # Pick interactively and save to a file (no download yet):
-  ./download-airgap-bundles.sh --version 0.37.0 --generate-selection-file
+  ./download-airgap-bundles.sh -v 0.37.0 --generate-selection-file  (-g)
 
   # Then download using that saved file:
-  ./download-airgap-bundles.sh --version 0.37.0 --output-dir ./bundles --selection-file selection.conf
+  ./download-airgap-bundles.sh -v 0.37.0 --output-dir ./bundles --selection-file selection.conf
 
 Run ${BOLD}./download-airgap-bundles.sh --help${RESET} for full usage and examples.
 EOF
@@ -81,91 +77,75 @@ usage() {
 ${BOLD}Usage:${RESET} download-airgap-bundles.sh [OPTIONS]
 
 ${BOLD}Bundle source (one required):${RESET}
-  --version VERSION    Harness release version (e.g. 0.37.0 or harness-0.37.0).
-                       Uses the default GCS bucket:
-                         ${DEFAULT_BASE_URL}
-  --url URL            Complete base URL to the release directory.
-                       Use this for self-hosted mirrors or non-standard paths.
-                         e.g. https://my-mirror.example.com/bundles/harness-0.37.0
+  -v, --version VERSION    Harness release version (e.g. 0.37.0 or harness-0.37.0).
+                           Uses the default GCS bucket:
+                             ${DEFAULT_BASE_URL}
+      --url URL            Complete base URL to the release directory.
+                           Use this for self-hosted mirrors or non-standard paths.
+                             e.g. https://my-mirror.example.com/bundles/harness-0.37.0
 
 ${BOLD}Output:${RESET}
-  --output-dir PATH    Directory to save downloaded bundles (required, except for --list).
+  -o, --output-dir PATH    Directory to save downloaded bundles (required, except for --list).
 
 ${BOLD}Listing available bundles:${RESET}
-  --list               Print all available modules, sub-bundles and agents from the
-                       manifest, then exit. No download is performed.
-                       Also prints a selection file template you can save and reuse.
+  -l, --list               Print all available bundles from the manifest, then exit.
+                           No download is performed.
+
+${BOLD}Bundle selection:${RESET}
+  -b, --bundles LIST       Comma-separated list of bundle names to download, or 'all'.
+                           A bundle can be a module, a sub-bundle, or an agent variant —
+                           any name shown by --list.
+                             e.g. platform,ci,ci-plugins,delegate,delegate-fips
+                           When a module is selected its required dependencies are
+                           automatically added. Sub-bundles and agents must be named
+                           explicitly (or use 'all').
+                           Omit in interactive mode to pick from an arrow-key menu.
 
 ${BOLD}Selection file (recommended for repeated / automated use):${RESET}
-  --selection-file PATH  Path to a plain-text file specifying what to download.
-                         Run --generate-selection-file to create one interactively.
-                         Format:
-                           modules=cdng,ci,platform
-                           sub-bundles=cdng-agents,ci-plugins,delegate,upgrader
-                                       # combined bundles AND agent images in one key
-                                       # or: all / none
-                         CLI flags (--modules, --sub-bundles, --agents) override file values.
-
-${BOLD}Module selection:${RESET}
-  --modules LIST       Comma-separated module names (e.g. ci,sto,platform).
-                       Dependencies are resolved automatically.
-                       Omit in interactive mode to pick from an arrow-key menu.
-
-${BOLD}Sub-bundle selection (non-interactive only):${RESET}
-  --sub-bundles LIST   Comma-separated sub-bundle names, or 'all' / 'none'.
-                       Run --list to see available sub-bundle names.
-                       In interactive mode, a menu is shown automatically.
-
-${BOLD}Agent selection:${RESET}
-  --agents LIST        Comma-separated agent names, or 'all' / 'none'.
-                         delegate            → base delegate bundle only
-                         delegate-fips       → FIPS variant
-                         delegate.minimal    → minimal variant
-                         all                 → every agent variant
-                       Omit in interactive mode to pick from an arrow-key menu.
+  -s, --selection-file PATH  Path to a plain-text file specifying what to download.
+                             Run -g / --generate-selection-file to create one interactively.
+                             Format:
+                               bundles=platform,ci,ci-plugins,delegate  # or: all
+                             CLI flag --bundles overrides the file value.
 
 ${BOLD}Flags:${RESET}
-  --non-interactive          Skip all prompts. Requires --modules and/or --agents.
-                             Optionally combine with --sub-bundles for sub-module selection.
-  --generate-selection-file [FILE]  Run the interactive selection UI but write a selection
-                                    file instead of downloading anything.
-                                    Defaults to selection.conf in the current directory.
-  -h, --help                        Show this help.
+  -n, --non-interactive    Skip all prompts. Requires --bundles.
+  -g, --generate-selection-file [FILE]
+                           Run the interactive selection UI but write a selection
+                           file instead of downloading anything.
+                           Defaults to selection.conf in the current directory.
+  -h, --help               Show this help.
 
 ${BOLD}Examples:${RESET}
-  # See what modules / sub-bundles / agents are available:
-  ./download-airgap-bundles.sh --version 0.37.0 --list
+  # See every available bundle name:
+  ./download-airgap-bundles.sh -v 0.37.0 --list
+  ./download-airgap-bundles.sh --version 0.37.0 -l
 
-  # Pick what to download via interactive menus, save as a selection file:
+  # Pick interactively, save as a selection file:
+  ./download-airgap-bundles.sh -v 0.37.0 -g my-selection.conf
   ./download-airgap-bundles.sh --version 0.37.0 --generate-selection-file my-selection.conf
 
-  # Interactive: pick everything from arrow-key menus
-  ./download-airgap-bundles.sh \\
-    --version 0.37.0 --output-dir ./bundles
+  # Interactive: pick everything from one arrow-key menu, then download:
+  ./download-airgap-bundles.sh -v 0.37.0 -o ./bundles
+  ./download-airgap-bundles.sh --version 0.37.0 --output-dir ./bundles
 
-  # Non-interactive via selection file (generate template with --list first):
-  ./download-airgap-bundles.sh \\
-    --version 0.37.0 --output-dir ./bundles --selection-file selection.conf
+  # Non-interactive via selection file:
+  ./download-airgap-bundles.sh -v 0.37.0 -o ./bundles -s selection.conf
+  ./download-airgap-bundles.sh --version 0.37.0 --output-dir ./bundles --selection-file selection.conf
 
-  # Non-interactive: ci + sto with specific sub-bundles, no agents
-  ./download-airgap-bundles.sh \\
-    --version 0.37.0 --output-dir ./bundles \\
-    --modules ci,sto --sub-bundles sto-scanners --agents none --non-interactive
+  # Non-interactive: ci + ci-plugins + delegate only:
+  ./download-airgap-bundles.sh -v 0.37.0 -o ./bundles -b ci,ci-plugins,delegate -n
+  ./download-airgap-bundles.sh --version 0.37.0 --output-dir ./bundles \\
+    --bundles ci,ci-plugins,delegate --non-interactive
 
-  # Download only agents
-  ./download-airgap-bundles.sh \\
-    --version 0.37.0 --output-dir ./bundles \\
-    --agents delegate,delegate-fips,upgrader --non-interactive
+  # Download everything:
+  ./download-airgap-bundles.sh -v 0.37.0 -o ./bundles -b all -n
+  ./download-airgap-bundles.sh --version 0.37.0 --output-dir ./bundles --bundles all --non-interactive
 
-  # Download ci module + all sub-bundles + all agents
-  ./download-airgap-bundles.sh \\
-    --version 0.37.0 --output-dir ./bundles \\
-    --modules ci --sub-bundles all --agents all --non-interactive
-
-  # Self-hosted mirror
+  # Self-hosted mirror:
   ./download-airgap-bundles.sh \\
     --url https://my-mirror.example.com/bundles/harness-0.37.0 \\
-    --output-dir ./bundles --modules platform --non-interactive
+    -o ./bundles -b platform -n
 EOF
     exit 0
 }
@@ -175,41 +155,32 @@ EOF
 # ─────────────────────────────────────────────────────────────────────────────
 VERSION=""
 BUNDLE_URL=""
-MODULES_CSV=""
-OUTPUT_DIR=""
-SUB_BUNDLES_CSV=""       # replaces --include-children / --include-bundles
-AGENTS_CSV=""
-COMBINED_SUBS_CSV=""     # loaded from selection file 'sub-bundles=' key; classified after manifest load
+BUNDLES_CSV=""           # -b / --bundles: flat list of any bundle names
 NON_INTERACTIVE=false
-SELECTION_FILE=""        # --selection-file: read modules/sub-bundles/agents from a file
-LIST_ONLY=false          # --list: print available bundles and exit (no download)
-GENERATE_SELECTION=false # --generate-selection-file: run interactive UI, write selection file, no download
+OUTPUT_DIR=""
+SELECTION_FILE=""        # -s / --selection-file
+LIST_ONLY=false          # -l / --list
+GENERATE_SELECTION=false # -g / --generate-selection-file
 SELECTION_OUTPUT_FILE="" # output path for --generate-selection-file (default: ./selection.conf)
 
 while [ $# -gt 0 ]; do
     case "$1" in
         -h|--help)             usage ;;
-        --version)             VERSION="$2";               shift 2 ;;
+        -v|--version)          VERSION="$2";               shift 2 ;;
         --url)                 BUNDLE_URL="$2";            shift 2 ;;
-        --modules)             MODULES_CSV="$2";           shift 2 ;;
-        --output-dir)          OUTPUT_DIR="$2";            shift 2 ;;
-        --sub-bundles)         SUB_BUNDLES_CSV="$2";       shift 2 ;;
-        --agents)              AGENTS_CSV="$2";            shift 2 ;;
-        --non-interactive)     NON_INTERACTIVE=true;       shift   ;;
-        --selection-file)      SELECTION_FILE="$2";        shift 2 ;;
-        --list)                LIST_ONLY=true;             shift   ;;
-        --generate-selection-file)
+        -b|--bundles)          BUNDLES_CSV="$2";           shift 2 ;;
+        -o|--output-dir)       OUTPUT_DIR="$2";            shift 2 ;;
+        -n|--non-interactive)  NON_INTERACTIVE=true;       shift   ;;
+        -s|--selection-file)   SELECTION_FILE="$2";        shift 2 ;;
+        -l|--list)             LIST_ONLY=true;             shift   ;;
+        -g|--generate-selection-file)
             GENERATE_SELECTION=true
-            # Optional value: if the next token exists and is not a flag, treat it as the output path
-            if [ -n "${2:-}" ] && [[ "${2:-}" != --* ]]; then
+            if [ -n "${2:-}" ] && [[ "${2:-}" != --* ]] && [[ "${2:-}" != -* ]]; then
                 SELECTION_OUTPUT_FILE="$2"; shift 2
             else
                 shift
             fi
             ;;
-        # Kept for backward compatibility — map to --sub-bundles
-        --include-children)    SUB_BUNDLES_CSV="$2";       shift 2 ;;
-        --include-bundles)     SUB_BUNDLES_CSV="${SUB_BUNDLES_CSV:+${SUB_BUNDLES_CSV},}$2"; shift 2 ;;
         *)
             log_error "Unknown option: $1"
             usage_short
@@ -226,14 +197,13 @@ if [ -n "$VERSION" ] && [ -n "$BUNDLE_URL" ]; then
     log_error "--version and --url are mutually exclusive; use one or the other"
     usage_short
 fi
-# --output-dir is required except for --list and --generate-selection-file (no download)
 if [ -z "$OUTPUT_DIR" ] && [ "$LIST_ONLY" = false ] && [ "$GENERATE_SELECTION" = false ]; then
     log_error "Missing required argument: --output-dir"
     usage_short
 fi
-if [ -z "$MODULES_CSV" ] && [ -z "$AGENTS_CSV" ] && [ "$NON_INTERACTIVE" = true ] \
+if [ -z "$BUNDLES_CSV" ] && [ "$NON_INTERACTIVE" = true ] \
         && [ "$LIST_ONLY" = false ] && [ "$GENERATE_SELECTION" = false ]; then
-    log_error "Non-interactive mode requires --modules and/or --agents"
+    log_error "Non-interactive mode requires --bundles"
     usage_short
 fi
 
@@ -557,88 +527,99 @@ print_download_plan() {
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# print_selection_plan — show what will be downloaded per module.
-# Called after module resolution when selections come from a file / CLI flags.
+# print_selection_plan — show what will be downloaded (non-interactive / file mode).
 # ─────────────────────────────────────────────────────────────────────────────
 print_selection_plan() {
-    local parsed="$1" modules="$2"
+    local parsed="$1"
+    shift
+    # remaining args: space-separated lists modules_to_dl children_to_dl agents_to_dl
+    local _mods="$1" _children="$2" _agents="$3"
+
     echo ""
     printf "  ${BOLD}Download plan:${RESET}\n"
-
-    local mod
-    for mod in $modules; do
-        mod="${mod// /}"
-        [ -z "$mod" ] && continue
-
-        local mod_desc
-        mod_desc=$(echo "$parsed" | awk -F'|' -v m="$mod" '$1=="MODULE" && $2==m {print $6}')
-
-        printf "\n  ${CYAN}${BOLD}  %-18s${RESET} ${DIM}%s${RESET}\n" "$mod" "$mod_desc"
-
-        local _has_extras=false
-
-        # ── Combined sub-bundles belonging to this module ─────────────────────
-        while IFS= read -r child; do
-            [ -z "$child" ] && continue
-            local btype
-            btype=$(echo "$parsed" | awk -F'|' -v c="$child" '$1=="CHILD" && $2==c {print $5}')
-            [ "$btype" = "single" ] && continue
-
-            local _inc=false
-            if [ "$SUB_BUNDLES_CSV" = "all" ]; then
-                _inc=true
-            elif [ -n "${SUB_BUNDLES_CSV:-}" ] && [ "$SUB_BUNDLES_CSV" != "none" ]; then
-                echo ",${SUB_BUNDLES_CSV}," | grep -qF ",${child}," && _inc=true
-            fi
-
-            if [ "$_inc" = true ]; then
-                local cdesc
-                cdesc=$(echo "$parsed" | awk -F'|' -v c="$child" '$1=="CHILD" && $2==c {print $6}')
-                printf "    ${DIM}├─ %-20s  %s${RESET}\n" "$child" "$cdesc"
-                _has_extras=true
-            fi
-        done < <(children_of "$parsed" "$mod")
-
-        # ── Agent sections belonging to this module ───────────────────────────
-        while IFS= read -r sec; do
-            [ -z "$sec" ] && continue
-            local btype
-            btype=$(echo "$parsed" | awk -F'|' -v c="$sec" '$1=="CHILD" && $2==c {print $5}')
-            [ "$btype" != "single" ] && continue
-
-            local sec_desc
-            sec_desc=$(echo "$parsed" | awk -F'|' -v c="$sec" '$1=="CHILD" && $2==c {print $6}')
-
-            local _sec_agents=""
-            while IFS='|' read -r aname asuffixes; do
-                # base image
-                if [ "$AGENTS_CSV" = "all" ] || echo ",${AGENTS_CSV:-}," | grep -qF ",${aname},"; then
-                    _sec_agents="${_sec_agents:+${_sec_agents}, }${aname}"
-                fi
-                # variant images
-                if [ -n "$asuffixes" ]; then
-                    local _sv _s
-                    IFS=',' read -ra _sv <<< "$asuffixes"
-                    for _s in "${_sv[@]}"; do
-                        local vn="${aname}${_s}"
-                        if [ "$AGENTS_CSV" = "all" ] || echo ",${AGENTS_CSV:-}," | grep -qF ",${vn},"; then
-                            _sec_agents="${_sec_agents:+${_sec_agents}, }${vn}"
-                        fi
-                    done
-                fi
-            done < <(agents_in_section "$parsed" "$sec")
-
-            if [ -n "$_sec_agents" ]; then
-                printf "    ${DIM}├─ %-20s  %s${RESET}\n" "$sec_desc" "$_sec_agents"
-                _has_extras=true
-            fi
-        done < <(children_of "$parsed" "$mod")
-
-        if [ "$_has_extras" = false ]; then
-            printf "    ${DIM}└─ (base bundle only)${RESET}\n"
-        fi
+    for _b in $_mods $_children $_agents; do
+        [ -z "$_b" ] && continue
+        local _desc
+        _desc=$(echo "$parsed" | awk -F'|' -v n="$_b" '
+            ($1=="MODULE" || $1=="CHILD") && $2==n { print $6; exit }')
+        [ -z "$_desc" ] && _desc="$_b"
+        printf "    ${CYAN}•${RESET} %-28s ${DIM}%s${RESET}\n" "$_b" "$_desc"
     done
     echo ""
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# list_bundles — print every available bundle name and exit.
+# ─────────────────────────────────────────────────────────────────────────────
+list_bundles() {
+    local parsed="$1"
+    local _ver_label="${VERSION:-${BUNDLE_URL}}"
+    echo ""
+    printf "${BOLD}${CYAN}╔══════════════════════════════════════════════════════╗${RESET}\n"
+    printf "${BOLD}${CYAN}║   Available Harness Airgap Bundles                  ║${RESET}\n"
+    printf "${BOLD}${CYAN}╚══════════════════════════════════════════════════════╝${RESET}\n"
+    echo ""
+    printf "${DIM}Source: %s${RESET}\n" "$_ver_label"
+    printf "${DIM}Use any NAME below with: -b / --bundles NAME,NAME,...${RESET}\n"
+    echo ""
+
+    printf "${BOLD}Modules${RESET}\n"
+    printf "  %-24s %-12s  %s\n" "NAME" "REQUIRES" "DESCRIPTION"
+    printf "  %s\n" "──────────────────────────────────────────────────────────────"
+    while IFS='|' read -r _mname _mdesc _mreqs; do
+        printf "  ${GREEN}%-24s${RESET} ${DIM}%-12s${RESET}  %s\n" "$_mname" "${_mreqs:-(none)}" "$_mdesc"
+    done < <(echo "$parsed" | awk -F'|' '$1=="MODULE" {print $2 "|" $6 "|" $3}' | sort -t'|' -k3 -r)
+    echo ""
+
+    printf "${BOLD}Sub-bundles${RESET}\n"
+    printf "  %-24s %-12s  %s\n" "NAME" "PARENT" "DESCRIPTION"
+    printf "  %s\n" "──────────────────────────────────────────────────────────────"
+    local _prev_parent=""
+    while IFS='|' read -r _cname _cparent _cdesc _cbtype; do
+        [ "$_cbtype" = "single" ] && continue
+        [ "$_cparent" != "$_prev_parent" ] && [ -n "$_prev_parent" ] && echo ""
+        _prev_parent="$_cparent"
+        printf "  ${YELLOW}%-24s${RESET} ${DIM}%-12s${RESET}  %s\n" "$_cname" "$_cparent" "$_cdesc"
+    done < <(echo "$parsed" | awk -F'|' '$1=="CHILD" {print $2 "|" $3 "|" $6 "|" $5}' | sort -t'|' -k2,2 -k1,1)
+    echo ""
+
+    printf "${BOLD}Agents  ${DIM}(individual image archives)${RESET}\n"
+    printf "  %-24s  %s\n" "NAME" "SECTION"
+    printf "  %s\n" "──────────────────────────────────────────────────────────────"
+    local _prev_sect=""
+    while IFS='|' read -r _aname _asect; do
+        [ "$_asect" != "$_prev_sect" ] && [ -n "$_prev_sect" ] && echo ""
+        _prev_sect="$_asect"
+        printf "  ${CYAN}%-24s${RESET}  ${DIM}%s${RESET}\n" "$_aname" "$_asect"
+    done < <(echo "$parsed" | awk -F'|' '$1=="AGENT" {print $4 "|" $3}' | sort -t'|' -k2,2 -k1,1)
+    echo ""
+
+    printf "${DIM}Run --generate-selection-file (-g) to pick interactively and save a selection file.${RESET}\n"
+    printf "${DIM}Run --selection-file (-s) selection.conf to download from a saved file.${RESET}\n"
+    echo ""
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# load_selection_file — read a selection.conf and set BUNDLES_CSV.
+# Format (order-independent, '#' comments stripped):
+#   bundles=platform,ci,ci-plugins,delegate
+# ─────────────────────────────────────────────────────────────────────────────
+load_selection_file() {
+    local _file="$1"
+    [ ! -f "$_file" ] && log_error "Selection file not found: ${_file}" && exit 1
+    log_info "Loading selections from: ${BOLD}${_file}${RESET}"
+    while IFS= read -r _line; do
+        _line="${_line%%#*}"
+        _line="${_line#"${_line%%[![:space:]]*}"}"
+        _line="${_line%"${_line##*[![:space:]]}"}"
+        [ -z "$_line" ] && continue
+        local _key _val
+        _key="${_line%%=*}"
+        _val="${_line#*=}"
+        case "$_key" in
+            bundles) [ -z "$BUNDLES_CSV" ] && BUNDLES_CSV="$_val" ;;
+        esac
+    done < "$_file"
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -688,6 +669,10 @@ checkbox_menu() {
     fi
 
     local _cursor=0 _drawn=0
+    # Skip any leading non-selectable header rows
+    while [ "$_cursor" -lt "$_n" ] && [ -z "${_values[$_cursor]}" ]; do
+        _cursor=$((_cursor + 1))
+    done
     local _EL=$'\033[K'   # clear to end of line — prevents stale chars when redrawing
 
     # ── Viewport: clamp list to terminal height so we never overdraw ──────────
@@ -788,19 +773,26 @@ checkbox_menu() {
             if [ "$_idx" -ge "$_n" ]; then
                 printf "${_EL}\n" >/dev/tty   # blank padding at bottom
             else
-                if [ "${_checked[$_idx]}" = "1" ]; then
-                    if [ "${_auto[$_idx]}" = "1" ]; then _box="[↑]"; else _box="[✓]"; fi
+                local _lbl="${_labels[$_idx]}"
+                local _val="${_values[$_idx]}"
+                if [ -z "$_val" ]; then
+                    # Non-selectable header row — no checkbox, dimmed
+                    printf "    ${DIM}%s${_EL}${RESET}\n" "$_lbl" >/dev/tty
                 else
-                    _box="[ ]"
+                    if [ "${_checked[$_idx]}" = "1" ]; then
+                        if [ "${_auto[$_idx]}" = "1" ]; then _box="[↑]"; else _box="[✓]"; fi
+                    else
+                        _box="[ ]"
+                    fi
+                    if [ "$_idx" -eq "$_cursor" ]; then
+                        _row="  ${CYAN}${BOLD}▶ %s  %s${_EL}${RESET}\n"
+                    elif [ "${_auto[$_idx]}" = "1" ]; then
+                        _row="  ${DIM}  %s  %s${_EL}${RESET}\n"
+                    else
+                        _row="    %s  %s${_EL}\n"
+                    fi
+                    printf "$_row" "$_box" "$_lbl" >/dev/tty
                 fi
-                if [ "$_idx" -eq "$_cursor" ]; then
-                    _row="  ${CYAN}${BOLD}▶ %s  %s${_EL}${RESET}\n"
-                elif [ "${_auto[$_idx]}" = "1" ]; then
-                    _row="  ${DIM}  %s  %s${_EL}${RESET}\n"
-                else
-                    _row="    %s  %s${_EL}\n"
-                fi
-                printf "$_row" "$_box" "${_labels[$_idx]}" >/dev/tty
             fi
             _drawn=$((_drawn + 1))
         done
@@ -835,16 +827,29 @@ checkbox_menu() {
             $'\x1b')
                 IFS= read -rsn2 -t 1 _seq </dev/tty
                 case "$_seq" in
-                    '[A')  # Up
-                        if [ "$_cursor" -gt 0 ]; then _cursor=$((_cursor - 1)); fi
+                    '[A')  # Up — skip non-selectable (empty value) header rows
+                        local _nc=$((_cursor - 1))
+                        while [ "$_nc" -gt 0 ] && [ -z "${_values[$_nc]}" ]; do
+                            _nc=$((_nc - 1))
+                        done
+                        if [ "$_nc" -ge 0 ] && [ -n "${_values[$_nc]}" ]; then
+                            _cursor="$_nc"
+                        fi
                         ;;
-                    '[B')  # Down
-                        if [ "$_cursor" -lt $((_n - 1)) ]; then _cursor=$((_cursor + 1)); fi
+                    '[B')  # Down — skip non-selectable header rows
+                        local _nc=$((_cursor + 1))
+                        while [ "$_nc" -lt $((_n - 1)) ] && [ -z "${_values[$_nc]}" ]; do
+                            _nc=$((_nc + 1))
+                        done
+                        if [ "$_nc" -lt "$_n" ] && [ -n "${_values[$_nc]}" ]; then
+                            _cursor="$_nc"
+                        fi
                         ;;
                 esac
                 ;;
-            ' ')  # Toggle current item
-                if [ "${_checked[$_cursor]}" = "1" ]; then
+            ' ')  # Toggle current item (no-op on non-selectable header rows)
+                if [ -z "${_values[$_cursor]}" ]; then : ; \
+                elif [ "${_checked[$_cursor]}" = "1" ]; then
                     _checked[$_cursor]=0
                     _auto[$_cursor]=0
                     # Release auto-checked deps that are no longer needed
@@ -864,7 +869,9 @@ checkbox_menu() {
                 fi
                 ;;
             'a'|'A')
-                for ((_i=0; _i<_n; _i++)); do _checked[$_i]=1; _auto[$_i]=0; done
+                for ((_i=0; _i<_n; _i++)); do
+                    [ -n "${_values[$_i]}" ] && _checked[$_i]=1 && _auto[$_i]=0
+                done
                 ;;
             'n'|'N')
                 for ((_i=0; _i<_n; _i++)); do _checked[$_i]=0; _auto[$_i]=0; done
@@ -883,161 +890,16 @@ checkbox_menu() {
     # Restore set -e before returning so the caller's error handling is intact
     [ "$_cbm_e" = "1" ] && set -e
     for ((_i=0; _i<_n; _i++)); do
-        if [ "${_checked[$_i]}" = "1" ]; then
+        if [ -n "${_values[$_i]}" ] && [ "${_checked[$_i]}" = "1" ]; then
             echo "${_values[$_i]}"
         fi
     done
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# list_bundles — print every available module, sub-bundle and agent, then exit.
-# Requires $parsed (the output of parse_manifest) to already be set.
-# ─────────────────────────────────────────────────────────────────────────────
-list_bundles() {
-    local parsed="$1"
-    local _ver_label="${VERSION:-${BUNDLE_URL}}"
-    echo ""
-    printf "${BOLD}${CYAN}╔══════════════════════════════════════════════════════╗${RESET}\n"
-    printf "${BOLD}${CYAN}║   Available Harness Airgap Bundles                  ║${RESET}\n"
-    printf "${BOLD}${CYAN}╚══════════════════════════════════════════════════════╝${RESET}\n"
-    echo ""
-    printf "${DIM}Source: %s${RESET}\n" "$_ver_label"
-    echo ""
-
-    # ── Modules ──────────────────────────────────────────────────────────────
-    printf "${BOLD}Modules  (use with --modules)${RESET}\n"
-    printf "  %-22s %-10s  %s\n" "NAME" "REQUIRES" "DESCRIPTION"
-    printf "  %s\n" "────────────────────────────────────────────────────────────"
-    while IFS='|' read -r _mname _mdesc _mreqs; do
-        local _req_col="${_mreqs:-(none)}"
-        printf "  ${GREEN}%-22s${RESET} ${DIM}%-10s${RESET}  %s\n" "$_mname" "$_req_col" "$_mdesc"
-    done < <(echo "$parsed" | awk -F'|' '$1=="MODULE" {print $2 "|" $6 "|" $3}' | sort -t'|' -k3 -r)
-    echo ""
-
-    # ── Sub-bundles (combined type only — single-type are always downloaded) ─
-    printf "${BOLD}Sub-bundles  (use with --sub-bundles; always included if parent module selected)${RESET}\n"
-    printf "  %-30s %-12s  %s\n" "NAME" "PARENT" "DESCRIPTION"
-    printf "  %s\n" "────────────────────────────────────────────────────────────"
-    local _prev_parent=""
-    while IFS='|' read -r _cname _cparent _cdesc _cbtype; do
-        [ "$_cbtype" = "single" ] && continue
-        if [ "$_cparent" != "$_prev_parent" ]; then
-            [ -n "$_prev_parent" ] && echo ""
-            _prev_parent="$_cparent"
-        fi
-        printf "  ${YELLOW}%-30s${RESET} ${DIM}%-12s${RESET}  %s\n" "$_cname" "$_cparent" "$_cdesc"
-    done < <(echo "$parsed" | awk -F'|' '$1=="CHILD" {print $2 "|" $3 "|" $6 "|" $5}' | sort -t'|' -k2,2 -k1,1)
-    echo ""
-
-    # ── Agents ───────────────────────────────────────────────────────────────
-    printf "${BOLD}Agents  (use with --agents; 'all' downloads every variant)${RESET}\n"
-    printf "  %-35s %s\n" "NAME" "SECTION"
-    printf "  %s\n" "────────────────────────────────────────────────────────────"
-    local _prev_sect=""
-    while IFS='|' read -r _aname _asect; do
-        if [ "$_asect" != "$_prev_sect" ]; then
-            [ -n "$_prev_sect" ] && echo ""
-            _prev_sect="$_asect"
-        fi
-        printf "  ${CYAN}%-35s${RESET} ${DIM}%s${RESET}\n" "$_aname" "$_asect"
-    done < <(echo "$parsed" | awk -F'|' '$1=="AGENT" {print $4 "|" $3}' | sort -t'|' -k2,2 -k1,1)
-    echo ""
-
-    printf "${DIM}See selection.conf.example (in this directory) for the selection file format.${RESET}\n"
-    printf "${DIM}Usage: --selection-file selection.conf${RESET}\n"
-    echo ""
-}
-
-# ─────────────────────────────────────────────────────────────────────────────
-# load_selection_file — read a selection.conf file and populate global vars.
-# Format (lines are order-independent, '#' comments are ignored):
-#   modules=cdng,ci,platform
-#   sub-bundles=cdng-agents,ci-plugins,delegate,upgrader   (or: all / none)
-#
-# The 'sub-bundles' key covers both combined bundles (ci-plugins) and
-# individual agent images (delegate, upgrader). They are classified after
-# the manifest is loaded.  The legacy 'agents=' key is still accepted for
-# backward compatibility with older selection files.
-# ─────────────────────────────────────────────────────────────────────────────
-load_selection_file() {
-    local _file="$1"
-    [ ! -f "$_file" ] && log_error "Selection file not found: ${_file}" && exit 1
-    log_info "Loading selections from: ${BOLD}${_file}${RESET}"
-    while IFS= read -r _line; do
-        # Strip comments and leading/trailing whitespace
-        _line="${_line%%#*}"
-        _line="${_line#"${_line%%[![:space:]]*}"}"
-        _line="${_line%"${_line##*[![:space:]]}"}"
-        [ -z "$_line" ] && continue
-        local _key _val
-        _key="${_line%%=*}"
-        _val="${_line#*=}"
-        case "$_key" in
-            modules)     [ -z "$MODULES_CSV"      ] && MODULES_CSV="$_val" ;;
-            sub-bundles) [ -z "$COMBINED_SUBS_CSV" ] && COMBINED_SUBS_CSV="$_val" ;;
-            # legacy key — map directly so old files keep working
-            agents)      [ -z "$AGENTS_CSV"        ] && AGENTS_CSV="$_val" ;;
-        esac
-    done < "$_file"
-}
-
-# ─────────────────────────────────────────────────────────────────────────────
-# classify_subs — split COMBINED_SUBS_CSV (from selection file 'sub-bundles=')
-# into SUB_BUNDLES_CSV (combined tarballs) and AGENTS_CSV (single images)
-# by consulting the parsed manifest.  CLI flags already set take precedence.
-# ─────────────────────────────────────────────────────────────────────────────
-classify_subs() {
-    local parsed="$1"
-    [ -z "${COMBINED_SUBS_CSV:-}" ] && return
-
-    if [ "$COMBINED_SUBS_CSV" = "all" ]; then
-        [ -z "$SUB_BUNDLES_CSV" ] && SUB_BUNDLES_CSV="all"
-        [ -z "$AGENTS_CSV"      ] && AGENTS_CSV="all"
-        return
-    fi
-    if [ "$COMBINED_SUBS_CSV" = "none" ]; then
-        [ -z "$SUB_BUNDLES_CSV" ] && SUB_BUNDLES_CSV="none"
-        [ -z "$AGENTS_CSV"      ] && AGENTS_CSV="none"
-        return
-    fi
-
-    # Build a space-delimited string of every valid agent name (base + variants)
-    local _all_agent_names=" "
-    while IFS='|' read -r _ainame _asuffixes; do
-        _all_agent_names="${_all_agent_names}${_ainame} "
-        if [ -n "$_asuffixes" ]; then
-            local _sv
-            IFS=',' read -ra _sv <<< "$_asuffixes"
-            local _s
-            for _s in "${_sv[@]}"; do
-                _all_agent_names="${_all_agent_names}${_ainame}${_s} "
-            done
-        fi
-    done < <(echo "$parsed" | awk -F'|' '$1=="AGENT" {print $4 "|" $5}')
-
-    local _subs="" _agents=""
-    IFS=',' read -ra _items <<< "$COMBINED_SUBS_CSV"
-    local _item
-    for _item in "${_items[@]}"; do
-        _item="${_item// /}"
-        [ -z "$_item" ] && continue
-        if echo "$parsed" | grep -q "^CHILD|${_item}|"; then
-            _subs="${_subs:+${_subs},}${_item}"
-        elif echo "$_all_agent_names" | grep -qF " ${_item} "; then
-            _agents="${_agents:+${_agents},}${_item}"
-        else
-            log_warn "Unknown sub-bundle/agent in selection file: '${_item}' — skipping"
-        fi
-    done
-    [ -n "$_subs"   ] && [ -z "$SUB_BUNDLES_CSV" ] && SUB_BUNDLES_CSV="$_subs"
-    [ -n "$_agents" ] && [ -z "$AGENTS_CSV"       ] && AGENTS_CSV="$_agents"
-}
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Main
 # ─────────────────────────────────────────────────────────────────────────────
 main() {
-    # Load selections from file before anything else so CLI flags take precedence
     [ -n "$SELECTION_FILE" ] && load_selection_file "$SELECTION_FILE"
 
     echo ""
@@ -1076,7 +938,6 @@ main() {
                 printf "    ${RED}│${RESET} ${DIM}%s${RESET}\n" "$_line"
             done
         fi
-        # Fall back to GitHub only when a version tag is known
         if [ -n "$VERSION" ]; then
             local github_manifest_url="https://raw.githubusercontent.com/harness/helm-charts/${VERSION}/src/bundle-manifest.yaml"
             log_info "Trying GitHub fallback → ${github_manifest_url}"
@@ -1107,204 +968,251 @@ main() {
     local parsed
     parsed=$(parse_manifest "$tmp_manifest")
 
-    # Classify 'sub-bundles' from selection file into SUB_BUNDLES_CSV / AGENTS_CSV
-    classify_subs "$parsed"
-
-    # ── --list: print everything and exit ────────────────────────────────────
     if [ "$LIST_ONLY" = true ]; then
         list_bundles "$parsed"
         exit 0
     fi
 
-    # ── Interactive module selection (if --modules not given) ─────────────────
-    if [ -z "$MODULES_CSV" ] && [ "$NON_INTERACTIVE" = false ]; then
+    # ── Build the flat universe of every selectable name ─────────────────────
+    # Order: platform first (no requires), then modules with deps, each followed
+    # by their children (combined sub-bundles, then agent sections with variants).
+    #
+    # Each checkbox_menu item: "LABEL|VALUE|DEPS"
+    # Agent-section rows are header-only (non-selectable): VALUE="" so checkbox_menu
+    # emits nothing for them and they can never be "selected" themselves.
+    declare -a _universe_items   # items for checkbox_menu
+    declare -a _universe_values  # parallel: just the values (for 'all' expansion)
+
+    local _ui=0
+
+    # Sort modules: empty requires first (platform), then by requires length ascending.
+    # awk prints "name|requires", sort -t'|' -k2 puts empty string first.
+    local _mod_order
+    _mod_order=$(echo "$parsed" | awk -F'|' '$1=="MODULE" {print $2 "|" $3}' | sort -t'|' -k2,2 | awk -F'|' '{print $1}')
+
+    while IFS= read -r _mname; do
+        [ -z "$_mname" ] && continue
+        local _mdesc _mreqs _mlabel
+        _mdesc=$(echo "$parsed" | awk -F'|' -v m="$_mname" '$1=="MODULE" && $2==m {print $6}')
+        _mreqs=$(echo "$parsed" | awk -F'|' -v m="$_mname" '$1=="MODULE" && $2==m {print $3}')
+        _mlabel="${_mname}  —  ${_mdesc}"
+        [ -n "$_mreqs" ] && _mlabel="${_mlabel}  ${DIM}(requires: ${_mreqs})${RESET}"
+        _universe_items[$_ui]="${_mlabel}|${_mname}|${_mreqs}"
+        _universe_values[$_ui]="$_mname"
+        _ui=$((_ui + 1))
+
+        # Children of this module — combined sub-bundles first, then single (agents section)
+        while IFS= read -r _cname; do
+            [ -z "$_cname" ] && continue
+            local _cdesc _cbtype
+            _cdesc=$(echo "$parsed" | awk -F'|' -v c="$_cname" '$1=="CHILD" && $2==c {print $6}')
+            _cbtype=$(echo "$parsed" | awk -F'|' -v c="$_cname" '$1=="CHILD" && $2==c {print $5}')
+            if [ "$_cbtype" = "single" ]; then
+                # Agent section: non-selectable header row (VALUE is empty so nothing emitted)
+                _universe_items[$_ui]="  ↳ ${_cdesc}  ${DIM}[agents]${RESET}||"
+                _universe_values[$_ui]=""   # not selectable
+                _ui=$((_ui + 1))
+                # Individual agent variants under this section
+                while IFS='|' read -r _aname _asuffixes; do
+                    _universe_items[$_ui]="    ↳ ${_aname}|${_aname}|"
+                    _universe_values[$_ui]="$_aname"
+                    _ui=$((_ui + 1))
+                    if [ -n "$_asuffixes" ]; then
+                        IFS=',' read -ra _sarr <<< "$_asuffixes"
+                        for _s in "${_sarr[@]}"; do
+                            local _vn="${_aname}${_s}"
+                            _universe_items[$_ui]="    ↳ ${_vn}  ${DIM}(variant)${RESET}|${_vn}|"
+                            _universe_values[$_ui]="$_vn"
+                            _ui=$((_ui + 1))
+                        done
+                    fi
+                done < <(agents_in_section "$parsed" "$_cname")
+            else
+                _universe_items[$_ui]="  ↳ ${_cname}  —  ${_cdesc}|${_cname}|"
+                _universe_values[$_ui]="$_cname"
+                _ui=$((_ui + 1))
+            fi
+        done < <(children_of "$parsed" "$_mname")
+    done <<< "$_mod_order"
+
+    # ── Resolve BUNDLES_CSV or run interactive menu ───────────────────────────
+    local selected_values=""   # space-separated list of selected names
+
+    if [ -n "$BUNDLES_CSV" ]; then
+        # Non-interactive / selection-file path
+        local _bundles_lower
+        _bundles_lower=$(echo "$BUNDLES_CSV" | tr '[:upper:]' '[:lower:]')
+        if [ "$_bundles_lower" = "all" ]; then
+            for _v in "${_universe_values[@]}"; do
+                [ -n "$_v" ] && selected_values="${selected_values} ${_v}"
+            done
+        else
+            IFS=',' read -ra _req <<< "$BUNDLES_CSV"
+            for _r in "${_req[@]}"; do
+                _r="${_r// /}"
+                [ -n "$_r" ] && selected_values="${selected_values} ${_r}"
+            done
+        fi
+    elif [ "$NON_INTERACTIVE" = false ]; then
+        # ── Step 1: select modules ────────────────────────────────────────────
         declare -a _mod_items
-        local _mn=0
-        # Sort: modules WITH requires first (they sort before empty string), platform last.
-        # Reverse sort on field 3 achieves this: "platform" > "" so non-empty sorts first.
-        while IFS='|' read -r _mname _mdesc _mreqs; do
-            local _mlabel="${_mname} — ${_mdesc}"
-            [ -n "$_mreqs" ] && _mlabel="${_mlabel}  (requires: ${_mreqs})"
-            # Pass requires as 3rd field so checkbox_menu can auto-check them
-            _mod_items[$_mn]="${_mlabel}|${_mname}|${_mreqs}"
-            _mn=$((_mn + 1))
-        done < <(echo "$parsed" | awk -F'|' '$1=="MODULE" {print $2 "|" $6 "|" $3}' | sort -t'|' -k3 -r)
-        local _selected_raw
-        _selected_raw=$(checkbox_menu "Select Modules to Download  (selecting a module auto-checks its dependencies)" "${_mod_items[@]}")
-        MODULES_CSV=$(echo "$_selected_raw" | tr '\n' ',' | sed 's/,$//')
-    fi
+        local _mi=0
+        while IFS= read -r _mname; do
+            [ -z "$_mname" ] && continue
+            local _mdesc2 _mreqs2 _ml2
+            _mdesc2=$(echo "$parsed" | awk -F'|' -v m="$_mname" '$1=="MODULE" && $2==m {print $6}')
+            _mreqs2=$(echo "$parsed" | awk -F'|' -v m="$_mname" '$1=="MODULE" && $2==m {print $3}')
+            _ml2="${_mname}  —  ${_mdesc2}"
+            [ -n "$_mreqs2" ] && _ml2="${_ml2}  ${DIM}(requires: ${_mreqs2})${RESET}"
+            _mod_items[$_mi]="${_ml2}|${_mname}|${_mreqs2}"
+            _mi=$((_mi + 1))
+        done <<< "$_mod_order"
 
-    # ── Resolve module dependencies ───────────────────────────────────────────
-    local resolved_modules=""
-    if [ -n "$MODULES_CSV" ]; then
-        # In interactive mode, honor exactly what the user checked in the UI.
-        # In non-interactive/selection-file mode, keep auto-resolving dependencies.
-        if [ "$NON_INTERACTIVE" = true ] || [ -n "${SELECTION_FILE:-}" ]; then
-            resolved_modules=$(resolve_modules "$parsed" "$MODULES_CSV")
-        else
-            resolved_modules=$(echo "$MODULES_CSV" | tr ',' '\n' | awk '{$1=$1}; NF {print}' | paste -sd' ' -)
-        fi
-        local resolved_display
-        resolved_display=$(echo "$resolved_modules" | tr ' ' ',' | sed 's/^,//')
-        if [ "$NON_INTERACTIVE" = true ] || [ -n "${SELECTION_FILE:-}" ]; then
-            log_info "Modules selected (with auto-resolved deps): ${BOLD}${resolved_display}${RESET}"
-        else
-            log_info "Modules selected: ${BOLD}${resolved_display}${RESET}"
+        local _sel_mods=""
+        _sel_mods=$(checkbox_menu "Step 1 of 3 — Select modules" "${_mod_items[@]}")
+
+        local _picked_modules=""
+        while IFS= read -r _v; do
+            [ -n "$_v" ] && _picked_modules="${_picked_modules} ${_v}"
+        done <<< "$_sel_mods"
+
+        # Resolve module deps so step 2/3 includes children of auto-added deps
+        local _resolved_for_menu=""
+        if [ -n "$(echo "$_picked_modules" | tr -d ' ')" ]; then
+            local _pm_csv
+            _pm_csv=$(echo "$_picked_modules" | tr ' ' ',' | sed 's/^,//')
+            _resolved_for_menu=$(resolve_modules "$parsed" "$_pm_csv")
         fi
 
-        # Show per-module breakdown when selections came from a file or CLI flags
-        # (not from the interactive menus, where it would just repeat what was shown)
-        if [ -n "${SELECTION_FILE:-}" ] || [ "$NON_INTERACTIVE" = true ]; then
-            print_selection_plan "$parsed" "$resolved_modules"
-        fi
-    fi
-
-    # ── Sub-bundles (children with combined bundle_type) ─────────────────────
-    local available_children=""
-    local children_to_dl=""
-    if [ -n "$resolved_modules" ]; then
-        for mod in $resolved_modules; do
-            mod="${mod// /}"
-            [ -z "$mod" ] && continue
-            while IFS= read -r child; do
-                [ -z "$child" ] && continue
-                local btype
-                btype=$(echo "$parsed" | awk -F'|' -v c="$child" '$1=="CHILD" && $2==c {print $5}')
-                [ "$btype" = "single" ] && continue
-                available_children="${available_children} ${child}"
-            done < <(children_of "$parsed" "$mod")
+        for _m in $_resolved_for_menu; do
+            selected_values="${selected_values} ${_m}"
         done
-    fi
 
-    if [ -n "$available_children" ]; then
-        if [ "$NON_INTERACTIVE" = true ]; then
-            # --sub-bundles all  → include every available combined sub-bundle
-            # --sub-bundles none → skip all sub-bundles
-            # --sub-bundles LIST → match by exact sub-bundle name
-            if [ "$SUB_BUNDLES_CSV" = "all" ]; then
-                children_to_dl="$available_children"
-            elif [ "$SUB_BUNDLES_CSV" = "none" ] || [ -z "$SUB_BUNDLES_CSV" ]; then
-                children_to_dl=""
-            else
-                IFS=',' read -ra _wanted <<< "$SUB_BUNDLES_CSV"
-                for child in $available_children; do
-                    for _w in "${_wanted[@]}"; do
-                        _w="${_w// /}"
-                        if [ "$child" = "$_w" ]; then
-                            children_to_dl="${children_to_dl} ${child}"
-                            break
-                        fi
-                    done
-                done
-            fi
-        else
-            # One menu per parent module — collect unique parents in order first
-            local _seen_parents=""
-            local _parent_order=""
-            for child in $available_children; do
-                local _cp
-                _cp=$(child_parent "$parsed" "$child")
-                if [[ "$_seen_parents" != *"|${_cp}|"* ]]; then
-                    _seen_parents="${_seen_parents}|${_cp}|"
-                    _parent_order="${_parent_order} ${_cp}"
-                fi
-            done
-
-            for _parent in $_parent_order; do
-                [ -z "$_parent" ] && continue
-                declare -a _child_items=()
-                local _ci=0
-                for child in $available_children; do
-                    [ "$(child_parent "$parsed" "$child")" != "$_parent" ] && continue
-                    local _cdesc
-                    _cdesc=$(echo "$parsed" | awk -F'|' -v c="$child" '$1=="CHILD" && $2==c {print $6}')
-                    _child_items[$_ci]="${child} — ${_cdesc}|${child}"
-                    _ci=$((_ci + 1))
-                done
-                if [ "$_ci" -gt 0 ]; then
-                    local _parent_desc
-                    _parent_desc=$(echo "$parsed" | awk -F'|' -v m="$_parent" '$1=="MODULE" && $2==m {print $6}')
-                    [ -z "$_parent_desc" ] && _parent_desc="$_parent"
-                    local _raw=""
-                    _raw=$(checkbox_menu "Sub-bundles for ${_parent} — ${_parent_desc}" "${_child_items[@]}")
-                    while IFS= read -r _v; do
-                        [ -n "$_v" ] && children_to_dl="${children_to_dl} ${_v}"
-                    done <<< "$_raw"
-                fi
-            done
-        fi
-    fi
-
-    # ── Agents ────────────────────────────────────────────────────────────────
-    local agents_to_dl=""
-    local relevant_agent_sections=""
-    if [ -n "$resolved_modules" ]; then
-        for mod in $resolved_modules; do
-            mod="${mod// /}"
-            [ -z "$mod" ] && continue
-            while IFS= read -r child; do
-                [ -z "$child" ] && continue
-                local btype
-                btype=$(echo "$parsed" | awk -F'|' -v c="$child" '$1=="CHILD" && $2==c {print $5}')
-                [ "$btype" = "single" ] && relevant_agent_sections="${relevant_agent_sections} ${child}"
-            done < <(children_of "$parsed" "$mod")
+        # ── Step 2: combined sub-bundles from all resolved modules (one menu) ─
+        declare -a _combined_items
+        local _ci=0
+        for _m in $_resolved_for_menu; do
+            while IFS= read -r _cname; do
+                [ -z "$_cname" ] && continue
+                local _cbt2
+                _cbt2=$(echo "$parsed" | awk -F'|' -v c="$_cname" '$1=="CHILD" && $2==c {print $5}')
+                [ "$_cbt2" != "combined" ] && continue
+                local _cdesc2
+                _cdesc2=$(echo "$parsed" | awk -F'|' -v c="$_cname" '$1=="CHILD" && $2==c {print $6}')
+                _combined_items[$_ci]="${_cname}  —  ${_cdesc2}  ${DIM}[${_m}]${RESET}|${_cname}|"
+                _ci=$((_ci + 1))
+            done < <(children_of "$parsed" "$_m")
         done
-    else
-        while IFS= read -r sec; do
-            relevant_agent_sections="${relevant_agent_sections} ${sec}"
-        done < <(all_agent_sections "$parsed")
-    fi
 
-    if [ -n "$relevant_agent_sections" ]; then
-        if [ -n "$AGENTS_CSV" ]; then
-            local agents_lower
-            agents_lower=$(echo "$AGENTS_CSV" | tr '[:upper:]' '[:lower:]')
-            if [ "$agents_lower" = "all" ]; then
-                for sec in $relevant_agent_sections; do
-                    sec="${sec// /}"
-                    while IFS= read -r agent; do
-                        agents_to_dl="${agents_to_dl} ${agent}"
-                    done < <(expand_agent_section "$parsed" "$sec")
-                done
-            else
-                IFS=',' read -ra wanted <<< "$AGENTS_CSV"
-                for w in "${wanted[@]}"; do
-                    w="${w// /}"
-                    agents_to_dl="${agents_to_dl} ${w}"
-                done
-            fi
-        elif [ "$NON_INTERACTIVE" = false ]; then
-            # One menu per agent section
-            for sec in $relevant_agent_sections; do
-                sec="${sec// /}"
-                local _sec_desc
-                _sec_desc=$(echo "$parsed" | awk -F'|' -v s="$sec" '$1=="CHILD" && $2==s {print $6}')
-                [ -z "$_sec_desc" ] && _sec_desc="$sec"
-                declare -a _agent_items=()
+        if [ "$_ci" -gt 0 ]; then
+            local _sel_combined=""
+            _sel_combined=$(checkbox_menu "Step 2 of 3 — Select sub-bundles  (optional)" "${_combined_items[@]}")
+            while IFS= read -r _v; do
+                [ -n "$_v" ] && selected_values="${selected_values} ${_v}"
+            done <<< "$_sel_combined"
+        fi
+
+        # ── Step 3: agent variants — one menu per agent section across resolved modules ─
+        local _agent_step=1
+        local _total_agent_sections=0
+        for _m in $_resolved_for_menu; do
+            while IFS= read -r _cname; do
+                [ -z "$_cname" ] && continue
+                local _cbt3
+                _cbt3=$(echo "$parsed" | awk -F'|' -v c="$_cname" '$1=="CHILD" && $2==c {print $5}')
+                [ "$_cbt3" = "single" ] && _total_agent_sections=$((_total_agent_sections + 1))
+            done < <(children_of "$parsed" "$_m")
+        done
+
+        for _m in $_resolved_for_menu; do
+            while IFS= read -r _cname; do
+                [ -z "$_cname" ] && continue
+                local _cbt4
+                _cbt4=$(echo "$parsed" | awk -F'|' -v c="$_cname" '$1=="CHILD" && $2==c {print $5}')
+                [ "$_cbt4" != "single" ] && continue
+
+                local _cdesc4
+                _cdesc4=$(echo "$parsed" | awk -F'|' -v c="$_cname" '$1=="CHILD" && $2==c {print $6}')
+
+                declare -a _agent_items
                 local _ai=0
-                while IFS='|' read -r name suffixes; do
-                    _agent_items[$_ai]="${name}  (base)|${name}"
+                while IFS='|' read -r _aname _asuffixes; do
+                    _agent_items[$_ai]="${_aname}|${_aname}|"
                     _ai=$((_ai + 1))
-                    if [ -n "$suffixes" ]; then
-                        IFS=',' read -ra sarr <<< "$suffixes"
-                        for s in "${sarr[@]}"; do
-                            _agent_items[$_ai]="${name}${s}  (variant: ${s})|${name}${s}"
+                    if [ -n "$_asuffixes" ]; then
+                        IFS=',' read -ra _sarr <<< "$_asuffixes"
+                        for _s in "${_sarr[@]}"; do
+                            local _vn="${_aname}${_s}"
+                            _agent_items[$_ai]="  ↳ ${_vn}  ${DIM}(variant)${RESET}|${_vn}|"
                             _ai=$((_ai + 1))
                         done
                     fi
-                done < <(agents_in_section "$parsed" "$sec")
+                done < <(agents_in_section "$parsed" "$_cname")
+
                 if [ "$_ai" -gt 0 ]; then
-                    local _raw=""
-                    _raw=$(checkbox_menu "Select agents — ${_sec_desc}" "${_agent_items[@]}")
+                    local _sel_agents=""
+                    _sel_agents=$(checkbox_menu \
+                        "Step 3 of 3 — ${_cdesc4}  [${_m}]  (${_agent_step}/${_total_agent_sections}, optional)" \
+                        "${_agent_items[@]}")
                     while IFS= read -r _v; do
-                        [ -n "$_v" ] && agents_to_dl="${agents_to_dl} ${_v}"
-                    done <<< "$_raw"
+                        [ -n "$_v" ] && selected_values="${selected_values} ${_v}"
+                    done <<< "$_sel_agents"
+                    _agent_step=$((_agent_step + 1))
+                    unset _agent_items
                 fi
-            done
-        fi
+            done < <(children_of "$parsed" "$_m")
+        done
+
+        BUNDLES_CSV=$(echo "$selected_values" | tr ' ' ',' | sed 's/^,//;s/,$//')
     fi
 
-    # ── Download phase (after all selections are complete) ───────────────────
+    # ── Classify selected names into modules / children / agents ─────────────
+    # Modules get dependency-resolved; children and agents are taken as-is.
+    local raw_modules="" children_to_dl="" agents_to_dl=""
+
+    for _sel in $selected_values; do
+        _sel="${_sel// /}"
+        [ -z "$_sel" ] && continue
+        if echo "$parsed" | grep -q "^MODULE|${_sel}|"; then
+            raw_modules="${raw_modules} ${_sel}"
+        elif echo "$parsed" | grep -q "^CHILD|${_sel}|"; then
+            local _btype
+            _btype=$(echo "$parsed" | awk -F'|' -v c="$_sel" '$1=="CHILD" && $2==c {print $5}')
+            if [ "$_btype" = "single" ]; then
+                # This is an agent-section name, not a downloadable bundle itself — skip;
+                # the user should pick individual agent variants instead.
+                log_warn "'${_sel}' is an agent section, not a downloadable bundle. Select specific agent names (e.g. delegate, upgrader)."
+            else
+                children_to_dl="${children_to_dl} ${_sel}"
+            fi
+        else
+            # Assume agent variant name
+            agents_to_dl="${agents_to_dl} ${_sel}"
+        fi
+    done
+
+    # Resolve module dependencies (adds required modules not yet in the list)
+    local resolved_modules=""
+    if [ -n "$raw_modules" ]; then
+        local _mcsv
+        _mcsv=$(echo "$raw_modules" | tr ' ' ',' | sed 's/^,//')
+        resolved_modules=$(resolve_modules "$parsed" "$_mcsv")
+    fi
+
+    # Show summary
+    local all_selected="${resolved_modules} ${children_to_dl} ${agents_to_dl}"
+    if [ -n "$(echo "$all_selected" | tr -d ' ')" ]; then
+        local _display
+        _display=$(echo "$all_selected" | tr ' ' ',' | sed 's/^,//;s/,$//')
+        log_info "Bundles to download: ${BOLD}${_display}${RESET}"
+        if [ "$NON_INTERACTIVE" = true ] || [ -n "${SELECTION_FILE:-}" ]; then
+            print_selection_plan "$parsed" "$resolved_modules" "$children_to_dl" "$agents_to_dl"
+        fi
+    else
+        log_skip "Nothing selected"
+    fi
+
+    # ── Download phase ────────────────────────────────────────────────────────
     if [ "$GENERATE_SELECTION" = false ]; then
         log_step "Starting downloads"
 
@@ -1317,8 +1225,6 @@ main() {
                 [ -z "$mod" ] && continue
                 echo "$parsed" | grep -q "^MODULE|${mod}|" && download_module "$parsed" "$mod"
             done
-        else
-            log_skip "No modules selected"
         fi
 
         if [ -n "$children_to_dl" ]; then
@@ -1330,8 +1236,6 @@ main() {
                 [ -z "$child" ] && continue
                 download_child "$parsed" "$child"
             done
-        else
-            log_skip "No sub-bundles selected"
         fi
 
         if [ -n "$agents_to_dl" ]; then
@@ -1343,33 +1247,24 @@ main() {
                 [ -z "$agent" ] && continue
                 download_agent "$parsed" "$agent"
             done
-        else
-            log_skip "No agents selected"
+        fi
+
+        if [ -z "$resolved_modules" ] && [ -z "$children_to_dl" ] && [ -z "$agents_to_dl" ]; then
+            log_skip "No bundles selected"
         fi
     fi
 
-    # ── Write selection file (--generate-selection-file) ─────────────────────
+    # ── Write selection file ──────────────────────────────────────────────────
     if [ "$GENERATE_SELECTION" = true ]; then
         local _sel_out="${SELECTION_OUTPUT_FILE:-selection.conf}"
-
-        # Resolve to absolute path (portable — no dependency on realpath)
         local _abs_sel_out
         case "$_sel_out" in
             /*) _abs_sel_out="$_sel_out" ;;
             *)  _abs_sel_out="$PWD/$_sel_out" ;;
         esac
 
-        # Build clean CSV values from what was selected
-        local _mods_out _sub_out _agents_out _combined_subs_out
-        _mods_out=$(echo "$resolved_modules" | tr ' ' ',' | sed 's/^,//;s/,$//')
-        _sub_out=$(echo "${children_to_dl:-}"  | tr ' ' ',' | sed 's/^,//;s/,$//')
-        _agents_out=$(echo "${agents_to_dl:-}" | tr ' ' ',' | sed 's/^,//;s/,$//')
-
-        # Merge combined sub-bundles + agents into one 'sub-bundles' key
-        local _parts=""
-        [ -n "$_sub_out"    ] && _parts="$_sub_out"
-        [ -n "$_agents_out" ] && _parts="${_parts:+${_parts},}${_agents_out}"
-        _combined_subs_out="${_parts:-none}"
+        local _bundles_out
+        _bundles_out=$(echo "$BUNDLES_CSV" | sed 's/^,//;s/,$//')
 
         cat > "$_abs_sel_out" <<EOF
 # Harness Airgap Bundle Selection File
@@ -1379,57 +1274,17 @@ main() {
 #   ./download-airgap-bundles.sh --version <ver> --output-dir ./bundles \\
 #       --selection-file ${_abs_sel_out}
 # ──────────────────────────────────────────────────────────────────────────────
+# bundles: comma-separated list of bundle names (modules, sub-bundles, agents),
+#          or 'all'.  Run --list to see all available names.
 
-modules=${_mods_out}
-
-# sub-bundles: comma-separated list of combined bundles AND agent images to
-# download, or 'all' / 'none'.  Run --list to see available names.
-sub-bundles=${_combined_subs_out}
+bundles=${_bundles_out:-none}
 EOF
         echo ""
         printf "${BOLD}${CYAN}╔══════════════════════════════════════════════════════╗${RESET}\n"
         printf "${BOLD}${CYAN}║   Selection File Written                             ║${RESET}\n"
         printf "${BOLD}${CYAN}╚══════════════════════════════════════════════════════╝${RESET}\n"
-        printf "  ${GREEN}✓ Saved to${RESET}    : ${BOLD}%s${RESET}\n" "$_abs_sel_out"
-        printf "  ${CYAN}  Modules${RESET}      : ${BOLD}%s${RESET}\n" "$_mods_out"
-        printf "  ${CYAN}  Sub-bundles${RESET}  : ${BOLD}%s${RESET}\n" "$_sub_out"
-
-        # Agents — grouped by section for readability
-        local _any_agents=false
-        for _asec in $relevant_agent_sections; do
-            _asec="${_asec// /}"
-            local _asec_desc
-            _asec_desc=$(echo "$parsed" | awk -F'|' -v s="$_asec" '$1=="CHILD" && $2==s {print $6}')
-            [ -z "$_asec_desc" ] && _asec_desc="$_asec"
-
-            local _sec_selected=""
-            while IFS='|' read -r _aname _asuffixes; do
-                # base
-                if echo " ${agents_to_dl:-} " | grep -qF " ${_aname} "; then
-                    _sec_selected="${_sec_selected:+${_sec_selected},}${_aname}"
-                fi
-                # variants
-                if [ -n "$_asuffixes" ]; then
-                    local _sv
-                    IFS=',' read -ra _svarr <<< "$_asuffixes"
-                    for _sv in "${_svarr[@]}"; do
-                        local _vn="${_aname}${_sv}"
-                        if echo " ${agents_to_dl:-} " | grep -qF " ${_vn} "; then
-                            _sec_selected="${_sec_selected:+${_sec_selected},}${_vn}"
-                        fi
-                    done
-                fi
-            done < <(agents_in_section "$parsed" "$_asec")
-
-            if [ -n "$_sec_selected" ]; then
-                printf "  ${CYAN}  %-22s${RESET}: ${BOLD}%s${RESET}\n" "$_asec_desc" "$_sec_selected"
-                _any_agents=true
-            fi
-        done
-        if [ "$_any_agents" = false ]; then
-            printf "  ${CYAN}  Agents${RESET}        : ${BOLD}none${RESET}\n"
-        fi
-
+        printf "  ${GREEN}✓ Saved to${RESET} : ${BOLD}%s${RESET}\n" "$_abs_sel_out"
+        printf "  ${CYAN}  Bundles${RESET}   : ${BOLD}%s${RESET}\n" "$_bundles_out"
         echo ""
         printf "  ${DIM}To download, run:${RESET}\n"
         printf "  ${BOLD}./download-airgap-bundles.sh --version %s --output-dir ./bundles \\\\\n" "${VERSION:-<version>}"
