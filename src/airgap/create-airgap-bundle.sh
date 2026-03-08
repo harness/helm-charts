@@ -2,132 +2,387 @@
 
 set -e
 
-handle_error() {
-    echo "Error $1" >&2
+log_info()  { echo "[INFO]  $(date +%H:%M:%S) $*"; }
+log_warn()  { echo "[WARN]  $(date +%H:%M:%S) $*" >&2; }
+log_error() { echo "[ERROR] $(date +%H:%M:%S) $*" >&2; }
+
+SKOPEO_ARCH="${SKOPEO_ARCH:-amd64}"
+SKOPEO_OS="${SKOPEO_OS:-linux}"
+
+usage() {
+    echo "Usage: $0 --internal-file <path> [--section <name> | --all]"
+    echo ""
+    echo "  --internal-file  Path to images_internal.txt"
+    echo "  --section        Process a single section (e.g., 'ci', 'sto-scanners@1')"
+    echo "  --all            Process all sections"
+    echo "  --output-dir     Output directory (default: current directory)"
     exit 1
 }
 
-export DOCKER_DEFAULT_PLATFORM=linux/amd64
+INTERNAL_FILE=""
+SECTION=""
+PROCESS_ALL=false
+OUTPUT_DIR="."
 
-# Provide lists of image names
-for moduleImageFile in $MODULE_IMAGE_FILES; do
-    lists+=("$moduleImageFile")
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --internal-file) INTERNAL_FILE="$2"; shift 2 ;;
+        --section)       SECTION="$2"; shift 2 ;;
+        --all)           PROCESS_ALL=true; shift ;;
+        --output-dir)    OUTPUT_DIR="$2"; shift 2 ;;
+        *)               log_error "Unknown option: $1"; usage ;;
+    esac
 done
 
-if [ ${#lists[@]} -le 2 ]; then # validation with 2 to make sure multiple elements are in list
-    echo "Error: No module image list provided. List: ${lists[@]}" >&2
+if [ -z "$INTERNAL_FILE" ]; then
+    log_error "Missing required --internal-file"
+    usage
+fi
+
+if [ ! -f "$INTERNAL_FILE" ]; then
+    log_error "File not found: $INTERNAL_FILE"
     exit 1
 fi
 
-pull_image() {
-    i="$1"
-    if docker pull --quiet "${i}"; then
-        echo "Image pull success: ${i}"
-        echo "${i}" >> "${pulled_file}"
+if [ -z "$SECTION" ] && [ "$PROCESS_ALL" = false ]; then
+    log_error "Must specify --section <name> or --all"
+    usage
+fi
+
+MAX_PULL_RETRIES="${MAX_PULL_RETRIES:-3}"
+PULL_RETRY_DELAY="${PULL_RETRY_DELAY:-10}"
+MAX_PARALLEL_PULLS="${MAX_PARALLEL_PULLS:-6}"
+MAX_PARALLEL_BUNDLES="${MAX_PARALLEL_BUNDLES:-4}"
+
+for cmd in skopeo pigz jq; do
+    if ! command -v "$cmd" &>/dev/null; then
+        log_error "Required command not found: ${cmd}"
+        exit 1
+    fi
+done
+
+copy_image() {
+    local image="$1"
+    local output_tar="$2"
+    local attempt=0
+    local delay="${PULL_RETRY_DELAY}"
+
+    # skopeo docker-archive rejects refs whose first path component looks like a
+    # hostname (contains a '.' or ':', e.g. "docker.io").  Passing the full ref
+    # "docker.io/harness/foo:1.0" causes skopeo to write RepoTags: null, which
+    # breaks `docker load` and bundle validation.
+    #
+    # Fix: strip only the registry hostname prefix (e.g. "docker.io/", "gcr.io/")
+    # while keeping the org/name:tag portion intact.  This means the archive stores
+    # "harness/foo:1.0" which docker load restores under that exact ref — preserving
+    # backward compatibility for customers who retag using the org-qualified name.
+    #
+    local archive_tag
+    local first_segment="${image%%/*}"
+    if echo "$first_segment" | grep -qE '[.:]'; then
+        archive_tag="${image#*/}"
     else
-        echo "Failed to pull image '${image}' from list '${list}'" >&2
-        failed=1
+        archive_tag="${image}"
+    fi
+
+    while [ $attempt -lt "${MAX_PULL_RETRIES}" ]; do
+        attempt=$((attempt + 1))
+        if skopeo copy --quiet \
+            --override-arch "${SKOPEO_ARCH}" --override-os "${SKOPEO_OS}" \
+            "docker://${image}" "docker-archive:${output_tar}:${archive_tag}" 2>&1; then
+            log_info "Copied (attempt ${attempt}): ${image}"
+            return 0
+        fi
+        if [ $attempt -lt "${MAX_PULL_RETRIES}" ]; then
+            log_warn "Copy attempt ${attempt}/${MAX_PULL_RETRIES} failed for: ${image} — retrying in ${delay}s"
+            sleep "${delay}"
+            delay=$((delay * 2))
+        fi
+    done
+
+    log_error "Failed to copy after ${MAX_PULL_RETRIES} attempts: ${image}"
+    return 1
+}
+
+# Run at most MAX_PARALLEL_PULLS copies concurrently to avoid registry rate limiting.
+copy_images_bounded() {
+    local staging_dir="$1"
+    shift
+    local images=("$@")
+    local failed=0
+    local pids=()
+    local active=0
+    local idx=0
+
+    for img in "${images[@]}"; do
+        copy_image "${img}" "${staging_dir}/image_${idx}.tar" </dev/null &
+        pids+=($!)
+        active=$((active + 1))
+        idx=$((idx + 1))
+
+        if [ "$active" -ge "${MAX_PARALLEL_PULLS}" ]; then
+            wait "${pids[0]}" || failed=1
+            pids=("${pids[@]:1}")
+            active=$((active - 1))
+        fi
+    done
+
+    for pid in "${pids[@]}"; do
+        wait "$pid" || failed=1
+    done
+
+    return $failed
+}
+
+# Merge individual docker-archive tars into a single archive compressed with pigz.
+# Each input tar has its own manifest.json; the merged output contains a combined
+# manifest so that `docker load` restores all images at once.
+merge_and_compress() {
+    local tgz_file="$1"
+    local staging_dir="$2"
+
+    local merge_dir
+    merge_dir="$(mktemp -d)"
+    local combined_manifest="[]"
+
+    for tar_file in "${staging_dir}"/*.tar; do
+        [ -f "$tar_file" ] || continue
+
+        local this_manifest
+        this_manifest=$(tar -xf "$tar_file" -O manifest.json 2>/dev/null) || {
+            log_error "Failed to read manifest.json from ${tar_file}"
+            rm -rf "${merge_dir}"
+            return 1
+        }
+        # Normalize RepoTags to match docker save format (strip docker.io/ and docker.io/library/)
+        this_manifest=$(echo "${this_manifest}" | jq -c '[.[] | .RepoTags = [.RepoTags[]? | sub("^docker.io/library/"; "") | sub("^docker.io/"; "")]]')
+        combined_manifest=$(echo "${combined_manifest}" | jq --argjson new "${this_manifest}" '. + $new')
+
+        # Layers and configs are content-addressed; duplicates overwrite harmlessly.
+        tar -xf "$tar_file" -C "${merge_dir}"
+    done
+
+    rm -f "${merge_dir}/manifest.json"
+    echo "${combined_manifest}" > "${merge_dir}/manifest.json"
+
+    # Put manifest.json first so validation can extract it without decompressing entire archive
+    ( cd "${merge_dir}" && { echo manifest.json; find . -mindepth 1 ! -path ./manifest.json | sort; } ) \
+        | tar -cf - -C "${merge_dir}" -T - \
+        | pigz > "${tgz_file}"
+    rm -rf "${merge_dir}"
+}
+
+create_combined_bundle() {
+    local section_name="$1"
+    local bucket_path="$2"
+    shift 2
+    local images=("$@")
+
+    local out_dir="${OUTPUT_DIR}/${bucket_path}"
+    mkdir -p "${out_dir}"
+
+    local bundle_name
+    bundle_name=$(echo "${section_name}" | tr '/' '_')
+    local tgz_file="${out_dir}/${bundle_name}_images.tgz"
+
+    local staging_dir
+    staging_dir="$(mktemp -d)"
+
+    log_info "Copying ${#images[@]} images for combined bundle: ${section_name} (parallel limit: ${MAX_PARALLEL_PULLS}, retries: ${MAX_PULL_RETRIES})"
+
+    if ! copy_images_bounded "${staging_dir}" "${images[@]}"; then
+        log_error "Some images failed to copy for section: ${section_name}"
+        rm -rf "${staging_dir}"
+        return 1
+    fi
+
+    local count
+    count=$(find "${staging_dir}" -name '*.tar' | wc -l | tr -d '[:space:]')
+    log_info "Creating ${tgz_file} with ${count} images"
+
+    merge_and_compress "${tgz_file}" "${staging_dir}"
+    rm -rf "${staging_dir}"
+
+    log_info "Combined bundle created: ${tgz_file}"
+}
+
+bundle_one_image() {
+    local out_dir="$1"
+    local img_name="$2"
+    shift 2
+    local img_tags=("$@")
+
+    if [ ${#img_tags[@]} -eq 0 ]; then
+        return
+    fi
+
+    local tgz_file="${out_dir}/${img_name}.tgz"
+    local staging_dir
+    staging_dir="$(mktemp -d)"
+
+    log_info "Copying ${#img_tags[@]} tags for single bundle: ${img_name}"
+
+    if ! copy_images_bounded "${staging_dir}" "${img_tags[@]}"; then
+        log_error "Some tags failed to copy for image: ${img_name}"
+        rm -rf "${staging_dir}"
+        return 1
+    fi
+
+    local count
+    count=$(find "${staging_dir}" -name '*.tar' | wc -l | tr -d '[:space:]')
+    log_info "Creating ${tgz_file} with ${count} tags"
+
+    merge_and_compress "${tgz_file}" "${staging_dir}"
+    rm -rf "${staging_dir}"
+
+    log_info "Single bundle created: ${tgz_file}"
+}
+
+create_single_bundles() {
+    local section_name="$1"
+    local bucket_path="$2"
+    shift 2
+    local section_lines=("$@")
+
+    local out_dir="${OUTPUT_DIR}/${bucket_path}"
+    mkdir -p "${out_dir}"
+
+    # Parse all image groups. Each @image= defines a unique bundle name (from images_internal.txt)
+    local -a group_names=()
+    local -a group_tags=()
+    local current_name=""
+    local current_tags=""
+
+    for line in "${section_lines[@]}"; do
+        if [[ "$line" =~ ^#\ @image= ]]; then
+            if [ -n "$current_name" ] && [ -n "$current_tags" ]; then
+                group_names+=("$current_name")
+                group_tags+=("$current_tags")
+            fi
+            current_name="${line#*@image=}"
+            current_name="${current_name%% *}"
+            current_tags=""
+        elif [ -n "$line" ] && [[ ! "$line" =~ ^# ]]; then
+            current_tags="${current_tags:+${current_tags}$'\n'}${line}"
+        fi
+    done
+
+    if [ -n "$current_name" ] && [ -n "$current_tags" ]; then
+        group_names+=("$current_name")
+        group_tags+=("$current_tags")
+    fi
+
+    local total=${#group_names[@]}
+    log_info "Bundling ${total} image groups for: ${section_name} (parallel limit: ${MAX_PARALLEL_BUNDLES})"
+
+    local pids=()
+    local active=0
+    local failed=0
+
+    for i in "${!group_names[@]}"; do
+        local name="${group_names[$i]}"
+        local tags_str="${group_tags[$i]}"
+
+        local -a tags_arr=()
+        while IFS= read -r t; do
+            [ -n "$t" ] && tags_arr+=("$t")
+        done <<< "$tags_str"
+
+        bundle_one_image "$out_dir" "$name" "${tags_arr[@]}" </dev/null &
+        pids+=($!)
+        active=$((active + 1))
+
+        if [ "$active" -ge "${MAX_PARALLEL_BUNDLES}" ]; then
+            wait "${pids[0]}" || failed=1
+            pids=("${pids[@]:1}")
+            active=$((active - 1))
+        fi
+    done
+
+    for pid in "${pids[@]}"; do
+        wait "$pid" || failed=1
+    done
+
+    if [ $failed -eq 1 ]; then
+        log_error "Some single bundles failed for section: ${section_name}"
+        return 1
+    fi
+
+    log_info "Single bundles created in: ${out_dir} (processed ${total} image groups)"
+}
+
+process_section() {
+    local target_section="$1"
+
+    local in_section=false
+    local section_module=""
+    local section_type=""
+    local section_path=""
+    local section_images=()
+
+    while IFS= read -r line; do
+        if [[ "$line" =~ ^#\ @module= ]]; then
+            if [ "$in_section" = true ]; then
+                break
+            fi
+
+            local mod_val
+            mod_val=$(echo "$line" | sed 's/.*@module=\([^ ]*\).*/\1/')
+            local type_val
+            type_val=$(echo "$line" | sed 's/.*@type=\([^ ]*\).*/\1/')
+            local path_val
+            path_val=$(echo "$line" | sed 's/.*@path=\([^ ]*\).*/\1/')
+
+            if [ "$mod_val" = "$target_section" ]; then
+                in_section=true
+                section_module="$mod_val"
+                section_type="$type_val"
+                section_path="$path_val"
+            fi
+        elif [ "$in_section" = true ]; then
+            if [ -n "$line" ]; then
+                section_images+=("$line")
+            fi
+        fi
+    done < "$INTERNAL_FILE"
+
+    if [ "$in_section" = false ]; then
+        log_error "Section '${target_section}' not found in ${INTERNAL_FILE}"
+        return 1
+    fi
+
+    log_info "Processing section: ${section_module} (type=${section_type}, path=${section_path})"
+
+    if [ "$section_type" = "combined" ]; then
+        local images_only=()
+        for item in "${section_images[@]}"; do
+            [[ "$item" =~ ^# ]] || images_only+=("$item")
+        done
+        create_combined_bundle "$section_module" "$section_path" "${images_only[@]}"
+    elif [ "$section_type" = "single" ]; then
+        create_single_bundles "$section_module" "$section_path" "${section_images[@]}"
+    else
+        log_error "Unknown bundle type: ${section_type}"
+        return 1
     fi
 }
 
-if [ $# -eq 1 ]; then
-    image_list_file="$1"
-    if [[ ! -f $image_list_file ]]; then
-        echo "Error: File $image_list_file not found."
-        exit 1
-    fi
+get_all_sections() {
+    grep '# @module=' "$INTERNAL_FILE" | sed 's/.*@module=\([^ ]*\).*/\1/'
+}
 
-    base_name=$(basename "$image_list_file" .txt)
-    images_file="${base_name}.tgz"
-
-    failed=0
-    # Create a temporary file to store the list of successfully pulled images
-    pulled_file="$(mktemp)"
-
-    for list in ${lists[*]}; do
-        if [[ ! -f $list ]]; then
-            echo "Error: File $list not found."
-            exit 1
-        fi
-
-        pids=()
-
-        # Download images in parallel
-        while IFS= read -r i; do
-            [ -z "${i}" ] && continue
-            pull_image "${i}" &
-            pids+=($!)
-        done < "${image_list_file}"
-
-        for pid in ${pids[*]}; do
-            wait $pid || handle_error "Failed background task with PID: $pid"
-        done
-        # Wait for all background tasks to finish
-        wait
+if [ "$PROCESS_ALL" = true ]; then
+    sections=$(get_all_sections)
+    total=$(echo "$sections" | wc -l | tr -d '[:space:]')
+    idx=0
+    for sec in $sections; do
+        idx=$((idx + 1))
+        log_info "[${idx}/${total}] Processing section: ${sec}"
+        process_section "$sec"
     done
-    if [ $failed -eq 1 ]; then
-        echo "Some images failed to pull. Please check the error messages above." >&2
-        exit 1
-    fi
-    # Get the list of successfully pulled images
-    pulled=$(cat "${pulled_file}")
-
-    # Save pulled images to a tarball
-    echo "Creating ${images_file} with $(echo ${pulled} | wc -w | tr -d '[:space:]') images"
-    docker save $(echo ${pulled}) | gzip --stdout > ${images_file} || handle_error "Failed to create tarball: ${images_file}"
-
-    # Remove temporary file
-    rm "${pulled_file}" || handle_error "Failed to remove temporary file: ${pulled_file}"
-
-    # Cleanup: Remove the pulled images
-    #for image in ${pulled}; do
-    #    docker rmi -f ${image}
-    #done
-
+    log_info "All ${total} sections processed"
 else
-# Loop through each list
-  for list in ${lists[*]}; do
-    if [[ ! -f $list ]]; then
-      echo "Error: File $list not found."
-      exit 1
-    fi
-
-    # Generate image file name from list name
-    base_name=$(basename "$list" .txt)
-    images_file="${base_name}.tgz"
-
-    # Create a temporary file to store the list of successfully pulled images
-    pulled_file="$(mktemp)"
-
-    pids=()
-
-    # Download images in parallel
-    while IFS= read -r i; do
-        [ -z "${i}" ] && continue
-        pull_image "${i}" &
-        pids+=($!)
-    done < "${list}"
-
-    for pid in ${pids[*]}; do
-      wait $pid || handle_error "Failed background task with PID: $pid"
-    done
-    # Wait for all background tasks to finish
-    wait
-
-    # Get the list of successfully pulled images
-    pulled=$(cat "${pulled_file}")
-
-    # Save pulled images to a tarball
-    echo "Creating ${images_file} with $(echo ${pulled} | wc -w | tr -d '[:space:]') images"
-    docker save $(echo ${pulled}) | gzip --stdout > ${images_file} || handle_error "Failed to create tarball: ${images_file}"
-
-
-    # Remove temporary file
-    rm "${pulled_file}" || handle_error "Failed to remove temporary file: ${pulled_file}"
-    Cleanup: Remove the pulled images
-    for image in ${pulled}; do
-            docker rmi -f ${image}
-    done
-
-  done
+    process_section "$SECTION"
 fi
+
+log_info "Bundle creation complete"
