@@ -4,42 +4,42 @@ dependencies:
   version: 1.4.22
 - name: ccm
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: cd
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: chaos
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: ci
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: ff
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: srm
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: sto
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: ssca
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: db-devops
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: code
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: iacm
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
+  version: 0.38.0
 - name: idp
   repository: https://harness.github.io/helm-charts
-  version: 0.37.0
-digest: sha256:df4dab071db8d30604a6825054ca805f87413b8c6d58f5718dc840a98c110a30
-generated: "2026-02-24T17:05:56.844334762Z"
+  version: 0.38.0
+digest: sha256:90f918f5e7a261a62a5326952b9668e0d1f2348fbfa405df4f70283797c9ec2f
+generated: "2026-03-08T17:16:21.728555515Z"
