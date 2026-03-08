@@ -1,6 +1,6 @@
 dependencies:
 - name: db-devops-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.78.3
-digest: sha256:565c0f0684a7c56edc7c949c3db22861305e6d15ba6c5002fd7317a8b2fced8e
-generated: "2026-02-24T16:50:08.492611245Z"
+  version: 1.81.0
+digest: sha256:a4979f570ba77d5cc437586464fba1b0a684565e7625a63150fced46c06173b9
+generated: "2026-03-08T16:13:44.050453726Z"
