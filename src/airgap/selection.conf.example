@@ -1,0 +1,22 @@
+# Harness Airgap Bundle Selection File
+# ──────────────────────────────────────────────────────────────────────────────
+# Use with: ./download-airgap-bundles.sh --version <ver> --output-dir ./bundles \
+#               --selection-file selection.conf
+#
+# Tip: run --generate-selection-file to build this file interactively, or
+#      run --list to see all available names.
+# Lines starting with '#' are ignored.
+# ──────────────────────────────────────────────────────────────────────────────
+
+# List of bundles to download (comma-separated).
+# This includes Modules, Plugins, Agents, and Scanners.
+#
+# - Modules (e.g. platform, ci): Dependencies are auto-resolved.
+# - Plugins (e.g. ci-plugins): Must be listed explicitly if needed.
+# - Agents (e.g. delegate, upgrader): Must be listed explicitly.
+# - Scanners (e.g. grype-job-runner): Must be listed explicitly.
+#
+# Use 'all' to download everything available in the manifest.
+#
+# Example: bundles=platform,ci,ci-plugins,delegate,delegate-fips
+bundles=
