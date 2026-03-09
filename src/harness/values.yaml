@@ -213,9 +213,6 @@ global:
     enabled: false
   # -- Enable stack driver logging
   stackDriverLoggingEnabled: false
-  # -- Enable to install Security Test Orchestration (STO)
-  sto:
-    enabled: false
   # -- Configure storage class for Mongo,Timescale,Redis
   storageClass: ""
   # -- Configure storage class for Harness
@@ -651,28 +648,6 @@ srm:
     tolerations: []
   le-nextgen:
     affinity: {}
-    nodeSelector: {}
-    tolerations: []
-# -- Config for Security Test Orchestration (STO)
-sto:
-  # -- Install the STO core
-  ticket-service:
-    postgres:
-      image:
-        repository: "harness/postgresql"
-        tag: "14.20-alpine3.23"
-  sto-core:
-    migrationPostgres:
-      image:
-        repository: "harness/postgresql"
-        tag: "14.20-alpine3.23"
-    postgres:
-      image:
-        repository: "harness/postgresql"
-        tag: "14.20-alpine3.23"
-    affinity: {}
-    autoscaling:
-      enabled: false
     nodeSelector: {}
     tolerations: []
 ff:

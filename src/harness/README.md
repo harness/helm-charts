@@ -166,11 +166,9 @@ docker.io/harness/srm-ui-signed:1.16.0
 docker.io/harness/ssca-manager-signed:1.50.14
 docker.io/harness/ssca-ui-signed:0.38.5
 docker.io/harness/statsd-exporter:1.0-prometheus-busybox-1
-docker.io/harness/stocore-signed:1.180.4
 docker.io/harness/telescopes-signed:1.6.0
 docker.io/harness/template-service-signed:1.131.3
 docker.io/harness/ti-service-signed:1.60.5
-docker.io/harness/ticket-service-signed:1.4.5
 docker.io/harness/ui-signed:1.32.3
 docker.io/harness/upgrader:1.10.0
 docker.io/koalaman/shellcheck:v0.5.0
@@ -240,7 +238,6 @@ harness/ssca-artifact-signing-plugin:0.52.1
 harness/ssca-cdxgen-plugin:0.52.1
 harness/ssca-compliance-plugin:0.52.1
 harness/ssca-plugin:0.52.1
-harness/sto-plugin:latest
 harness/sysdig-job-runner:latest
 harness/traceable-job-runner:latest
 harness/twistlock-job-runner:latest
@@ -430,7 +427,6 @@ registry.k8s.io/ingress-nginx/controller:v1.14.0
 | global.srm | object | `{"enabled":false}` | Enable to install Site Reliability Management (SRM) |
 | global.ssca | object | `{"enabled":false}` | Enable to install Software Supply Chain Assurance (SSCA) |
 | global.stackDriverLoggingEnabled | bool | `false` | Enable stack driver logging |
-| global.sto | object | `{"enabled":false}` | Enable to install Security Test Orchestration (STO) |
 | global.storageClass | string | `""` | Configure storage class for Mongo,Timescale,Redis |
 | global.storageClassName | string | `""` | Configure storage class for Harness |
 | global.ti | object | `{"enabled":true}` | Enable to install Cloud Cost Management (CCM) (Beta) |
@@ -501,8 +497,6 @@ registry.k8s.io/ingress-nginx/controller:v1.14.0
 | srm.le-nextgen.affinity | object | `{}` |  |
 | srm.le-nextgen.nodeSelector | object | `{}` |  |
 | srm.le-nextgen.tolerations | list | `[]` |  |
-| sto | object | `{"sto-core":{"affinity":{},"autoscaling":{"enabled":false},"migrationPostgres":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}},"nodeSelector":{},"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}},"tolerations":[]},"ticket-service":{"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}}}}` | Config for Security Test Orchestration (STO) |
-| sto.ticket-service | object | `{"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}}}` | Install the STO core |
 | upgrades.versionLookups.enabled | bool | `true` |  |
 
 ----------------------------------------------

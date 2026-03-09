@@ -391,27 +391,6 @@ platform:
       requests:
         cpu: 0.2
         memory: 200Mi
-sto:
-  ticket-service:
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 256Mi
-      requests:
-        cpu: 128m
-        memory: 256Mi
-  sto-core:
-    autoscaling:
-      enabled: false
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 256Mi
-      requests:
-        cpu: 128m
-        memory: 256Mi
 iacm:
   iacm-manager:
     autoscaling:

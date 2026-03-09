@@ -31,10 +31,6 @@ dependencies:
   name: srm
   repository: https://harness.github.io/helm-charts
   version: 0.38.0
-- condition: global.sto.enabled
-  name: sto
-  repository: https://harness.github.io/helm-charts
-  version: 0.38.0
 - condition: global.ssca.enabled
   name: ssca
   repository: https://harness.github.io/helm-charts

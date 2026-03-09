@@ -201,10 +201,6 @@ scm-service:
   image:
     registry: docker.io
     repository: harness/ci-scm-signed
-sto-core:
-  image:
-    registry: docker.io
-    repository: harness/stocore-signed
 service-discovery-manager:
   image:
     registry: docker.io
@@ -213,10 +209,6 @@ telescopes:
   image:
     registry: docker.io
     repository: harness/telescopes-signed
-ticket-service:
-  image:
-    registry: docker.io
-    repository: harness/ticket-service-signed
 template-service:
   image:
     registry: docker.io
