@@ -305,3 +305,7 @@ idp-app-ui:
   image:
     registry: docker.io
     repository: harness/idp-app-signed
+idp-scm-proxy:
+  image:
+    registry: docker.io
+    repository: harness/idp-scm-proxy-signed

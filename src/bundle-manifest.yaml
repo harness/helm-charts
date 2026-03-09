@@ -318,6 +318,7 @@ modules:
       - idp-service-signed
       - idp-admin-signed
       - idp-app-signed
+      - idp-scm-proxy-signed
 
   idp-plugins:
     description: "IDP Plugins"

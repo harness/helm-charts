@@ -13,6 +13,10 @@ dependencies:
   name: idp-app-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.36.11
+- condition: global.idp.enabled
+  name: idp-scm-proxy
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.0.0
 description: A Helm chart for Harness IDP
 name: idp
 type: application

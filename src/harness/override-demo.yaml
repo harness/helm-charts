@@ -470,3 +470,13 @@ idp:
         requests:
           cpu: 512m
           memory: 1Gi
+  idp-scm-proxy:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi
