@@ -305,3 +305,11 @@ idp-app-ui:
   image:
     registry: docker.io
     repository: harness/idp-app-signed
+sei-service:
+  image:
+    registry: docker.io
+    repository: harness/sei-service-signed
+sei-ui:
+  image:
+    registry: docker.io
+    repository: harness/sei-ui-signed

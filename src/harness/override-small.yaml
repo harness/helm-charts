@@ -485,3 +485,26 @@ idp:
         requests:
           cpu: 512m
           memory: 1Gi
+sei:
+  sei-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    java:
+      memory: "512m"
+    resources:
+      limits:
+        memory: 1024Mi
+      requests:
+        cpu: 256m
+        memory: 1024Mi
+  sei-ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi

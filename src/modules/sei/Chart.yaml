@@ -1,0 +1,13 @@
+apiVersion: v2
+appVersion: 0.0.79001
+dependencies:
+- name: sei-service
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.0.0
+- name: sei-ui
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.0.0
+description: Helm chart for Harness Software Engineering Insights (SEI)
+name: sei
+type: application
+version: 0.38.0

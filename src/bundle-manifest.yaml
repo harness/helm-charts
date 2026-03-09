@@ -319,6 +319,25 @@ modules:
       - idp-admin-signed
       - idp-app-signed
 
+  sei:
+    description: "Software Engineering Insights"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "sei"
+    images:
+      - sei-service-signed
+      - sei-ui-signed
+
+  sei-plugins:
+    description: "SEI Plugins"
+    bundle_type: combined
+    parent: sei
+    bucket_path: "sei/plugins"
+    images:
+      - sei-plugin
+      - name: sei-plugin
+        variants: ["-fips"]
+
   idp-plugins:
     description: "IDP Plugins"
     bundle_type: combined

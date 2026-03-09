@@ -55,6 +55,10 @@ dependencies:
   name: idp
   repository: https://harness.github.io/helm-charts
   version: 0.38.0
+- condition: global.sei.enabled
+  name: sei
+  repository: https://harness.github.io/helm-charts
+  version: 0.38.0
 description: Helm Chart for deploying Harness.
 kubeVersion: '>=1.27.0-0'
 name: harness

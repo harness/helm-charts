@@ -50,6 +50,9 @@ global:
     # -- Enable to install Internal Developer Portal (IDP)
   idp:
     enabled: false
+  # -- Enable to install Software Engineering Insights (SEI)
+  sei:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
@@ -775,6 +778,23 @@ idp:
       image:
         repository: "harness/postgresql"
         tag: "14.20-alpine3.23"
+sei:
+  sei-service:
+    postgres:
+      image:
+        repository: "harness/postgresql"
+        tag: "14.20-alpine3.23"
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+  sei-ui:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
 postmigrationCheck:
   enabled: true
   image:
