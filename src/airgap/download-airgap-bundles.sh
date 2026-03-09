@@ -452,8 +452,11 @@ download_agent() {
     fi
     bucket=$(echo "$parsed" | awk -F'|' -v s="$section" '$1=="AGENT" && $2==s {print $3; exit}')
     [ -z "$bucket" ] && bucket="$section"
-    local url="${EFFECTIVE_BASE}/${bucket}/${agent_name}.tgz"
-    local dest="${OUTPUT_DIR}/${bucket}/${agent_name}.tgz"
+    # Normalize: dots used as variant separators in image tags (e.g. delegate.minimal-fips)
+    # must become dashes in the bundle filename (e.g. delegate-minimal-fips.tgz).
+    local file_name="${agent_name//./-}"
+    local url="${EFFECTIVE_BASE}/${bucket}/${file_name}.tgz"
+    local dest="${OUTPUT_DIR}/${bucket}/${file_name}.tgz"
     do_download "$url" "$dest" "agent: ${agent_name}"
 }
 
