@@ -33,7 +33,6 @@ modules:
       - smp-service-discovery-server-signed
       - debezium-service-signed
       - audit-event-streaming-signed
-      - queue-service-signed
       - service-discovery-collector
       - ng-dashboard-aggregator-signed
       - ingress-nginx/controller

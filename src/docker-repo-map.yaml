@@ -257,10 +257,6 @@ audit-event-streaming:
   image:
     registry: docker.io
     repository: harness/audit-event-streaming-signed
-queue-service:
-  image:
-    registry: docker.io
-    repository: harness/queue-service-signed
 db-devops-service:
   image:
     registry: docker.io

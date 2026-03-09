@@ -150,7 +150,6 @@ docker.io/harness/pipeline-service-signed:1.169.5
 docker.io/harness/platform-service-signed:1.107.0
 docker.io/harness/policy-mgmt:1.36.5
 docker.io/harness/postgresql:14.20-alpine3.23
-docker.io/harness/queue-service-signed:1.8.1
 docker.io/harness/redis:7.4.7-alpine
 docker.io/harness/refid-cache:latest
 docker.io/harness/service-discovery-collector:0.54.0
