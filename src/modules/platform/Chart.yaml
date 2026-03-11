@@ -4,7 +4,7 @@ dependencies:
 - condition: global.ng.enabled
   name: access-control
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.215.0-sei-16193-349756
+  version: 1.216.0-sei-16272-e584ec
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.71.0
@@ -43,7 +43,7 @@ dependencies:
 - condition: global.ng.enabled
   name: ng-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.134.0
+  version: 1.134.3
 - condition: global.ng.enabled
   name: pipeline-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
