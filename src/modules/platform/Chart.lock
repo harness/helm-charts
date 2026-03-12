@@ -4,7 +4,7 @@ dependencies:
   version: 1.184.0
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.64.0
+  version: 1.64.1
 - name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.49.4
@@ -52,7 +52,7 @@ dependencies:
   version: 1.130.0
 - name: tsdb-to-psql-migrator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.7.0
+  version: 1.9.0
 - name: ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.32.3
@@ -71,5 +71,5 @@ dependencies:
 - name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.8.0
-digest: sha256:2f13c40ea5af8bfebcc4694f27c7c36af2e2c5b8a233325eebd2a5fcd77ae39e
-generated: "2026-03-03T12:34:38.786133309Z"
+digest: sha256:b5fd5de0fcd681d74ecb810bc2e2172b581595c329da56930a7dd42429d7ebaa
+generated: "2026-03-12T18:55:24.34516824Z"
