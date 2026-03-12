@@ -660,7 +660,7 @@ srm:
 sto:
   # -- Install the STO core
   ticket-service:
-    postgresql:
+    postgres:
       image:
         repository: "harness/postgresql"
         tag: "14.20-debian"
