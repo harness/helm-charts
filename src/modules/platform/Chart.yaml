@@ -7,7 +7,7 @@ dependencies:
   version: 1.184.0
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.64.0
+  version: 1.64.1
 - condition: global.cdc.enabled
   name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -67,7 +67,7 @@ dependencies:
 - condition: global.database.tsdbtopsqlmigrator.enabled
   name: tsdb-to-psql-migrator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.7.0
+  version: 1.9.0
 - condition: global.cg.enabled
   name: ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -95,4 +95,4 @@ dependencies:
 description: Helm chart for Harness Platform
 name: platform
 type: application
-version: 0.36.3
+version: 0.36.4
