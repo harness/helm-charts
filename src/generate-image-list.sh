@@ -88,6 +88,20 @@ do
     fi
 done
 
+IMAGES=("docker.io/harness/tsdb-to-psql-migrator-signed:([0-9.]+|latest)")
+SUFFIX=("-mig-15-e2b21d")
+
+for i in "${!IMAGES[@]}"
+do
+    MATCHES=$(grep -oE "${IMAGES[i]}" "${OUTPUT_DIR}/images.txt")
+    if [ -n "$MATCHES" ]; then
+        for j in "${!SUFFIX[@]}"
+        do
+          echo "$MATCHES" | sed "s/$/${SUFFIX[j]}/" | tee -a "${OUTPUT_DIR}/images.txt"
+        done
+    fi
+done
+
 # Remove duplicates one more time in case minimal images have added any
 awk -F: '{ print $1 ":" $2 }' ${OUTPUT_DIR}/images.txt | sort -u > ${OUTPUT_DIR}/images_tmp.txt
 mv ${OUTPUT_DIR}/images_tmp.txt ${OUTPUT_DIR}/images.txt
