@@ -17,7 +17,7 @@ docker.io/harness/manager-signed:1.131.5
 docker.io/harness/mongo:7.0.28-jammy
 docker.io/harness/ng-auth-ui-signed:1.38.2
 docker.io/harness/redis:7.4.8-jammy
-docker.io/harness/postgresql:14.20-alpine3.23
+docker.io/harness/postgresql:14.20-debian
 docker.io/harness/policy-mgmt:1.38.1
 docker.io/harness/smp-service-discovery-server-signed:0.56.0
 docker.io/harness/debezium-service-signed:1.25.1
@@ -62,7 +62,7 @@ docker.io/koalaman/shellcheck:v0.5.0
 docker.io/harness/gitops-agent-installer-helper:v0.0.11-rebuilt
 
 ## Continuous Integration
-docker.io/harness/ci-manager-signed:1.123.4
+docker.io/harness/ci-manager-signed:1.123.5
 docker.io/harness/ti-service-signed:1.61.3
 harness/ci-addon:1.18.10
 harness/ci-addon:1.18.6
