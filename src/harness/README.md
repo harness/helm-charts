@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.37.1](https://img.shields.io/badge/Version-0.37.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.37.2](https://img.shields.io/badge/Version-0.37.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -98,7 +98,7 @@ docker.io/harness/chaos-event-watcher:1.74.0
 docker.io/harness/chaos-log-watcher:1.74.0
 docker.io/harness/chaos-machine-ifc-signed:1.74.0
 docker.io/harness/chaos-machine-ifs-signed:1.74.0
-docker.io/harness/ci-manager-signed:1.120.5
+docker.io/harness/ci-manager-signed:1.120.6
 docker.io/harness/ci-scm-signed:1.44.0
 docker.io/harness/clickhouse:24.12.4-debian-12-r1
 docker.io/harness/code-api-signed:1.73.3
@@ -149,7 +149,7 @@ docker.io/harness/ng-manager-signed:1.129.7
 docker.io/harness/pipeline-service-signed:1.169.5
 docker.io/harness/platform-service-signed:1.107.0
 docker.io/harness/policy-mgmt:1.36.5
-docker.io/harness/postgresql:14.20-alpine3.23
+docker.io/harness/postgresql:14.20-debian
 docker.io/harness/queue-service-signed:1.8.1
 docker.io/harness/redis:7.4.7-alpine
 docker.io/harness/refid-cache:latest
@@ -284,7 +284,7 @@ registry.k8s.io/ingress-nginx/controller:v1.14.0
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ccm.batch-processing | object | `{"awsAccountTagsCollectionJobConfig":{"enabled":true},"cliProxy":{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}},"stackDriverLoggingEnabled":false}` | Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure |
+| ccm.batch-processing | object | `{"awsAccountTagsCollectionJobConfig":{"enabled":true},"cliProxy":{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"}},"stackDriverLoggingEnabled":false}` | Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure |
 | ccm.batch-processing.awsAccountTagsCollectionJobConfig | object | `{"enabled":true}` | Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure |
 | ccm.batch-processing.cliProxy | object | `{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""}` | Set ccm.batch-processing.cliProxy.protocol to http or https depending on the proxy configuration |
 | ccm.batch-processing.stackDriverLoggingEnabled | bool | `false` | Set ccm.batch-processing.stackDriverLoggingEnabled to true for GCP infrastructure |
@@ -310,32 +310,32 @@ registry.k8s.io/ingress-nginx/controller:v1.14.0
 | chaos.chaos-web.tolerations | list | `[]` |  |
 | ci | object | `{"ci-manager":{"affinity":{},"config":{"ENV":"SMP","REFID_CACHE_IMAGE":"harness/refid-cache:latest"},"nodeSelector":{},"tolerations":[]},"ti-service":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]}}` | Install the Continuous Integration (CI) manager pod |
 | code.code-api.autoai.postgres.image.repository | string | `"harness/postgresql"` |  |
-| code.code-api.autoai.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| code.code-api.autoai.postgres.image.tag | string | `"14.20-debian"` |  |
 | code.code-api.postgres.image.repository | string | `"harness/postgresql"` |  |
-| code.code-api.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| code.code-api.postgres.image.tag | string | `"14.20-debian"` |  |
 | code.code-githa.postgres.image.repository | string | `"harness/postgresql"` |  |
-| code.code-githa.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| code.code-githa.postgres.image.tag | string | `"14.20-debian"` |  |
 | code.code-gitrpc.postgres.image.repository | string | `"harness/postgresql"` |  |
-| code.code-gitrpc.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| code.code-gitrpc.postgres.image.tag | string | `"14.20-debian"` |  |
 | code.code-search.postgres.image.repository | string | `"harness/postgresql"` |  |
-| code.code-search.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| code.code-search.postgres.image.tag | string | `"14.20-debian"` |  |
 | enabled | bool | `false` |  |
 | ff.ff-psql-migrations.postgres.image.repository | string | `"harness/postgresql"` |  |
-| ff.ff-psql-migrations.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| ff.ff-psql-migrations.postgres.image.tag | string | `"14.20-debian"` |  |
 | ff.ff-pushpin-service.postgres.image.repository | string | `"harness/postgresql"` |  |
-| ff.ff-pushpin-service.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| ff.ff-pushpin-service.postgres.image.tag | string | `"14.20-debian"` |  |
 | ff.ff-pushpin-service.waitForInitContainer.image.tag | string | `"1.2.0"` |  |
 | ff.ff-service.ff-admin-server.postgres.image.repository | string | `"harness/postgresql"` |  |
-| ff.ff-service.ff-admin-server.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| ff.ff-service.ff-admin-server.postgres.image.tag | string | `"14.20-debian"` |  |
 | ff.ff-service.ff-admin-server.secrets.default.PLATFORM_AUTH_KEY | string | `"secret"` |  |
 | ff.ff-service.ff-client-server.postgres.image.repository | string | `"harness/postgresql"` |  |
-| ff.ff-service.ff-client-server.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| ff.ff-service.ff-client-server.postgres.image.tag | string | `"14.20-debian"` |  |
 | ff.ff-service.ff-client-server.secrets.default.PLATFORM_AUTH_KEY | string | `"secret"` |  |
 | ff.ff-service.ff-metrics-server.postgres.image.repository | string | `"harness/postgresql"` |  |
-| ff.ff-service.ff-metrics-server.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| ff.ff-service.ff-metrics-server.postgres.image.tag | string | `"14.20-debian"` |  |
 | ff.ff-service.ff-metrics-server.secrets.default.PLATFORM_AUTH_KEY | string | `"secret"` |  |
 | ff.ff-timescale-migrations.postgres.image.repository | string | `"harness/postgresql"` |  |
-| ff.ff-timescale-migrations.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| ff.ff-timescale-migrations.postgres.image.tag | string | `"14.20-debian"` |  |
 | global.airgap | string | `"false"` | Airgap functionality. Disabled by default |
 | global.autoscaling | object | `{"enabled":true}` | Enable to set auto-scaling globally |
 | global.awsServiceEndpointUrls | object | `{"cloudwatchEndPointUrl":"https://monitoring.us-east-2.amazonaws.com","ecsEndPointUrl":"https://ecs.us-east-2.amazonaws.com","enabled":false,"endPointRegion":"us-east-2","stsEndPointUrl":"https://sts.us-east-2.amazonaws.com"}` | Set global.awsServiceEndpointUrls.cloudwatchEndPointUrl to set cloud watch endpoint url |
@@ -447,19 +447,19 @@ registry.k8s.io/ingress-nginx/controller:v1.14.0
 | iacm.iac-server.affinity | object | `{}` |  |
 | iacm.iac-server.autoscaling.enabled | bool | `false` |  |
 | iacm.iac-server.createDb.image.repository | string | `"harness/postgresql"` |  |
-| iacm.iac-server.createDb.image.tag | string | `"14.20-alpine3.23"` |  |
+| iacm.iac-server.createDb.image.tag | string | `"14.20-debian"` |  |
 | iacm.iac-server.nodeSelector | object | `{}` |  |
 | iacm.iac-server.postgres.image.repository | string | `"harness/postgresql"` |  |
-| iacm.iac-server.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
+| iacm.iac-server.postgres.image.tag | string | `"14.20-debian"` |  |
 | iacm.iac-server.tolerations | list | `[]` |  |
 | iacm.iacm-manager.affinity | object | `{}` |  |
 | iacm.iacm-manager.autoscaling.enabled | bool | `false` |  |
 | iacm.iacm-manager.nodeSelector | object | `{}` |  |
 | iacm.iacm-manager.tolerations | list | `[]` |  |
 | idp.idp-app-ui.postgres.image.repository | string | `"harness/postgresql"` |  |
-| idp.idp-app-ui.postgres.image.tag | string | `"14.20-alpine3.23"` |  |
-| platform | object | `{"access-control":{"affinity":{},"config":{"ENV":"SMP"},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"postgresql":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}},"tolerations":[]},"bootstrap":{"database":{"clickhouse":{"enabled":false},"minio":{"affinity":{},"nodeSelector":{},"tolerations":[]},"mongodb":{"affinity":{},"arbiter":{"affinity":{},"nodeSelector":{},"tolerations":[]},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9216","prometheus.io/scrape":"false"},"tolerations":[]},"mongodbupgrades":{"mongoFCVUpgrade":{"affinity":{},"enabled":true,"ignoreFailure":false,"nodeSelector":{},"resources":{},"tolerations":[],"ttlSecondsAfterFinished":900}},"postgresql":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"},"metrics":{"enabled":false},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"}},"redis":{"affinity":{},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9121","prometheus.io/scrape":"false"},"tolerations":[]},"timescaledb":{"affinity":{},"curlImage":{"tag":"8.17.0"},"nodeSelector":{},"persistentVolumes":{"data":{"enabled":true,"size":"100Gi"},"wal":{"enabled":true,"size":"1Gi"}},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"},"prometheus":{"enabled":false},"tolerations":[]}},"harness-secrets":{"enabled":true},"networking":{"defaultbackend":{"create":false,"resources":{"limits":{"memory":"20Mi"},"requests":{"cpu":"10m","memory":"20Mi"}}},"nginx":{"affinity":{},"controller":{"annotations":{}},"create":false,"healthNodePort":"","healthPort":"","httpNodePort":"","httpsNodePort":"","loadBalancerEnabled":false,"loadBalancerIP":"","nodeSelector":{},"resources":{"limits":{"memory":"512Mi"},"requests":{"cpu":"0.5","memory":"512Mi"}},"tolerations":[]}}},"change-data-capture":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"delegate-proxy":{"affinity":{},"nodeSelector":{},"tolerations":[]},"gateway":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"harness-manager":{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harness/delegate","tag":"26.02.88404"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.10.0"}}},"log-service":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"looker":{"affinity":{},"nodeSelector":{},"tolerations":[]},"next-gen-ui":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"ng-auth-ui":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"ng-custom-dashboards":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-manager":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":[]},"pipeline-service":{"affinity":{},"config":{"ENV":"SMP","PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS":"true"},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":[]},"platform-service":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"scm-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"template-service":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"ui":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for platform-level services (always deployed by default to support all services) |
-| platform.access-control | object | `{"affinity":{},"config":{"ENV":"SMP"},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"postgresql":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
+| idp.idp-app-ui.postgres.image.tag | string | `"14.20-debian"` |  |
+| platform | object | `{"access-control":{"affinity":{},"config":{"ENV":"SMP"},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"postgresql":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"}},"tolerations":[]},"bootstrap":{"database":{"clickhouse":{"enabled":false},"minio":{"affinity":{},"nodeSelector":{},"tolerations":[]},"mongodb":{"affinity":{},"arbiter":{"affinity":{},"nodeSelector":{},"tolerations":[]},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9216","prometheus.io/scrape":"false"},"tolerations":[]},"mongodbupgrades":{"mongoFCVUpgrade":{"affinity":{},"enabled":true,"ignoreFailure":false,"nodeSelector":{},"resources":{},"tolerations":[],"ttlSecondsAfterFinished":900}},"postgresql":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"},"metrics":{"enabled":false},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"}},"redis":{"affinity":{},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9121","prometheus.io/scrape":"false"},"tolerations":[]},"timescaledb":{"affinity":{},"curlImage":{"tag":"8.17.0"},"nodeSelector":{},"persistentVolumes":{"data":{"enabled":true,"size":"100Gi"},"wal":{"enabled":true,"size":"1Gi"}},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"},"prometheus":{"enabled":false},"tolerations":[]}},"harness-secrets":{"enabled":true},"networking":{"defaultbackend":{"create":false,"resources":{"limits":{"memory":"20Mi"},"requests":{"cpu":"10m","memory":"20Mi"}}},"nginx":{"affinity":{},"controller":{"annotations":{}},"create":false,"healthNodePort":"","healthPort":"","httpNodePort":"","httpsNodePort":"","loadBalancerEnabled":false,"loadBalancerIP":"","nodeSelector":{},"resources":{"limits":{"memory":"512Mi"},"requests":{"cpu":"0.5","memory":"512Mi"}},"tolerations":[]}}},"change-data-capture":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"delegate-proxy":{"affinity":{},"nodeSelector":{},"tolerations":[]},"gateway":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"harness-manager":{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harness/delegate","tag":"26.02.88404"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.10.0"}}},"log-service":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"looker":{"affinity":{},"nodeSelector":{},"tolerations":[]},"next-gen-ui":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"ng-auth-ui":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"ng-custom-dashboards":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-manager":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":[]},"pipeline-service":{"affinity":{},"config":{"ENV":"SMP","PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS":"true"},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":[]},"platform-service":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"scm-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"template-service":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"ui":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for platform-level services (always deployed by default to support all services) |
+| platform.access-control | object | `{"affinity":{},"config":{"ENV":"SMP"},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"postgresql":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"}},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
 | platform.access-control.mongoHosts | list | `[]` | - replica3.host.com:27017 |
 | platform.access-control.mongoSSL | object | `{"enabled":false}` | enable mongoSSL for external database connections |
 | platform.bootstrap.networking.defaultbackend.create | bool | `false` | Create will deploy a default backend into your cluster |
@@ -501,8 +501,8 @@ registry.k8s.io/ingress-nginx/controller:v1.14.0
 | srm.le-nextgen.affinity | object | `{}` |  |
 | srm.le-nextgen.nodeSelector | object | `{}` |  |
 | srm.le-nextgen.tolerations | list | `[]` |  |
-| sto | object | `{"sto-core":{"affinity":{},"autoscaling":{"enabled":false},"migrationPostgres":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}},"nodeSelector":{},"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}},"tolerations":[]},"ticket-service":{"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}}}}` | Config for Security Test Orchestration (STO) |
-| sto.ticket-service | object | `{"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-alpine3.23"}}}` | Install the STO core |
+| sto | object | `{"sto-core":{"affinity":{},"autoscaling":{"enabled":false},"migrationPostgres":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"}},"nodeSelector":{},"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"}},"tolerations":[]},"ticket-service":{"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"}}}}` | Config for Security Test Orchestration (STO) |
+| sto.ticket-service | object | `{"postgres":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"}}}` | Install the STO core |
 | upgrades.versionLookups.enabled | bool | `true` |  |
 
 ----------------------------------------------
