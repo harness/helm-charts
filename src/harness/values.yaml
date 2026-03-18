@@ -736,7 +736,7 @@ iacm:
     nodeSelector: {}
     tolerations: []
   iacm-manager:
-    sto_step_default_tag: "0.39.0-smp"
+    sto_step_default_tag: "latest"
     affinity: {}
     autoscaling:
       enabled: false
