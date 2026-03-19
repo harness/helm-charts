@@ -61,7 +61,7 @@ modules:
   dashboard:
     description: "Dashboard"
     bundle_type: combined
-    requires: [platform]
+    parent: platform
     bucket_path: "dashboard"
     exclude:
       - looker-signed

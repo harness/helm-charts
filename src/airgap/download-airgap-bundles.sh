@@ -257,7 +257,7 @@ download_file() {
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Manifest parsing
+# Manifest parsing (Python embedded)
 #
 # Emits lines in one of three formats:
 #   MODULE|<name>|<requires_csv>|<bucket_path>|<bundle_type>|<description>
@@ -269,65 +269,50 @@ download_file() {
 # ─────────────────────────────────────────────────────────────────────────────
 parse_manifest() {
     local manifest_file="$1"
-    awk '
-    function trims(s) { gsub(/^["'\''"]+|["'\''"]+$/, "", s); gsub(/^ +| +$/, "", s); return s }
-    function flush() {
-        if (mod == "" || !in_modules) return
-        if (bundle_type == "single" && img_name != "")
-            agents = agents (agents ? "\n" : "") img_name "|" img_suffixes
-        if (parent != "")
-            print "CHILD|" mod "|" parent "|" bucket_path "|" bundle_type "|" description
-        else
-            print "MODULE|" mod "|" requires "|" bucket_path "|" bundle_type "|" description
-        if (bundle_type == "single" && agents != "") {
-            n = split(agents, a, "\n")
-            for (i = 1; i <= n; i++) {
-                if (a[i] == "") continue
-                split(a[i], p, "|")
-                print "AGENT|" mod "|" bucket_path "|" p[1] "|" p[2]
-            }
-        }
-        mod = ""; agents = ""
-    }
-    /^modules:/          { in_modules = 1; next }
-    /^  [a-zA-Z0-9_.-]+:/ && !/^    / && in_modules {
-        flush()
-        mod = $1; sub(/:$/, "", mod)
-        parent = ""; bundle_type = "combined"; bucket_path = mod; description = mod; requires = ""
-        in_images = 0; img_name = ""; img_suffixes = ""
-    }
-    /^    parent: /      { parent = $NF; gsub(/^["'\''"]+|["'\''"]+$/, "", parent) }
-    /^    bundle_type: / { bundle_type = trims($NF) }
-    /^    bucket_path: / { bucket_path = trims($NF) }
-    /^    description: / { desc = $0; sub(/^[[:space:]]*description:[[:space:]]*/, "", desc); description = trims(desc) }
-    /^    requires: /    {
-        match($0, /\[[^\]]*\]/)
-        requires = substr($0, RSTART+1, RLENGTH-2)
-        gsub(/["'\''"]/, "", requires); gsub(/, +/, ",", requires)
-        gsub(/^ +| +$/, "", requires)
-    }
-    /^    images:/       { in_images = 1; img_name = ""; img_suffixes = ""; next }
-    in_images && /^      - / {
-        if (img_name != "" && bundle_type == "single")
-            agents = agents (agents ? "\n" : "") img_name "|" img_suffixes
-        rest = $0; sub(/^      - /, "", rest); rest = trims(rest)
-        if (rest ~ /^name: /) {
-            sub(/^name: */, "", rest); img_name = trims(rest)
-            img_suffixes = ""
-        } else {
-            img_name = rest
-            img_suffixes = ""
-        }
-    }
-    in_images && /^        variants:/ {
-        match($0, /\[[^\]]*\]/)
-        img_suffixes = substr($0, RSTART+1, RLENGTH-2)
-        gsub(/["'\''"]/, "", img_suffixes); gsub(/, +/, ",", img_suffixes)
-        gsub(/^ +| +$/, "", img_suffixes)
-    }
-    /^  [a-zA-Z0-9_.-]+:/ && !/^    / { in_images = 0 }
-    END { flush() }
-    ' "$manifest_file"
+    python3 - "$manifest_file" <<'PYTHON'
+import sys
+import yaml
+
+def get_name(entry):
+    return entry['name'] if isinstance(entry, dict) else str(entry)
+
+def get_suffixes(entry):
+    if isinstance(entry, dict):
+        return entry.get('variants', [])
+    return []
+
+def main():
+    with open(sys.argv[1]) as f:
+        data = yaml.safe_load(f)
+
+    modules = data.get('modules', {})
+
+    for mod_name, cfg in modules.items():
+        parent      = cfg.get('parent', '')
+        bundle_type = cfg.get('bundle_type', 'combined')
+        bucket_path = cfg.get('bucket_path', mod_name)
+        description = cfg.get('description', mod_name)
+        requires    = ','.join(cfg.get('requires', []))
+
+        if parent:
+            print(f"CHILD|{mod_name}|{parent}|{bucket_path}|{bundle_type}|{description}")
+        else:
+            print(f"MODULE|{mod_name}|{requires}|{bucket_path}|{bundle_type}|{description}")
+
+        # Emit AGENT lines for every image in single-type sections
+        if bundle_type == 'single':
+            for entry in cfg.get('images', []):
+                name     = get_name(entry)
+                suffixes = ','.join(get_suffixes(entry))
+                print(f"AGENT|{mod_name}|{bucket_path}|{name}|{suffixes}")
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as e:
+        sys.stderr.write(f"Parse error: {e}\n")
+        sys.exit(1)
+PYTHON
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -695,11 +680,11 @@ checkbox_menu() {
 
     # ── Viewport: clamp list to terminal height so we never overdraw ──────────
     local _term_h
-    _term_h=$(tput lines 2>/dev/tty 2>/dev/null || tput lines 2>/dev/null || echo 24)
-    # Reserve lines: header above (4) + title (3) + above indicator (1) + below indicator (1) + footer (5) = 14
-    local _view_size=$(( _term_h - 14 ))
-    [ "$_view_size" -lt 1 ] && _view_size=1
-    [ "$_view_size" -gt "$_n" ] && _view_size="$_n"
+    _term_h=$(tput lines 2>/dev/null || echo 24)
+    # Reserve lines: title block (3) + above/below indicators (2) + footer (3) = 8
+    local _view_size=$(( _term_h - 8 ))
+    if [ "$_view_size" -lt 3 ]; then _view_size=3; fi
+    if [ "$_view_size" -gt "$_n" ]; then _view_size="$_n"; fi
     local _view_top=0
 
     # ── Auto-check a dep by value (only if not already manually checked) ─────
@@ -1006,7 +991,7 @@ main() {
     # Sort modules: empty requires first (platform), then by requires length ascending.
     # awk prints "name|requires", sort -t'|' -k2 puts empty string first.
     local _mod_order
-    _mod_order=$(echo "$parsed" | awk -F'|' '$1=="MODULE" {print $2 "|" $3}' | sort -t'|' -k2,2 | awk -F'|' '{print $1}' | awk '{a[NR]=$0} END{for(i=NR;i>=1;i--) print a[i]}')
+    _mod_order=$(echo "$parsed" | awk -F'|' '$1=="MODULE" {print $2 "|" $3}' | sort -t'|' -k2,2 | awk -F'|' '{print $1}')
 
     while IFS= read -r _mname; do
         [ -z "$_mname" ] && continue
