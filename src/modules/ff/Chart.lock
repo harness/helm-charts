@@ -1,9 +1,9 @@
 dependencies:
 - name: ff-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.1154.1
+  version: 1.1160.0
 - name: ff-pushpin-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.1135.0
-digest: sha256:615eef54e8a8d5d3051d1dbc69e1d86d4ca68e404ee2d3a22a6f71d38453e2ce
-generated: "2026-02-24T16:49:59.386268294Z"
+  version: 1.1138.0
+digest: sha256:fa599fe701d294580a51884c0d4c9b0d02c61215ee04b234856fe987e5e2a20d
+generated: "2026-03-08T16:13:44.364706707Z"

@@ -4,16 +4,19 @@
 #               --selection-file selection.conf
 #
 # Tip: run --generate-selection-file to build this file interactively, or
-#      run --list to see all available module, sub-bundle, and agent names.
+#      run --list to see all available names.
 # Lines starting with '#' are ignored.
 # ──────────────────────────────────────────────────────────────────────────────
 
-# Modules to download (comma-separated). Dependencies are auto-resolved.
-# Example: cdng,ci,sto,platform
-modules=
-
-# Everything beyond the base modules — combined bundles (ci-plugins, sto-scanners)
-# AND individual agent images (delegate, upgrader, argocd) — in a single key.
-# Use 'all' to include everything, or 'none' to skip.
-# Example: ci-plugins,sto-scanners,delegate,upgrader
-sub-bundles=none
+# List of bundles to download (comma-separated).
+# This includes Modules, Plugins, Agents, and Scanners.
+#
+# - Modules (e.g. platform, ci): Dependencies are auto-resolved.
+# - Plugins (e.g. ci-plugins): Must be listed explicitly if needed.
+# - Agents (e.g. delegate, upgrader): Must be listed explicitly.
+# - Scanners (e.g. grype-job-runner): Must be listed explicitly.
+#
+# Use 'all' to download everything available in the manifest.
+#
+# Example: bundles=platform,ci,ci-plugins,delegate,delegate-fips
+bundles=
