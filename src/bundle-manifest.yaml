@@ -36,7 +36,7 @@ modules:
       - queue-service-signed
       - service-discovery-collector
       - ng-dashboard-aggregator-signed
-      - ingress-nginx/controller
+      - harness/controller
       - defaultbackend-amd64
       - redis_exporter
       - postgres-exporter
@@ -61,7 +61,7 @@ modules:
   dashboard:
     description: "Dashboard"
     bundle_type: combined
-    requires: [platform]
+    parent: platform
     bucket_path: "dashboard"
     exclude:
       - looker-signed
