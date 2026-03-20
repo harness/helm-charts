@@ -400,9 +400,22 @@ enabled: false
 # -- Config for CD services
 cd:
   gitops:
-    upgraderImage:
+    argoCDImage:
       image:
-        tag: 1.12.0
+        repository: harness/argocd
+        tag: "3.3.3-ubi9-curated"
+    agentHAProxyImage:
+      image:
+        repository: harness/haproxy
+        tag: "3.2.14-jammy-curated"
+    redisHaConfigMapTestJob:
+      image:
+        repository: harness/shellcheck
+        tag: "0.11.0-jammy-curated"
+    resources: {}
+      upgraderImage:
+        image:
+          tag: 1.12.0
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
