@@ -416,7 +416,6 @@ cd:
       image:
         repository: harness/shellcheck
         tag: "0.11.0-jammy-curated"
-      
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
