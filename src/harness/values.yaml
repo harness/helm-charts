@@ -404,6 +404,10 @@ cd:
     upgraderImage:
       image:
         tag: 1.12.0
+    agentDockerImage:
+      image:
+        repository: harness/gitops-agent
+        tag: "v0.113.0-stig"
     argoCDImage:
       image:
         repository: harness/argocd
