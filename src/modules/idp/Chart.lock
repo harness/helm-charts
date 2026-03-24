@@ -1,12 +1,12 @@
 dependencies:
 - name: idp-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.37.5
+  version: 1.38.6
 - name: idp-admin
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.37.2
+  version: 1.38.2
 - name: idp-app-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.37.9
-digest: sha256:1418f4d5a7865196428447001f150c0615950d64c80ea830f27aa01e387b7a0a
-generated: "2026-03-08T16:13:44.858159498Z"
+  version: 1.38.8
+digest: sha256:d03b04975f341270eb53ceda75fef896a24642ad8c96f6b065db61a6a216921b
+generated: "2026-03-24T14:46:32.255796822Z"
