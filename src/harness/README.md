@@ -101,7 +101,7 @@ docker.io/harness/cdcdata-signed:1.51.2
 docker.io/harness/accesscontrol-service-signed:1.211.0
 docker.io/harness/delegate-proxy-signed:1.9.0
 docker.io/harness/gateway-signed:1.62.5
-docker.io/harness/helm-init-container:1.7.0
+docker.io/harness/helm-init-container:1.8.0
 docker.io/harness/manager-signed:1.132.1
 docker.io/harness/mongo:7.0.28-jammy
 docker.io/harness/ng-auth-ui-signed:1.39.0
@@ -710,11 +710,15 @@ plugins/harness_terraform_vm:latest
 | global.waitForInitContainer.image.registry | string | `"docker.io"` |  |
 | global.waitForInitContainer.image.repository | string | `"harness/helm-init-container"` |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | global.waitForInitContainer.image.tag | string | `"1.8.0"` |  |
 | global.waitForInitContainer.image.tag | string | `"1.8.0"` |  |
 =======
 | global.waitForInitContainer.image.tag | string | `"1.7.0"` |  |
 >>>>>>> f4aebd6a (Updated Umbrella Chart Dependencies for release/0.39.0 (#1477))
+=======
+| global.waitForInitContainer.image.tag | string | `"1.8.0"` |  |
+>>>>>>> d7801109 (Updated Umbrella Chart Dependencies for release/0.39.0 (#1479))
 | iacm.iac-server.affinity | object | `{}` |  |
 | iacm.iac-server.autoscaling.enabled | bool | `false` |  |
 | iacm.iac-server.createDb.image.repository | string | `"harness/postgresql"` |  |
