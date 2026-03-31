@@ -168,7 +168,8 @@ modules:
       - name: grype-job-runner
         variants: ["-fips"]
       - modelscan-job-runner
-      - nexusiq-job-runner
+      - name: nexusiq-job-runner
+        variants: ["-fips"]
       - nikto-job-runner
       - nmap-job-runner
       - name: osv-job-runner
@@ -183,7 +184,8 @@ modules:
         variants: ["-fips"]
       - sysdig-job-runner
       - traceable-job-runner
-      - twistlock-job-runner
+      - name: twistlock-job-runner
+        variants: ["-fips"]
       - veracode-agent-job-runner
       - whitesource-agent-job-runner
       - wiz-job-runner
