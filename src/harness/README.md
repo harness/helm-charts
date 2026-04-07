@@ -309,32 +309,6 @@ harness/drone-git:1.7.16-rootless
 plugins/harness_terraform:latest
 plugins/harness_terraform_vm:latest
 
-## Internal Developer Portal
-docker.io/harness/idp-service-signed:1.37.5
-docker.io/harness/idp-admin-signed:1.37.2
-docker.io/harness/idp-app-signed:1.37.9
-
-### IDP Plugins
-harness/ci-addon:1.18.10
-harness/ci-addon:1.18.6
-harness/ci-addon:rootless-1.18.10
-harness/ci-addon:rootless-1.18.6
-harness/ci-lite-engine:1.18.10
-harness/ci-lite-engine:1.18.6
-harness/ci-lite-engine:rootless-1.18.10
-harness/ci-lite-engine:rootless-1.18.6
-harness/drone-git:1.7.16-rootless
-harness/cookiecutter:1.20.0
-harness/createcatalog:1.20.0
-harness/createorganisation:1.20.0
-harness/createproject:1.20.0
-harness/createrepo:1.20.0
-harness/createresource:1.20.0
-harness/directpush:1.20.0
-harness/registercatalog:1.20.0
-harness/slacknotify:1.20.0
-harness/updatecatalogproperty:1.20.0
-
 ```
 ## Values
 
@@ -453,7 +427,6 @@ harness/updatecatalogproperty:1.20.0
 | global.fileLogging.totalFileSizeCap | string | `"600MB"` |  |
 | global.ha | bool | `true` | High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV |
 | global.iacm.enabled | bool | `false` |  |
-| global.idp.enabled | bool | `false` |  |
 | global.imageRegistry | string | `""` | This private Docker image registry will override any registries that are defined in subcharts. |
 | global.ingress | object | `{"className":"harness","enabled":false,"hosts":["myhost.example.com"],"ingressGatewayServiceUrl":"","objects":{"annotations":{}},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
 | global.ingress.hosts | list | `["myhost.example.com"]` | add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty. |
@@ -512,8 +485,6 @@ harness/updatecatalogproperty:1.20.0
 | iacm.iacm-manager.autoscaling.enabled | bool | `false` |  |
 | iacm.iacm-manager.nodeSelector | object | `{}` |  |
 | iacm.iacm-manager.tolerations | list | `[]` |  |
-| idp.idp-app-ui.postgres.image.repository | string | `"harness/postgresql"` |  |
-| idp.idp-app-ui.postgres.image.tag | string | `"14.20-debian"` |  |
 | platform | object | `{"access-control":{"affinity":{},"config":{"ENV":"SMP"},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"postgresql":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"}},"tolerations":[]},"bootstrap":{"database":{"clickhouse":{"enabled":false},"minio":{"affinity":{},"nodeSelector":{},"tolerations":[]},"mongodb":{"affinity":{},"arbiter":{"affinity":{},"nodeSelector":{},"tolerations":[]},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9216","prometheus.io/scrape":"false"},"tolerations":[]},"mongodbupgrades":{"mongoFCVUpgrade":{"affinity":{},"enabled":true,"ignoreFailure":false,"nodeSelector":{},"resources":{},"tolerations":[],"ttlSecondsAfterFinished":900}},"postgresql":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"},"metrics":{"enabled":false},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"}},"redis":{"affinity":{},"metrics":{"enabled":false},"nodeSelector":{},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9121","prometheus.io/scrape":"false"},"tolerations":[]},"timescaledb":{"affinity":{},"curlImage":{"tag":"8.17.0"},"nodeSelector":{},"persistentVolumes":{"data":{"enabled":true,"size":"100Gi"},"wal":{"enabled":true,"size":"1Gi"}},"podAnnotations":{"prometheus.io/path":"/metrics","prometheus.io/port":"9187","prometheus.io/scrape":"false"},"prometheus":{"enabled":false},"tolerations":[]}},"harness-secrets":{"enabled":true},"networking":{"defaultbackend":{"create":false,"resources":{"limits":{"memory":"20Mi"},"requests":{"cpu":"10m","memory":"20Mi"}}},"nginx":{"affinity":{},"controller":{"annotations":{}},"create":false,"healthNodePort":"","healthPort":"","httpNodePort":"","httpsNodePort":"","loadBalancerEnabled":false,"loadBalancerIP":"","nodeSelector":{},"resources":{"limits":{"memory":"512Mi"},"requests":{"cpu":"0.5","memory":"512Mi"}},"tolerations":[]}}},"change-data-capture":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"delegate-proxy":{"affinity":{},"nodeSelector":{},"tolerations":[]},"gateway":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"harness-manager":{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harness/delegate","tag":"26.02.88404"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.11.0"}}},"log-service":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"looker":{"affinity":{},"nodeSelector":{},"tolerations":[]},"next-gen-ui":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"ng-auth-ui":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"ng-custom-dashboards":{"affinity":{},"nodeSelector":{},"tolerations":[]},"ng-manager":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":[]},"pipeline-service":{"affinity":{},"config":{"ENV":"SMP","PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS":"true"},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":[]},"platform-service":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"scm-service":{"affinity":{},"nodeSelector":{},"tolerations":[]},"template-service":{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]},"ui":{"affinity":{},"nodeSelector":{},"tolerations":[]}}` | Config for platform-level services (always deployed by default to support all services) |
 | platform.access-control | object | `{"affinity":{},"config":{"ENV":"SMP"},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"postgresql":{"image":{"repository":"harness/postgresql","tag":"14.20-debian"}},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
 | platform.access-control.mongoHosts | list | `[]` | - replica3.host.com:27017 |

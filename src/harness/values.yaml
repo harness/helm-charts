@@ -47,9 +47,6 @@ global:
     # -- Enable to install Harness Infrastructure As Code Management (IACM)
   iacm:
     enabled: false
-    # -- Enable to install Internal Developer Portal (IDP)
-  idp:
-    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
@@ -769,12 +766,6 @@ code:
         repository: "harness/postgresql"
         tag: "14.20-debian"
   code-gitrpc:
-    postgres:
-      image:
-        repository: "harness/postgresql"
-        tag: "14.20-debian"
-idp:
-  idp-app-ui:
     postgres:
       image:
         repository: "harness/postgresql"
