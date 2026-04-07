@@ -225,29 +225,3 @@ harness/ci-lite-engine:rootless-1.18.6
 harness/drone-git:1.7.16-rootless
 plugins/harness_terraform:latest
 plugins/harness_terraform_vm:latest
-
-## Internal Developer Portal
-docker.io/harness/idp-service-signed:1.37.5
-docker.io/harness/idp-admin-signed:1.37.2
-docker.io/harness/idp-app-signed:1.37.9
-
-### IDP Plugins
-harness/ci-addon:1.18.10
-harness/ci-addon:1.18.6
-harness/ci-addon:rootless-1.18.10
-harness/ci-addon:rootless-1.18.6
-harness/ci-lite-engine:1.18.10
-harness/ci-lite-engine:1.18.6
-harness/ci-lite-engine:rootless-1.18.10
-harness/ci-lite-engine:rootless-1.18.6
-harness/drone-git:1.7.16-rootless
-harness/cookiecutter:1.20.0
-harness/createcatalog:1.20.0
-harness/createorganisation:1.20.0
-harness/createproject:1.20.0
-harness/createrepo:1.20.0
-harness/createresource:1.20.0
-harness/directpush:1.20.0
-harness/registercatalog:1.20.0
-harness/slacknotify:1.20.0
-harness/updatecatalogproperty:1.20.0
