@@ -36,7 +36,7 @@ modules:
       - queue-service-signed
       - service-discovery-collector
       - ng-dashboard-aggregator-signed
-      - harness/controller
+      - controller
       - defaultbackend-amd64
       - redis_exporter
       - postgres-exporter
@@ -44,7 +44,7 @@ modules:
       - vault-secret-loader
       - ui-signed
       - name: delegate
-        variants: [".minimal", ".minimal-fips"]
+        variants: [".minimal", ".minimal-fips", ".minimal-stig"]
         variants_only: true
 
   platform-agents:
@@ -54,9 +54,9 @@ modules:
     bucket_path: "platform/agents"
     images:
       - name: delegate
-        variants: [".minimal", ".minimal-fips", "-fips"]
+        variants: [".minimal", ".minimal-fips", ".minimal-stig", "-fips", "-stig"]
       - name: upgrader
-        variants: ["-fips"]
+        variants: ["-fips", "-stig"]
 
   dashboard:
     description: "Dashboard"
