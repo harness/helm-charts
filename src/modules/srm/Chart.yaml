@@ -16,4 +16,4 @@ dependencies:
 description: Helm chart for Harness SRM
 name: srm
 type: application
-version: 0.39.0
+version: 0.40.0
