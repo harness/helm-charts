@@ -13,12 +13,12 @@ dependencies:
   version: 1.6.0
 - name: batch-processing
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.75.18
+  version: 1.75.19
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.73.7
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.77.11
-digest: sha256:0870a9ed8a637151af71549f0d5d9d681781c3bfa2e7bed708f102f4d3ad8adc
-generated: "2026-02-19T05:52:52.309610486Z"
+digest: sha256:d196fab3cc7dbaaf5215913e17f07c373ab63e06d4b12b7b95e92a7e092d7511
+generated: "2026-04-09T08:19:43.506045636Z"
