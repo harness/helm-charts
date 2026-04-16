@@ -1,48 +1,48 @@
 ## Core Platform Services (Required for all installations)
 docker.io/busybox:1.37.0
 docker.io/harness/ci-scm-signed:1.45.1
-docker.io/harness/template-service-signed:1.135.0
-docker.io/harness/platform-service-signed:1.111.0
-docker.io/harness/pipeline-service-signed:1.173.4
-docker.io/harness/ng-manager-signed:1.133.6
-docker.io/harness/nextgenui-signed:1.120.4
+docker.io/harness/template-service-signed:1.138.1
+docker.io/harness/platform-service-signed:1.114.0
+docker.io/harness/pipeline-service-signed:1.176.5
+docker.io/harness/ng-manager-signed:1.136.2
+docker.io/harness/nextgenui-signed:1.125.9
 docker.io/harness/minio:RELEASE.2025-10-15T17-29-55Z-jammy
-docker.io/harness/log-service-signed:1.41.1
+docker.io/harness/log-service-signed:1.45.0
 docker.io/harness/cdcdata-signed:1.51.2
-docker.io/harness/accesscontrol-service-signed:1.211.0
+docker.io/harness/accesscontrol-service-signed:1.225.2
 docker.io/harness/delegate-proxy-signed:1.9.0
 docker.io/harness/gateway-signed:1.62.5
 docker.io/harness/helm-init-container:1.8.0
-docker.io/harness/manager-signed:1.132.2
+docker.io/harness/manager-signed:1.135.2
 docker.io/harness/mongo:7.0.28-jammy
 docker.io/harness/ng-auth-ui-signed:1.39.0
 docker.io/harness/redis:7.4.8-jammy
 docker.io/harness/postgresql:14.20-debian
-docker.io/harness/policy-mgmt:1.38.1
-docker.io/harness/smp-service-discovery-server-signed:0.57.0
+docker.io/harness/policy-mgmt:1.43.7
+docker.io/harness/smp-service-discovery-server-signed:0.60.0
 docker.io/harness/debezium-service-signed:1.25.3
-docker.io/harness/audit-event-streaming-signed:1.78.0
+docker.io/harness/audit-event-streaming-signed:1.81.0
 docker.io/harness/queue-service-signed:1.9.0
-docker.io/harness/service-discovery-collector:0.57.0
-docker.io/harness/ng-dashboard-aggregator-signed:1.97.0
+docker.io/harness/service-discovery-collector:0.60.0
+docker.io/harness/ng-dashboard-aggregator-signed:1.100.0
 docker.io/harness/controller:1.14.3-jammy
 registry.k8s.io/defaultbackend-amd64:1.5
 docker.io/harness/redis_exporter:1.80.2-jammy
 docker.io/prometheuscommunity/postgres-exporter:v0.19.1
 docker.io/harness/mongodb-exporter:0.47.1-jammy
-harness/vault-secret-loader:1.0.2
+harness/vault-secret-loader:1.0.3
 docker.io/harness/ui-signed:1.34.0
-docker.io/harness/delegate:26.03.88702.minimal
-docker.io/harness/delegate:26.03.88702.minimal-fips
-docker.io/harness/delegate:26.03.88702.minimal-stig
+docker.io/harness/delegate:26.03.88803.minimal
+docker.io/harness/delegate:26.03.88803.minimal-fips
+docker.io/harness/delegate:26.03.88803.minimal-stig
 
 ### Platform Agents
-docker.io/harness/delegate:26.03.88702
-docker.io/harness/delegate:26.03.88702.minimal
-docker.io/harness/delegate:26.03.88702.minimal-fips
-docker.io/harness/delegate:26.03.88702.minimal-stig
-docker.io/harness/delegate:26.03.88702-fips
-docker.io/harness/delegate:26.03.88702-stig
+docker.io/harness/delegate:26.03.88803
+docker.io/harness/delegate:26.03.88803.minimal
+docker.io/harness/delegate:26.03.88803.minimal-fips
+docker.io/harness/delegate:26.03.88803.minimal-stig
+docker.io/harness/delegate:26.03.88803-fips
+docker.io/harness/delegate:26.03.88803-stig
 docker.io/harness/upgrader:1.12.0
 docker.io/harness/upgrader:1.12.0-fips
 docker.io/harness/upgrader:1.12.0-stig
@@ -66,39 +66,33 @@ docker.io/harness/shellcheck:0.11.0-jammy-curated
 docker.io/harness/gitops-agent-installer-helper:v0.0.13
 
 ## Continuous Integration
-docker.io/harness/ci-manager-signed:1.124.3
-docker.io/harness/ti-service-signed:1.61.3
+docker.io/harness/ci-manager-signed:1.127.4
+docker.io/harness/ti-service-signed:1.65.1
 harness/ci-addon:1.18.10
-harness/ci-addon:1.18.11
-harness/ci-addon:1.18.12
+harness/ci-addon:1.18.16
 harness/ci-addon:rootless-1.18.10
-harness/ci-addon:rootless-1.18.11
-harness/ci-addon:rootless-1.18.12
+harness/ci-addon:rootless-1.18.16
 harness/ci-lite-engine:1.18.10
-harness/ci-lite-engine:1.18.11
-harness/ci-lite-engine:1.18.12
+harness/ci-lite-engine:1.18.16
 harness/ci-lite-engine:rootless-1.18.10
-harness/ci-lite-engine:rootless-1.18.11
-harness/ci-lite-engine:rootless-1.18.12
+harness/ci-lite-engine:rootless-1.18.16
 
 ### CI Build Plugins
 harness/drone-git:1.7.16-rootless
 harness/harness-cache-server:1.7.13
-plugins/kaniko:1.13.4
-plugins/kaniko-acr:1.13.5
-plugins/kaniko-ecr:1.13.4
-plugins/kaniko-gcr:1.13.4
-plugins/artifactory:1.8.4
+harness/harness-cache-server:1.7.15
+plugins/kaniko:1.13.6
+plugins/kaniko-acr:1.13.6
+plugins/kaniko-ecr:1.13.6
+plugins/kaniko-gcr:1.13.6
 plugins/artifactory:1.8.5
 plugins/gcs:1.6.8
-plugins/cache:1.10.0
 plugins/cache:1.10.1
-plugins/s3:1.7.0
 plugins/s3:1.7.1
-plugins/buildx:1.3.15
-plugins/buildx-acr:1.4.6
-plugins/buildx-ecr:1.4.5
-plugins/buildx-gar:1.4.5
+plugins/buildx:1.3.16
+plugins/buildx-acr:1.4.7
+plugins/buildx-ecr:1.4.6
+plugins/buildx-gar:1.4.6
 plugins/buildx-gcr:1.4.4
 plugins/docker:21.2.5
 plugins/ecr:21.2.5
@@ -107,7 +101,7 @@ plugins/gcr:21.2.5
 plugins/acr:21.2.5
 
 ## Security Testing Orchestration
-docker.io/harness/stocore-signed:1.182.1
+docker.io/harness/stocore-signed:1.184.1
 docker.io/harness/ticket-service-signed:1.8.0
 docker.io/harness/refid-cache:latest
 harness/refid-cache:latest
@@ -136,6 +130,7 @@ harness/grype-job-runner:latest
 harness/grype-job-runner:latest-fips
 harness/modelscan-job-runner:latest
 harness/nexusiq-job-runner:latest
+harness/nexusiq-job-runner:latest-fips
 harness/nikto-job-runner:latest
 harness/nmap-job-runner:latest
 harness/osv-job-runner:latest
@@ -151,53 +146,54 @@ harness/sonarqube-agent-job-runner:latest-fips
 harness/sysdig-job-runner:latest
 harness/traceable-job-runner:latest
 harness/twistlock-job-runner:latest
+harness/twistlock-job-runner:latest-fips
 harness/veracode-agent-job-runner:latest
 harness/whitesource-agent-job-runner:latest
 harness/wiz-job-runner:latest
 harness/zap-job-runner:latest
 
 ## Feature Flags
-docker.io/harness/ff-cron-signed:1.1165.0
-docker.io/harness/ff-server-analytics-db-migration-signed:1.1165.0
-docker.io/harness/ff-server-primary-db-migration-signed:1.1165.0
-docker.io/harness/ff-service-signed:1.1165.0
+docker.io/harness/ff-cron-signed:1.1169.0
+docker.io/harness/ff-server-analytics-db-migration-signed:1.1169.0
+docker.io/harness/ff-server-primary-db-migration-signed:1.1169.0
+docker.io/harness/ff-service-signed:1.1169.0
 docker.io/harness/ff-pushpin-signed:1.1138.0
 docker.io/harness/ff-pushpin-worker-signed:1.1138.0
 
 ## Cloud Cost Management
-docker.io/harness/batch-processing-signed:1.80.7
-docker.io/harness/ce-anomaly-detection-signed:1.23.0
+docker.io/harness/batch-processing-signed:1.82.4
+docker.io/harness/ce-anomaly-detection-signed:1.26.1
 docker.io/harness/ce-cloud-info-signed:1.14.4
-docker.io/harness/ce-nextgen-signed:1.82.5
+docker.io/harness/ce-nextgen-signed:1.84.5
 docker.io/harness/event-service-signed:1.15.2
-docker.io/harness/ng-ce-ui:1.78.5
+docker.io/harness/ng-ce-ui:1.80.8
 docker.io/harness/telescopes-signed:1.7.2
 docker.io/harness/clickhouse:25.12.5-jammy
-docker.io/harness/ccm-gcp-smp-signed:100086
+docker.io/harness/ccm-gcp-smp-signed:100088
 
 ## Chaos Engineering
-docker.io/harness/smp-chaos-k8s-ifs-signed:1.77.0
-docker.io/harness/smp-chaos-linux-infra-controller-signed:1.77.0
-docker.io/harness/smp-chaos-linux-infra-server-signed:1.77.0
-docker.io/harness/smp-chaos-manager-signed:1.77.3
-docker.io/harness/smp-chaos-web-signed:1.77.1
+docker.io/harness/smp-chaos-k8s-ifs-signed:1.80.0
+docker.io/harness/smp-chaos-linux-infra-controller-signed:1.80.0
+docker.io/harness/smp-chaos-linux-infra-server-signed:1.80.0
+docker.io/harness/smp-chaos-manager-signed:1.80.3
+docker.io/harness/smp-chaos-web-signed:1.80.1
 docker.io/harness/source-probe:main-latest
-docker.io/harness/smp-chaos-bg-processor-signed:1.77.3
-docker.io/harness/chaos-machine-ifc-signed:1.77.0
-docker.io/harness/chaos-machine-ifs-signed:1.77.0
-docker.io/harness/enterprise-chaos-hub-signed:1.77.3
+docker.io/harness/smp-chaos-bg-processor-signed:1.80.3
+docker.io/harness/chaos-machine-ifc-signed:1.80.0
+docker.io/harness/chaos-machine-ifs-signed:1.80.0
+docker.io/harness/enterprise-chaos-hub-signed:1.80.3
 
 ### Chaos Engineering Plugins
-docker.io/harness/chaos-log-watcher:1.77.0
-docker.io/harness/chaos-ddcr:1.77.0
-docker.io/harness/chaos-ddcr-faults:1.77.0
-docker.io/harness/chaos-event-watcher:1.77.0
+docker.io/harness/chaos-log-watcher:1.80.0
+docker.io/harness/chaos-ddcr:1.80.0
+docker.io/harness/chaos-ddcr-faults:1.80.0
+docker.io/harness/chaos-event-watcher:1.80.0
 
 ## Supply Chain Security
-docker.io/harness/ssca-manager-signed:1.53.14
-docker.io/harness/ssca-ui-signed:0.40.5
-docker.io/harness/component-service-signed:1.8.2
-docker.io/harness/component-analysis-service-signed:1.3.1
+docker.io/harness/ssca-manager-signed:1.56.3
+docker.io/harness/ssca-ui-signed:0.43.1
+docker.io/harness/component-service-signed:1.10.0
+docker.io/harness/component-analysis-service-signed:1.5.2
 
 ### SCS Plugins
 harness/ssca-plugin:0.53.5
@@ -207,61 +203,27 @@ harness/ssca-compliance-plugin:0.53.4
 harness/ssca-artifact-signing-plugin:0.53.2
 
 ## Database DevOps
-docker.io/harness/db-devops-service-signed:1.82.1
+docker.io/harness/db-devops-service-signed:1.84.0
 
 ## Code Repository
-docker.io/harness/code-api-signed:1.76.1
-docker.io/harness/code-githa-signed:1.76.0
-docker.io/harness/code-gitrpc-signed:1.76.0
-docker.io/harness/code-search-signed:1.76.0
+docker.io/harness/code-api-signed:1.80.4
+docker.io/harness/code-githa-signed:1.80.0
+docker.io/harness/code-gitrpc-signed:1.80.1
+docker.io/harness/code-search-signed:1.80.1
 
 ## Infrastructure as Code Management
-docker.io/harness/iac-server-signed:1.335.1
+docker.io/harness/iac-server-signed:1.354.1
 docker.io/harness/iacm-manager-signed:1.138.0
 
 ### IACM Plugins
 harness/ci-addon:1.18.10
-harness/ci-addon:1.18.11
-harness/ci-addon:1.18.12
+harness/ci-addon:1.18.16
 harness/ci-addon:rootless-1.18.10
-harness/ci-addon:rootless-1.18.11
-harness/ci-addon:rootless-1.18.12
+harness/ci-addon:rootless-1.18.16
 harness/ci-lite-engine:1.18.10
-harness/ci-lite-engine:1.18.11
-harness/ci-lite-engine:1.18.12
+harness/ci-lite-engine:1.18.16
 harness/ci-lite-engine:rootless-1.18.10
-harness/ci-lite-engine:rootless-1.18.11
-harness/ci-lite-engine:rootless-1.18.12
+harness/ci-lite-engine:rootless-1.18.16
 harness/drone-git:1.7.16-rootless
 plugins/harness_terraform:latest
 plugins/harness_terraform_vm:latest
-
-## Internal Developer Portal
-docker.io/harness/idp-service-signed:1.38.6
-docker.io/harness/idp-admin-signed:1.38.2
-docker.io/harness/idp-app-signed:1.38.8
-
-### IDP Plugins
-harness/ci-addon:1.18.10
-harness/ci-addon:1.18.11
-harness/ci-addon:1.18.12
-harness/ci-addon:rootless-1.18.10
-harness/ci-addon:rootless-1.18.11
-harness/ci-addon:rootless-1.18.12
-harness/ci-lite-engine:1.18.10
-harness/ci-lite-engine:1.18.11
-harness/ci-lite-engine:1.18.12
-harness/ci-lite-engine:rootless-1.18.10
-harness/ci-lite-engine:rootless-1.18.11
-harness/ci-lite-engine:rootless-1.18.12
-harness/drone-git:1.7.16-rootless
-harness/cookiecutter:1.20.0
-harness/createcatalog:1.20.0
-harness/createorganisation:1.20.0
-harness/createproject:1.20.0
-harness/createrepo:1.20.0
-harness/createresource:1.20.0
-harness/directpush:1.20.0
-harness/registercatalog:1.20.0
-harness/slacknotify:1.20.0
-harness/updatecatalogproperty:1.20.0
