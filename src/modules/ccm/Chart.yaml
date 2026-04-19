@@ -21,7 +21,7 @@ dependencies:
   version: 1.83.4
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.86.17
+  version: 1.86.18
 description: A Helm chart for Harness Cloud Cost Management (CCM) module
 name: ccm
 type: application
