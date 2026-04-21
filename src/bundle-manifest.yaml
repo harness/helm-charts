@@ -56,7 +56,7 @@ modules:
       - name: delegate
         variants: [".minimal", ".minimal-fips", "-fips"]
       - name: upgrader
-        variants: ["-fips", "-stig"]
+        variants: ["-fips"]
 
   dashboard:
     description: "Dashboard"
