@@ -10,7 +10,17 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+if [ -z "$1" ]; then
+  echo "Usage: $0 <chart-path>"
+  echo "  chart-path: path to the Helm chart directory to migrate"
+  exit 1
+fi
+
+CHART_DIR="$(cd "$1" && pwd)"
+if [ ! -d "$CHART_DIR" ]; then
+  echo "Error: '$1' is not a valid directory"
+  exit 1
+fi
 
 # Cross-platform sed -i
 if sed --version 2>/dev/null | grep -q GNU; then
@@ -40,7 +50,7 @@ done
 echo ""
 
 # Pre-filter with grep to skip the ~1000 files that have no matches at all
-CANDIDATE_FILES=$(find "$SCRIPT_DIR" -type f \( -name "*.yaml" -o -name "*.yml" -o -name "images.txt" \) \
+CANDIDATE_FILES=$(find "$CHART_DIR" -type f \( -name "*.yaml" -o -name "*.yml" -o -name "images.txt" \) \
   -exec grep -lE 'harness/|plugins/' {} + 2>/dev/null || true)
 
 if [ -z "$CANDIDATE_FILES" ]; then
@@ -56,7 +66,7 @@ while IFS= read -r file; do
   AFTER=$(cksum < "$file")
   if [ "$BEFORE" != "$AFTER" ]; then
     MODIFIED_COUNT=$((MODIFIED_COUNT + 1))
-    echo -e "${GREEN}✓${NC} ${file#$SCRIPT_DIR/}"
+    echo -e "${GREEN}✓${NC} ${file#$CHART_DIR/}"
   fi
 done <<< "$CANDIDATE_FILES"
 
