@@ -44,7 +44,7 @@ modules:
       - vault-secret-loader
       - ui-signed
       - name: delegate
-        variants: [".minimal", ".minimal-fips", ".minimal-stig"]
+        variants: [".minimal", ".minimal-fips"]
         variants_only: true
 
   platform-agents:
@@ -54,7 +54,7 @@ modules:
     bucket_path: "platform/agents"
     images:
       - name: delegate
-        variants: [".minimal", ".minimal-fips", ".minimal-stig", "-fips", "-stig"]
+        variants: [".minimal", ".minimal-fips", "-fips"]
       - name: upgrader
         variants: ["-fips", "-stig"]
 
