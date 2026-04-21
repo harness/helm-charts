@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.40.0](https://img.shields.io/badge/Version-0.40.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.40.1](https://img.shields.io/badge/Version-0.40.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -86,17 +86,17 @@ docker.io/busybox:1.37.0
 docker.io/harness/ci-scm-signed:1.45.1
 docker.io/harness/template-service-signed:1.138.1
 docker.io/harness/platform-service-signed:1.114.0
-docker.io/harness/pipeline-service-signed:1.176.5
+docker.io/harness/pipeline-service-signed:1.176.7
 docker.io/harness/ng-manager-signed:1.136.2
 docker.io/harness/nextgenui-signed:1.125.9
 docker.io/harness/minio:RELEASE.2025-10-15T17-29-55Z-jammy
 docker.io/harness/log-service-signed:1.45.0
-docker.io/harness/cdcdata-signed:1.51.2
+docker.io/harness/cdcdata-signed:1.51.3
 docker.io/harness/accesscontrol-service-signed:1.225.2
 docker.io/harness/delegate-proxy-signed:1.9.0
 docker.io/harness/gateway-signed:1.62.5
 docker.io/harness/helm-init-container:1.8.0
-docker.io/harness/manager-signed:1.135.2
+docker.io/harness/manager-signed:1.135.3
 docker.io/harness/mongo:7.0.28-jammy
 docker.io/harness/ng-auth-ui-signed:1.39.0
 docker.io/harness/redis:7.4.8-jammy
