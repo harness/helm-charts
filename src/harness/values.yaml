@@ -7,6 +7,8 @@ global:
   # -- Enable to set auto-scaling globally
   autoscaling:
     enabled: true
+  jfr:                 
+    enabled: false
   # -- Add common annotations to all objects
   commonAnnotations: {}
   # -- Add common labels to all objects
@@ -394,32 +396,6 @@ ci:
     nodeSelector: {}
     tolerations: []
 enabled: false
-# -- Config for CD services
-cd:
-  gitops:
-    agentRedisImage:
-      image:
-        repository: harness/redis
-        tag: "7.4.8-jammy"
-    upgraderImage:
-      image:
-        tag: 1.12.0
-    agentDockerImage:
-      image:
-        repository: harness/gitops-agent
-        tag: "v0.113.0-stig"
-    argoCDImage:
-      image:
-        repository: harness/argocd
-        tag: "3.3.3-ubi9-curated"
-    agentHAProxyImage:
-      image:
-        repository: harness/haproxy
-        tag: "3.2.14-jammy-curated"
-    redisHaConfigMapTestJob:
-      image:
-        repository: harness/shellcheck
-        tag: "0.11.0-jammy-curated"
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
