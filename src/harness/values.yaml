@@ -384,6 +384,7 @@ ci:
     config:
       ENV: "SMP"
       REFID_CACHE_IMAGE: harness/refid-cache:latest
+    sto_step_default_tag: "latest"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -752,6 +753,7 @@ iacm:
     nodeSelector: {}
     tolerations: []
   iacm-manager:
+    sto_step_default_tag: "latest"
     affinity: {}
     autoscaling:
       enabled: false
