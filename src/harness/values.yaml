@@ -7,8 +7,8 @@ global:
   # -- Enable to set auto-scaling globally
   autoscaling:
     enabled: true
-  jfr:
-    enabled: false
+  # jfr:
+  #   enabled: false
   # -- Add common annotations to all objects
   commonAnnotations: {}
   # -- Add common labels to all objects
