@@ -47,27 +47,27 @@ modules:
   #       variants: [".minimal", ".minimal-fips", ".minimal-stig"]
   #       variants_only: true
 
-  # platform-agents:
-  #   description: "Platform Agents"
-  #   bundle_type: single
-  #   parent: platform
-  #   bucket_path: "platform/agents"
-  #   images:
+  platform-agents:
+    description: "Platform Agents"
+    bundle_type: single
+    parent: platform
+    bucket_path: "platform/agents"
+    images: []
   #     - name: delegate
   #       variants: [".minimal", ".minimal-fips", ".minimal-stig", "-fips", "-stig"]
   #     - name: upgrader
   #       variants: ["-fips", "-stig"]
 
-  # dashboard:
-  #   description: "Dashboard"
-  #   bundle_type: combined
-  #   parent: platform
-  #   bucket_path: "dashboard"
-  #   exclude:
-  #     - looker-signed
-  #   images:
-  #     - dashboard-service-signed
-  #     - statsd-exporter
+  dashboard:
+    description: "Dashboard"
+    bundle_type: combined
+    parent: platform
+    bucket_path: "dashboard"
+    exclude:
+      - looker-signed
+    images:
+      - dashboard-service-signed
+      - statsd-exporter
 
   cdng:
     description: "Continuous Deployment"
@@ -80,12 +80,12 @@ modules:
       - le-nextgen-signed
       - srm-ui-signed
 
-  # cdng-agents:
-  #   description: "CD Agents"
-  #   bundle_type: combined
-  #   parent: cdng
-  #   bucket_path: "cdng/agents"
-  #   images:
+  cdng-agents:
+    description: "CD Agents"
+    bundle_type: combined
+    parent: cdng
+    bucket_path: "cdng/agents"
+    images: []
   #     - argocd
   #     - gitops-agent
   #     - haproxy
@@ -103,12 +103,12 @@ modules:
       - ci-addon
       - ci-lite-engine
 
-  # ci-plugins:
-  #   description: "CI Build Plugins"
-  #   bundle_type: combined
-  #   parent: ci
-  #   bucket_path: "ci/plugins"
-  #   images:
+  ci-plugins:
+    description: "CI Build Plugins"
+    bundle_type: combined
+    parent: ci
+    bucket_path: "ci/plugins"
+    images: []
   #     - drone-git
   #     - harness-cache-server
   #     - kaniko
@@ -142,12 +142,12 @@ modules:
   #     - name: sto-plugin
   #       variants: ["-fips"]
 
-  # sto-scanners:
-  #   description: "STO Security Scanners"
-  #   bundle_type: single
-  #   parent: sto
-  #   bucket_path: "sto/scanners"
-  #   images:
+  sto-scanners:
+    description: "STO Security Scanners"
+    bundle_type: single
+    parent: sto
+    bucket_path: "sto/scanners"
+    images: []
   #     - anchore-job-runner
   #     - aqua-security-job-runner
   #     - name: aqua-trivy-job-runner
@@ -237,12 +237,12 @@ modules:
   #     - chaos-machine-ifs-signed
   #     - enterprise-chaos-hub-signed
 
-  # ce-plugins:
-  #   description: "Chaos Engineering Plugins"
-  #   bundle_type: combined
-  #   parent: ce
-  #   bucket_path: "ce/plugins"
-  #   images:
+  ce-plugins:
+    description: "Chaos Engineering Plugins"
+    bundle_type: combined
+    parent: ce
+    bucket_path: "ce/plugins"
+    images: []
   #     - chaos-log-watcher
   #     - chaos-ddcr
   #     - chaos-ddcr-faults
@@ -259,12 +259,12 @@ modules:
   #     - component-service-signed
   #     - component-analysis-service-signed
 
-  # ssca-plugins:
-  #   description: "SCS Plugins"
-  #   bundle_type: combined
-  #   parent: ssca
-  #   bucket_path: "ssca/plugins"
-  #   images:
+  ssca-plugins:
+    description: "SCS Plugins"
+    bundle_type: combined
+    parent: ssca
+    bucket_path: "ssca/plugins"
+    images: []
   #     - ssca-plugin
   #     - slsa-plugin
   #     - ssca-cdxgen-plugin
