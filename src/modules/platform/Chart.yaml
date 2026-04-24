@@ -4,14 +4,14 @@ dependencies:
 - condition: global.ng.enabled
   name: access-control
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.244.0
+  version: 1.245.0
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.71.1
 - condition: global.cdc.enabled
   name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.52.1
+  version: 1.54.0
 - condition: global.ssca.enabled
   name: debezium-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -32,7 +32,7 @@ dependencies:
 - condition: global.ng.enabled
   name: next-gen-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.128.6
+  version: 1.128.7
 - name: ng-auth-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.41.0
@@ -51,7 +51,7 @@ dependencies:
 - condition: global.ng.enabled
   name: platform-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.120.0
+  version: 1.120.1
 - condition: global.ng.enabled
   name: policy-mgmt
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -75,11 +75,11 @@ dependencies:
 - condition: global.ngcustomdashboard.enabled
   name: looker
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.11.2
+  version: 1.13.0
 - condition: global.servicediscoverymanager.enabled
   name: service-discovery-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.65.0
+  version: 0.65.1
 - condition: global.ng.enabled
   name: audit-event-streaming
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
