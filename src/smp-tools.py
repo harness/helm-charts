@@ -38,6 +38,7 @@ log = logging.getLogger(__name__)
 AUTO_ENABLE_BLOCKLIST = {
     "global.lwd.enabled",
     "global.lwd.autocud.enabled",
+    "global.jfr.enabled",
 }
 
 FLAG_KEYS = {"enabled", "create"}
