@@ -43,7 +43,6 @@ modules:
       - mongodb-exporter
       - vault-secret-loader
       - ui-signed
-      - ubi-minimal
       - name: delegate
         variants: [".minimal", ".minimal-fips"]
         variants_only: true
