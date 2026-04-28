@@ -273,8 +273,8 @@ global:
     enabled: false
     provider: "vault"
     image:
-      repository: "harness/vault-secret-loader"
-      tag: "1.0.3"
+      repository: "harnesssecure/vault-secret-loader"
+      tag: "1.0.4"
       pullPolicy: "IfNotPresent"
     vault:
       address: ""
@@ -289,6 +289,7 @@ global:
         secretId: ""
         # For Kubernetes auth:
         role: ""
+        path: ""
     databases:
       mongo:
         useDatabaseSecretsEngine: false
@@ -386,6 +387,7 @@ ci:
     config:
       ENV: "SMP"
       REFID_CACHE_IMAGE: harness/refid-cache:latest
+      HARNESS_IMAGE_REPOSITORY: harnesssecure
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -728,6 +730,8 @@ iacm:
     nodeSelector: {}
     tolerations: []
   iacm-manager:
+    config:
+      HARNESS_IMAGE_REPOSITORY: harnesssecure
     affinity: {}
     autoscaling:
       enabled: false
