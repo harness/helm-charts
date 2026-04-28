@@ -387,6 +387,7 @@ ci:
     config:
       ENV: "SMP"
       REFID_CACHE_IMAGE: harness/refid-cache:latest
+      HARNESS_IMAGE_REPOSITORY: harnesssecure
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -729,6 +730,8 @@ iacm:
     nodeSelector: {}
     tolerations: []
   iacm-manager:
+    config:
+      HARNESS_IMAGE_REPOSITORY: harnesssecure
     affinity: {}
     autoscaling:
       enabled: false
