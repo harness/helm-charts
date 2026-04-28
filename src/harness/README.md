@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.40.2](https://img.shields.io/badge/Version-0.40.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.40.3](https://img.shields.io/badge/Version-0.40.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -131,7 +131,7 @@ docker.io/harness/upgrader:1.12.0-fips
 docker.io/harness/upgrader:1.12.0-stig
 
 ### Dashboard
-docker.io/harness/looker-signed:1.10.1
+docker.io/harness/looker-signed:1.15.0
 docker.io/harness/dashboard-service-signed:1.105.0
 docker.io/harness/statsd-exporter:3.0-prometheus-busybox-2
 
