@@ -1,7 +1,7 @@
 dependencies:
 - name: harness-common
   repository: https://harness.github.io/helm-common
-  version: 1.5.3
+  version: 1.5.4
 - name: ccm
   repository: https://harness.github.io/helm-charts
   version: 0.40.0
@@ -19,7 +19,7 @@ dependencies:
   version: 0.40.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.40.2
+  version: 0.40.3
 - name: srm
   repository: https://harness.github.io/helm-charts
   version: 0.40.0
@@ -38,5 +38,5 @@ dependencies:
 - name: iacm
   repository: https://harness.github.io/helm-charts
   version: 0.40.0
-digest: sha256:bfe545c1cf5c911ee20d7d637ebaf0f75bef08eb647506dd70b90ff2c6794226
-generated: "2026-04-24T16:12:12.552221802Z"
+digest: sha256:42d3b786429c6aba526f2d09e1fa4383aa887ee68ef0a387e6a7a59db7c1b5ad
+generated: "2026-04-28T11:55:58.546811761Z"
