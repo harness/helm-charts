@@ -3,13 +3,13 @@ appVersion: 0.6.0
 dependencies:
 - name: chaos-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.85.3-gql-fips-back-72b2a5
+  version: 1.85.3-gql-fips-back-0c0c7b
 - name: chaos-web
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.85.0
 - name: chaos-k8s-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.85.1-k8s-ifs-fips-8afc77
+  version: 1.85.2-k8s-ifs-fips-3649b4
 - name: chaos-linux-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.83.0
