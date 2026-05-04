@@ -9,7 +9,7 @@ dependencies:
   version: 1.85.0
 - name: chaos-k8s-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.85.2-k8s-ifs-fips-3649b4
+  version: 1.86.0-k8s-ifs-fips-d9dba4
 - name: chaos-linux-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.83.0
