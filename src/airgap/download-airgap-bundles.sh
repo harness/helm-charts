@@ -9,12 +9,18 @@
 #   - Agent variants    (e.g. delegate, delegate-fips, upgrader)
 #
 # Usage:
-#   # With version (uses default GCS bucket):
+#   # With version (< 0.41.0 uses the default public GCS bucket):
 #   ./download-airgap-bundles.sh --version 0.37.0 --output-dir ./airgap-bundles
 #
 #   # With a custom/self-hosted bundle URL:
 #   ./download-airgap-bundles.sh \
 #     --url https://my-mirror.example.com/bundles/harness-0.37.0 \
+#     --output-dir ./airgap-bundles
+#
+#   # Releases >= 0.41.0 ship from a private bucket — the manifest containing
+#   # per-bundle signed URLs is provided by Harness support:
+#   ./download-airgap-bundles.sh \
+#     --manifest-file ./harness-manifest.yaml \
 #     --output-dir ./airgap-bundles
 #
 
@@ -45,11 +51,16 @@ DEFAULT_BASE_URL="https://storage.googleapis.com/smp-airgap-bundles"
 usage_short() {
     cat <<EOF >&2
 
-${BOLD}Required inputs:${RESET}
+${BOLD}Bundle source (one required):${RESET}
   -v, --version VERSION    Harness release version  (e.g. 0.37.0)
-                             ${DIM}Uses default GCS bucket: ${DEFAULT_BASE_URL}${RESET}
+                             ${DIM}< ${MANIFEST_REQUIRED_VERSION}: uses default public GCS bucket${RESET}
+                             ${DIM}>= ${MANIFEST_REQUIRED_VERSION}: also requires --manifest-file (from Harness support)${RESET}
       --url URL            Complete base URL to the release directory
                              ${DIM}(alternative to --version, for self-hosted mirrors)${RESET}
+  -m, --manifest-file PATH Local manifest file containing signed download URLs
+                             ${DIM}Required for releases >= ${MANIFEST_REQUIRED_VERSION} (request from Harness support)${RESET}
+
+${BOLD}Output:${RESET}
   -o, --output-dir PATH    Directory to save downloaded bundles  ${DIM}(not needed with --list)${RESET}
 
 ${BOLD}Non-interactive mode also requires:${RESET}
@@ -60,6 +71,7 @@ ${BOLD}Non-interactive mode also requires:${RESET}
 ${BOLD}Quick start:${RESET}
   # See what is available:
   ./download-airgap-bundles.sh -v 0.37.0 --list
+  ./download-airgap-bundles.sh -m ./manifest.yaml --list
 
   # Pick interactively and save to a file (no download yet):
   ./download-airgap-bundles.sh -v 0.37.0 --generate-selection-file  (-g)
@@ -78,11 +90,22 @@ ${BOLD}Usage:${RESET} download-airgap-bundles.sh [OPTIONS]
 
 ${BOLD}Bundle source (one required):${RESET}
   -v, --version VERSION    Harness release version (e.g. 0.37.0 or harness-0.37.0).
-                           Uses the default GCS bucket:
+                           For versions < ${MANIFEST_REQUIRED_VERSION} this is enough and the
+                           default public GCS bucket is used:
                              ${DEFAULT_BASE_URL}
+                           For versions >= ${MANIFEST_REQUIRED_VERSION} you must ALSO pass
+                           --manifest-file (request from Harness support).
       --url URL            Complete base URL to the release directory.
                            Use this for self-hosted mirrors or non-standard paths.
                              e.g. https://my-mirror.example.com/bundles/harness-0.37.0
+  -m, --manifest-file PATH Local manifest YAML containing per-bundle signed
+                           download URLs (required for >= ${MANIFEST_REQUIRED_VERSION} releases).
+                           Starting from ${MANIFEST_REQUIRED_VERSION}, airgap bundles are served
+                           from a private bucket. Request the manifest from Harness
+                           support — it carries pre-signed download URLs that
+                           expire after a set time.
+                           May be combined with --version for the version banner
+                           and selection-file metadata.
 
 ${BOLD}Output:${RESET}
   -o, --output-dir PATH    Directory to save downloaded bundles (required, except for --list).
@@ -146,6 +169,12 @@ ${BOLD}Examples:${RESET}
   ./download-airgap-bundles.sh \\
     --url https://my-mirror.example.com/bundles/harness-0.37.0 \\
     -o ./bundles -b platform -n
+
+  # Releases >= ${MANIFEST_REQUIRED_VERSION} with a manifest from Harness support (signed URLs):
+  ./download-airgap-bundles.sh -m ./harness-manifest.yaml --list
+  ./download-airgap-bundles.sh -m ./harness-manifest.yaml -o ./bundles -b all -n
+  ./download-airgap-bundles.sh --manifest-file ./harness-manifest.yaml \\
+    --output-dir ./bundles --bundles platform,ci,ci-plugins --non-interactive
 EOF
     exit 0
 }
@@ -162,12 +191,18 @@ SELECTION_FILE=""        # -s / --selection-file
 LIST_ONLY=false          # -l / --list
 GENERATE_SELECTION=false # -g / --generate-selection-file
 SELECTION_OUTPUT_FILE="" # output path for --generate-selection-file (default: ./selection.conf)
+MANIFEST_FILE=""         # -m / --manifest-file: local manifest containing signed download URLs
+
+# For releases >= MANIFEST_REQUIRED_VERSION bundles live in a private bucket
+# and the manifest (with signed URLs) must be provided by Harness support.
+MANIFEST_REQUIRED_VERSION="0.41.0"
 
 while [ $# -gt 0 ]; do
     case "$1" in
         -h|--help)             usage ;;
         -v|--version)          VERSION="$2";               shift 2 ;;
         --url)                 BUNDLE_URL="$2";            shift 2 ;;
+        -m|--manifest-file)    MANIFEST_FILE="$2";         shift 2 ;;
         -b|--bundles)          BUNDLES_CSV="$2";           shift 2 ;;
         -o|--output-dir)       OUTPUT_DIR="$2";            shift 2 ;;
         -n|--non-interactive)  NON_INTERACTIVE=true;       shift   ;;
@@ -188,9 +223,18 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-# Validate bundle source
-if [ -z "$VERSION" ] && [ -z "$BUNDLE_URL" ]; then
-    log_error "Bundle source is required: provide --version or --url"
+# version_ge A B   →  returns 0 iff A >= B (semver-ish comparison via sort -V)
+version_ge() {
+    # If A == B, they're equal (>=). Otherwise sort both; the greater one sorts last.
+    [ "$1" = "$2" ] && return 0
+    local _top
+    _top=$(printf '%s\n%s\n' "$1" "$2" | sort -V | tail -n1)
+    [ "$_top" = "$1" ]
+}
+
+# Validate bundle source. One of --version / --url / --manifest-file is required.
+if [ -z "$VERSION" ] && [ -z "$BUNDLE_URL" ] && [ -z "$MANIFEST_FILE" ]; then
+    log_error "Bundle source is required: provide --version, --url, or --manifest-file"
     usage_short
 fi
 if [ -n "$VERSION" ] && [ -n "$BUNDLE_URL" ]; then
@@ -207,12 +251,27 @@ if [ -z "$BUNDLES_CSV" ] && [ "$NON_INTERACTIVE" = true ] \
     usage_short
 fi
 
-# Derive EFFECTIVE_BASE — every URL in the script is ${EFFECTIVE_BASE}/<path>
+# Normalise: strip any "harness-" prefix so we always control the format
+[ -n "$VERSION" ] && VERSION="${VERSION#harness-}"
+
+# Version gate: releases >= 0.41.0 ship from a private bucket and require a
+# manifest (with signed download URLs) from Harness support.
+if [ -n "$VERSION" ] && [ -z "$MANIFEST_FILE" ] \
+        && version_ge "$VERSION" "$MANIFEST_REQUIRED_VERSION"; then
+    log_error "Version ${VERSION} requires a manifest file provided by Harness support."
+    log_error "Starting from ${MANIFEST_REQUIRED_VERSION}, airgap bundles are served from a"
+    log_error "private bucket and each bundle has its own signed download URL baked into"
+    log_error "the manifest. Request the manifest from Harness support and re-run with:"
+    log_error "    --manifest-file <path-to-manifest.yaml>"
+    exit 1
+fi
+
+# Derive EFFECTIVE_BASE — used as a fallback when manifest entries lack download_url
+# (i.e. legacy < 0.41.0 manifests fetched from the public bucket).
+EFFECTIVE_BASE=""
 if [ -n "$BUNDLE_URL" ]; then
     EFFECTIVE_BASE="${BUNDLE_URL%/}"
-else
-    # Normalise: strip any "harness-" prefix so we always control the format
-    VERSION="${VERSION#harness-}"
+elif [ -n "$VERSION" ]; then
     EFFECTIVE_BASE="${DEFAULT_BASE_URL}/harness-${VERSION}"
 fi
 
@@ -259,13 +318,19 @@ download_file() {
 # ─────────────────────────────────────────────────────────────────────────────
 # Manifest parsing (Python embedded)
 #
-# Emits lines in one of three formats:
-#   MODULE|<name>|<requires_csv>|<bucket_path>|<bundle_type>|<description>
-#   CHILD|<name>|<parent>|<bucket_path>|<bundle_type>|<description>
-#   AGENT|<section_name>|<bucket_path>|<image_name>|<suffixes_csv>
+# Emits lines in one of four formats:
+#   META|<key>|<value>                                       (e.g. expires_at_epoch_seconds)
+#   MODULE|<name>|<requires_csv>|<bucket_path>|<bundle_type>|<description>|<download_url>
+#   CHILD|<name>|<parent>|<bucket_path>|<bundle_type>|<description>|<download_url>
+#   AGENT|<section_name>|<bucket_path>|<bundle_name>|<file_name>|<download_url>
 #
-# AGENT lines are emitted for every image in a `single` bundle-type section
-# that has a `parent` (i.e. sub-bundles like platform-agents, sto-scanners).
+# The parser pre-expands agent variants: every AGENT row maps to exactly one
+# downloadable tgz. <bundle_name> is the user-selectable / display name (with
+# any variant suffix appended); <file_name> is the on-disk name (dots in the
+# suffix collapsed to dashes).
+#
+# download_url is empty when absent (legacy < 0.41.0 manifests): callers fall
+# back to constructing the URL from EFFECTIVE_BASE + bucket_path.
 # ─────────────────────────────────────────────────────────────────────────────
 parse_manifest() {
     local manifest_file="$1"
@@ -276,35 +341,80 @@ import yaml
 def get_name(entry):
     return entry['name'] if isinstance(entry, dict) else str(entry)
 
-def get_suffixes(entry):
+def get_variants(entry):
     if isinstance(entry, dict):
-        return entry.get('variants', [])
+        return entry.get('variants', []) or []
     return []
+
+def file_name_for(bundle_name):
+    # Variant suffixes can contain dots (e.g. ".minimal-fips"); on disk the
+    # file uses dashes throughout (e.g. delegate-minimal-fips.tgz).
+    return bundle_name.replace('.', '-')
+
+def emit_agent_entries(section, bucket, entry):
+    """Yield (bundle_name, file_name, download_url) for every concrete tgz
+    represented by one item in a single-type section's `images:` list.
+
+    Supports both the legacy shape (one entry per image, variants listing every
+    suffix, no per-variant URL) and the new 0.41.0+ shape (one entry per
+    concrete bundle, variants holding a single suffix, own download_url).
+    """
+    if not isinstance(entry, dict):
+        # Plain string image (not expected in `single` sections, but tolerate).
+        yield (str(entry), str(entry), '')
+        return
+
+    name          = entry['name']
+    variants      = get_variants(entry)
+    variants_only = entry.get('variants_only', False)
+    download_url  = entry.get('download_url', '') or ''
+
+    if download_url:
+        # New-style: this entry IS a single concrete bundle.
+        if variants:
+            # By convention the new manifest carries exactly one suffix here.
+            for suffix in variants:
+                bn = f"{name}{suffix}"
+                yield (bn, file_name_for(bn), download_url)
+        else:
+            yield (name, file_name_for(name), download_url)
+    else:
+        # Legacy-style: one entry covers base + each variant; URLs are
+        # constructed from EFFECTIVE_BASE at download time.
+        if not variants_only:
+            yield (name, file_name_for(name), '')
+        for suffix in variants:
+            bn = f"{name}{suffix}"
+            yield (bn, file_name_for(bn), '')
 
 def main():
     with open(sys.argv[1]) as f:
         data = yaml.safe_load(f)
 
-    modules = data.get('modules', {})
+    # Top-level metadata passed through to the shell as META|key|value lines.
+    expires = data.get('expires_at_epoch_seconds')
+    if expires is not None:
+        print(f"META|expires_at_epoch_seconds|{expires}")
+
+    modules = data.get('modules', {}) or {}
 
     for mod_name, cfg in modules.items():
-        parent      = cfg.get('parent', '')
-        bundle_type = cfg.get('bundle_type', 'combined')
-        bucket_path = cfg.get('bucket_path', mod_name)
-        description = cfg.get('description', mod_name)
-        requires    = ','.join(cfg.get('requires', []))
+        parent       = cfg.get('parent', '') or ''
+        bundle_type  = cfg.get('bundle_type', 'combined')
+        bucket_path  = cfg.get('bucket_path', mod_name)
+        description  = cfg.get('description', mod_name)
+        requires     = ','.join(cfg.get('requires', []) or [])
+        download_url = cfg.get('download_url', '') or ''
 
         if parent:
-            print(f"CHILD|{mod_name}|{parent}|{bucket_path}|{bundle_type}|{description}")
+            print(f"CHILD|{mod_name}|{parent}|{bucket_path}|{bundle_type}|{description}|{download_url}")
         else:
-            print(f"MODULE|{mod_name}|{requires}|{bucket_path}|{bundle_type}|{description}")
+            print(f"MODULE|{mod_name}|{requires}|{bucket_path}|{bundle_type}|{description}|{download_url}")
 
-        # Emit AGENT lines for every image in single-type sections
         if bundle_type == 'single':
-            for entry in cfg.get('images', []):
-                name     = get_name(entry)
-                suffixes = ','.join(get_suffixes(entry))
-                print(f"AGENT|{mod_name}|{bucket_path}|{name}|{suffixes}")
+            for entry in cfg.get('images', []) or []:
+                for bundle_name, file_name, url in emit_agent_entries(mod_name, bucket_path, entry):
+                    print(f"AGENT|{mod_name}|{bucket_path}|{bundle_name}|{file_name}|{url}")
 
 if __name__ == '__main__':
     try:
@@ -319,13 +429,18 @@ PYTHON
 # Manifest query helpers (all operate on the parsed string)
 # ─────────────────────────────────────────────────────────────────────────────
 
-module_requires()   { echo "$1" | awk -F'|' -v m="$2" '$1=="MODULE" && $2==m {print $3}'; }
-module_bucket()     { echo "$1" | awk -F'|' -v m="$2" '$1=="MODULE" && $2==m {print $4}'; }
-child_bucket()      { echo "$1" | awk -F'|' -v c="$2" '$1=="CHILD"  && $2==c {print $4}'; }
-child_parent()      { echo "$1" | awk -F'|' -v c="$2" '$1=="CHILD"  && $2==c {print $3}'; }
-children_of()       { echo "$1" | awk -F'|' -v p="$2" '$1=="CHILD"  && $3==p {print $2}'; }
-agents_in_section() { echo "$1" | awk -F'|' -v s="$2" '$1=="AGENT"  && $2==s {print $4 "|" $5}'; }
-all_agent_sections(){ echo "$1" | awk -F'|' '$1=="AGENT" {print $2}' | sort -u; }
+module_requires()     { echo "$1" | awk -F'|' -v m="$2" '$1=="MODULE" && $2==m {print $3}'; }
+module_bucket()       { echo "$1" | awk -F'|' -v m="$2" '$1=="MODULE" && $2==m {print $4}'; }
+module_download_url() { echo "$1" | awk -F'|' -v m="$2" '$1=="MODULE" && $2==m {print $7}'; }
+child_bucket()        { echo "$1" | awk -F'|' -v c="$2" '$1=="CHILD"  && $2==c {print $4}'; }
+child_parent()        { echo "$1" | awk -F'|' -v c="$2" '$1=="CHILD"  && $2==c {print $3}'; }
+child_download_url()  { echo "$1" | awk -F'|' -v c="$2" '$1=="CHILD"  && $2==c {print $7}'; }
+children_of()         { echo "$1" | awk -F'|' -v p="$2" '$1=="CHILD"  && $3==p {print $2}'; }
+# agents_in_section: emits one line per concrete agent bundle:
+#   <bundle_name>|<file_name>|<download_url>
+agents_in_section()   { echo "$1" | awk -F'|' -v s="$2" '$1=="AGENT"  && $2==s {print $4 "|" $5 "|" $6}'; }
+all_agent_sections()  { echo "$1" | awk -F'|' '$1=="AGENT" {print $2}' | sort -u; }
+manifest_meta()       { echo "$1" | awk -F'|' -v k="$2" '$1=="META" && $2==k {print $3; exit}'; }
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Dependency resolution (BFS, bash 3.x compatible)
@@ -359,20 +474,11 @@ resolve_modules() {
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Build the full list of agent bundle names for a section (base + variants)
+# List every concrete agent bundle name in a section. The parser has already
+# expanded variants, so this is just a projection onto the bundle_name column.
 # ─────────────────────────────────────────────────────────────────────────────
 expand_agent_section() {
-    local parsed="$1"
-    local section="$2"
-    agents_in_section "$parsed" "$section" | while IFS='|' read -r name suffixes; do
-        echo "$name"
-        if [ -n "$suffixes" ]; then
-            IFS=',' read -ra sarr <<< "$suffixes"
-            for s in "${sarr[@]}"; do
-                echo "${name}${s}"
-            done
-        fi
-    done
+    agents_in_section "$1" "$2" | awk -F'|' '{print $1}'
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -382,10 +488,24 @@ DL_COUNT=0
 DL_SIZE=0
 DL_FAILED=0
 
+# Heuristic: URL is a pre-signed bucket URL if it carries an expiry parameter.
+url_is_signed() {
+    case "$1" in
+        *Expires=*|*X-Amz-Expires=*|*X-Goog-Expires=*) return 0 ;;
+        *)                                             return 1 ;;
+    esac
+}
+
 do_download() {
     local url="$1" dest="$2" label="$3"
     log_info "Downloading ${BOLD}${label}${RESET}"
-    printf "    ${DIM}URL: %s${RESET}\n" "$url"
+    # Never print the full signed URL (querystring contains a signature). Print
+    # just the scheme+host+path so logs don't leak credentials.
+    local _display_url="$url"
+    if url_is_signed "$url"; then
+        _display_url="${url%%\?*}  ${DIM}(signed)${RESET}"
+    fi
+    printf "    ${DIM}URL: %s${RESET}\n" "$_display_url"
     local _dl_err=""
     if download_file "$url" "$dest" _dl_err; then
         local sz
@@ -401,8 +521,29 @@ do_download() {
                 printf "    ${RED}│${RESET} ${DIM}%s${RESET}\n" "$_line"
             done
         fi
+        if url_is_signed "$url"; then
+            printf "    ${RED}│${RESET} ${DIM}%s${RESET}\n" \
+                "signed URL may have expired — request a fresh manifest from Harness support"
+        fi
         DL_FAILED=$((DL_FAILED + 1))
     fi
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Resolve an effective URL: prefer manifest-provided URL, fall back to one
+# constructed from EFFECTIVE_BASE + bucket path. Fails if neither is available.
+# ─────────────────────────────────────────────────────────────────────────────
+resolve_url() {
+    local manifest_url="$1" fallback_path="$2" label="$3"
+    if [ -n "$manifest_url" ]; then
+        echo "$manifest_url"
+        return 0
+    fi
+    if [ -z "$EFFECTIVE_BASE" ]; then
+        log_warn "No download URL for ${label} in manifest and no --version/--url given — skipping"
+        return 1
+    fi
+    echo "${EFFECTIVE_BASE}/${fallback_path}"
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -410,10 +551,13 @@ do_download() {
 # ─────────────────────────────────────────────────────────────────────────────
 download_module() {
     local parsed="$1" mod="$2"
-    local bucket
+    local bucket manifest_url url
     bucket=$(module_bucket "$parsed" "$mod")
     [ -z "$bucket" ] && bucket="$mod"
-    local url="${EFFECTIVE_BASE}/${bucket}/${mod}_images.tgz"
+    manifest_url=$(module_download_url "$parsed" "$mod")
+    url=$(resolve_url "$manifest_url" "${bucket}/${mod}_images.tgz" "module: ${mod}") || {
+        DL_FAILED=$((DL_FAILED + 1)); return;
+    }
     local dest="${OUTPUT_DIR}/${bucket}/${mod}_images.tgz"
     do_download "$url" "$dest" "module: ${mod}"
 }
@@ -423,39 +567,37 @@ download_module() {
 # ─────────────────────────────────────────────────────────────────────────────
 download_child() {
     local parsed="$1" child="$2"
-    local bucket
+    local bucket manifest_url url
     bucket=$(child_bucket "$parsed" "$child")
     [ -z "$bucket" ] && bucket="$child"
-    local url="${EFFECTIVE_BASE}/${bucket}/${child}_images.tgz"
+    manifest_url=$(child_download_url "$parsed" "$child")
+    url=$(resolve_url "$manifest_url" "${bucket}/${child}_images.tgz" "sub-bundle: ${child}") || {
+        DL_FAILED=$((DL_FAILED + 1)); return;
+    }
     local dest="${OUTPUT_DIR}/${bucket}/${child}_images.tgz"
     do_download "$url" "$dest" "sub-bundle: ${child}"
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Download a single agent bundle by its full name (e.g. delegate-fips)
+# Download a single agent bundle by its full bundle name (e.g. delegate-fips,
+# delegate.minimal, aqua-trivy-job-runner). The parser has already produced one
+# AGENT row per concrete tgz with its file name and download_url.
 # ─────────────────────────────────────────────────────────────────────────────
 download_agent() {
     local parsed="$1" agent_name="$2"
-    local section bucket
-    section=$(echo "$parsed" | awk -F'|' -v a="$agent_name" '
-        $1=="AGENT" {
-            name=$4
-            split($5, sfx, ",")
-            if (name == a) { print $2; exit }
-            for (i in sfx) {
-                if (name sfx[i] == a) { print $2; exit }
-            }
-        }')
-    if [ -z "$section" ]; then
+    local row bucket file_name manifest_url url
+    row=$(echo "$parsed" | awk -F'|' -v a="$agent_name" '$1=="AGENT" && $4==a {print; exit}')
+    if [ -z "$row" ]; then
         log_warn "Agent '${agent_name}' not found in manifest — skipping"
         return
     fi
-    bucket=$(echo "$parsed" | awk -F'|' -v s="$section" '$1=="AGENT" && $2==s {print $3; exit}')
-    [ -z "$bucket" ] && bucket="$section"
-    # Normalize: dots used as variant separators in image tags (e.g. delegate.minimal-fips)
-    # must become dashes in the bundle filename (e.g. delegate-minimal-fips.tgz).
-    local file_name="${agent_name//./-}"
-    local url="${EFFECTIVE_BASE}/${bucket}/${file_name}.tgz"
+    bucket=$(echo "$row"       | awk -F'|' '{print $3}')
+    file_name=$(echo "$row"    | awk -F'|' '{print $5}')
+    manifest_url=$(echo "$row" | awk -F'|' '{print $6}')
+    [ -z "$bucket" ] && bucket="$agent_name"
+    url=$(resolve_url "$manifest_url" "${bucket}/${file_name}.tgz" "agent: ${agent_name}") || {
+        DL_FAILED=$((DL_FAILED + 1)); return;
+    }
     local dest="${OUTPUT_DIR}/${bucket}/${file_name}.tgz"
     do_download "$url" "$dest" "agent: ${agent_name}"
 }
@@ -556,7 +698,7 @@ print_selection_plan() {
 # ─────────────────────────────────────────────────────────────────────────────
 list_bundles() {
     local parsed="$1"
-    local _ver_label="${VERSION:-${BUNDLE_URL}}"
+    local _ver_label="${VERSION:-${BUNDLE_URL:-${MANIFEST_FILE}}}"
     echo ""
     printf "${BOLD}${CYAN}╔══════════════════════════════════════════════════════╗${RESET}\n"
     printf "${BOLD}${CYAN}║   Available Harness Airgap Bundles                  ║${RESET}\n"
@@ -916,7 +1058,12 @@ main() {
     fi
     printf "${BOLD}${CYAN}╚══════════════════════════════════════════════════════╝${RESET}\n"
     echo ""
-    log_info "Bundle source : ${BOLD}${EFFECTIVE_BASE}${RESET}"
+    if [ -n "$MANIFEST_FILE" ]; then
+        log_info "Manifest      : ${BOLD}${MANIFEST_FILE}${RESET}  ${DIM}(local file)${RESET}"
+    else
+        log_info "Bundle source : ${BOLD}${EFFECTIVE_BASE}${RESET}"
+    fi
+    [ -n "$VERSION" ] && log_info "Version       : ${BOLD}${VERSION}${RESET}"
     if [ "$LIST_ONLY" = false ] && [ "$GENERATE_SELECTION" = false ]; then
         log_info "Output dir    : ${BOLD}${OUTPUT_DIR}${RESET}"
         mkdir -p "$OUTPUT_DIR"
@@ -926,50 +1073,91 @@ main() {
         log_info "Selection file: ${BOLD}${_sel_out}${RESET}  ${DIM}(no download will be performed)${RESET}"
     fi
 
-    # ── Fetch / load manifest ─────────────────────────────────────────────────
+    # ── Load manifest ─────────────────────────────────────────────────────────
     local tmp_manifest
-    tmp_manifest=$(mktemp)
-    trap "rm -f ${tmp_manifest}" EXIT
-
-    local manifest_url="${EFFECTIVE_BASE}/bundle-manifest.yaml"
-    log_info "Fetching manifest → ${manifest_url}"
-    local _manifest_err=""
-    if ! download_file "$manifest_url" "$tmp_manifest" _manifest_err || [ ! -s "$tmp_manifest" ]; then
-        log_warn "Manifest not found at bundle source."
-        if [ -n "$_manifest_err" ]; then
-            echo "$_manifest_err" | while IFS= read -r _line; do
-                printf "    ${RED}│${RESET} ${DIM}%s${RESET}\n" "$_line"
-            done
-        fi
-        if [ -n "$VERSION" ]; then
-            local github_manifest_url="https://raw.githubusercontent.com/harness/helm-charts/${VERSION}/src/bundle-manifest.yaml"
-            log_info "Trying GitHub fallback → ${github_manifest_url}"
-            rm -f "$tmp_manifest"; tmp_manifest=$(mktemp)
-            local _gh_err=""
-            if ! download_file "$github_manifest_url" "$tmp_manifest" _gh_err || [ ! -s "$tmp_manifest" ]; then
-                log_error "Manifest not found on GitHub either."
-                if [ -n "$_gh_err" ]; then
-                    echo "$_gh_err" | while IFS= read -r _line; do
-                        printf "    ${RED}│${RESET} ${DIM}%s${RESET}\n" "$_line"
-                    done
-                fi
-                log_error "  Checked: ${manifest_url}"
-                log_error "  Checked: ${github_manifest_url}"
-                exit 1
-            fi
-            log_done "Manifest loaded from GitHub (harness-${VERSION})"
-        else
-            log_error "Manifest not found at the provided --url."
-            log_error "  Checked: ${manifest_url}"
-            log_error "GitHub fallback is only available with --version."
+    if [ -n "$MANIFEST_FILE" ]; then
+        # Local file provided (required for >= 0.41.0).
+        if [ ! -f "$MANIFEST_FILE" ]; then
+            log_error "Manifest file not found: ${MANIFEST_FILE}"
             exit 1
         fi
+        if [ ! -s "$MANIFEST_FILE" ]; then
+            log_error "Manifest file is empty: ${MANIFEST_FILE}"
+            exit 1
+        fi
+        tmp_manifest="$MANIFEST_FILE"
+        log_done "Manifest loaded from local file"
+    else
+        tmp_manifest=$(mktemp)
+        trap "rm -f ${tmp_manifest}" EXIT
+
+        local manifest_url="${EFFECTIVE_BASE}/bundle-manifest.yaml"
+        log_info "Fetching manifest → ${manifest_url}"
+        local _manifest_err=""
+        if ! download_file "$manifest_url" "$tmp_manifest" _manifest_err || [ ! -s "$tmp_manifest" ]; then
+            log_warn "Manifest not found at bundle source."
+            if [ -n "$_manifest_err" ]; then
+                echo "$_manifest_err" | while IFS= read -r _line; do
+                    printf "    ${RED}│${RESET} ${DIM}%s${RESET}\n" "$_line"
+                done
+            fi
+            if [ -n "$VERSION" ]; then
+                local github_manifest_url="https://raw.githubusercontent.com/harness/helm-charts/${VERSION}/src/bundle-manifest.yaml"
+                log_info "Trying GitHub fallback → ${github_manifest_url}"
+                rm -f "$tmp_manifest"; tmp_manifest=$(mktemp)
+                local _gh_err=""
+                if ! download_file "$github_manifest_url" "$tmp_manifest" _gh_err || [ ! -s "$tmp_manifest" ]; then
+                    log_error "Manifest not found on GitHub either."
+                    if [ -n "$_gh_err" ]; then
+                        echo "$_gh_err" | while IFS= read -r _line; do
+                            printf "    ${RED}│${RESET} ${DIM}%s${RESET}\n" "$_line"
+                        done
+                    fi
+                    log_error "  Checked: ${manifest_url}"
+                    log_error "  Checked: ${github_manifest_url}"
+                    log_error "If this is a ${MANIFEST_REQUIRED_VERSION}+ release, request the manifest"
+                    log_error "from Harness support and pass it with --manifest-file."
+                    exit 1
+                fi
+                log_done "Manifest loaded from GitHub (harness-${VERSION})"
+            else
+                log_error "Manifest not found at the provided --url."
+                log_error "  Checked: ${manifest_url}"
+                log_error "GitHub fallback is only available with --version."
+                log_error "If this is a ${MANIFEST_REQUIRED_VERSION}+ release, request the manifest"
+                log_error "from Harness support and pass it with --manifest-file."
+                exit 1
+            fi
+        fi
+        [ ! -s "$tmp_manifest" ] && log_error "Manifest is empty" && exit 1
+        log_done "Manifest loaded successfully"
     fi
-    [ ! -s "$tmp_manifest" ] && log_error "Manifest is empty" && exit 1
-    log_done "Manifest loaded successfully"
 
     local parsed
     parsed=$(parse_manifest "$tmp_manifest")
+
+    # ── Signed-URL expiry check ───────────────────────────────────────────────
+    # New-format manifests carry a top-level expires_at_epoch_seconds equal to
+    # the signed-URL Expires= timestamp. Warn the user before they waste time.
+    local _expires_at _now _seconds_left
+    _expires_at=$(manifest_meta "$parsed" "expires_at_epoch_seconds")
+    if [ -n "$_expires_at" ] && [[ "$_expires_at" =~ ^[0-9]+$ ]]; then
+        _now=$(date +%s)
+        _seconds_left=$(( _expires_at - _now ))
+        if [ "$_seconds_left" -le 0 ]; then
+            log_error "This manifest's signed URLs EXPIRED $(( -_seconds_left / 3600 )) hour(s) ago."
+            log_error "Request a fresh manifest from Harness support before proceeding."
+            # Non-fatal for --list / --generate-selection-file; fatal for actual downloads.
+            if [ "$LIST_ONLY" = false ] && [ "$GENERATE_SELECTION" = false ]; then
+                exit 1
+            fi
+        elif [ "$_seconds_left" -lt 3600 ]; then
+            log_warn "Signed URLs in this manifest expire in $(( _seconds_left / 60 )) minute(s)."
+            log_warn "Downloads may fail partway through. Consider requesting a fresh manifest."
+        elif [ "$_seconds_left" -lt 86400 ]; then
+            log_warn "Signed URLs in this manifest expire in $(( _seconds_left / 3600 )) hour(s)."
+        fi
+    fi
 
     if [ "$LIST_ONLY" = true ]; then
         list_bundles "$parsed"
@@ -1015,20 +1203,11 @@ main() {
                 _universe_items[$_ui]="  ↳ ${_cdesc}  ${DIM}[agents]${RESET}||"
                 _universe_values[$_ui]=""   # not selectable
                 _ui=$((_ui + 1))
-                # Individual agent variants under this section
-                while IFS='|' read -r _aname _asuffixes; do
+                # One concrete agent bundle per row — parser already expanded variants.
+                while IFS='|' read -r _aname _afname _aurl; do
                     _universe_items[$_ui]="    ↳ ${_aname}|${_aname}|"
                     _universe_values[$_ui]="$_aname"
                     _ui=$((_ui + 1))
-                    if [ -n "$_asuffixes" ]; then
-                        IFS=',' read -ra _sarr <<< "$_asuffixes"
-                        for _s in "${_sarr[@]}"; do
-                            local _vn="${_aname}${_s}"
-                            _universe_items[$_ui]="    ↳ ${_vn}  ${DIM}(variant)${RESET}|${_vn}|"
-                            _universe_values[$_ui]="$_vn"
-                            _ui=$((_ui + 1))
-                        done
-                    fi
                 done < <(agents_in_section "$parsed" "$_cname")
             else
                 _universe_items[$_ui]="  ↳ ${_cname}  —  ${_cdesc}|${_cname}|"
@@ -1139,17 +1318,10 @@ main() {
 
                 declare -a _agent_items
                 local _ai=0
-                while IFS='|' read -r _aname _asuffixes; do
+                # One concrete agent bundle per row — parser already expanded variants.
+                while IFS='|' read -r _aname _afname _aurl; do
                     _agent_items[$_ai]="${_aname}|${_aname}|"
                     _ai=$((_ai + 1))
-                    if [ -n "$_asuffixes" ]; then
-                        IFS=',' read -ra _sarr <<< "$_asuffixes"
-                        for _s in "${_sarr[@]}"; do
-                            local _vn="${_aname}${_s}"
-                            _agent_items[$_ai]="  ↳ ${_vn}  ${DIM}(variant)${RESET}|${_vn}|"
-                            _ai=$((_ai + 1))
-                        done
-                    fi
                 done < <(agents_in_section "$parsed" "$_cname")
 
                 if [ "$_ai" -gt 0 ]; then
@@ -1269,12 +1441,26 @@ main() {
         local _bundles_out
         _bundles_out=$(echo "$BUNDLES_CSV" | sed 's/^,//;s/,$//')
 
+        # Header shows whichever bundle-source the user provided.
+        local _source_label="${VERSION:-${BUNDLE_URL:-${MANIFEST_FILE:-unknown}}}"
+
+        # The follow-up command template mirrors the bundle source used here:
+        # prefer --manifest-file if present, else --version, else --url.
+        local _source_flags
+        if [ -n "$MANIFEST_FILE" ]; then
+            _source_flags="--manifest-file ${MANIFEST_FILE}"
+        elif [ -n "$VERSION" ]; then
+            _source_flags="--version ${VERSION}"
+        else
+            _source_flags="--url ${BUNDLE_URL}"
+        fi
+
         cat > "$_abs_sel_out" <<EOF
 # Harness Airgap Bundle Selection File
-# Generated: $(date '+%Y-%m-%d %H:%M:%S')  version: ${VERSION:-${BUNDLE_URL}}
+# Generated: $(date '+%Y-%m-%d %H:%M:%S')  source: ${_source_label}
 # ──────────────────────────────────────────────────────────────────────────────
 # Use with:
-#   ./download-airgap-bundles.sh --version <ver> --output-dir ./bundles \\
+#   ./download-airgap-bundles.sh ${_source_flags} --output-dir ./bundles \\
 #       --selection-file ${_abs_sel_out}
 # ──────────────────────────────────────────────────────────────────────────────
 # bundles: comma-separated list of bundle names (modules, sub-bundles, agents),
@@ -1290,7 +1476,7 @@ EOF
         printf "  ${CYAN}  Bundles${RESET}   : ${BOLD}%s${RESET}\n" "$_bundles_out"
         echo ""
         printf "  ${DIM}To download, run:${RESET}\n"
-        printf "  ${BOLD}./download-airgap-bundles.sh --version %s --output-dir ./bundles \\\\\n" "${VERSION:-<version>}"
+        printf "  ${BOLD}./download-airgap-bundles.sh %s --output-dir ./bundles \\\\\n" "$_source_flags"
         printf "      --selection-file %s${RESET}\n" "$_abs_sel_out"
         echo ""
         exit 0

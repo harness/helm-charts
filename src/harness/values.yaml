@@ -7,6 +7,8 @@ global:
   # -- Enable to set auto-scaling globally
   autoscaling:
     enabled: true
+  jfr:
+    enabled: false
   # -- Add common annotations to all objects
   commonAnnotations: {}
   # -- Add common labels to all objects
@@ -249,7 +251,7 @@ global:
     enabled: true
     image:
       registry: docker.io
-      repository: harness/helm-init-container
+      repository: harnesssecure/helm-init-container
       pullPolicy: Always
       tag: "1.8.0"
       digest: ""
@@ -271,8 +273,8 @@ global:
     enabled: false
     provider: "vault"
     image:
-      repository: "harness/vault-secret-loader"
-      tag: "1.0.3"
+      repository: "harnesssecure/vault-secret-loader"
+      tag: "1.0.4"
       pullPolicy: "IfNotPresent"
     vault:
       address: ""
@@ -287,6 +289,7 @@ global:
         secretId: ""
         # For Kubernetes auth:
         role: ""
+        path: ""
     databases:
       mongo:
         useDatabaseSecretsEngine: false
@@ -313,7 +316,7 @@ ccm:
   batch-processing:
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
     # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
     awsAccountTagsCollectionJobConfig:
@@ -383,7 +386,8 @@ ci:
   ci-manager:
     config:
       ENV: "SMP"
-      REFID_CACHE_IMAGE: harness/refid-cache:latest
+      REFID_CACHE_IMAGE: harnesssecure/refid-cache:latest
+      HARNESS_IMAGE_REPOSITORY: harnesssecure
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -394,39 +398,13 @@ ci:
     nodeSelector: {}
     tolerations: []
 enabled: false
-# -- Config for CD services
-cd:
-  gitops:
-    agentRedisImage:
-      image:
-        repository: harness/redis
-        tag: "7.4.8-jammy"
-    upgraderImage:
-      image:
-        tag: 1.12.0
-    agentDockerImage:
-      image:
-        repository: harness/gitops-agent
-        tag: "v0.113.0-stig"
-    argoCDImage:
-      image:
-        repository: harness/argocd
-        tag: "3.3.3-ubi9-curated"
-    agentHAProxyImage:
-      image:
-        repository: harness/haproxy
-        tag: "3.2.14-jammy-curated"
-    redisHaConfigMapTestJob:
-      image:
-        repository: harness/shellcheck
-        tag: "0.11.0-jammy-curated"
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
     postgresql:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
     config:
       ENV: "SMP"
@@ -477,7 +455,7 @@ platform:
         tolerations: []
       postgresql:
         image:
-          repository: "harness/postgresql"
+          repository: "harnesssecure/postgresql"
           tag: "14.20-debian"
         metrics:
           enabled: false
@@ -585,8 +563,8 @@ platform:
     immutable_delegate_docker_image:
       image:
         registry: docker.io
-        repository: harness/delegate
-        tag: 26.03.88803
+        repository: harnesssecure/delegate
+        tag: 26.04.88902
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -676,16 +654,16 @@ sto:
   ticket-service:
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
   sto-core:
     migrationPostgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
     affinity: {}
     autoscaling:
@@ -700,7 +678,7 @@ ff:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "harness/postgresql"
+          repository: "harnesssecure/postgresql"
           tag: "14.20-debian"
     ff-client-server:
       secrets:
@@ -708,7 +686,7 @@ ff:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "harness/postgresql"
+          repository: "harnesssecure/postgresql"
           tag: "14.20-debian"
     ff-metrics-server:
       secrets:
@@ -716,7 +694,7 @@ ff:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "harness/postgresql"
+          repository: "harnesssecure/postgresql"
           tag: "14.20-debian"
   ff-pushpin-service:
     waitForInitContainer:
@@ -724,27 +702,27 @@ ff:
         tag: 1.2.0
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
   ff-psql-migrations:
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
   ff-timescale-migrations:
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
 iacm:
   iac-server:
     createDb:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
     affinity: {}
     autoscaling:
@@ -752,6 +730,8 @@ iacm:
     nodeSelector: {}
     tolerations: []
   iacm-manager:
+    config:
+      HARNESS_IMAGE_REPOSITORY: harnesssecure
     affinity: {}
     autoscaling:
       enabled: false
@@ -764,27 +744,27 @@ code:
   code-api:
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
     autoai:
       postgres:
         image:
-          repository: "harness/postgresql"
+          repository: "harnesssecure/postgresql"
           tag: "14.20-debian"
   code-search:
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
   code-githa:
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
   code-gitrpc:
     postgres:
       image:
-        repository: "harness/postgresql"
+        repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
 postmigrationCheck:
   enabled: true
