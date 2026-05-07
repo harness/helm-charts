@@ -45,7 +45,7 @@ docker.io/harnesssecure/upgrader:1.12.0
 docker.io/harnesssecure/upgrader:1.12.0-fips
 
 ### Dashboard
-docker.io/harnesssecure/looker-signed:1.14.0
+docker.io/harnesssecure/looker-signed:1.14.1
 docker.io/harnesssecure/dashboard-service-signed:1.105.0
 docker.io/harnesssecure/statsd-exporter:3.0-prometheus-busybox-2
 
