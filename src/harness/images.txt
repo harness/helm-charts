@@ -13,7 +13,7 @@ docker.io/harnesssecure/accesscontrol-service-signed:1.240.0
 docker.io/harnesssecure/delegate-proxy-signed:1.9.0
 docker.io/harnesssecure/gateway-signed:1.62.5
 docker.io/harnesssecure/helm-init-container:1.8.0
-docker.io/harnesssecure/manager-signed:1.138.4
+docker.io/harnesssecure/manager-signed:1.138.5
 docker.io/harnesssecure/mongo:7.0.28-jammy
 docker.io/harnesssecure/ng-auth-ui-signed:1.39.0
 docker.io/harnesssecure/redis:7.4.8
