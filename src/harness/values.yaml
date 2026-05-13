@@ -398,6 +398,13 @@ ci:
     nodeSelector: {}
     tolerations: []
 enabled: false
+
+cd:
+  gitops:
+    agentRedisImage:
+      image:
+        tag: "7.4.8-jammy"
+
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
