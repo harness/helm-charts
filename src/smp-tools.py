@@ -609,13 +609,25 @@ def cmd_validate_bundle(args):
     # Check 1: Every image in images_raw.txt maps to a manifest entry
     check_num += 1
     log.info(f"[{check_num}/{total_checks}] Checking image coverage in manifest...")
+    unmapped_images = []
     if raw_images:
         for img in raw_images:
             matched = any(f"/{sn}:" in img for sn in all_short_names)
             if not matched:
-                errors.append(f"Image '{img}' from images_raw.txt not mapped to any module in manifest")
+                if args.include_unmapped:
+                    unmapped_images.append(img)
+                else:
+                    errors.append(f"Image '{img}' from images_raw.txt not mapped to any module in manifest")
             elif any(f"/{ex}:" in img for ex in excluded_names):
                 log.info(f"  Image '{img}' is in manifest but excluded from bundle")
+
+    if unmapped_images and args.include_unmapped and args.images_txt:
+        log.info(f"Appending {len(unmapped_images)} unmapped images to {args.images_txt}")
+        with open(args.images_txt, 'a') as f:
+            f.write('\n## Unmapped Images\n')
+            for img in sorted(unmapped_images):
+                f.write(img + '\n')
+                log.info(f"  {img}")
 
     # Check 2: Every manifest short name resolves to at least one raw image
     check_num += 1
@@ -828,6 +840,8 @@ def main():
     vp.add_argument("--internal-txt", help="Path to images_internal.txt")
     vp.add_argument("--chart-yaml", help="Path to Chart.yaml")
     vp.add_argument("--harness-dir", help="Path to harness chart directory (for template scanning)")
+    vp.add_argument("--include-unmapped", action="store_true",
+                    help="Treat unmapped images as warnings instead of errors")
     vp.set_defaults(func=cmd_validate_bundle)
 
     args = parser.parse_args()

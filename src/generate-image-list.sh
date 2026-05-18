@@ -14,6 +14,7 @@ usage () {
     echo "  -o, --output-dir <path>       Output directory for generated files"
     echo "  -d, --harness-dir <path>      Path to harness chart directory"
     echo "  -k, --keep-transient          Keep images_raw.txt and images_internal.txt"
+    echo "  -u, --include-unmapped        Append unmapped images to images.txt instead of failing"
     echo "  -h, --help                    Show this help message"
     echo ""
 }
@@ -23,6 +24,7 @@ HARNESS_DIR=${SCRIPT_DIR}/harness
 IMAGE_GEN_INPUT_FILE=${SCRIPT_DIR}/generate-image.yaml
 OUTPUT_DIR=${SCRIPT_DIR}/harness
 KEEP_TRANSIENT=false
+INCLUDE_UNMAPPED=false
 
 while [ $# -gt 0 ]; do
     key="$1"
@@ -41,6 +43,10 @@ while [ $# -gt 0 ]; do
             ;;
         -k|--keep-transient)
             KEEP_TRANSIENT=true
+            shift
+            ;;
+        -u|--include-unmapped)
+            INCLUDE_UNMAPPED=true
             shift
             ;;
         -h|--help)
@@ -134,9 +140,15 @@ python3 ${SCRIPT_DIR}/smp-tools.py bundle-images \
     --raw-images ${OUTPUT_DIR}/images_raw.txt \
     --output-dir ${OUTPUT_DIR}
 
+UNMAPPED_FLAG=""
+if [ "${INCLUDE_UNMAPPED}" = true ]; then
+    UNMAPPED_FLAG="--include-unmapped --images-txt ${OUTPUT_DIR}/images.txt"
+fi
+
 log_info "Running bundle manifest validation"
 python3 ${SCRIPT_DIR}/smp-tools.py validate-bundle \
-    --manifest ${SCRIPT_DIR}/bundle-manifest.yaml
+    --manifest ${SCRIPT_DIR}/bundle-manifest.yaml \
+    ${UNMAPPED_FLAG}
 
 if [ "${KEEP_TRANSIENT}" = false ]; then
     log_info "Cleaning up transient files"
