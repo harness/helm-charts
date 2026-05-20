@@ -1,6 +1,7 @@
 harness-core/120-ng-manager/chart:
     - harness-core/120-ng-manager/contracts/openapi/v1/openapi.yaml
     - harness-core/440-connector-nextgen/contracts/openapi/v1/openapi.yaml
+    - harness-core/440-secret-management-service/contracts/openapi/v1/openapi.yaml
     - harness-core/950-ng-project-n-orgs/contracts/openapi/v1/openapi.yaml
     - harness-core/960-continuous-features/src/generated/api/openapi.yaml
     
