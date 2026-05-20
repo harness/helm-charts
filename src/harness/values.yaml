@@ -403,7 +403,7 @@ cd:
   gitops:
     agentRedisImage:
       image:
-        tag: "7.4.8-jammy"
+        tag: "7.4.9-jammy"
 
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
