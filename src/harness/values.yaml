@@ -398,13 +398,11 @@ ci:
     nodeSelector: {}
     tolerations: []
 enabled: false
-
 cd:
   gitops:
     agentRedisImage:
       image:
         tag: "7.4.9-jammy"
-
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
@@ -571,7 +569,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.04.88902
+        tag: 26.05.89102
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
