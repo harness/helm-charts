@@ -80,6 +80,18 @@ modules:
       - le-nextgen-signed
       - srm-ui-signed
 
+  cdng-plugins:
+    description: "CD Deployment Plugins"
+    bundle_type: combined
+    parent: cdng
+    bucket_path: "cdng/plugins"
+    images:
+      - drone-git
+      - download-aws-s3
+      - download-google-cloud-storage
+      - download-harness-store
+      - aws-sam-plugin
+
   cdng-agents:
     description: "CD Agents"
     bundle_type: combined
