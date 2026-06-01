@@ -1,8 +1,10 @@
 harness-core/120-ng-manager/chart:
     - harness-core/120-ng-manager/contracts/openapi/v1/openapi.yaml
     - harness-core/440-connector-nextgen/contracts/openapi/v1/openapi.yaml
+    - harness-core/440-secret-management-service/contracts/openapi/v1/openapi.yaml
+    - harness-core/950-ng-project-n-orgs/contracts/openapi/v1/openapi.yaml
     - harness-core/960-continuous-features/src/generated/api/openapi.yaml
-
+    
 harness-core/access-control/chart:
     - harness-core/access-control/contracts/openapi/v1/openapi.yaml
     - harness-core/access-control/contracts/openapi/v1/resourcegroup/openapi.yaml
@@ -14,6 +16,7 @@ harness-core/platform-service/chart:
     - harness-core/platform-service/modules/audit-service/contracts/openapi/v1/openapi.yaml
     - harness-core/platform-service/modules/notification-service/contracts/openapi/v1/openapi.yaml
     - harness-core/platform-service/modules/streaming-manager-service/contracts/openapi/v1/openapi.yaml
+    - harness-core/platform-service/modules/alert-service/contracts/openapi/v1/openapi.yaml
     - harness-core/resource-group-service/contracts/openapi/v1/openapi.yaml
 
 harness-core/srm-service/chart:
@@ -27,9 +30,6 @@ harness-core/template-service/chart:
 
 harness-core/license-manager/chart:
     - harness-core/license-manager/contracts/openapi/v1/openapi.yaml
-
-harness-core/idp-service/chart:
-    - harness-core/idp-service/contracts/openapi/v1/openapi.yaml
 
 db-devops-service/chart:
     - db-devops-service/openapi/api.yaml

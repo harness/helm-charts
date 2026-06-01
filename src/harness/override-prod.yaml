@@ -742,6 +742,16 @@ srm:
         cpu: 4
         memory: 6132Mi
 sto:
+  ticket-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        memory: 500Mi
+      requests:
+        cpu: 500m
+        memory: 500Mi
   sto-core:
     autoscaling:
       enabled: true
@@ -752,16 +762,6 @@ sto:
       requests:
         cpu: 500m
         memory: 500Mi
-  sto-manager:
-    autoscaling:
-      enabled: true
-      minReplicas: 2
-    resources:
-      limits:
-        memory: 3072Mi
-      requests:
-        cpu: 1
-        memory: 3072Mi
 iacm:
   iacm-manager:
     autoscaling:
@@ -785,38 +785,3 @@ iacm:
       requests:
         cpu: 500m
         memory: 500Mi
-idp:
-  idp-service:
-    autoscaling:
-      enabled: true
-      minReplicas: 2
-    java:
-      memory: "4096m"
-    resources:
-      limits:
-        cpu: 4
-        memory: 5Gi
-      requests:
-        cpu: 2
-        memory: 5Gi
-  idp-admin:
-    autoscaling:
-      enabled: true
-      minReplicas: 2
-      resources:
-        limits:
-          memory: 128Mi
-        requests:
-          cpu: 128m
-          memory: 128Mi
-  idp-app-ui:
-    autoscaling:
-      enabled: true
-      minReplicas: 2
-      resources:
-        limits:
-          cpu: 1536m
-          memory: 2Gi
-        requests:
-          cpu: 512m
-          memory: 1Gi

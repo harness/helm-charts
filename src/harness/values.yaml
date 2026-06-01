@@ -1,9 +1,14 @@
 global:
   # -- Airgap functionality. Disabled by default
   airgap: "false"
+  # -- Do not change this value. It is used to determine if the installation is on-prem or not.
+  # -- If this value is set to false, it can result in database connectivity issues for postgres.
+  onprem: true
   # -- Enable to set auto-scaling globally
   autoscaling:
     enabled: true
+  jfr:
+    enabled: false
   # -- Add common annotations to all objects
   commonAnnotations: {}
   # -- Add common labels to all objects
@@ -43,9 +48,6 @@ global:
     enabled: false
     # -- Enable to install Harness Infrastructure As Code Management (IACM)
   iacm:
-    enabled: false
-    # -- Enable to install Internal Developer Portal (IDP)
-  idp:
     enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
@@ -249,9 +251,9 @@ global:
     enabled: true
     image:
       registry: docker.io
-      repository: harness/helm-init-container
+      repository: harnesssecure/helm-init-container
       pullPolicy: Always
-      tag: "1.5.0"
+      tag: "1.9.0"
       digest: ""
       imagePullSecrets: []
   fileLogging:
@@ -267,13 +269,55 @@ global:
     # If both are set, K8s will throw an error
     # minAvailable: "50%"
     # maxUnavailable: "50%"
+  externalSecretsLoader:
+    enabled: false
+    provider: "vault"
+    image:
+      repository: "harnesssecure/vault-secret-loader"
+      tag: "1.0.9"
+      pullPolicy: "IfNotPresent"
+    vault:
+      address: ""
+      engine: ""
+      basePath: ""
+      auth:
+        method: "token"
+        # For Token auth:
+        token: "vault-token"
+        # For AppRole:
+        roleId: ""
+        secretId: ""
+        # For Kubernetes auth:
+        role: ""
+        path: ""
+    databases:
+      mongo:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        overridePath: ""
+        databaseRole: ""
+      redis:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        overridePath: ""
+        databaseRole: ""
+      postgres:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        basePath: ""
+        databaseRole: ""
+      timescaledb:
+        useDatabaseSecretsEngine: false
+        engine: ""
+        basePath: ""
+        databaseRole: ""
 ccm:
   # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
   batch-processing:
     postgres:
       image:
-        repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
     # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
     awsAccountTagsCollectionJobConfig:
       enabled: true
@@ -345,6 +389,8 @@ ci:
   ci-manager:
     config:
       ENV: "SMP"
+      REFID_CACHE_IMAGE: harnesssecure/refid-cache:latest
+      HARNESS_IMAGE_REPOSITORY: harnesssecure
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -355,10 +401,21 @@ ci:
     nodeSelector: {}
     tolerations: []
 enabled: false
+
+cd:
+  gitops:
+    agentRedisImage:
+      image:
+        tag: "7.4.9-jammy"
+
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
+    postgresql:
+      image:
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
     config:
       ENV: "SMP"
     affinity: {}
@@ -408,8 +465,8 @@ platform:
         tolerations: []
       postgresql:
         image:
-          repository: "harness/postgresql"
-          tag: "14.18.0-debian-12-r0"
+          repository: "harnesssecure/postgresql"
+          tag: "14.20-debian"
         metrics:
           enabled: false
         podAnnotations:
@@ -436,6 +493,8 @@ platform:
         prometheus:
           enabled: false
         tolerations: []
+        curlImage:
+          tag: "8.17.0"
         persistentVolumes:
           data:
             enabled: true
@@ -497,6 +556,9 @@ platform:
     tolerations: []
   # -- harness-manager (taints, tolerations, and so on)
   harness-manager:
+    upgrader_docker_image:
+      image:
+        tag: 1.12.0
     config:
       ENV: "SMP"
     shutdownHooksEnabled: true
@@ -511,8 +573,8 @@ platform:
     immutable_delegate_docker_image:
       image:
         registry: docker.io
-        repository: harness/delegate
-        tag: 25.10.86901
+        repository: harnesssecure/delegate
+        tag: 26.04.88902
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -555,6 +617,7 @@ platform:
   pipeline-service:
     config:
       ENV: "SMP"
+      PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS: "true"
     shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
@@ -598,24 +661,20 @@ srm:
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
+  ticket-service:
+    postgres:
+      image:
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
   sto-core:
     migrationPostgres:
       image:
-        repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
     postgres:
       image:
-        repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
-    affinity: {}
-    autoscaling:
-      enabled: false
-    nodeSelector: {}
-    tolerations: []
-  # -- Install the STO manager
-  sto-manager:
-    config:
-      ENV: "SMP"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
     affinity: {}
     autoscaling:
       enabled: false
@@ -629,52 +688,60 @@ ff:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "bitnamilegacy/postgresql"
+          repository: "harnesssecure/postgresql"
+          tag: "14.20-debian"
     ff-client-server:
       secrets:
         default:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "bitnamilegacy/postgresql"
+          repository: "harnesssecure/postgresql"
+          tag: "14.20-debian"
     ff-metrics-server:
       secrets:
         default:
           PLATFORM_AUTH_KEY: "secret"
       postgres:
         image:
-          repository: "bitnamilegacy/postgresql"
+          repository: "harnesssecure/postgresql"
+          tag: "14.20-debian"
   ff-pushpin-service:
     waitForInitContainer:
       image:
         tag: 1.2.0
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
   ff-psql-migrations:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
   ff-timescale-migrations:
     postgres:
       image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
 iacm:
   iac-server:
     createDb:
       image:
-        repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
     postgres:
       image:
-        repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
     affinity: {}
     autoscaling:
       enabled: false
     nodeSelector: {}
     tolerations: []
   iacm-manager:
+    config:
+      HARNESS_IMAGE_REPOSITORY: harnesssecure
     affinity: {}
     autoscaling:
       enabled: false
@@ -687,30 +754,44 @@ code:
   code-api:
     postgres:
       image:
-        repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
     autoai:
       postgres:
         image:
-          repository: "harness/postgresql"
-          tag: "14.18.0-debian-12-r0"
+          repository: "harnesssecure/postgresql"
+          tag: "14.20-debian"
   code-search:
     postgres:
       image:
-        repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
   code-githa:
     postgres:
       image:
-        repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
   code-gitrpc:
     postgres:
       image:
-        repository: "harness/postgresql"
-        tag: "14.18.0-debian-12-r0"
-idp:
-  idp-app-ui:
-    postgres:
-      image:
-        repository: "bitnamilegacy/postgresql"
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
+postmigrationCheck:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: "busybox"
+    tag: "1.37.0"
+    pullPolicy: IfNotPresent
+  resources:
+    limits:
+      memory: 128Mi
+      cpu: 100m
+    requests:
+      memory: 64Mi
+      cpu: 50m
+  serviceAccount:
+    name: "default"
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
