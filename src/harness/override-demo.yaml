@@ -80,6 +80,15 @@ chaos:
       requests:
         cpu: 64m
         memory: 128Mi
+  load-test-manager:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi
 ci:
   ci-manager:
     autoscaling:
