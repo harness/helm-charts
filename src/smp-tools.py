@@ -16,6 +16,7 @@ Usage:
 """
 
 import argparse
+import json
 import logging
 import math
 import os
@@ -320,6 +321,56 @@ def bundle_generate(manifest, raw_images):
     return customer_text, internal_text, all_resolved, all_excluded, all_errors
 
 
+def generate_images_json(customer_text, manifest):
+    """
+    Convert customer_text (images.txt content) into a structured JSON object.
+
+    Structure:
+    {
+      "modules": [
+        {
+          "name": "platform",
+          "description": "Core Platform Services (Required for all installations)",
+          "images": ["docker.io/harnesssecure/foo:1.0", ...]
+        },
+        ...
+      ]
+    }
+    """
+    modules_cfg = manifest.get('modules', {})
+    desc_to_module = {}
+    for mod_name, mod_config in modules_cfg.items():
+        desc_to_module[mod_config.get('description', mod_name)] = mod_name
+
+    modules_out = []
+    current_desc = None
+    current_images = []
+
+    for line in customer_text.splitlines():
+        if line.startswith('### ') or line.startswith('## '):
+            if current_desc is not None:
+                mod_name = desc_to_module.get(current_desc, current_desc)
+                modules_out.append({
+                    "name": mod_name,
+                    "description": current_desc,
+                    "images": current_images,
+                })
+            current_desc = line.lstrip('#').strip()
+            current_images = []
+        elif line.strip():
+            current_images.append(line.strip())
+
+    if current_desc is not None:
+        mod_name = desc_to_module.get(current_desc, current_desc)
+        modules_out.append({
+            "name": mod_name,
+            "description": current_desc,
+            "images": current_images,
+        })
+
+    return {"modules": modules_out}
+
+
 def bundle_generate_internal_only(manifest, images_txt_path):
     """
     Regenerate images_internal.txt from committed images.txt + manifest.
@@ -450,10 +501,16 @@ def cmd_bundle_images(args):
             log.warning(f"  {err}")
 
     images_path = os.path.join(args.output_dir, 'images.txt')
+    images_json_path = os.path.join(args.output_dir, 'images.json')
     internal_path = os.path.join(args.output_dir, 'images_internal.txt')
 
     with open(images_path, 'w') as f:
         f.write(customer_text)
+
+    images_json = generate_images_json(customer_text, manifest)
+    with open(images_json_path, 'w') as f:
+        json.dump(images_json, f, indent=2)
+        f.write('\n')
 
     with open(internal_path, 'w') as f:
         f.write(internal_text)
@@ -466,6 +523,7 @@ def cmd_bundle_images(args):
         unique_base.add(base)
 
     log.info(f"Written {images_path} ({customer_text.count(chr(10))} lines)")
+    log.info(f"Written {images_json_path} ({len(images_json['modules'])} modules)")
     log.info(f"Written {internal_path}")
     log.info(f"Resolved {len(unique_all)} total image references ({len(unique_base)} unique base images)")
 
