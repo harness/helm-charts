@@ -25,6 +25,9 @@ dependencies:
 - name: chaos-machine-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.87.0
+- name: load-test-manager
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.15.0
 description: A Helm chart for harness chaos module
 name: chaos
 type: application
