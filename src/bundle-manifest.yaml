@@ -248,6 +248,7 @@ modules:
       - chaos-machine-ifc-signed
       - chaos-machine-ifs-signed
       - enterprise-chaos-hub-signed
+      - load-test-manager-signed
 
   ce-plugins:
     description: "Chaos Engineering Plugins"

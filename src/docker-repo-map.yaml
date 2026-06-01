@@ -68,6 +68,10 @@ chaos-web:
   image:
     registry: docker.io
     repository: harnesssecure/smp-chaos-web-signed
+load-test-manager:
+  image:
+    registry: docker.io
+    repository: harnesssecure/load-test-manager-signed
 ci-manager:
   image:
     registry: docker.io
