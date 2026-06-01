@@ -157,6 +157,7 @@
     chaos-ddcr-faults
     enterprise-chaos-hub-signed
     chaos-event-watcher
+    load-test-manager-signed
 
 [ssca]:
     ssca-plugin

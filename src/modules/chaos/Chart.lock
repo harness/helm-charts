@@ -23,5 +23,8 @@ dependencies:
 - name: chaos-machine-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.66.0
+- name: load-test-manager
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.15.0
 digest: sha256:35ca62bef8f34a67ca2b34aed242da6908d099fcfbac95abb67c057604aaa7dc
 generated: "2025-11-05T10:26:10.577891952Z"
