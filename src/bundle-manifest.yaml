@@ -202,6 +202,7 @@ modules:
       - whitesource-agent-job-runner
       - wiz-job-runner
       - zap-job-runner
+      - cortex-cloud-job-runner
 
   ff:
     description: "Feature Flags"
@@ -283,6 +284,7 @@ modules:
       - ssca-cdxgen-plugin
       - ssca-compliance-plugin
       - ssca-artifact-signing-plugin
+      - ssca-attestation-plugin
 
   dbdevops:
     description: "Database DevOps"
