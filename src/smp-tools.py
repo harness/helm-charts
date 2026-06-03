@@ -133,8 +133,8 @@ def process_section(name, config, raw_images, global_variants):
     For single bundle-type sections each variant (base tag + suffix) gets its own
     @image= group marker so the pipeline treats them as independent bundles.
 
-    Excluded images (module-level exclude list) appear in customer_lines (images.txt)
-    but are omitted from internal_lines so they are never bundled.
+    Excluded images (module-level exclude list) are fully excluded from all outputs
+    (no listing, no bundling, no validation).
     """
     bundle_type = config.get('bundle_type', 'combined')
     bucket_path = config.get('bucket_path', name)
@@ -156,11 +156,6 @@ def process_section(name, config, raw_images, global_variants):
         internal_header = f"# @module={name} @type={bundle_type} @path={bucket_path} @requires={requires_str}"
 
     internal_lines.append(internal_header)
-
-    for short_name in exclude_list:
-        for match in find_matching_images(short_name, raw_images):
-            customer_lines.append(match)
-            resolved_images.append(match)
 
     for image_entry in images_list:
         short_name = get_image_name(image_entry)
@@ -528,11 +523,13 @@ def cmd_bundle_images(args):
     log.info(f"Resolved {len(unique_all)} total image references ({len(unique_base)} unique base images)")
 
     if excluded:
-        log.info(f"Excluded from bundle ({len(excluded)} images, still in images.txt):")
+        log.info(f"Excluded from all outputs ({len(excluded)} images):")
         for img in excluded:
             log.info(f"  {img}")
 
+    excluded_names = _get_excluded_short_names(manifest)
     unmatched = set(raw_images) - set(r for r in resolved if r in raw_images)
+    unmatched = {img for img in unmatched if not any(f"/{ex}:" in img for ex in excluded_names)}
     if unmatched:
         log.warning(f"{len(unmatched)} images in images_raw.txt not mapped to any module:")
         for img in sorted(unmatched):
@@ -572,11 +569,11 @@ def _load_lines_with_headers(path):
 
 def _get_all_short_names(manifest):
     names = set()
+    excluded = _get_excluded_short_names(manifest)
     for mod_config in manifest.get('modules', {}).values():
         for entry in mod_config.get('images', []):
             names.add(get_image_name(entry))
-        names.update(mod_config.get('exclude', []))
-    return names
+    return names - excluded
 
 
 def _get_excluded_short_names(manifest):
@@ -669,21 +666,23 @@ def cmd_validate_bundle(args):
     log.info(f"[{check_num}/{total_checks}] Checking image coverage in manifest...")
     if raw_images:
         for img in raw_images:
+            if any(f"/{ex}:" in img for ex in excluded_names):
+                log.info(f"  Image '{img}' is excluded from listing and bundling")
+                continue
             matched = any(f"/{sn}:" in img for sn in all_short_names)
             if not matched:
                 errors.append(f"Image '{img}' from images_raw.txt not mapped to any module in manifest")
-            elif any(f"/{ex}:" in img for ex in excluded_names):
-                log.info(f"  Image '{img}' is in manifest but excluded from bundle")
 
     # Check 2: Every manifest short name resolves to at least one raw image
     check_num += 1
     log.info(f"[{check_num}/{total_checks}] Checking manifest references resolve...")
     if raw_images:
         for short_name in all_short_names:
-            if short_name in excluded_names:
-                continue
             if not any(f"/{short_name}:" in img for img in raw_images):
                 errors.append(f"Manifest image '{short_name}' not found in images_raw.txt")
+        for short_name in excluded_names:
+            if not any(f"/{short_name}:" in img for img in raw_images):
+                errors.append(f"Excluded manifest image '{short_name}' not found in images_raw.txt (remove from exclude list)")
 
     # Check 3: Chart.yaml modules have manifest entries
     check_num += 1
@@ -761,16 +760,9 @@ def cmd_validate_bundle(args):
     check_num += 1
     log.info(f"[{check_num}/{total_checks}] Checking image count consistency...")
     if images_txt_lines and internal_lines:
-        excluded_count = sum(
-            1 for img in images_txt_lines
-            if any(f"/{ex}:" in img for ex in excluded_names)
-        )
-        bundled_in_txt = len(images_txt_lines) - excluded_count
-        diff = bundled_in_txt - len(internal_lines)
+        diff = len(images_txt_lines) - len(internal_lines)
         if diff < 0:
-            errors.append(f"images_internal.txt has more images ({len(internal_lines)}) than bundled images in images.txt ({bundled_in_txt})")
-        elif diff > 0 and excluded_names:
-            log.info(f"  images.txt has {diff} more images than images_internal.txt (expected: excluded images)")
+            errors.append(f"images_internal.txt has more images ({len(internal_lines)}) than images in images.txt ({len(images_txt_lines)})")
         elif diff > 0:
             warnings.append(f"images.txt has {len(images_txt_lines)} images but images_internal.txt has {len(internal_lines)}")
 

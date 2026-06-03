@@ -63,10 +63,9 @@ modules:
     bundle_type: combined
     parent: platform
     bucket_path: "dashboard"
-    exclude:
-      - looker-signed
     images:
       - dashboard-service-signed
+      - looker-signed
       - statsd-exporter
 
   cdng:
@@ -159,6 +158,8 @@ modules:
     bundle_type: single
     parent: sto
     bucket_path: "sto/scanners"
+    exclude:
+      - cortex-cloud-job-runner
     images:
       - anchore-job-runner
       - aqua-security-job-runner
@@ -202,7 +203,6 @@ modules:
       - whitesource-agent-job-runner
       - wiz-job-runner
       - zap-job-runner
-      - cortex-cloud-job-runner
 
   ff:
     description: "Feature Flags"
@@ -278,13 +278,14 @@ modules:
     bundle_type: combined
     parent: ssca
     bucket_path: "ssca/plugins"
+    exclude:
+      - ssca-attestation-plugin
     images:
       - ssca-plugin
       - slsa-plugin
       - ssca-cdxgen-plugin
       - ssca-compliance-plugin
       - ssca-artifact-signing-plugin
-      - ssca-attestation-plugin
 
   dbdevops:
     description: "Database DevOps"
