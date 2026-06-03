@@ -1,6 +1,7 @@
-{{- /*
-This ConfigMap contains the global environment variables
-*/}}
+{{- $previousVersion := "" -}}
+{{- with (lookup "v1" "ConfigMap" .Release.Namespace "global-smp-config") -}}
+{{- $previousVersion = (get .data "SMP_VERSION" | default "") -}}
+{{- end }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -11,3 +12,4 @@ metadata:
     version: {{ .Chart.Version }}
 data:
   SMP_VERSION: {{ .Chart.Version | quote }}
+  PREVIOUS_SMP_VERSION: {{ $previousVersion | quote }}
