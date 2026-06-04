@@ -135,6 +135,9 @@ def process_section(name, config, raw_images, global_variants):
 
     Excluded images (module-level exclude list) appear in customer_lines (images.txt)
     but are omitted from internal_lines so they are never bundled.
+
+    Fully excluded images (exclude_full list) are omitted from both customer and
+    internal output entirely, but must resolve in images_raw.txt or an error is raised.
     """
     bundle_type = config.get('bundle_type', 'combined')
     bucket_path = config.get('bucket_path', name)
@@ -143,6 +146,7 @@ def process_section(name, config, raw_images, global_variants):
     section_variants = config.get('variants')
     images_list = config.get('images', [])
     exclude_list = set(config.get('exclude', []))
+    exclude_full_list = set(config.get('exclude_full', []))
 
     customer_lines = []
     internal_lines = []
@@ -156,6 +160,11 @@ def process_section(name, config, raw_images, global_variants):
         internal_header = f"# @module={name} @type={bundle_type} @path={bucket_path} @requires={requires_str}"
 
     internal_lines.append(internal_header)
+
+    for short_name in exclude_full_list:
+        matches = find_matching_images(short_name, raw_images)
+        if not matches:
+            errors.append(f"Fully excluded image '{short_name}' in section '{name}' not found in images_raw.txt")
 
     for short_name in exclude_list:
         for match in find_matching_images(short_name, raw_images):
@@ -400,12 +409,20 @@ def bundle_generate_internal_only(manifest, images_txt_path):
 
     desc_to_module = {}
     excluded_short_names = set()
+    fully_excluded_short_names = set()
     for mod_name, mod_config in modules.items():
         desc_to_module[mod_config.get('description', mod_name)] = (mod_name, mod_config)
         excluded_short_names.update(mod_config.get('exclude', []))
+        fully_excluded_short_names.update(mod_config.get('exclude_full', []))
 
     def is_image_excluded(img_ref):
         for short in excluded_short_names:
+            if f"/{short}:" in img_ref:
+                return True
+        return False
+
+    def is_image_fully_excluded(img_ref):
+        for short in fully_excluded_short_names:
             if f"/{short}:" in img_ref:
                 return True
         return False
@@ -419,7 +436,7 @@ def bundle_generate_internal_only(manifest, images_txt_path):
         bundle_type = mod_config.get('bundle_type', 'combined')
         bucket_path = mod_config.get('bucket_path', mod_name)
         parent = mod_config.get('parent')
-        non_excluded_imgs = [img for img in imgs if not is_image_excluded(img)]
+        non_excluded_imgs = [img for img in imgs if not is_image_excluded(img) and not is_image_fully_excluded(img)]
 
         if parent:
             header = f"# @module={mod_name} @type={bundle_type} @path={bucket_path} @parent={parent}"
@@ -532,7 +549,19 @@ def cmd_bundle_images(args):
         for img in excluded:
             log.info(f"  {img}")
 
-    unmatched = set(raw_images) - set(r for r in resolved if r in raw_images)
+    fully_excluded_names = set()
+    for mod_config in manifest.get('modules', {}).values():
+        fully_excluded_names.update(mod_config.get('exclude_full', []))
+    fully_excluded_refs = set(
+        img for img in raw_images
+        if any(f"/{sn}:" in img for sn in fully_excluded_names)
+    )
+    if fully_excluded_refs:
+        log.info(f"Fully excluded ({len(fully_excluded_refs)} images, not in any output):")
+        for img in sorted(fully_excluded_refs):
+            log.info(f"  {img}")
+
+    unmatched = set(raw_images) - set(r for r in resolved if r in raw_images) - fully_excluded_refs
     if unmatched:
         log.warning(f"{len(unmatched)} images in images_raw.txt not mapped to any module:")
         for img in sorted(unmatched):
@@ -576,6 +605,7 @@ def _get_all_short_names(manifest):
         for entry in mod_config.get('images', []):
             names.add(get_image_name(entry))
         names.update(mod_config.get('exclude', []))
+        names.update(mod_config.get('exclude_full', []))
     return names
 
 
@@ -583,6 +613,13 @@ def _get_excluded_short_names(manifest):
     excluded = set()
     for mod_config in manifest.get('modules', {}).values():
         excluded.update(mod_config.get('exclude', []))
+    return excluded
+
+
+def _get_fully_excluded_short_names(manifest):
+    excluded = set()
+    for mod_config in manifest.get('modules', {}).values():
+        excluded.update(mod_config.get('exclude_full', []))
     return excluded
 
 
@@ -662,6 +699,7 @@ def cmd_validate_bundle(args):
 
     all_short_names = _get_all_short_names(manifest)
     excluded_names = _get_excluded_short_names(manifest)
+    fully_excluded_names = _get_fully_excluded_short_names(manifest)
     root_modules = _get_root_modules(modules)
 
     # Check 1: Every image in images_raw.txt maps to a manifest entry
@@ -672,6 +710,8 @@ def cmd_validate_bundle(args):
             matched = any(f"/{sn}:" in img for sn in all_short_names)
             if not matched:
                 errors.append(f"Image '{img}' from images_raw.txt not mapped to any module in manifest")
+            elif any(f"/{ex}:" in img for ex in fully_excluded_names):
+                log.info(f"  Image '{img}' is fully excluded (skipped from bundle, listing, and validation)")
             elif any(f"/{ex}:" in img for ex in excluded_names):
                 log.info(f"  Image '{img}' is in manifest but excluded from bundle")
 
@@ -680,7 +720,7 @@ def cmd_validate_bundle(args):
     log.info(f"[{check_num}/{total_checks}] Checking manifest references resolve...")
     if raw_images:
         for short_name in all_short_names:
-            if short_name in excluded_names:
+            if short_name in excluded_names or short_name in fully_excluded_names:
                 continue
             if not any(f"/{short_name}:" in img for img in raw_images):
                 errors.append(f"Manifest image '{short_name}' not found in images_raw.txt")
@@ -774,6 +814,12 @@ def cmd_validate_bundle(args):
         elif diff > 0:
             warnings.append(f"images.txt has {len(images_txt_lines)} images but images_internal.txt has {len(internal_lines)}")
 
+    # Check 9b: Fully excluded images must exist in images_raw.txt
+    if raw_images and fully_excluded_names:
+        for short_name in fully_excluded_names:
+            if not any(f"/{short_name}:" in img for img in raw_images):
+                errors.append(f"Fully excluded image '{short_name}' not found in images_raw.txt")
+
     # Check 10: Chart template scan for unlisted images
     check_num += 1
     log.info(f"[{check_num}/{total_checks}] Scanning chart templates for unlisted images...")
@@ -820,6 +866,8 @@ def cmd_validate_bundle(args):
         print(f"Images in images.txt: {len(images_txt_lines)}")
     if excluded_names:
         print(f"Excluded from bundle: {len(excluded_names)} ({', '.join(sorted(excluded_names))})")
+    if fully_excluded_names:
+        print(f"Fully excluded (no bundle/listing/validation): {len(fully_excluded_names)} ({', '.join(sorted(fully_excluded_names))})")
     print(f"Combined bundles: {combined_count}")
     print()
 
