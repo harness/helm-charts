@@ -49,6 +49,9 @@ global:
     # -- Enable to install Harness Infrastructure As Code Management (IACM)
   iacm:
     enabled: false
+  # -- Enable to install Artifact Repository (AR)
+  ar:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
@@ -795,3 +798,44 @@ postmigrationCheck:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+ar:
+  registry-api:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+    # SMP-specific env defaults
+    config:
+      REGISTRY_ENABLE_ES: "false"
+      REGISTRY_MULTISTORAGE_ENABLED: "false"
+      HARNESS_REGISTRY_LOCAL_EXECUTOR_ENABLED: "false"
+      HARNESS_UDP_ENABLED: "false"
+      HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
+  registry-processor:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+    config:
+      HARNESS_UDP_ENABLED: "false"
+      HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
+  registry-async-service:
+    enabled: true                    # OMIT or set false for Phase 0
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+    config:
+      REGISTRY_ENABLE_ES: "false"
+      HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
+  ipqs-service:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+    autoUpdate:
+      enabled: false

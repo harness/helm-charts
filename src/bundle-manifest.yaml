@@ -323,3 +323,14 @@ modules:
       - drone-git
       - harness_terraform
       - harness_terraform_vm
+
+  ar:
+    description: "Artifact Registry"
+    bundle_type: combined
+    requires: [ ng-manager ]
+    bucket_path: "ar"
+    images:
+      - registry-api-signed
+      - registry-async-service-signed
+      - ipqs-service-signed
+      - registry-processor-signed
