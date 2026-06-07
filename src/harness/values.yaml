@@ -656,6 +656,8 @@ srm:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    keda:
+      enabled: false
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
