@@ -21,7 +21,6 @@ modules:
       - schema-registry-prometheux-jmx-exporter
       - schema-registry
       - strimzi-operator
-      - 
       - busybox
       - ci-scm-signed
       - template-service-signed
@@ -45,7 +44,6 @@ modules:
       - smp-service-discovery-server-signed
       - debezium-service-signed
       - audit-event-streaming-signed
-      - queue-service-signed
       - service-discovery-collector
       - ng-dashboard-aggregator-signed
       - controller
@@ -99,10 +97,6 @@ modules:
     bucket_path: "cdng/plugins"
     images:
       - drone-git
-      - download-aws-s3
-      - download-google-cloud-storage
-      - download-harness-store
-      - aws-sam-plugin
 
   cdng-agents:
     description: "CD Agents"
