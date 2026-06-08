@@ -10,6 +10,18 @@ modules:
     requires: []
     bucket_path: "platform"
     images:
+      - kafka-akhq
+      - kafka-connect-kubectl
+      - kafka-connect-strimzi
+      - kafka-kubectl
+      - kafka-operator-crd-updater
+      - kafka-operator
+      - kafka-platform
+      - schema-compatibility
+      - schema-registry-prometheux-jmx-exporter
+      - schema-registry
+      - strimzi-operator
+      - 
       - busybox
       - ci-scm-signed
       - template-service-signed
