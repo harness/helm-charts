@@ -297,3 +297,51 @@ iacm-manager:
   image:
     registry: docker.io
     repository: harnesssecure/iacm-manager-signed
+strimzi-operator:
+  image:
+    registry: docker.io
+    repository: harnesssecure/strimzi-operator-signed
+kafka-connect-strimzi:
+  image:
+    registry: docker.io
+    repository: harnesssecure/kafka-connect-strimzi-signed
+schema-registry:
+  image:
+    registry: docker.io
+    repository: harnesssecure/schema-registry-signed
+kafka-platform:
+  image:
+    registry: docker.io
+    repository: harnesssecure/kafka-platform-signed
+schema-compatibility:
+  image:
+    registry: docker.io
+    repository: harnesssecure/schema-compatibility-signed
+kafka-operator:
+  image:
+    registry: docker.io
+    repository: harnesssecure/kafka-operator-signed
+strimzi-operator:
+  image:
+    registry: docker.io
+    repository: harnesssecure/strimzi-operator-signed
+kafka-akhq:
+  image:
+    registry: docker.io
+    repository: harnesssecure/kafka-akhq-signed
+schema-registry-prometheux-jmx-exporter:
+  image:
+    registry: docker.io
+    repository: harnesssecure/schema-registry-prometheux-jmx-exporter-signed
+kafka-kubectl:
+  image:
+    registry: docker.io
+    repository: harnesssecure/kafka-kubectl-signed
+kafka-operator-crd-updater:
+  image:
+    registry: docker.io
+    repository: harnesssecure/kafka-operator-crd-updater-signed
+kafka-connect-kubectl:
+  image:
+    registry: docker.io
+    repository: harnesssecure/kafka-connect-kubectl-signed
