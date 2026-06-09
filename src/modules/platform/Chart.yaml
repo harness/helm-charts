@@ -103,7 +103,7 @@ dependencies:
 - condition: global.kafka.enabled
   name: kafka-connect-strimzi
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.65.2
+  version: 1.65.3
 - condition: global.kafka.enabled
   name: kafka-akhq
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
