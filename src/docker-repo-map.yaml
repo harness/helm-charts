@@ -321,10 +321,6 @@ kafka-operator:
   image:
     registry: docker.io
     repository: harnesssecure/kafka-operator-signed
-strimzi-operator:
-  image:
-    registry: docker.io
-    repository: harnesssecure/strimzi-operator-signed
 kafka-akhq:
   image:
     registry: docker.io
