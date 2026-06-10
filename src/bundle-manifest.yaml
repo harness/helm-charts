@@ -322,7 +322,7 @@ modules:
   ar:
     description: "Artifact Registry"
     bundle_type: combined
-    requires: [ ng-manager ]
+    requires: [platform]
     bucket_path: "ar"
     images:
       - registry-api-signed
