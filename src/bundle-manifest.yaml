@@ -329,3 +329,32 @@ modules:
       - drone-git
       - harness_terraform
       - harness_terraform_vm
+
+  iacm-plugins:
+    description: "IACM Plugins"
+    bundle_type: combined
+    parent: iacm
+    bucket_path: "iacm/plugins"
+    images:
+      - ci-addon
+      - ci-lite-engine
+      - drone-git
+      - harness_terraform
+      - harness_terraform_vm
+
+  data-platform:
+    description: "Data Platform"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "data-platform"
+    images:
+      - strimzi-operator
+      - kafka-connect-strimzi
+      - schema-registry
+      - kafka-platform
+      - schema-compatibility
+      - kafka-operator
+      - schema-registry-prometheux-jmx-exporter
+      - kafka-kubectl
+      - kafka-operator-crd-updater
+      - kafka-connect-kubectl
