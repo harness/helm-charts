@@ -84,30 +84,6 @@ dependencies:
   name: audit-event-streaming
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.84.0
-- condition: global.kafka.enabled
-  name: kafka-operator
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.9.0
-- condition: global.kafka.enabled
-  name: kafka-platform
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 2.6.0
-- condition: global.kafka.enabled
-  name: kafka-resources
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.69.2
-- condition: global.kafka.enabled
-  name: schema-registry
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.7.0
-- condition: global.kafka.enabled
-  name: kafka-connect-strimzi
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.65.1
-- condition: global.kafka.enabled
-  name: kafka-akhq
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.8.0
 description: Helm chart for Harness Platform
 name: platform
 type: application
