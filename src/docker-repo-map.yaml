@@ -310,6 +310,10 @@ kafka-platform:
   image:
     registry: docker.io
     repository: harnesssecure/kafka-platform-signed
+  entityOperator:
+    image:
+      registry: docker.io
+      repository: harnesssecure/strimzi-operator-signed
   operatorVersionCheck:
     image:
       registry: docker.io

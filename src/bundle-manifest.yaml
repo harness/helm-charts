@@ -337,13 +337,13 @@ modules:
     requires: [platform]
     bucket_path: "data-platform"
     images:
-      - strimzi-operator
-      - kafka-connect-strimzi
-      - schema-registry
-      - kafka-platform
-      - schema-compatibility
-      - kafka-operator
-      - schema-registry-prometheux-jmx-exporter
-      - kafka-kubectl
-      - kafka-operator-crd-updater
-      - kafka-connect-kubectl
+      - strimzi-operator-signed
+      - kafka-connect-strimzi-signed
+      - schema-registry-signed
+      - kafka-platform-signed
+      - schema-compatibility-signed
+      - kafka-operator-signed
+      - schema-registry-prometheus-jmx-exporter-signed
+      - kafka-kubectl-signed
+      - kafka-operator-crd-updater-signed
+      - kafka-connect-kubectl-signed
