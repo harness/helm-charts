@@ -297,3 +297,7 @@ iacm-manager:
   image:
     registry: docker.io
     repository: harnesssecure/iacm-manager-signed
+config-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/config-service-signed

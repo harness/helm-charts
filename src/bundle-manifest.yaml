@@ -323,3 +323,10 @@ modules:
       - drone-git
       - harness_terraform
       - harness_terraform_vm
+
+  data-platform:
+    description: "Unified Data Platform (UDP) Services"
+    bundle_type: combined
+    bucket_path: "data-platform"
+    images:
+      - config-service-signed

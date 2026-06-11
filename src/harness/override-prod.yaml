@@ -785,3 +785,21 @@ iacm:
       requests:
         cpu: 500m
         memory: 500Mi
+
+data-platform:
+  config-service:
+    enabled: true
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPU: 80
+      targetMemory: 80
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 2
+        memory: 2Gi
+      requests:
+        cpu: 1
+        memory: 2Gi

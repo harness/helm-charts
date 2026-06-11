@@ -459,3 +459,15 @@ iacm:
       requests:
         cpu: 128m
         memory: 256Mi
+
+data-platform:
+  config-service:
+    enabled: true
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 1Gi
