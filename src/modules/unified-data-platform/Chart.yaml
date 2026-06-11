@@ -4,8 +4,8 @@ dependencies:
 - condition: global.dataPlatform.enabled
   name: config-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.1.0
+  version: 0.1.128
 description: A Helm chart for Harness Unified Data Platform (UDP) services
-name: data-platform
+name: unified-data-platform
 type: application
 version: 0.42.0

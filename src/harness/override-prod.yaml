@@ -786,7 +786,7 @@ iacm:
         cpu: 500m
         memory: 500Mi
 
-data-platform:
+unified-data-platform:
   config-service:
     enabled: true
     autoscaling:

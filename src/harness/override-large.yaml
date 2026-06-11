@@ -460,7 +460,7 @@ iacm:
       requests:
         cpu: 128m
         memory: 256Mi
-data-platform:
+unified-data-platform:
   config-service:
     enabled: true
     replicaCount: 2

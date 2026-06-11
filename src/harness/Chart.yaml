@@ -52,7 +52,7 @@ dependencies:
   repository: https://harness.github.io/helm-charts
   version: 0.42.0
 - condition: global.dataPlatform.enabled
-  name: data-platform
+  name: unified-data-platform
   repository: https://harness.github.io/helm-charts
   version: 0.42.0
 description: Helm Chart for deploying Harness.
