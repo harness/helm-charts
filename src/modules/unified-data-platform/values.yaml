@@ -1,0 +1,9 @@
+config-service:
+  configService:
+    image:
+      repository: harnesssecure/config-service-signed
+      tagOverride: "0.1.130"
+    kafka:
+      enabled: false
+      tlsUserSecret: ""
+      tlsTruststoreSecret: ""
