@@ -301,3 +301,7 @@ config-service:
   image:
     registry: docker.io
     repository: harnesssecure/config-service-signed
+schema-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/schema-service-signed
