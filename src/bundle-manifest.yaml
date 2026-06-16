@@ -325,3 +325,4 @@ modules:
     bucket_path: "unified-data-platform"
     images:
       - config-service-signed
+      - schema-service-signed
