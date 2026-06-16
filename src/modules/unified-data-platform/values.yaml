@@ -1,6 +1,7 @@
 config-service:
   configService:
     image:
+      repository: harnesssecure/config-service-signed
       tagOverride: "0.1.132"
     kafka:
       enabled: false
@@ -10,6 +11,7 @@ config-service:
 schema-service:
   schemaService:
     image:
+      repository: harnesssecure/schema-service-signed
       tagOverride: "0.13.9"
     kafka:
       enabled: false
