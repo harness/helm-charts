@@ -305,3 +305,7 @@ schema-service:
   image:
     registry: docker.io
     repository: harnesssecure/schema-service-signed
+onboarding-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/onboarding-service-signed

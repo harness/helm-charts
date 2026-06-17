@@ -326,3 +326,4 @@ modules:
     images:
       - config-service-signed
       - schema-service-signed
+      - onboarding-service-signed

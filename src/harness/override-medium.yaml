@@ -471,3 +471,13 @@ unified-data-platform:
       requests:
         cpu: 500m
         memory: 1Gi
+  onboarding-service:
+    enabled: true
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 1Gi

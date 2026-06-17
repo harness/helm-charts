@@ -9,6 +9,10 @@ dependencies:
   name: schema-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 0.13.9
+- condition: global.dataPlatform.enabled
+  name: onboarding-service
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.8.156
 description: A Helm chart for Harness Unified Data Platform (UDP) services
 name: unified-data-platform
 type: application

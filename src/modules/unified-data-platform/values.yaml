@@ -17,3 +17,13 @@ schema-service:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
+
+onboarding-service:
+  onboardingService:
+    image:
+      repository: harnesssecure/onboarding-service-signed
+      tagOverride: "0.8.156"
+    kafka:
+      enabled: false
+      tlsUserSecret: ""
+      tlsTruststoreSecret: ""
