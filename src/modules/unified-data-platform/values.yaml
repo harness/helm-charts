@@ -35,9 +35,12 @@ query-service:
       tagOverride: "0.53.8"
     serviceAccount:
       name: "default"
+    connectionSecrets: []
     appConfig:
       queryService:
         kafka:
           enabled: false
           tlsUserSecret: ""
           tlsTruststoreSecret: ""
+        data:
+          connections: []
