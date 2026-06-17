@@ -27,3 +27,13 @@ onboarding-service:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
+
+query-service:
+  queryService:
+    image:
+      repository: harnesssecure/query-service-signed
+      tagOverride: "0.53.7"
+    kafka:
+      enabled: false
+      tlsUserSecret: ""
+      tlsTruststoreSecret: ""

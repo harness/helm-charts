@@ -327,3 +327,4 @@ modules:
       - config-service-signed
       - schema-service-signed
       - onboarding-service-signed
+      - query-service-signed

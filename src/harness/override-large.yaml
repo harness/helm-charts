@@ -481,3 +481,13 @@ unified-data-platform:
       requests:
         cpu: 1
         memory: 2Gi
+  query-service:
+    enabled: true
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 1
+        memory: 2Gi
+      requests:
+        cpu: 1
+        memory: 2Gi

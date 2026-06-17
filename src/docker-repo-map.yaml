@@ -309,3 +309,7 @@ onboarding-service:
   image:
     registry: docker.io
     repository: harnesssecure/onboarding-service-signed
+query-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/query-service-signed
