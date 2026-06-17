@@ -22,7 +22,7 @@ onboarding-service:
   onboardingService:
     image:
       repository: harnesssecure/onboarding-service-signed
-      tagOverride: "0.8.156"
+      tagOverride: "0.8.180"
     kafka:
       enabled: false
       tlsUserSecret: ""
