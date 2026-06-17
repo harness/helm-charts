@@ -32,8 +32,10 @@ query-service:
   queryService:
     image:
       repository: harnesssecure/query-service-signed
-      tagOverride: "0.53.7"
-    kafka:
-      enabled: false
-      tlsUserSecret: ""
-      tlsTruststoreSecret: ""
+      tagOverride: "0.53.8"
+    appConfig:
+      queryService:
+        kafka:
+          enabled: false
+          tlsUserSecret: ""
+          tlsTruststoreSecret: ""
