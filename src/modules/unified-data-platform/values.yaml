@@ -33,6 +33,8 @@ query-service:
     image:
       repository: harnesssecure/query-service-signed
       tagOverride: "0.53.8"
+    serviceAccount:
+      name: ""
     appConfig:
       queryService:
         kafka:
