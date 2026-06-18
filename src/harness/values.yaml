@@ -146,6 +146,8 @@ global:
   objects:
     # -- annotations to be added to ingress Objects
     annotations: {}
+    ingress: []
+    grpcRoutes: []
   tls:
       enabled: true
       secretName: harness-cert
