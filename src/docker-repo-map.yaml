@@ -313,3 +313,7 @@ query-service:
   image:
     registry: docker.io
     repository: harnesssecure/query-service-signed
+dashboard-ui:
+  image:
+    registry: docker.io
+    repository: harnesssecure/dashboard-ui-signed

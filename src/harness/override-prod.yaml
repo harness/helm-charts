@@ -835,3 +835,17 @@ unified-data-platform:
       requests:
         cpu: 1
         memory: 2Gi
+  dashboard-ui:
+    hpa:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 80
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 1
+        memory: 512Mi
+      requests:
+        cpu: 200m
+        memory: 256Mi

@@ -491,3 +491,12 @@ unified-data-platform:
       requests:
         cpu: 1
         memory: 2Gi
+  dashboard-ui:
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 1
+        memory: 512Mi
+      requests:
+        cpu: 200m
+        memory: 256Mi

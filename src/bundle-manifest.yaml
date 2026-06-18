@@ -328,3 +328,4 @@ modules:
       - schema-service-signed
       - onboarding-service-signed
       - query-service-signed
+      - dashboard-ui-signed
