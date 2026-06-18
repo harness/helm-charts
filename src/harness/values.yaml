@@ -424,8 +424,6 @@ cd:
       image:
         tag: "7.4.9-jammy"
 # -- Config for platform-level services (always deployed by default to support all services)
-gateway-helm:
-  enabled: true
 
 platform:
   # -- Access control settings (taints, tolerations, and so on)
@@ -568,6 +566,8 @@ platform:
   # -- gateway settings (taints, tolerations, and so on)
   envoy-gateway:
     enabled: true
+    gateway-helm:
+      enabled: true
   gateway:
     config:
       ENV: "SMP"
