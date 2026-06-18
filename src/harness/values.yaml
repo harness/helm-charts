@@ -417,6 +417,11 @@ cd:
 platform:
   envoy-gateway:
     enabled: true
+    global:
+      gatewayAPI:
+        enabled: true
+        parentRef:
+          name: envoy-gateway
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
     postgresql:
