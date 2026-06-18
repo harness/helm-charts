@@ -8,8 +8,8 @@ dependencies:
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.74.1
-- name: gateway-helm
-  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+- name: envoy-gateway
+  repository: file://../../../envoy-gateway-harness/helm
   version: 1.10.0
 - condition: global.cdc.enabled
   name: change-data-capture
