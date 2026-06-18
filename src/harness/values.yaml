@@ -676,6 +676,7 @@ srm:
     tolerations: []
     keda:
       enabled: false
+    ingress: {}
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
