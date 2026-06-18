@@ -136,7 +136,7 @@ global:
     parentRef:
       name: envoy-gateway
     fallbackRoute:
-      serviceName: ingress-nginx-controller
+      serviceName: harness-ingress-controller
   # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
   hosts:
     - 'myhost.example.com'
@@ -572,6 +572,8 @@ platform:
     nodeSelector: {}
     tolerations: []
   # -- gateway settings (taints, tolerations, and so on)
+  envoy-gateway:
+    enabled: true
   gateway:
     config:
       ENV: "SMP"
