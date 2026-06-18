@@ -421,6 +421,8 @@ cd:
         tag: "7.4.9-jammy"
 # -- Config for platform-level services (always deployed by default to support all services)
 platform:
+  gateway-helm:
+    enabled: true
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
     postgresql:
