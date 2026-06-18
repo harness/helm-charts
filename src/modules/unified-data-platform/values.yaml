@@ -48,4 +48,4 @@ query-service:
 dashboard-ui:
   image:
     repository: harnesssecure/dashboard-ui-signed
-    tagOverride: "1.17.5"
+    tagOverride: "1.17.7"
