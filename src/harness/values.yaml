@@ -121,31 +121,26 @@ global:
   imageRegistry: ""
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
-  gatewayAPI:
-    enabled: true
-    className: envoy-gateway-class
-    parentRef:
-      name: envoy-gateway
   ingress:
     disableHostInIngress: true
-    gatewayAPI:
-      enabled: true
-      parentRef:
-        name: envoy-gateway
-      fallbackRoute:
-        serviceName: ingress-nginx-controller
     className: "harness"
     enabled: true
-    # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
-    hosts:
-      - 'myhost.example.com'
-    # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
-    # If not set, internal request routing would happen via global.loadbalancerUrl
-    ingressGatewayServiceUrl: ""
-    objects:
-      # -- annotations to be added to ingress Objects
-      annotations: {}
-    tls:
+  gatewayAPI:
+    enabled: true
+    parentRef:
+      name: envoy-gateway
+    fallbackRoute:
+      serviceName: ingress-nginx-controller
+  # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
+  hosts:
+    - 'myhost.example.com'
+  # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
+  # If not set, internal request routing would happen via global.loadbalancerUrl
+  ingressGatewayServiceUrl: ""
+  objects:
+    # -- annotations to be added to ingress Objects
+    annotations: {}
+  tls:
       enabled: true
       secretName: harness-cert
   # -- Istio Ingress Settings
@@ -419,14 +414,10 @@ cd:
       image:
         tag: "7.4.9-jammy"
 # -- Config for platform-level services (always deployed by default to support all services)
+gateway-helm:
+  enabled: true
+
 platform:
-  envoy-gateway:
-    enabled: true
-    global:
-      gatewayAPI:
-        enabled: true
-        parentRef:
-          name: envoy-gateway
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
     postgresql:
