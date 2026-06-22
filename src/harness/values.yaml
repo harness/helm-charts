@@ -426,6 +426,11 @@ cd:
 # -- Config for platform-level services (always deployed by default to support all services)
 
 platform:
+  # -- Envoy gateway controller (gateway-helm) must be enabled to deploy proxy pods/services
+  envoy-gateway:
+    enabled: true
+    gateway-helm:
+      enabled: true
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
     postgresql:
