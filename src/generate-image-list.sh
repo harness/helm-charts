@@ -137,6 +137,7 @@ python3 ${SCRIPT_DIR}/smp-tools.py bundle-images \
 log_info "Running bundle manifest validation"
 python3 ${SCRIPT_DIR}/smp-tools.py validate-bundle \
     --manifest ${SCRIPT_DIR}/bundle-manifest.yaml \
+    --raw-images ${OUTPUT_DIR}/images_raw.txt \
     --images-txt ${OUTPUT_DIR}/images.txt \
     --internal-txt ${OUTPUT_DIR}/images_internal.txt \
     --harness-dir ${HARNESS_DIR}
