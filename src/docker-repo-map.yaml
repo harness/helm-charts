@@ -297,3 +297,11 @@ iacm-manager:
   image:
     registry: docker.io
     repository: harnesssecure/iacm-manager-signed
+envoy-gateway:
+  image:
+    registry: docker.io
+    repository: envoyproxy/gateway
+ratelimit:
+  image:
+    registry: docker.io
+    repository: envoyproxy/ratelimit
