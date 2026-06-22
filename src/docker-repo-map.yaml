@@ -324,3 +324,11 @@ schema-registry:
     image:
       registry: docker.io
       repository: harnesssecure/schema-registry-backup-signed
+envoy-gateway:
+  image:
+    registry: docker.io
+    repository: envoyproxy/gateway
+ratelimit:
+  image:
+    registry: docker.io
+    repository: envoyproxy/ratelimit
