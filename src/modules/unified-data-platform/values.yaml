@@ -6,30 +6,18 @@ config-service:
       tlsTruststoreSecret: ""
 
 schema-service:
-  schemaService:
-    image:
-      repository: harnesssecure/schema-service-signed
-      tagOverride: "0.13.10"
     kafka:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
 
 onboarding-service:
-  onboardingService:
-    image:
-      repository: harnesssecure/onboarding-service-signed
-      tagOverride: "0.8.180"
     kafka:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
 
 query-service:
-  queryService:
-    image:
-      repository: harnesssecure/query-service-signed
-      tagOverride: "0.53.8"
     serviceAccount:
       name: "default"
     connectionSecrets: []
@@ -41,8 +29,3 @@ query-service:
           tlsTruststoreSecret: ""
         data:
           connections: []
-
-dashboard-ui:
-  image:
-    repository: harnesssecure/dashboard-ui-signed
-    tagOverride: "1.17.7"
