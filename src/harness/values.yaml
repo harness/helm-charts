@@ -132,8 +132,8 @@ global:
     className: "harness"
     enabled: true
   gatewayAPI:
-    enabled: true
-    parentRef:
+    create: true
+    gateway:
       name: envoy-gateway
     fallbackRoute:
       serviceName: harness-ingress-controller
@@ -435,8 +435,28 @@ platform:
   # -- Envoy gateway controller (gateway-helm) must be enabled to deploy proxy pods/services
   envoy-gateway:
     enabled: true
-    gateway-helm:
-      enabled: true
+    envoyConfiguration:
+      podDisruptionBudget:
+        minAvailable: 1
+      deployment:
+        replicas: 2
+        envoyGateway:
+          resources:
+            limits:
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+        pod:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        control-plane: envoy-gateway
+                    topologyKey: kubernetes.io/hostname
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
     postgresql:
