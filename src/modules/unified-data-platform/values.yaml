@@ -6,18 +6,21 @@ config-service:
       tlsTruststoreSecret: ""
 
 schema-service:
+  schemaService:
     kafka:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
 
 onboarding-service:
+  onboardingService:
     kafka:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
 
 query-service:
+  queryService:
     serviceAccount:
       name: "default"
     connectionSecrets: []
