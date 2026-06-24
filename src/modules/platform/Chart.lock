@@ -5,6 +5,9 @@ dependencies:
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.74.1
+- name: envoy-gateway
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.12.0
 - name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.57.0
@@ -68,5 +71,5 @@ dependencies:
 - name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.10.0
-digest: sha256:8ef1355ef75f77f105530d19b7a80eb721cbeaf830b6171d30d6c02cedcaccea
-generated: "2026-06-11T07:31:49.323305796Z"
+digest: sha256:4962d70388de9c24e6bafb5d4a6287bbdb26a6551b4b0af5a2cf046d5386bf75
+generated: "2026-06-24T15:43:07.665224-06:00"
