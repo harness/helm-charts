@@ -50,7 +50,7 @@ global:
   iacm:
     enabled: false
   # -- Enable to install Harness Unified Data Platform (UDP)
-  dataPlatform:
+  unifiedDataPlatform:
     enabled: true
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:

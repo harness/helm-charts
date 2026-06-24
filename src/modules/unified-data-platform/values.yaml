@@ -1,3 +1,6 @@
+unifiedDataPlatform:
+  authzServiceSecretValueDefault: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
+
 config-service:
   configService:
     kafka:
@@ -9,8 +12,8 @@ config-service:
       secretName: query-service-ext-secret-0
       key: UDP_INTERNAL_SECRET
     authzServiceSecret:
-      secretName: ng-manager-ext-secret-0
-      key: NEXT_GEN_MANAGER_SECRET
+      secretName: udp-shared-secret
+      key: AUTHZ_SERVICE_SECRET
       optional: true
 
 schema-service:
@@ -24,8 +27,8 @@ schema-service:
       secretName: query-service-ext-secret-0
       key: UDP_INTERNAL_SECRET
     authzServiceSecret:
-      secretName: ng-manager-ext-secret-0
-      key: NEXT_GEN_MANAGER_SECRET
+      secretName: udp-shared-secret
+      key: AUTHZ_SERVICE_SECRET
       optional: true
 
 onboarding-service:
@@ -54,6 +57,6 @@ query-service:
           connections: []
   secrets:
     authzServiceSecret:
-      secretName: ng-manager-ext-secret-0
-      key: NEXT_GEN_MANAGER_SECRET
+      secretName: udp-shared-secret
+      key: AUTHZ_SERVICE_SECRET
       optional: true
