@@ -10,6 +10,8 @@ modules:
     requires: []
     bucket_path: "platform"
     images:
+      - gateway
+      - ratelimit
       - busybox
       - ci-scm-signed
       - template-service-signed
