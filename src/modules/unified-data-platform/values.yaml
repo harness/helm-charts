@@ -4,6 +4,14 @@ config-service:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
+  secrets:
+    udpInternalSecret:
+      secretName: query-service-ext-secret-0
+      key: UDP_INTERNAL_SECRET
+    authzServiceSecret:
+      secretName: ng-manager-ext-secret-0
+      key: NEXT_GEN_MANAGER_SECRET
+      optional: true
 
 schema-service:
   schemaService:
@@ -11,6 +19,14 @@ schema-service:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
+  secrets:
+    udpInternalSecret:
+      secretName: query-service-ext-secret-0
+      key: UDP_INTERNAL_SECRET
+    authzServiceSecret:
+      secretName: ng-manager-ext-secret-0
+      key: NEXT_GEN_MANAGER_SECRET
+      optional: true
 
 onboarding-service:
   onboardingService:
@@ -18,6 +34,10 @@ onboarding-service:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
+  secrets:
+    udpInternalSecret:
+      secretName: query-service-ext-secret-0
+      key: UDP_INTERNAL_SECRET
 
 query-service:
   queryService:
@@ -32,3 +52,8 @@ query-service:
           tlsTruststoreSecret: ""
         data:
           connections: []
+  secrets:
+    authzServiceSecret:
+      secretName: ng-manager-ext-secret-0
+      key: NEXT_GEN_MANAGER_SECRET
+      optional: true
