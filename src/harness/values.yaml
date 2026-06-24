@@ -135,7 +135,7 @@ global:
     # this enables subchart services to create all the HTTPRoutes
     enabled: true
     create: true
-    gateway:
+    parentRef:
       name: envoy-gateway
     fallbackRoute:
       serviceName: harness-ingress-controller
