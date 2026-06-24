@@ -126,6 +126,8 @@ global:
     className: "harness"
     enabled: true
   gatewayAPI:
+    # this enables subchart services to create all the HTTPRoutes
+    enabled: true
     create: true
     gateway:
       name: envoy-gateway
