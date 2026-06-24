@@ -566,6 +566,10 @@ platform:
         controller:
           # -- annotations to be addded to ingress Controller
           annotations: {}
+          config:
+            # -- Trust X-Forwarded-Proto from envoy-gateway so nginx does not
+            # force-ssl-redirect HTTP traffic forwarded from the gateway.
+            use-forwarded-headers: "true"
         # -- Create Nginx Controller.  True will deploy a controller into your cluster
         create: false
         healthNodePort: ""
