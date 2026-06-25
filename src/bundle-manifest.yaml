@@ -281,6 +281,7 @@ modules:
     bucket_path: "ssca/plugins"
     exclude_full:
       - ssca-attestation-plugin
+      - ssca-ai-bom-plugin
     images:
       - ssca-plugin
       - slsa-plugin
