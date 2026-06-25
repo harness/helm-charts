@@ -1,5 +1,6 @@
 unifiedDataPlatform:
   authzServiceSecretValueDefault: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
+  udpInternalSecretValueDefault: "UdpInternalHmacSharedBetweenQuerySchemaConfigOnboardingUdpServicesAuthKey2026062"
 
 config-service:
   configService:
@@ -9,7 +10,7 @@ config-service:
       tlsTruststoreSecret: ""
   secrets:
     udpInternalSecret:
-      secretName: query-service-ext-secret-0
+      secretName: udp-shared-secret
       key: UDP_INTERNAL_SECRET
     authzServiceSecret:
       secretName: udp-shared-secret
@@ -24,7 +25,7 @@ schema-service:
       tlsTruststoreSecret: ""
   secrets:
     udpInternalSecret:
-      secretName: query-service-ext-secret-0
+      secretName: udp-shared-secret
       key: UDP_INTERNAL_SECRET
     authzServiceSecret:
       secretName: udp-shared-secret
@@ -39,7 +40,7 @@ onboarding-service:
       tlsTruststoreSecret: ""
   secrets:
     udpInternalSecret:
-      secretName: query-service-ext-secret-0
+      secretName: udp-shared-secret
       key: UDP_INTERNAL_SECRET
 
 query-service:
@@ -56,6 +57,9 @@ query-service:
         data:
           connections: []
   secrets:
+    udpInternalSecret:
+      secretName: udp-shared-secret
+      key: UDP_INTERNAL_SECRET
     authzServiceSecret:
       secretName: udp-shared-secret
       key: AUTHZ_SERVICE_SECRET
