@@ -344,3 +344,4 @@ registry-processor:
   image:
     registry: docker.io
     repository: harnesssecure/registry-processor-signed
+
