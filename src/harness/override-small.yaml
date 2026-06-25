@@ -507,3 +507,44 @@ data-platform:
       limits:
         cpu: "1"
         memory: "2Gi"
+ar:
+  registry-api:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 1024Mi
+      requests:
+        cpu: 256m
+        memory: 1024Mi
+  registry-processor:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 128m
+        memory: 512Mi
+  registry-async-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 1024Mi
+      requests:
+        cpu: 256m
+        memory: 1024Mi
+  ipqs-service:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 64m
+        memory: 256Mi
