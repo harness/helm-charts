@@ -572,7 +572,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.05.89206
+        tag: 26.06.89303
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
