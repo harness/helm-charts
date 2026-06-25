@@ -355,11 +355,20 @@ modules:
   ar:
     description: "Artifact Registry"
     bundle_type: combined
+<<<<<<< HEAD
     requires: [platform]
+=======
+    requires: [ ng-manager ]
+>>>>>>> 480bdab8 (resolve conflict)
     bucket_path: "ar"
     images:
       - registry-api-signed
       - registry-async-service-signed
+<<<<<<< HEAD
       - registry-processor-signed
       - ipqs-service-signed
       - ip-data-bundle-ipqs-signed
+=======
+      - ipqs-service-signed
+      - registry-processor-signed
+>>>>>>> 480bdab8 (resolve conflict)
