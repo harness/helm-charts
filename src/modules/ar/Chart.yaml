@@ -12,7 +12,7 @@ dependencies:
   version: 1.8.0
 - name: registry-processor
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.57.0
+  version: 1.58.3
 description: A Helm chart for Harness Artifact Registry
 name: ar
 type: application
