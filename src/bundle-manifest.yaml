@@ -347,3 +347,14 @@ modules:
       - schema-compatibility-signed
       - schema-registry-prometheus-jmx-exporter-signed
       - schema-registry-backup-signed
+
+  ar:
+    description: "Artifact Registry"
+    bundle_type: combined
+    requires: [ ng-manager ]
+    bucket_path: "ar"
+    images:
+      - registry-api-signed
+      - registry-async-service-signed
+      - ipqs-service-signed
+      - registry-processor-signed
