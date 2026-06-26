@@ -29,11 +29,20 @@ PG_STS_NAME="${PG_STS_NAME:-postgres}"
 PG_POD="${PG_STS_NAME}-0"
 PG_USER="${PG_USER:-postgres}"
 
-# --- Image configuration ---
-IMAGE_REGISTRY="${IMAGE_REGISTRY:-docker.io}"
-PG_NEW_IMAGE="${PG_NEW_IMAGE:-${IMAGE_REGISTRY}/soumikghosh03/postgres:16.14-bookworm}"
-UPGRADE_IMAGE="${UPGRADE_IMAGE:-${IMAGE_REGISTRY}/soumikghosh03/pg-upgrade:14-to-16}"
-IMAGE_PULL_SECRET="${IMAGE_PULL_SECRET:-}"
+# --- Image configuration (from pg-upgrade-config ConfigMap) ---
+PG_NEW_IMAGE="${PG_NEW_IMAGE:-$(kubectl get configmap pg-upgrade-config -n "$NAMESPACE" -o jsonpath='{.data.PG_NEW_IMAGE}' 2>/dev/null)}"
+UPGRADE_IMAGE="${UPGRADE_IMAGE:-$(kubectl get configmap pg-upgrade-config -n "$NAMESPACE" -o jsonpath='{.data.UPGRADE_IMAGE}' 2>/dev/null)}"
+
+if [[ -z "$PG_NEW_IMAGE" || -z "$UPGRADE_IMAGE" ]]; then
+  echo "ERROR: Could not read images from ConfigMap 'pg-upgrade-config' in namespace '$NAMESPACE'."
+  echo "  PG_NEW_IMAGE=${PG_NEW_IMAGE:-<empty>}"
+  echo "  UPGRADE_IMAGE=${UPGRADE_IMAGE:-<empty>}"
+  echo "Ensure the ConfigMap exists (helm upgrade) or pass images via environment variables."
+  exit 1
+fi
+
+# --- Image pull secret (read from postgres StatefulSet at runtime) ---
+IMAGE_PULL_SECRET=$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.imagePullSecrets[0].name}' 2>/dev/null || true)
 
 UPGRADE_POD="pg-upgrade-job"
 
@@ -102,7 +111,7 @@ run_verify() {
     for db in $dbs; do
       echo "=== DATABASE: $db ==="
       _pg_exec "$pod" "$db" "
-        SELECT schemaname || '.' || relname || '|' || n_live_tup
+        SELECT '${db}:' || schemaname || '.' || relname || '|' || n_live_tup
         FROM pg_stat_user_tables
         ORDER BY schemaname, relname;
       "
@@ -135,20 +144,29 @@ generate_report() {
     local passed=0
     local failed=0
     local skipped=0
-
-    echo "┌──────────────────────────────────────────┬──────────────┬──────────────┬────────┐"
-    echo "│ Table                                    │ Before       │ After        │ Status │"
-    echo "├──────────────────────────────────────────┼──────────────┼──────────────┼────────┤"
-
     local current_db=""
 
-    while IFS='|' read -r table rows; do
-      [[ -z "$table" ]] && continue
-      local db_section
-      db_section=$(grep -B 100 "^${table}|" "$VERIFY_BEFORE" | grep "^=== DATABASE:" | tail -1 | sed 's/=== DATABASE: //' | sed 's/ ===//')
+    while IFS='|' read -r key rows; do
+      [[ -z "$key" ]] && continue
+      rows=$(echo "$rows" | tr -d '[:space:]')
+
+      local db table
+      db="${key%%:*}"
+      table="${key#*:}"
+
+      if [[ "$db" != "$current_db" ]]; then
+        [[ -n "$current_db" ]] && echo "├──────────────────────────────────────────┼──────────────┼──────────────┼────────┤"
+        current_db="$db"
+        echo ""
+        echo "┌─ DATABASE: $db"
+        echo "├──────────────────────────────────────────┬──────────────┬──────────────┬────────┐"
+        echo "│ Table                                    │ Before       │ After        │ Status │"
+        echo "├──────────────────────────────────────────┼──────────────┼──────────────┼────────┤"
+      fi
 
       local after_rows
-      after_rows=$(grep "^${table}|" "$VERIFY_AFTER" 2>/dev/null | cut -d'|' -f2 || echo "MISSING")
+      after_rows=$(grep -m1 "^${key}|" "$VERIFY_AFTER" 2>/dev/null | cut -d'|' -f2 | tr -d '[:space:]' || true)
+      [[ -z "$after_rows" ]] && after_rows="MISSING"
 
       total=$((total + 1))
 
@@ -161,7 +179,7 @@ generate_report() {
         passed=$((passed + 1))
       else
         local diff_pct=0
-        if [[ "$rows" -gt 0 ]] 2>/dev/null; then
+        if [[ "$rows" =~ ^[0-9]+$ ]] && [[ "$rows" -gt 0 ]]; then
           diff_pct=$(( (after_rows - rows) * 100 / rows ))
         fi
         if [[ ${diff_pct#-} -le 5 ]]; then
@@ -199,10 +217,36 @@ generate_report() {
 log "=== PostgreSQL pg_upgrade ($PG_OLD_VERSION → $PG_NEW_VERSION, --link) ==="
 log "Namespace: $NAMESPACE"
 log "StatefulSet: $PG_STS_NAME"
-log "Image registry: $IMAGE_REGISTRY"
 log "New image: $PG_NEW_IMAGE"
 log "Upgrade image: $UPGRADE_IMAGE"
 [[ -n "$IMAGE_PULL_SECRET" ]] && log "Image pull secret: $IMAGE_PULL_SECRET"
+
+# -----------------------------------------------
+# Version pre-check
+# -----------------------------------------------
+SCALED_UP_FOR_CHECK=false
+REPLICAS_NOW=$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.status.readyReplicas}' 2>/dev/null || echo "0")
+if [[ "${REPLICAS_NOW:-0}" == "0" ]]; then
+  log "Pod is scaled down. Scaling up to 1 for version check..."
+  kubectl scale sts -n "$NAMESPACE" "$PG_STS_NAME" --replicas=1
+  kubectl wait --for=condition=ready pod/"$PG_POD" -n "$NAMESPACE" --timeout=300s
+  SCALED_UP_FOR_CHECK=true
+fi
+
+CURRENT_PG_VERSION=$(kubectl exec -n "$NAMESPACE" "$PG_POD" -- bash -c "cat ${PG_DATADIR}/PG_VERSION 2>/dev/null || echo unknown" 2>/dev/null || echo "unknown")
+log "Current PG version on disk: $CURRENT_PG_VERSION"
+
+if [[ "$CURRENT_PG_VERSION" == "$PG_NEW_VERSION" ]]; then
+  log "PostgreSQL is already at version $PG_NEW_VERSION. Nothing to do."
+  [[ "$SCALED_UP_FOR_CHECK" == "true" ]] && log "Leaving pod scaled up (already at target version)."
+  exit 0
+fi
+
+if [[ "$CURRENT_PG_VERSION" != "$PG_OLD_VERSION" ]]; then
+  log "ERROR: Expected PG version $PG_OLD_VERSION but found $CURRENT_PG_VERSION. Aborting."
+  [[ "$SCALED_UP_FOR_CHECK" == "true" ]] && kubectl scale sts -n "$NAMESPACE" "$PG_STS_NAME" --replicas=0
+  exit 1
+fi
 
 # -----------------------------------------------
 # Pre-upgrade verification
