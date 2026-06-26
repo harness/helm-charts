@@ -306,14 +306,14 @@ kafka-operator:
     image:
       registry: docker.io
       repository: harnesssecure/kafka-operator-crd-updater-signed
-kafka-platform:
-  image:
-    registry: docker.io
-    repository: harnesssecure/kafka-platform-signed
-  operatorVersionCheck:
+  kafka:
     image:
       registry: docker.io
-      repository: harnesssecure/kafka-kubectl-signed
+      repository: harnesssecure/strimzi-kafka-signed
+  kafkaConnect:
+    image:
+      registry: docker.io
+      repository: harnesssecure/strimzi-kafka-connect-signed
 schema-registry:
   image:
     registry: docker.io
@@ -327,11 +327,7 @@ schema-registry:
     image:
       registry: docker.io
       repository: harnesssecure/schema-compatibility-signed
-kafka-connect-strimzi:
-  image:
-    registry: docker.io
-    repository: harnesssecure/kafka-connect-strimzi-signed
-  operatorVersionCheck:
+  backup:
     image:
       registry: docker.io
-      repository: harnesssecure/kafka-connect-kubectl-signed
+      repository: harnesssecure/schema-registry-backup-signed
