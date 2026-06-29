@@ -795,7 +795,6 @@ postmigrationCheck:
   nodeSelector: {}
   tolerations: []
   affinity: {}
-
 pg-upgrade:
   upgrade:
     image:
