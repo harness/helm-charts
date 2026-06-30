@@ -4,24 +4,24 @@ dependencies:
 - condition: global.kafka.enabled
   name: kafka-operator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.9.0
+  version: 1.12.2
 - condition: global.kafka.enabled
   name: kafka-platform
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 2.6.0
+  version: 2.10.0
 - condition: global.kafka.enabled
   name: kafka-resources
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.69.2
+  version: 1.84.0
 - condition: global.kafka.enabled
   name: schema-registry
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.7.0
+  version: 1.11.3
 - condition: global.kafka.enabled
   name: kafka-connect-strimzi
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.65.1
+  version: 1.75.0
 description: Helm chart for Harness Platform
 name: data-platform
 type: application
-version: 0.42.0
+version: 0.43.0
