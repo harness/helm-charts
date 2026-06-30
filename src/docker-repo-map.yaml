@@ -302,18 +302,42 @@ kafka-operator:
     image:
       registry: docker.io
       repository: harnesssecure/kafka-operator-signed
+    kafka:
+      image:
+        registry: docker.io
+        repository: harnesssecure/strimzi-kafka-signed
+    kafkaConnect:
+      image:
+        registry: docker.io
+        repository: harnesssecure/strimzi-kafka-connect-signed
+    kafkaExporter:
+      image:
+        registry: docker.io
+        repository: harnesssecure/strimzi-kafka-signed
+    cruiseControl:
+      image:
+        registry: docker.io
+        repository: harnesssecure/strimzi-kafka-signed
+    kafkaMirrorMaker2:
+      image:
+        registry: docker.io
+        repository: harnesssecure/strimzi-kafka-signed
+    topicOperator:
+      image:
+        registry: docker.io
+        repository: harnesssecure/kafka-operator-signed
+    userOperator:
+      image:
+        registry: docker.io
+        repository: harnesssecure/kafka-operator-signed
+    kafkaInit:
+      image:
+        registry: docker.io
+        repository: harnesssecure/kafka-operator-signed
   crdUpdateJob:
     image:
       registry: docker.io
       repository: harnesssecure/kafka-operator-crd-updater-signed
-  kafka:
-    image:
-      registry: docker.io
-      repository: harnesssecure/strimzi-kafka-signed
-  kafkaConnect:
-    image:
-      registry: docker.io
-      repository: harnesssecure/strimzi-kafka-connect-signed
 schema-registry:
   image:
     registry: docker.io
