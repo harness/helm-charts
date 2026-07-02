@@ -460,3 +460,56 @@ iacm:
       requests:
         cpu: 128m
         memory: 256Mi
+data-platform:
+  kafka-platform:
+    nodePools:
+      brokers:
+        replicas: 3
+        resources:
+          requests:
+            cpu: 3
+            memory: 8Gi
+          limits:
+            cpu: 6
+            memory: 8Gi
+        storage:
+          type: jbod
+          volumes:
+            - id: 0
+              type: persistent-claim
+              size: 100Gi
+              class: ""
+              kraftMetadata: shared
+              deleteClaim: false
+            - id: 1
+              type: persistent-claim
+              size: 100Gi
+              class: ""
+              deleteClaim: false
+      controllers:
+        replicas: 3
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2Gi
+          limits:
+            cpu: 1
+            memory: 2Gi
+        storage:
+          type: jbod
+          volumes:
+            - id: 0
+              type: persistent-claim
+              size: 20Gi
+              class: ""
+              kraftMetadata: shared
+              deleteClaim: false
+  kafka-connect-strimzi:
+    replicas: 4
+    resources:
+      requests:
+        cpu: 1
+        memory: "4Gi"
+      limits:
+        cpu: 2
+        memory: "4Gi"

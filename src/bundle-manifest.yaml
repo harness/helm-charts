@@ -343,13 +343,11 @@ modules:
     requires: [platform]
     bucket_path: "data-platform"
     images:
-      - strimzi-operator
-      - kafka-connect-strimzi
-      - schema-registry
-      - kafka-platform
-      - schema-compatibility
       - kafka-operator
-      - schema-registry-prometheux-jmx-exporter
-      - kafka-kubectl
       - kafka-operator-crd-updater
-      - kafka-connect-kubectl
+      - strimzi-kafka
+      - strimzi-kafka-connect
+      - schema-registry
+      - schema-compatibility
+      - schema-registry-prometheux-jmx-exporter
+      - schema-registry-backup
