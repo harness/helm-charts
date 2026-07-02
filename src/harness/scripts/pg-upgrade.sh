@@ -30,8 +30,8 @@ PG_POD="${PG_STS_NAME}-0"
 PG_USER="${PG_USER:-postgres}"
 
 # --- Image configuration (from pg-upgrade-config ConfigMap) ---
-PG_NEW_IMAGE="${PG_NEW_IMAGE:-$(kubectl get configmap pg-upgrade-config -n "$NAMESPACE" -o jsonpath='{.data.PG_NEW_IMAGE}' 2>/dev/null)}"
-UPGRADE_IMAGE="${UPGRADE_IMAGE:-$(kubectl get configmap pg-upgrade-config -n "$NAMESPACE" -o jsonpath='{.data.UPGRADE_IMAGE}' 2>/dev/null)}"
+PG_NEW_IMAGE="${PG_NEW_IMAGE:-$(kubectl get configmap pg-upgrade-config -n "$NAMESPACE" -o jsonpath='{.data.PG_NEW_IMAGE}' 2>/dev/null || true)}"
+UPGRADE_IMAGE="${UPGRADE_IMAGE:-$(kubectl get configmap pg-upgrade-config -n "$NAMESPACE" -o jsonpath='{.data.UPGRADE_IMAGE}' 2>/dev/null || true)}"
 
 if [[ -z "$PG_NEW_IMAGE" || -z "$UPGRADE_IMAGE" ]]; then
   echo "ERROR: Could not read images from ConfigMap 'pg-upgrade-config' in namespace '$NAMESPACE'."
