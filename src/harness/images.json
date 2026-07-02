@@ -1,0 +1,325 @@
+{
+  "modules": [
+    {
+      "name": "platform",
+      "description": "Core Platform Services (Required for all installations)",
+      "images": [
+        "docker.io/busybox:1.37.0",
+        "docker.io/harnesssecure/ci-scm-signed:1.50.0",
+        "docker.io/harnesssecure/template-service-signed:1.152.0",
+        "docker.io/harnesssecure/platform-service-signed:1.130.1",
+        "docker.io/harnesssecure/pipeline-service-signed:1.190.0",
+        "docker.io/harnesssecure/ng-manager-signed:1.150.5",
+        "docker.io/harnesssecure/nextgenui-signed:1.137.8",
+        "docker.io/harnesssecure/minio:RELEASE.2025-10-15T17-29-55Z-jammy",
+        "docker.io/harnesssecure/log-service-signed:1.48.1",
+        "docker.io/harnesssecure/cdcdata-signed:1.57.0",
+        "docker.io/harnesssecure/accesscontrol-service-signed:1.267.0",
+        "docker.io/harness/delegate-proxy-signed:1.9.0",
+        "docker.io/harnesssecure/gateway-signed:1.66.1",
+        "docker.io/harnesssecure/helm-init-container:1.9.0",
+        "docker.io/harnesssecure/manager-signed:1.149.4",
+        "docker.io/harnesssecure/mongo:7.0.34-jammy",
+        "docker.io/harnesssecure/ng-auth-ui-signed:1.43.0",
+        "docker.io/harness/redis:7.4.9-jammy",
+        "docker.io/harnesssecure/redis:7.4.9-jammy",
+        "docker.io/harnesssecure/postgresql:14.20-debian",
+        "docker.io/harnesssecure/policy-mgmt:1.52.0",
+        "docker.io/harnesssecure/smp-service-discovery-server-signed:0.68.1",
+        "docker.io/harnesssecure/debezium-service-signed:1.27.0",
+        "docker.io/harnesssecure/audit-event-streaming-signed:1.96.0",
+        "docker.io/harnesssecure/queue-service-signed:1.10.0",
+        "docker.io/harness/service-discovery-collector:0.68.0",
+        "docker.io/harnesssecure/ng-dashboard-aggregator-signed:1.116.0",
+        "docker.io/harnesssecure/controller:1.14.4-jammy",
+        "registry.k8s.io/defaultbackend-amd64:1.5",
+        "docker.io/harnesssecure/redis_exporter:1.83.0-jammy",
+        "docker.io/prometheuscommunity/postgres-exporter:v0.19.1",
+        "docker.io/harnesssecure/mongodb-exporter:0.51.0-jammy",
+        "harnesssecure/vault-secret-loader:1.0.9",
+        "docker.io/harnesssecure/ui-signed:1.36.2",
+        "docker.io/harnesssecure/delegate:26.05.89206.minimal",
+        "docker.io/harnesssecure/delegate:26.05.89206.minimal-fips"
+      ]
+    },
+    {
+      "name": "platform-agents",
+      "description": "Platform Agents",
+      "images": [
+        "docker.io/harnesssecure/delegate:26.05.89206",
+        "docker.io/harnesssecure/delegate:26.05.89206.minimal",
+        "docker.io/harnesssecure/delegate:26.05.89206.minimal-fips",
+        "docker.io/harnesssecure/delegate:26.05.89206-fips",
+        "docker.io/harness/upgrader:1.12.0",
+        "docker.io/harness/upgrader:1.12.0-fips"
+      ]
+    },
+    {
+      "name": "dashboard",
+      "description": "Dashboard",
+      "images": [
+        "docker.io/harnesssecure/looker-signed:1.18.0",
+        "docker.io/harnesssecure/dashboard-service-signed:1.113.0",
+        "docker.io/harness/statsd-exporter:4.0-prometheus-busybox-2"
+      ]
+    },
+    {
+      "name": "cdng",
+      "description": "Continuous Deployment",
+      "images": [
+        "docker.io/harnesssecure/gitops-service-signed:1.58.0",
+        "docker.io/harnesssecure/cv-nextgen-signed:1.66.0",
+        "docker.io/harnesssecure/le-nextgen-signed:1.19.0",
+        "docker.io/harness/srm-ui-signed:1.16.2"
+      ]
+    },
+    {
+      "name": "cdng-plugins",
+      "description": "CD Deployment Plugins",
+      "images": [
+        "harness/drone-git:1.4.1-rootless",
+        "harness/drone-git:1.7.16-rootless",
+        "harness/drone-git:1.7.20-rootless",
+        "harness/download-aws-s3:1.2.1-rootless-linux",
+        "harness/download-google-cloud-storage:0.0.2-linux-amd64",
+        "harness/download-harness-store:1.0.0-rootless-linux",
+        "harness/aws-sam-plugin:nodejs20.x-1.120.0-1.0.1-beta-linux-amd64"
+      ]
+    },
+    {
+      "name": "cdng-agents",
+      "description": "CD Agents",
+      "images": [
+        "docker.io/harness/argocd:v3.3.9",
+        "docker.io/harness/gitops-agent:v0.118.0",
+        "docker.io/harness/haproxy:3.2.14-alpine3.23",
+        "docker.io/harness/shellcheck:v0.11.0",
+        "docker.io/harness/gitops-agent-installer-helper:v0.0.15"
+      ]
+    },
+    {
+      "name": "ci",
+      "description": "Continuous Integration",
+      "images": [
+        "docker.io/harnesssecure/ci-manager-signed:1.141.5",
+        "docker.io/harnesssecure/ti-service-signed:1.71.3",
+        "harness/ci-addon:1.18.10",
+        "harness/ci-addon:1.18.23",
+        "harness/ci-addon:rootless-1.18.10",
+        "harness/ci-addon:rootless-1.18.23",
+        "harness/ci-lite-engine:1.18.10",
+        "harness/ci-lite-engine:1.18.23",
+        "harness/ci-lite-engine:rootless-1.18.10",
+        "harness/ci-lite-engine:rootless-1.18.23"
+      ]
+    },
+    {
+      "name": "ci-plugins",
+      "description": "CI Build Plugins",
+      "images": [
+        "harness/drone-git:1.4.1-rootless",
+        "harness/drone-git:1.7.16-rootless",
+        "harness/drone-git:1.7.20-rootless",
+        "harness/harness-cache-server:1.7.13",
+        "harness/harness-cache-server:1.7.17",
+        "plugins/kaniko:1.13.6",
+        "plugins/kaniko-acr:1.13.6",
+        "plugins/kaniko-ecr:1.13.6",
+        "plugins/kaniko-gcr:1.13.6",
+        "plugins/artifactory:1.8.5",
+        "plugins/gcs:1.6.10",
+        "plugins/cache:1.10.7",
+        "plugins/s3:1.8.0",
+        "plugins/buildx:1.3.19",
+        "plugins/buildx-acr:1.5.0",
+        "plugins/buildx-ecr:1.4.9",
+        "plugins/buildx-gar:1.4.9",
+        "plugins/buildx-gcr:1.4.9",
+        "plugins/docker:21.2.6",
+        "plugins/ecr:21.2.6",
+        "plugins/gar:21.2.6",
+        "plugins/gcr:21.2.6",
+        "plugins/acr:21.2.6"
+      ]
+    },
+    {
+      "name": "sto",
+      "description": "Security Testing Orchestration",
+      "images": [
+        "docker.io/harnesssecure/stocore-signed:1.195.0",
+        "docker.io/harnesssecure/ticket-service-signed:1.12.0",
+        "docker.io/harness/refid-cache:latest",
+        "harnesssecure/refid-cache:latest",
+        "harness/sto-plugin:latest",
+        "harness/sto-plugin:latest-fips"
+      ]
+    },
+    {
+      "name": "sto-scanners",
+      "description": "STO Security Scanners",
+      "images": [
+        "harness/anchore-job-runner:latest",
+        "harness/aqua-security-job-runner:latest",
+        "harness/aqua-trivy-job-runner:latest",
+        "harness/aqua-trivy-job-runner:latest-fips",
+        "harness/aws-ecr-job-runner:latest",
+        "harness/aws-security-hub-job-runner:latest",
+        "harness/bandit-job-runner:latest",
+        "harness/bandit-job-runner:latest-fips",
+        "harness/blackduckhub-job-runner:latest",
+        "harness/brakeman-job-runner:latest",
+        "harness/burp-job-runner:latest",
+        "harness/checkmarx-job-runner:latest",
+        "harness/checkov-job-runner:latest",
+        "harness/docker-content-trust-job-runner:latest",
+        "harness/fossa-job-runner:latest",
+        "harness/github-advanced-security-job-runner:latest",
+        "harness/gitleaks-job-runner:latest",
+        "harness/grype-job-runner:latest",
+        "harness/grype-job-runner:latest-fips",
+        "harness/modelscan-job-runner:latest",
+        "harness/nexusiq-job-runner:latest",
+        "harness/nexusiq-job-runner:latest-fips",
+        "harness/nikto-job-runner:latest",
+        "harness/nmap-job-runner:latest",
+        "harness/osv-job-runner:latest",
+        "harness/osv-job-runner:latest-fips",
+        "harness/owasp-dependency-check-job-runner:latest",
+        "harness/prowler-job-runner:latest",
+        "harness/semgrep-job-runner:latest",
+        "harness/semgrep-job-runner:latest-fips",
+        "harness/shiftleft-job-runner:latest",
+        "harness/snyk-job-runner:latest",
+        "harness/sonarqube-agent-job-runner:latest",
+        "harness/sonarqube-agent-job-runner:latest-fips",
+        "harness/sysdig-job-runner:latest",
+        "harness/traceable-job-runner:latest",
+        "harness/twistlock-job-runner:latest",
+        "harness/twistlock-job-runner:latest-fips",
+        "harness/veracode-agent-job-runner:latest",
+        "harness/whitesource-agent-job-runner:latest",
+        "harness/wiz-job-runner:latest",
+        "harness/zap-job-runner:latest"
+      ]
+    },
+    {
+      "name": "ff",
+      "description": "Feature Flags",
+      "images": [
+        "docker.io/harnesssecure/ff-cron-signed:1.1200.0",
+        "docker.io/harnesssecure/ff-server-analytics-db-migration-signed:1.1200.0",
+        "docker.io/harnesssecure/ff-server-primary-db-migration-signed:1.1200.0",
+        "docker.io/harnesssecure/ff-service-signed:1.1200.0",
+        "docker.io/harnesssecure/ff-pushpin-signed:1.1139.0",
+        "docker.io/harnesssecure/ff-pushpin-worker-signed:1.1139.0"
+      ]
+    },
+    {
+      "name": "ccm",
+      "description": "Cloud Cost Management",
+      "images": [
+        "docker.io/harnesssecure/batch-processing-signed:1.88.14",
+        "docker.io/harnesssecure/ce-anomaly-detection-signed:1.28.5",
+        "docker.io/harnesssecure/ce-cloud-info-signed:1.16.3",
+        "docker.io/harnesssecure/ce-nextgen-signed:1.90.11",
+        "docker.io/harnesssecure/event-service-signed:1.18.1",
+        "docker.io/harnesssecure/ng-ce-ui:1.86.5",
+        "docker.io/harness/telescopes-signed:1.7.2",
+        "docker.io/harnesssecure/clickhouse:25.12.5-jammy",
+        "docker.io/harness/ccm-gcp-smp-signed:100088"
+      ]
+    },
+    {
+      "name": "ce",
+      "description": "Chaos Engineering",
+      "images": [
+        "docker.io/harnesssecure/smp-chaos-k8s-ifs-signed:1.88.0",
+        "docker.io/harnesssecure/smp-chaos-linux-infra-controller-signed:1.88.0",
+        "docker.io/harnesssecure/smp-chaos-linux-infra-server-signed:1.88.0",
+        "docker.io/harnesssecure/smp-chaos-manager-signed:1.88.2",
+        "docker.io/harnesssecure/smp-chaos-web-signed:1.88.1",
+        "docker.io/harness/source-probe:main-latest",
+        "docker.io/harnesssecure/smp-chaos-bg-processor-signed:1.88.2",
+        "docker.io/harnesssecure/chaos-machine-ifc-signed:1.88.0",
+        "docker.io/harnesssecure/chaos-machine-ifs-signed:1.88.0",
+        "docker.io/harnesssecure/enterprise-chaos-hub-signed:1.88.2",
+        "docker.io/harnesssecure/load-test-manager-signed:1.12.2"
+      ]
+    },
+    {
+      "name": "ce-plugins",
+      "description": "Chaos Engineering Plugins",
+      "images": [
+        "docker.io/harness/chaos-log-watcher:1.88.0",
+        "docker.io/harness/chaos-ddcr:1.88.0",
+        "docker.io/harness/chaos-ddcr-faults:1.88.0",
+        "docker.io/harness/chaos-event-watcher:1.88.0"
+      ]
+    },
+    {
+      "name": "ssca",
+      "description": "Supply Chain Security",
+      "images": [
+        "docker.io/harnesssecure/ssca-manager-signed:1.61.13",
+        "docker.io/harnesssecure/ssca-ui-signed:0.48.5",
+        "docker.io/harnesssecure/component-service-signed:1.14.0",
+        "docker.io/harnesssecure/component-analysis-service-signed:1.10.0"
+      ]
+    },
+    {
+      "name": "ssca-plugins",
+      "description": "SCS Plugins",
+      "images": [
+        "harness/ssca-plugin:0.59.2",
+        "harness/slsa-plugin:0.59.1",
+        "harness/ssca-cdxgen-plugin:0.59.2",
+        "harness/ssca-compliance-plugin:0.59.0",
+        "harness/ssca-artifact-signing-plugin:0.59.1"
+      ]
+    },
+    {
+      "name": "dbdevops",
+      "description": "Database DevOps",
+      "images": [
+        "docker.io/harnesssecure/db-devops-service-signed:1.97.1"
+      ]
+    },
+    {
+      "name": "code",
+      "description": "Code Repository",
+      "images": [
+        "docker.io/harnesssecure/code-api-signed:1.87.5",
+        "docker.io/harnesssecure/code-githa-signed:1.87.0",
+        "docker.io/harnesssecure/code-gitrpc-signed:1.87.0",
+        "docker.io/harnesssecure/code-search-signed:1.86.0"
+      ]
+    },
+    {
+      "name": "iacm",
+      "description": "Infrastructure as Code Management",
+      "images": [
+        "docker.io/harnesssecure/iac-server-signed:1.404.0",
+        "docker.io/harnesssecure/iacm-manager-signed:1.161.1"
+      ]
+    },
+    {
+      "name": "iacm-plugins",
+      "description": "IACM Plugins",
+      "images": [
+        "harness/ci-addon:1.18.10",
+        "harness/ci-addon:1.18.23",
+        "harness/ci-addon:rootless-1.18.10",
+        "harness/ci-addon:rootless-1.18.23",
+        "harness/ci-lite-engine:1.18.10",
+        "harness/ci-lite-engine:1.18.23",
+        "harness/ci-lite-engine:rootless-1.18.10",
+        "harness/ci-lite-engine:rootless-1.18.23",
+        "harness/drone-git:1.4.1-rootless",
+        "harness/drone-git:1.7.16-rootless",
+        "harness/drone-git:1.7.20-rootless",
+        "plugins/harness_terraform:latest",
+        "plugins/harness_terraform_vm:latest"
+      ]
+    }
+  ]
+}

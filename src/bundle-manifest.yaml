@@ -154,6 +154,8 @@ modules:
     bundle_type: single
     parent: sto
     bucket_path: "sto/scanners"
+    exclude_full:
+      - cortex-cloud-job-runner
     images:
       - anchore-job-runner
       - aqua-security-job-runner
@@ -272,6 +274,8 @@ modules:
     bundle_type: combined
     parent: ssca
     bucket_path: "ssca/plugins"
+    exclude_full:
+      - ssca-attestation-plugin
     images:
       - ssca-plugin
       - slsa-plugin
