@@ -33,6 +33,7 @@ modules:
       - smp-service-discovery-server-signed
       - debezium-service-signed
       - audit-event-streaming-signed
+      - queue-service-signed
       - service-discovery-collector
       - ng-dashboard-aggregator-signed
       - controller
@@ -87,6 +88,10 @@ modules:
     bucket_path: "cdng/plugins"
     images:
       - drone-git
+      - download-aws-s3
+      - download-google-cloud-storage
+      - download-harness-store
+      - aws-sam-plugin
 
   cdng-agents:
     description: "CD Agents"
@@ -312,18 +317,6 @@ modules:
     images:
       - iac-server-signed
       - iacm-manager-signed
-
-  iacm-plugins:
-    description: "IACM Plugins"
-    bundle_type: combined
-    parent: iacm
-    bucket_path: "iacm/plugins"
-    images:
-      - ci-addon
-      - ci-lite-engine
-      - drone-git
-      - harness_terraform
-      - harness_terraform_vm
 
   iacm-plugins:
     description: "IACM Plugins"
