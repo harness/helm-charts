@@ -51,7 +51,10 @@ global:
     enabled: false
     # -- Enable to install Harness Data Platform
   data-platform:
-    enabled: false    
+    enabled: false
+    # -- Enable to install kafka
+  kafka:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
