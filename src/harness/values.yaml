@@ -572,7 +572,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.05.89206
+        tag: 26.06.89303
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -795,3 +795,14 @@ postmigrationCheck:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+pg-upgrade:
+  upgrade:
+    image:
+      registry: docker.io
+      repository: harnesssecure/pg-upgrader
+      tag: 14-to-16
+  post-upgrade:
+    image:
+      registry: docker.io
+      repository: harnesssecure/postgresql
+      tag: 16.14-bookworm

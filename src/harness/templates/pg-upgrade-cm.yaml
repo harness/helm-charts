@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pg-upgrade-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: pg-upgrade
+data:
+  {{- $upgradeRegistry := .Values.global.imageRegistry | default (index .Values "pg-upgrade" "upgrade" "image" "registry") }}
+  {{- $postUpgradeRegistry := .Values.global.imageRegistry | default (index .Values "pg-upgrade" "post-upgrade" "image" "registry") }}
+  PG_NEW_IMAGE: "{{ $postUpgradeRegistry }}/{{ index .Values "pg-upgrade" "post-upgrade" "image" "repository" }}:{{ index .Values "pg-upgrade" "post-upgrade" "image" "tag" }}"
+  UPGRADE_IMAGE: "{{ $upgradeRegistry }}/{{ index .Values "pg-upgrade" "upgrade" "image" "repository" }}:{{ index .Values "pg-upgrade" "upgrade" "image" "tag" }}"
