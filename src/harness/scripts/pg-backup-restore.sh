@@ -1,20 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# PostgreSQL Parallel Backup & Restore
+# PostgreSQL Parallel Backup & Restore & Verify
 # Uses pg_dump/pg_restore directory format with --jobs for parallel I/O per database.
 #
 # Usage:
 #   ./pg-backup-restore.sh <namespace> backup
 #   ./pg-backup-restore.sh <namespace> restore [backup-dir]
+#   ./pg-backup-restore.sh <namespace> verify
 
 if [[ -z "${1:-}" || -z "${2:-}" ]]; then
-  echo "Usage: $0 <namespace> <backup|restore> [backup-dir]"
+  echo "Usage: $0 <namespace> <backup|restore|verify> [backup-dir]"
   echo ""
   echo "Examples:"
   echo "  $0 harness backup"
   echo "  $0 harness restore"
   echo "  $0 harness restore pg_backup_20260628-120000"
+  echo "  $0 harness verify"
   exit 1
 fi
 
@@ -22,8 +24,8 @@ NAMESPACE="$1"
 ACTION="$2"
 RESTORE_DIR="${3:-}"
 
-if [[ "$ACTION" != "backup" && "$ACTION" != "restore" ]]; then
-  echo "ERROR: Action must be 'backup' or 'restore'. Got: $ACTION"
+if [[ "$ACTION" != "backup" && "$ACTION" != "restore" && "$ACTION" != "verify" ]]; then
+  echo "ERROR: Action must be 'backup', 'restore', or 'verify'. Got: $ACTION"
   exit 1
 fi
 
@@ -312,31 +314,37 @@ do_restore() {
   for db in $db_list; do
     log "  Restoring $db..."
 
-    # Drop + create
+    # Create database if it doesn't exist (no drop — avoids collation/connection issues)
     pod_exec "psql --host=$PG_SERVICE --port=$PG_PORT --username=$PG_USER -d postgres \
-      -c \"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$db' AND pid<>pg_backend_pid();\" >/dev/null 2>&1 || true"
-    pod_exec "psql --host=$PG_SERVICE --port=$PG_PORT --username=$PG_USER -d postgres \
-      -c 'DROP DATABASE IF EXISTS \"$db\";' 2>/dev/null || true"
-    pod_exec "psql --host=$PG_SERVICE --port=$PG_PORT --username=$PG_USER -d postgres \
-      -c 'CREATE DATABASE \"$db\";' 2>/dev/null || true"
-
-    # Restore
-    if pod_exec "pg_restore --host=$PG_SERVICE --port=$PG_PORT --username=$PG_USER \
-        --dbname='$db' --jobs=$PG_DUMP_JOBS --no-owner --no-acl \
-        '${target_path}/${db}' 2>${target_path}/${db}_restore.log"; then
-      log "  Done: $db"
-    else
-      # pg_restore exits 1 for warnings (harmless), only count exit>1 as failure
-      local rc
-      rc=$(pod_exec "pg_restore --host=$PG_SERVICE --port=$PG_PORT --username=$PG_USER \
-          --dbname='$db' --jobs=$PG_DUMP_JOBS --no-owner --no-acl \
-          '${target_path}/${db}' 2>/dev/null; echo \$?" | tail -1)
-      if [[ "$rc" -gt 1 ]]; then
-        log "  FAILED: $db (see ${db}_restore.log)"
+      -c \"SELECT 1 FROM pg_database WHERE datname='$db';\" | grep -q 1" 2>/dev/null || {
+      local create_out
+      if ! create_out=$(pod_exec "psql --host=$PG_SERVICE --port=$PG_PORT --username=$PG_USER -d postgres \
+        -c 'CREATE DATABASE \"$db\";' 2>&1"); then
+        log "  FAILED to create $db: $create_out"
         failed=$((failed + 1))
-      else
-        log "  Done: $db (with warnings)"
+        continue
       fi
+      log "    created: $db"
+    }
+
+    # Restore with --clean --if-exists (drops/recreates objects inside the DB)
+    local restore_out rc
+    restore_out=$(pod_exec "pg_restore --host=$PG_SERVICE --port=$PG_PORT --username=$PG_USER \
+        --dbname='$db' --jobs=$PG_DUMP_JOBS --no-owner --no-acl --clean --if-exists \
+        '${target_path}/${db}' 2>&1; echo \"EXIT_CODE:\$?\"")
+    rc=$(echo "$restore_out" | grep -o 'EXIT_CODE:[0-9]*' | cut -d: -f2)
+    rc="${rc:-1}"
+
+    if [[ "$rc" -eq 0 ]]; then
+      log "  Done: $db"
+    elif [[ "$rc" -eq 1 ]]; then
+      local warn_count
+      warn_count=$(echo "$restore_out" | grep -c "WARNING\|ERROR" || true)
+      log "  Done: $db ($warn_count warnings)"
+    else
+      log "  FAILED: $db (exit=$rc)"
+      echo "$restore_out" | tail -20 | tee -a "$LOG_FILE"
+      failed=$((failed + 1))
     fi
   done
 
@@ -359,9 +367,62 @@ do_restore() {
   kubectl delete pod -n "$NAMESPACE" "$BACKUP_POD_NAME" --wait=false
 }
 
+# =============================================
+# VERIFY (on-demand — runs directly on postgres pod, no PVC or extra pod)
+# =============================================
+_pg_exec() {
+  kubectl exec -n "$NAMESPACE" "$PG_POD" -- bash -c \
+    "PGPASSWORD=\$(cat \$POSTGRES_PASSWORD_FILE 2>/dev/null || echo \$POSTGRES_PASSWORD) $1"
+}
+
+do_verify() {
+  log "=== VERIFY ==="
+  log "Namespace: $NAMESPACE | Pod: $PG_POD"
+
+  kubectl wait --for=condition=Ready pod/"$PG_POD" -n "$NAMESPACE" --timeout=60s
+
+  log "Running ANALYZE for accurate row counts..."
+  _pg_exec "vacuumdb -U $PG_USER --all --analyze-only --jobs=4" 2>&1 | tail -3
+
+  local report_file="./pg-verify-${NAMESPACE}-${TIMESTAMP}.txt"
+  log "Capturing verification data..."
+
+  {
+    echo "=== PG DATA VERIFICATION $(date -u '+%Y-%m-%dT%H:%M:%SZ') ==="
+    echo "Namespace: $NAMESPACE | Pod: $PG_POD"
+    echo ""
+
+    local dbs
+    dbs=$(_pg_exec "psql -U $PG_USER -t -A -c \"SELECT datname FROM pg_database WHERE datistemplate = false AND datname != 'postgres' ORDER BY datname;\"")
+
+    echo "=== DATABASE SIZES ==="
+    for db in $dbs; do
+      local size
+      size=$(_pg_exec "psql -U $PG_USER -d postgres -t -A -c \"SELECT pg_database_size('$db');\"")
+      echo "${db}=${size}"
+    done
+    echo ""
+
+    for db in $dbs; do
+      echo "=== DATABASE: $db ==="
+      _pg_exec "psql -U $PG_USER -d '$db' -t -A -c \"SELECT '${db}:' || schemaname || '.' || relname || '|' || n_live_tup FROM pg_stat_user_tables ORDER BY schemaname, relname;\""
+      echo ""
+    done
+
+    echo "=== DONE ==="
+  } > "$report_file"
+
+  log "=== VERIFY COMPLETE ==="
+  log "Report: $report_file"
+  log ""
+  log "Compare with a prior report:"
+  log "  diff <previous-report>.txt $report_file"
+}
+
 # --- Main ---
 log "Log: $LOG_FILE"
 case "$ACTION" in
   backup)  do_backup ;;
   restore) do_restore ;;
+  verify)  do_verify ;;
 esac
