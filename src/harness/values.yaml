@@ -812,3 +812,46 @@ pg-upgrade:
       registry: docker.io
       repository: harnesssecure/postgresql
       tag: 16.14-bookworm
+data-platform:
+  kafka-operator:
+    strimziOperator:
+      kafka:
+        image:
+          registry: docker.io
+          repository: harnesssecure/strimzi-kafka-signed
+          name: ""
+      kafkaConnect:
+        image:
+          registry: docker.io
+          repository: harnesssecure/strimzi-kafka-signed-connect
+          name: ""
+      kafkaExporter:
+        image:
+          registry: docker.io
+          repository: harnesssecure/strimzi-kafka-signed
+          name: ""
+      cruiseControl:
+        image:
+          registry: docker.io
+          repository: harnesssecure/strimzi-kafka-signed
+          name: ""
+      kafkaMirrorMaker2:
+        image:
+          registry: docker.io
+          repository: harnesssecure/strimzi-kafka-signed
+          name: ""
+      topicOperator:
+        image:
+          registry: docker.io
+          repository: harnesssecure/kafka-operator-signed
+          name: ""
+      userOperator:
+        image:
+          registry: docker.io
+          repository: harnesssecure/kafka-operator-signed
+          name: ""
+      kafkaInit:
+        image:
+          registry: docker.io
+          repository: harnesssecure/kafka-operator-signed
+          name: ""
