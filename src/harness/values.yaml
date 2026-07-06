@@ -817,41 +817,33 @@ data-platform:
     strimziOperator:
       kafka:
         image:
-          registry: docker.io
-          repository: harnesssecure/strimzi-kafka-signed
           name: ""
+          repository: harnesssecure/strimzi-kafka-signed
       kafkaConnect:
         image:
-          registry: docker.io
-          repository: harnesssecure/strimzi-kafka-signed-connect
           name: ""
+          repository: harnesssecure/strimzi-kafka-connect-signed
       kafkaExporter:
         image:
-          registry: docker.io
-          repository: harnesssecure/strimzi-kafka-signed
           name: ""
+          repository: harnesssecure/strimzi-kafka-signed
       cruiseControl:
         image:
-          registry: docker.io
-          repository: harnesssecure/strimzi-kafka-signed
           name: ""
+          repository: harnesssecure/strimzi-kafka-signed
       kafkaMirrorMaker2:
         image:
-          registry: docker.io
-          repository: harnesssecure/strimzi-kafka-signed
           name: ""
+          repository: harnesssecure/strimzi-kafka-signed
       topicOperator:
         image:
-          registry: docker.io
-          repository: harnesssecure/kafka-operator-signed
           name: ""
+          repository: harnesssecure/kafka-operator-signed
       userOperator:
         image:
-          registry: docker.io
-          repository: harnesssecure/kafka-operator-signed
           name: ""
+          repository: harnesssecure/kafka-operator-signed
       kafkaInit:
         image:
-          registry: docker.io
-          repository: harnesssecure/kafka-operator-signed
           name: ""
+          repository: harnesssecure/kafka-operator-signed
