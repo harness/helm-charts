@@ -339,7 +339,7 @@ modules:
       - kafka-operator-signed
       - kafka-operator-crd-updater-signed
       - strimzi-kafka-signed
-      # - strimzi-kafka-connect
+      - strimzi-kafka-connect-signed
       - schema-registry-signed
       - schema-compatibility-signed
       - schema-registry-prometheux-jmx-exporter-signed
