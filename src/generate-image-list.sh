@@ -114,7 +114,7 @@ log_info "Running helm template to extract images"
 helm template ${HARNESS_DIR} ${AUTO_ENABLE_FLAGS} ${OVERRIDE_FLAGS} \
     | grep -iE 'image|harnesssecure' | grep \/ | grep -v imagePullPolicy | grep -v "#" \
     | awk '{$1=$1};1' | sort -u \
-    | sed 's/^[^:]*: //g' \
+    | sed 's/^[^:]*: //' \
     | sed 's/^[^=]*=//' \
     | sed -e "s/^'//" -e "s/'$//" \
     | sed -e 's/^"//' -e 's/"$//' \
