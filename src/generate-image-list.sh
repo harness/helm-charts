@@ -113,7 +113,7 @@ fi
 
 log_info "Running helm template to extract images"
 helm template ${HARNESS_DIR} ${AUTO_ENABLE_FLAGS} ${OVERRIDE_FLAGS} \
-    | grep -iE "image|${IMAGE_ORG}" | grep \/ | grep -v imagePullPolicy | grep -v "#" \
+    | grep -iE "image|${IMAGE_ORG}" | grep -E '/.*:' | grep -v imagePullPolicy | grep -v "#" \
     | awk '{$1=$1};1' | sort -u \
     | sed 's/^[^:]*: //' \
     | sed 's/^[^=]*=//' \
