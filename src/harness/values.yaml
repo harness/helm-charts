@@ -847,3 +847,6 @@ data-platform:
         image:
           name: ""
           repository: harnesssecure/kafka-operator-signed
+  schema-registry:
+    backup:
+      enabled: false
