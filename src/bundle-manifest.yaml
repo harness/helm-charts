@@ -338,9 +338,9 @@ modules:
     images:
       - kafka-operator-signed
       - kafka-operator-crd-updater-signed
-      - strimzi-kafka
+      - strimzi-kafka-signed
       # - strimzi-kafka-connect
-      - schema-registry
-      - schema-compatibility
-      - schema-registry-prometheux-jmx-exporter
-      - schema-registry-backup
+      - schema-registry-signed
+      - schema-compatibility-signed
+      - schema-registry-prometheux-jmx-exporter-signed
+      - schema-registry-backup-signed
