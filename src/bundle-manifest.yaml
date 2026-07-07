@@ -339,7 +339,7 @@ modules:
       - kafka-operator
       - kafka-operator-crd-updater
       - strimzi-kafka
-      - strimzi-kafka-connect
+      # - strimzi-kafka-connect
       - schema-registry
       - schema-compatibility
       - schema-registry-prometheux-jmx-exporter
