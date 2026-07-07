@@ -23,6 +23,7 @@ HARNESS_DIR=${SCRIPT_DIR}/harness
 IMAGE_GEN_INPUT_FILE=${SCRIPT_DIR}/generate-image.yaml
 OUTPUT_DIR=${SCRIPT_DIR}/harness
 KEEP_TRANSIENT=false
+IMAGE_ORG=${IMAGE_ORG:-harnesssecure}
 
 while [ $# -gt 0 ]; do
     key="$1"
@@ -112,9 +113,10 @@ fi
 
 log_info "Running helm template to extract images"
 helm template ${HARNESS_DIR} ${AUTO_ENABLE_FLAGS} ${OVERRIDE_FLAGS} \
-    | grep -i image | grep \/ | grep -v imagePullPolicy | grep -v "#" \
+    | grep -iE "image|${IMAGE_ORG}" | grep -E '/.*:' | grep -v imagePullPolicy | grep -v "#" \
     | awk '{$1=$1};1' | sort -u \
-    | sed 's/^[^:]*: //g' \
+    | sed 's/^[^:]*: //' \
+    | sed 's/^[^=]*=//' \
     | sed -e "s/^'//" -e "s/'$//" \
     | sed -e 's/^"//' -e 's/"$//' \
     > ${OUTPUT_DIR}/images_tmp.txt

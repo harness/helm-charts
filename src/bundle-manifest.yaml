@@ -329,3 +329,18 @@ modules:
       - drone-git
       - harness_terraform
       - harness_terraform_vm
+
+  data-platform:
+    description: "Data Platform"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "data-platform"
+    images:
+      - kafka-operator-signed
+      - kafka-operator-crd-updater-signed
+      - strimzi-kafka-signed
+      - strimzi-kafka-connect-signed
+      - schema-registry-signed
+      - schema-compatibility-signed
+      - schema-registry-prometheus-jmx-exporter-signed
+      - schema-registry-backup-signed

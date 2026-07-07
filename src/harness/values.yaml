@@ -49,6 +49,12 @@ global:
     # -- Enable to install Harness Infrastructure As Code Management (IACM)
   iacm:
     enabled: false
+    # -- Enable to install Harness Data Platform
+  data-platform:
+    enabled: false
+    # -- Enable to install kafka
+  kafka:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
@@ -806,3 +812,39 @@ pg-upgrade:
       registry: docker.io
       repository: harnesssecure/postgresql
       tag: 16.14-bookworm
+
+data-platform:
+  kafka-operator:
+    strimziOperator:
+      kafka:
+        image:
+          repository: harnesssecure/strimzi-kafka-signed
+      kafkaConnect:
+        image:
+          repository: harnesssecure/strimzi-kafka-connect-signed
+      kafkaExporter:
+        image:
+          repository: harnesssecure/strimzi-kafka-signed
+      cruiseControl:
+        image:
+          repository: harnesssecure/strimzi-kafka-signed
+      kafkaMirrorMaker2:
+        image:
+          repository: harnesssecure/strimzi-kafka-signed
+      topicOperator:
+        image:
+          repository: harnesssecure/kafka-operator-signed
+      userOperator:
+        image:
+          repository: harnesssecure/kafka-operator-signed
+      kafkaInit:
+        image:
+          repository: harnesssecure/kafka-operator-signed
+  kafka-platform:
+    kafkaDebugPod:
+      image:
+        registry: docker.io
+        repository: harnesssecure/strimzi-kafka-signed
+  schema-registry:
+    backup:
+      enabled: false
