@@ -847,6 +847,26 @@ data-platform:
         image:
           name: ""
           repository: harnesssecure/kafka-operator-signed
+  kafka-platform:
+    kafkaDebugPod:
+      image:
+        registry: docker.io
+        repository: harnesssecure/strimzi-kafka-signed
   schema-registry:
+    image:
+      registry: docker.io
+      repository: harnesssecure/schema-registry-signed
+    prometheus:
+      jmx:
+        image:
+          registry: docker.io
+          repository: harnesssecure/schema-registry-prometheux-jmx-exporter-signed
+    schemaCompatibility:
+      image:
+        registry: docker.io
+        repository: harnesssecure/schema-compatibility-signed
     backup:
       enabled: false
+      image:
+        registry: docker.io
+        repository: harnesssecure/schema-registry-backup-signed
