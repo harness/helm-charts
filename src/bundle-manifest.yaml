@@ -336,8 +336,8 @@ modules:
     requires: [platform]
     bucket_path: "data-platform"
     images:
-      - kafka-operator
-      - kafka-operator-crd-updater
+      - kafka-operator-signed
+      - kafka-operator-crd-updater-signed
       - strimzi-kafka
       # - strimzi-kafka-connect
       - schema-registry
