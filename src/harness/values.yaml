@@ -858,7 +858,17 @@ postmigrationCheck:
   nodeSelector: {}
   tolerations: []
   affinity: {}
-
+pg-upgrade:
+  upgrade:
+    image:
+      registry: docker.io
+      repository: harnesssecure/pg-upgrader
+      tag: 14-to-16
+  post-upgrade:
+    image:
+      registry: docker.io
+      repository: harnesssecure/postgresql
+      tag: 16.14-bookworm
 data-platform:
   kafka-operator:
     strimziOperator:
@@ -935,14 +945,3 @@ ar:
     tolerations: []
     autoUpdate:
       enabled: false
-pg-upgrade:
-  upgrade:
-    image:
-      registry: docker.io
-      repository: harnesssecure/pg-upgrader
-      tag: 14-to-16
-  post-upgrade:
-    image:
-      registry: docker.io
-      repository: harnesssecure/postgresql
-      tag: 16.14-bookworm
