@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.36.5](https://img.shields.io/badge/Version-0.36.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.36.6](https://img.shields.io/badge/Version-0.36.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -173,8 +173,7 @@ docker.io/harness/telescopes-signed:1.6.0
 docker.io/harness/template-service-signed:1.130.0
 docker.io/harness/ti-service-signed:1.60.4
 docker.io/harness/ticket-service-signed:1.4.4
-docker.io/harness/tsdb-to-psql-migrator-signed:1.9.0
-docker.io/harness/tsdb-to-psql-migrator-signed:1.9.0-mig-15-e2b21d
+docker.io/harness/tsdb-to-psql-migrator-signed:1.10.0
 docker.io/harness/ui-signed:1.32.3
 docker.io/harness/upgrader:1.10.0
 docker.io/koalaman/shellcheck:v0.5.0

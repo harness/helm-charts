@@ -90,8 +90,7 @@ docker.io/harness/telescopes-signed:1.6.0
 docker.io/harness/template-service-signed:1.130.0
 docker.io/harness/ti-service-signed:1.60.4
 docker.io/harness/ticket-service-signed:1.4.4
-docker.io/harness/tsdb-to-psql-migrator-signed:1.9.0
-docker.io/harness/tsdb-to-psql-migrator-signed:1.9.0-mig-15-e2b21d
+docker.io/harness/tsdb-to-psql-migrator-signed:1.10.0
 docker.io/harness/ui-signed:1.32.3
 docker.io/harness/upgrader:1.10.0
 docker.io/koalaman/shellcheck:v0.5.0
