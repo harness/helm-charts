@@ -280,7 +280,7 @@ global:
     provider: "vault"
     image:
       repository: "harnesssecure/vault-secret-loader"
-      tag: "1.0.9"
+      tag: "1.0.10"
       pullPolicy: "IfNotPresent"
     vault:
       address: ""
