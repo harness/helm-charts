@@ -33,6 +33,7 @@ modules:
       - smp-service-discovery-server-signed
       - debezium-service-signed
       - audit-event-streaming-signed
+      - queue-service-signed
       - service-discovery-collector
       - ng-dashboard-aggregator-signed
       - controller
@@ -42,6 +43,7 @@ modules:
       - mongodb-exporter
       - vault-secret-loader
       - ui-signed
+      - pg-upgrader
       - name: delegate
         variants: [".minimal", ".minimal-fips"]
         variants_only: true
@@ -86,6 +88,10 @@ modules:
     bucket_path: "cdng/plugins"
     images:
       - drone-git
+      - download-aws-s3
+      - download-google-cloud-storage
+      - download-harness-store
+      - aws-sam-plugin
 
   cdng-agents:
     description: "CD Agents"
@@ -154,6 +160,8 @@ modules:
     bundle_type: single
     parent: sto
     bucket_path: "sto/scanners"
+    exclude_full:
+      - cortex-cloud-job-runner
     images:
       - anchore-job-runner
       - aqua-security-job-runner
@@ -272,6 +280,9 @@ modules:
     bundle_type: combined
     parent: ssca
     bucket_path: "ssca/plugins"
+    exclude_full:
+      - ssca-attestation-plugin
+      - ssca-ai-bom-plugin
     images:
       - ssca-plugin
       - slsa-plugin
@@ -329,3 +340,18 @@ modules:
       - onboarding-service-signed
       - query-service-signed
       - dashboard-ui-signed
+
+  data-platform:
+    description: "Data Platform"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "data-platform"
+    images:
+      - kafka-operator-signed
+      - kafka-operator-crd-updater-signed
+      - strimzi-kafka-signed
+      - strimzi-kafka-connect-signed
+      - schema-registry-signed
+      - schema-compatibility-signed
+      - schema-registry-prometheus-jmx-exporter-signed
+      - schema-registry-backup-signed

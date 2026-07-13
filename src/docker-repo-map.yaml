@@ -297,6 +297,33 @@ iacm-manager:
   image:
     registry: docker.io
     repository: harnesssecure/iacm-manager-signed
+kafka-operator:
+  strimziOperator:
+    image:
+      registry: docker.io
+      repository: harnesssecure/kafka-operator-signed
+  crdUpdate:
+    job:
+      image:
+        registry: docker.io
+        repository: harnesssecure/kafka-operator-crd-updater-signed
+schema-registry:
+  image:
+    registry: docker.io
+    repository: harnesssecure/schema-registry-signed
+  prometheus:
+    jmx:
+      image:
+        registry: docker.io
+        repository: harnesssecure/schema-registry-prometheus-jmx-exporter-signed
+  schemaCompatibility:
+    image:
+      registry: docker.io
+      repository: harnesssecure/schema-compatibility-signed
+  backup:
+    image:
+      registry: docker.io
+      repository: harnesssecure/schema-registry-backup-signed
 config-service:
   image:
     registry: docker.io
