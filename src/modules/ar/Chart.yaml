@@ -1,23 +1,19 @@
 apiVersion: v1
 appVersion: 0.0.1
 dependencies:
-- condition: global.ar.enabled
-  name: registry-api
+- name: registry-api
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.83.0
-- condition: global.ar.enabled
-  name: registry-async-service
+- name: registry-async-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.40.0
-- condition: global.ar.enabled
-  name: ipqs-service
+- name: ipqs-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.8.0
-- condition: global.ar.enabled
-  name: registry-processor
+- name: registry-processor
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.54.0
 description: A Helm chart for Harness Artifact Registry
 name: ar
 type: application
-version: 0.0.1
+version: 0.43.0
