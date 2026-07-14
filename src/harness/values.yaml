@@ -888,5 +888,3 @@ ar:
       enabled: false
     nodeSelector: {}
     tolerations: []
-    autoUpdate:
-      enabled: false
