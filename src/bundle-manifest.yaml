@@ -356,5 +356,6 @@ modules:
     images:
       - registry-api-signed
       - registry-async-service-signed
-      - ipqs-service-signed
       - registry-processor-signed
+      - ipqs-service-signed
+      - ip-data-bundle-ipqs-signed
