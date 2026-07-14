@@ -914,8 +914,7 @@ ar:
     # SMP-specific env defaults
     config:
       REGISTRY_ENABLE_ES: "false"
-      REGISTRY_MULTISTORAGE_ENABLED: "false"
-      HARNESS_REGISTRY_LOCAL_EXECUTOR_ENABLED: "false"
+      REGISTRY_MULTISTORAGE_ENABLED: "true"
       HARNESS_UDP_ENABLED: "false"
       HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
   registry-processor:
