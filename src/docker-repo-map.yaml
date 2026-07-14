@@ -336,8 +336,11 @@ ipqs-service:
   image:
     registry: docker.io
     repository: harnesssecure/ipqs-service-signed
+  ipqsData:
+    image:
+      registry: docker.io
+      repository: harnesssecure/ip-data-bundle-ipqs-signed
 registry-processor:
   image:
     registry: docker.io
     repository: harnesssecure/registry-processor-signed
-
