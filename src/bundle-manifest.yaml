@@ -12,6 +12,7 @@ modules:
     images:
       - gateway
       - ratelimit
+      - envoy
       - busybox
       - ci-scm-signed
       - template-service-signed
