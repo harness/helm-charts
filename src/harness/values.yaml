@@ -131,26 +131,26 @@ global:
     disableHostInIngress: true
     className: "harness"
     enabled: true
-  gatewayAPI:
-    # this enables subchart services to create all the HTTPRoutes
-    enabled: true
-    create: true
-    parentRef:
-      name: envoy-gateway
-    fallbackRoute:
-      serviceName: harness-ingress-controller
-  # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
-  hosts:
-    - 'myhost.example.com'
-  # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
-  # If not set, internal request routing would happen via global.loadbalancerUrl
-  ingressGatewayServiceUrl: ""
-  objects:
-    # -- annotations to be added to ingress Objects
-    annotations: {}
-    ingress: []
-    grpcRoutes: []
-  tls:
+    gatewayAPI:
+      # this enables subchart services to create all the HTTPRoutes
+      enabled: true
+      create: true
+      parentRef:
+        name: envoy-gateway
+      fallbackRoute:
+        serviceName: harness-ingress-controller
+    # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
+    hosts:
+      - 'myhost.example.com'
+    # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
+    # If not set, internal request routing would happen via global.loadbalancerUrl
+    ingressGatewayServiceUrl: ""
+    objects:
+      # -- annotations to be added to ingress Objects
+      annotations: {}
+      ingress: []
+      grpcRoutes: []
+    tls:
       enabled: true
       secretName: harness-cert
   # -- Istio Ingress Settings
@@ -434,31 +434,6 @@ cd:
 # -- Config for platform-level services (always deployed by default to support all services)
 
 platform:
-  # -- Envoy gateway controller (gateway-helm) must be enabled to deploy proxy pods/services
-  envoy-gateway:
-    enabled: true
-    envoyConfiguration:
-      podDisruptionBudget:
-        minAvailable: 1
-      deployment:
-        replicas: 2
-        envoyGateway:
-          resources:
-            limits:
-              memory: 1024Mi
-            requests:
-              cpu: 100m
-              memory: 256Mi
-        pod:
-          affinity:
-            podAntiAffinity:
-              preferredDuringSchedulingIgnoredDuringExecution:
-                - weight: 100
-                  podAffinityTerm:
-                    labelSelector:
-                      matchLabels:
-                        control-plane: envoy-gateway
-                    topologyKey: kubernetes.io/hostname
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
     postgresql:
@@ -605,6 +580,28 @@ platform:
     enabled: true
     gateway-helm:
       enabled: true
+    envoyConfiguration:
+      podDisruptionBudget:
+        minAvailable: 1
+      deployment:
+        replicas: 2
+        envoyGateway:
+          resources:
+            limits:
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+        pod:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        control-plane: envoy-gateway
+                    topologyKey: kubernetes.io/hostname
   gateway:
     config:
       ENV: "SMP"
