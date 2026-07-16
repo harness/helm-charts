@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.43.0](https://img.shields.io/badge/Version-0.43.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.43.1](https://img.shields.io/badge/Version-0.43.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -103,7 +103,7 @@ docker.io/harnesssecure/redis:7.4.9-jammy
 docker.io/harnesssecure/redis:7.4.9-jammy
 docker.io/harnesssecure/postgresql:14.20-debian
 docker.io/harnesssecure/postgresql:16.14-bookworm
-docker.io/harnesssecure/policy-mgmt:1.55.0
+docker.io/harnesssecure/policy-mgmt:1.55.1
 docker.io/harnesssecure/smp-service-discovery-server-signed:0.70.0
 docker.io/harnesssecure/debezium-service-signed:1.27.0
 docker.io/harnesssecure/audit-event-streaming-signed:1.100.0

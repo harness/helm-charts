@@ -25,7 +25,7 @@
         "docker.io/harnesssecure/redis:7.4.9-jammy",
         "docker.io/harnesssecure/postgresql:14.20-debian",
         "docker.io/harnesssecure/postgresql:16.14-bookworm",
-        "docker.io/harnesssecure/policy-mgmt:1.55.0",
+        "docker.io/harnesssecure/policy-mgmt:1.55.1",
         "docker.io/harnesssecure/smp-service-discovery-server-signed:0.70.0",
         "docker.io/harnesssecure/debezium-service-signed:1.27.0",
         "docker.io/harnesssecure/audit-event-streaming-signed:1.100.0",
