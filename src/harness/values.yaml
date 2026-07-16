@@ -125,20 +125,21 @@ global:
   ha: true
   # -- This private Docker image registry will override any registries that are defined in subcharts.
   imageRegistry: ""
+  # -- Gateway API configuration (consumed by envoy-gateway subchart condition
+  # and harness-common HTTPRoute helpers at global.gatewayAPI.*)
+  gatewayAPI:
+    enabled: true
+    create: true
+    parentRef:
+      name: envoy-gateway
+    fallbackRoute:
+      serviceName: harness-ingress-controller
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
     disableHostInIngress: true
     className: "harness"
     enabled: true
-    gatewayAPI:
-      # this enables subchart services to create all the HTTPRoutes
-      enabled: true
-      create: true
-      parentRef:
-        name: envoy-gateway
-      fallbackRoute:
-        serviceName: harness-ingress-controller
     # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
     hosts:
       - 'myhost.example.com'
