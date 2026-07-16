@@ -43,7 +43,7 @@ dependencies:
   version: 1.135.0
 - name: policy-mgmt
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.55.0
+  version: 1.55.1
 - name: scm-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.53.0
@@ -68,5 +68,5 @@ dependencies:
 - name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.11.0
-digest: sha256:99bded22351a5862dafbedf096d990f8d82eaef6fb3a168dbc6c5f7fbb1282cb
-generated: "2026-07-06T07:18:25.091627544Z"
+digest: sha256:96860b56602ff1d79a1589f5906eb3c3d22362727ae1804a8743437b5670f0ba
+generated: "2026-07-16T07:51:57.486808396Z"
