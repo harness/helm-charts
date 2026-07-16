@@ -870,6 +870,23 @@ pg-upgrade:
       repository: harnesssecure/postgresql
       tag: 16.14-bookworm
 data-platform:
+  kafka-connect-strimzi:
+    database:
+      postgres:
+        registry:
+          enabled: true
+          hosts:
+            - postgres
+          database: registry_db
+          secrets:
+            kubernetesSecrets:
+              - secretName: "postgres"
+                keys:
+                  POSTGRES_USER: ""
+                  POSTGRES_PASSWORD: "postgres-password"
+    connectors:
+      postgres-registry-async-service:
+        enabled: true
   kafka-operator:
     strimziOperator:
       kafka:
@@ -936,6 +953,27 @@ ar:
     config:
       REGISTRY_ENABLE_ES: "false"
       HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
+      REGISTRY_ASYNC_SERVICE_GRACEFUL_SHUTDOWN_TIME: 30
+      KAFKA_CONFLUENT_BOOTSTRAP_SERVER_URLS: "kafka-platform-kafka-bootstrap:9093"
+      KAFKA_PRODUCER_TLS_CA_FILE: "/etc/kafka/cluster-ca/ca.crt"
+      KAFKA_PRODUCER_TLS_CERT_FILE: "/etc/kafka/certs/user.crt"
+      KAFKA_PRODUCER_TLS_KEY_FILE: "/etc/kafka/certs/user.key"
+    extraVolumes:
+      - name: kafka-certs
+        secret:
+          secretName: kafka-platform-registry-async-service
+          defaultMode: 0444
+      - name: kafka-cluster-ca
+        secret:
+          secretName: kafka-platform-cluster-ca-cert
+          defaultMode: 0444
+    extraVolumeMounts:
+      - name: kafka-certs
+        mountPath: /etc/kafka/certs
+        readOnly: true
+      - name: kafka-cluster-ca
+        mountPath: /etc/kafka/cluster-ca
+        readOnly: true
   ipqs-service:
     affinity: {}
     autoscaling:
