@@ -141,7 +141,7 @@ global:
   ingress:
     disableHostInIngress: true
     className: "harness"
-    enabled: true
+    enabled: false
     # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
     hosts:
       - 'myhost.example.com'
