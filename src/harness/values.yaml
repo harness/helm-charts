@@ -125,11 +125,13 @@ global:
   ha: true
   # -- This private Docker image registry will override any registries that are defined in subcharts.
   imageRegistry: "docker.io"
+  # -- Image Pull Secrets List for Harness SMP Images
+  imagePullSecrets: []
   # -- Gateway API configuration (consumed by envoy-gateway subchart condition
   # and harness-common HTTPRoute helpers at global.gatewayAPI.*)
   gatewayAPI:
-    enabled: true
-    create: true
+    enabled: false
+    create: false
     parentRef:
       name: envoy-gateway
     fallbackRoute:
@@ -273,7 +275,6 @@ global:
       pullPolicy: Always
       tag: "1.9.0"
       digest: ""
-      imagePullSecrets: []
   fileLogging:
     enabled: true
     path: "/opt/harness/logs/service.log"
