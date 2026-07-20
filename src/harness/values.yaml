@@ -124,7 +124,7 @@ global:
   # -- High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV
   ha: true
   # -- This private Docker image registry will override any registries that are defined in subcharts.
-  imageRegistry: ""
+  imageRegistry: "docker.io"
   # -- Gateway API configuration (consumed by envoy-gateway subchart condition
   # and harness-common HTTPRoute helpers at global.gatewayAPI.*)
   gatewayAPI:
