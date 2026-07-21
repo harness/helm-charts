@@ -579,9 +579,9 @@ platform:
     tolerations: []
   # -- gateway settings (taints, tolerations, and so on)
   envoy-gateway:
-    enabled: true
+    enabled: false
     gateway-helm:
-      enabled: true
+      enabled: false
     envoyConfiguration:
       podDisruptionBudget:
         minAvailable: 1
