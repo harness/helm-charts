@@ -31,7 +31,7 @@ dependencies:
   version: 1.140.6
 - name: ng-auth-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.43.0
+  version: 1.39.0
 - name: ng-dashboard-aggregator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.119.0
@@ -55,7 +55,7 @@ dependencies:
   version: 1.155.2
 - name: ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.36.2
+  version: 1.36.0
 - name: ng-custom-dashboards
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.119.0
