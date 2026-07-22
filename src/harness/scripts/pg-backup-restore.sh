@@ -56,6 +56,12 @@ if [[ -z "${BACKUP_PVC_SIZE:-}" ]]; then
   BACKUP_PVC_SIZE="${BACKUP_PVC_SIZE:-50Gi}"
 fi
 
+# Resolve backup PVC storage class if not explicitly set.
+# Reuse the class of the postgres data PVC so the backup volume lands on the same sc
+if [[ -z "${BACKUP_PVC_STORAGE_CLASS:-}" ]]; then
+  BACKUP_PVC_STORAGE_CLASS=$(kubectl get pvc -n "$NAMESPACE" "data-${PG_POD}" -o jsonpath='{.spec.storageClassName}' 2>/dev/null || true)
+fi
+
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 LOG_FILE="/tmp/pg-${ACTION}-${NAMESPACE}-${TIMESTAMP}.log"
 
@@ -77,7 +83,7 @@ pod_exec() { kubectl exec -n "$NAMESPACE" "$BACKUP_POD_NAME" -- bash -c "$1"; }
 ensure_pvc() {
   kubectl get pvc -n "$NAMESPACE" "$BACKUP_PVC_NAME" &>/dev/null && return
 
-  log "Creating PVC $BACKUP_PVC_NAME ($BACKUP_PVC_SIZE)..."
+  log "Creating PVC $BACKUP_PVC_NAME ($BACKUP_PVC_SIZE, storageClass: ${BACKUP_PVC_STORAGE_CLASS:-<cluster default>})..."
   local sc=""
   [[ -n "$BACKUP_PVC_STORAGE_CLASS" ]] && sc="  storageClassName: $BACKUP_PVC_STORAGE_CLASS"
 
