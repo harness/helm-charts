@@ -4,11 +4,11 @@ dependencies:
 - condition: global.kafka.enabled
   name: kafka-operator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.15.0
+  version: 1.15.1
 - condition: global.kafka.enabled
   name: kafka-platform
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 2.11.0
+  version: 2.11.1
 - condition: global.kafka.enabled
   name: kafka-resources
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
