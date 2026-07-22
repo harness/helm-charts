@@ -124,10 +124,23 @@ global:
   # -- High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV
   ha: true
   # -- This private Docker image registry will override any registries that are defined in subcharts.
-  imageRegistry: ""
+  imageRegistry: "docker.io"
+  # -- Image Pull Secrets List for Harness SMP Images
+  imagePullSecrets: []
+  # -- Gateway API configuration (consumed by envoy-gateway subchart condition
+  # and harness-common HTTPRoute helpers at global.gatewayAPI.*)
+  gatewayAPI:
+    enabled: false
+    create: false
+    parentRef:
+      name: envoy-gateway
+    proxyServiceName: envoy-gateway-proxy-envoy-gateway
+    fallbackRoute:
+      serviceName: harness-ingress-controller
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
+    disableHostInIngress: true
     className: "harness"
     enabled: false
     # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
@@ -139,6 +152,8 @@ global:
     objects:
       # -- annotations to be added to ingress Objects
       annotations: {}
+      ingress: []
+      grpcRoutes: []
     tls:
       enabled: true
       secretName: harness-cert
@@ -261,7 +276,6 @@ global:
       pullPolicy: Always
       tag: "1.9.0"
       digest: ""
-      imagePullSecrets: []
   fileLogging:
     enabled: true
     path: "/opt/harness/logs/service.log"
@@ -406,6 +420,14 @@ ci:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    ingress:
+      objects:
+        - name: ti-service
+          annotations:
+            nginx.ingress.kubernetes.io/rewrite-target: /$2
+            nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+          paths:
+            - path: '{{ .Values.global.ingress.pathPrefix }}/ti-service(/|$)(.*)'
 enabled: false
 cd:
   gitops:
@@ -413,6 +435,7 @@ cd:
       image:
         tag: "7.4.9-jammy"
 # -- Config for platform-level services (always deployed by default to support all services)
+
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
@@ -523,6 +546,10 @@ platform:
         controller:
           # -- annotations to be addded to ingress Controller
           annotations: {}
+          config:
+            # -- Trust X-Forwarded-Proto from envoy-gateway so nginx does not
+            # force-ssl-redirect HTTP traffic forwarded from the gateway.
+            use-forwarded-headers: "true"
         # -- Create Nginx Controller.  True will deploy a controller into your cluster
         create: false
         healthNodePort: ""
@@ -552,6 +579,32 @@ platform:
     nodeSelector: {}
     tolerations: []
   # -- gateway settings (taints, tolerations, and so on)
+  envoy-gateway:
+    enabled: false
+    gateway-helm:
+      enabled: false
+    envoyConfiguration:
+      podDisruptionBudget:
+        minAvailable: 1
+      deployment:
+        replicas: 2
+        envoyGateway:
+          resources:
+            limits:
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+        pod:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        control-plane: envoy-gateway
+                    topologyKey: kubernetes.io/hostname
   gateway:
     config:
       ENV: "SMP"
@@ -664,6 +717,7 @@ srm:
     tolerations: []
     keda:
       enabled: false
+    ingress: {}
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
