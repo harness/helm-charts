@@ -631,7 +631,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.06.89303
+        tag: 26.06.89501
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -866,7 +866,6 @@ pg-upgrade:
       registry: docker.io
       repository: harnesssecure/postgresql
       tag: 16.14-bookworm
-
 data-platform:
   kafka-operator:
     strimziOperator:
