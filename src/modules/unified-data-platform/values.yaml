@@ -1,0 +1,66 @@
+unifiedDataPlatform:
+  authzServiceSecretValueDefault: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
+  udpInternalSecretValueDefault: "UdpInternalHmacSharedBetweenQuerySchemaConfigOnboardingUdpServicesAuthKey2026062"
+
+config-service:
+  configService:
+    kafka:
+      enabled: false
+      tlsUserSecret: ""
+      tlsTruststoreSecret: ""
+  secrets:
+    udpInternalSecret:
+      secretName: udp-shared-secret
+      key: UDP_INTERNAL_SECRET
+    authzServiceSecret:
+      secretName: udp-shared-secret
+      key: AUTHZ_SERVICE_SECRET
+      optional: true
+
+schema-service:
+  schemaService:
+    kafka:
+      enabled: false
+      tlsUserSecret: ""
+      tlsTruststoreSecret: ""
+  secrets:
+    udpInternalSecret:
+      secretName: udp-shared-secret
+      key: UDP_INTERNAL_SECRET
+    authzServiceSecret:
+      secretName: udp-shared-secret
+      key: AUTHZ_SERVICE_SECRET
+      optional: true
+
+onboarding-service:
+  onboardingService:
+    kafka:
+      enabled: false
+      tlsUserSecret: ""
+      tlsTruststoreSecret: ""
+  secrets:
+    udpInternalSecret:
+      secretName: udp-shared-secret
+      key: UDP_INTERNAL_SECRET
+
+query-service:
+  queryService:
+    serviceAccount:
+      name: "default"
+    connectionSecrets: []
+    appConfig:
+      queryService:
+        kafka:
+          enabled: false
+          tlsUserSecret: ""
+          tlsTruststoreSecret: ""
+        data:
+          connections: []
+  secrets:
+    udpInternalSecret:
+      secretName: udp-shared-secret
+      key: UDP_INTERNAL_SECRET
+    authzServiceSecret:
+      secretName: udp-shared-secret
+      key: AUTHZ_SERVICE_SECRET
+      optional: true

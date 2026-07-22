@@ -507,3 +507,44 @@ data-platform:
       limits:
         cpu: "1"
         memory: "2Gi"
+
+unified-data-platform:
+  config-service:
+    enabled: true
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 1Gi
+  onboarding-service:
+    enabled: true
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 1Gi
+  query-service:
+    enabled: true
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 1Gi
+  dashboard-ui:
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi

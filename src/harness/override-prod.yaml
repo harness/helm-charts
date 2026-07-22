@@ -785,3 +785,67 @@ iacm:
       requests:
         cpu: 500m
         memory: 500Mi
+
+unified-data-platform:
+  config-service:
+    enabled: true
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPU: 80
+      targetMemory: 80
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 2
+        memory: 2Gi
+      requests:
+        cpu: 1
+        memory: 2Gi
+  onboarding-service:
+    enabled: true
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPU: 80
+      targetMemory: 80
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 2
+        memory: 2Gi
+      requests:
+        cpu: 1
+        memory: 2Gi
+  query-service:
+    enabled: true
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPU: 80
+      targetMemory: 80
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 2
+        memory: 2Gi
+      requests:
+        cpu: 1
+        memory: 2Gi
+  dashboard-ui:
+    hpa:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 80
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 1
+        memory: 512Mi
+      requests:
+        cpu: 200m
+        memory: 256Mi

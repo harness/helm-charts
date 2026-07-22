@@ -324,3 +324,23 @@ schema-registry:
     image:
       registry: docker.io
       repository: harnesssecure/schema-registry-backup-signed
+config-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/config-service-signed
+schema-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/schema-service-signed
+onboarding-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/onboarding-service-signed
+query-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/query-service-signed
+dashboard-ui:
+  image:
+    registry: docker.io
+    repository: harnesssecure/dashboard-ui-signed

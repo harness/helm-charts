@@ -55,6 +55,9 @@ global:
     # -- Enable to install kafka
   kafka:
     enabled: false
+  # -- Enable to install Harness Unified Data Platform (UDP)
+  unifiedDataPlatform:
+    enabled: true
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:

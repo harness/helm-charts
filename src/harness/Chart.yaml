@@ -55,6 +55,10 @@ dependencies:
   name: data-platform
   repository: https://harness.github.io/helm-charts
   version: 0.43.0
+- condition: global.unifiedDataPlatform.enabled
+  name: unified-data-platform
+  repository: https://harness.github.io/helm-charts
+  version: 0.42.0
 description: Helm Chart for deploying Harness.
 kubeVersion: '>=1.27.0-0'
 name: harness

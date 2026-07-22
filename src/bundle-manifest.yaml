@@ -333,6 +333,17 @@ modules:
       - harness_terraform
       - harness_terraform_vm
 
+  unified-data-platform:
+    description: "Unified Data Platform (UDP) Services"
+    bundle_type: combined
+    bucket_path: "unified-data-platform"
+    images:
+      - config-service-signed
+      - schema-service-signed
+      - onboarding-service-signed
+      - query-service-signed
+      - dashboard-ui-signed
+
   data-platform:
     description: "Data Platform"
     bundle_type: combined
