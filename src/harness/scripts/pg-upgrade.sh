@@ -41,8 +41,10 @@ if [[ -z "$PG_NEW_IMAGE" || -z "$UPGRADE_IMAGE" ]]; then
   exit 1
 fi
 
-# --- Image pull secret (read from postgres StatefulSet at runtime) ---
+# --- Image pull secret + service account (read from postgres StatefulSet at runtime) ---
+# Reuse postgres's SA so the pod inherits its SCC (OpenShift).
 IMAGE_PULL_SECRET=$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.imagePullSecrets[0].name}' 2>/dev/null || true)
+PG_SERVICE_ACCOUNT="${PG_SERVICE_ACCOUNT:-$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.serviceAccountName}' 2>/dev/null || true)}"
 
 UPGRADE_POD="pg-upgrade-job"
 
@@ -220,6 +222,7 @@ log "StatefulSet: $PG_STS_NAME"
 log "New image: $PG_NEW_IMAGE"
 log "Upgrade image: $UPGRADE_IMAGE"
 [[ -n "$IMAGE_PULL_SECRET" ]] && log "Image pull secret: $IMAGE_PULL_SECRET"
+[[ -n "$PG_SERVICE_ACCOUNT" ]] && log "Service account: $PG_SERVICE_ACCOUNT"
 
 # -----------------------------------------------
 # Version pre-check
@@ -287,6 +290,9 @@ _build_pod_spec() {
   - name: $IMAGE_PULL_SECRET"
   fi
 
+  local sa_line=""
+  [[ -n "$PG_SERVICE_ACCOUNT" ]] && sa_line="  serviceAccountName: $PG_SERVICE_ACCOUNT"
+
   cat <<EOF
 apiVersion: v1
 kind: Pod
@@ -294,6 +300,7 @@ metadata:
   name: $UPGRADE_POD
 spec:
   restartPolicy: Never
+${sa_line}
 ${pull_secret_block}
   securityContext:
     runAsUser: 0
