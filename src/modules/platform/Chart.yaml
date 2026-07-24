@@ -4,14 +4,14 @@ dependencies:
 - condition: global.ng.enabled
   name: access-control
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.309.0
+  version: 1.310.0
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.80.0
 - condition: global.cdc.enabled
   name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.61.1
+  version: 1.61.3
 - condition: global.ssca.enabled
   name: debezium-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -21,14 +21,14 @@ dependencies:
   version: 1.9.0
 - name: gateway
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.70.1
+  version: 1.70.2
 - name: harness-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.158.1
+  version: 1.158.1-cli-62383-3a52e5
 - condition: global.ng.enabled
   name: log-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.51.0
+  version: 1.51.1
 - condition: global.ng.enabled
   name: next-gen-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -43,11 +43,11 @@ dependencies:
 - condition: global.ng.enabled
   name: ng-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.159.3-cli-62383-13a762
+  version: 1.159.4-cli-62383-6522aa
 - condition: global.ng.enabled
   name: pipeline-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.198.3-cli-62383-13a762
+  version: 1.198.4-cli-62383-6522aa
 - condition: global.ng.enabled
   name: platform-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -75,7 +75,7 @@ dependencies:
 - condition: global.ngcustomdashboard.enabled
   name: looker
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.19.0
+  version: 1.25.0
 - condition: global.servicediscoverymanager.enabled
   name: service-discovery-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
