@@ -324,3 +324,24 @@ schema-registry:
     image:
       registry: docker.io
       repository: harnesssecure/schema-registry-backup-signed
+registry-api:
+  image:
+    registry: docker.io
+    repository: harnesssecure/registry-api-signed
+registry-async-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/registry-async-service-signed
+ipqs-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/ipqs-service-signed
+  ipqsData:
+    image:
+      registry: docker.io
+      repository: harnesssecure/ip-data-bundle-ipqs-signed
+registry-processor:
+  image:
+    registry: docker.io
+    repository: harnesssecure/registry-processor-signed
+

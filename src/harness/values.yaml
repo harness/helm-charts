@@ -55,6 +55,9 @@ global:
     # -- Enable to install kafka
   kafka:
     enabled: false
+  # -- Enable to install Artifact Repository (AR)
+  ar:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
@@ -866,8 +869,24 @@ pg-upgrade:
       registry: docker.io
       repository: harnesssecure/postgresql
       tag: 16.14-bookworm
-
 data-platform:
+  kafka-connect-strimzi:
+    database:
+      postgres:
+        registry:
+          enabled: true
+          hosts:
+            - postgres
+          database: registry_db
+          secrets:
+            kubernetesSecrets:
+              - secretName: "postgres"
+                keys:
+                  POSTGRES_USER: ""
+                  POSTGRES_PASSWORD: "postgres-password"
+    connectors:
+      postgres-registry-async-service:
+        enabled: true
   kafka-operator:
     strimziOperator:
       kafka:
@@ -902,3 +921,62 @@ data-platform:
   schema-registry:
     backup:
       enabled: false
+ar:
+  registry-api:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+    # SMP-specific env defaults
+    config:
+      REGISTRY_ENABLE_ES: "false"
+      REGISTRY_MULTISTORAGE_ENABLED: "true"
+      HARNESS_UDP_ENABLED: "false"
+      HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
+  registry-processor:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+    config:
+      HARNESS_UDP_ENABLED: "false"
+      HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
+  registry-async-service:
+    enabled: true                    # OMIT or set false for Phase 0
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+    config:
+      REGISTRY_ENABLE_ES: "false"
+      HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
+      REGISTRY_ASYNC_SERVICE_GRACEFUL_SHUTDOWN_TIME: 30
+      KAFKA_CONFLUENT_BOOTSTRAP_SERVER_URLS: "kafka-platform-kafka-bootstrap:9093"
+      KAFKA_PRODUCER_TLS_CA_FILE: "/etc/kafka/cluster-ca/ca.crt"
+      KAFKA_PRODUCER_TLS_CERT_FILE: "/etc/kafka/certs/user.crt"
+      KAFKA_PRODUCER_TLS_KEY_FILE: "/etc/kafka/certs/user.key"
+    extraVolumes:
+      - name: kafka-certs
+        secret:
+          secretName: kafka-platform-registry-async-service
+          defaultMode: 0444
+      - name: kafka-cluster-ca
+        secret:
+          secretName: kafka-platform-cluster-ca-cert
+          defaultMode: 0444
+    extraVolumeMounts:
+      - name: kafka-certs
+        mountPath: /etc/kafka/certs
+        readOnly: true
+      - name: kafka-cluster-ca
+        mountPath: /etc/kafka/cluster-ca
+        readOnly: true
+  ipqs-service:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
