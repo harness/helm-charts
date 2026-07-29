@@ -897,6 +897,27 @@ data-platform:
       image:
         registry: docker.io
         repository: harnesssecure/strimzi-kafka-signed
+    nodePools:
+      brokers:
+        storage:
+          type: jbod
+          volumes:
+            - id: 0
+              type: persistent-claim
+              size: 100Gi
+              class: ""
+              kraftMetadata: shared
+              deleteClaim: false
+      controllers:
+        storage:
+          type: jbod
+          volumes:
+            - id: 0
+              type: persistent-claim
+              size: 10Gi
+              class: ""
+              kraftMetadata: shared
+              deleteClaim: false
   schema-registry:
     backup:
       enabled: false
