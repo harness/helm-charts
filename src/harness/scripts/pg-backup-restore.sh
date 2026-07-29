@@ -46,9 +46,11 @@ BACKUP_POD_NAME="pg-backup-job"
 PG_PASSWORD_SECRET="${PG_PASSWORD_SECRET:-postgres}"
 PG_PASSWORD_SECRET_KEY="${PG_PASSWORD_SECRET_KEY:-postgres-password}"
 
-# Read image and pull secret from the postgres StatefulSet
+# Read image, pull secret, and service account from the postgres StatefulSet.
+# Reuse postgres's SA so the pod inherits its SCC (OpenShift).
 BACKUP_IMAGE="${BACKUP_IMAGE:-$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.containers[0].image}' 2>/dev/null)}"
 IMAGE_PULL_SECRET=$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.imagePullSecrets[0].name}' 2>/dev/null || true)
+PG_SERVICE_ACCOUNT="${PG_SERVICE_ACCOUNT:-$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.serviceAccountName}' 2>/dev/null || true)}"
 
 # Size backup PVC to match postgres data PVC
 if [[ -z "${BACKUP_PVC_SIZE:-}" ]]; then
@@ -112,7 +114,10 @@ launch_pod() {
   [[ -n "$IMAGE_PULL_SECRET" ]] && pull_secret="  imagePullSecrets:
   - name: $IMAGE_PULL_SECRET"
 
-  log "Launching pod ($BACKUP_IMAGE)..."
+  local sa_line=""
+  [[ -n "$PG_SERVICE_ACCOUNT" ]] && sa_line="  serviceAccountName: $PG_SERVICE_ACCOUNT"
+
+  log "Launching pod ($BACKUP_IMAGE, serviceAccount: ${PG_SERVICE_ACCOUNT:-<default>})..."
   cat <<EOF | kubectl apply -n "$NAMESPACE" -f -
 apiVersion: v1
 kind: Pod
@@ -120,6 +125,7 @@ metadata:
   name: $BACKUP_POD_NAME
 spec:
   restartPolicy: Never
+${sa_line}
 ${pull_secret}
   securityContext:
     runAsUser: 1001
