@@ -311,6 +311,7 @@ modules:
       - code-githa-signed
       - code-gitrpc-signed
       - code-search-signed
+      - code-ui-signed
 
   iacm:
     description: "Infrastructure as Code Management"

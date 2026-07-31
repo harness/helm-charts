@@ -507,3 +507,14 @@ data-platform:
       limits:
         cpu: "1"
         memory: "2Gi"
+code:
+  code-ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 200m
+        memory: 200Mi

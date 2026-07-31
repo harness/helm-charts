@@ -836,6 +836,12 @@ code:
       image:
         repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
+  code-ui:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
 postmigrationCheck:
   enabled: true
   image:
