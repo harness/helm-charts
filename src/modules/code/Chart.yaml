@@ -17,6 +17,10 @@ dependencies:
   name: code-search
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.89.1
+- condition: global.code.enabled
+  name: code-ui
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.0.1
 description: A Helm chart for Harness CODE
 name: code
 type: application

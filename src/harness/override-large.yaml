@@ -513,3 +513,14 @@ data-platform:
       limits:
         cpu: 2
         memory: "4Gi"
+code:
+  code-ui:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 256m
+        memory: 512Mi
