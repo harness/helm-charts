@@ -285,6 +285,10 @@ code-search:
   image:
     registry: docker.io
     repository: harnesssecure/code-search-signed
+code-ui:
+  image:
+    registry: docker.io
+    repository: harnesssecure/code-ui-signed
 helm-init-container:
   image:
     registry: docker.io
