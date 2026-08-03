@@ -480,6 +480,17 @@ platform:
           prometheus.io/path: /metrics
           prometheus.io/port: '9187'
           prometheus.io/scrape: 'false'
+        databases:
+          - name: harness
+            partmanMaintenance: true
+          - name: harnessti
+            partmanMaintenance: true
+          - name: harness_gitops
+            partmanMaintenance: true
+          - name: harnesscf
+          - name: iro_db
+          - name: config_service
+          - name: schema_service
       redis:
         affinity: {}
         metrics:
