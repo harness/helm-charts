@@ -3,6 +3,8 @@ unifiedDataPlatform:
   udpInternalSecretValueDefault: "UdpInternalHmacSharedBetweenQuerySchemaConfigOnboardingUdpServicesAuthKey2026062"
 
 config-service:
+  image:
+    imagePullSecrets: []
   configService:
     kafka:
       enabled: false
@@ -18,6 +20,8 @@ config-service:
       optional: true
 
 schema-service:
+  image:
+    imagePullSecrets: []
   schemaService:
     kafka:
       enabled: false
@@ -33,6 +37,8 @@ schema-service:
       optional: true
 
 onboarding-service:
+  image:
+    imagePullSecrets: []
   onboardingService:
     kafka:
       enabled: false
@@ -44,6 +50,8 @@ onboarding-service:
       key: UDP_INTERNAL_SECRET
 
 query-service:
+  image:
+    imagePullSecrets: []
   queryService:
     serviceAccount:
       name: "default"
@@ -64,3 +72,7 @@ query-service:
       secretName: udp-shared-secret
       key: AUTHZ_SERVICE_SECRET
       optional: true
+
+dashboard-ui:
+  image:
+    imagePullSecrets: []
