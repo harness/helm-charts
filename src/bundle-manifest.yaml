@@ -13,6 +13,7 @@ modules:
       - gateway
       - ratelimit
       - envoy
+      - deploy-crds-job
       - busybox
       - ci-scm-signed
       - template-service-signed
