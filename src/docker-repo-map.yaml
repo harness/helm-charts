@@ -92,6 +92,11 @@ delegate-proxy:
   image:
     registry: docker.io
     repository: harnesssecure/delegate-proxy-signed
+envoy-gateway:
+  deployCRDsJob:
+    image:
+      registry: docker.io
+      repository: harnesssecure/deploy-crds-job
 event-service:
   image:
     registry: docker.io
