@@ -302,6 +302,7 @@ modules:
     bucket_path: "dbdevops"
     images:
       - db-devops-service-signed
+      - harness-db-migrator-signed
 
   code:
     description: "Code Repository"

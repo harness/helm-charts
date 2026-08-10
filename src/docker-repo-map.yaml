@@ -274,6 +274,10 @@ db-devops-service:
   image:
     registry: docker.io
     repository: harnesssecure/db-devops-service-signed
+harness-db-migrator:
+  image:
+    registry: docker.io
+    repository: harnesssecure/harness-db-migrator-signed
 code-api:
   image:
     registry: docker.io
