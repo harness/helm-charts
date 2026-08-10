@@ -104,7 +104,6 @@ docker.io/harnesssecure/manager-signed:1.157.2
 docker.io/harnesssecure/mongo:8.0.26-jammy
 docker.io/harnesssecure/ng-auth-ui-signed:1.39.0
 docker.io/harnesssecure/redis:7.4.9-jammy
-docker.io/harnesssecure/redis:7.4.9-jammy
 docker.io/harnesssecure/postgresql:14.20-debian
 docker.io/harnesssecure/postgresql:16.14-bookworm
 docker.io/harnesssecure/policy-mgmt:1.59.5
@@ -355,6 +354,7 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | ccm.ce-nextgen.stackDriverLoggingEnabled | bool | `false` | Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure |
 | ccm.cloud-info.proxy | object | `{"httpsProxyEnabled":false,"httpsProxyUrl":"http://localhost"}` | Set ccm.cloud-info.proxy.httpsProxyUrl to proxy url(ex: http://localhost:8080, if http proxy is running on localhost port 8080) |
 | ccm.event-service | object | `{"stackDriverLoggingEnabled":false}` | Set ccm.event-service.stackDriverLoggingEnabled to true for GCP infrastructure |
+| cd.gitops.agentRedisImage.image.repository | string | `"harnesssecure/redis"` |  |
 | cd.gitops.agentRedisImage.image.tag | string | `"7.4.9-jammy"` |  |
 | chaos.chaos-common.installLinuxCRDs | bool | `false` |  |
 | chaos.chaos-k8s-ifs.nodeSelector | object | `{}` |  |
