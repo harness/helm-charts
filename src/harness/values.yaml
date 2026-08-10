@@ -432,6 +432,7 @@ cd:
   gitops:
     agentRedisImage:
       image:
+        repository: harnesssecure/redis
         tag: "7.4.9-jammy"
 # -- Config for platform-level services (always deployed by default to support all services)
 
