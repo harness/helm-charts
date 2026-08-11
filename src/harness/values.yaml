@@ -124,7 +124,7 @@ global:
   # -- High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV
   ha: true
   # -- This private Docker image registry will override any registries that are defined in subcharts.
-  imageRegistry: "docker.io"
+  imageRegistry: ""
   # -- Image Pull Secrets List for Harness SMP Images
   imagePullSecrets: []
   # -- Gateway API configuration (consumed by envoy-gateway subchart condition
@@ -136,11 +136,10 @@ global:
       name: envoy-gateway
     proxyServiceName: envoy-gateway-proxy-envoy-gateway
     fallbackRoute:
-      serviceName: harness-ingress-controller
+      enabled: false
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
-    disableHostInIngress: true
     className: "harness"
     enabled: false
     # -- add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty.
@@ -433,6 +432,7 @@ cd:
   gitops:
     agentRedisImage:
       image:
+        repository: harnesssecure/redis
         tag: "7.4.9-jammy"
 # -- Config for platform-level services (always deployed by default to support all services)
 
@@ -581,7 +581,7 @@ platform:
   # -- gateway settings (taints, tolerations, and so on)
   envoy-gateway:
     enabled: false
-    gateway-helm:
+    deployCRDsJob:
       enabled: false
     envoyConfiguration:
       podDisruptionBudget:
@@ -631,7 +631,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.06.89303
+        tag: 26.06.89501
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -872,7 +872,6 @@ pg-upgrade:
       registry: docker.io
       repository: harnesssecure/postgresql
       tag: 16.14-bookworm
-
 data-platform:
   kafka-operator:
     strimziOperator:
@@ -905,6 +904,27 @@ data-platform:
       image:
         registry: docker.io
         repository: harnesssecure/strimzi-kafka-signed
+    nodePools:
+      brokers:
+        storage:
+          type: jbod
+          volumes:
+            - id: 0
+              type: persistent-claim
+              size: 100Gi
+              class: ""
+              kraftMetadata: shared
+              deleteClaim: false
+      controllers:
+        storage:
+          type: jbod
+          volumes:
+            - id: 0
+              type: persistent-claim
+              size: 10Gi
+              class: ""
+              kraftMetadata: shared
+              deleteClaim: false
   schema-registry:
     backup:
       enabled: false

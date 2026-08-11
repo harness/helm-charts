@@ -28,6 +28,9 @@ PG_UPGRADE_JOBS="${PG_UPGRADE_JOBS:-4}"
 PG_STS_NAME="${PG_STS_NAME:-postgres}"
 PG_POD="${PG_STS_NAME}-0"
 PG_USER="${PG_USER:-postgres}"
+PG_CONF_DIR="${PG_CONF_DIR:-/bitnami/postgresql/conf}"
+PG_CONFIGMAP="${PG_CONFIGMAP:-${PG_STS_NAME}-configuration}"
+PG_HBA_CONFIGMAP="${PG_HBA_CONFIGMAP:-${PG_STS_NAME}-hba-configuration}"
 
 # --- Image configuration (from pg-upgrade-config ConfigMap) ---
 PG_NEW_IMAGE="${PG_NEW_IMAGE:-$(kubectl get configmap pg-upgrade-config -n "$NAMESPACE" -o jsonpath='{.data.PG_NEW_IMAGE}' 2>/dev/null || true)}"
@@ -45,6 +48,10 @@ fi
 # Reuse postgres's SA so the pod inherits its SCC (OpenShift).
 IMAGE_PULL_SECRET=$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.imagePullSecrets[0].name}' 2>/dev/null || true)
 PG_SERVICE_ACCOUNT="${PG_SERVICE_ACCOUNT:-$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.serviceAccountName}' 2>/dev/null || true)}"
+
+# --- Postgres password secret ---
+PG_SECRET_NAME="${PG_SECRET_NAME:-postgres}"
+PG_SECRET_KEY="${PG_SECRET_KEY:-postgres-password}"
 
 UPGRADE_POD="pg-upgrade-job"
 
@@ -269,6 +276,8 @@ prompt_yes_no "Have you taken a backup of PostgreSQL data? (pg_dumpall / volume 
 log "Scaling down $PG_STS_NAME in $NAMESPACE..."
 REPLICAS=$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.status.readyReplicas}' 2>/dev/null || echo "0")
 if [[ "${REPLICAS:-0}" != "0" ]]; then
+  log "  Running CHECKPOINT before scale down..."
+  _pg_exec "$PG_POD" "postgres" "CHECKPOINT;" >/dev/null
   prompt_yes_no "Scale down $PG_STS_NAME to 0 replicas?"
   kubectl scale sts -n "$NAMESPACE" "$PG_STS_NAME" --replicas=0
   log "  Waiting for pod $PG_POD to terminate..."
@@ -307,10 +316,23 @@ ${pull_secret_block}
   containers:
   - name: upgrade
     image: $UPGRADE_IMAGE
+    imagePullPolicy: Always
     command: ["sleep", "7200"]
+    env:
+    - name: PGPASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: $PG_SECRET_NAME
+          key: $PG_SECRET_KEY
     volumeMounts:
     - name: data
       mountPath: /bitnami/postgresql
+    - name: pg-conf
+      mountPath: $PG_CONF_DIR/postgresql.conf
+      subPath: postgresql.conf
+    - name: pg-hba
+      mountPath: $PG_CONF_DIR/pg_hba.conf
+      subPath: pg_hba.conf
     resources:
       requests:
         cpu: "2"
@@ -322,6 +344,12 @@ ${pull_secret_block}
   - name: data
     persistentVolumeClaim:
       claimName: data-${PG_POD}
+  - name: pg-conf
+    configMap:
+      name: $PG_CONFIGMAP
+  - name: pg-hba
+    configMap:
+      name: $PG_HBA_CONFIGMAP
 EOF
 }
 
@@ -368,6 +396,8 @@ kubectl exec -n "$NAMESPACE" "$UPGRADE_POD" -- bash -c "
   echo 'PG$PG_NEW_VERSION data directory initialized.'
 " 2>&1 | tee -a "$LOG_FILE" | tail -5
 
+OLD_OPTIONS="-c config_file=$PG_CONF_DIR/postgresql.conf"
+
 log "  Running pg_upgrade --check --verbose..."
 kubectl exec -n "$NAMESPACE" "$UPGRADE_POD" -- bash -c "
   cd /tmp && \
@@ -376,6 +406,7 @@ kubectl exec -n "$NAMESPACE" "$UPGRADE_POD" -- bash -c "
     --new-bindir=$PG_NEW_BINDIR \
     --old-datadir=$PG_DATADIR \
     --new-datadir=$PG_DATADIR_NEW \
+    --old-options=\"$OLD_OPTIONS\" \
     --link \
     --check \
     --verbose \
@@ -397,6 +428,7 @@ kubectl exec -n "$NAMESPACE" "$UPGRADE_POD" -- bash -c "
     --new-bindir=$PG_NEW_BINDIR \
     --old-datadir=$PG_DATADIR \
     --new-datadir=$PG_DATADIR_NEW \
+    --old-options=\"$OLD_OPTIONS\" \
     --link \
     --verbose \
     --jobs=$PG_UPGRADE_JOBS \

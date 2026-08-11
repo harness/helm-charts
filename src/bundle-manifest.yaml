@@ -13,6 +13,7 @@ modules:
       - gateway
       - ratelimit
       - envoy
+      - deploy-crds-job
       - busybox
       - ci-scm-signed
       - template-service-signed
@@ -286,6 +287,7 @@ modules:
     exclude_full:
       - ssca-attestation-plugin
       - ssca-ai-bom-plugin
+      - enforce-attestation-plugin
     images:
       - ssca-plugin
       - slsa-plugin
