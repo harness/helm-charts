@@ -258,6 +258,12 @@ tests:
         tag: 808xx
         pullPolicy: Always
         pullSecrets: [{name: mysecret}]
+      ratelimitServer:
+        image:
+          registry: docker.io
+          repository: harness/feature-signed
+          tag: 808xx
+          pullPolicy: Always
       # Most services use securityContext in values
       securityContext: {runAsUser: 1000}
       # Few of the services use containerSecurityContext in values
@@ -315,6 +321,12 @@ tests:
         tag: 808xx
         pullPolicy: Always
         pullSecrets: [{name: mysecret}]
+      ratelimitServer:
+        image:
+          registry: docker.io
+          repository: harness/feature-signed
+          tag: 808xx
+          pullPolicy: Always
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
