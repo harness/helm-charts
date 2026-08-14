@@ -44,7 +44,7 @@ global:
   dbops:
     enabled: false
   # -- Enable DB DevOps managed migrations (harness-db-migrator)
-  dbopsMigration:
+  dbopsHelmMigration:
     enabled: true
   # -- Enable to install Harness Code services (CODE)
   code:
