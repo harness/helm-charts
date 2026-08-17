@@ -845,6 +845,11 @@ code:
       enabled: false
     nodeSelector: {}
     tolerations: []
+db-devops:
+  db-devops-service:
+    config:
+      INDEX_MANAGER_ENABLED: "false"
+      DBOPS_MIGRATIONS_ENABLED: "true"
 postmigrationCheck:
   enabled: true
   image:
