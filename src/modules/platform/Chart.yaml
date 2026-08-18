@@ -95,7 +95,7 @@ dependencies:
 - condition: global.dbopsHelmMigration.enabled
   name: harness-db-migrator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 2.4.0-main-7bfe9c
+  version: 2.4.0
 description: Helm chart for Harness Platform
 name: platform
 type: application
