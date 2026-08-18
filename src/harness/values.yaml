@@ -43,6 +43,9 @@ global:
   # -- Enable to install Database Devops (DB Devops)
   dbops:
     enabled: false
+  # -- Enable DB DevOps managed migrations (harness-db-migrator)
+  dbopsHelmMigration:
+    enabled: true
   # -- Enable to install Harness Code services (CODE)
   code:
     enabled: false
@@ -842,6 +845,11 @@ code:
       enabled: false
     nodeSelector: {}
     tolerations: []
+db-devops:
+  db-devops-service:
+    config:
+      INDEX_MANAGER_ENABLED: "false"
+      DBOPS_MIGRATIONS_ENABLED: "true"
 postmigrationCheck:
   enabled: true
   image:
