@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.41.2](https://img.shields.io/badge/Version-0.41.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.41.3](https://img.shields.io/badge/Version-0.41.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -293,7 +293,7 @@ docker.io/harnesssecure/code-gitrpc-signed:1.81.1
 docker.io/harnesssecure/code-search-signed:1.81.0
 
 ## Infrastructure as Code Management
-docker.io/harnesssecure/iac-server-signed:1.370.0
+docker.io/harnesssecure/iac-server-signed:1.370.2
 docker.io/harnesssecure/iacm-manager-signed:1.138.1
 
 ### IACM Plugins
