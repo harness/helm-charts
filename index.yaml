@@ -21153,6 +21153,23 @@ entries:
     version: 0.42.0
   - apiVersion: v2
     appVersion: 0.0.79001
+    created: "2026-08-18T12:27:52.55316129Z"
+    dependencies:
+    - name: iac-server
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.370.2
+    - name: iacm-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.138.1
+    description: Helm chart for Harness IACM
+    digest: f19e253e986c36a7687f3ce7b1c74a782423ee6f22e9ce7961072d548e65caf2
+    name: iacm
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/iacm-0.41.3/iacm-0.41.3.tgz
+    version: 0.41.3
+  - apiVersion: v2
+    appVersion: 0.0.79001
     created: "2026-04-29T15:00:35.536423081Z"
     dependencies:
     - name: iac-server
@@ -35258,4 +35275,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/sto-0.9.0/sto-0.9.0.tgz
     version: 0.9.0
-generated: "2026-08-18T04:44:26.436943775Z"
+generated: "2026-08-18T12:27:53.795245713Z"
