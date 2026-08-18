@@ -114,7 +114,7 @@ harnesssecure/gcr:21.3.0
 harnesssecure/acr:21.3.0
 
 ## Security Testing Orchestration
-docker.io/harnesssecure/stocore-signed:1.202.1
+docker.io/harnesssecure/stocore-signed:1.202.2
 docker.io/harnesssecure/ticket-service-signed:1.15.0
 docker.io/harnesssecure/refid-cache:latest
 harnesssecure/refid-cache:latest
