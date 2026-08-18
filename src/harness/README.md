@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.44.0](https://img.shields.io/badge/Version-0.44.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.44.1](https://img.shields.io/badge/Version-0.44.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -197,7 +197,7 @@ harnesssecure/gcr:21.3.0
 harnesssecure/acr:21.3.0
 
 ## Security Testing Orchestration
-docker.io/harnesssecure/stocore-signed:1.202.1
+docker.io/harnesssecure/stocore-signed:1.202.2
 docker.io/harnesssecure/ticket-service-signed:1.15.0
 docker.io/harnesssecure/refid-cache:latest
 harnesssecure/refid-cache:latest
