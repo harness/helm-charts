@@ -210,7 +210,7 @@ docker.io/harnesssecure/code-gitrpc-signed:1.81.1
 docker.io/harnesssecure/code-search-signed:1.81.0
 
 ## Infrastructure as Code Management
-docker.io/harnesssecure/iac-server-signed:1.370.0
+docker.io/harnesssecure/iac-server-signed:1.370.2
 docker.io/harnesssecure/iacm-manager-signed:1.138.1
 
 ### IACM Plugins
