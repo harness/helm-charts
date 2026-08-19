@@ -3,17 +3,17 @@ appVersion: 0.1.0
 dependencies:
 - name: registry-api
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.87.5
+  version: 1.90.0
 - name: registry-async-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.44.0
+  version: 1.47.0
 - name: ipqs-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.8.0
 - name: registry-processor
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.58.3
+  version: 1.61.0
 description: A Helm chart for Harness Artifact Registry
 name: ar
 type: application
-version: 0.44.0
+version: 0.45.0
