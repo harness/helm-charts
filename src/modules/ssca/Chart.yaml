@@ -4,11 +4,11 @@ dependencies:
 - condition: global.ssca.enabled
   name: ssca-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.70.0
+  version: 1.70.3
 - condition: global.ssca.enabled
   name: ssca-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.55.1
+  version: 0.56.0
 - condition: global.ssca.enabled
   name: component-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
@@ -16,7 +16,7 @@ dependencies:
 - condition: global.ssca.enabled
   name: component-analysis-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.17.0
+  version: 1.17.1
 description: A Helm chart for Harness SSCA
 name: ssca
 type: application
