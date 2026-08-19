@@ -2,6 +2,9 @@ config-service:
   image:
     imagePullSecrets: []
   createSmpSecret: false
+  secretValues:
+    UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
+    AUTHZ_SERVICE_SECRET: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
   configService:
     kafka:
       enabled: false
@@ -12,6 +15,9 @@ schema-service:
   image:
     imagePullSecrets: []
   createSmpSecret: false
+  secretValues:
+    UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
+    AUTHZ_SERVICE_SECRET: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
   schemaService:
     kafka:
       enabled: false
@@ -22,6 +28,8 @@ onboarding-service:
   image:
     imagePullSecrets: []
   createSmpSecret: false
+  secretValues:
+    UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
   onboardingService:
     kafka:
       enabled: false
@@ -32,6 +40,9 @@ query-service:
   image:
     imagePullSecrets: []
   createSmpSecret: false
+  secretValues:
+    UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
+    AUTHZ_SERVICE_SECRET: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
   queryService:
     serviceAccount:
       name: "default"
