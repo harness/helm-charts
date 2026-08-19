@@ -1,62 +1,50 @@
-unifiedDataPlatform:
-  authzServiceSecretValueDefault: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
-  udpInternalSecretValueDefault: "UdpInternalHmacSharedBetweenQuerySchemaConfigOnboardingUdpServicesAuthKey2026062"
-
 config-service:
   image:
     imagePullSecrets: []
+  createSmpSecret: false
   configService:
     kafka:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
-  secrets:
-    udpInternalSecret:
-      secretName: udp-shared-secret
-      key: UDP_INTERNAL_SECRET
-    authzServiceSecret:
-      secretName: udp-shared-secret
-      key: AUTHZ_SERVICE_SECRET
-      optional: true
 
 schema-service:
   image:
     imagePullSecrets: []
+  createSmpSecret: false
   schemaService:
     kafka:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
-  secrets:
-    udpInternalSecret:
-      secretName: udp-shared-secret
-      key: UDP_INTERNAL_SECRET
-    authzServiceSecret:
-      secretName: udp-shared-secret
-      key: AUTHZ_SERVICE_SECRET
-      optional: true
 
 onboarding-service:
   image:
     imagePullSecrets: []
+  createSmpSecret: false
   onboardingService:
     kafka:
       enabled: false
       tlsUserSecret: ""
       tlsTruststoreSecret: ""
-  secrets:
-    udpInternalSecret:
-      secretName: udp-shared-secret
-      key: UDP_INTERNAL_SECRET
 
 query-service:
   image:
     imagePullSecrets: []
+  createSmpSecret: false
   queryService:
     serviceAccount:
       name: "default"
     connectionSecrets: []
     appConfig:
+      # On SMP, Kafka is disabled so no change-event-driven cache invalidation happens.
+      # Lower cache TTLs to 15m so schema and mapping config changes propagate within one
+      # polling cycle instead of waiting up to 1 day (the SaaS default).
+      grpcClients:
+        schema-service:
+          cache-duration: 15m
+        config-service:
+          cache-duration: 15m
       queryService:
         kafka:
           enabled: false
@@ -64,14 +52,6 @@ query-service:
           tlsTruststoreSecret: ""
         data:
           connections: []
-  secrets:
-    udpInternalSecret:
-      secretName: udp-shared-secret
-      key: UDP_INTERNAL_SECRET
-    authzServiceSecret:
-      secretName: udp-shared-secret
-      key: AUTHZ_SERVICE_SECRET
-      optional: true
 
 dashboard-ui:
   image:

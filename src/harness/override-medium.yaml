@@ -511,6 +511,7 @@ data-platform:
 unified-data-platform:
   config-service:
     enabled: true
+    createSmpSecret: true
     replicaCount: 1
     resources:
       limits:
@@ -519,8 +520,11 @@ unified-data-platform:
       requests:
         cpu: 500m
         memory: 1Gi
+  schema-service:
+    createSmpSecret: true
   onboarding-service:
     enabled: true
+    createSmpSecret: true
     replicaCount: 1
     resources:
       limits:
@@ -531,6 +535,7 @@ unified-data-platform:
         memory: 1Gi
   query-service:
     enabled: true
+    createSmpSecret: true
     replicaCount: 1
     resources:
       limits:
