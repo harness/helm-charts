@@ -4,23 +4,23 @@ dependencies:
 - condition: global.smpUdp.enabled
   name: config-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.1.133
+  version: 0.1.155
 - condition: global.smpUdp.enabled
   name: schema-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.13.9
+  version: 0.20.0
 - condition: global.smpUdp.enabled
   name: onboarding-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.8.179
+  version: 0.10.249
 - condition: global.smpUdp.enabled
   name: query-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.53.7
+  version: 0.60.4
 - condition: global.smpUdp.enabled
   name: dashboard-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.17.6
+  version: 1.63.0
 description: A Helm chart for Harness SMP UDP services
 name: smp-udp
 type: application
