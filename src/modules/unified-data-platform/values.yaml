@@ -1,0 +1,69 @@
+config-service:
+  image:
+    imagePullSecrets: []
+  createSmpSecret: true
+  secretValues:
+    UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
+    AUTHZ_SERVICE_SECRET: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
+  configService:
+    kafka:
+      enabled: false
+      tlsUserSecret: ""
+      tlsTruststoreSecret: ""
+
+schema-service:
+  image:
+    imagePullSecrets: []
+  createSmpSecret: true
+  secretValues:
+    UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
+    AUTHZ_SERVICE_SECRET: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
+  schemaService:
+    kafka:
+      enabled: false
+      tlsUserSecret: ""
+      tlsTruststoreSecret: ""
+
+onboarding-service:
+  image:
+    imagePullSecrets: []
+  createSmpSecret: true
+  secretValues:
+    UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
+  onboardingService:
+    kafka:
+      enabled: false
+      tlsUserSecret: ""
+      tlsTruststoreSecret: ""
+
+query-service:
+  image:
+    imagePullSecrets: []
+  createSmpSecret: true
+  secretValues:
+    UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
+    AUTHZ_SERVICE_SECRET: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
+  queryService:
+    serviceAccount:
+      name: "default"
+    connectionSecrets: []
+    appConfig:
+      # On SMP, Kafka is disabled so no change-event-driven cache invalidation happens.
+      # Lower cache TTLs to 15m so schema and mapping config changes propagate within one
+      # polling cycle instead of waiting up to 1 day (the SaaS default).
+      grpcClients:
+        schema-service:
+          cache-duration: 15m
+        config-service:
+          cache-duration: 15m
+      queryService:
+        kafka:
+          enabled: false
+          tlsUserSecret: ""
+          tlsTruststoreSecret: ""
+        data:
+          connections: []
+
+dashboard-ui:
+  image:
+    imagePullSecrets: []
