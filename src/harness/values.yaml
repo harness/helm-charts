@@ -43,6 +43,9 @@ global:
   # -- Enable to install Database Devops (DB Devops)
   dbops:
     enabled: false
+  # -- Enable DB DevOps managed migrations (harness-db-migrator)
+  dbopsHelmMigration:
+    enabled: true
   # -- Enable to install Harness Code services (CODE)
   code:
     enabled: false
@@ -128,6 +131,18 @@ global:
   ha: true
   # -- This private Docker image registry will override any registries that are defined in subcharts.
   imageRegistry: ""
+  # -- Image Pull Secrets List for Harness SMP Images
+  imagePullSecrets: []
+  # -- Gateway API configuration (consumed by envoy-gateway subchart condition
+  # and harness-common HTTPRoute helpers at global.gatewayAPI.*)
+  gatewayAPI:
+    enabled: false
+    create: false
+    parentRef:
+      name: envoy-gateway
+    proxyServiceName: envoy-gateway-proxy-envoy-gateway
+    fallbackRoute:
+      enabled: false
   ## !! Enable Istio or ingress; do not enable both. If `istio.enabled` is true, `ingress.enabled` must not be.
   # --- Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx.
   ingress:
@@ -142,6 +157,8 @@ global:
     objects:
       # -- annotations to be added to ingress Objects
       annotations: {}
+      ingress: []
+      grpcRoutes: []
     tls:
       enabled: true
       secretName: harness-cert
@@ -264,7 +281,6 @@ global:
       pullPolicy: Always
       tag: "1.9.0"
       digest: ""
-      imagePullSecrets: []
   fileLogging:
     enabled: true
     path: "/opt/harness/logs/service.log"
@@ -283,7 +299,7 @@ global:
     provider: "vault"
     image:
       repository: "harnesssecure/vault-secret-loader"
-      tag: "1.0.9"
+      tag: "1.0.10"
       pullPolicy: "IfNotPresent"
     vault:
       address: ""
@@ -409,13 +425,23 @@ ci:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    ingress:
+      objects:
+        - name: ti-service
+          annotations:
+            nginx.ingress.kubernetes.io/rewrite-target: /$2
+            nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+          paths:
+            - path: '{{ .Values.global.ingress.pathPrefix }}/ti-service(/|$)(.*)'
 enabled: false
 cd:
   gitops:
     agentRedisImage:
       image:
+        repository: harnesssecure/redis
         tag: "7.4.9-jammy"
 # -- Config for platform-level services (always deployed by default to support all services)
+
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
@@ -526,6 +552,10 @@ platform:
         controller:
           # -- annotations to be addded to ingress Controller
           annotations: {}
+          config:
+            # -- Trust X-Forwarded-Proto from envoy-gateway so nginx does not
+            # force-ssl-redirect HTTP traffic forwarded from the gateway.
+            use-forwarded-headers: "true"
         # -- Create Nginx Controller.  True will deploy a controller into your cluster
         create: false
         healthNodePort: ""
@@ -555,6 +585,32 @@ platform:
     nodeSelector: {}
     tolerations: []
   # -- gateway settings (taints, tolerations, and so on)
+  envoy-gateway:
+    enabled: false
+    deployCRDsJob:
+      enabled: false
+    envoyConfiguration:
+      podDisruptionBudget:
+        minAvailable: 1
+      deployment:
+        replicas: 2
+        envoyGateway:
+          resources:
+            limits:
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+        pod:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        control-plane: envoy-gateway
+                    topologyKey: kubernetes.io/hostname
   gateway:
     config:
       ENV: "SMP"
@@ -581,7 +637,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.06.89303
+        tag: 26.06.89501
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -667,6 +723,7 @@ srm:
     tolerations: []
     keda:
       enabled: false
+    ingress: {}
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
@@ -785,6 +842,17 @@ code:
       image:
         repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
+  code-ui:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+db-devops:
+  db-devops-service:
+    config:
+      INDEX_MANAGER_ENABLED: "false"
+      DBOPS_MIGRATIONS_ENABLED: "true"
 postmigrationCheck:
   enabled: true
   image:
@@ -815,7 +883,6 @@ pg-upgrade:
       registry: docker.io
       repository: harnesssecure/postgresql
       tag: 16.14-bookworm
-
 data-platform:
   kafka-operator:
     strimziOperator:
@@ -848,6 +915,27 @@ data-platform:
       image:
         registry: docker.io
         repository: harnesssecure/strimzi-kafka-signed
+    nodePools:
+      brokers:
+        storage:
+          type: jbod
+          volumes:
+            - id: 0
+              type: persistent-claim
+              size: 100Gi
+              class: ""
+              kraftMetadata: shared
+              deleteClaim: false
+      controllers:
+        storage:
+          type: jbod
+          volumes:
+            - id: 0
+              type: persistent-claim
+              size: 10Gi
+              class: ""
+              kraftMetadata: shared
+              deleteClaim: false
   schema-registry:
     backup:
       enabled: false

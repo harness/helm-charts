@@ -19,6 +19,7 @@
 {{- if .Release.IsUpgrade }}
 {{- if .Values.upgrades.versionLookups.enabled }}
 {{- $hm_deployment := lookup "apps/v1" "Deployment" .Release.Namespace "harness-manager" -}}
+{{- if $hm_deployment }}
 {{- $var := $hm_deployment.metadata.labels }}
 {{- $version := ( get $var "helm.sh/chart" ) | trimPrefix "harness-manager-" }}
 {{- if .Values.platform.bootstrap.database.mongodbupgrades.mongoFCVUpgrade.enabled }}
@@ -28,6 +29,7 @@
   {{ fail "[ERROR] You are currently using SMP with MongoDB 5.0 and a direct upgrade to MongoDB 7.0 is not possible. Since SMP 0.22.0 and above uses Mongo 6.0, please, upgrade to SMP versions 0.22.0 through 0.32.0, which will install MongoDB 6.0. After that, you can upgrade to SMP 0.33.0 or later, which will update MongoDB to version 7.0." }}
 {{- else }}
   {{- printf "Mongo Upgrade Check looks good!" }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

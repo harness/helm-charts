@@ -46,14 +46,22 @@ BACKUP_POD_NAME="pg-backup-job"
 PG_PASSWORD_SECRET="${PG_PASSWORD_SECRET:-postgres}"
 PG_PASSWORD_SECRET_KEY="${PG_PASSWORD_SECRET_KEY:-postgres-password}"
 
-# Read image and pull secret from the postgres StatefulSet
+# Read image, pull secret, and service account from the postgres StatefulSet.
+# Reuse postgres's SA so the pod inherits its SCC (OpenShift).
 BACKUP_IMAGE="${BACKUP_IMAGE:-$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.containers[0].image}' 2>/dev/null)}"
 IMAGE_PULL_SECRET=$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.imagePullSecrets[0].name}' 2>/dev/null || true)
+PG_SERVICE_ACCOUNT="${PG_SERVICE_ACCOUNT:-$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.spec.template.spec.serviceAccountName}' 2>/dev/null || true)}"
 
 # Size backup PVC to match postgres data PVC
 if [[ -z "${BACKUP_PVC_SIZE:-}" ]]; then
   BACKUP_PVC_SIZE=$(kubectl get pvc -n "$NAMESPACE" "data-${PG_POD}" -o jsonpath='{.spec.resources.requests.storage}' 2>/dev/null || true)
   BACKUP_PVC_SIZE="${BACKUP_PVC_SIZE:-50Gi}"
+fi
+
+# Resolve backup PVC storage class if not explicitly set.
+# Reuse the class of the postgres data PVC so the backup volume lands on the same sc
+if [[ -z "${BACKUP_PVC_STORAGE_CLASS:-}" ]]; then
+  BACKUP_PVC_STORAGE_CLASS=$(kubectl get pvc -n "$NAMESPACE" "data-${PG_POD}" -o jsonpath='{.spec.storageClassName}' 2>/dev/null || true)
 fi
 
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
@@ -77,7 +85,7 @@ pod_exec() { kubectl exec -n "$NAMESPACE" "$BACKUP_POD_NAME" -- bash -c "$1"; }
 ensure_pvc() {
   kubectl get pvc -n "$NAMESPACE" "$BACKUP_PVC_NAME" &>/dev/null && return
 
-  log "Creating PVC $BACKUP_PVC_NAME ($BACKUP_PVC_SIZE)..."
+  log "Creating PVC $BACKUP_PVC_NAME ($BACKUP_PVC_SIZE, storageClass: ${BACKUP_PVC_STORAGE_CLASS:-<cluster default>})..."
   local sc=""
   [[ -n "$BACKUP_PVC_STORAGE_CLASS" ]] && sc="  storageClassName: $BACKUP_PVC_STORAGE_CLASS"
 
@@ -106,7 +114,10 @@ launch_pod() {
   [[ -n "$IMAGE_PULL_SECRET" ]] && pull_secret="  imagePullSecrets:
   - name: $IMAGE_PULL_SECRET"
 
-  log "Launching pod ($BACKUP_IMAGE)..."
+  local sa_line=""
+  [[ -n "$PG_SERVICE_ACCOUNT" ]] && sa_line="  serviceAccountName: $PG_SERVICE_ACCOUNT"
+
+  log "Launching pod ($BACKUP_IMAGE, serviceAccount: ${PG_SERVICE_ACCOUNT:-<default>})..."
   cat <<EOF | kubectl apply -n "$NAMESPACE" -f -
 apiVersion: v1
 kind: Pod
@@ -114,6 +125,7 @@ metadata:
   name: $BACKUP_POD_NAME
 spec:
   restartPolicy: Never
+${sa_line}
 ${pull_secret}
   securityContext:
     runAsUser: 1001

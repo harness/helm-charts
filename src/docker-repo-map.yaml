@@ -92,6 +92,11 @@ delegate-proxy:
   image:
     registry: docker.io
     repository: harnesssecure/delegate-proxy-signed
+envoy-gateway:
+  deployCRDsJob:
+    image:
+      registry: docker.io
+      repository: harnesssecure/deploy-crds-job
 event-service:
   image:
     registry: docker.io
@@ -269,6 +274,10 @@ db-devops-service:
   image:
     registry: docker.io
     repository: harnesssecure/db-devops-service-signed
+harness-db-migrator:
+  image:
+    registry: docker.io
+    repository: harnesssecure/harness-db-migrator-signed
 code-api:
   image:
     registry: docker.io
@@ -285,6 +294,10 @@ code-search:
   image:
     registry: docker.io
     repository: harnesssecure/code-search-signed
+code-ui:
+  image:
+    registry: docker.io
+    repository: harnesssecure/code-ui-signed
 helm-init-container:
   image:
     registry: docker.io

@@ -548,3 +548,14 @@ unified-data-platform:
       requests:
         cpu: 50m
         memory: 64Mi
+code:
+  code-ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 200m
+        memory: 200Mi
