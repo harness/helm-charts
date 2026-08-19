@@ -55,6 +55,9 @@ global:
     # -- Enable to install Harness Data Platform
   data-platform:
     enabled: false
+  # -- Enable to install SMP UDP services
+  smpUdp:
+    enabled: true
     # -- Enable to install kafka
   kafka:
     enabled: false
@@ -214,7 +217,7 @@ global:
     enabled: true
   # -- Enable to install Next Generation Custom Dashboards (Beta)
   ngcustomdashboard:
-    enabled: false
+    enabled: true
   servicediscoverymanager:
     # -- Enable to install Service Discovery Manager (Beta)
     enabled: false
