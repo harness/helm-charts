@@ -264,13 +264,12 @@ modules:
     bundle_type: combined
     parent: ce
     bucket_path: "ce/plugins"
-    exclude_full:
-      - load-test-runner
     images:
       - chaos-log-watcher
       - chaos-ddcr
       - chaos-ddcr-faults
       - chaos-event-watcher
+      - load-test-runner
 
   ssca:
     description: "Supply Chain Security"
