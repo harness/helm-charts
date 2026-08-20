@@ -15,6 +15,7 @@ modules:
       - envoy
       - deploy-crds-job
       - busybox
+      - ubi-minimal
       - ci-scm-signed
       - template-service-signed
       - platform-service-signed
