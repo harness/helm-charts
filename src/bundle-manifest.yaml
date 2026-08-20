@@ -271,6 +271,7 @@ modules:
       - chaos-ddcr
       - chaos-ddcr-faults
       - chaos-event-watcher
+      - load-test-runner
 
   ssca:
     description: "Supply Chain Security"
