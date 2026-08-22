@@ -15,7 +15,7 @@ Harness Helm charts require the installation of [Helm](https://helm.sh). To down
 Use the following command to add the Harness chart repository to your Helm installation:
 
 ```console
-$ helm repo add harness https://harness.github.io/helm-charts
+helm repo add harness https://harness.github.io/helm-charts
 ```
 ## Requirements
 * [Istio](https://isio/io). This Helm chart includes Istio service mesh as an optional dependency and requires its installation. For information about how to download and install Istio into your Kubernetes clusters, go to [Getting Started](https://istio.io/latest/docs/setup/getting-started/) in the Istio documentation.
@@ -24,14 +24,14 @@ $ helm repo add harness https://harness.github.io/helm-charts
 Use the following process to install the Helm chart.
 1. Create a namespace for your installation.
 ```
-$ kubectl create namespace <namespace>
+kubectl create namespace <namespace>
 ```
 
 2. Create the override.yaml file using your environment settings:
 
 Install the Helm chart:
 ```
-$  helm install my-release harness/harness-prod -n <namespace> -f override.yaml
+helm install my-release harness/harness-prod -n <namespace> -f override.yaml
 ```
 
 ### Access the application
@@ -42,11 +42,11 @@ Use the following instructions to upgrade Harness Helm chart to a later version.
 
 1. Obtain the `release-name` that identifies the installed release:
 ```
-$ helm ls -n <namespace>
+helm ls -n <namespace>
 ```
 2. Retrieve configuration information for the installed release from the old-values.yaml file:
 ```
-$ helm get values my-release > old_values.yaml
+helm get values my-release > old_values.yaml
 ```
 3. Modify the values of the old_values.yaml file as your configuration requires.
 
@@ -57,11 +57,11 @@ Helm Upgrade
 Use the `helm upgrade` command to update the chart for your `override-demo.yaml` file or `override-prod.yaml` file.
 
 ```
-$ helm upgrade my-release harness/harness -n <namespace> -f override-demo.yaml -f old_values.yaml
+helm upgrade my-release harness/harness -n <namespace> -f override-demo.yaml -f old_values.yaml
 ```
 
 ```
-$ helm upgrade my-release harness/harness -n <namespace> -f override-prod.yaml -f old_values.yaml
+helm upgrade my-release harness/harness -n <namespace> -f override-prod.yaml -f old_values.yaml
 ```
 
 ## Uninstall the chart
@@ -71,7 +71,7 @@ The following process uninstalls the Helm chart and removes your Harness deploym
 Uninstall and delete the `my-release` deployment:
 
 ```console
-$ helm uninstall my-release -n <namespace>
+helm uninstall my-release -n <namespace>
 ```
 
 This command removes the Kubernetes components that are associated with the chart and deletes the release.
