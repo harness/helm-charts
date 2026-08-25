@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.44.0](https://img.shields.io/badge/Version-0.44.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.45.0](https://img.shields.io/badge/Version-0.45.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -87,117 +87,119 @@ docker.io/envoyproxy/ratelimit:ff287602
 docker.io/envoyproxy/envoy:distroless-v1.38.0
 docker.io/harnesssecure/deploy-crds-job:1.12.0
 docker.io/busybox:1.37.0
-docker.io/harnesssecure/ci-scm-signed:1.57.0
-docker.io/harnesssecure/template-service-signed:1.159.0
-docker.io/harnesssecure/platform-service-signed:1.140.0
-docker.io/harnesssecure/pipeline-service-signed:1.197.7
-docker.io/harnesssecure/ng-manager-signed:1.158.4
-docker.io/harnesssecure/nextgenui-signed:1.145.6
+registry.access.redhat.com/ubi8/ubi-minimal:8.9-1029
+docker.io/harnesssecure/ci-scm-signed:1.61.0
+docker.io/harnesssecure/template-service-signed:1.163.2
+docker.io/harnesssecure/platform-service-signed:1.144.0
+docker.io/harnesssecure/pipeline-service-signed:1.201.1
+docker.io/harnesssecure/ng-manager-signed:1.162.2
+docker.io/harnesssecure/nextgenui-signed:1.149.6
 docker.io/harnesssecure/minio:RELEASE.2025-10-15T17-29-55Z-jammy
-docker.io/harnesssecure/log-service-signed:1.50.0
-docker.io/harnesssecure/cdcdata-signed:1.61.0
-docker.io/harnesssecure/accesscontrol-service-signed:1.303.0
+docker.io/harnesssecure/log-service-signed:1.52.0
+docker.io/harnesssecure/cdcdata-signed:1.64.0
+docker.io/harnesssecure/accesscontrol-service-signed:1.323.1
 docker.io/harnesssecure/delegate-proxy-signed:1.9.0
-docker.io/harnesssecure/gateway-signed:1.68.0
+docker.io/harnesssecure/gateway-signed:1.71.0
 docker.io/harnesssecure/helm-init-container:1.9.0
-docker.io/harnesssecure/manager-signed:1.157.2
+docker.io/harnesssecure/manager-signed:1.161.1
 docker.io/harnesssecure/mongo:8.0.26-jammy
 docker.io/harnesssecure/ng-auth-ui-signed:1.39.0
 docker.io/harnesssecure/redis:7.4.9-jammy
 docker.io/harnesssecure/postgresql:14.20-debian
 docker.io/harnesssecure/postgresql:16.14-bookworm
-docker.io/harnesssecure/policy-mgmt:1.59.5
-docker.io/harnesssecure/smp-service-discovery-server-signed:0.74.1
+docker.io/harnesssecure/policy-mgmt:1.63.3
+docker.io/harnesssecure/smp-service-discovery-server-signed:0.76.1
 docker.io/harnesssecure/debezium-service-signed:1.27.0
-docker.io/harnesssecure/audit-event-streaming-signed:1.105.0
+docker.io/harnesssecure/audit-event-streaming-signed:1.109.0
 docker.io/harnesssecure/queue-service-signed:1.11.0
-docker.io/harnesssecure/service-discovery-collector:0.74.0
-docker.io/harnesssecure/ng-dashboard-aggregator-signed:1.124.0
+docker.io/harnesssecure/service-discovery-collector:0.76.0
+docker.io/harnesssecure/ng-dashboard-aggregator-signed:1.128.0
 docker.io/harnesssecure/controller:1.14.4-jammy
 registry.k8s.io/defaultbackend-amd64:1.5
 docker.io/harnesssecure/redis_exporter:1.83.0-jammy
 docker.io/prometheuscommunity/postgres-exporter:v0.20.1
 docker.io/harnesssecure/mongodb-exporter:0.51.0-jammy
 harnesssecure/vault-secret-loader:1.0.10
-docker.io/harnesssecure/ui-signed:1.36.0
+docker.io/harnesssecure/ui-signed:1.36.3
 docker.io/harnesssecure/pg-upgrader:14-to-16
-docker.io/harnesssecure/delegate:26.06.89501.minimal
-docker.io/harnesssecure/delegate:26.06.89501.minimal-fips
+docker.io/harnesssecure/delegate:26.08.89804.minimal
+docker.io/harnesssecure/delegate:26.08.89804.minimal-fips
 
 ### Platform Agents
-docker.io/harnesssecure/delegate:26.06.89501
-docker.io/harnesssecure/delegate:26.06.89501.minimal
-docker.io/harnesssecure/delegate:26.06.89501.minimal-fips
-docker.io/harnesssecure/delegate:26.06.89501-fips
+docker.io/harnesssecure/delegate:26.08.89804
+docker.io/harnesssecure/delegate:26.08.89804.minimal
+docker.io/harnesssecure/delegate:26.08.89804.minimal-fips
+docker.io/harnesssecure/delegate:26.08.89804-fips
 docker.io/harnesssecure/upgrader:1.12.0
 docker.io/harnesssecure/upgrader:1.12.0-fips
 
 ### Dashboard
-docker.io/harnesssecure/looker-signed:1.28.3
-docker.io/harnesssecure/dashboard-service-signed:1.122.0
+docker.io/harnesssecure/looker-signed:1.28.4
+docker.io/harnesssecure/dashboard-service-signed:1.124.0
 docker.io/harnesssecure/statsd-exporter:5.0-prometheus-busybox-2
 
 ## Continuous Deployment
-docker.io/harnesssecure/gitops-service-signed:1.62.4
-docker.io/harnesssecure/cv-nextgen-signed:1.67.0
-docker.io/harnesssecure/le-nextgen-signed:1.21.0
+docker.io/harnesssecure/gitops-service-signed:1.64.2
+docker.io/harnesssecure/cv-nextgen-signed:1.69.1
+docker.io/harnesssecure/le-nextgen-signed:1.22.0
 docker.io/harnesssecure/srm-ui-signed:1.16.2
 
 ### CD Deployment Plugins
 harnesssecure/drone-git:1.4.1-rootless
 harnesssecure/drone-git:1.7.16-rootless
 harnesssecure/drone-git:1.7.20-rootless
-harnesssecure/download-aws-s3:1.2.1-rootless-linux
-harnesssecure/download-google-cloud-storage:0.0.2-linux-amd64
+harnesssecure/download-aws-s3:1.3.0-rootless-linux
+harnesssecure/download-google-cloud-storage:0.0.4-linux-amd64
 harnesssecure/download-harness-store:1.0.0-rootless-linux
 harnesssecure/aws-sam-plugin:nodejs20.x-1.162.1-1.4.0-beta-linux-amd64
 
 ### CD Agents
 docker.io/harnesssecure/argocd:v3.4.2
-docker.io/harnesssecure/gitops-agent:v0.122.0
+docker.io/harnesssecure/gitops-agent:v0.124.0
 docker.io/harnesssecure/haproxy:3.4.1-alpine3.24
 docker.io/harnesssecure/shellcheck:v0.11.0
-docker.io/harnesssecure/gitops-agent-installer-helper:v0.0.17
+docker.io/harnesssecure/gitops-agent-installer-helper:v0.0.18
 
 ## Continuous Integration
-docker.io/harnesssecure/ci-manager-signed:1.148.4
-docker.io/harnesssecure/ti-service-signed:1.76.3
+docker.io/harnesssecure/ci-manager-signed:1.152.1
+docker.io/harnesssecure/ti-service-signed:1.78.0
 harnesssecure/ci-addon:1.18.10
-harnesssecure/ci-addon:1.18.27
+harnesssecure/ci-addon:1.18.29
 harnesssecure/ci-addon:rootless-1.18.10
-harnesssecure/ci-addon:rootless-1.18.27
+harnesssecure/ci-addon:rootless-1.18.29
 harnesssecure/ci-lite-engine:1.18.10
-harnesssecure/ci-lite-engine:1.18.27
+harnesssecure/ci-lite-engine:1.18.29
 harnesssecure/ci-lite-engine:rootless-1.18.10
-harnesssecure/ci-lite-engine:rootless-1.18.27
+harnesssecure/ci-lite-engine:rootless-1.18.29
 
 ### CI Build Plugins
 harnesssecure/drone-git:1.4.1-rootless
 harnesssecure/drone-git:1.7.16-rootless
 harnesssecure/drone-git:1.7.20-rootless
-harnesssecure/harness-cache-server:1.7.13
-harnesssecure/harness-cache-server:1.7.19
-harnesssecure/kaniko:1.13.9
-harnesssecure/kaniko-acr:1.13.9
-harnesssecure/kaniko-ecr:1.13.9
-harnesssecure/kaniko-gcr:1.13.9
-harnesssecure/artifactory:1.8.6
-harnesssecure/gcs:1.6.10
-harnesssecure/cache:1.10.8
-harnesssecure/s3:1.8.0
-harnesssecure/buildx:1.3.20
-harnesssecure/buildx-acr:1.5.1
-harnesssecure/buildx-ecr:1.5.1
-harnesssecure/buildx-gar:1.5.0
-harnesssecure/buildx-gcr:1.4.9
-harnesssecure/docker:21.3.0
-harnesssecure/ecr:21.3.0
-harnesssecure/gar:21.3.0
-harnesssecure/gcr:21.3.0
-harnesssecure/acr:21.3.0
+harnesssecure/harness-cache-server:1.7.23
+harnesssecure/harness-cache-server:1.7.25
+harnesssecure/kaniko:1.13.10
+harnesssecure/kaniko-acr:1.13.10
+harnesssecure/kaniko-ecr:1.13.10
+harnesssecure/kaniko-gcr:1.13.10
+harnesssecure/artifactory:1.9.0
+harnesssecure/gcs:1.6.12
+harnesssecure/cache:1.10.9
+harnesssecure/s3:1.8.2
+harnesssecure/buildx:1.3.25
+harnesssecure/buildx-acr:1.5.5
+harnesssecure/buildx-ecr:1.5.5
+harnesssecure/buildx-gar:1.5.5
+harnesssecure/buildx-gcr:1.5.5
+harnesssecure/buildkit:1.0.20
+harnesssecure/docker:21.3.3
+harnesssecure/ecr:21.3.3
+harnesssecure/gar:21.3.3
+harnesssecure/gcr:21.3.3
+harnesssecure/acr:21.3.3
 
 ## Security Testing Orchestration
-docker.io/harnesssecure/stocore-signed:1.202.1
+docker.io/harnesssecure/stocore-signed:1.206.7
 docker.io/harnesssecure/ticket-service-signed:1.15.0
 docker.io/harnesssecure/refid-cache:latest
 harnesssecure/refid-cache:latest
@@ -249,78 +251,81 @@ harnesssecure/wiz-job-runner:latest
 harnesssecure/zap-job-runner:latest
 
 ## Feature Flags
-docker.io/harnesssecure/ff-cron-signed:1.1208.0
-docker.io/harnesssecure/ff-server-analytics-db-migration-signed:1.1208.0
-docker.io/harnesssecure/ff-server-primary-db-migration-signed:1.1208.0
-docker.io/harnesssecure/ff-service-signed:1.1208.0
-docker.io/harnesssecure/ff-pushpin-signed:1.1139.0
-docker.io/harnesssecure/ff-pushpin-worker-signed:1.1139.0
+docker.io/harnesssecure/ff-cron-signed:1.1224.0
+docker.io/harnesssecure/ff-server-analytics-db-migration-signed:1.1224.0
+docker.io/harnesssecure/ff-server-primary-db-migration-signed:1.1224.0
+docker.io/harnesssecure/ff-service-signed:1.1224.0
+docker.io/harnesssecure/ff-pushpin-signed:1.1146.0
+docker.io/harnesssecure/ff-pushpin-worker-signed:1.1146.0
 
 ## Cloud Cost Management
-docker.io/harnesssecure/batch-processing-signed:1.94.10
-docker.io/harnesssecure/ce-anomaly-detection-signed:1.29.0
-docker.io/harnesssecure/ce-cloud-info-signed:1.17.1
-docker.io/harnesssecure/ce-nextgen-signed:1.96.7
-docker.io/harnesssecure/event-service-signed:1.19.1
-docker.io/harnesssecure/ng-ce-ui:1.92.4
-docker.io/harnesssecure/telescopes-signed:1.7.2
+docker.io/harnesssecure/batch-processing-signed:1.97.15
+docker.io/harnesssecure/ce-anomaly-detection-signed:1.33.0
+docker.io/harnesssecure/ce-cloud-info-signed:1.19.0
+docker.io/harnesssecure/ce-nextgen-signed:1.99.17
+docker.io/harnesssecure/event-service-signed:1.21.0
+docker.io/harnesssecure/ng-ce-ui:1.95.5
+docker.io/harnesssecure/telescopes-signed:1.10.0
 docker.io/harnesssecure/clickhouse:25.12.5-jammy
 docker.io/harnesssecure/ccm-gcp-smp-signed:1000100
 
 ## Chaos Engineering
-docker.io/harnesssecure/smp-chaos-k8s-ifs-signed:1.94.1
-docker.io/harnesssecure/smp-chaos-linux-infra-controller-signed:1.94.1
-docker.io/harnesssecure/smp-chaos-linux-infra-server-signed:1.94.1
-docker.io/harnesssecure/smp-chaos-manager-signed:1.94.5
-docker.io/harnesssecure/smp-chaos-web-signed:1.94.2
+docker.io/harnesssecure/smp-chaos-k8s-ifs-signed:1.96.3
+docker.io/harnesssecure/smp-chaos-linux-infra-controller-signed:1.96.0
+docker.io/harnesssecure/smp-chaos-linux-infra-server-signed:1.96.0
+docker.io/harnesssecure/smp-chaos-manager-signed:1.96.4
+docker.io/harnesssecure/smp-chaos-web-signed:1.96.2
 docker.io/harnesssecure/source-probe:main-latest
-docker.io/harnesssecure/smp-chaos-bg-processor-signed:1.94.5
-docker.io/harnesssecure/chaos-machine-ifc-signed:1.94.1
-docker.io/harnesssecure/chaos-machine-ifs-signed:1.94.1
-docker.io/harnesssecure/enterprise-chaos-hub-signed:1.94.5
-docker.io/harnesssecure/load-test-manager-signed:1.17.2
+docker.io/harnesssecure/smp-chaos-bg-processor-signed:1.96.4
+docker.io/harnesssecure/chaos-machine-ifc-signed:1.96.0
+docker.io/harnesssecure/chaos-machine-ifs-signed:1.96.0
+docker.io/harnesssecure/enterprise-chaos-hub-signed:1.96.4
+docker.io/harnesssecure/load-test-manager-signed:1.19.1
 
 ### Chaos Engineering Plugins
-docker.io/harnesssecure/chaos-log-watcher:1.94.0
-docker.io/harnesssecure/chaos-ddcr:1.94.0
-docker.io/harnesssecure/chaos-ddcr-faults:1.94.0
-docker.io/harnesssecure/chaos-event-watcher:1.94.0
+docker.io/harnesssecure/chaos-log-watcher:1.96.0
+docker.io/harnesssecure/chaos-ddcr:1.96.0
+docker.io/harnesssecure/chaos-ddcr-faults:1.96.1
+docker.io/harnesssecure/chaos-event-watcher:1.96.0
+docker.io/harnesssecure/load-test-runner:0.2.0
+docker.io/harnesssecure/load-test-runner:0.2.2
 
 ## Supply Chain Security
-docker.io/harnesssecure/ssca-manager-signed:1.65.15
-docker.io/harnesssecure/ssca-ui-signed:0.52.4
-docker.io/harnesssecure/component-service-signed:1.16.1
-docker.io/harnesssecure/component-analysis-service-signed:1.14.0
+docker.io/harnesssecure/ssca-manager-signed:1.68.17
+docker.io/harnesssecure/ssca-ui-signed:0.54.2
+docker.io/harnesssecure/component-service-signed:1.18.0
+docker.io/harnesssecure/component-analysis-service-signed:1.15.0
 
 ### SCS Plugins
-harnesssecure/ssca-plugin:0.62.4
-harnesssecure/slsa-plugin:0.62.5
-harnesssecure/ssca-cdxgen-plugin:0.62.4
-harnesssecure/ssca-compliance-plugin:0.62.4
-harnesssecure/ssca-artifact-signing-plugin:0.62.2
+harnesssecure/ssca-plugin:0.64.0
+harnesssecure/slsa-plugin:0.64.2
+harnesssecure/ssca-cdxgen-plugin:0.64.0
+harnesssecure/ssca-compliance-plugin:0.64.0
+harnesssecure/ssca-artifact-signing-plugin:0.64.0
 
 ## Database DevOps
-docker.io/harnesssecure/db-devops-service-signed:1.104.1
+docker.io/harnesssecure/db-devops-service-signed:1.110.1
 
 ## Code Repository
-docker.io/harnesssecure/code-api-signed:1.93.3
-docker.io/harnesssecure/code-githa-signed:1.93.0
-docker.io/harnesssecure/code-gitrpc-signed:1.93.0
-docker.io/harnesssecure/code-search-signed:1.93.0
+docker.io/harnesssecure/code-api-signed:1.99.1
+docker.io/harnesssecure/code-githa-signed:1.99.0
+docker.io/harnesssecure/code-gitrpc-signed:1.99.0
+docker.io/harnesssecure/code-search-signed:1.99.1
+docker.io/harnesssecure/code-ui-signed:1.21.1
 
 ## Infrastructure as Code Management
-docker.io/harnesssecure/iac-server-signed:1.404.5
-docker.io/harnesssecure/iacm-manager-signed:1.175.0
+docker.io/harnesssecure/iac-server-signed:1.459.2
+docker.io/harnesssecure/iacm-manager-signed:1.186.0
 
 ### IACM Plugins
 harnesssecure/ci-addon:1.18.10
-harnesssecure/ci-addon:1.18.27
+harnesssecure/ci-addon:1.18.29
 harnesssecure/ci-addon:rootless-1.18.10
-harnesssecure/ci-addon:rootless-1.18.27
+harnesssecure/ci-addon:rootless-1.18.29
 harnesssecure/ci-lite-engine:1.18.10
-harnesssecure/ci-lite-engine:1.18.27
+harnesssecure/ci-lite-engine:1.18.29
 harnesssecure/ci-lite-engine:rootless-1.18.10
-harnesssecure/ci-lite-engine:rootless-1.18.27
+harnesssecure/ci-lite-engine:rootless-1.18.29
 harnesssecure/drone-git:1.4.1-rootless
 harnesssecure/drone-git:1.7.16-rootless
 harnesssecure/drone-git:1.7.20-rootless
@@ -384,6 +389,10 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | code.code-gitrpc.postgres.image.tag | string | `"14.20-debian"` |  |
 | code.code-search.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
 | code.code-search.postgres.image.tag | string | `"14.20-debian"` |  |
+| code.code-ui.affinity | object | `{}` |  |
+| code.code-ui.autoscaling.enabled | bool | `false` |  |
+| code.code-ui.nodeSelector | object | `{}` |  |
+| code.code-ui.tolerations | list | `[]` |  |
 | data-platform.kafka-operator.strimziOperator.cruiseControl.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
 | data-platform.kafka-operator.strimziOperator.kafka.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
 | data-platform.kafka-operator.strimziOperator.kafkaConnect.image.repository | string | `"harnesssecure/strimzi-kafka-connect-signed"` |  |
@@ -496,7 +505,8 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | global.ingress.hosts | list | `["myhost.example.com"]` | add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty. |
 | global.ingress.ingressGatewayServiceUrl | string | `""` | set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local" If not set, internal request routing would happen via global.loadbalancerUrl |
 | global.ingress.objects.annotations | object | `{}` | annotations to be added to ingress Objects |
-| global.istio | object | `{"enabled":false,"gateway":{"create":true,"name":"","namespace":"","port":443,"protocol":"HTTPS","selector":{"istio":"ingressgateway"}},"hosts":["*"],"istioGatewayServiceUrl":"","strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[],"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
+| global.istio | object | `{"additionalResponseHeaders":[],"enabled":false,"gateway":{"create":true,"name":"","namespace":"","port":443,"protocol":"HTTPS","selector":{"istio":"ingressgateway"}},"hosts":["*"],"istioGatewayServiceUrl":"","strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[],"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
+| global.istio.additionalResponseHeaders | list | `[]` | Additional response headers injected via EnvoyFilter on the Istio gateway. Example: additionalResponseHeaders:   - name: Strict-Transport-Security     value: "max-age=31536000; includeSubDomains"   - name: X-Content-Type-Options     value: nosniff |
 | global.istio.gateway.name | string | `""` | override the name of gateway |
 | global.istio.gateway.namespace | string | `""` | override the name of namespace to deploy gateway |
 | global.istio.gateway.selector | object | `{"istio":"ingressgateway"}` | adds a gateway selector |
@@ -633,7 +643,7 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | platform.gateway.config.ENV | string | `"SMP"` |  |
 | platform.gateway.nodeSelector | object | `{}` |  |
 | platform.gateway.tolerations | list | `[]` |  |
-| platform.harness-manager | object | `{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.06.89501"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
+| platform.harness-manager | object | `{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.08.89804"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
 | platform.harness-manager.featureFlags | object | `{"ADDITIONAL":""}` | Feature Flags |
 | platform.harness-manager.featureFlags.ADDITIONAL | string | `""` | Additional Feature Flag (placeholder to add any other featureFlags) |
 | platform.log-service | object | `{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
