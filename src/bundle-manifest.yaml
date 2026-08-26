@@ -41,8 +41,6 @@ modules:
       - queue-service-signed
       - service-discovery-collector
       - ng-dashboard-aggregator-signed
-      - controller
-      - defaultbackend-amd64
       - redis_exporter
       - postgres-exporter
       - mongodb-exporter
