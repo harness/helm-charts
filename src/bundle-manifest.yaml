@@ -15,6 +15,7 @@ modules:
       - envoy
       - deploy-crds-job
       - busybox
+      - ubi-minimal
       - ci-scm-signed
       - template-service-signed
       - platform-service-signed
@@ -141,6 +142,7 @@ modules:
       - buildx-ecr
       - buildx-gar
       - buildx-gcr
+      - buildkit
       - docker
       - ecr
       - gar
@@ -267,6 +269,7 @@ modules:
       - chaos-ddcr
       - chaos-ddcr-faults
       - chaos-event-watcher
+      - load-test-runner
 
   ssca:
     description: "Supply Chain Security"

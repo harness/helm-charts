@@ -190,6 +190,14 @@ global:
       # -- add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty.
       hosts:
         - "myhostname.example.com"
+    # -- Additional response headers injected via EnvoyFilter on the Istio gateway.
+    # Example:
+    # additionalResponseHeaders:
+    #   - name: Strict-Transport-Security
+    #     value: "max-age=31536000; includeSubDomains"
+    #   - name: X-Content-Type-Options
+    #     value: nosniff
+    additionalResponseHeaders: []
   # -- set kubernetes version override, unrequired if installing using Helm.
   kubeVersion: ""
   # -- Place the license key, Harness support team will provide these
@@ -634,7 +642,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.06.89501
+        tag: 26.08.89804
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
