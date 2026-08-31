@@ -124,8 +124,6 @@ modules:
     bundle_type: combined
     parent: ci
     bucket_path: "ci/plugins"
-    exclude_full:
-      - buildx-ecr
     images:
       - drone-git
       - harness-cache-server
@@ -139,9 +137,9 @@ modules:
       - s3
       - buildx
       - buildx-acr
+      - buildx-ecr
       - buildx-gar
       - buildx-gcr
-      - buildx-ecr
       - buildkit
       - docker
       - ecr
