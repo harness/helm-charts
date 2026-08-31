@@ -3,11 +3,13 @@
 SMP tools: unified CLI for bundle image generation, Helm flag extraction, and manifest validation.
 
 Subcommands:
+  extract-images    Extract image references from rendered Helm output (produces images_raw.txt)
   bundle-images     Resolve bundle-manifest.yaml to produce images.txt and images_internal.txt
   auto-enable-flags Scan a Helm YAML file and emit --set <path>=true flags for enabled/create keys
   validate-bundle   Validate bundle-manifest.yaml against images_raw.txt, images.txt, etc.
 
 Usage:
+  helm template ./harness | python3 smp-tools.py extract-images --output images_raw.txt
   python3 smp-tools.py bundle-images --manifest bundle-manifest.yaml --raw-images images_raw.txt --output-dir .
   python3 smp-tools.py bundle-images --manifest bundle-manifest.yaml --internal-only --images-txt images.txt --output-dir .
   python3 smp-tools.py auto-enable-flags values.yaml
@@ -98,6 +100,187 @@ def find_matching_images(short_name, raw_images):
 def get_image_name(entry):
     """Return the short name from a plain string or dict image entry."""
     return entry['name'] if isinstance(entry, dict) else entry
+
+
+DEFAULT_IMAGE_ORG = os.environ.get('IMAGE_ORG', 'harnesssecure')
+
+# Images dropped from images_raw.txt by generate-image-list.sh after extraction
+_RAW_IMAGE_EXCLUDE = 'index.docker.io/chaosnative:'
+
+
+def extract_image_refs(text, image_org=DEFAULT_IMAGE_ORG):
+    """
+    Extract image references from Helm YAML.
+
+    Same rules generate-image-list.sh used to apply in grep/sed/awk: keep lines
+    mentioning 'image' or IMAGE_ORG that contain '/...:', drop imagePullPolicy
+    and comments, take the value, keep repo:tag. Unrendered {{ }} refs are skipped
+    so this also works on chart templates.
+    """
+    if not text:
+        return set()
+
+    images = set()
+    org = image_org.lower()
+    for line in text.splitlines():
+        lowered = line.lower()
+        if 'image' not in lowered and org not in lowered:
+            continue
+        if '/' not in line or ':' not in line[line.find('/'):]:
+            continue
+        if 'imagePullPolicy' in line or '#' in line:
+            continue
+
+        value = ' '.join(line.split())
+        value = re.sub(r'^[^:]*: ', '', value, count=1)
+        value = re.sub(r'^[^=]*=', '', value, count=1)
+        value = value.strip().strip('\'"')
+
+        fields = value.split(':')
+        ref = fields[0] + ':' + (fields[1] if len(fields) > 1 else '')
+
+        if not ref.strip(':') or _RAW_IMAGE_EXCLUDE in ref:
+            continue
+        if '{{' in ref or '}}' in ref:
+            continue
+
+        images.add(ref)
+    return images
+
+
+_DIFF_IMAGE_KEY = re.compile(
+    r'^\s*[a-z0-9_.-]*(?:image|repository)\s*:\s*["\']?([a-zA-Z0-9_./-]+)',
+    re.IGNORECASE,
+)
+
+
+def extract_removed_image_names(diff_text):
+    """
+    Image short-names on deleted lines of a unified diff.
+
+    values.yaml keeps repo and tag on separate lines (repository: plugins/buildx-ecr),
+    so this reads image/repository values rather than full repo:tag refs. Callers must
+    intersect the result with names they track, since keys like
+    HARNESS_IMAGE_REPOSITORY also match.
+    """
+    names = set()
+    for line in (diff_text or '').splitlines():
+        if not line.startswith('-') or line.startswith('---'):
+            continue
+        match = _DIFF_IMAGE_KEY.match(line[1:])
+        if match:
+            names.add(extract_short_name(match.group(1)))
+    return names
+
+
+def cmd_extract_images(args):
+    """Extract image references from rendered Helm output into images_raw.txt."""
+    if args.input:
+        with open(args.input) as f:
+            text = f.read()
+    else:
+        text = sys.stdin.read()
+
+    images = sorted(extract_image_refs(text, args.image_org))
+    output = '\n'.join(images) + ('\n' if images else '')
+
+    if args.output:
+        with open(args.output, 'w') as f:
+            f.write(output)
+    else:
+        sys.stdout.write(output)
+
+
+def extract_short_name(image_ref):
+    """
+    Last path component of an image ref, without tag.
+    docker.io/harnesssecure/ng-manager-signed:1.150.5 -> ng-manager-signed
+    """
+    without_tag = image_ref.rsplit(':', 1)[0] if ':' in image_ref else image_ref
+    return without_tag.rsplit('/', 1)[-1] if '/' in without_tag else without_tag
+
+
+def manifest_short_names(manifest, module=None):
+    """
+    Image short-names in a loaded bundle-manifest, including exclude / exclude_full.
+    Pass a module to limit the result to that module and its children.
+    """
+    names = set()
+    for name, config in manifest.get('modules', {}).items():
+        if module and name != module and config.get('parent') != module:
+            continue
+        names.update(get_image_name(entry) for entry in config.get('images', []))
+        names.update(config.get('exclude', []))
+        names.update(config.get('exclude_full', []))
+    return names
+
+
+def resolve_to_manifest_names(short_names, tracked):
+    """Match chart short-names against manifest names, which may carry a -signed suffix."""
+    return {name for short_name in short_names
+            for name in (short_name, f"{short_name}-signed") if name in tracked}
+
+
+# ---------------------------------------------------------------------------
+# docker-repo-map
+#
+# Service charts default to their build-time registry (gar-setup, etc.).
+# docker-repo-map.yaml repoints each chart at its published SMP repository
+# (harnesssecure/<name>-signed), which is what bundle-manifest.yaml tracks.
+# ---------------------------------------------------------------------------
+
+def _prune_repo_map_node(node):
+    """Drop empty values and image blocks that carry no repository."""
+    if not isinstance(node, dict):
+        return node
+
+    cleaned = {}
+    for key, value in node.items():
+        if isinstance(value, dict):
+            child = _prune_repo_map_node(value)
+            if child:
+                cleaned[key] = child
+        elif value not in (None, ''):
+            cleaned[key] = value
+
+    if 'registry' in cleaned and 'repository' not in cleaned:
+        return {}
+    return cleaned
+
+
+def service_override_values(harness_values, repo_map, module, service_name):
+    """
+    Values layers that repoint a service chart at its SMP images, in `helm template -f`
+    order: the <module>.<service> block of src/harness/values.yaml (no globals), then
+    docker-repo-map.yaml. Empty layers are dropped.
+    """
+    layers = [
+        (harness_values.get(module) or {}).get(service_name) or {},
+        _prune_repo_map_node(repo_map.get(service_name) or {}),
+    ]
+    return [layer for layer in layers if layer]
+
+
+def collect_repo_map_short_names(repo_map):
+    """
+    Map each chart name in docker-repo-map to the SMP image short-names it publishes.
+    Returns {chart_name: {short_name, ...}}, skipping charts that publish nothing.
+    """
+    result = {}
+    for chart_name, config in repo_map.items():
+        names, stack = set(), [config]
+        while stack:
+            node = stack.pop()
+            if not isinstance(node, dict):
+                continue
+            for key, value in node.items():
+                if key == 'repository' and value:
+                    names.add(extract_short_name(value))
+                else:
+                    stack.append(value)
+        if names:
+            result[chart_name] = names
+    return result
 
 
 def get_image_variants(entry, section_variants, global_variants):
@@ -455,8 +638,7 @@ def bundle_generate_internal_only(manifest, images_txt_path):
                 variants_by_short[short] = sorted(variants, key=len, reverse=True)
 
             for img in non_excluded_imgs:
-                tag_part = img.rsplit(':', 1)[0] if ':' in img else img
-                base_name = tag_part.rsplit('/', 1)[-1] if '/' in tag_part else tag_part
+                base_name = extract_short_name(img)
                 tag = img.rsplit(':', 1)[1] if ':' in img else 'latest'
                 variants = variants_by_short.get(base_name, [])
                 # Match tag to variant: base uses base_name, variants use base_name-variant_suffix
@@ -600,14 +782,6 @@ def _load_lines_with_headers(path):
     return lines, headers
 
 
-def _get_all_short_names(manifest):
-    names = set()
-    for mod_config in manifest.get('modules', {}).values():
-        for entry in mod_config.get('images', []):
-            names.add(get_image_name(entry))
-        names.update(mod_config.get('exclude', []))
-        names.update(mod_config.get('exclude_full', []))
-    return names
 
 
 def _get_excluded_short_names(manifest):
@@ -649,6 +823,8 @@ def _parse_chart_yaml_modules(chart_yaml_path):
 
 
 def _scan_chart_templates(harness_dir):
+    # Deliberately narrower than extract_image_refs: this reads unrendered templates and
+    # CRDs, where prose in description fields would otherwise be picked up as images.
     found_images = set()
     image_pattern = re.compile(r'image:\s*["\']?([a-zA-Z0-9_./-]+:[a-zA-Z0-9_.-]+)')
     for subdir in ('charts', 'templates'):
@@ -685,20 +861,22 @@ def cmd_validate_bundle(args):
         args.chart_yaml = os.path.join(harness_dir, 'Chart.yaml')
     if not args.harness_dir and os.path.isdir(harness_dir):
         args.harness_dir = harness_dir
+    if not args.docker_repo_map and os.path.exists(os.path.join(script_dir, 'docker-repo-map.yaml')):
+        args.docker_repo_map = os.path.join(script_dir, 'docker-repo-map.yaml')
 
     errors = []
     warnings = []
 
     manifest = load_manifest(args.manifest)
     modules = manifest.get('modules', {})
-    total_checks = 11
+    total_checks = 12
     check_num = 0
 
     raw_images = _load_validate_lines(args.raw_images) if args.raw_images else []
     images_txt_lines, images_txt_headers = _load_lines_with_headers(args.images_txt) if args.images_txt else ([], [])
     internal_lines = _load_validate_lines(args.internal_txt) if args.internal_txt else []
 
-    all_short_names = _get_all_short_names(manifest)
+    all_short_names = manifest_short_names(manifest)
     excluded_names = _get_excluded_short_names(manifest)
     fully_excluded_names = _get_fully_excluded_short_names(manifest)
     root_modules = _get_root_modules(modules)
@@ -841,6 +1019,21 @@ def cmd_validate_bundle(args):
                 if entry['name'] not in all_short_names:
                     errors.append(f"Variant defined for '{entry['name']}' in '{mod_name}' but image not in manifest")
 
+    # Check 12: docker-repo-map targets are tracked in the manifest.
+    # docker-repo-map decides which repository SMP actually publishes each chart to,
+    # so anything it names should be bundled unless it is deliberately not shipped.
+    check_num += 1
+    log.info(f"[{check_num}/{total_checks}] Checking docker-repo-map coverage...")
+    if args.docker_repo_map and os.path.exists(args.docker_repo_map):
+        repo_map = load_manifest(args.docker_repo_map)
+        for chart_name, short_names in sorted(collect_repo_map_short_names(repo_map).items()):
+            for short_name in sorted(short_names):
+                if short_name not in all_short_names:
+                    warnings.append(
+                        f"docker-repo-map chart '{chart_name}' publishes '{short_name}' "
+                        f"which is not in bundle-manifest.yaml"
+                    )
+
     # Duplication info
     image_module_map = {}
     for mod_name, mod_config in modules.items():
@@ -901,6 +1094,17 @@ def main():
     )
     subparsers = parser.add_subparsers(dest="command", required=True, help="Subcommand to run")
 
+    # extract-images
+    ep = subparsers.add_parser(
+        "extract-images",
+        help="Extract image references from rendered Helm output (produces images_raw.txt)",
+    )
+    ep.add_argument("--input", help="Rendered Helm output to read (default: stdin)")
+    ep.add_argument("--output", help="File to write image references to (default: stdout)")
+    ep.add_argument("--image-org", default=DEFAULT_IMAGE_ORG,
+                    help=f"Image org to match alongside 'image' keys (default: {DEFAULT_IMAGE_ORG})")
+    ep.set_defaults(func=cmd_extract_images)
+
     # bundle-images
     bp = subparsers.add_parser("bundle-images", help="Resolve bundle manifest to produce images.txt and images_internal.txt")
     bp.add_argument("--manifest", required=True, help="Path to bundle-manifest.yaml")
@@ -935,6 +1139,7 @@ def main():
     vp.add_argument("--internal-txt", help="Path to images_internal.txt")
     vp.add_argument("--chart-yaml", help="Path to Chart.yaml")
     vp.add_argument("--harness-dir", help="Path to harness chart directory (for template scanning)")
+    vp.add_argument("--docker-repo-map", help="Path to docker-repo-map.yaml")
     vp.set_defaults(func=cmd_validate_bundle)
 
     args = parser.parse_args()
