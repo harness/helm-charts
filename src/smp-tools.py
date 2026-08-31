@@ -39,6 +39,8 @@ log = logging.getLogger(__name__)
 AUTO_ENABLE_BLOCKLIST = {
     "global.lwd.enabled",
     "global.lwd.autocud.enabled",
+    "platform.bootstrap.networking.defaultbackend.create",
+    "platform.bootstrap.networking.nginx.create",
 }
 
 FLAG_KEYS = {"enabled", "create"}
