@@ -4,6 +4,7 @@ templates:
   - deployment.yaml
   - config.yaml
   - secret.yaml
+  - iterator-config.yaml
 release:
   namespace: harness-smp
 tests:
