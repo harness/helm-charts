@@ -242,6 +242,10 @@ def git_diff_text(repo_path):
 # Reporting
 # ---------------------------------------------------------------------------
 
+# Onboarding / offboarding an image in the SMP airgap bundle
+SMP_BUNDLE_DOC = "https://harness.atlassian.net/wiki/spaces/PLATFORM/pages/22392406067"
+
+
 def report(problems):
     """
     Print findings grouped by heading, so a new check only has to append a dict of
@@ -430,8 +434,10 @@ def main():
         sys.exit(0)
 
     report(problems)
-    print("💡 Add new short-names to helm-charts/src/bundle-manifest.yaml; "
-          "remove short-names the chart no longer uses.")
+    print("💡 When adding a new image to a chart, you need to onboard it to the "
+          "Harness SMP airgap bundle as well.")
+    print("   When removing an image from a chart, offboard it from the bundle.")
+    print(f"   {SMP_BUNDLE_DOC}")
     print("❌ Bundle image check FAILED!")
     sys.exit(1)
 
