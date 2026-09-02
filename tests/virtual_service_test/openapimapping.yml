@@ -33,3 +33,8 @@ harness-core/license-manager/chart:
 
 db-devops-service/chart:
     - db-devops-service/openapi/api.yaml
+
+artifact-registry/tools/registry-api/chart:
+    - artifact-registry/registry/api/openapi/v1/api.yaml
+    - artifact-registry/registry/api/openapi/v2/api.yaml
+    - artifact-registry/registry/api/openapi/v3/api.yaml
