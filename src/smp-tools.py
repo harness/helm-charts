@@ -41,6 +41,7 @@ log = logging.getLogger(__name__)
 AUTO_ENABLE_BLOCKLIST = {
     "global.lwd.enabled",
     "global.lwd.autocud.enabled",
+    "global.jfr.enabled",
     "platform.bootstrap.networking.defaultbackend.create",
     "platform.bootstrap.networking.nginx.create",
 }
