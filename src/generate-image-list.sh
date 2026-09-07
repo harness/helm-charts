@@ -113,19 +113,9 @@ fi
 
 log_info "Running helm template to extract images"
 helm template ${HARNESS_DIR} ${AUTO_ENABLE_FLAGS} ${OVERRIDE_FLAGS} \
-    | grep -iE "image|${IMAGE_ORG}" | grep -E '/.*:' | grep -v imagePullPolicy | grep -v "#" \
-    | awk '{$1=$1};1' | sort -u \
-    | sed 's/^[^:]*: //' \
-    | sed 's/^[^=]*=//' \
-    | sed -e "s/^'//" -e "s/'$//" \
-    | sed -e 's/^"//' -e 's/"$//' \
-    > ${OUTPUT_DIR}/images_tmp.txt
-
-awk -F: '{ print $1 ":" $2 }' ${OUTPUT_DIR}/images_tmp.txt | sort -u > ${OUTPUT_DIR}/images_raw.txt
-rm ${OUTPUT_DIR}/images_tmp.txt
-
-sed -i '' -e '/index\.docker\.io\/chaosnative:/d' -e '/^$/d' ${OUTPUT_DIR}/images_raw.txt 2>/dev/null || \
-    sed -i -e '/index\.docker\.io\/chaosnative:/d' -e '/^$/d' ${OUTPUT_DIR}/images_raw.txt
+    | python3 ${SCRIPT_DIR}/smp-tools.py extract-images \
+        --image-org "${IMAGE_ORG}" \
+        --output ${OUTPUT_DIR}/images_raw.txt
 
 IMAGE_COUNT=$(wc -l < ${OUTPUT_DIR}/images_raw.txt | tr -d '[:space:]')
 log_info "Generated images_raw.txt with ${IMAGE_COUNT} base images (no variants)"

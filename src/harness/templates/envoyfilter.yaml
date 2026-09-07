@@ -1,0 +1,43 @@
+{{- if and .Values.global.istio.enabled .Values.global.istio.additionalResponseHeaders }}
+{{- $additionalHeadersList := .Values.global.istio.additionalResponseHeaders }}
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: {{ .Release.Name }}-additional-headers
+  namespace: {{ .Values.global.istio.gateway.namespace | default "istio-system" }}
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  workloadSelector:
+    labels:
+      {{- toYaml .Values.global.istio.gateway.selector | nindent 6 }}
+  configPatches:
+    - applyTo: HTTP_FILTER
+      match:
+        context: GATEWAY
+        listener:
+          filterChain:
+            filter:
+              name: "envoy.filters.network.http_connection_manager"
+              subFilter:
+                name: "envoy.filters.http.router"
+      patch:
+        operation: INSERT_BEFORE
+        value:
+          name: envoy.lua
+          typed_config:
+            "@type": "type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua"
+            inlineCode: |
+              function envoy_on_response(response_handle)
+                if (response_handle == nil) then
+                  return
+                end
+                if (response_handle:headers() == nil) then
+                  return
+                end
+                {{- range $additionalHeadersList }}
+                response_handle:headers():replace({{ .name | quote }}, {{ .value | quote }})
+                {{- end }}
+              end
+{{- end }}
