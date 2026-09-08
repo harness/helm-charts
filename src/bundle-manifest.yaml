@@ -146,6 +146,7 @@ modules:
       - gar
       - gcr
       - acr
+      - har-plugin
 
   sto:
     description: "Security Testing Orchestration"
