@@ -256,6 +256,7 @@ modules:
       - chaos-machine-ifs-signed
       - enterprise-chaos-hub-signed
       - load-test-manager-signed
+      - rt-agent-signed
 
   ce-plugins:
     description: "Chaos Engineering Plugins"

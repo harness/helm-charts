@@ -414,6 +414,9 @@ chaos:
   load-test-manager:
     nodeSelector: {}
     tolerations: []
+  rt-agent:
+    nodeSelector: {}
+    tolerations: []
 # -- Install the Continuous Integration (CI) manager pod
 ci:
   ci-manager:
