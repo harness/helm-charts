@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.42.1](https://img.shields.io/badge/Version-0.42.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.42.2](https://img.shields.io/badge/Version-0.42.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -87,7 +87,7 @@ docker.io/harnesssecure/ci-scm-signed:1.50.0
 docker.io/harnesssecure/template-service-signed:1.152.0
 docker.io/harnesssecure/platform-service-signed:1.130.1
 docker.io/harnesssecure/pipeline-service-signed:1.190.0
-docker.io/harnesssecure/ng-manager-signed:1.150.5
+docker.io/harnesssecure/ng-manager-signed:1.150.6
 docker.io/harnesssecure/nextgenui-signed:1.137.8
 docker.io/harnesssecure/minio:RELEASE.2025-10-15T17-29-55Z-jammy
 docker.io/harnesssecure/log-service-signed:1.48.1
@@ -96,7 +96,7 @@ docker.io/harnesssecure/accesscontrol-service-signed:1.267.0
 docker.io/harnesssecure/delegate-proxy-signed:1.9.0
 docker.io/harnesssecure/gateway-signed:1.66.1
 docker.io/harnesssecure/helm-init-container:1.9.0
-docker.io/harnesssecure/manager-signed:1.149.4
+docker.io/harnesssecure/manager-signed:1.149.7
 docker.io/harnesssecure/mongo:7.0.34-jammy
 docker.io/harnesssecure/ng-auth-ui-signed:1.43.0
 docker.io/harnesssecure/redis:7.4.9-jammy
