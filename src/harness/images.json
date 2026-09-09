@@ -64,7 +64,7 @@
       "name": "dashboard",
       "description": "Dashboard",
       "images": [
-        "docker.io/harnesssecure/looker-signed:1.28.4",
+        "docker.io/harnesssecure/looker-signed:1.28.5",
         "docker.io/harnesssecure/dashboard-service-signed:1.124.0",
         "docker.io/harness/statsd-exporter:5.0-prometheus-busybox-2"
       ]
