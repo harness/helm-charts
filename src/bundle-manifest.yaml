@@ -288,7 +288,6 @@ modules:
     bucket_path: "ssca/plugins"
     exclude_full:
       - ssca-attestation-plugin
-      - ssca-ai-bom-plugin
       - enforce-attestation-plugin
     images:
       - ssca-plugin
@@ -296,6 +295,7 @@ modules:
       - ssca-cdxgen-plugin
       - ssca-compliance-plugin
       - ssca-artifact-signing-plugin
+      - ssca-ai-bom-plugin
 
   dbdevops:
     description: "Database DevOps"
