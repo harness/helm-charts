@@ -167,6 +167,7 @@ modules:
     bucket_path: "sto/scanners"
     exclude_full:
       - cortex-cloud-job-runner
+      - docker-content-trust-job-runner
     images:
       - anchore-job-runner
       - aqua-security-job-runner
@@ -181,7 +182,6 @@ modules:
       - burp-job-runner
       - checkmarx-job-runner
       - checkov-job-runner
-      - docker-content-trust-job-runner
       - fossa-job-runner
       - github-advanced-security-job-runner
       - gitleaks-job-runner
