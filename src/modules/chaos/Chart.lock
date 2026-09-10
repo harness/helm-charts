@@ -1,30 +1,33 @@
 dependencies:
 - name: chaos-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.96.4
+  version: 1.99.9
 - name: chaos-web
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.96.2
+  version: 1.99.2
 - name: chaos-k8s-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.96.3
+  version: 1.99.1
 - name: chaos-linux-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.96.0
+  version: 1.99.0
 - name: chaos-linux-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.96.0
+  version: 1.99.0
 - name: chaos-crd
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.82.0
 - name: chaos-machine-ifs
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.96.0
+  version: 1.99.0
 - name: chaos-machine-ifc
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.96.0
+  version: 1.99.1
 - name: load-test-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.19.1
-digest: sha256:c9d9b9431e6555a2da48a9dea630203cc670b082662f67767166682d7cffdc73
-generated: "2026-08-25T16:45:13.129621785Z"
+  version: 1.22.2
+- name: rt-agent
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.4.7
+digest: sha256:c273b7defcb45a59be28ae50359d817f74557ab02035dc894ed135e42ebbcff4
+generated: "2026-09-10T17:40:52.410821895Z"
