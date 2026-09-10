@@ -26,11 +26,11 @@ dependencies:
   version: 0.43.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.43.2
+  version: 0.43.3
 - condition: global.cd.enabled
   name: srm
   repository: https://harness.github.io/helm-charts
-  version: 0.43.0
+  version: 0.43.3
 - condition: global.sto.enabled
   name: sto
   repository: https://harness.github.io/helm-charts
