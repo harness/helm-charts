@@ -7,12 +7,12 @@ dependencies:
   version: 2.11.1
 - name: kafka-resources
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.94.0
+  version: 1.97.0
 - name: schema-registry
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.11.3
 - name: kafka-connect-strimzi
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.97.0
-digest: sha256:9702f28c625350f85ab900e8f3dd9e3af981e306e84f23e4064b42f879c14152
-generated: "2026-08-25T16:45:17.998240961Z"
+  version: 1.99.2
+digest: sha256:d982b25a13525dcd6f3c4dd1e327efe791e7af32aeb0884723a093136e2a97e3
+generated: "2026-09-10T17:40:56.469880908Z"
