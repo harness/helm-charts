@@ -140,7 +140,6 @@ modules:
       - buildx-ecr
       - buildx-gar
       - buildx-gcr
-      - buildkit
       - docker
       - ecr
       - gar
