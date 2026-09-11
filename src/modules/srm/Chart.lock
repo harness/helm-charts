@@ -7,6 +7,6 @@ dependencies:
   version: 1.19.0
 - name: srm-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.16.3
-digest: sha256:36b88dc4129723690aeb43b70a3b0104502def27111f8d0f78f0f668f6e020f3
-generated: "2026-09-10T12:27:16.327841764Z"
+  version: 1.16.2
+digest: sha256:aafdc7736defef7cf9e67d6eac15d1eed3a25ffe22a268cc14f03f52587832e4
+generated: "2026-06-11T07:31:54.421353348Z"
