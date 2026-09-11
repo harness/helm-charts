@@ -4,15 +4,15 @@ dependencies:
 - condition: global.ng.enabled
   name: cv-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.69.1
+  version: 1.71.4
 - condition: global.ng.enabled
   name: le-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.22.0
+  version: 1.23.0
 - condition: global.ng.enabled
   name: srm-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.16.2
+  version: 1.16.3
 description: Helm chart for Harness SRM
 name: srm
 type: application
