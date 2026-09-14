@@ -59,7 +59,7 @@ global:
   kafka:
     enabled: false
   # -- Enable to install Harness Unified Data Platform (UDP)
-  unifiedDataPlatform:
+  unified-data-platform:
     enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
