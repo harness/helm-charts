@@ -524,7 +524,6 @@ data-platform:
         memory: "4Gi"
 unified-data-platform:
   config-service:
-    enabled: true
     createSmpSecret: true
     replicaCount: 2
     resources:
@@ -537,7 +536,6 @@ unified-data-platform:
   schema-service:
     createSmpSecret: true
   onboarding-service:
-    enabled: true
     createSmpSecret: true
     replicaCount: 2
     resources:
@@ -548,7 +546,6 @@ unified-data-platform:
         cpu: 1
         memory: 2Gi
   query-service:
-    enabled: true
     createSmpSecret: true
     replicaCount: 2
     resources:
