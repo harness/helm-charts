@@ -73,6 +73,15 @@ chaos:
       requests:
         cpu: 128m
         memory: 256Mi
+  rt-agent:
+    autoscaling:
+      enabled: false
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi
 ci:
   ci-manager:
     autoscaling:

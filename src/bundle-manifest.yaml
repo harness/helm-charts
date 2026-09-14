@@ -140,12 +140,12 @@ modules:
       - buildx-ecr
       - buildx-gar
       - buildx-gcr
-      - buildkit
       - docker
       - ecr
       - gar
       - gcr
       - acr
+      - har-plugin
 
   sto:
     description: "Security Testing Orchestration"
@@ -166,6 +166,7 @@ modules:
     bucket_path: "sto/scanners"
     exclude_full:
       - cortex-cloud-job-runner
+      - docker-content-trust-job-runner
     images:
       - anchore-job-runner
       - aqua-security-job-runner
@@ -180,7 +181,6 @@ modules:
       - burp-job-runner
       - checkmarx-job-runner
       - checkov-job-runner
-      - docker-content-trust-job-runner
       - fossa-job-runner
       - github-advanced-security-job-runner
       - gitleaks-job-runner
@@ -256,6 +256,7 @@ modules:
       - chaos-machine-ifs-signed
       - enterprise-chaos-hub-signed
       - load-test-manager-signed
+      - rt-agent-signed
 
   ce-plugins:
     description: "Chaos Engineering Plugins"
@@ -287,7 +288,6 @@ modules:
     bucket_path: "ssca/plugins"
     exclude_full:
       - ssca-attestation-plugin
-      - ssca-ai-bom-plugin
       - enforce-attestation-plugin
     images:
       - ssca-plugin
@@ -295,6 +295,7 @@ modules:
       - ssca-cdxgen-plugin
       - ssca-compliance-plugin
       - ssca-artifact-signing-plugin
+      - ssca-ai-bom-plugin
 
   dbdevops:
     description: "Database DevOps"

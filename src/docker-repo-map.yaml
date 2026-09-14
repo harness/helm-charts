@@ -72,6 +72,10 @@ load-test-manager:
   image:
     registry: docker.io
     repository: harnesssecure/load-test-manager-signed
+rt-agent:
+  image:
+    registry: docker.io
+    repository: harnesssecure/rt-agent-signed
 ci-manager:
   image:
     registry: docker.io
