@@ -848,6 +848,14 @@ def _scan_chart_templates(harness_dir):
 
 def cmd_validate_bundle(args):
     """Validate bundle-manifest.yaml against images_raw.txt, images.txt, images_internal.txt, and chart templates."""
+    if getattr(args, 'skip', False):
+        log.warning(
+            "Validation SKIPPED (--skip). images.txt/images_raw.txt were still generated. "
+            "Do not use this build's output as an SMP release artifact - onboard/offboard "
+            "images in bundle-manifest.yaml and re-run without --skip before shipping."
+        )
+        return
+
     script_dir = os.path.dirname(os.path.abspath(__file__))
     harness_dir = os.path.join(script_dir, 'harness')
 
@@ -1140,6 +1148,17 @@ def main():
     vp.add_argument("--chart-yaml", help="Path to Chart.yaml")
     vp.add_argument("--harness-dir", help="Path to harness chart directory (for template scanning)")
     vp.add_argument("--docker-repo-map", help="Path to docker-repo-map.yaml")
+    vp.add_argument(
+        "--skip",
+        action="store_true",
+        help=(
+            "Skip all validation checks and exit 0 without running them. "
+            "images.txt/images_raw.txt/images_internal.txt are produced by the earlier "
+            "bundle-images step regardless, so they remain available (e.g. for security "
+            "scanning) even when validation is skipped. Intended for custom/trimmed chart "
+            "builds that are NOT shipped as an SMP release."
+        ),
+    )
     vp.set_defaults(func=cmd_validate_bundle)
 
     args = parser.parse_args()
