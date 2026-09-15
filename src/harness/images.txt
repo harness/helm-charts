@@ -18,6 +18,7 @@ docker.io/harnesssecure/accesscontrol-service-signed:1.334.0
 docker.io/harnesssecure/delegate-proxy-signed:1.9.0
 docker.io/harnesssecure/gateway-signed:1.71.0
 docker.io/harnesssecure/helm-init-container:1.9.0
+docker.io/harnesssecure/harness-db-migrator-signed:2.39.0
 docker.io/harnesssecure/manager-signed:1.163.3
 docker.io/harnesssecure/mongo:8.0.26-jammy
 docker.io/harnesssecure/ng-auth-ui-signed:1.39.0
@@ -220,7 +221,6 @@ harnesssecure/ssca-artifact-signing-plugin:0.64.0
 
 ## Database DevOps
 docker.io/harnesssecure/db-devops-service-signed:1.112.0
-docker.io/harnesssecure/harness-db-migrator-signed:2.39.0
 
 ## Code Repository
 docker.io/harnesssecure/code-api-signed:1.102.2
