@@ -1,7 +1,7 @@
 dependencies:
 - name: access-control
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.303.0
+  version: 1.303.1
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.80.0
@@ -71,5 +71,5 @@ dependencies:
 - name: queue-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.11.0
-digest: sha256:81b883cd9d29b868bbc3ce9d634208de64675bfc66195ba6ec33ceb3958aa1ca
-generated: "2026-08-10T15:12:52.358087751Z"
+digest: sha256:d0bc2fd9da434a6592b34ee922968da14be9d81d5da96c6880c4fbcb05c0ce4c
+generated: "2026-09-15T08:43:10.696603039Z"
