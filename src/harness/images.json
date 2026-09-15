@@ -18,7 +18,7 @@
         "docker.io/harnesssecure/minio:RELEASE.2025-10-15T17-29-55Z-jammy",
         "docker.io/harnesssecure/log-service-signed:1.50.0",
         "docker.io/harnesssecure/cdcdata-signed:1.61.0",
-        "docker.io/harnesssecure/accesscontrol-service-signed:1.303.0",
+        "docker.io/harnesssecure/accesscontrol-service-signed:1.303.1",
         "docker.io/harness/delegate-proxy-signed:1.9.0",
         "docker.io/harnesssecure/gateway-signed:1.68.0",
         "docker.io/harnesssecure/helm-init-container:1.9.0",
