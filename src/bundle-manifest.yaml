@@ -350,11 +350,11 @@ modules:
       - query-service-signed
       - dashboard-ui-signed
 
-  data-platform:
-    description: "Data Platform"
+  data-infra:
+    description: "Data Infrastructure"
     bundle_type: combined
     requires: [platform]
-    bucket_path: "data-platform"
+    bucket_path: "data-infra"
     images:
       - kafka-operator-signed
       - kafka-operator-crd-updater-signed

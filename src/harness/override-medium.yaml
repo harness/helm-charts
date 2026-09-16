@@ -468,7 +468,7 @@ iacm:
       requests:
         cpu: 128m
         memory: 256Mi
-data-platform:
+data-infra:
   kafka-platform:
     nodePools:
       brokers:

@@ -38,7 +38,7 @@ dependencies:
 - name: iacm
   repository: https://harness.github.io/helm-charts
   version: 0.46.0
-- name: data-platform
+- name: data-infra
   repository: https://harness.github.io/helm-charts
   version: 0.46.0
 digest: sha256:4f7ec400b8aa8686c6ad31ed0b0e6e702600fd93ec0514cb7ce1a418def19d4b

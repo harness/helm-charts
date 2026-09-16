@@ -53,7 +53,7 @@ global:
   iacm:
     enabled: false
     # -- Enable to install Harness Data Platform
-  data-platform:
+  data-infra:
     enabled: false
     # -- Enable to install kafka
   kafka:
@@ -897,7 +897,7 @@ pg-upgrade:
       registry: docker.io
       repository: harnesssecure/postgresql
       tag: 16.14-bookworm
-data-platform:
+data-infra:
   kafka-connect-strimzi:
     database:
       postgres:

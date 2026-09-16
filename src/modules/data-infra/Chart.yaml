@@ -22,6 +22,6 @@ dependencies:
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.99.2
 description: Helm chart for Harness Platform
-name: data-platform
+name: data-infra
 type: application
 version: 0.46.0

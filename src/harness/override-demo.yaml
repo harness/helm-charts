@@ -49,6 +49,7 @@ chaos:
   chaos-machine-ifc:
     autoscaling:
       enabled: false
+    replicaCount: 1
     resources:
       limits:
         memory: 128Mi
@@ -58,21 +59,6 @@ chaos:
   chaos-machine-ifs:
     autoscaling:
       enabled: false
-    resources:
-      limits:
-        memory: 128Mi
-      requests:
-        cpu: 64m
-        memory: 128Mi
-  chaos-machine-ifc:
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 128Mi
-      requests:
-        cpu: 64m
-        memory: 128Mi 
-  chaos-machine-ifs:
     replicaCount: 1
     resources:
       limits:
@@ -453,7 +439,7 @@ iacm:
       requests:
         cpu: 128m
         memory: 256Mi
-data-platform:
+data-infra:
   kafka-platform:
     nodePools:
       brokers:
