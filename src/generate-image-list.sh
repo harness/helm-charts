@@ -14,6 +14,10 @@ usage () {
     echo "  -o, --output-dir <path>       Output directory for generated files"
     echo "  -d, --harness-dir <path>      Path to harness chart directory"
     echo "  -k, --keep-transient          Keep images_raw.txt and images_internal.txt"
+    echo "  -s, --skip-validation         Skip bundle-manifest validation (images.txt/images_raw.txt"
+    echo "                                are still generated). For custom/trimmed chart builds that"
+    echo "                                are NOT shipped as an SMP release; still needed e.g. to"
+    echo "                                produce an image list for security scanning."
     echo "  -h, --help                    Show this help message"
     echo ""
 }
@@ -23,6 +27,7 @@ HARNESS_DIR=${SCRIPT_DIR}/harness
 IMAGE_GEN_INPUT_FILE=${SCRIPT_DIR}/generate-image.yaml
 OUTPUT_DIR=${SCRIPT_DIR}/harness
 KEEP_TRANSIENT=false
+SKIP_VALIDATION=false
 IMAGE_ORG=${IMAGE_ORG:-harnesssecure}
 
 while [ $# -gt 0 ]; do
@@ -42,6 +47,10 @@ while [ $# -gt 0 ]; do
             ;;
         -k|--keep-transient)
             KEEP_TRANSIENT=true
+            shift
+            ;;
+        -s|--skip-validation)
+            SKIP_VALIDATION=true
             shift
             ;;
         -h|--help)
@@ -126,13 +135,19 @@ python3 ${SCRIPT_DIR}/smp-tools.py bundle-images \
     --raw-images ${OUTPUT_DIR}/images_raw.txt \
     --output-dir ${OUTPUT_DIR}
 
+SKIP_VALIDATION_FLAG=""
+if [ "${SKIP_VALIDATION}" = true ]; then
+    SKIP_VALIDATION_FLAG="--skip"
+fi
+
 log_info "Running bundle manifest validation"
 python3 ${SCRIPT_DIR}/smp-tools.py validate-bundle \
     --manifest ${SCRIPT_DIR}/bundle-manifest.yaml \
     --raw-images ${OUTPUT_DIR}/images_raw.txt \
     --images-txt ${OUTPUT_DIR}/images.txt \
     --internal-txt ${OUTPUT_DIR}/images_internal.txt \
-    --harness-dir ${HARNESS_DIR}
+    --harness-dir ${HARNESS_DIR} \
+    ${SKIP_VALIDATION_FLAG}
 
 if [ "${KEEP_TRANSIENT}" = false ]; then
     log_info "Cleaning up transient files"
