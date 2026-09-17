@@ -10,12 +10,35 @@ def load_openapi_spec(file_path):
     with open(file_path, 'r') as file:
         return yaml.safe_load(file)
 
+PATH_VERSION_RE = re.compile(r'^/(v\d+)(/|$)')
+SERVER_VERSION_RE = re.compile(r'/(v\d+)(?:/|$)')
+
+def get_version_from_servers(openapi_spec):
+    """Get the API version from servers.url (e.g. /api/v1 -> v1).
+
+    Some specs keep the version only in servers.url instead of in each path.
+    """
+    for server in openapi_spec.get('servers') or []:
+        match = SERVER_VERSION_RE.search(server.get('url') or '')
+        if match:
+            return match.group(1)
+
+    return None
+
 def extract_paths(openapi_spec):
     """Extract paths from the OpenAPI specification."""
     paths = openapi_spec.get('paths', {})
     formatted_paths = set()
 
+    # Specs that already version their paths are used as-is; only specs that
+    # keep the version in servers.url need it added back to every path.
+    version = None
+    if not any(PATH_VERSION_RE.match(path) for path in paths):
+        version = get_version_from_servers(openapi_spec)
+
     for path in paths:
+        if version:
+            path = f"/{version}{path}"
         # Convert {variables} directly to [^\/]+ for more precise matching
         regex_path = re.sub(r'\{[^}]+\}', '[^\\/]+', path)
         formatted_paths.add(regex_path)
@@ -23,23 +46,17 @@ def extract_paths(openapi_spec):
     return formatted_paths
 
 def group_paths_by_version(paths):
-    """Group paths by their version (v1, v2)"""
-    v1_paths = []
-    v2_paths = []
-    
-    for path in paths:
-        if path.startswith('/v1/'):
-            v1_paths.append(path)
-        elif path.startswith('/v2/'):
-            v2_paths.append(path)
-    
-    # Sort by number of segments (longest first) and then alphabetically
+    """Group versioned API paths (any /vN/) into one list per version."""
+    grouped = {}
     sort_key = lambda path: (-len([seg for seg in path.split('/') if seg]), path)
-    
-    return {
-        'v1': sorted(v1_paths, key=sort_key),
-        'v2': sorted(v2_paths, key=sort_key)
-    }
+
+    for path in paths:
+        match = PATH_VERSION_RE.match(path)
+        if not match:
+            continue
+        grouped.setdefault(match.group(1), []).append(path)
+
+    return {version: sorted(grouped[version], key=sort_key) for version in sorted(grouped)}
 
 virtual_service_template = """virtualService:
   annotations: {}
@@ -58,24 +75,13 @@ def generate_virtual_service(global_prefix, paths, service_name):
     grouped_paths = group_paths_by_version(paths)
     result = ["virtualService:", "  annotations: {}", "  objects:"]
     
-    # Generate v1 paths
-    if grouped_paths['v1']:
+    for version, version_paths in grouped_paths.items():
         template = Template(virtual_service_template.split('\n', 3)[3])  # Skip the header
         result.append(template.render(
             global_prefix=global_prefix,
-            paths=grouped_paths['v1'],
+            paths=version_paths,
             service_name=service_name,
-            version='v1'
-        ))
-    
-    # Generate v2 paths
-    if grouped_paths['v2']:
-        template = Template(virtual_service_template.split('\n', 3)[3])  # Skip the header
-        result.append(template.render(
-            global_prefix=global_prefix,
-            paths=grouped_paths['v2'],
-            service_name=service_name,
-            version='v2'
+            version=version
         ))
     
     return '\n'.join(result)

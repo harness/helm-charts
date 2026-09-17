@@ -15,7 +15,11 @@ import yaml
 import argparse
 import requests
 import json
+import re
 from pathlib import Path
+
+VERSIONED_PATH_RE = re.compile(r'/\(v\d+/')
+VERSION_IN_NAME_RE = re.compile(r'(v\d+)')
 
 def run_command(cmd, capture_output=True):
     """Run a shell command and return its output"""
@@ -207,7 +211,7 @@ def compare_paths(chart_path, api_specs, repo_name=None):
             os.unlink(temp_file)
             sys.exit(1)
         
-        # Extract paths from values.yaml, only keeping v1 and v2 versioned paths
+        # Extract paths from values.yaml, only keeping versioned paths
         values_paths = []
         for obj in values_config.get('virtualService', {}).get('objects', []):
             for path in obj.get('paths', []):
@@ -215,11 +219,11 @@ def compare_paths(chart_path, api_specs, repo_name=None):
                 if isinstance(path, dict) and 'path' in path:
                     path_str = path['path']
                 path_str = path_str.strip()
-                # Only include paths that are for v1 or v2 API endpoints
-                if '/(v1/' in path_str or '/(v2/' in path_str:
+                # Only include versioned API endpoints (any /vN/)
+                if VERSIONED_PATH_RE.search(path_str):
                     values_paths.append(path_str)
         
-        # Extract paths from generated config, only keeping v1 and v2 versioned paths
+        # Extract paths from generated config, only keeping versioned paths
         generated_paths = []
         for obj in generated_config.get('virtualService', {}).get('objects', []):
             for path in obj.get('paths', []):
@@ -227,8 +231,8 @@ def compare_paths(chart_path, api_specs, repo_name=None):
                 if isinstance(path, dict) and 'path' in path:
                     path_str = path['path']
                 path_str = path_str.strip()
-                # Only include paths that are for v1 or v2 API endpoints
-                if '/(v1/' in path_str or '/(v2/' in path_str:
+                # Only include versioned API endpoints (any /vN/)
+                if VERSIONED_PATH_RE.search(path_str):
                     generated_paths.append(path_str)
                     
         values_paths_set = set(values_paths)
@@ -260,8 +264,9 @@ def compare_paths(chart_path, api_specs, repo_name=None):
             
             for obj in values_config.get('virtualService', {}).get('objects', []):
                 name = obj.get('name', '')
-                if 'v1' in name or 'v2' in name:
-                    version = 'v1' if 'v1' in name else 'v2'
+                object_version_match = VERSION_IN_NAME_RE.search(name)
+                if object_version_match:
+                    version = object_version_match.group(1)
                     path_rewrite = obj.get('pathRewrite')
                     if not path_rewrite:
                         # Add extra backslashes for proper escaping in the YAML output
@@ -289,30 +294,25 @@ def compare_paths(chart_path, api_specs, repo_name=None):
                     return -len(segments), api_path
                 return 0, path
             
-            v1_paths = sorted([p for p in generated_paths_set if '/(v1/' in p], key=sort_by_segment_length)
-            v2_paths = sorted([p for p in generated_paths_set if '/(v2/' in p], key=sort_by_segment_length)
-            
             # Generate YAML for each version that has paths
             objects_yaml = []
-            if v1_paths and 'v1' in versioned_objects:
-                v1_obj = versioned_objects['v1']
-                v1_yaml = f"    - name: {v1_obj['name']}\n"
-                v1_yaml += f"      pathMatchType: {v1_obj['pathMatchType']}\n"
-                v1_yaml += f"      pathRewrite: \"{v1_obj['pathRewrite']}\"\n"
-                v1_yaml += "      paths:\n"
-                for path in v1_paths:
-                    v1_yaml += f"        - path: '{path}'\n"
-                objects_yaml.append(v1_yaml)
-                
-            if v2_paths and 'v2' in versioned_objects:
-                v2_obj = versioned_objects['v2']
-                v2_yaml = f"    - name: {v2_obj['name']}\n"
-                v2_yaml += f"      pathMatchType: {v2_obj['pathMatchType']}\n"
-                v2_yaml += f"      pathRewrite: \"{v2_obj['pathRewrite']}\"\n"
-                v2_yaml += "      paths:\n"
-                for path in v2_paths:
-                    v2_yaml += f"        - path: '{path}'\n"
-                objects_yaml.append(v2_yaml)
+            generated_by_version = {}
+            for path in generated_paths_set:
+                match = re.search(r'/\((v\d+)/', path)
+                if match:
+                    generated_by_version.setdefault(match.group(1), []).append(path)
+
+            for version in sorted(generated_by_version):
+                version_paths = sorted(generated_by_version[version], key=sort_by_segment_length)
+                if version in versioned_objects:
+                    version_obj = versioned_objects[version]
+                    version_yaml = f"    - name: {version_obj['name']}\n"
+                    version_yaml += f"      pathMatchType: {version_obj['pathMatchType']}\n"
+                    version_yaml += f"      pathRewrite: \"{version_obj['pathRewrite']}\"\n"
+                    version_yaml += "      paths:\n"
+                    for path in version_paths:
+                        version_yaml += f"        - path: '{path}'\n"
+                    objects_yaml.append(version_yaml)
                 
             if objects_yaml:
                 complete_yaml = ''.join(objects_yaml)
