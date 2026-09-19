@@ -1045,9 +1045,6 @@ ar:
       KAFKA_PRODUCER_TLS_CA_FILE: "/etc/kafka/cluster-ca/ca.crt"
       KAFKA_PRODUCER_TLS_CERT_FILE: "/etc/kafka/certs/user.crt"
       KAFKA_PRODUCER_TLS_KEY_FILE: "/etc/kafka/certs/user.key"
-    additionalConfig:
-      GITNESS_REGISTRY_STORAGE_TYPE: "gcs"
-      GITNESS_REGISTRY_GCS_BUCKET: "smpairgap-test-artifact-registry"
     extraVolumes:
       - name: kafka-certs
         secret:
