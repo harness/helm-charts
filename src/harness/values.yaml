@@ -972,6 +972,8 @@ data-infra:
       enabled: false
 ar:
   registry-api:
+    initializeDatabase:
+      enabled: true
     affinity: {}
     autoscaling:
       enabled: false
@@ -980,20 +982,56 @@ ar:
     # SMP-specific env defaults
     config:
       REGISTRY_ENABLE_ES: "false"
-      REGISTRY_MULTISTORAGE_ENABLED: "true"
-      HARNESS_UDP_ENABLED: "false"
-      HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
+      HARNESS_REGISTRY_EVENTS_ARTIFACT_QUARANTINE_STREAM: "ssca_ar_artifact_quarantine"
+      HARNESS_REGISTRY_EVENTS_ENABLED: "true"
+    ingress:
+      objects:
+        - annotations:
+            nginx.ingress.kubernetes.io/rewrite-target: $1$2
+            nginx.ingress.kubernetes.io/use-regex: "true"
+            nginx.ingress.kubernetes.io/upstream-vhost: registry-api
+            nginx.ingress.kubernetes.io/configuration-snippet: |
+              set $do_redirect "";
+              if ($host = "{{ index .Values.global.ingress.hosts 0 }}") { set $do_redirect "${do_redirect}H"; }
+              if ($request_uri ~ "^/har/api/") { set $do_redirect "${do_redirect}U"; }
+              if ($do_redirect = "HU") { return 308 {{ .Values.global.loadbalancerURL }}/gateway$request_uri; }
+          paths:
+            - path: "{{ .Values.global.ingress.pathPrefix }}/har(/|$)(.*)"
+        - annotations:
+            nginx.ingress.kubernetes.io/use-regex: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+            nginx.ingress.kubernetes.io/proxy-read-timeout: "900"
+            nginx.ingress.kubernetes.io/proxy-send-timeout: "900"
+          paths:
+            - path: "/v2(/|$).*"
+            - path: "/pkg(/|$).*"
+            - path: "/generic(/|$).*"
+            - path: "/maven(/|$).*"
+    multiStorage:
+      enabled: true
   registry-processor:
+    initializeDatabase:
+      enabled: true
     affinity: {}
     autoscaling:
       enabled: false
     nodeSelector: {}
     tolerations: []
     config:
-      HARNESS_UDP_ENABLED: "false"
       HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
+      GITNESS_REGISTRY_POST_PROCESSING_CONCURRENCY: "10"
+    ingress:
+      objects:
+        - annotations:
+            nginx.ingress.kubernetes.io/rewrite-target: $1$2
+            nginx.ingress.kubernetes.io/use-regex: "true"
+          paths:
+            - path: '{{ .Values.global.ingress.pathPrefix }}/har-processor(/|$)(.*)'
+    multiStorage:
+      enabled: true
   registry-async-service:
-    enabled: true                    # OMIT or set false for Phase 0
+    initializeDatabase:
+      enabled: true
     affinity: {}
     autoscaling:
       enabled: false
@@ -1001,9 +1039,9 @@ ar:
     tolerations: []
     config:
       REGISTRY_ENABLE_ES: "false"
-      HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
-      REGISTRY_ASYNC_SERVICE_GRACEFUL_SHUTDOWN_TIME: 30
       KAFKA_CONFLUENT_BOOTSTRAP_SERVER_URLS: "kafka-platform-kafka-bootstrap:9093"
+      KAFKA_CONFLUENT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM: "https"
+      KAFKA_CONFLUENT_SECURITY_PROTOCOL: "SSL"
       KAFKA_PRODUCER_TLS_CA_FILE: "/etc/kafka/cluster-ca/ca.crt"
       KAFKA_PRODUCER_TLS_CERT_FILE: "/etc/kafka/certs/user.crt"
       KAFKA_PRODUCER_TLS_KEY_FILE: "/etc/kafka/certs/user.key"
@@ -1023,6 +1061,8 @@ ar:
       - name: kafka-cluster-ca
         mountPath: /etc/kafka/cluster-ca
         readOnly: true
+    multiStorage:
+      enabled: true
   ipqs-service:
     affinity: {}
     autoscaling:
