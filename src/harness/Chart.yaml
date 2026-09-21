@@ -51,8 +51,12 @@ dependencies:
   name: iacm
   repository: https://harness.github.io/helm-charts
   version: 0.46.0
-- condition: global.data-platform.enabled
-  name: data-platform
+- condition: global.data-infra.enabled
+  name: data-infra
+  repository: https://harness.github.io/helm-charts
+  version: 0.46.0
+- condition: global.ar.enabled
+  name: ar
   repository: https://harness.github.io/helm-charts
   version: 0.46.0
 - condition: global.unified-data-platform.enabled

@@ -469,7 +469,7 @@ iacm:
       requests:
         cpu: 128m
         memory: 256Mi
-data-platform:
+data-infra:
   kafka-platform:
     nodePools:
       brokers:
@@ -574,6 +574,57 @@ code:
         memory: 512Mi
       requests:
         cpu: 256m
+        memory: 512Mi
+ar:
+  registry-api:
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 5
+      targetCPU: 80
+      targetMemory: 80
+    resources:
+      limits:
+        memory: 4096Mi
+      requests:
+        cpu: 1
+        memory: 4096Mi
+  registry-processor:
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 5
+      targetCPU: 80
+      targetMemory: 80
+    resources:
+      limits:
+        memory: 2048Mi
+      requests:
+        cpu: 512m
+        memory: 2048Mi
+  registry-async-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 5
+      targetCPU: 80
+      targetMemory: 80
+    resources:
+      limits:
+        memory: 4096Mi
+      requests:
+        cpu: 1
+        memory: 4096Mi
+  ipqs-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 3
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 128m
         memory: 512Mi
 genai:
   mcp-server:
