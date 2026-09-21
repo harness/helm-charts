@@ -570,3 +570,21 @@ code:
       requests:
         cpu: 200m
         memory: 200Mi
+genai:
+  mcp-server:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    tsContainer:
+      resources:
+        limits:
+          memory: 1536Mi
+        requests:
+          cpu: 250m
+          memory: 1Gi

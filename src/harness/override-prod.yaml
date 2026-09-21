@@ -873,3 +873,25 @@ code:
       requests:
         cpu: 256m
         memory: 512Mi
+genai:
+  mcp-server:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPU: 80
+      targetMemory: 50
+    replicaCount: 2
+    resources:
+      limits:
+        memory: 500Mi
+      requests:
+        cpu: 500m
+        memory: 500Mi
+    tsContainer:
+      resources:
+        limits:
+          memory: 3584Mi
+        requests:
+          cpu: 500m
+          memory: 2560Mi

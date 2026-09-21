@@ -364,3 +364,11 @@ modules:
       - schema-compatibility-signed
       - schema-registry-prometheus-jmx-exporter-signed
       - schema-registry-backup-signed
+
+  genai:
+    description: "GenAI"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "genai"
+    images:
+      - mcp-server-signed
