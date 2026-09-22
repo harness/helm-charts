@@ -622,7 +622,7 @@ ar:
         cpu: 128m
         memory: 512Mi
 genai:
-  mcp-server:
+  mcp-server-internal:
     autoscaling:
       enabled: true
       minReplicas: 1

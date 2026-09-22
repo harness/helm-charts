@@ -1073,7 +1073,7 @@ ar:
     nodeSelector: {}
     tolerations: []
 genai:
-  mcp-server:
+  mcp-server-internal:
     affinity: {}
     autoscaling:
       enabled: false

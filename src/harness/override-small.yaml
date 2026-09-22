@@ -612,7 +612,7 @@ ar:
         cpu: 64m
         memory: 256Mi
 genai:
-  mcp-server:
+  mcp-server-internal:
     autoscaling:
       enabled: false
     replicaCount: 1
