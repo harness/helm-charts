@@ -64,6 +64,9 @@ global:
   # -- Enable to install Harness Unified Data Platform (UDP)
   unified-data-platform:
     enabled: false
+  # -- Enable to install Harness GenAI
+  genai:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
@@ -1064,6 +1067,13 @@ ar:
     multiStorage:
       enabled: true
   ipqs-service:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+genai:
+  mcp-server-internal:
     affinity: {}
     autoscaling:
       enabled: false

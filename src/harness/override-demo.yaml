@@ -581,3 +581,21 @@ ar:
       requests:
         cpu: 64m
         memory: 256Mi
+genai:
+  mcp-server-internal:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi
+    tsContainer:
+      resources:
+        limits:
+          memory: 1Gi
+        requests:
+          cpu: 128m
+          memory: 512Mi

@@ -376,3 +376,11 @@ modules:
       - registry-processor-signed
       - ipqs-service-signed
       - ip-data-bundle-ipqs-signed
+
+  genai:
+    description: "GenAI"
+    bundle_type: combined
+    requires: [platform]
+    bucket_path: "genai"
+    images:
+      - mcp-server-signed
