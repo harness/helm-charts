@@ -1077,5 +1077,7 @@ genai:
     affinity: {}
     autoscaling:
       enabled: false
+    goContainer:
+      enabled: false
     nodeSelector: {}
     tolerations: []
