@@ -16,4 +16,4 @@ dependencies:
 description: A Helm chart for Harness Artifact Registry
 name: ar
 type: application
-version: 0.47.0
+version: 0.46.0
