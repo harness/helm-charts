@@ -104,8 +104,16 @@ def get_image_name(entry):
 
 DEFAULT_IMAGE_ORG = os.environ.get('IMAGE_ORG', 'harnesssecure')
 
-# Images dropped from images_raw.txt by generate-image-list.sh after extraction
-_RAW_IMAGE_EXCLUDE = 'index.docker.io/chaosnative:'
+# Image refs dropped from images_raw.txt at extraction time (never reach images.txt,
+# images_internal.txt, or images.json). Add one regex per image/tag to exclude;
+# prefer a version suffix over a full tag so it survives unrelated tag bumps.
+RAW_IMAGE_EXCLUDE_PATTERNS = [
+    r'index\.docker\.io/chaosnative:',
+    # Strimzi kafka-operator lists every supported Kafka version; 4.1.0 isn't signed.
+    r'/strimzi-kafka-signed:.*-kafka-4\.1\.0$',
+    r'/strimzi-kafka-connect-signed:.*-kafka-4\.1\.0$',
+]
+_RAW_IMAGE_EXCLUDE_RE = [re.compile(p) for p in RAW_IMAGE_EXCLUDE_PATTERNS]
 
 
 def extract_image_refs(text, image_org=DEFAULT_IMAGE_ORG):
@@ -139,7 +147,11 @@ def extract_image_refs(text, image_org=DEFAULT_IMAGE_ORG):
         fields = value.split(':')
         ref = fields[0] + ':' + (fields[1] if len(fields) > 1 else '')
 
-        if not ref.strip(':') or _RAW_IMAGE_EXCLUDE in ref:
+        if not ref.strip(':'):
+            continue
+        matched_pattern = next((p for p in _RAW_IMAGE_EXCLUDE_RE if p.search(ref)), None)
+        if matched_pattern:
+            log.info(f"Excluding raw image '{ref}' (matches pattern '{matched_pattern.pattern}')")
             continue
         if '{{' in ref or '}}' in ref:
             continue
