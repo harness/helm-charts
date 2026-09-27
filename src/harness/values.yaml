@@ -899,3 +899,9 @@ genai:
       enabled: false
     nodeSelector: {}
     tolerations: []
+  acm:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
