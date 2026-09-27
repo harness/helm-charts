@@ -599,3 +599,13 @@ genai:
         requests:
           cpu: 128m
           memory: 512Mi
+  acm:
+    autoscaling:
+      enabled: false
+    instances: 1
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 512Mi

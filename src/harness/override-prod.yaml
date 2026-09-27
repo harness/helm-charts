@@ -946,3 +946,22 @@ genai:
         requests:
           cpu: 500m
           memory: 2560Mi
+  acm:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPU: 80
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 120
+    instances: 2
+    pdb:
+      create: "true"
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 1Gi

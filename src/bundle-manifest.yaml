@@ -384,3 +384,4 @@ modules:
     bucket_path: "genai"
     images:
       - mcp-server-signed
+      - acm-signed
