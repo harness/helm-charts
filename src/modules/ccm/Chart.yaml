@@ -15,14 +15,14 @@ dependencies:
   version: 1.10.0
 - name: batch-processing
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.100.8
+  version: 1.102.9
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.98.1
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.102.5
+  version: 1.104.8
 description: A Helm chart for Harness Cloud Cost Management (CCM) module
 name: ccm
 type: application
-version: 0.46.0
+version: 0.46.1
