@@ -662,6 +662,18 @@ platform:
       requests:
         cpu: 2
         memory: 6144Mi
+  resource-hierarchy-service:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    java:
+      memory: "4096m"
+    resources:
+      limits:
+        memory: 6144Mi
+      requests:
+        cpu: 2
+        memory: 6144Mi
   pipeline-service:
     autoscaling:
       enabled: true
