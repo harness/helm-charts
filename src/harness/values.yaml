@@ -915,6 +915,10 @@ data-infra:
     connectors:
       postgres-registry-async-service:
         enabled: true
+    connectorConfigEnv:
+      POSTGRES_REGISTRY_DB_SSL_CERT: "/mnt/secrets/registry_db_client.crt"
+      POSTGRES_REGISTRY_DB_SSL_KEY: "/mnt/secrets/registry_db_client.key"
+      POSTGRES_REGISTRY_DB_SSL_ROOT_CERT: "/mnt/secrets/registry_db_server_ca.crt"
   kafka-operator:
     strimziOperator:
       kafka:
