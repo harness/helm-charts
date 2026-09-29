@@ -38,14 +38,14 @@ docker.io/harnesssecure/mongodb-exporter:0.51.0-jammy
 harnesssecure/vault-secret-loader:1.0.10
 docker.io/harnesssecure/ui-signed:1.36.3
 docker.io/harnesssecure/pg-upgrader:14-to-16
-docker.io/harnesssecure/delegate:26.08.89804.minimal
-docker.io/harnesssecure/delegate:26.08.89804.minimal-fips
+docker.io/harnesssecure/delegate:26.08.89806.minimal
+docker.io/harnesssecure/delegate:26.08.89806.minimal-fips
 
 ### Platform Agents
-docker.io/harnesssecure/delegate:26.08.89804
-docker.io/harnesssecure/delegate:26.08.89804.minimal
-docker.io/harnesssecure/delegate:26.08.89804.minimal-fips
-docker.io/harnesssecure/delegate:26.08.89804-fips
+docker.io/harnesssecure/delegate:26.08.89806
+docker.io/harnesssecure/delegate:26.08.89806.minimal
+docker.io/harnesssecure/delegate:26.08.89806.minimal-fips
+docker.io/harnesssecure/delegate:26.08.89806-fips
 docker.io/harnesssecure/upgrader:1.12.0
 docker.io/harnesssecure/upgrader:1.12.0-fips
 
@@ -175,10 +175,10 @@ docker.io/harnesssecure/ff-pushpin-signed:1.1148.0
 docker.io/harnesssecure/ff-pushpin-worker-signed:1.1148.0
 
 ## Cloud Cost Management
-docker.io/harnesssecure/batch-processing-signed:1.100.8
+docker.io/harnesssecure/batch-processing-signed:1.102.9
 docker.io/harnesssecure/ce-anomaly-detection-signed:1.33.0
 docker.io/harnesssecure/ce-cloud-info-signed:1.19.0
-docker.io/harnesssecure/ce-nextgen-signed:1.102.5
+docker.io/harnesssecure/ce-nextgen-signed:1.104.8
 docker.io/harnesssecure/event-service-signed:1.21.0
 docker.io/harnesssecure/ng-ce-ui:1.98.1
 docker.io/harnesssecure/telescopes-signed:1.10.0

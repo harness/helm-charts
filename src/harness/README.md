@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.46.0](https://img.shields.io/badge/Version-0.46.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.46.1](https://img.shields.io/badge/Version-0.46.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -101,6 +101,7 @@ docker.io/harnesssecure/accesscontrol-service-signed:1.334.0
 docker.io/harnesssecure/delegate-proxy-signed:1.9.0
 docker.io/harnesssecure/gateway-signed:1.71.0
 docker.io/harnesssecure/helm-init-container:1.9.0
+docker.io/harnesssecure/harness-db-migrator-signed:2.39.0
 docker.io/harnesssecure/manager-signed:1.163.3
 docker.io/harnesssecure/mongo:8.0.26-jammy
 docker.io/harnesssecure/ng-auth-ui-signed:1.39.0
@@ -120,14 +121,14 @@ docker.io/harnesssecure/mongodb-exporter:0.51.0-jammy
 harnesssecure/vault-secret-loader:1.0.10
 docker.io/harnesssecure/ui-signed:1.36.3
 docker.io/harnesssecure/pg-upgrader:14-to-16
-docker.io/harnesssecure/delegate:26.08.89804.minimal
-docker.io/harnesssecure/delegate:26.08.89804.minimal-fips
+docker.io/harnesssecure/delegate:26.08.89806.minimal
+docker.io/harnesssecure/delegate:26.08.89806.minimal-fips
 
 ### Platform Agents
-docker.io/harnesssecure/delegate:26.08.89804
-docker.io/harnesssecure/delegate:26.08.89804.minimal
-docker.io/harnesssecure/delegate:26.08.89804.minimal-fips
-docker.io/harnesssecure/delegate:26.08.89804-fips
+docker.io/harnesssecure/delegate:26.08.89806
+docker.io/harnesssecure/delegate:26.08.89806.minimal
+docker.io/harnesssecure/delegate:26.08.89806.minimal-fips
+docker.io/harnesssecure/delegate:26.08.89806-fips
 docker.io/harnesssecure/upgrader:1.12.0
 docker.io/harnesssecure/upgrader:1.12.0-fips
 
@@ -257,10 +258,10 @@ docker.io/harnesssecure/ff-pushpin-signed:1.1148.0
 docker.io/harnesssecure/ff-pushpin-worker-signed:1.1148.0
 
 ## Cloud Cost Management
-docker.io/harnesssecure/batch-processing-signed:1.100.8
+docker.io/harnesssecure/batch-processing-signed:1.102.9
 docker.io/harnesssecure/ce-anomaly-detection-signed:1.33.0
 docker.io/harnesssecure/ce-cloud-info-signed:1.19.0
-docker.io/harnesssecure/ce-nextgen-signed:1.102.5
+docker.io/harnesssecure/ce-nextgen-signed:1.104.8
 docker.io/harnesssecure/event-service-signed:1.21.0
 docker.io/harnesssecure/ng-ce-ui:1.98.1
 docker.io/harnesssecure/telescopes-signed:1.10.0
@@ -303,7 +304,6 @@ harnesssecure/ssca-artifact-signing-plugin:0.64.0
 
 ## Database DevOps
 docker.io/harnesssecure/db-devops-service-signed:1.112.0
-docker.io/harnesssecure/harness-db-migrator-signed:2.39.0
 
 ## Code Repository
 docker.io/harnesssecure/code-api-signed:1.102.2
@@ -647,7 +647,7 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | platform.gateway.config.ENV | string | `"SMP"` |  |
 | platform.gateway.nodeSelector | object | `{}` |  |
 | platform.gateway.tolerations | list | `[]` |  |
-| platform.harness-manager | object | `{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.08.89804"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
+| platform.harness-manager | object | `{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.08.89806"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
 | platform.harness-manager.featureFlags | object | `{"ADDITIONAL":""}` | Feature Flags |
 | platform.harness-manager.featureFlags.ADDITIONAL | string | `""` | Additional Feature Flag (placeholder to add any other featureFlags) |
 | platform.log-service | object | `{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
