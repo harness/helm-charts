@@ -915,6 +915,10 @@ data-infra:
     connectors:
       postgres-registry-async-service:
         enabled: true
+      debezium-mongo-component-cdc:
+        enabled: true
+      debezium-mongo-instance-ng-cdc:
+        enabled: true
   kafka-operator:
     strimziOperator:
       kafka:
