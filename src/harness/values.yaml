@@ -58,6 +58,8 @@ global:
     # -- Enable to install kafka
   kafka:
     enabled: false
+    bootstrapServers: "kafka-platform-kafka-bootstrap:9093"
+    schemaRegistryUrl: "http://schema-registry-service:8081"
   # -- Enable to install Artifact Repository (AR)
   ar:
     enabled: false
