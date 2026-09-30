@@ -899,6 +899,9 @@ pg-upgrade:
       tag: 16.14-bookworm
 data-infra:
   kafka-connect-strimzi:
+    connectorConfigEnv:
+      MONGO_COMPONENT_DB_NAME: "component-harness"
+      MONGO_SSCA_NG_HARNESS_DB_NAME: "harness-cdng"
     database:
       postgres:
         registry:
@@ -912,8 +915,44 @@ data-infra:
                 keys:
                   POSTGRES_USER: ""
                   POSTGRES_PASSWORD: "postgres-password"
+      mongo:
+        componentharness:
+          enabled: true
+          protocol: mongodb
+          database: component-harness
+          # Single seed host; replicaSet=rs0 lets the driver discover other members when global.ha is true.
+          hosts:
+            - mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017
+          extraArgs: "replicaSet=rs0&authSource=admin"
+          secrets:
+            kubernetesSecrets:
+              - secretName: harness-secrets
+                keys:
+                  MONGO_USER: mongodbUsername
+              - secretName: mongodb-replicaset-chart
+                keys:
+                  MONGO_PASSWORD: mongodb-root-password
+        sscangharness:
+          enabled: true
+          protocol: mongodb
+          database: harness-cdng
+          hosts:
+            - mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017
+          extraArgs: "replicaSet=rs0&authSource=admin"
+          secrets:
+            kubernetesSecrets:
+              - secretName: harness-secrets
+                keys:
+                  MONGO_USER: mongodbUsername
+              - secretName: mongodb-replicaset-chart
+                keys:
+                  MONGO_PASSWORD: mongodb-root-password
     connectors:
       postgres-registry-async-service:
+        enabled: true
+      debezium-mongo-component-cdc:
+        enabled: true
+      debezium-mongo-instance-ng-cdc:
         enabled: true
   kafka-operator:
     strimziOperator:
