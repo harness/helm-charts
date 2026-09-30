@@ -381,3 +381,11 @@ dashboard-ui:
   image:
     registry: docker.io
     repository: harnesssecure/dashboard-ui-signed
+mcp-server-internal:
+  image:
+    registry: docker.io
+    repository: harnesssecure/mcp-server-signed
+acm:
+  image:
+    registry: docker.io
+    repository: harnesssecure/acm-signed

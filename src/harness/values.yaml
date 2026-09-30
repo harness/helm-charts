@@ -64,6 +64,9 @@ global:
   # -- Enable to install Harness Unified Data Platform (UDP)
   unified-data-platform:
     enabled: false
+  # -- Enable to install Harness GenAI
+  genai:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
@@ -1073,3 +1076,23 @@ ar:
       enabled: false
     nodeSelector: {}
     tolerations: []
+genai:
+  mcp-server-internal:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    goContainer:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+  acm:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+    config:
+      ENV: "SMP"
+      HARNESS_SERVICES_OPA_IGNORE: "false"
+      HARNESS_SERVICES_OPA_CLIENT_BASEURL: "http://policy-mgmt:3000"
+      HARNESS_SERVICES_OPA_CLIENT_SECURE: "false"
