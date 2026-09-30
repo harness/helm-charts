@@ -1045,7 +1045,7 @@ ssca:
         mountPath: /etc/component-analysis-service/secrets/ca
         readOnly: true
     secrets:
-      kubernetesSecrets:
+      smpSharedKubernetesSecrets:
         - secretName: kafka-platform-cluster-ca-cert
           keys:
             KAFKA_GENERAL_SSL_TRUSTSTORE_PASSWORD: ca.password
@@ -1088,7 +1088,7 @@ ssca:
         mountPath: /etc/component-service/secrets/ca
         readOnly: true
     secrets:
-      kubernetesSecrets:
+      smpSharedKubernetesSecrets:
         - secretName: kafka-platform-cluster-ca-cert
           keys:
             KAFKA_GENERAL_SSL_TRUSTSTORE_PASSWORD: ca.password
@@ -1131,7 +1131,7 @@ ssca:
         mountPath: /etc/ssca-manager/secrets/ca
         readOnly: true
     secrets:
-      kubernetesSecrets:
+      smpSharedKubernetesSecrets:
         - secretName: kafka-platform-cluster-ca-cert
           keys:
             KAFKA_GENERAL_SSL_TRUSTSTORE_PASSWORD: ca.password
