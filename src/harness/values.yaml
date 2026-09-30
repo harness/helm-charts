@@ -1009,6 +1009,7 @@ data-infra:
               kraftMetadata: shared
               deleteClaim: false
   schema-registry:
+    fullnameOverride: schema-registry
     backup:
       enabled: false
 ar:
