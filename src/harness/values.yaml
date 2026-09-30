@@ -1110,7 +1110,6 @@ ar:
       enabled: false
     nodeSelector: {}
     tolerations: []
-
 ssca:
   component-service:
     config:
