@@ -272,6 +272,19 @@ platform:
         periodSeconds: 60
         failureThreshold: 5
         successThreshold: 1
+  resource-hierarchy-service:
+    autoscaling:
+      enabled: false
+    java:
+      memory: "4096m"
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 2
+        memory: 6Gi
+      requests:
+        cpu: 2
+        memory: 6Gi
   pipeline-service:
     additionalConfigs:
       DISABLE_CUSTOM_STAGE_IN_PIPELINE_SERVICE: "true"
