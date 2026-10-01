@@ -514,6 +514,10 @@ platform:
         image:
           repository: "harnesssecure/postgresql"
           tag: "14.20-debian"
+        primary:
+          extendedConfiguration: |
+            wal_level = logical
+            max_slot_wal_keep_size = 10GB
         metrics:
           enabled: false
         podAnnotations:
@@ -899,6 +903,12 @@ pg-upgrade:
       tag: 16.14-bookworm
 data-infra:
   kafka-connect-strimzi:
+    connectorConfigEnv:
+      POSTGRES_REGISTRY_DB_USER: "postgres"
+      POSTGRES_REGISTRY_DB_DATABASENAME: "registry_db"
+      POSTGRES_REGISTRY_DB_SSL_CERT: ""
+      POSTGRES_REGISTRY_DB_SSL_KEY: ""
+      POSTGRES_REGISTRY_DB_SSL_ROOT_CERT: ""
     database:
       postgres:
         registry:
