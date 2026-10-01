@@ -58,6 +58,8 @@ global:
     # -- Enable to install kafka
   kafka:
     enabled: false
+    bootstrapServers: "kafka-platform-kafka-bootstrap:9093"
+    schemaRegistryUrl: "http://schema-registry-service:8081"
   # -- Enable to install Artifact Repository (AR)
   ar:
     enabled: false
@@ -651,7 +653,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.08.89804
+        tag: 26.08.89806
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -899,6 +901,9 @@ pg-upgrade:
       tag: 16.14-bookworm
 data-infra:
   kafka-connect-strimzi:
+    connectorConfigEnv:
+      MONGO_COMPONENT_DB_NAME: "component-harness"
+      MONGO_SSCA_NG_HARNESS_DB_NAME: "harness-cdng"
     database:
       postgres:
         registry:
@@ -912,6 +917,38 @@ data-infra:
                 keys:
                   POSTGRES_USER: ""
                   POSTGRES_PASSWORD: "postgres-password"
+      mongo:
+        componentharness:
+          enabled: true
+          protocol: mongodb
+          database: component-harness
+          # Single seed host; replicaSet=rs0 lets the driver discover other members when global.ha is true.
+          hosts:
+            - mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017
+          extraArgs: "replicaSet=rs0&authSource=admin"
+          secrets:
+            kubernetesSecrets:
+              - secretName: harness-secrets
+                keys:
+                  MONGO_USER: mongodbUsername
+              - secretName: mongodb-replicaset-chart
+                keys:
+                  MONGO_PASSWORD: mongodb-root-password
+        sscangharness:
+          enabled: true
+          protocol: mongodb
+          database: harness-cdng
+          hosts:
+            - mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017
+          extraArgs: "replicaSet=rs0&authSource=admin"
+          secrets:
+            kubernetesSecrets:
+              - secretName: harness-secrets
+                keys:
+                  MONGO_USER: mongodbUsername
+              - secretName: mongodb-replicaset-chart
+                keys:
+                  MONGO_PASSWORD: mongodb-root-password
     connectors:
       postgres-registry-async-service:
         enabled: true
@@ -972,6 +1009,7 @@ data-infra:
               kraftMetadata: shared
               deleteClaim: false
   schema-registry:
+    fullnameOverride: schema-registry
     backup:
       enabled: false
 ar:
@@ -1073,3 +1111,7 @@ ar:
       enabled: false
     nodeSelector: {}
     tolerations: []
+ssca:
+  component-service:
+    config:
+      EOL_DISABLE_MAVEN_EOL: "true"
