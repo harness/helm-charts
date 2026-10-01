@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.46.0](https://img.shields.io/badge/Version-0.46.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.47.0](https://img.shields.io/badge/Version-0.47.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -88,59 +88,61 @@ docker.io/envoyproxy/envoy:distroless-v1.38.0
 docker.io/harnesssecure/deploy-crds-job:1.12.0
 docker.io/busybox:1.37.0
 registry.access.redhat.com/ubi8/ubi-minimal:8.9-1029
-docker.io/harnesssecure/ci-scm-signed:1.61.0
-docker.io/harnesssecure/template-service-signed:1.165.2
-docker.io/harnesssecure/platform-service-signed:1.146.1
-docker.io/harnesssecure/pipeline-service-signed:1.203.7
-docker.io/harnesssecure/ng-manager-signed:1.164.15
-docker.io/harnesssecure/nextgenui-signed:1.151.7
+docker.io/harnesssecure/ci-scm-signed:1.66.1
+docker.io/harnesssecure/template-service-signed:1.168.0
+docker.io/harnesssecure/platform-service-signed:1.149.1
+docker.io/harnesssecure/pipeline-service-signed:1.206.4
+docker.io/harnesssecure/ng-manager-signed:1.167.5
+docker.io/harnesssecure/nextgenui-signed:1.154.1
 docker.io/harnesssecure/minio:RELEASE.2025-10-15T17-29-55Z-jammy
-docker.io/harnesssecure/log-service-signed:1.52.1
-docker.io/harnesssecure/cdcdata-signed:1.64.0
-docker.io/harnesssecure/accesscontrol-service-signed:1.334.0
+docker.io/harnesssecure/log-service-signed:1.52.3
+docker.io/harnesssecure/cdcdata-signed:1.66.0
+docker.io/harnesssecure/accesscontrol-service-signed:1.342.0
 docker.io/harnesssecure/delegate-proxy-signed:1.9.0
-docker.io/harnesssecure/gateway-signed:1.71.0
+docker.io/harnesssecure/gateway-signed:1.72.2
 docker.io/harnesssecure/helm-init-container:1.9.0
-docker.io/harnesssecure/manager-signed:1.163.3
+docker.io/harnesssecure/harness-db-migrator-signed:2.66.0
+docker.io/harnesssecure/manager-signed:1.166.8
 docker.io/harnesssecure/mongo:8.0.26-jammy
 docker.io/harnesssecure/ng-auth-ui-signed:1.39.0
 docker.io/harnesssecure/redis:7.4.9-jammy
+docker.io/bitnamilegacy/postgresql:14.11.0-debian-11-r17
 docker.io/harnesssecure/postgresql:14.20-debian
 docker.io/harnesssecure/postgresql:16.14-bookworm
-docker.io/harnesssecure/policy-mgmt:1.65.2
-docker.io/harnesssecure/smp-service-discovery-server-signed:0.80.0
+docker.io/harnesssecure/policy-mgmt:1.68.0
+docker.io/harnesssecure/smp-service-discovery-server-signed:0.82.0
 docker.io/harnesssecure/debezium-service-signed:1.28.0
-docker.io/harnesssecure/audit-event-streaming-signed:1.111.0
-docker.io/harnesssecure/queue-service-signed:1.11.0
-docker.io/harnesssecure/service-discovery-collector:0.80.0
-docker.io/harnesssecure/ng-dashboard-aggregator-signed:1.130.0
+docker.io/harnesssecure/audit-event-streaming-signed:1.114.0
+docker.io/harnesssecure/queue-service-signed:1.16.0
+docker.io/harnesssecure/service-discovery-collector:0.82.0
+docker.io/harnesssecure/ng-dashboard-aggregator-signed:1.133.0
 docker.io/harnesssecure/redis_exporter:1.83.0-jammy
 docker.io/prometheuscommunity/postgres-exporter:v0.20.1
 docker.io/harnesssecure/mongodb-exporter:0.51.0-jammy
 harnesssecure/vault-secret-loader:1.0.10
 docker.io/harnesssecure/ui-signed:1.36.3
 docker.io/harnesssecure/pg-upgrader:14-to-16
-docker.io/harnesssecure/delegate:26.08.89804.minimal
-docker.io/harnesssecure/delegate:26.08.89804.minimal-fips
+docker.io/harnesssecure/delegate:26.08.89806.minimal
+docker.io/harnesssecure/delegate:26.08.89806.minimal-fips
 
 ### Platform Agents
-docker.io/harnesssecure/delegate:26.08.89804
-docker.io/harnesssecure/delegate:26.08.89804.minimal
-docker.io/harnesssecure/delegate:26.08.89804.minimal-fips
-docker.io/harnesssecure/delegate:26.08.89804-fips
+docker.io/harnesssecure/delegate:26.08.89806
+docker.io/harnesssecure/delegate:26.08.89806.minimal
+docker.io/harnesssecure/delegate:26.08.89806.minimal-fips
+docker.io/harnesssecure/delegate:26.08.89806-fips
 docker.io/harnesssecure/upgrader:1.12.0
 docker.io/harnesssecure/upgrader:1.12.0-fips
 
 ### Dashboard
 docker.io/harnesssecure/looker-signed:1.28.5
-docker.io/harnesssecure/dashboard-service-signed:1.124.0
+docker.io/harnesssecure/dashboard-service-signed:1.130.0
 docker.io/harnesssecure/statsd-exporter:5.0-prometheus-busybox-2
 
 ## Continuous Deployment
-docker.io/harnesssecure/gitops-service-signed:1.65.4
-docker.io/harnesssecure/cv-nextgen-signed:1.71.4
-docker.io/harnesssecure/le-nextgen-signed:1.23.0
-docker.io/harnesssecure/srm-ui-signed:1.16.3
+docker.io/harnesssecure/gitops-service-signed:1.66.5
+docker.io/harnesssecure/cv-nextgen-signed:1.74.0
+docker.io/harnesssecure/le-nextgen-signed:1.23.1
+docker.io/harnesssecure/srm-ui-signed:1.16.2
 
 ### CD Deployment Plugins
 harnesssecure/drone-git:1.4.1-rootless
@@ -152,53 +154,53 @@ harnesssecure/download-harness-store:1.0.0-rootless-linux
 harnesssecure/aws-sam-plugin:nodejs20.x-1.162.1-1.4.0-beta-linux-amd64
 
 ### CD Agents
-docker.io/harnesssecure/argocd:v3.4.2
-docker.io/harnesssecure/gitops-agent:v0.125.0
+docker.io/harnesssecure/argocd:v3.5.1
+docker.io/harnesssecure/gitops-agent:v0.126.1
 docker.io/harnesssecure/haproxy:3.4.1-alpine3.24
 docker.io/harnesssecure/shellcheck:v0.11.0
-docker.io/harnesssecure/gitops-agent-installer-helper:v0.0.18
+docker.io/harnesssecure/gitops-agent-installer-helper:v0.2.0
 
 ## Continuous Integration
-docker.io/harnesssecure/ci-manager-signed:1.154.6
-docker.io/harnesssecure/ti-service-signed:1.79.1
-harnesssecure/ci-addon:1.18.10
-harnesssecure/ci-addon:1.18.31
-harnesssecure/ci-addon:rootless-1.18.10
-harnesssecure/ci-addon:rootless-1.18.31
-harnesssecure/ci-lite-engine:1.18.10
-harnesssecure/ci-lite-engine:1.18.31
-harnesssecure/ci-lite-engine:rootless-1.18.10
-harnesssecure/ci-lite-engine:rootless-1.18.31
+docker.io/harnesssecure/ci-manager-signed:1.157.1
+docker.io/harnesssecure/ti-service-signed:1.79.5
+harnesssecure/ci-addon:1.18.30
+harnesssecure/ci-addon:1.18.34
+harnesssecure/ci-addon:rootless-1.18.30
+harnesssecure/ci-addon:rootless-1.18.34
+harnesssecure/ci-lite-engine:1.18.30
+harnesssecure/ci-lite-engine:1.18.34
+harnesssecure/ci-lite-engine:rootless-1.18.30
+harnesssecure/ci-lite-engine:rootless-1.18.34
 
 ### CI Build Plugins
 harnesssecure/drone-git:1.4.1-rootless
 harnesssecure/drone-git:1.7.16-rootless
 harnesssecure/drone-git:1.7.25-rootless
-harnesssecure/harness-cache-server:1.7.23
-harnesssecure/harness-cache-server:1.7.25
+harnesssecure/harness-cache-server:1.7.29
 harnesssecure/kaniko:1.13.10
 harnesssecure/kaniko-acr:1.13.10
 harnesssecure/kaniko-ecr:1.13.10
 harnesssecure/kaniko-gcr:1.13.10
-harnesssecure/artifactory:1.9.0
+harnesssecure/artifactory:1.9.3
 harnesssecure/gcs:1.6.12
-harnesssecure/cache:1.10.10
+harnesssecure/cache:1.10.12
 harnesssecure/s3:1.8.2
-harnesssecure/buildx:1.3.25
-harnesssecure/buildx-acr:1.5.5
-harnesssecure/buildx-ecr:1.5.5
-harnesssecure/buildx-gar:1.5.5
+harnesssecure/buildx:1.3.26
+harnesssecure/buildx-acr:1.5.7
+harnesssecure/buildx-ecr:1.5.7
+harnesssecure/buildx-gar:1.5.7
 harnesssecure/buildx-gcr:1.5.5
-harnesssecure/buildkit:1.0.20
 harnesssecure/docker:21.3.3
 harnesssecure/ecr:21.3.3
 harnesssecure/gar:21.3.3
 harnesssecure/gcr:21.3.3
 harnesssecure/acr:21.3.3
+harnesssecure/har-plugin:1.0.0
+harnesssecure/har-plugin:1.0.6
 
 ## Security Testing Orchestration
-docker.io/harnesssecure/stocore-signed:1.208.2
-docker.io/harnesssecure/ticket-service-signed:1.15.0
+docker.io/harnesssecure/stocore-signed:1.210.3
+docker.io/harnesssecure/ticket-service-signed:1.16.0
 docker.io/harnesssecure/refid-cache:latest
 harnesssecure/refid-cache:latest
 harnesssecure/sto-plugin:latest
@@ -218,7 +220,6 @@ harnesssecure/brakeman-job-runner:latest
 harnesssecure/burp-job-runner:latest
 harnesssecure/checkmarx-job-runner:latest
 harnesssecure/checkov-job-runner:latest
-harnesssecure/docker-content-trust-job-runner:latest
 harnesssecure/fossa-job-runner:latest
 harnesssecure/github-advanced-security-job-runner:latest
 harnesssecure/gitleaks-job-runner:latest
@@ -249,107 +250,182 @@ harnesssecure/wiz-job-runner:latest
 harnesssecure/zap-job-runner:latest
 
 ## Feature Flags
-docker.io/harnesssecure/ff-cron-signed:1.1233.0
-docker.io/harnesssecure/ff-server-analytics-db-migration-signed:1.1233.0
-docker.io/harnesssecure/ff-server-primary-db-migration-signed:1.1233.0
-docker.io/harnesssecure/ff-service-signed:1.1233.0
+docker.io/harnesssecure/ff-cron-signed:1.1237.0
+docker.io/harnesssecure/ff-server-analytics-db-migration-signed:1.1237.0
+docker.io/harnesssecure/ff-server-primary-db-migration-signed:1.1237.0
+docker.io/harnesssecure/ff-service-signed:1.1237.0
 docker.io/harnesssecure/ff-pushpin-signed:1.1148.0
 docker.io/harnesssecure/ff-pushpin-worker-signed:1.1148.0
 
 ## Cloud Cost Management
-docker.io/harnesssecure/batch-processing-signed:1.100.8
+docker.io/harnesssecure/batch-processing-signed:1.102.9
 docker.io/harnesssecure/ce-anomaly-detection-signed:1.33.0
 docker.io/harnesssecure/ce-cloud-info-signed:1.19.0
-docker.io/harnesssecure/ce-nextgen-signed:1.102.5
+docker.io/harnesssecure/ce-nextgen-signed:1.104.8
 docker.io/harnesssecure/event-service-signed:1.21.0
-docker.io/harnesssecure/ng-ce-ui:1.98.1
+docker.io/harnesssecure/ng-ce-ui:1.99.3
 docker.io/harnesssecure/telescopes-signed:1.10.0
 docker.io/harnesssecure/clickhouse:25.12.5-jammy
 docker.io/harnesssecure/ccm-gcp-smp-signed:1000103
 
 ## Chaos Engineering
-docker.io/harnesssecure/smp-chaos-k8s-ifs-signed:1.99.1
-docker.io/harnesssecure/smp-chaos-linux-infra-controller-signed:1.99.0
-docker.io/harnesssecure/smp-chaos-linux-infra-server-signed:1.99.0
-docker.io/harnesssecure/smp-chaos-manager-signed:1.99.9
-docker.io/harnesssecure/smp-chaos-web-signed:1.99.2
+docker.io/harnesssecure/smp-chaos-k8s-ifs-signed:1.101.1
+docker.io/harnesssecure/smp-chaos-linux-infra-controller-signed:1.101.0
+docker.io/harnesssecure/smp-chaos-linux-infra-server-signed:1.101.0
+docker.io/harnesssecure/smp-chaos-manager-signed:1.101.6
+docker.io/harnesssecure/smp-chaos-web-signed:1.101.3
 docker.io/harnesssecure/source-probe:main-latest
-docker.io/harnesssecure/smp-chaos-bg-processor-signed:1.99.9
-docker.io/harnesssecure/chaos-machine-ifc-signed:1.99.1
-docker.io/harnesssecure/chaos-machine-ifs-signed:1.99.0
-docker.io/harnesssecure/enterprise-chaos-hub-signed:1.99.9
-docker.io/harnesssecure/load-test-manager-signed:1.22.2
-docker.io/harnesssecure/rt-agent-signed:1.4.7
+docker.io/harnesssecure/smp-chaos-bg-processor-signed:1.101.6
+docker.io/harnesssecure/chaos-machine-ifc-signed:1.101.0
+docker.io/harnesssecure/chaos-machine-ifs-signed:1.101.0
+docker.io/harnesssecure/enterprise-chaos-hub-signed:1.101.6
+docker.io/harnesssecure/load-test-manager-signed:1.24.3
+docker.io/harnesssecure/rt-agent-signed:1.6.1
 
 ### Chaos Engineering Plugins
-docker.io/harnesssecure/chaos-log-watcher:1.99.0
-docker.io/harnesssecure/chaos-ddcr:1.99.0
-docker.io/harnesssecure/chaos-ddcr-faults:1.99.0
-docker.io/harnesssecure/chaos-event-watcher:1.99.0
-docker.io/harnesssecure/load-test-runner:0.3.0
+docker.io/harnesssecure/chaos-log-watcher:1.101.0
+docker.io/harnesssecure/chaos-ddcr:1.101.1
+docker.io/harnesssecure/chaos-ddcr-faults:1.101.0
+docker.io/harnesssecure/chaos-event-watcher:1.101.0
+docker.io/harnesssecure/load-test-runner:0.4.0
 
 ## Supply Chain Security
-docker.io/harnesssecure/ssca-manager-signed:1.70.7
-docker.io/harnesssecure/ssca-ui-signed:0.56.0
-docker.io/harnesssecure/component-service-signed:1.20.0
-docker.io/harnesssecure/component-analysis-service-signed:1.17.1
+docker.io/harnesssecure/ssca-manager-signed:1.72.7
+docker.io/harnesssecure/ssca-ui-signed:0.58.2
+docker.io/harnesssecure/component-service-signed:1.21.2
+docker.io/harnesssecure/component-analysis-service-signed:1.19.2
 
 ### SCS Plugins
-harnesssecure/ssca-plugin:0.64.0
-harnesssecure/slsa-plugin:0.64.2
-harnesssecure/ssca-cdxgen-plugin:0.64.0
-harnesssecure/ssca-compliance-plugin:0.64.0
-harnesssecure/ssca-artifact-signing-plugin:0.64.0
+harnesssecure/ssca-plugin:0.67.0
+harnesssecure/slsa-plugin:0.67.0
+harnesssecure/ssca-cdxgen-plugin:0.67.0
+harnesssecure/ssca-compliance-plugin:0.67.0
+harnesssecure/ssca-artifact-signing-plugin:0.67.0
+harnesssecure/ssca-ai-bom-plugin:0.67.0
 
 ## Database DevOps
-docker.io/harnesssecure/db-devops-service-signed:1.112.0
-docker.io/harnesssecure/harness-db-migrator-signed:2.39.0
+docker.io/harnesssecure/db-devops-service-signed:1.115.1
 
 ## Code Repository
-docker.io/harnesssecure/code-api-signed:1.102.2
-docker.io/harnesssecure/code-githa-signed:1.102.0
-docker.io/harnesssecure/code-gitrpc-signed:1.102.2
-docker.io/harnesssecure/code-search-signed:1.102.0
-docker.io/harnesssecure/code-ui-signed:1.38.0
+docker.io/harnesssecure/code-api-signed:1.103.3
+docker.io/harnesssecure/code-githa-signed:1.103.0
+docker.io/harnesssecure/code-gitrpc-signed:1.103.0
+docker.io/harnesssecure/code-search-signed:1.103.0
+docker.io/harnesssecure/code-ui-signed:1.55.0
 
 ## Infrastructure as Code Management
-docker.io/harnesssecure/iac-server-signed:1.482.0
-docker.io/harnesssecure/iacm-manager-signed:1.195.1
+docker.io/harnesssecure/iac-server-signed:1.494.0
+docker.io/harnesssecure/iacm-manager-signed:1.202.0
 
 ### IACM Plugins
-harnesssecure/ci-addon:1.18.10
-harnesssecure/ci-addon:1.18.31
-harnesssecure/ci-addon:rootless-1.18.10
-harnesssecure/ci-addon:rootless-1.18.31
-harnesssecure/ci-lite-engine:1.18.10
-harnesssecure/ci-lite-engine:1.18.31
-harnesssecure/ci-lite-engine:rootless-1.18.10
-harnesssecure/ci-lite-engine:rootless-1.18.31
+harnesssecure/ci-addon:1.18.30
+harnesssecure/ci-addon:1.18.34
+harnesssecure/ci-addon:rootless-1.18.30
+harnesssecure/ci-addon:rootless-1.18.34
+harnesssecure/ci-lite-engine:1.18.30
+harnesssecure/ci-lite-engine:1.18.34
+harnesssecure/ci-lite-engine:rootless-1.18.30
+harnesssecure/ci-lite-engine:rootless-1.18.34
 harnesssecure/drone-git:1.4.1-rootless
 harnesssecure/drone-git:1.7.16-rootless
 harnesssecure/drone-git:1.7.25-rootless
 harnesssecure/harness_terraform:latest
 harnesssecure/harness_terraform_vm:latest
 
-## Data Platform
-docker.io/harnesssecure/kafka-operator-signed:1.15.1
-docker.io/harnesssecure/kafka-operator-crd-updater-signed:1.15.1
-docker.io/harnesssecure/strimzi-kafka-signed:1.15.1-kafka-4.1.0
-docker.io/harnesssecure/strimzi-kafka-signed:1.15.1-kafka-4.1.1
+## Unified Data Platform (UDP) Services
+docker.io/harnesssecure/config-service-signed:0.1.166
+docker.io/harnesssecure/schema-service-signed:0.23.0
+docker.io/harnesssecure/onboarding-service-signed:0.12.11
+docker.io/harnesssecure/query-service-signed:0.65.0
+docker.io/harnesssecure/dashboard-ui-signed:1.80.0
+
+## Data Infrastructure
+docker.io/harnesssecure/kafka-operator-signed:1.15.4
+docker.io/harnesssecure/kafka-operator-crd-updater-signed:1.15.4
 docker.io/harnesssecure/strimzi-kafka-signed:1.15.1-kafka-4.2.0
-docker.io/harnesssecure/strimzi-kafka-connect-signed:1.15.1-kafka-4.1.0
-docker.io/harnesssecure/strimzi-kafka-connect-signed:1.15.1-kafka-4.1.1
-docker.io/harnesssecure/strimzi-kafka-connect-signed:1.15.1-kafka-4.2.0
-docker.io/harnesssecure/schema-registry-signed:1.11.3
-docker.io/harnesssecure/schema-compatibility-signed:1.11.3
-docker.io/harnesssecure/schema-registry-prometheus-jmx-exporter-signed:1.11.3
-docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
+docker.io/harnesssecure/strimzi-kafka-signed:1.15.4-kafka-4.1.1
+docker.io/harnesssecure/strimzi-kafka-signed:1.15.4-kafka-4.2.0
+docker.io/harnesssecure/strimzi-kafka-connect-signed:1.15.4-kafka-4.1.1
+docker.io/harnesssecure/strimzi-kafka-connect-signed:1.15.4-kafka-4.2.0
+docker.io/harnesssecure/schema-registry-signed:1.12.2
+docker.io/harnesssecure/schema-compatibility-signed:1.12.2
+docker.io/harnesssecure/schema-registry-prometheus-jmx-exporter-signed:1.12.2
+docker.io/harnesssecure/schema-registry-backup-signed:1.12.2
+
+## Artifact Registry
+docker.io/harnesssecure/registry-api-signed:1.99.2
+docker.io/harnesssecure/registry-async-service-signed:1.56.2
+docker.io/harnesssecure/registry-processor-signed:1.71.1
+docker.io/harnesssecure/ipqs-service-signed:1.9.0
+docker.io/harnesssecure/ip-data-bundle-ipqs-signed:0.1.41-ipqs.78
 
 ```
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| ar.ipqs-service.affinity | object | `{}` |  |
+| ar.ipqs-service.autoscaling.enabled | bool | `false` |  |
+| ar.ipqs-service.nodeSelector | object | `{}` |  |
+| ar.ipqs-service.tolerations | list | `[]` |  |
+| ar.registry-api.affinity | object | `{}` |  |
+| ar.registry-api.autoscaling.enabled | bool | `false` |  |
+| ar.registry-api.config.HARNESS_REGISTRY_EVENTS_ARTIFACT_QUARANTINE_STREAM | string | `"ssca_ar_artifact_quarantine"` |  |
+| ar.registry-api.config.HARNESS_REGISTRY_EVENTS_ENABLED | string | `"true"` |  |
+| ar.registry-api.config.REGISTRY_ENABLE_ES | string | `"false"` |  |
+| ar.registry-api.ingress.objects[0].annotations."nginx.ingress.kubernetes.io/configuration-snippet" | string | `"set $do_redirect \"\";\nif ($host = \"{{ index .Values.global.ingress.hosts 0 }}\") { set $do_redirect \"${do_redirect}H\"; }\nif ($request_uri ~ \"^/har/api/\") { set $do_redirect \"${do_redirect}U\"; }\nif ($do_redirect = \"HU\") { return 308 {{ .Values.global.loadbalancerURL }}/gateway$request_uri; }\n"` |  |
+| ar.registry-api.ingress.objects[0].annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"$1$2"` |  |
+| ar.registry-api.ingress.objects[0].annotations."nginx.ingress.kubernetes.io/upstream-vhost" | string | `"registry-api"` |  |
+| ar.registry-api.ingress.objects[0].annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
+| ar.registry-api.ingress.objects[0].paths[0].path | string | `"{{ .Values.global.ingress.pathPrefix }}/har(/|$)(.*)"` |  |
+| ar.registry-api.ingress.objects[1].annotations."nginx.ingress.kubernetes.io/proxy-body-size" | string | `"0"` |  |
+| ar.registry-api.ingress.objects[1].annotations."nginx.ingress.kubernetes.io/proxy-read-timeout" | string | `"900"` |  |
+| ar.registry-api.ingress.objects[1].annotations."nginx.ingress.kubernetes.io/proxy-send-timeout" | string | `"900"` |  |
+| ar.registry-api.ingress.objects[1].annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
+| ar.registry-api.ingress.objects[1].paths[0].path | string | `"/v2(/|$).*"` |  |
+| ar.registry-api.ingress.objects[1].paths[1].path | string | `"/pkg(/|$).*"` |  |
+| ar.registry-api.ingress.objects[1].paths[2].path | string | `"/generic(/|$).*"` |  |
+| ar.registry-api.ingress.objects[1].paths[3].path | string | `"/maven(/|$).*"` |  |
+| ar.registry-api.initializeDatabase.enabled | bool | `true` |  |
+| ar.registry-api.multiStorage.enabled | bool | `true` |  |
+| ar.registry-api.nodeSelector | object | `{}` |  |
+| ar.registry-api.tolerations | list | `[]` |  |
+| ar.registry-async-service.affinity | object | `{}` |  |
+| ar.registry-async-service.autoscaling.enabled | bool | `false` |  |
+| ar.registry-async-service.config.KAFKA_CONFLUENT_BOOTSTRAP_SERVER_URLS | string | `"kafka-platform-kafka-bootstrap:9093"` |  |
+| ar.registry-async-service.config.KAFKA_CONFLUENT_SECURITY_PROTOCOL | string | `"SSL"` |  |
+| ar.registry-async-service.config.KAFKA_CONFLUENT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM | string | `"https"` |  |
+| ar.registry-async-service.config.KAFKA_PRODUCER_TLS_CA_FILE | string | `"/etc/kafka/cluster-ca/ca.crt"` |  |
+| ar.registry-async-service.config.KAFKA_PRODUCER_TLS_CERT_FILE | string | `"/etc/kafka/certs/user.crt"` |  |
+| ar.registry-async-service.config.KAFKA_PRODUCER_TLS_KEY_FILE | string | `"/etc/kafka/certs/user.key"` |  |
+| ar.registry-async-service.config.REGISTRY_ENABLE_ES | string | `"false"` |  |
+| ar.registry-async-service.extraVolumeMounts[0].mountPath | string | `"/etc/kafka/certs"` |  |
+| ar.registry-async-service.extraVolumeMounts[0].name | string | `"kafka-certs"` |  |
+| ar.registry-async-service.extraVolumeMounts[0].readOnly | bool | `true` |  |
+| ar.registry-async-service.extraVolumeMounts[1].mountPath | string | `"/etc/kafka/cluster-ca"` |  |
+| ar.registry-async-service.extraVolumeMounts[1].name | string | `"kafka-cluster-ca"` |  |
+| ar.registry-async-service.extraVolumeMounts[1].readOnly | bool | `true` |  |
+| ar.registry-async-service.extraVolumes[0].name | string | `"kafka-certs"` |  |
+| ar.registry-async-service.extraVolumes[0].secret.defaultMode | int | `292` |  |
+| ar.registry-async-service.extraVolumes[0].secret.secretName | string | `"kafka-platform-registry-async-service"` |  |
+| ar.registry-async-service.extraVolumes[1].name | string | `"kafka-cluster-ca"` |  |
+| ar.registry-async-service.extraVolumes[1].secret.defaultMode | int | `292` |  |
+| ar.registry-async-service.extraVolumes[1].secret.secretName | string | `"kafka-platform-cluster-ca-cert"` |  |
+| ar.registry-async-service.initializeDatabase.enabled | bool | `true` |  |
+| ar.registry-async-service.multiStorage.enabled | bool | `true` |  |
+| ar.registry-async-service.nodeSelector | object | `{}` |  |
+| ar.registry-async-service.tolerations | list | `[]` |  |
+| ar.registry-processor.affinity | object | `{}` |  |
+| ar.registry-processor.autoscaling.enabled | bool | `false` |  |
+| ar.registry-processor.config.GITNESS_REGISTRY_POST_PROCESSING_CONCURRENCY | string | `"10"` |  |
+| ar.registry-processor.config.HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE | string | `"true"` |  |
+| ar.registry-processor.ingress.objects[0].annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"$1$2"` |  |
+| ar.registry-processor.ingress.objects[0].annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
+| ar.registry-processor.ingress.objects[0].paths[0].path | string | `"{{ .Values.global.ingress.pathPrefix }}/har-processor(/|$)(.*)"` |  |
+| ar.registry-processor.initializeDatabase.enabled | bool | `true` |  |
+| ar.registry-processor.multiStorage.enabled | bool | `true` |  |
+| ar.registry-processor.nodeSelector | object | `{}` |  |
+| ar.registry-processor.tolerations | list | `[]` |  |
 | ccm.batch-processing | object | `{"awsAccountTagsCollectionJobConfig":{"enabled":true},"cliProxy":{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""},"cloudProviderConfig":{"CLUSTER_DATA_GCS_BACKUP_BUCKET":"placeHolder","CLUSTER_DATA_GCS_BUCKET":"placeHolder","DATA_PIPELINE_CONFIG_GCS_BASE_PATH":"placeHolder","GCP_PROJECT_ID":"placeHolder","S3_SYNC_CONFIG_BUCKET_NAME":"placeHolder","S3_SYNC_CONFIG_REGION":"placeHolder"},"postgres":{"image":{"repository":"harnesssecure/postgresql","tag":"14.20-debian"}},"stackDriverLoggingEnabled":false}` | Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure |
 | ccm.batch-processing.awsAccountTagsCollectionJobConfig | object | `{"enabled":true}` | Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure |
 | ccm.batch-processing.cliProxy | object | `{"enabled":false,"host":"localhost","password":"","port":80,"protocol":"http","username":""}` | Set ccm.batch-processing.cliProxy.protocol to http or https depending on the proxy configuration |
@@ -394,31 +470,61 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | code.code-ui.autoscaling.enabled | bool | `false` |  |
 | code.code-ui.nodeSelector | object | `{}` |  |
 | code.code-ui.tolerations | list | `[]` |  |
-| data-platform.kafka-operator.strimziOperator.cruiseControl.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
-| data-platform.kafka-operator.strimziOperator.kafka.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
-| data-platform.kafka-operator.strimziOperator.kafkaConnect.image.repository | string | `"harnesssecure/strimzi-kafka-connect-signed"` |  |
-| data-platform.kafka-operator.strimziOperator.kafkaExporter.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
-| data-platform.kafka-operator.strimziOperator.kafkaInit.image.repository | string | `"harnesssecure/kafka-operator-signed"` |  |
-| data-platform.kafka-operator.strimziOperator.kafkaMirrorMaker2.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
-| data-platform.kafka-operator.strimziOperator.topicOperator.image.repository | string | `"harnesssecure/kafka-operator-signed"` |  |
-| data-platform.kafka-operator.strimziOperator.userOperator.image.repository | string | `"harnesssecure/kafka-operator-signed"` |  |
-| data-platform.kafka-platform.kafkaDebugPod.image.registry | string | `"docker.io"` |  |
-| data-platform.kafka-platform.kafkaDebugPod.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
-| data-platform.kafka-platform.nodePools.brokers.storage.type | string | `"jbod"` |  |
-| data-platform.kafka-platform.nodePools.brokers.storage.volumes[0].class | string | `""` |  |
-| data-platform.kafka-platform.nodePools.brokers.storage.volumes[0].deleteClaim | bool | `false` |  |
-| data-platform.kafka-platform.nodePools.brokers.storage.volumes[0].id | int | `0` |  |
-| data-platform.kafka-platform.nodePools.brokers.storage.volumes[0].kraftMetadata | string | `"shared"` |  |
-| data-platform.kafka-platform.nodePools.brokers.storage.volumes[0].size | string | `"100Gi"` |  |
-| data-platform.kafka-platform.nodePools.brokers.storage.volumes[0].type | string | `"persistent-claim"` |  |
-| data-platform.kafka-platform.nodePools.controllers.storage.type | string | `"jbod"` |  |
-| data-platform.kafka-platform.nodePools.controllers.storage.volumes[0].class | string | `""` |  |
-| data-platform.kafka-platform.nodePools.controllers.storage.volumes[0].deleteClaim | bool | `false` |  |
-| data-platform.kafka-platform.nodePools.controllers.storage.volumes[0].id | int | `0` |  |
-| data-platform.kafka-platform.nodePools.controllers.storage.volumes[0].kraftMetadata | string | `"shared"` |  |
-| data-platform.kafka-platform.nodePools.controllers.storage.volumes[0].size | string | `"10Gi"` |  |
-| data-platform.kafka-platform.nodePools.controllers.storage.volumes[0].type | string | `"persistent-claim"` |  |
-| data-platform.schema-registry.backup.enabled | bool | `false` |  |
+| data-infra.kafka-connect-strimzi.connectorConfigEnv.MONGO_COMPONENT_DB_NAME | string | `"component-harness"` |  |
+| data-infra.kafka-connect-strimzi.connectorConfigEnv.MONGO_SSCA_NG_HARNESS_DB_NAME | string | `"harness-cdng"` |  |
+| data-infra.kafka-connect-strimzi.connectors.debezium-mongo-component-cdc.enabled | bool | `true` |  |
+| data-infra.kafka-connect-strimzi.connectors.debezium-mongo-instance-ng-cdc.enabled | bool | `true` |  |
+| data-infra.kafka-connect-strimzi.connectors.postgres-registry-async-service.enabled | bool | `true` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.componentharness.database | string | `"component-harness"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.componentharness.enabled | bool | `true` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.componentharness.extraArgs | string | `"replicaSet=rs0&authSource=admin"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.componentharness.hosts[0] | string | `"mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.componentharness.protocol | string | `"mongodb"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.componentharness.secrets.kubernetesSecrets[0].keys.MONGO_USER | string | `"mongodbUsername"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.componentharness.secrets.kubernetesSecrets[0].secretName | string | `"harness-secrets"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.componentharness.secrets.kubernetesSecrets[1].keys.MONGO_PASSWORD | string | `"mongodb-root-password"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.componentharness.secrets.kubernetesSecrets[1].secretName | string | `"mongodb-replicaset-chart"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.sscangharness.database | string | `"harness-cdng"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.sscangharness.enabled | bool | `true` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.sscangharness.extraArgs | string | `"replicaSet=rs0&authSource=admin"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.sscangharness.hosts[0] | string | `"mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.sscangharness.protocol | string | `"mongodb"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.sscangharness.secrets.kubernetesSecrets[0].keys.MONGO_USER | string | `"mongodbUsername"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.sscangharness.secrets.kubernetesSecrets[0].secretName | string | `"harness-secrets"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.sscangharness.secrets.kubernetesSecrets[1].keys.MONGO_PASSWORD | string | `"mongodb-root-password"` |  |
+| data-infra.kafka-connect-strimzi.database.mongo.sscangharness.secrets.kubernetesSecrets[1].secretName | string | `"mongodb-replicaset-chart"` |  |
+| data-infra.kafka-connect-strimzi.database.postgres.registry.database | string | `"registry_db"` |  |
+| data-infra.kafka-connect-strimzi.database.postgres.registry.enabled | bool | `true` |  |
+| data-infra.kafka-connect-strimzi.database.postgres.registry.hosts[0] | string | `"postgres"` |  |
+| data-infra.kafka-connect-strimzi.database.postgres.registry.secrets.kubernetesSecrets[0].keys.POSTGRES_PASSWORD | string | `"postgres-password"` |  |
+| data-infra.kafka-connect-strimzi.database.postgres.registry.secrets.kubernetesSecrets[0].keys.POSTGRES_USER | string | `""` |  |
+| data-infra.kafka-connect-strimzi.database.postgres.registry.secrets.kubernetesSecrets[0].secretName | string | `"postgres"` |  |
+| data-infra.kafka-operator.strimziOperator.cruiseControl.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
+| data-infra.kafka-operator.strimziOperator.kafka.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
+| data-infra.kafka-operator.strimziOperator.kafkaConnect.image.repository | string | `"harnesssecure/strimzi-kafka-connect-signed"` |  |
+| data-infra.kafka-operator.strimziOperator.kafkaExporter.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
+| data-infra.kafka-operator.strimziOperator.kafkaInit.image.repository | string | `"harnesssecure/kafka-operator-signed"` |  |
+| data-infra.kafka-operator.strimziOperator.kafkaMirrorMaker2.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
+| data-infra.kafka-operator.strimziOperator.topicOperator.image.repository | string | `"harnesssecure/kafka-operator-signed"` |  |
+| data-infra.kafka-operator.strimziOperator.userOperator.image.repository | string | `"harnesssecure/kafka-operator-signed"` |  |
+| data-infra.kafka-platform.kafkaDebugPod.image.registry | string | `"docker.io"` |  |
+| data-infra.kafka-platform.kafkaDebugPod.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
+| data-infra.kafka-platform.nodePools.brokers.storage.type | string | `"jbod"` |  |
+| data-infra.kafka-platform.nodePools.brokers.storage.volumes[0].class | string | `""` |  |
+| data-infra.kafka-platform.nodePools.brokers.storage.volumes[0].deleteClaim | bool | `false` |  |
+| data-infra.kafka-platform.nodePools.brokers.storage.volumes[0].id | int | `0` |  |
+| data-infra.kafka-platform.nodePools.brokers.storage.volumes[0].kraftMetadata | string | `"shared"` |  |
+| data-infra.kafka-platform.nodePools.brokers.storage.volumes[0].size | string | `"100Gi"` |  |
+| data-infra.kafka-platform.nodePools.brokers.storage.volumes[0].type | string | `"persistent-claim"` |  |
+| data-infra.kafka-platform.nodePools.controllers.storage.type | string | `"jbod"` |  |
+| data-infra.kafka-platform.nodePools.controllers.storage.volumes[0].class | string | `""` |  |
+| data-infra.kafka-platform.nodePools.controllers.storage.volumes[0].deleteClaim | bool | `false` |  |
+| data-infra.kafka-platform.nodePools.controllers.storage.volumes[0].id | int | `0` |  |
+| data-infra.kafka-platform.nodePools.controllers.storage.volumes[0].kraftMetadata | string | `"shared"` |  |
+| data-infra.kafka-platform.nodePools.controllers.storage.volumes[0].size | string | `"10Gi"` |  |
+| data-infra.kafka-platform.nodePools.controllers.storage.volumes[0].type | string | `"persistent-claim"` |  |
+| data-infra.schema-registry.backup.enabled | bool | `false` |  |
+| data-infra.schema-registry.fullnameOverride | string | `"schema-registry"` |  |
 | db-devops.db-devops-service.config.DBOPS_MIGRATIONS_ENABLED | string | `"true"` |  |
 | db-devops.db-devops-service.config.INDEX_MANAGER_ENABLED | string | `"false"` |  |
 | enabled | bool | `false` |  |
@@ -439,6 +545,7 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | ff.ff-timescale-migrations.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
 | ff.ff-timescale-migrations.postgres.image.tag | string | `"14.20-debian"` |  |
 | global.airgap | string | `"false"` | Airgap functionality. Disabled by default |
+| global.ar | object | `{"enabled":false}` | Enable to install Artifact Repository (AR) |
 | global.autoscaling | object | `{"enabled":true}` | Enable to set auto-scaling globally |
 | global.awsServiceEndpointUrls | object | `{"cloudwatchEndPointUrl":"https://monitoring.us-east-2.amazonaws.com","ecsEndPointUrl":"https://ecs.us-east-2.amazonaws.com","enabled":false,"endPointRegion":"us-east-2","stsEndPointUrl":"https://sts.us-east-2.amazonaws.com"}` | Set global.awsServiceEndpointUrls.cloudwatchEndPointUrl to set cloud watch endpoint url |
 | global.ccm.enabled | bool | `false` |  |
@@ -450,7 +557,7 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | global.code | object | `{"enabled":false}` | Enable to install Harness Code services (CODE) |
 | global.commonAnnotations | object | `{}` | Add common annotations to all objects |
 | global.commonLabels | object | `{}` | Add common labels to all objects |
-| global.data-platform.enabled | bool | `false` |  |
+| global.data-infra.enabled | bool | `false` |  |
 | global.database | object | `{"clickhouse":{"enabled":false},"mongo":{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""},"postgres":{"extraArgs":"","hosts":["postgres:5432"],"installed":true,"passwordKey":"password","protocol":"postgres","secretName":"postgres-secret","userKey":"user"},"redis":{"hosts":["<internal-endpoint-with-port>"],"installed":true,"passwordKey":"password","secretName":"redis-user-pass","userKey":"username"},"timescaledb":{"certKey":"cert","certName":"tsdb-cert","hosts":["hostname.timescale.com:5432"],"installed":true,"passwordKey":"password","secretName":"tsdb-secret","sslEnabled":false,"userKey":"username"}}` | provide overrides to use in-cluster database or configure to use external databases |
 | global.database.mongo | object | `{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""}` | settings to deploy mongo in-cluster or configure to use external mongo source |
 | global.database.mongo.extraArgs | string | `""` | set additional arguments to mongo uri |
@@ -518,7 +625,9 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | global.istio.istioGatewayServiceUrl | string | `""` | set to istio gateway's k8s service FQDN for internal use case. eg "internal-istio-gateway.istio-system.svc.cluster.local" If not set, internal request routing would happen via global.loadbalancerUrl |
 | global.istio.virtualService.hosts | list | `["myhostname.example.com"]` | add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty. |
 | global.jfr.enabled | bool | `false` |  |
+| global.kafka.bootstrapServers | string | `"kafka-platform-kafka-bootstrap:9093"` |  |
 | global.kafka.enabled | bool | `false` |  |
+| global.kafka.schemaRegistryUrl | string | `"http://schema-registry-service:8081"` |  |
 | global.kubeVersion | string | `""` | set kubernetes version override, unrequired if installing using Helm. |
 | global.license | object | `{"cg":"","ng":""}` | Place the license key, Harness support team will provide these |
 | global.loadbalancerURL | string | `"https://myhostname.example.com"` | Provide your URL for your intended load balancer |
@@ -544,6 +653,7 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | global.storageClassName | string | `""` | Configure storage class for Harness |
 | global.ti | object | `{"enabled":true}` | Enable to install Cloud Cost Management (CCM) (Beta) |
 | global.ti.enabled | bool | `true` | Enable to install ti service |
+| global.unified-data-platform | object | `{"enabled":false}` | Enable to install Harness Unified Data Platform (UDP) |
 | global.useImmutableDelegate | string | `"true"` | Utilize immutable delegates (default = true) |
 | global.useMinimalDelegateImage | bool | `false` | Use delegate minimal image (default = false) |
 | global.waitForInitContainer.enabled | bool | `true` |  |
@@ -647,7 +757,7 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | platform.gateway.config.ENV | string | `"SMP"` |  |
 | platform.gateway.nodeSelector | object | `{}` |  |
 | platform.gateway.tolerations | list | `[]` |  |
-| platform.harness-manager | object | `{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.08.89804"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
+| platform.harness-manager | object | `{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.08.89806"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
 | platform.harness-manager.featureFlags | object | `{"ADDITIONAL":""}` | Feature Flags |
 | platform.harness-manager.featureFlags.ADDITIONAL | string | `""` | Additional Feature Flag (placeholder to add any other featureFlags) |
 | platform.log-service | object | `{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
@@ -688,6 +798,7 @@ docker.io/harnesssecure/schema-registry-backup-signed:1.11.3
 | srm.le-nextgen.keda.enabled | bool | `false` |  |
 | srm.le-nextgen.nodeSelector | object | `{}` |  |
 | srm.le-nextgen.tolerations | list | `[]` |  |
+| ssca.component-service.config.EOL_DISABLE_MAVEN_EOL | string | `"true"` |  |
 | sto | object | `{"sto-core":{"affinity":{},"autoscaling":{"enabled":false},"migrationPostgres":{"image":{"repository":"harnesssecure/postgresql","tag":"14.20-debian"}},"nodeSelector":{},"postgres":{"image":{"repository":"harnesssecure/postgresql","tag":"14.20-debian"}},"tolerations":[]},"ticket-service":{"postgres":{"image":{"repository":"harnesssecure/postgresql","tag":"14.20-debian"}}}}` | Config for Security Test Orchestration (STO) |
 | sto.ticket-service | object | `{"postgres":{"image":{"repository":"harnesssecure/postgresql","tag":"14.20-debian"}}}` | Install the STO core |
 | upgrades.versionLookups.enabled | bool | `true` |  |
