@@ -516,6 +516,10 @@ platform:
         image:
           repository: "harnesssecure/postgresql"
           tag: "14.20-debian"
+        primary:
+          extendedConfiguration: |
+            wal_level = logical
+            max_slot_wal_keep_size = 10GB
         metrics:
           enabled: false
         podAnnotations:
@@ -904,6 +908,8 @@ data-infra:
     connectorConfigEnv:
       MONGO_COMPONENT_DB_NAME: "component-harness"
       MONGO_SSCA_NG_HARNESS_DB_NAME: "harness-cdng"
+      POSTGRES_REGISTRY_DB_USER: "postgres"
+      POSTGRES_REGISTRY_DB_DATABASENAME: "registry_db"
     database:
       postgres:
         registry:
