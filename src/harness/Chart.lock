@@ -48,8 +48,5 @@ dependencies:
   repository: https://harness.github.io/helm-charts
   version: 0.47.0
 digest: sha256:c840e7c2451b5a12e661dc9d09ad0acf26ee58145d3acdf2272730ed134ab8a0
-<<<<<<< HEAD
-generated: "2026-10-01T00:34:58.497339506Z"
-=======
 generated: "2026-10-01T20:22:52.54637+05:30"
->>>>>>> 15ddda45 (fix kafka-strimzi secret value propagation)
+
