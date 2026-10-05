@@ -122,6 +122,19 @@ platform:
       requests:
         cpu: 3
         memory: 6Gi
+  resource-hierarchy-service:
+    autoscaling:
+      enabled: false
+    java:
+      memory: "4096m"
+    replicaCount: 4
+    resources:
+      limits:
+        cpu: 3
+        memory: 6Gi
+      requests:
+        cpu: 3
+        memory: 6Gi
   pipeline-service:
     additionalConfigs:
       DISTRIBUTED_LOCK_IMPLEMENTATION: "REDIS"
