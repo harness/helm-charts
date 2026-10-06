@@ -1034,11 +1034,15 @@ ar:
       HARNESS_REGISTRY_EVENTS_ENABLED: "true"
     ingress:
       objects:
-        # NOTE: These nginx-specific annotations (upstream-vhost, configuration-snippet)
-        # are not honored by Envoy Gateway. For gateway-API-based clusters, the
-        # equivalent routing is provided by templates/ar-httproute.yml, enabled
-        # via global.gatewayAPI.enabled.
-        - annotations:
+        - name: registry-api-har
+          # On Envoy-Gateway clusters (global.gatewayAPI.enabled=true), the
+          # harness-common HTTPRoute helper translates upstreamHostOverride
+          # into a RequestHeaderModifier filter (sets Host: registry-api on
+          # the upstream request). On nginx-ingress clusters, the equivalent
+          # is driven by nginx.ingress.kubernetes.io/upstream-vhost below.
+          gatewayAPI:
+            upstreamHostOverride: registry-api
+          annotations:
             nginx.ingress.kubernetes.io/rewrite-target: $1$2
             nginx.ingress.kubernetes.io/use-regex: "true"
             nginx.ingress.kubernetes.io/upstream-vhost: registry-api
