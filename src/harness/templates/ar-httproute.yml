@@ -1,0 +1,81 @@
+{{/*
+Gateway-API-native routing for the Artifact Registry /har/* paths.
+
+Rendered only on clusters that run a Gateway API implementation (e.g. Envoy
+Gateway on SMP airgap), where the nginx annotations in
+`ar.registry-api.ingress.objects` are ignored.
+
+Replaces the following nginx-ingress semantics:
+  * nginx.ingress.kubernetes.io/upstream-vhost: registry-api
+      -> URLRewrite.hostname (sets upstream Host header to "registry-api"
+         so the Go server's checkPackageHost() returns false, letting
+         requests fall through to webRouter which serves the MFE assets).
+  * nginx.ingress.kubernetes.io/rewrite-target: $1$2 for /har(/|$)(.*)
+      -> URLRewrite.path.replacePrefixMatch: /
+         (strips the leading /har prefix before proxying to registry-api).
+  * nginx.ingress.kubernetes.io/configuration-snippet (host check +
+      /har/api/* -> 308 {{ loadbalancerURL }}/gateway/har/api/*)
+      -> RequestRedirect filter on a more-specific /har/api/ rule.
+
+Toggle: .Values.global.gatewayAPI.enabled
+*/}}
+{{- if .Values.global.gatewayAPI.enabled }}
+{{- if .Values.global.ingress.enabled }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: registry-api-har
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: registry-api
+    app.kubernetes.io/component: har-mfe
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: {{ .Values.global.gatewayAPI.parentRef.name | quote }}
+  hostnames:
+    {{- range .Values.global.ingress.hosts }}
+    - {{ . | quote }}
+    {{- end }}
+  rules:
+    # Rule 1: /har/api/*  -> 308 redirect to /gateway/har/api/*
+    # Must come BEFORE the catch-all /har rule so it short-circuits.
+    # Replaces the nginx `configuration-snippet` 308 logic.
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /har/api/
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            hostname: {{ index .Values.global.ingress.hosts 0 | quote }}
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /gateway/har/api/
+            statusCode: 308
+    # Rule 2: /har/*  ->  registry-api:80
+    # Rewrites Host to "registry-api" (replaces nginx upstream-vhost) and
+    # strips the /har prefix (replaces nginx rewrite-target).
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /har
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            hostname: registry-api
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
+      backendRefs:
+        - group: ""
+          kind: Service
+          name: registry-api
+          port: 80
+          weight: 1
+{{- end }}
+{{- end }}

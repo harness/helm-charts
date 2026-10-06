@@ -1034,6 +1034,21 @@ ar:
       HARNESS_REGISTRY_EVENTS_ENABLED: "true"
     ingress:
       objects:
+        # NOTE: These nginx-specific annotations (upstream-vhost, configuration-snippet)
+        # are not honored by Envoy Gateway. For gateway-API-based clusters, the
+        # equivalent routing is provided by templates/ar-httproute.yml, enabled
+        # via global.gatewayAPI.enabled.
+        - annotations:
+            nginx.ingress.kubernetes.io/rewrite-target: $1$2
+            nginx.ingress.kubernetes.io/use-regex: "true"
+            nginx.ingress.kubernetes.io/upstream-vhost: registry-api
+            nginx.ingress.kubernetes.io/configuration-snippet: |
+              set $do_redirect "";
+              if ($host = "{{ index .Values.global.ingress.hosts 0 }}") { set $do_redirect "${do_redirect}H"; }
+              if ($request_uri ~ "^/har/api/") { set $do_redirect "${do_redirect}U"; }
+              if ($do_redirect = "HU") { return 308 {{ .Values.global.loadbalancerURL }}/gateway$request_uri; }
+          paths:
+            - path: "{{ .Values.global.ingress.pathPrefix }}/har(/|$)(.*)"
         - annotations:
             nginx.ingress.kubernetes.io/use-regex: "true"
             nginx.ingress.kubernetes.io/proxy-body-size: "0"
