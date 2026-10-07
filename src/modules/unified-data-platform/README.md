@@ -32,6 +32,8 @@ A Helm chart for Harness Unified Data Platform (UDP) services
 | onboarding-service.onboardingService.kafka.enabled | bool | `false` |  |
 | onboarding-service.onboardingService.kafka.tlsTruststoreSecret | string | `""` |  |
 | onboarding-service.onboardingService.kafka.tlsUserSecret | string | `""` |  |
+| onboarding-service.onboardingService.serviceAccount.create | bool | `true` |  |
+| onboarding-service.onboardingService.serviceAccount.name | string | `"onboarding-service"` |  |
 | onboarding-service.secretValues.UDP_INTERNAL_SECRET | string | `"x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"` |  |
 | onboarding-service.waitForInitContainer.enabled | bool | `true` |  |
 | onboarding-service.waitForInitContainer.image.digest | string | `""` |  |
