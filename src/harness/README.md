@@ -757,9 +757,9 @@ docker.io/harnesssecure/ip-data-bundle-ipqs-signed:0.1.41-ipqs.78
 | platform.gateway.config.ENV | string | `"SMP"` |  |
 | platform.gateway.nodeSelector | object | `{}` |  |
 | platform.gateway.tolerations | list | `[]` |  |
-| platform.harness-manager | object | `{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":""},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.08.89806"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
-| platform.harness-manager.featureFlags | object | `{"ADDITIONAL":""}` | Feature Flags |
-| platform.harness-manager.featureFlags.ADDITIONAL | string | `""` | Additional Feature Flag (placeholder to add any other featureFlags) |
+| platform.harness-manager | object | `{"affinity":{},"config":{"ENV":"SMP"},"featureFlags":{"ADDITIONAL":"UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.08.89806"}},"nodeSelector":{},"shutdownHooksEnabled":true,"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
+| platform.harness-manager.featureFlags | object | `{"ADDITIONAL":"UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"}` | Feature Flags |
+| platform.harness-manager.featureFlags.ADDITIONAL | string | `"UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"` | Additional Feature Flag (placeholder to add any other featureFlags) |
 | platform.log-service | object | `{"affinity":{},"config":{"ENV":"SMP"},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
 | platform.looker.affinity | object | `{}` |  |
 | platform.looker.nodeSelector | object | `{}` |  |

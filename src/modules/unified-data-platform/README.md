@@ -28,10 +28,17 @@ A Helm chart for Harness Unified Data Platform (UDP) services
 | dashboard-ui.image.imagePullSecrets | list | `[]` |  |
 | onboarding-service.createSmpSecret | bool | `true` |  |
 | onboarding-service.image.imagePullSecrets | list | `[]` |  |
+| onboarding-service.onboardingService.appConfig.onboarding-service.provider-groups.include[0].name | string | `"02_smp"` |  |
 | onboarding-service.onboardingService.kafka.enabled | bool | `false` |  |
 | onboarding-service.onboardingService.kafka.tlsTruststoreSecret | string | `""` |  |
 | onboarding-service.onboardingService.kafka.tlsUserSecret | string | `""` |  |
 | onboarding-service.secretValues.UDP_INTERNAL_SECRET | string | `"x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"` |  |
+| onboarding-service.waitForInitContainer.enabled | bool | `true` |  |
+| onboarding-service.waitForInitContainer.image.digest | string | `""` |  |
+| onboarding-service.waitForInitContainer.image.pullPolicy | string | `"Always"` |  |
+| onboarding-service.waitForInitContainer.image.registry | string | `"docker.io"` |  |
+| onboarding-service.waitForInitContainer.image.repository | string | `"harnesssecure/helm-init-container"` |  |
+| onboarding-service.waitForInitContainer.image.tag | string | `"1.9.0"` |  |
 | query-service.createSmpSecret | bool | `true` |  |
 | query-service.image.imagePullSecrets | list | `[]` |  |
 | query-service.queryService.appConfig.grpcClients.config-service.cache-duration | string | `"15m"` |  |
