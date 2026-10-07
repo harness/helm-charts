@@ -388,6 +388,8 @@ ccm:
       httpsProxyEnabled: false
       httpsProxyUrl: http://localhost
   ce-nextgen:
+    config:
+      RHS_ENABLED: "true"
     cloudProviderConfig:
       GCP_PROJECT_ID: "placeHolder"
     # -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
@@ -432,6 +434,7 @@ ci:
       ENV: "SMP"
       REFID_CACHE_IMAGE: harnesssecure/refid-cache:latest
       HARNESS_IMAGE_REPOSITORY: harnesssecure
+      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -467,6 +470,7 @@ platform:
         tag: "14.20-debian"
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
     affinity: {}
     # -- set mongoHosts for external database hosts
     # -- mongoHosts:
@@ -640,6 +644,7 @@ platform:
         tag: 1.12.0
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
     shutdownHooksEnabled: true
     affinity: {}
     # -- These flags are used by the helper function to create the FEATURES config value based off the global.<feature>.enabled boolean
@@ -688,6 +693,7 @@ platform:
   ng-manager:
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
     shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
@@ -696,6 +702,7 @@ platform:
   pipeline-service:
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
       PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS: "true"
     shutdownHooksEnabled: true
     affinity: {}
@@ -705,6 +712,7 @@ platform:
   platform-service:
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -717,6 +725,7 @@ platform:
   template-service:
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -730,6 +739,7 @@ srm:
     config:
       PIPELINE_SERVICE_CLIENT_BASEURL: http://pipeline-service:12001/api/
       ENV: "SMP"
+      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -749,6 +759,8 @@ sto:
         repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
   sto-core:
+    config:
+      RHS_ENABLED: "true"
     migrationPostgres:
       image:
         repository: "harnesssecure/postgresql"
@@ -808,6 +820,8 @@ ff:
         tag: "14.20-debian"
 iacm:
   iac-server:
+    config:
+      RHS_ENABLED: "true"
     createDb:
       image:
         repository: "harnesssecure/postgresql"
@@ -824,6 +838,7 @@ iacm:
   iacm-manager:
     config:
       HARNESS_IMAGE_REPOSITORY: harnesssecure
+      RHS_ENABLED: "true"
     affinity: {}
     autoscaling:
       enabled: false
@@ -867,6 +882,7 @@ code:
 db-devops:
   db-devops-service:
     config:
+      RHS_ENABLED: "true"
       INDEX_MANAGER_ENABLED: "false"
       DBOPS_MIGRATIONS_ENABLED: "true"
 postmigrationCheck:
