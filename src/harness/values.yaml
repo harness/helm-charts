@@ -1034,17 +1034,11 @@ ar:
       HARNESS_REGISTRY_EVENTS_ENABLED: "true"
     ingress:
       objects:
-        # /har/* routing:
-        #   - nginx-ingress clusters: handled by the annotations below
-        #     (upstream-vhost rewrites Host -> registry-api so the Go
-        #     checkPackageHost logic does not 302 to /ng/; rewrite-target
-        #     strips the /har prefix before the upstream request).
-        #   - Envoy Gateway clusters (global.gatewayAPI.enabled=true):
-        #     handled by templates/ar-httproute.yml. The helm-common
-        #     `gatewayAPI.upstreamHostOverride` helper is NOT used here
-        #     because it emits a RequestHeaderModifier that sets the
-        #     literal `Host` header, which Envoy Gateway rejects (AH-4173).
-        - annotations:
+        # Host -> registry-api so the Go checkPackageHost logic does not 302 to /ng/.
+        # nginx uses upstream-vhost; Envoy Gateway uses gatewayAPI.upstreamHostOverride.
+        - gatewayAPI:
+            upstreamHostOverride: registry-api
+          annotations:
             nginx.ingress.kubernetes.io/rewrite-target: $1$2
             nginx.ingress.kubernetes.io/use-regex: "true"
             nginx.ingress.kubernetes.io/upstream-vhost: registry-api
