@@ -1,0 +1,202 @@
+{{- /*
+Pre-upgrade sanity check for the `gitFileCache` collection (ng-harness DB).
+
+The target release drops the legacy `repoName` field from `gitFileCache` and rebuilds the unique index on
+(accountIdentifier, gitProvider, repoURL, ref, completeFilepath, isDefaultBranch). That is only safe when:
+  1. every document already carries `repoURL` (older documents only had `repoName` and cannot be backfilled
+     offline, because deriving `repoURL` needs live connector traffic), and
+  2. no two documents collide on the new unique key (e.g. same file and repoURL stored under two repoName variants),
+     otherwise the unique index build fails.
+
+If either check fails the upgrade is aborted. Remedy: upgrade to an intermediate release that still has the
+repoURL read path, let traffic repopulate the cache for 30 days (cache TTL), then retry. Users who already upgraded
+can roll ng-manager back and wait for the same period.
+*/}}
+{{- if and .Values.gitFileCacheCheck.enabled (.Values.global.ng).enabled }}
+{{- $check := .Values.gitFileCacheCheck }}
+{{- $globalMongo := .Values.global.database.mongo }}
+{{- $installed := true }}
+{{- if hasKey $globalMongo "installed" }}{{- $installed = $globalMongo.installed }}{{- end }}
+{{- $protocol := $check.mongo.protocol | default $globalMongo.protocol | default "mongodb" }}
+{{- $hosts := list }}
+{{- if $check.mongo.hosts }}
+{{- $hosts = $check.mongo.hosts }}
+{{- else if $installed }}
+{{- $hosts = list "mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017" }}
+{{- else }}
+{{- $hosts = $globalMongo.hosts }}
+{{- end }}
+{{- $extraArgs := "" }}
+{{- if $check.mongo.extraArgs }}
+{{- $extraArgs = $check.mongo.extraArgs }}
+{{- else if $installed }}
+{{- $extraArgs = "replicaSet=rs0&authSource=admin" }}
+{{- else }}
+{{- $extraArgs = $globalMongo.extraArgs | default "" }}
+{{- end }}
+{{- $userSecret := "" }}
+{{- $userKey := "" }}
+{{- $passwordSecret := "" }}
+{{- $passwordKey := "" }}
+{{- if $installed }}
+{{- $userSecret = $check.mongo.userSecretName | default "harness-secrets" }}
+{{- $userKey = $check.mongo.userKey | default "mongodbUsername" }}
+{{- $passwordSecret = $check.mongo.passwordSecretName | default "mongodb-replicaset-chart" }}
+{{- $passwordKey = $check.mongo.passwordKey | default "mongodb-root-password" }}
+{{- else }}
+{{- $userSecret = $check.mongo.userSecretName | default $globalMongo.secretName }}
+{{- $userKey = $check.mongo.userKey | default $globalMongo.userKey }}
+{{- $passwordSecret = $check.mongo.passwordSecretName | default $globalMongo.secretName }}
+{{- $passwordKey = $check.mongo.passwordKey | default $globalMongo.passwordKey }}
+{{- end }}
+{{- if not $hosts }}
+{{- fail "gitFileCacheCheck: no mongo hosts resolved. Set global.database.mongo.hosts (external mongo) or gitFileCacheCheck.mongo.hosts, or disable the check with gitFileCacheCheck.enabled=false" }}
+{{- end }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gitfilecache-sanity-check
+  namespace: {{ .Release.Namespace }}
+  labels:
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    version: {{ .Chart.Version }}
+    {{- if .Values.global.commonLabels }}
+    {{- include "harnesscommon.tplvalues.render" ( dict "value" .Values.global.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-4"
+    "helm.sh/hook-delete-policy": before-hook-creation
+    {{- if .Values.global.commonAnnotations }}
+    {{- include "harnesscommon.tplvalues.render" ( dict "value" .Values.global.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
+spec:
+  backoffLimit: 1
+  activeDeadlineSeconds: {{ $check.activeDeadlineSeconds }}
+  template:
+    metadata:
+      name: gitfilecache-sanity-check
+      labels:
+        app: gitfilecache-sanity-check
+    spec:
+      {{- include "common.images.pullSecrets" (dict "images" (list $check.image) "global" .Values.global ) | nindent 6 }}
+      serviceAccountName: {{ $check.serviceAccount.name }}
+      restartPolicy: Never
+      {{- with $check.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $check.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $check.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: gitfilecache-sanity-check
+        image: {{ include "common.images.image" (dict "imageRoot" $check.image "global" .Values.global) }}
+        imagePullPolicy: {{ $check.image.pullPolicy | default "IfNotPresent" }}
+        securityContext:
+          runAsUser: 1001
+          runAsNonRoot: true
+        env:
+        - name: MONGO_PROTOCOL
+          value: {{ $protocol | quote }}
+        - name: MONGO_HOSTS
+          value: {{ join "," $hosts | quote }}
+        - name: MONGO_DB
+          value: {{ $check.mongo.database | quote }}
+        - name: MONGO_EXTRA_ARGS
+          value: {{ $extraArgs | quote }}
+        - name: MONGO_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ $userSecret | quote }}
+              key: {{ $userKey | quote }}
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ $passwordSecret | quote }}
+              key: {{ $passwordKey | quote }}
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -u
+
+          fail() {
+            echo "ERROR: $1"
+            echo "The upgrade has been aborted to protect the gitFileCache collection."
+            echo "To skip this check, set gitFileCacheCheck.enabled=false (not recommended)."
+            exit 1
+          }
+
+          MONGO_URI="${MONGO_PROTOCOL}://${MONGO_HOSTS}/${MONGO_DB}"
+          if [ -n "${MONGO_EXTRA_ARGS}" ]; then
+            MONGO_URI="${MONGO_URI}?${MONGO_EXTRA_ARGS}"
+          fi
+
+          # Printed lines are parsed below. Docs without repoURL are excluded from the duplicate
+          # check so each problem is reported once.
+          JS=$(cat <<'EOF'
+          const coll = db.getCollection("gitFileCache");
+          const missing = coll.countDocuments({ $or: [ { repoURL: { $exists: false } }, { repoURL: null }, { repoURL: "" } ] });
+          const withUrl = { $match: { repoURL: { $nin: [null, ""] } } };
+          const group = { $group: {
+            _id: {
+              accountIdentifier: "$accountIdentifier",
+              gitProvider: "$gitProvider",
+              repoURL: "$repoURL",
+              ref: "$ref",
+              completeFilepath: "$completeFilepath",
+              isDefaultBranch: "$isDefaultBranch"
+            },
+            count: { $sum: 1 }
+          } };
+          const collisions = { $match: { count: { $gt: 1 } } };
+          const total = coll.aggregate([withUrl, group, collisions, { $count: "n" }], { allowDiskUse: true }).toArray();
+          const sample = coll.aggregate([withUrl, group, collisions, { $limit: 10 }], { allowDiskUse: true }).toArray();
+          print("MISSING_REPO_URL=" + missing);
+          print("DUPLICATE_GROUPS=" + (total.length ? total[0].n : 0));
+          sample.forEach(function (d) { print("DUPLICATE_SAMPLE=" + JSON.stringify(d)); });
+          EOF
+          )
+
+          echo "Checking gitFileCache collection in database '${MONGO_DB}'"
+          OUT=$(mongosh "$MONGO_URI" --username "$MONGO_USER" --password "$MONGO_PASSWORD" --quiet --eval "$JS" 2>&1)
+          RC=$?
+          if [ $RC -ne 0 ]; then
+            echo "$OUT"
+            fail "could not query MongoDB (exit code $RC). Check connectivity and credentials."
+          fi
+
+          MISSING=$(echo "$OUT" | sed -n 's/^MISSING_REPO_URL=//p' | head -n1)
+          DUPLICATES=$(echo "$OUT" | sed -n 's/^DUPLICATE_GROUPS=//p' | head -n1)
+          case "$MISSING" in ''|*[!0-9]*) echo "$OUT"; fail "unexpected query output (MISSING_REPO_URL='$MISSING')";; esac
+          case "$DUPLICATES" in ''|*[!0-9]*) echo "$OUT"; fail "unexpected query output (DUPLICATE_GROUPS='$DUPLICATES')";; esac
+
+          echo "Documents without repoURL: $MISSING"
+          echo "Duplicate groups on (accountIdentifier, gitProvider, repoURL, ref, completeFilepath, isDefaultBranch): $DUPLICATES"
+
+          if [ "$MISSING" -gt 0 ] || [ "$DUPLICATES" -gt 0 ]; then
+            echo "$OUT" | grep '^DUPLICATE_SAMPLE=' || true
+            echo ""
+            if [ "$MISSING" -gt 0 ]; then
+              echo "gitFileCache still holds $MISSING document(s) that have no repoURL (written by a release that"
+              echo "predates repoURL). They cannot be migrated offline."
+            fi
+            if [ "$DUPLICATES" -gt 0 ]; then
+              echo "gitFileCache holds $DUPLICATES group(s) of duplicate documents that would break the new unique index."
+            fi
+            echo "Remedy: upgrade to the latest release that still supports the repoName fallback, keep it running for"
+            echo "30 days (cache TTL) so the cache repopulates, then retry this upgrade."
+            echo "If you already upgraded ng-manager, roll it back and wait for the same period."
+            fail "gitFileCache is not ready for the repoName removal."
+          fi
+
+          echo "gitFileCache sanity check passed"
+          exit 0
+        {{- with $check.resources }}
+        resources: {{- toYaml . | nindent 10 }}
+        {{- end }}
+{{- end }}

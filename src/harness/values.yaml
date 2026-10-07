@@ -888,6 +888,37 @@ postmigrationCheck:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+# -- Pre-upgrade check that the gitFileCache collection (ng-harness DB) is ready for the removal of the legacy repoName field. Aborts the upgrade when documents without repoURL, or duplicate documents on the new unique index key, exist
+gitFileCacheCheck:
+  enabled: true
+  activeDeadlineSeconds: 600
+  image:
+    registry: docker.io
+    repository: "harnesssecure/mongo"
+    tag: "8.0.26-jammy"
+    pullPolicy: IfNotPresent
+  # -- Connection settings. Anything left empty is derived from global.database.mongo (in-cluster defaults when global.database.mongo.installed is true)
+  mongo:
+    database: ng-harness
+    protocol: ""
+    hosts: []
+    extraArgs: ""
+    userSecretName: ""
+    userKey: ""
+    passwordSecretName: ""
+    passwordKey: ""
+  resources:
+    limits:
+      memory: 512Mi
+      cpu: 500m
+    requests:
+      memory: 128Mi
+      cpu: 100m
+  serviceAccount:
+    name: "default"
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
 pg-upgrade:
   upgrade:
     image:
