@@ -31,6 +31,9 @@ onboarding-service:
   secretValues:
     UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
   onboardingService:
+    serviceAccount:
+      create: true
+      name: onboarding-service
     kafka:
       enabled: false
       tlsUserSecret: ""
