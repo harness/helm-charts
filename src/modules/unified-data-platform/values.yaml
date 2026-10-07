@@ -39,6 +39,9 @@ onboarding-service:
       tag: "1.9.0"
       digest: ""
   onboardingService:
+    serviceAccount:
+      create: true
+      name: onboarding-service
     appConfig:
       onboarding-service:
         provider-groups:
