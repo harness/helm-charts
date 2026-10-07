@@ -12,11 +12,11 @@ dependencies:
 - condition: global.unified-data-platform.enabled
   name: onboarding-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.13.9
+  version: 0.13.22
 - condition: global.unified-data-platform.enabled
   name: query-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.66.11
+  version: 0.66.8
 - condition: global.unified-data-platform.enabled
   name: dashboard-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
