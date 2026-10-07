@@ -646,7 +646,7 @@ platform:
     # -- Feature Flags
     featureFlags:
       # -- Additional Feature Flag (placeholder to add any other featureFlags)
-      ADDITIONAL: ""
+      ADDITIONAL: "UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"
     nodeSelector: {}
     tolerations: {}
     immutable_delegate_docker_image:
