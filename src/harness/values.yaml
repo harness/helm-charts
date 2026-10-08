@@ -897,16 +897,16 @@ gitFileCacheCheck:
     repository: "harnesssecure/mongo"
     tag: "8.0.26-jammy"
     pullPolicy: IfNotPresent
-  # -- Connection settings. Anything left empty is derived from global.database.mongo (in-cluster defaults when global.database.mongo.installed is true)
+  # -- Connection settings, resolved through harness-common like the other services. Anything left empty is derived from global.database.mongo (in-cluster defaults when global.database.mongo.installed is true)
   mongo:
     database: ng-harness
     protocol: ""
     hosts: []
     extraArgs: ""
-    userSecretName: ""
-    userKey: ""
-    passwordSecretName: ""
-    passwordKey: ""
+    secrets:
+      kubernetesSecrets: []
+      secretManagement:
+        externalSecretsOperator: []
   resources:
     limits:
       memory: 512Mi

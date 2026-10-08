@@ -551,7 +551,7 @@ docker.io/harnesssecure/ip-data-bundle-ipqs-signed:0.1.41-ipqs.78
 | gitFileCacheCheck.image.registry | string | `"docker.io"` |  |
 | gitFileCacheCheck.image.repository | string | `"harnesssecure/mongo"` |  |
 | gitFileCacheCheck.image.tag | string | `"8.0.26-jammy"` |  |
-| gitFileCacheCheck.mongo | object | `{"database":"ng-harness","extraArgs":"","hosts":[],"passwordKey":"","passwordSecretName":"","protocol":"","userKey":"","userSecretName":""}` | Connection settings. Anything left empty is derived from global.database.mongo (in-cluster defaults when global.database.mongo.installed is true) |
+| gitFileCacheCheck.mongo | object | `{"database":"ng-harness","extraArgs":"","hosts":[],"protocol":"","secrets":{"kubernetesSecrets":[],"secretManagement":{"externalSecretsOperator":[]}}}` | Connection settings, resolved through harness-common like the other services. Anything left empty is derived from global.database.mongo (in-cluster defaults when global.database.mongo.installed is true) |
 | gitFileCacheCheck.nodeSelector | object | `{}` |  |
 | gitFileCacheCheck.resources.limits.cpu | string | `"500m"` |  |
 | gitFileCacheCheck.resources.limits.memory | string | `"512Mi"` |  |

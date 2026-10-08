@@ -14,44 +14,8 @@ can roll ng-manager back and wait for the same period.
 */}}
 {{- if and .Values.gitFileCacheCheck.enabled (.Values.global.ng).enabled }}
 {{- $check := .Values.gitFileCacheCheck }}
-{{- $globalMongo := .Values.global.database.mongo }}
-{{- $installed := true }}
-{{- if hasKey $globalMongo "installed" }}{{- $installed = $globalMongo.installed }}{{- end }}
-{{- $protocol := $check.mongo.protocol | default $globalMongo.protocol | default "mongodb" }}
-{{- $hosts := list }}
-{{- if $check.mongo.hosts }}
-{{- $hosts = $check.mongo.hosts }}
-{{- else if $installed }}
-{{- $hosts = list "mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017" }}
-{{- else }}
-{{- $hosts = $globalMongo.hosts }}
-{{- end }}
-{{- $extraArgs := "" }}
-{{- if $check.mongo.extraArgs }}
-{{- $extraArgs = $check.mongo.extraArgs }}
-{{- else if $installed }}
-{{- $extraArgs = "replicaSet=rs0&authSource=admin" }}
-{{- else }}
-{{- $extraArgs = $globalMongo.extraArgs | default "" }}
-{{- end }}
-{{- $userSecret := "" }}
-{{- $userKey := "" }}
-{{- $passwordSecret := "" }}
-{{- $passwordKey := "" }}
-{{- if $installed }}
-{{- $userSecret = $check.mongo.userSecretName | default "harness-secrets" }}
-{{- $userKey = $check.mongo.userKey | default "mongodbUsername" }}
-{{- $passwordSecret = $check.mongo.passwordSecretName | default "mongodb-replicaset-chart" }}
-{{- $passwordKey = $check.mongo.passwordKey | default "mongodb-root-password" }}
-{{- else }}
-{{- $userSecret = $check.mongo.userSecretName | default $globalMongo.secretName }}
-{{- $userKey = $check.mongo.userKey | default $globalMongo.userKey }}
-{{- $passwordSecret = $check.mongo.passwordSecretName | default $globalMongo.secretName }}
-{{- $passwordKey = $check.mongo.passwordKey | default $globalMongo.passwordKey }}
-{{- end }}
-{{- if not $hosts }}
-{{- fail "gitFileCacheCheck: no mongo hosts resolved. Set global.database.mongo.hosts (external mongo) or gitFileCacheCheck.mongo.hosts, or disable the check with gitFileCacheCheck.enabled=false" }}
-{{- end }}
+{{- /* harness-common reads the local db settings from .Values.mongo, so map it to gitFileCacheCheck.mongo */}}
+{{- $ctx := dict "Values" (merge (dict "mongo" $check.mongo) .Values) "Release" .Release "Chart" .Chart "Capabilities" .Capabilities "Template" .Template }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -100,24 +64,9 @@ spec:
           runAsUser: 1001
           runAsNonRoot: true
         env:
-        - name: MONGO_PROTOCOL
-          value: {{ $protocol | quote }}
-        - name: MONGO_HOSTS
-          value: {{ join "," $hosts | quote }}
-        - name: MONGO_DB
-          value: {{ $check.mongo.database | quote }}
-        - name: MONGO_EXTRA_ARGS
-          value: {{ $extraArgs | quote }}
-        - name: MONGO_USER
-          valueFrom:
-            secretKeyRef:
-              name: {{ $userSecret | quote }}
-              key: {{ $userKey | quote }}
-        - name: MONGO_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: {{ $passwordSecret | quote }}
-              key: {{ $passwordKey | quote }}
+        {{- include "harnesscommon.dbconnectionv2.mongoEnv" (dict "ctx" $ctx "localDBCtx" $check.mongo) | indent 8 }}
+        - name: MONGO_URI
+          value: {{ include "harnesscommon.dbconnectionv2.mongoConnection" (dict "ctx" $ctx "database" $check.mongo.database) }}
         command:
         - /bin/sh
         - -c
@@ -130,11 +79,6 @@ spec:
             echo "To skip this check, set gitFileCacheCheck.enabled=false (not recommended)."
             exit 1
           }
-
-          MONGO_URI="${MONGO_PROTOCOL}://${MONGO_HOSTS}/${MONGO_DB}"
-          if [ -n "${MONGO_EXTRA_ARGS}" ]; then
-            MONGO_URI="${MONGO_URI}?${MONGO_EXTRA_ARGS}"
-          fi
 
           # Printed lines are parsed below. Docs without repoURL are excluded from the duplicate
           # check so each problem is reported once.
@@ -162,8 +106,8 @@ spec:
           EOF
           )
 
-          echo "Checking gitFileCache collection in database '${MONGO_DB}'"
-          OUT=$(mongosh "$MONGO_URI" --username "$MONGO_USER" --password "$MONGO_PASSWORD" --quiet --eval "$JS" 2>&1)
+          echo "Checking gitFileCache collection in database '{{ $check.mongo.database }}'"
+          OUT=$(mongosh "$MONGO_URI" --quiet --eval "$JS" 2>&1)
           RC=$?
           if [ $RC -ne 0 ]; then
             echo "$OUT"
