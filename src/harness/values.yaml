@@ -895,7 +895,7 @@ pg-upgrade:
     image:
       registry: docker.io
       repository: harnesssecure/postgresql
-      tag: 16.14-bookworm
+      tag: 16.15-bookworm
 data-infra:
   kafka-connect-strimzi:
     connectorConfigEnv:
