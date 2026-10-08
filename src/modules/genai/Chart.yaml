@@ -3,10 +3,10 @@ appVersion: 1.0.0
 dependencies:
 - name: mcp-server-internal
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.171.0
+  version: 1.181.0
 - name: mcp-server-external
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.0.0
+  version: 1.161.0
 description: A Helm chart for Harness GenAI
 name: genai
 type: application
