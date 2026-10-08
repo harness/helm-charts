@@ -544,6 +544,18 @@ docker.io/harnesssecure/ip-data-bundle-ipqs-signed:0.1.41-ipqs.78
 | ff.ff-service.ff-metrics-server.secrets.default.PLATFORM_AUTH_KEY | string | `"secret"` |  |
 | ff.ff-timescale-migrations.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
 | ff.ff-timescale-migrations.postgres.image.tag | string | `"14.20-debian"` |  |
+| gitFileCacheCheck.activeDeadlineSeconds | int | `600` |  |
+| gitFileCacheCheck.affinity | object | `{}` |  |
+| gitFileCacheCheck.enabled | bool | `true` |  |
+| gitFileCacheCheck.mongo | object | `{"database":"ng-harness","extraArgs":"","hosts":[],"protocol":"","secrets":{"kubernetesSecrets":[],"secretManagement":{"externalSecretsOperator":[]}}}` | Connection settings, resolved through harness-common like the other services. Anything left empty is derived from global.database.mongo (in-cluster defaults when global.database.mongo.installed is true) |
+| gitFileCacheCheck.nodeSelector | object | `{}` |  |
+| gitFileCacheCheck.pullPolicy | string | `"IfNotPresent"` | The mongo image is taken from platform.bootstrap.database.mongodb.image |
+| gitFileCacheCheck.resources.limits.cpu | string | `"500m"` |  |
+| gitFileCacheCheck.resources.limits.memory | string | `"512Mi"` |  |
+| gitFileCacheCheck.resources.requests.cpu | string | `"100m"` |  |
+| gitFileCacheCheck.resources.requests.memory | string | `"128Mi"` |  |
+| gitFileCacheCheck.serviceAccount.name | string | `"default"` |  |
+| gitFileCacheCheck.tolerations | list | `[]` |  |
 | global.airgap | string | `"false"` | Airgap functionality. Disabled by default |
 | global.ar | object | `{"enabled":false}` | Enable to install Artifact Repository (AR) |
 | global.autoscaling | object | `{"enabled":true}` | Enable to set auto-scaling globally |
