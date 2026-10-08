@@ -892,11 +892,8 @@ postmigrationCheck:
 gitFileCacheCheck:
   enabled: true
   activeDeadlineSeconds: 600
-  image:
-    registry: docker.io
-    repository: "harnesssecure/mongo"
-    tag: "8.0.26-jammy"
-    pullPolicy: IfNotPresent
+  # -- The mongo image is taken from platform.bootstrap.database.mongodb.image
+  pullPolicy: IfNotPresent
   # -- Connection settings, resolved through harness-common like the other services. Anything left empty is derived from global.database.mongo (in-cluster defaults when global.database.mongo.installed is true)
   mongo:
     database: ng-harness

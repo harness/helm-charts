@@ -547,12 +547,9 @@ docker.io/harnesssecure/ip-data-bundle-ipqs-signed:0.1.41-ipqs.78
 | gitFileCacheCheck.activeDeadlineSeconds | int | `600` |  |
 | gitFileCacheCheck.affinity | object | `{}` |  |
 | gitFileCacheCheck.enabled | bool | `true` |  |
-| gitFileCacheCheck.image.pullPolicy | string | `"IfNotPresent"` |  |
-| gitFileCacheCheck.image.registry | string | `"docker.io"` |  |
-| gitFileCacheCheck.image.repository | string | `"harnesssecure/mongo"` |  |
-| gitFileCacheCheck.image.tag | string | `"8.0.26-jammy"` |  |
 | gitFileCacheCheck.mongo | object | `{"database":"ng-harness","extraArgs":"","hosts":[],"protocol":"","secrets":{"kubernetesSecrets":[],"secretManagement":{"externalSecretsOperator":[]}}}` | Connection settings, resolved through harness-common like the other services. Anything left empty is derived from global.database.mongo (in-cluster defaults when global.database.mongo.installed is true) |
 | gitFileCacheCheck.nodeSelector | object | `{}` |  |
+| gitFileCacheCheck.pullPolicy | string | `"IfNotPresent"` | The mongo image is taken from platform.bootstrap.database.mongodb.image |
 | gitFileCacheCheck.resources.limits.cpu | string | `"500m"` |  |
 | gitFileCacheCheck.resources.limits.memory | string | `"512Mi"` |  |
 | gitFileCacheCheck.resources.requests.cpu | string | `"100m"` |  |

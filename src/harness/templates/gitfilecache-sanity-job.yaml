@@ -14,6 +14,8 @@ can roll ng-manager back and wait for the same period.
 */}}
 {{- if and .Values.gitFileCacheCheck.enabled (.Values.global.ng).enabled }}
 {{- $check := .Values.gitFileCacheCheck }}
+{{- /* Reuse the MongoDB image from the bootstrap subchart so no second mongo image tag is shipped */}}
+{{- $mongoImage := .Values.platform.bootstrap.database.mongodb.image }}
 {{- /* harness-common reads the local db settings from .Values.mongo, so map it to gitFileCacheCheck.mongo */}}
 {{- $ctx := dict "Values" (merge (dict "mongo" $check.mongo) .Values) "Release" .Release "Chart" .Chart "Capabilities" .Capabilities "Template" .Template }}
 apiVersion: batch/v1
@@ -44,7 +46,7 @@ spec:
       labels:
         app: gitfilecache-sanity-check
     spec:
-      {{- include "common.images.pullSecrets" (dict "images" (list $check.image) "global" .Values.global ) | nindent 6 }}
+      {{- include "common.images.pullSecrets" (dict "images" (list $mongoImage) "global" .Values.global ) | nindent 6 }}
       serviceAccountName: {{ $check.serviceAccount.name }}
       restartPolicy: Never
       {{- with $check.nodeSelector }}
@@ -58,8 +60,8 @@ spec:
       {{- end }}
       containers:
       - name: gitfilecache-sanity-check
-        image: {{ include "common.images.image" (dict "imageRoot" $check.image "global" .Values.global) }}
-        imagePullPolicy: {{ $check.image.pullPolicy | default "IfNotPresent" }}
+        image: {{ include "common.images.image" (dict "imageRoot" $mongoImage "global" .Values.global) }}
+        imagePullPolicy: {{ $check.pullPolicy | default "IfNotPresent" }}
         securityContext:
           runAsUser: 1001
           runAsNonRoot: true
