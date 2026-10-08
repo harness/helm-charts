@@ -1081,3 +1081,9 @@ genai:
       enabled: false
     nodeSelector: {}
     tolerations: []
+  mcp-server-external:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []

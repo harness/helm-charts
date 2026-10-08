@@ -385,3 +385,7 @@ mcp-server-internal:
   image:
     registry: docker.io
     repository: harnesssecure/mcp-server-signed
+mcp-server-external:
+  image:
+    registry: docker.io
+    repository: harnesssecure/mcp-server-external-signed

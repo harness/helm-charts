@@ -648,3 +648,17 @@ genai:
         requests:
           cpu: 500m
           memory: 2Gi
+  mcp-server-external:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPU: 80
+      targetMemory: 80
+    replicaCount: 2
+    resources:
+      limits:
+        memory: 2560Mi
+      requests:
+        cpu: 500m
+        memory: 2Gi

@@ -599,3 +599,13 @@ genai:
         requests:
           cpu: 128m
           memory: 512Mi
+  mcp-server-external:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 1Gi
+      requests:
+        cpu: 128m
+        memory: 512Mi
