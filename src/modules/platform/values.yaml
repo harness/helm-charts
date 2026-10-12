@@ -31,7 +31,7 @@ access-control:
           PROJECT_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
           RESOURCE_GROUP_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
           RESOURCE_GROUP_SECRET: jwtNextGenManagerSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           SEI_SERVICE_SECRET: jwtNextGenManagerSecret
           SERVICEACCOUNT_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
@@ -96,7 +96,7 @@ harness-manager:
           NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
           PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
           QUEUE_SERVICE_AUTH_TOKEN: queueServiceSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           VERIFICATION_SERVICE_SECRET: tiServiceToken
           jwtAidaCodeSecret: jwtAidaCodeSecret
@@ -139,6 +139,9 @@ ng-custom-dashboards:
           AUTH_CG_MANAGER_SECRET: jwtNextGenManagerSecret
           AUTH_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
           AUTH_NG_MANAGER_SECRET: jwtNextGenManagerSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    rhsEnabled: "true"
 ng-dashboard-aggregator:
   secrets:
     smpSharedKubernetesSecrets:
@@ -150,7 +153,9 @@ ng-dashboard-aggregator:
           MANAGER_SECRET: jwtNextGenManagerSecret
           NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
           PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    RHS_ENABLED: "true"
 ng-manager:
   secrets:
     smpSharedKubernetesSecrets:
@@ -181,7 +186,7 @@ ng-manager:
           NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
           OPA_SERVER_SECRET: jwtAuthSecret
           PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SERVICE_DISCOVERY_SERVICE_SECRET: jwtNextGenManagerSecret
           TEMPLATE_SERVICE_SECRET: jwtNextGenManagerSecret
           USER_VERIFICATION_SECRET: userVerificationSecret
@@ -218,7 +223,7 @@ pipeline-service:
           PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
           PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
           QWIET_SERVICE_GLOBAL_TOKEN: stoServiceToken
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           SSCA_SERVICE_SECRET: jwtNextGenManagerSecret
           STO_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
@@ -253,7 +258,7 @@ platform-service:
           PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
           PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
           RESOURCE_GROUP_SECRET: jwtNextGenManagerSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           TEMPLATE_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
@@ -268,12 +273,27 @@ policy-mgmt:
           APP_NEXT_GEN_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
           APP_TOKEN_JWT_SECRET: jwtIdentityServiceSecret
           HARNESS_SERVICES_PIPELINE_JWT_SECRET: jwtNextGenManagerSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    RHS_ENABLED: "true"
 queue-service:
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
         keys:
           JWT_SECRET: jwtSecret
+resource-hierarchy-service:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SERVICE_SECRET: jwtNextGenManagerSecret
+          JWT_AUTH_SECRET: jwtAuthSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
 service-discovery-manager:
   secrets:
     smpSharedKubernetesSecrets:
@@ -283,7 +303,10 @@ service-discovery-manager:
           JWT_SECRET: jwtAuthSecret
           LOG_SERVICE_SECRET: logServiceToken
           NG_JWT_SECRET: jwtNextGenManagerSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SERVICE_DISCOVERY_JWT_SECRET: jwtNextGenManagerSecret
+  config:
+    RHS_ENABLED: "true"
 template-service:
   secrets:
     smpSharedKubernetesSecrets:
@@ -299,7 +322,7 @@ template-service:
           NG_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
           OPA_SERVER_SECRET: jwtAuthSecret
           PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           VMS_SERVICE_SECRET: jwtNextGenManagerSecret
   config:

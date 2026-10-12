@@ -12,7 +12,7 @@ iac-server:
           PIPELINE_SERVICE_AUTH_SECRET: jwtNextGenManagerSecret
           PLATFORM_SECRET_KEY: jwtNextGenManagerSecret
           POLICY_MGMT_AUTH_SECRET: jwtIdentityServiceSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SERVICE_GLOBAL_TOKEN: iacmServiceToken
   config:
     RHS_ENABLED: "true"
@@ -43,7 +43,7 @@ iacm-manager:
           NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
           OPA_SERVER_SECRET: platformAuthToken
           PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           SSCA_SERVICE_SECRET: platformAuthToken
           TI_SERVICE_GLOBAL_TOKEN: tiSvcGlobalToken
