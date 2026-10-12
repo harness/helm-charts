@@ -139,6 +139,9 @@ ng-custom-dashboards:
           AUTH_CG_MANAGER_SECRET: jwtNextGenManagerSecret
           AUTH_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
           AUTH_NG_MANAGER_SECRET: jwtNextGenManagerSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    rhsEnabled: "true"
 ng-dashboard-aggregator:
   secrets:
     smpSharedKubernetesSecrets:
@@ -151,6 +154,8 @@ ng-dashboard-aggregator:
           NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
           PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    RHS_ENABLED: "true"
 ng-manager:
   secrets:
     smpSharedKubernetesSecrets:
