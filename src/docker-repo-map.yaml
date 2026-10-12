@@ -210,6 +210,10 @@ redis-stream-monitor:
   image:
     registry: docker.io
     repository: harnesssecure/redis-stream-monitor
+resource-hierarchy-service:
+  image:
+    registry: docker.io
+    repository: harnesssecure/resource-hierarchy-service-signed
 scm-service:
   image:
     registry: docker.io

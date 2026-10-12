@@ -58,6 +58,8 @@ global:
     # -- Enable to install kafka
   kafka:
     enabled: false
+    bootstrapServers: "kafka-platform-kafka-bootstrap:9093"
+    schemaRegistryUrl: "http://schema-registry-service:8081"
   # -- Enable to install Artifact Repository (AR)
   ar:
     enabled: false
@@ -313,7 +315,7 @@ global:
     provider: "vault"
     image:
       repository: "harnesssecure/vault-secret-loader"
-      tag: "1.0.10"
+      tag: "1.0.11"
       pullPolicy: "IfNotPresent"
     vault:
       address: ""
@@ -389,6 +391,8 @@ ccm:
       httpsProxyEnabled: false
       httpsProxyUrl: http://localhost
   ce-nextgen:
+    config:
+      RHS_ENABLED: "true"
     cloudProviderConfig:
       GCP_PROJECT_ID: "placeHolder"
     # -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
@@ -433,6 +437,7 @@ ci:
       ENV: "SMP"
       REFID_CACHE_IMAGE: harnesssecure/refid-cache:latest
       HARNESS_IMAGE_REPOSITORY: harnesssecure
+      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -468,6 +473,7 @@ platform:
         tag: "14.20-debian"
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
     affinity: {}
     # -- set mongoHosts for external database hosts
     # -- mongoHosts:
@@ -641,20 +647,21 @@ platform:
         tag: 1.12.0
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
     shutdownHooksEnabled: true
     affinity: {}
     # -- These flags are used by the helper function to create the FEATURES config value based off the global.<feature>.enabled boolean
     # -- Feature Flags
     featureFlags:
       # -- Additional Feature Flag (placeholder to add any other featureFlags)
-      ADDITIONAL: ""
+      ADDITIONAL: "UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"
     nodeSelector: {}
     tolerations: {}
     immutable_delegate_docker_image:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.08.89804
+        tag: 26.08.89806
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -689,6 +696,7 @@ platform:
   ng-manager:
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
     shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
@@ -697,6 +705,7 @@ platform:
   pipeline-service:
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
       PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS: "true"
     shutdownHooksEnabled: true
     affinity: {}
@@ -706,6 +715,7 @@ platform:
   platform-service:
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -718,6 +728,7 @@ platform:
   template-service:
     config:
       ENV: "SMP"
+      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -731,6 +742,7 @@ srm:
     config:
       PIPELINE_SERVICE_CLIENT_BASEURL: http://pipeline-service:12001/api/
       ENV: "SMP"
+      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -750,6 +762,8 @@ sto:
         repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
   sto-core:
+    config:
+      RHS_ENABLED: "true"
     migrationPostgres:
       image:
         repository: "harnesssecure/postgresql"
@@ -809,6 +823,8 @@ ff:
         tag: "14.20-debian"
 iacm:
   iac-server:
+    config:
+      RHS_ENABLED: "true"
     createDb:
       image:
         repository: "harnesssecure/postgresql"
@@ -825,6 +841,7 @@ iacm:
   iacm-manager:
     config:
       HARNESS_IMAGE_REPOSITORY: harnesssecure
+      RHS_ENABLED: "true"
     affinity: {}
     autoscaling:
       enabled: false
@@ -868,6 +885,7 @@ code:
 db-devops:
   db-devops-service:
     config:
+      RHS_ENABLED: "true"
       INDEX_MANAGER_ENABLED: "false"
       DBOPS_MIGRATIONS_ENABLED: "true"
 postmigrationCheck:
@@ -889,6 +907,34 @@ postmigrationCheck:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+# -- Pre-upgrade check that the gitFileCache collection (ng-harness DB) is ready for the removal of the legacy repoName field. Aborts the upgrade when documents without repoURL, or duplicate documents on the new unique index key, exist
+gitFileCacheCheck:
+  enabled: true
+  activeDeadlineSeconds: 600
+  # -- The mongo image is taken from platform.bootstrap.database.mongodb.image
+  pullPolicy: IfNotPresent
+  # -- Connection settings, resolved through harness-common like the other services. Anything left empty is derived from global.database.mongo (in-cluster defaults when global.database.mongo.installed is true)
+  mongo:
+    database: ng-harness
+    protocol: ""
+    hosts: []
+    extraArgs: ""
+    secrets:
+      kubernetesSecrets: []
+      secretManagement:
+        externalSecretsOperator: []
+  resources:
+    limits:
+      memory: 512Mi
+      cpu: 500m
+    requests:
+      memory: 128Mi
+      cpu: 100m
+  serviceAccount:
+    name: "default"
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
 pg-upgrade:
   upgrade:
     image:
@@ -902,6 +948,9 @@ pg-upgrade:
       tag: 16.14-bookworm
 data-infra:
   kafka-connect-strimzi:
+    connectorConfigEnv:
+      MONGO_COMPONENT_DB_NAME: "component-harness"
+      MONGO_SSCA_NG_HARNESS_DB_NAME: "harness-cdng"
     database:
       postgres:
         registry:
@@ -915,8 +964,44 @@ data-infra:
                 keys:
                   POSTGRES_USER: ""
                   POSTGRES_PASSWORD: "postgres-password"
+      mongo:
+        componentharness:
+          enabled: true
+          protocol: mongodb
+          database: component-harness
+          # Single seed host; replicaSet=rs0 lets the driver discover other members when global.ha is true.
+          hosts:
+            - mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017
+          extraArgs: "replicaSet=rs0&authSource=admin"
+          secrets:
+            kubernetesSecrets:
+              - secretName: harness-secrets
+                keys:
+                  MONGO_USER: mongodbUsername
+              - secretName: mongodb-replicaset-chart
+                keys:
+                  MONGO_PASSWORD: mongodb-root-password
+        sscangharness:
+          enabled: true
+          protocol: mongodb
+          database: harness-cdng
+          hosts:
+            - mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017
+          extraArgs: "replicaSet=rs0&authSource=admin"
+          secrets:
+            kubernetesSecrets:
+              - secretName: harness-secrets
+                keys:
+                  MONGO_USER: mongodbUsername
+              - secretName: mongodb-replicaset-chart
+                keys:
+                  MONGO_PASSWORD: mongodb-root-password
     connectors:
       postgres-registry-async-service:
+        enabled: true
+      debezium-mongo-component-cdc:
+        enabled: true
+      debezium-mongo-instance-ng-cdc:
         enabled: true
   kafka-operator:
     strimziOperator:
@@ -971,6 +1056,7 @@ data-infra:
               kraftMetadata: shared
               deleteClaim: false
   schema-registry:
+    fullnameOverride: schema-registry
     backup:
       enabled: false
 ar:
@@ -1087,3 +1173,7 @@ genai:
       enabled: false
     nodeSelector: {}
     tolerations: []
+ssca:
+  component-service:
+    config:
+      EOL_DISABLE_MAVEN_EOL: "true"

@@ -329,6 +329,18 @@ platform:
       requests:
         cpu: 256m
         memory: 2048Mi
+  resource-hierarchy-service:
+    autoscaling:
+      enabled: false
+    java:
+      memory: "1024m"
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 2048Mi
+      requests:
+        cpu: 256m
+        memory: 2048Mi
   pipeline-service:
     autoscaling:
       enabled: false
