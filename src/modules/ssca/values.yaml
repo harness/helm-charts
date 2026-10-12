@@ -43,6 +43,6 @@ ssca-manager:
           PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
           PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
           POLICY_MGMT_SERVICE_SECRET: jwtAuthSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           SSCA_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret

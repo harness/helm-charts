@@ -14,7 +14,7 @@ cv-nextgen:
           NOTIFICATION_CLIENT_SECRET: jwtNextGenManagerSecret
           OPA_SERVER_SECRET: platformAuthToken
           PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           SERVICE_DISCOVERY_SERVICE_SECRET: jwtNextGenManagerSecret
           TEMPLATE_SERVICE_SECRET: jwtNextGenManagerSecret
