@@ -1,0 +1,35 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+
+sto-core:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          APP_INTERNAL_TOKEN_JWT_SECRET: jwtAuthSecret
+          APP_NG_MANAGER_SECRET: jwtNextGenManagerSecret
+          APP_PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
+          APP_QWIET_SHARED_SECRET: jwtIdentityServiceSecret
+          APP_TOKEN_JWT_SECRET: jwtIdentityServiceSecret
+  config:
+    RHS_ENABLED: "true"
+  migrationPostgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
+ticket-service:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          APP_INTERNAL_TOKEN_JWT_SECRET: jwtAuthSecret
+          APP_NG_MANAGER_SECRET: jwtNextGenManagerSecret
+          APP_TOKEN_JWT_SECRET: jwtIdentityServiceSecret
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"

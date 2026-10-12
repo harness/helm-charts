@@ -1,0 +1,32 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+
+cv-nextgen:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          ET_SERVICE_SECRET: etServiceSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          MANAGER_JWT_AUTH_SECRET: jwtAuthSecret
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          NOTIFICATION_CLIENT_SECRET: jwtNextGenManagerSecret
+          OPA_SERVER_SECRET: platformAuthToken
+          PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
+          SERVICE_DISCOVERY_SERVICE_SECRET: jwtNextGenManagerSecret
+          TEMPLATE_SERVICE_SECRET: jwtNextGenManagerSecret
+          VERIFICATION_SERVICE_SECRET: tiServiceToken
+  config:
+    PIPELINE_SERVICE_CLIENT_BASEURL: http://pipeline-service:12001/api/
+    ENV: "SMP"
+    RHS_ENABLED: "true"
+le-nextgen:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          VERIFICATION_SERVICE_SECRET: tiServiceToken
+  ingress: {}

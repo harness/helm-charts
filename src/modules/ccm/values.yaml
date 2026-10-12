@@ -1,0 +1,33 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+
+batch-processing:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          CE_NG_SERVICE_SECRET: jwtNextGenManagerSecret
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          NOTIFICATION_CLIENT_SECRET: jwtNextGenManagerSecret
+          PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
+ce-nextgen:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          CE_NEXT_GEN_SERVICE_SECRET: jwtNextGenManagerSecret
+          JWT_AUTH_SECRET: jwtNextGenManagerSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          NOTIFICATION_CLIENT_SECRET: jwtNextGenManagerSecret
+          PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
+  config:
+    RHS_ENABLED: "true"
