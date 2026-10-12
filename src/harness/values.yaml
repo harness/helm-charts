@@ -1173,8 +1173,12 @@ genai:
     service:
       port: 8081
       sessionAffinity: "None"
+    secrets:
+      conditions:
+        SEGMENT_API_KEY: config.SEGMENT_API_KEY
     config:
       HARNESS_MCP_STATELESS_HTTP: "true"
+      SEGMENT_API_KEY: ""
   mcp-server-external:
     affinity: {}
     autoscaling:
@@ -1182,8 +1186,8 @@ genai:
     nodeSelector: {}
     tolerations: []
     secrets:
-      default:
-        SEGMENT_API_KEY: ""
+      conditions:
+        SEGMENT_API_KEY: config.SEGMENT_API_KEY
     config:
       HARNESS_MCP_STATELESS_HTTP: "true"
       SEGMENT_API_KEY: ""
