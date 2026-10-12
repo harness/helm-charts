@@ -958,6 +958,8 @@ genai:
         requests:
           cpu: 500m
           memory: 2560Mi
+    config:
+      NODE_OPTIONS: "--max-old-space-size=2560 --heapsnapshot-signal=SIGUSR2"
   mcp-server-external:
     autoscaling:
       enabled: true
@@ -972,3 +974,5 @@ genai:
       requests:
         cpu: 500m
         memory: 2560Mi
+    config:
+      NODE_OPTIONS: "--max-old-space-size=2560 --heapsnapshot-signal=SIGUSR2"
