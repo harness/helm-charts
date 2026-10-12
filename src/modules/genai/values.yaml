@@ -1,0 +1,89 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+# SMP does not ship the SaaS haul collector, so OTEL_EXPORTER_OTLP_ENDPOINT is
+# left unset and tracing stays disabled. Customers point either server at their
+# own collector with genai.mcp-server-*.config.OTEL_EXPORTER_OTLP_ENDPOINT.
+
+mcp-server-internal:
+  goContainer:
+    enabled: false
+  service:
+    port: 8081
+    sessionAffinity: "None"
+  secrets:
+    conditions:
+      SEGMENT_API_KEY: config.SEGMENT_API_KEY
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          HARNESS_ACL_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_AGENTS_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_ARTIFACT_REGISTRY_SECRET: jwtNextGenManagerSecret
+          HARNESS_AUDIT_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_CCM_COMM_ORCH_SECRET: jwtIdentityServiceSecret
+          HARNESS_CCM_LWD_SECRET: jwtIdentityServiceSecret
+          HARNESS_CHAOS_MANAGER_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_CHATBOT_SECRET: jwtNextGenManagerSecret
+          HARNESS_CODE_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_DASHBOARD_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_DBOPS_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_FME_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_GENAI_SECRET: jwtNextGenManagerSecret
+          HARNESS_GITOPS_SVC_SECRET: jwtIdentityServiceSecret
+          HARNESS_IACM_SVC_SECRET: iacmServiceToken
+          HARNESS_IDP_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_INTELLIGENCE_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_LOADTEST_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_LOG_SVC_SECRET: logServiceToken
+          HARNESS_MANAGER_SECRET: jwtNextGenManagerSecret
+          HARNESS_MCP_SVC_SECRET: mcpInternalServiceSecret
+          HARNESS_NEXTGEN_CE_SECRET: jwtNextGenManagerSecret
+          HARNESS_NG_MANAGER_SECRET: jwtNextGenManagerSecret
+          HARNESS_PIPELINE_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_POLICY_MGMT_SECRET: jwtNextGenManagerSecret
+          HARNESS_RELEASE_MANAGER_SECRET: jwtNextGenManagerSecret
+          HARNESS_SCS_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_SEI_SVC_SECRET: jwtIdentityServiceSecret
+          HARNESS_STO_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_TEMPLATE_SVC_SECRET: jwtNextGenManagerSecret
+  config:
+    HARNESS_MCP_STATELESS_HTTP: "true"
+    SEGMENT_API_KEY: ""
+mcp-server-external:
+  secrets:
+    conditions:
+      SEGMENT_API_KEY: config.SEGMENT_API_KEY
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          HARNESS_ACL_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_ARTIFACT_REGISTRY_SECRET: jwtNextGenManagerSecret
+          HARNESS_AUDIT_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_CCM_COMM_ORCH_SECRET: jwtIdentityServiceSecret
+          HARNESS_CCM_LWD_SECRET: jwtIdentityServiceSecret
+          HARNESS_CHAOS_MANAGER_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_CHATBOT_SECRET: jwtNextGenManagerSecret
+          HARNESS_CODE_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_DASHBOARD_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_DBOPS_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_GENAI_SECRET: jwtNextGenManagerSecret
+          HARNESS_GITOPS_SVC_SECRET: jwtIdentityServiceSecret
+          HARNESS_IACM_SVC_SECRET: iacmServiceToken
+          HARNESS_IDP_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_INTELLIGENCE_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_LOADTEST_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_LOG_SVC_SECRET: logServiceToken
+          HARNESS_MANAGER_SECRET: jwtNextGenManagerSecret
+          HARNESS_MCP_SVC_SECRET: mcpExternalServiceSecret
+          HARNESS_NEXTGEN_CE_SECRET: jwtNextGenManagerSecret
+          HARNESS_NG_MANAGER_SECRET: jwtNextGenManagerSecret
+          HARNESS_PIPELINE_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_POLICY_MGMT_SECRET: jwtNextGenManagerSecret
+          HARNESS_RELEASE_MANAGER_SECRET: jwtNextGenManagerSecret
+          HARNESS_SCS_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_SEI_SVC_SECRET: jwtIdentityServiceSecret
+          HARNESS_STO_SVC_SECRET: jwtNextGenManagerSecret
+          HARNESS_TEMPLATE_SVC_SECRET: jwtNextGenManagerSecret
+  config:
+    HARNESS_MCP_STATELESS_HTTP: "true"
+    SEGMENT_API_KEY: ""

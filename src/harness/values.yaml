@@ -69,6 +69,9 @@ global:
   # -- Enable to install Harness Unified Data Platform (UDP)
   unified-data-platform:
     enabled: false
+  # -- Enable to install Harness GenAI
+  genai:
+    enabled: false
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
@@ -860,6 +863,23 @@ ar:
     multiStorage:
       enabled: true
   ipqs-service:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+# SMP does not ship the SaaS haul collector, so OTEL_EXPORTER_OTLP_ENDPOINT is
+# left unset and tracing stays disabled. Customers point either server at their
+# own collector with genai.mcp-server-*.config.OTEL_EXPORTER_OTLP_ENDPOINT.
+# Secret mappings and internal config live in src/modules/genai/values.yaml.
+genai:
+  mcp-server-internal:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+  mcp-server-external:
     affinity: {}
     autoscaling:
       enabled: false
