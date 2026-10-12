@@ -13,7 +13,7 @@ db-devops-service:
           HARNESS_SERVICES_NGMANAGER_JWT_SECRET: jwtNextGenManagerSecret
           HARNESS_SERVICES_PIPELINE_JWT_SECRET: jwtNextGenManagerSecret
           HARNESS_SERVICES_PLATFORM_JWT_SECRET: jwtNextGenManagerSecret
-          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
     RHS_ENABLED: "true"
     INDEX_MANAGER_ENABLED: "false"
