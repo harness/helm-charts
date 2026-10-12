@@ -1,0 +1,20 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+
+db-devops-service:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          HARNESS_JWT_BEARER_SECRET: jwtAuthSecret
+          HARNESS_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_IDENTITY_JWT_SECRET: jwtIdentityServiceSecret
+          HARNESS_SERVICES_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_NGMANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_PIPELINE_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_PLATFORM_JWT_SECRET: jwtNextGenManagerSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+  config:
+    RHS_ENABLED: "true"
+    INDEX_MANAGER_ENABLED: "false"
+    DBOPS_MIGRATIONS_ENABLED: "true"

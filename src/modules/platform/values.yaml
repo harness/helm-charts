@@ -1,0 +1,329 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+
+access-control:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          ACCESS_CONTROL_SERVICE_SECRET: jwtNextGenManagerSecret
+          ACCOUNT_SERVICE_SECRET: jwtNextGenManagerSecret
+          APPSEC_SERVICE_SECRET: jwtNextGenManagerSecret
+          CDE_SERVICE_SECRET: jwtNextGenManagerSecret
+          CE_NEXTGEN_SECRET: jwtNextGenManagerSecret
+          CHAOS_SERVICE_SECRET: jwtNextGenManagerSecret
+          CODE_SERVICE_SECRET: jwtNextGenManagerSecret
+          DBOPS_SERVICE_SECRET: jwtNextGenManagerSecret
+          DEFAULT_SERVICE_SECRET: jwtNextGenManagerSecret
+          FEATURE_FLAG_CLIENT_SECRET: jwtNextGenManagerSecret
+          FF_SERVICE_SECRET: jwtNextGenManagerSecret
+          FME_SERVICE_CLIENT_SECRET: jwtNextGenManagerSecret
+          GITOPS_SERVICE_SECRET: jwtIdentityServiceSecret
+          HAR_SERVICE_SECRET: jwtNextGenManagerSecret
+          IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          IDP_SERVICE_SECRET: jwtNextGenManagerSecret
+          JWT_AUTH_SECRET: jwtAuthSecret
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          OPA_SERVICE_SECRET: jwtAuthSecret
+          ORGANIZATION_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
+          PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
+          PROJECT_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
+          RESOURCE_GROUP_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
+          RESOURCE_GROUP_SECRET: jwtNextGenManagerSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
+          SEI_SERVICE_SECRET: jwtNextGenManagerSecret
+          SERVICEACCOUNT_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
+          SPICE_DB_SERVICE_AUTH_TOKEN: spiceDbAuthToken
+          TEMPLATE_SERVICE_SECRET: jwtNextGenManagerSecret
+          USER_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
+          USER_GROUP_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    ENV: "SMP"
+    RHS_ENABLED: "true"
+  postgresql:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
+audit-event-streaming:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          PLATFORM_SECRET: jwtNextGenManagerSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
+debezium-service:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+gateway:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          JWT_ADMIN_PORTAL_SECRET: jwtExternalServiceSecret
+          JWT_AUTH_SECRET: jwtAuthSecret
+          JWT_DATA_HANDLER_SECRET: jwtDataHandlerSecret
+          JWT_EXTERNAL_SERVICE_SECRET: jwtExternalServiceSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_MARKETPLACE_SECRET: jwtMarketPlaceSecret
+          JWT_MULTI_AUTH_SECRET: jwtMultiAuthSecret
+          JWT_PASSWORD_SECRET: jwtPasswordServiceSecret
+          JWT_SSO_REDIRECT_SECRET: jwtSsoRedirectSecret
+          JWT_ZENDESK_SECRET: jwtZendeskSecret
+          LOG_SVC_GLOBAL_TOKEN: logServiceToken
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          TI_SVC_GLOBAL_TOKEN: tiSvcGlobalToken
+  config:
+    ENV: "SMP"
+harness-manager:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          COMMAND_LIBRARY_PUBLISHING_SECRET: commandLibraryPublishingSecret
+          DELEGATE_SERVICE_MANAGEMENT_SECRET: jwtNextGenManagerSecret
+          DIRECTORY_SERVICE_SECRET: jwtDirectoryServiceSecret
+          GENAI_SERVICE_SECRET: jwtNextGenManagerSecret
+          JWT_TRACEABLE_SECRET: jwtTraceableSecret
+          LOG_STREAMING_SERVICE_TOKEN: logServiceToken
+          MANAGER_TO_COMMAND_LIBRARY_SERVICE_SECRET: managerToCommandLibrarySecret
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
+          QUEUE_SERVICE_AUTH_TOKEN: queueServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
+          VERIFICATION_SERVICE_SECRET: tiServiceToken
+          jwtAidaCodeSecret: jwtAidaCodeSecret
+          jwtAuthSecret: jwtAuthSecret
+          jwtCannySecret: jwtCannySecret
+          jwtDataHandlerSecret: jwtDataHandlerSecret
+          jwtExternalServiceSecret: jwtExternalServiceSecret
+          jwtIdentityServiceSecret: jwtIdentityServiceSecret
+          jwtMarketPlaceSecret: jwtMarketPlaceSecret
+          jwtMultiAuthSecret: jwtMultiAuthSecret
+          jwtNextGenManagerSecret: jwtNextGenManagerSecret
+          jwtPasswordSecret: jwtPasswordSecret
+          jwtRelicxSecret: jwtRelicxSecret
+          jwtSplitSecret: jwtSplitSecret
+          jwtSsoRedirectSecret: jwtSsoRedirectSecret
+          jwtZendeskSecret: jwtZendeskSecret
+  config:
+    ENV: "SMP"
+    RHS_ENABLED: "true"
+  shutdownHooksEnabled: true
+log-service:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          LOG_SERVICE_GLOBAL_TOKEN: logServiceToken
+          LOG_SERVICE_JWT_AUTH_SECRET: jwtAuthSecret
+          LOG_SERVICE_MANAGER_JWT_AUTH_SECRET: jwtNextGenManagerSecret
+          LOG_SERVICE_PIPELINE_JWT_AUTH_SECRET: jwtAuthSecret
+          LOG_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    ENV: "SMP"
+ng-custom-dashboards:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          AUTH_ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          AUTH_CCM_SECRET: jwtNextGenManagerSecret
+          AUTH_CG_MANAGER_SECRET: jwtNextGenManagerSecret
+          AUTH_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          AUTH_NG_MANAGER_SECRET: jwtNextGenManagerSecret
+ng-dashboard-aggregator:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          JWT_AUTH_SECRET: jwtAuthSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          MANAGER_SECRET: jwtNextGenManagerSecret
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+ng-manager:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          AIMLOPS_SERVICE_SECRET: jwtNextGenManagerSecret
+          APPSEC_SERVICE_SECRET: jwtNextGenManagerSecret
+          CHAOS_SERVICE_SECRET: jwtNextGenManagerSecret
+          DBOPS_SERVICE_SECRET: jwtNextGenManagerSecret
+          DIRECTORY_SERVICE_SECRET: jwtDirectoryServiceSecret
+          GITOPS_SERVICE_SECRET: jwtIdentityServiceSecret
+          HARNESS_ARTIFACT_REGISTRY_WEBHOOK_SECRET: artifactRegistryWebhookSecret
+          HARNESS_CODE_SERVICE_SECRET: jwtNextGenManagerSecret
+          HARNESS_CODE_WEBHOOK_SECRET: harnessCodeWebhookSecret
+          HARNESS_ID_SERVICE_SECRET: harnessIdServiceSecret
+          HARNESS_REGISTRY_SERVICE_SECRET: jwtNextGenManagerSecret
+          HARNESS_STATUSPAGE_SERVICE_SECRET: jwtNextGenManagerSecret
+          HSQS_AUTH_TOKEN: jwtSecret
+          IACM_SERVICE_SECRET: iacmServiceToken
+          IDP_SERVICE_SECRET: jwtNextGenManagerSecret
+          JWT_AUTH_SECRET: jwtAuthSecret
+          JWT_DATA_HANDLER_SECRET: jwtDataHandlerSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_RELICX_SECRET: jwtRelicxSecret
+          LOAD_TEST_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          LOG_STREAMING_SERVICE_TOKEN: logServiceToken
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          OPA_SERVER_SECRET: jwtAuthSecret
+          PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          SERVICE_DISCOVERY_SERVICE_SECRET: jwtNextGenManagerSecret
+          TEMPLATE_SERVICE_SECRET: jwtNextGenManagerSecret
+          USER_VERIFICATION_SECRET: userVerificationSecret
+  config:
+    ENV: "SMP"
+    RHS_ENABLED: "true"
+  shutdownHooksEnabled: true
+pipeline-service:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          AISRE_SERVICE_CLIENT_SECRET: jwtIdentityServiceSecret
+          ANNOTATIONS_SERVICE_SECRET: jwtNextGenManagerSecret
+          CI_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          CV_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          FF_SERVER_API_KEY: platformAuthToken
+          FLEX_ENFORCEMENT_SERVICE_SECRET: jwtNextGenManagerSecret
+          FME_SERVICE_CLIENT_SECRET: jwtNextGenManagerSecret
+          HARNESS_CODE_SERVICE_SECRET: jwtNextGenManagerSecret
+          HARNESS_ID_SERVICE_SECRET: harnessIdServiceSecret
+          HARNESS_REGISTRY_JWT_SECRET: jwtNextGenManagerSecret
+          HSQS_AUTH_TOKEN: jwtSecret
+          IACM_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          IDP_SERVICE_SECRET: idpServiceSecret
+          JWT_AUTH_SECRET: jwtAuthSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          LOG_STREAMING_SERVICE_TOKEN: logServiceToken
+          MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          NG_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          NOTIFICATION_CLIENT_SECRET: jwtNextGenManagerSecret
+          OPA_SERVER_SECRET: jwtAuthSecret
+          PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
+          PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
+          QWIET_SERVICE_GLOBAL_TOKEN: stoServiceToken
+          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
+          SSCA_SERVICE_SECRET: jwtNextGenManagerSecret
+          STO_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          TEMPLATE_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    ENV: "SMP"
+    RHS_ENABLED: "true"
+    PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS: "true"
+  shutdownHooksEnabled: true
+platform-service:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          APPSEC_SERVICE_SECRET: jwtNextGenManagerSecret
+          CDE_SERVICE_SECRET: jwtNextGenManagerSecret
+          CE_NEXTGEN_SECRET: jwtNextGenManagerSecret
+          CHAOS_SERVICE_SECRET: jwtNextGenManagerSecret
+          CODE_SERVICE_SECRET: jwtNextGenManagerSecret
+          DBOPS_SERVICE_SECRET: jwtNextGenManagerSecret
+          FF_SERVICE_SECRET: jwtNextGenManagerSecret
+          FME_SERVICE_CLIENT_SECRET: jwtNextGenManagerSecret
+          GITOPS_SERVICE_SECRET: jwtNextGenManagerSecret
+          HAR_SERVICE_SECRET: jwtNextGenManagerSecret
+          IDP_SERVICE_SECRET: jwtNextGenManagerSecret
+          JWT_AUTH_SECRET: jwtAuthSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          NOTIFICATION_CLIENT_SECRET: jwtNextGenManagerSecret
+          OPA_SERVER_SECRET: jwtAuthSecret
+          PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
+          PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
+          RESOURCE_GROUP_SECRET: jwtNextGenManagerSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
+          TEMPLATE_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    ENV: "SMP"
+    RHS_ENABLED: "true"
+policy-mgmt:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          APP_INTERNAL_TOKEN_JWT_SECRET: jwtAuthSecret
+          APP_NEXT_GEN_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          APP_TOKEN_JWT_SECRET: jwtIdentityServiceSecret
+          HARNESS_SERVICES_PIPELINE_JWT_SECRET: jwtNextGenManagerSecret
+queue-service:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          JWT_SECRET: jwtSecret
+service-discovery-manager:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACL_JWT_SECRET: jwtIdentityServiceSecret
+          JWT_SECRET: jwtAuthSecret
+          LOG_SERVICE_SECRET: logServiceToken
+          NG_JWT_SECRET: jwtNextGenManagerSecret
+          SERVICE_DISCOVERY_JWT_SECRET: jwtNextGenManagerSecret
+template-service:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          CVNG_SERVICE_SECRET: jwtNextGenManagerSecret
+          HSQS_AUTH_TOKEN: queueServiceSecret
+          IACM_SERVICE_GLOBAL_TOKEN: iacmServiceToken
+          JWT_AUTH_SECRET: jwtAuthSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          NG_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          OPA_SERVER_SECRET: jwtAuthSecret
+          PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
+          VMS_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    ENV: "SMP"
+    RHS_ENABLED: "true"
+bootstrap:
+  networking:
+    nginx:
+      controller:
+        config:
+          # Trust X-Forwarded-Proto from envoy-gateway so nginx does not
+          # force-ssl-redirect HTTP traffic forwarded from the gateway.
+          use-forwarded-headers: "true"
+  database:
+    postgresql:
+      image:
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
+change-data-capture:
+  config:
+    ENV: "SMP"
+next-gen-ui:
+  config:
+    ENV: "SMP"
+ng-auth-ui:
+  config:
+    ENV: "SMP"

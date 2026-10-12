@@ -1,0 +1,54 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+
+ci-manager:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACCESS_CONTROL_SECRET: jwtNextGenManagerSecret
+          ANNOTATIONS_SERVICE_SECRET: jwtNextGenManagerSecret
+          CACHE_SERVICE_GLOBAL_TOKEN: cacheServiceToken
+          COVERAGE_SERVICE_TOKEN: jwtNextGenManagerSecret
+          CVNG_SERVICE_SECRET: jwtNextGenManagerSecret
+          GITNESS_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_FULCIO_SERVICE_SECRET: jwtNextGenManagerSecret
+          HARNESS_REGISTRY_JWT_SECRET: jwtNextGenManagerSecret
+          HSA_SERVICE_SECRET: jwtNextGenManagerSecret
+          HSQS_AUTH_TOKEN: jwtSecret
+          IACM_SERVICE_GLOBAL_TOKEN: stoServiceToken
+          JWT_AUTH_SECRET: jwtAuthSecret
+          JWT_DATA_HANDLER_SECRET: jwtDataHandlerSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_RELICX_SECRET: jwtRelicxSecret
+          LOG_SERVICE_GLOBAL_TOKEN: logServiceToken
+          MANAGER_SECRET: jwtNextGenManagerSecret
+          NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
+          OPA_SERVER_SECRET: jwtAuthSecret
+          PLATFORM_CONFIG_SERVICE_SECRET: platformConfigServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: resourceHierarchyServiceSecret
+          SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
+          SSCA_SERVICE_SECRET: jwtNextGenManagerSecret
+          TICKET_SERVICE_GLOBAL_TOKEN: stoServiceToken
+          TI_SERVICE_GLOBAL_TOKEN: tiServiceToken
+  config:
+    ENV: "SMP"
+    RHS_ENABLED: "true"
+    REFID_CACHE_IMAGE: harnesssecure/refid-cache:latest
+    HARNESS_IMAGE_REPOSITORY: harnesssecure
+ti-service:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          TI_SERVICE_GLOBAL_TOKEN: tiSvcGlobalToken
+  config:
+    ENV: "SMP"
+  ingress:
+    objects:
+      - name: ti-service
+        annotations:
+          nginx.ingress.kubernetes.io/rewrite-target: /$2
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+        paths:
+          - path: '{{ .Values.global.ingress.pathPrefix }}/ti-service(/|$)(.*)'

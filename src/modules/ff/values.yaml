@@ -1,0 +1,67 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+
+ff-service:
+  ff-admin-server:
+    secrets:
+      smpSharedKubernetesSecrets:
+        - secretName: harness-shared-secrets
+          keys:
+            AUTH_SECRET: jwtNextGenManagerSecret
+            JWT_IDENTITY_SERVICE_SERCRET: jwtIdentityServiceSecret
+            PLATFORM_AUTH_KEY: platformAuthToken
+            PLATFORM_SECRET_KEY: jwtNextGenManagerSecret
+            POLICY_MGMT_SECRET: jwtIdentityServiceSecret
+      default:
+        PLATFORM_AUTH_KEY: "secret"
+    postgres:
+      image:
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
+  ff-client-server:
+    secrets:
+      smpSharedKubernetesSecrets:
+        - secretName: harness-shared-secrets
+          keys:
+            AUTH_SECRET: jwtNextGenManagerSecret
+            JWT_IDENTITY_SERVICE_SERCRET: jwtIdentityServiceSecret
+            PLATFORM_AUTH_KEY: platformAuthToken
+            PLATFORM_SECRET_KEY: jwtNextGenManagerSecret
+            POLICY_MGMT_SECRET: jwtIdentityServiceSecret
+      default:
+        PLATFORM_AUTH_KEY: "secret"
+    postgres:
+      image:
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
+  ff-metrics-server:
+    secrets:
+      smpSharedKubernetesSecrets:
+        - secretName: harness-shared-secrets
+          keys:
+            AUTH_SECRET: jwtNextGenManagerSecret
+            JWT_IDENTITY_SERVICE_SERCRET: jwtIdentityServiceSecret
+            PLATFORM_AUTH_KEY: platformAuthToken
+            PLATFORM_SECRET_KEY: jwtNextGenManagerSecret
+            POLICY_MGMT_SECRET: jwtIdentityServiceSecret
+      default:
+        PLATFORM_AUTH_KEY: "secret"
+    postgres:
+      image:
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
+ff-psql-migrations:
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
+ff-pushpin-service:
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
+ff-timescale-migrations:
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"

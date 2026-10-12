@@ -1,0 +1,79 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+
+code-api:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          GITNESS_REGISTRY_HTTP_SECRET: gitnessRegistryHttpSecret
+          GITNESS_WEBHOOK_INTERNAL_SECRET: harnessCodeWebhookSecret
+          HARNESS_JWT_BEARER_SECRET: jwtAuthSecret
+          HARNESS_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_ACL_CLIENT_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_AIFOUNDATION_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_CDE_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_CIMANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_CODESEARCH_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_DEFAULT_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_GITHA_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_IACM_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_IAC_SERVER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_IDENTITY_JWT_SECRET: jwtIdentityServiceSecret
+          HARNESS_SERVICES_IDP_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_IRO_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_NGMANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_OPA_CLIENT_JWT_SECRET: jwtAuthSecret
+          HARNESS_SERVICES_REMOTEAUTH_JWT_SECRET: jwtIdentityServiceSecret
+          HARNESS_SERVICES_RESOURCE_GROUP_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_SEMANTIC_SEARCH_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_SSCA_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_STO_JWT_SECRET: jwtNextGenManagerSecret
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
+  autoai:
+    postgres:
+      image:
+        repository: "harnesssecure/postgresql"
+        tag: "14.20-debian"
+code-githa:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          GITHA_JWT_SECRET: jwtNextGenManagerSecret
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
+code-search:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          HARNESS_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_CIMANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_CODESEARCH_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_CODE_API_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_IACM_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_IAC_SERVER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_IDENTITY_JWT_SECRET: jwtIdentityServiceSecret
+          HARNESS_SERVICES_IDP_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_NGMANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_OPA_CLIENT_JWT_SECRET: jwtAuthSecret
+          HARNESS_SERVICES_RESOURCE_GROUP_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_SEMANTIC_SEARCH_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_STO_JWT_SECRET: jwtNextGenManagerSecret
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
+code-gitrpc:
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
