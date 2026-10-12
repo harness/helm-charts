@@ -1171,6 +1171,7 @@ genai:
     nodeSelector: {}
     tolerations: []
     service:
+      port: 8081
       sessionAffinity: "None"
     config:
       HARNESS_MCP_STATELESS_HTTP: "true"
@@ -1180,8 +1181,12 @@ genai:
       enabled: false
     nodeSelector: {}
     tolerations: []
+    secrets:
+      default:
+        SEGMENT_API_KEY: ""
     config:
       HARNESS_MCP_STATELESS_HTTP: "true"
+      SEGMENT_API_KEY: ""
 ssca:
   component-service:
     config:
