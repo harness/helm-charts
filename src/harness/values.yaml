@@ -9,6 +9,9 @@ global:
     enabled: true
   jfr:
     enabled: false
+  # -- Create harness-shared-secrets and map services to it (mappings are in src/modules/*/values.yaml)
+  sharedSecrets:
+    enabled: true
   # -- Add common annotations to all objects
   commonAnnotations: {}
   # -- Add common labels to all objects
@@ -292,7 +295,7 @@ global:
       registry: docker.io
       repository: harnesssecure/helm-init-container
       pullPolicy: Always
-      tag: "1.9.0"
+      tag: "1.10.0"
       digest: ""
   fileLogging:
     enabled: true
@@ -352,10 +355,6 @@ global:
 ccm:
   # -- Set ccm.batch-processing.clickhouse.enabled to true for AWS infrastructure
   batch-processing:
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
     # -- Set ccm.batch-processing.awsAccountTagsCollectionJobConfig.enabled to false for AWS infrastructure
     awsAccountTagsCollectionJobConfig:
       enabled: true
@@ -388,8 +387,6 @@ ccm:
       httpsProxyEnabled: false
       httpsProxyUrl: http://localhost
   ce-nextgen:
-    config:
-      RHS_ENABLED: "true"
     cloudProviderConfig:
       GCP_PROJECT_ID: "placeHolder"
     # -- Set ccm.nextgen-ce.stackDriverLoggingEnabled to true for GCP infrastructure
@@ -430,47 +427,19 @@ chaos:
 # -- Install the Continuous Integration (CI) manager pod
 ci:
   ci-manager:
-    config:
-      ENV: "SMP"
-      REFID_CACHE_IMAGE: harnesssecure/refid-cache:latest
-      HARNESS_IMAGE_REPOSITORY: harnesssecure
-      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
   ti-service:
-    config:
-      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
-    ingress:
-      objects:
-        - name: ti-service
-          annotations:
-            nginx.ingress.kubernetes.io/rewrite-target: /$2
-            nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
-          paths:
-            - path: '{{ .Values.global.ingress.pathPrefix }}/ti-service(/|$)(.*)'
 enabled: false
-cd:
-  gitops:
-    agentRedisImage:
-      image:
-        repository: harnesssecure/redis
-        tag: "7.4.9-jammy"
 # -- Config for platform-level services (always deployed by default to support all services)
 
 platform:
   # -- Access control settings (taints, tolerations, and so on)
   access-control:
-    postgresql:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
-    config:
-      ENV: "SMP"
-      RHS_ENABLED: "true"
     affinity: {}
     # -- set mongoHosts for external database hosts
     # -- mongoHosts:
@@ -517,9 +486,6 @@ platform:
           prometheus.io/scrape: 'false'
         tolerations: []
       postgresql:
-        image:
-          repository: "harnesssecure/postgresql"
-          tag: "14.20-debian"
         metrics:
           enabled: false
         podAnnotations:
@@ -536,25 +502,6 @@ platform:
           prometheus.io/port: '9121'
           prometheus.io/scrape: 'false'
         tolerations: []
-      timescaledb:
-        affinity: {}
-        nodeSelector: {}
-        podAnnotations:
-          prometheus.io/path: /metrics
-          prometheus.io/port: '9187'
-          prometheus.io/scrape: 'false'
-        prometheus:
-          enabled: false
-        tolerations: []
-        curlImage:
-          tag: "8.17.0"
-        persistentVolumes:
-          data:
-            enabled: true
-            size: 100Gi
-          wal:
-            enabled: true
-            size: 1Gi
     harness-secrets:
       enabled: true
     networking:
@@ -572,10 +519,6 @@ platform:
         controller:
           # -- annotations to be addded to ingress Controller
           annotations: {}
-          config:
-            # -- Trust X-Forwarded-Proto from envoy-gateway so nginx does not
-            # force-ssl-redirect HTTP traffic forwarded from the gateway.
-            use-forwarded-headers: "true"
         # -- Create Nginx Controller.  True will deploy a controller into your cluster
         create: false
         healthNodePort: ""
@@ -594,8 +537,6 @@ platform:
         tolerations: []
   # -- change-data-capture settings (taints, tolerations, and so on)
   change-data-capture:
-    config:
-      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -632,8 +573,6 @@ platform:
                         control-plane: envoy-gateway
                     topologyKey: kubernetes.io/hostname
   gateway:
-    config:
-      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -642,10 +581,6 @@ platform:
     upgrader_docker_image:
       image:
         tag: 1.12.0
-    config:
-      ENV: "SMP"
-      RHS_ENABLED: "true"
-    shutdownHooksEnabled: true
     affinity: {}
     # -- These flags are used by the helper function to create the FEATURES config value based off the global.<feature>.enabled boolean
     # -- Feature Flags
@@ -662,8 +597,6 @@ platform:
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
-    config:
-      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -673,15 +606,11 @@ platform:
     tolerations: []
   # -- next-gen-ui (Next Generation User Interface) (taints, tolerations, and so on)
   next-gen-ui:
-    config:
-      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
   # -- ng-auth-ui (Next Generation Authorization User Interface) (taints, tolerations, and so on)
   ng-auth-ui:
-    config:
-      ENV: "SMP"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -691,28 +620,16 @@ platform:
     tolerations: []
   # -- ng-manager (Next Generation Manager) (taints, tolerations, and so on)
   ng-manager:
-    config:
-      ENV: "SMP"
-      RHS_ENABLED: "true"
-    shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
     tolerations: []
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
-    config:
-      ENV: "SMP"
-      RHS_ENABLED: "true"
-      PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS: "true"
-    shutdownHooksEnabled: true
     affinity: {}
     nodeSelector: {}
     tolerations: []
   # -- platform-service (Harness platform-related services) (taints, tolerations, and so on)
   platform-service:
-    config:
-      ENV: "SMP"
-      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -723,9 +640,6 @@ platform:
     tolerations: []
   # -- template-service (Harness template-related services) (taints, tolerations, and so on)
   template-service:
-    config:
-      ENV: "SMP"
-      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -736,10 +650,6 @@ platform:
     tolerations: []
 srm:
   cv-nextgen:
-    config:
-      PIPELINE_SERVICE_CLIENT_BASEURL: http://pipeline-service:12001/api/
-      ENV: "SMP"
-      RHS_ENABLED: "true"
     affinity: {}
     nodeSelector: {}
     tolerations: []
@@ -749,96 +659,23 @@ srm:
     tolerations: []
     keda:
       enabled: false
-    ingress: {}
 # -- Config for Security Test Orchestration (STO)
 sto:
   # -- Install the STO core
-  ticket-service:
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
   sto-core:
-    config:
-      RHS_ENABLED: "true"
-    migrationPostgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
     affinity: {}
     autoscaling:
       enabled: false
     nodeSelector: {}
     tolerations: []
-ff:
-  ff-service:
-    ff-admin-server:
-      secrets:
-        default:
-          PLATFORM_AUTH_KEY: "secret"
-      postgres:
-        image:
-          repository: "harnesssecure/postgresql"
-          tag: "14.20-debian"
-    ff-client-server:
-      secrets:
-        default:
-          PLATFORM_AUTH_KEY: "secret"
-      postgres:
-        image:
-          repository: "harnesssecure/postgresql"
-          tag: "14.20-debian"
-    ff-metrics-server:
-      secrets:
-        default:
-          PLATFORM_AUTH_KEY: "secret"
-      postgres:
-        image:
-          repository: "harnesssecure/postgresql"
-          tag: "14.20-debian"
-  ff-pushpin-service:
-    waitForInitContainer:
-      image:
-        tag: 1.2.0
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
-  ff-psql-migrations:
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
-  ff-timescale-migrations:
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
 iacm:
   iac-server:
-    config:
-      RHS_ENABLED: "true"
-    createDb:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
     affinity: {}
     autoscaling:
       enabled: false
     nodeSelector: {}
     tolerations: []
   iacm-manager:
-    config:
-      HARNESS_IMAGE_REPOSITORY: harnesssecure
-      RHS_ENABLED: "true"
     affinity: {}
     autoscaling:
       enabled: false
@@ -848,43 +685,12 @@ upgrades:
   versionLookups:
     enabled: true
 code:
-  code-api:
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
-    autoai:
-      postgres:
-        image:
-          repository: "harnesssecure/postgresql"
-          tag: "14.20-debian"
-  code-search:
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
-  code-githa:
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
-  code-gitrpc:
-    postgres:
-      image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
   code-ui:
     affinity: {}
     autoscaling:
       enabled: false
     nodeSelector: {}
     tolerations: []
-db-devops:
-  db-devops-service:
-    config:
-      RHS_ENABLED: "true"
-      INDEX_MANAGER_ENABLED: "false"
-      DBOPS_MIGRATIONS_ENABLED: "true"
 postmigrationCheck:
   enabled: true
   image:
@@ -942,12 +748,9 @@ pg-upgrade:
     image:
       registry: docker.io
       repository: harnesssecure/postgresql
-      tag: 16.14-bookworm
+      tag: 16.15-bookworm
 data-infra:
   kafka-connect-strimzi:
-    connectorConfigEnv:
-      MONGO_COMPONENT_DB_NAME: "component-harness"
-      MONGO_SSCA_NG_HARNESS_DB_NAME: "harness-cdng"
     database:
       postgres:
         registry:
@@ -1000,37 +803,7 @@ data-infra:
         enabled: true
       debezium-mongo-instance-ng-cdc:
         enabled: true
-  kafka-operator:
-    strimziOperator:
-      kafka:
-        image:
-          repository: harnesssecure/strimzi-kafka-signed
-      kafkaConnect:
-        image:
-          repository: harnesssecure/strimzi-kafka-connect-signed
-      kafkaExporter:
-        image:
-          repository: harnesssecure/strimzi-kafka-signed
-      cruiseControl:
-        image:
-          repository: harnesssecure/strimzi-kafka-signed
-      kafkaMirrorMaker2:
-        image:
-          repository: harnesssecure/strimzi-kafka-signed
-      topicOperator:
-        image:
-          repository: harnesssecure/kafka-operator-signed
-      userOperator:
-        image:
-          repository: harnesssecure/kafka-operator-signed
-      kafkaInit:
-        image:
-          repository: harnesssecure/kafka-operator-signed
   kafka-platform:
-    kafkaDebugPod:
-      image:
-        registry: docker.io
-        repository: harnesssecure/strimzi-kafka-signed
     nodePools:
       brokers:
         storage:
@@ -1053,7 +826,6 @@ data-infra:
               kraftMetadata: shared
               deleteClaim: false
   schema-registry:
-    fullnameOverride: schema-registry
     backup:
       enabled: false
 ar:
@@ -1065,34 +837,6 @@ ar:
       enabled: false
     nodeSelector: {}
     tolerations: []
-    # SMP-specific env defaults
-    config:
-      REGISTRY_ENABLE_ES: "false"
-      HARNESS_REGISTRY_EVENTS_ARTIFACT_QUARANTINE_STREAM: "ssca_ar_artifact_quarantine"
-      HARNESS_REGISTRY_EVENTS_ENABLED: "true"
-    ingress:
-      objects:
-        - annotations:
-            nginx.ingress.kubernetes.io/rewrite-target: $1$2
-            nginx.ingress.kubernetes.io/use-regex: "true"
-            nginx.ingress.kubernetes.io/upstream-vhost: registry-api
-            nginx.ingress.kubernetes.io/configuration-snippet: |
-              set $do_redirect "";
-              if ($host = "{{ index .Values.global.ingress.hosts 0 }}") { set $do_redirect "${do_redirect}H"; }
-              if ($request_uri ~ "^/har/api/") { set $do_redirect "${do_redirect}U"; }
-              if ($do_redirect = "HU") { return 308 {{ .Values.global.loadbalancerURL }}/gateway$request_uri; }
-          paths:
-            - path: "{{ .Values.global.ingress.pathPrefix }}/har(/|$)(.*)"
-        - annotations:
-            nginx.ingress.kubernetes.io/use-regex: "true"
-            nginx.ingress.kubernetes.io/proxy-body-size: "0"
-            nginx.ingress.kubernetes.io/proxy-read-timeout: "900"
-            nginx.ingress.kubernetes.io/proxy-send-timeout: "900"
-          paths:
-            - path: "/v2(/|$).*"
-            - path: "/pkg(/|$).*"
-            - path: "/generic(/|$).*"
-            - path: "/maven(/|$).*"
     multiStorage:
       enabled: true
   registry-processor:
@@ -1103,16 +847,6 @@ ar:
       enabled: false
     nodeSelector: {}
     tolerations: []
-    config:
-      HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
-      GITNESS_REGISTRY_POST_PROCESSING_CONCURRENCY: "10"
-    ingress:
-      objects:
-        - annotations:
-            nginx.ingress.kubernetes.io/rewrite-target: $1$2
-            nginx.ingress.kubernetes.io/use-regex: "true"
-          paths:
-            - path: '{{ .Values.global.ingress.pathPrefix }}/har-processor(/|$)(.*)'
     multiStorage:
       enabled: true
   registry-async-service:
@@ -1123,30 +857,6 @@ ar:
       enabled: false
     nodeSelector: {}
     tolerations: []
-    config:
-      REGISTRY_ENABLE_ES: "false"
-      KAFKA_CONFLUENT_BOOTSTRAP_SERVER_URLS: "kafka-platform-kafka-bootstrap:9093"
-      KAFKA_CONFLUENT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM: "https"
-      KAFKA_CONFLUENT_SECURITY_PROTOCOL: "SSL"
-      KAFKA_PRODUCER_TLS_CA_FILE: "/etc/kafka/cluster-ca/ca.crt"
-      KAFKA_PRODUCER_TLS_CERT_FILE: "/etc/kafka/certs/user.crt"
-      KAFKA_PRODUCER_TLS_KEY_FILE: "/etc/kafka/certs/user.key"
-    extraVolumes:
-      - name: kafka-certs
-        secret:
-          secretName: kafka-platform-registry-async-service
-          defaultMode: 0444
-      - name: kafka-cluster-ca
-        secret:
-          secretName: kafka-platform-cluster-ca-cert
-          defaultMode: 0444
-    extraVolumeMounts:
-      - name: kafka-certs
-        mountPath: /etc/kafka/certs
-        readOnly: true
-      - name: kafka-cluster-ca
-        mountPath: /etc/kafka/cluster-ca
-        readOnly: true
     multiStorage:
       enabled: true
   ipqs-service:
@@ -1155,7 +865,3 @@ ar:
       enabled: false
     nodeSelector: {}
     tolerations: []
-ssca:
-  component-service:
-    config:
-      EOL_DISABLE_MAVEN_EOL: "true"

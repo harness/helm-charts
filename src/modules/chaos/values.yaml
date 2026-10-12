@@ -1,0 +1,100 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+
+chaos-k8s-ifs:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          CHAOS_K8S_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_SECRET: jwtAuthSecret
+          LOAD_TEST_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          LOG_SERVICE_TOKEN: logServiceToken
+          NG_JWT_SECRET: jwtNextGenManagerSecret
+chaos-linux-ifc:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          CHAOS_LINUX_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_SECRET: jwtAuthSecret
+          LOG_SERVICE_TOKEN: logServiceToken
+          NG_JWT_SECRET: jwtNextGenManagerSecret
+chaos-linux-ifs:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          CHAOS_LINUX_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_SECRET: jwtAuthSecret
+          LOG_SERVICE_TOKEN: logServiceToken
+          NG_JWT_SECRET: jwtNextGenManagerSecret
+chaos-machine-ifc:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          CHAOS_MACHINE_IFC_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_MACHINE_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_SECRET: jwtAuthSecret
+          LOG_SERVICE_TOKEN: logServiceToken
+          NG_JWT_SECRET: jwtNextGenManagerSecret
+chaos-machine-ifs:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          CHAOS_MACHINE_IFC_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_MACHINE_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_SECRET: jwtAuthSecret
+          LOG_SERVICE_TOKEN: logServiceToken
+          NG_JWT_SECRET: jwtNextGenManagerSecret
+chaos-manager:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          CHAOS_K8S_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_LINUX_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_MACHINE_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_SECRET: jwtAuthSecret
+          LOG_SERVICE_TOKEN: logServiceToken
+          NG_JWT_SECRET: jwtNextGenManagerSecret
+          PIPELINE_JWT_SECRET: jwtNextGenManagerSecret
+          RT_AGENT_JWT_SECRET: jwtNextGenManagerSecret
+          SERVICE_DISCOVERY_TOKEN: jwtNextGenManagerSecret
+load-test-manager:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          CHAOS_K8S_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_LINUX_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_MACHINE_IFS_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          JWT_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_SECRET: jwtAuthSecret
+          LOAD_TEST_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+          LOG_SERVICE_TOKEN: logServiceToken
+          NG_JWT_SECRET: jwtNextGenManagerSecret
+          PIPELINE_JWT_SECRET: jwtNextGenManagerSecret
+rt-agent:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          AI_AGENT_GATEWAY_JWT_SECRET: jwtNextGenManagerSecret
+          CHAOS_MANAGER_SECRET: jwtNextGenManagerSecret
+          LOG_SERVICE_TOKEN: logServiceToken
+          PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
+          SERVICE_DISCOVERY_SECRET: jwtNextGenManagerSecret

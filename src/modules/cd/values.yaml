@@ -1,0 +1,19 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+# Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
+
+gitops:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          ACL_SECRET: jwtNextGenManagerSecret
+          IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
+          JWT_SECRET: jwtIdentityServiceSecret
+          MANAGER_JWT_AUTH_SECRET: jwtNextGenManagerSecret
+          OPA_SERVICE_AUTH_SECRET: jwtAuthSecret
+          PLATFORMSERVICE_AUTH_SECRET: jwtNextGenManagerSecret
+          PLATFORM_AUTH_SECRET: jwtNextGenManagerSecret
+  agentRedisImage:
+    image:
+      repository: harnesssecure/redis
+      tag: "7.4.9-jammy"

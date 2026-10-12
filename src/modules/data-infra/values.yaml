@@ -1,0 +1,39 @@
+# Harness-internal defaults for this module (not customer-facing). Where a value goes: src/modules/README.md
+
+kafka-connect-strimzi:
+  connectorConfigEnv:
+    MONGO_COMPONENT_DB_NAME: "component-harness"
+    MONGO_SSCA_NG_HARNESS_DB_NAME: "harness-cdng"
+schema-registry:
+  fullnameOverride: schema-registry
+kafka-operator:
+  strimziOperator:
+    kafka:
+      image:
+        repository: harnesssecure/strimzi-kafka-signed
+    kafkaConnect:
+      image:
+        repository: harnesssecure/strimzi-kafka-connect-signed
+    kafkaExporter:
+      image:
+        repository: harnesssecure/strimzi-kafka-signed
+    cruiseControl:
+      image:
+        repository: harnesssecure/strimzi-kafka-signed
+    kafkaMirrorMaker2:
+      image:
+        repository: harnesssecure/strimzi-kafka-signed
+    topicOperator:
+      image:
+        repository: harnesssecure/kafka-operator-signed
+    userOperator:
+      image:
+        repository: harnesssecure/kafka-operator-signed
+    kafkaInit:
+      image:
+        repository: harnesssecure/kafka-operator-signed
+kafka-platform:
+  kafkaDebugPod:
+    image:
+      registry: docker.io
+      repository: harnesssecure/strimzi-kafka-signed
