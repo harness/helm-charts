@@ -4,6 +4,8 @@ kafka-connect-strimzi:
   connectorConfigEnv:
     MONGO_COMPONENT_DB_NAME: "component-harness"
     MONGO_SSCA_NG_HARNESS_DB_NAME: "harness-cdng"
+    POSTGRES_REGISTRY_DB_USER: "postgres"
+    POSTGRES_REGISTRY_DB_DATABASENAME: "registry_db"
 schema-registry:
   fullnameOverride: schema-registry
 kafka-operator:
