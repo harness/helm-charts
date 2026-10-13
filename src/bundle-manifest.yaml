@@ -33,6 +33,7 @@ modules:
       - manager-signed
       - mongo
       - ng-auth-ui-signed
+      - platform-ui-signed
       - redis
       - postgresql
       - policy-mgmt

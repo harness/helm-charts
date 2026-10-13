@@ -66,6 +66,9 @@ global:
   # -- Enable to install Artifact Repository (AR)
   ar:
     enabled: false
+  # -- Enable to install Harness Platform UI
+  platform-ui:
+    enabled: false
   # -- Enable to install Harness Unified Data Platform (UDP)
   unified-data-platform:
     enabled: false
@@ -609,6 +612,11 @@ platform:
     tolerations: []
   # -- next-gen-ui (Next Generation User Interface) (taints, tolerations, and so on)
   next-gen-ui:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+  # -- platform-ui (Harness Platform UI) (taints, tolerations, and so on)
+  platform-ui:
     affinity: {}
     nodeSelector: {}
     tolerations: []

@@ -100,6 +100,10 @@ dependencies:
   name: resource-hierarchy-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.59.0-fix-rhs-template-ff48ac
+- condition: global.platform-ui.enabled
+  name: platform-ui
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.0.1
 description: Helm chart for Harness Platform
 name: platform
 type: application

@@ -202,6 +202,10 @@ platform-service:
   image:
     registry: docker.io
     repository: harnesssecure/platform-service-signed
+platform-ui:
+  image:
+    registry: docker.io
+    repository: harnesssecure/platform-ui-signed
 policy-mgmt:
   image:
     registry: docker.io
