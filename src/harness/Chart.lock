@@ -1,7 +1,7 @@
 dependencies:
 - name: harness-common
   repository: https://harness.github.io/helm-common
-  version: 1.9.10
+  version: 1.9.12
 - name: ccm
   repository: https://harness.github.io/helm-charts
   version: 0.47.0
@@ -19,13 +19,13 @@ dependencies:
   version: 0.47.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.47.0
+  version: 0.47.2
 - name: srm
   repository: https://harness.github.io/helm-charts
   version: 0.47.0
 - name: sto
   repository: https://harness.github.io/helm-charts
-  version: 0.47.0
+  version: 0.47.1
 - name: ssca
   repository: https://harness.github.io/helm-charts
   version: 0.47.0
@@ -46,6 +46,6 @@ dependencies:
   version: 0.47.0
 - name: unified-data-platform
   repository: https://harness.github.io/helm-charts
-  version: 0.47.0
-digest: sha256:c840e7c2451b5a12e661dc9d09ad0acf26ee58145d3acdf2272730ed134ab8a0
-generated: "2026-10-01T00:34:58.497339506Z"
+  version: 0.47.2
+digest: sha256:2e3981a05b983a0f4ef181ce8f12080b6d385276ca441c664b261fc13034c97d
+generated: "2026-10-13T07:17:46.840687267Z"

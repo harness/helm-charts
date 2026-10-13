@@ -20,11 +20,11 @@
         "docker.io/harnesssecure/log-service-signed:1.52.3",
         "docker.io/harnesssecure/cdcdata-signed:1.66.0",
         "docker.io/harnesssecure/accesscontrol-service-signed:1.342.0",
-        "docker.io/harness/delegate-proxy-signed:1.9.0",
+        "docker.io/harnesssecure/delegate-proxy-signed:1.9.0",
         "docker.io/harnesssecure/gateway-signed:1.72.2",
         "docker.io/harnesssecure/helm-init-container:1.9.0",
         "docker.io/harnesssecure/harness-db-migrator-signed:2.66.0",
-        "docker.io/harnesssecure/manager-signed:1.166.8",
+        "docker.io/harnesssecure/manager-signed:1.166.9",
         "docker.io/harnesssecure/mongo:8.0.26-jammy",
         "docker.io/harness/ng-auth-ui-signed:1.39.0",
         "docker.io/harnesssecure/redis:7.4.9-jammy",
@@ -154,7 +154,7 @@
       "description": "Security Testing Orchestration",
       "images": [
         "docker.io/harnesssecure/stocore-signed:1.210.3",
-        "docker.io/harnesssecure/ticket-service-signed:1.16.0",
+        "docker.io/harnesssecure/ticket-service-signed:1.17.0",
         "docker.io/harness/refid-cache:latest",
         "harnesssecure/refid-cache:latest",
         "harness/sto-plugin:latest",
@@ -335,11 +335,11 @@
       "name": "unified-data-platform",
       "description": "Unified Data Platform (UDP) Services",
       "images": [
-        "docker.io/harnesssecure/config-service-signed:0.1.166",
+        "docker.io/harnesssecure/config-service-signed:0.1.170",
         "docker.io/harnesssecure/schema-service-signed:0.23.0",
-        "docker.io/harnesssecure/onboarding-service-signed:0.12.11",
-        "docker.io/harnesssecure/query-service-signed:0.65.0",
-        "docker.io/harnesssecure/dashboard-ui-signed:1.80.0"
+        "docker.io/harnesssecure/onboarding-service-signed:0.14.11",
+        "docker.io/harnesssecure/query-service-signed:0.66.8",
+        "docker.io/harnesssecure/dashboard-ui-signed:1.89.0"
       ]
     },
     {

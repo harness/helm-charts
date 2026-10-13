@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.47.0](https://img.shields.io/badge/Version-0.47.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.47.2](https://img.shields.io/badge/Version-0.47.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -102,7 +102,7 @@ docker.io/harnesssecure/delegate-proxy-signed:1.9.0
 docker.io/harnesssecure/gateway-signed:1.72.2
 docker.io/harnesssecure/helm-init-container:1.9.0
 docker.io/harnesssecure/harness-db-migrator-signed:2.66.0
-docker.io/harnesssecure/manager-signed:1.166.8
+docker.io/harnesssecure/manager-signed:1.166.9
 docker.io/harnesssecure/mongo:8.0.26-jammy
 docker.io/harnesssecure/ng-auth-ui-signed:1.39.0
 docker.io/harnesssecure/redis:7.4.9-jammy
@@ -200,7 +200,7 @@ harnesssecure/har-plugin:1.0.6
 
 ## Security Testing Orchestration
 docker.io/harnesssecure/stocore-signed:1.210.3
-docker.io/harnesssecure/ticket-service-signed:1.16.0
+docker.io/harnesssecure/ticket-service-signed:1.17.0
 docker.io/harnesssecure/refid-cache:latest
 harnesssecure/refid-cache:latest
 harnesssecure/sto-plugin:latest
@@ -333,11 +333,11 @@ harnesssecure/harness_terraform:latest
 harnesssecure/harness_terraform_vm:latest
 
 ## Unified Data Platform (UDP) Services
-docker.io/harnesssecure/config-service-signed:0.1.166
+docker.io/harnesssecure/config-service-signed:0.1.170
 docker.io/harnesssecure/schema-service-signed:0.23.0
-docker.io/harnesssecure/onboarding-service-signed:0.12.11
-docker.io/harnesssecure/query-service-signed:0.65.0
-docker.io/harnesssecure/dashboard-ui-signed:1.80.0
+docker.io/harnesssecure/onboarding-service-signed:0.14.11
+docker.io/harnesssecure/query-service-signed:0.66.8
+docker.io/harnesssecure/dashboard-ui-signed:1.89.0
 
 ## Data Infrastructure
 docker.io/harnesssecure/kafka-operator-signed:1.15.4
