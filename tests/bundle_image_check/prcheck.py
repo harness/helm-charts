@@ -373,8 +373,12 @@ def main():
         print(f"  🔍 Checking service '{service_name}' (SMP module: {module})")
         checked_services += 1
 
-        # Render the way SMP does: umbrella values first, docker-repo-map on top
+        # Render the way SMP does: module defaults, then umbrella values, docker-repo-map on top
+        module_values = load("src", "modules", module, "values.yaml", required=False)
         layers = smp_tools.service_override_values(harness_values, repo_map, module, service_name)
+        module_layer = module_values.get(service_name) or {}
+        if module_layer:
+            layers.insert(0, module_layer)
         with values_files(layers, service_name) as override_paths:
             rendered = helm_template(absolute_chart_path, override_paths)
 
