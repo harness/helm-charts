@@ -7204,6 +7204,80 @@ entries:
   harness:
   - apiVersion: v2
     appVersion: 1.0.80917
+    created: "2026-10-13T07:24:37.234116307Z"
+    dependencies:
+    - name: harness-common
+      repository: https://harness.github.io/helm-common
+      version: 1.x.x
+    - condition: global.ccm.enabled
+      name: ccm
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.cd.enabled
+      name: cd
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.chaos.enabled
+      name: chaos
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.ci.enabled
+      name: ci
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.ff.enabled
+      name: ff
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - name: platform
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.2
+    - condition: global.cd.enabled
+      name: srm
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.sto.enabled
+      name: sto
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.1
+    - condition: global.ssca.enabled
+      name: ssca
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.dbops.enabled
+      name: db-devops
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.code.enabled
+      name: code
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.iacm.enabled
+      name: iacm
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.data-infra.enabled
+      name: data-infra
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.ar.enabled
+      name: ar
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.0
+    - condition: global.unified-data-platform.enabled
+      name: unified-data-platform
+      repository: https://harness.github.io/helm-charts
+      version: 0.47.2
+    description: Helm Chart for deploying Harness.
+    digest: 544ee8cc3be322180d514e872b014b159bdf97cb6b19cc8095ff3840a372041e
+    kubeVersion: '>=1.27.0-0'
+    name: harness
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/harness-0.47.2/harness-0.47.2.tgz
+    version: 0.47.2
+  - apiVersion: v2
+    appVersion: 1.0.80917
     created: "2026-10-01T00:42:35.786751403Z"
     dependencies:
     - name: harness-common
@@ -38026,4 +38100,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/unified-data-platform-0.47.0/unified-data-platform-0.47.0.tgz
     version: 0.47.0
-generated: "2026-10-13T07:13:15.276910417Z"
+generated: "2026-10-13T07:24:37.235840576Z"
