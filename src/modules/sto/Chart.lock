@@ -4,6 +4,6 @@ dependencies:
   version: 1.210.3
 - name: ticket-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.16.0
-digest: sha256:f36e845a0e65966bbe687d57e186c55dcea4b94a416661194766a88b0b950ec7
-generated: "2026-10-01T00:16:28.354144877Z"
+  version: 1.17.0
+digest: sha256:967e58e04d10f111b0a48bc6b07d6866704afe81680b143bdcc61e9cbe2c41ee
+generated: "2026-10-13T07:01:36.199600342Z"

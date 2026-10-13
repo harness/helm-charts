@@ -1,6 +1,6 @@
 # unified-data-platform
 
-![Version: 0.47.0](https://img.shields.io/badge/Version-0.47.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.47.2](https://img.shields.io/badge/Version-0.47.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
 A Helm chart for Harness Unified Data Platform (UDP) services
 
@@ -8,10 +8,10 @@ A Helm chart for Harness Unified Data Platform (UDP) services
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | config-service | 0.1.166 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | dashboard-ui | 1.80.0 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | onboarding-service | 0.12.11 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | query-service | 0.65.0 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | config-service | 0.1.170 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | dashboard-ui | 1.89.0 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | onboarding-service | 0.14.11 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | query-service | 0.66.8 |
 | oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | schema-service | 0.23.0 |
 
 ## Values
