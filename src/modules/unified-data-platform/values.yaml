@@ -52,14 +52,6 @@ onboarding-service:
       key: udpInternalSecret
   secretValues:
     UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
-  waitForInitContainer:
-    enabled: true
-    image:
-      registry: docker.io
-      repository: harnesssecure/helm-init-container
-      pullPolicy: Always
-      tag: "1.9.0"
-      digest: ""
   onboardingService:
     serviceAccount:
       create: true
