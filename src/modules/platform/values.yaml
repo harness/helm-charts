@@ -342,9 +342,9 @@ change-data-capture:
 next-gen-ui:
   config:
     ENV: "SMP"
-ng-auth-ui:
+platform-ui:
   config:
     ENV: "SMP"
-platform-ui:
+ng-auth-ui:
   config:
     ENV: "SMP"

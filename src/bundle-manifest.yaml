@@ -22,6 +22,7 @@ modules:
       - pipeline-service-signed
       - ng-manager-signed
       - nextgenui-signed
+      - platform-ui-signed
       - minio
       - log-service-signed
       - cdcdata-signed
@@ -33,7 +34,6 @@ modules:
       - manager-signed
       - mongo
       - ng-auth-ui-signed
-      - platform-ui-signed
       - redis
       - postgresql
       - policy-mgmt
