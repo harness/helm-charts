@@ -348,7 +348,6 @@ next-gen-ui:
   config:
     ENV: "SMP"
   ingress:
-    annotations: {}
     objects:
       # serves the UI at the root path; skipped when CG owns the root ingress
       - name: harness-ui
