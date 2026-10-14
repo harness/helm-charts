@@ -7,7 +7,7 @@ dependencies:
   version: 1.348.1
 - name: bootstrap
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.84.0
+  version: 1.85.0
 - condition: platform.envoy-gateway.enabled
   name: envoy-gateway
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
