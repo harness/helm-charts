@@ -347,6 +347,17 @@ change-data-capture:
 next-gen-ui:
   config:
     ENV: "SMP"
+  ingress:
+    objects:
+      # serves the UI at the root path; skipped when CG owns the root ingress
+      - name: harness-ui
+        when:
+          not:
+            key: global.cg.enabled
+        annotations:
+          nginx.ingress.kubernetes.io/use-regex: "true"
+        paths:
+          - path: /(.*)
 ng-auth-ui:
   config:
     ENV: "SMP"
