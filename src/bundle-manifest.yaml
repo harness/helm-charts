@@ -387,3 +387,4 @@ modules:
     images:
       - mcp-server-signed
       - mcp-server-external-signed
+      - acm-signed

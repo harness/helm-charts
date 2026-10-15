@@ -87,3 +87,22 @@ mcp-server-external:
   config:
     HARNESS_MCP_STATELESS_HTTP: "true"
     SEGMENT_API_KEY: ""
+acm:
+  secrets:
+    smpSharedKubernetesSecrets:
+      - secretName: harness-shared-secrets
+        keys:
+          HARNESS_JWT_BEARER_SECRET: jwtAuthSecret
+          HARNESS_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_DEFAULT_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_IDENTITY_JWT_SECRET: jwtIdentityServiceSecret
+          HARNESS_SERVICES_MANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_NGMANAGER_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_OPA_CLIENT_JWT_SECRET: jwtAuthSecret
+          HARNESS_SERVICES_RESOURCE_GROUP_JWT_SECRET: jwtNextGenManagerSecret
+          HARNESS_SERVICES_TEMPLATE_JWT_SECRET: jwtNextGenManagerSecret
+  config:
+    ENV: "SMP"
+    HARNESS_SERVICES_OPA_IGNORE: "false"
+    HARNESS_SERVICES_OPA_CLIENT_BASEURL: "http://policy-mgmt:3000"
+    HARNESS_SERVICES_OPA_CLIENT_SECURE: "false"

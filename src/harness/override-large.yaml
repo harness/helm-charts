@@ -692,3 +692,18 @@ genai:
         memory: 2Gi
     config:
       NODE_OPTIONS: "--max-old-space-size=2048 --heapsnapshot-signal=SIGUSR2"
+  acm:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 3
+      targetCPU: 80
+      targetMemory: 80
+    instances: 2
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 1Gi
