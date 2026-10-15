@@ -612,6 +612,11 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+  # -- platform-ui (Harness Platform UI) (taints, tolerations, and so on)
+  platform-ui:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
   # -- ng-auth-ui (Next Generation Authorization User Interface) (taints, tolerations, and so on)
   ng-auth-ui:
     affinity: {}

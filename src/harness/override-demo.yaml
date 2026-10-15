@@ -299,6 +299,16 @@ platform:
       requests:
         cpu: 0.1
         memory: 100Mi
+  platform-ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 100Mi
+      requests:
+        cpu: 0.1
+        memory: 100Mi
   ng-auth-ui:
     autoscaling:
       enabled: false

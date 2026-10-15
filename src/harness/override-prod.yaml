@@ -628,6 +628,16 @@ platform:
       requests:
         cpu: 0.5
         memory: 512Mi
+  platform-ui:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 0.5
+        memory: 200Mi
   ng-auth-ui:
     autoscaling:
       enabled: true
