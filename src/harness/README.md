@@ -583,6 +583,7 @@ docker.io/harnesssecure/ip-data-bundle-ipqs-signed:0.1.41-ipqs.78
 | global.database.timescaledb.hosts | list | `["hostname.timescale.com:5432"]` | provide host name for timescaledb |
 | global.dbops | object | `{"enabled":false}` | Enable to install Database Devops (DB Devops) |
 | global.dbopsHelmMigration | object | `{"enabled":true}` | Enable DB DevOps managed migrations (harness-db-migrator) |
+| global.debezium.enabled | bool | `false` | Enable to install the Debezium service (disabled by default) |
 | global.externalSecretsLoader.databases.mongo.databaseRole | string | `""` |  |
 | global.externalSecretsLoader.databases.mongo.engine | string | `""` |  |
 | global.externalSecretsLoader.databases.mongo.overridePath | string | `""` |  |
