@@ -16,7 +16,7 @@ dependencies:
   name: change-data-capture
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.66.0
-- condition: global.ssca.enabled
+- condition: global.debezium.enabled
   name: debezium-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.28.0
