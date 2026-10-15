@@ -80,6 +80,7 @@ gateway:
           TI_SVC_GLOBAL_TOKEN: tiSvcGlobalToken
   config:
     ENV: "SMP"
+    ENABLE_BEARER_CACHE: "true"
 harness-manager:
   secrets:
     smpSharedKubernetesSecrets:
