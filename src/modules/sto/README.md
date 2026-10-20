@@ -1,9 +1,8 @@
 ## Harness STO Chart
 
-A Helm chart for harness STO module
+Helm chart for Harness STO
 
-![Version: 0.7.3](https://img.shields.io/badge/Version-0.7.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.79001](https://img.shields.io/badge/AppVersion-0.0.79001-informational?style=flat-square)
-
+![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.79001](https://img.shields.io/badge/AppVersion-0.0.79001-informational?style=flat-square)
 
 ## Usage
 
@@ -13,54 +12,31 @@ Use the following dependency to add this chart to your Helm chart:
 dependencies:
     - name: harness-sto
       repository: https://harness.github.io/helm-sto
-      version: 0.7.3
+      version: 0.48.0
 ```
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.loadbalancerURL | string | `"https://test"` |  |
-| sto-core.affinity | object | `{}` |  |
-| sto-core.autoscaling.enabled | bool | `false` |  |
-| sto-core.autoscaling.maxReplicas | int | `100` |  |
-| sto-core.autoscaling.minReplicas | int | `1` |  |
-| sto-core.autoscaling.targetCPU | string | `""` |  |
-| sto-core.autoscaling.targetMemory | string | `""` |  |
-| sto-core.fullnameOverride | string | `""` |  |
-| sto-core.image.digest | string | `""` |  |
-| sto-core.image.pullPolicy | string | `"IfNotPresent"` |  |
-| sto-core.image.registry | string | `"docker.io"` |  |
-| sto-core.image.repository | string | `"harness/stocore-signed"` |  |
-| sto-core.image.tag | string | `"v1.47.0"` |  |
-| sto-core.maxSurge | string | `"100%"` |  |
-| sto-core.maxUnavailable | int | `0` |  |
-| sto-core.nameOverride | string | `""` |  |
-| sto-core.nodeSelector | object | `{}` |  |
-| sto-core.podAnnotations | object | `{}` |  |
-| sto-core.podSecurityContext | object | `{}` |  |
-| sto-core.postgresPassword.key | string | `"postgres-password"` |  |
-| sto-core.postgresPassword.name | string | `"postgres"` |  |
-| sto-core.replicaCount | int | `1` |  |
-| sto-core.resources.requests.cpu | string | `"500m"` |  |
-| sto-core.resources.requests.memory | string | `"500Mi"` |  |
-| sto-core.retryMigrations | bool | `true` |  |
-| sto-core.securityContext | object | `{}` |  |
-| sto-core.service.port | int | `4000` |  |
-| sto-core.service.type | string | `"ClusterIP"` |  |
-| sto-core.serviceAccount.annotations | object | `{}` |  |
-| sto-core.serviceAccount.create | bool | `false` |  |
-| sto-core.serviceAccount.name | string | `"harness-default"` |  |
-| sto-core.stoAppAuditJWTSecret.key | string | `"stoAppAuditJWTSecret"` |  |
-| sto-core.stoAppAuditJWTSecret.name | string | `"harness-secrets"` |  |
-| sto-core.stoAppHarnessToken.key | string | `"stoAppHarnessToken"` |  |
-| sto-core.stoAppHarnessToken.name | string | `"harness-secrets"` |  |
-| sto-core.tolerations | list | `[]` |  |
-| sto-core.waitForInitContainer.image.digest | string | `""` |  |
-| sto-core.waitForInitContainer.image.pullPolicy | string | `"IfNotPresent"` |  |
-| sto-core.waitForInitContainer.image.registry | string | `"docker.io"` |  |
-| sto-core.waitForInitContainer.image.repository | string | `"harness/helm-init-container"` |  |
-| sto-core.waitForInitContainer.image.tag | string | `"latest"` |  |
+| sto-core.config.RHS_ENABLED | string | `"true"` |  |
+| sto-core.migrationPostgres.image.repository | string | `"harnesssecure/postgresql"` |  |
+| sto-core.migrationPostgres.image.tag | string | `"14.20-debian"` |  |
+| sto-core.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
+| sto-core.postgres.image.tag | string | `"14.20-debian"` |  |
+| sto-core.secrets.smpSharedKubernetesSecrets[0].keys.APP_INTERNAL_TOKEN_JWT_SECRET | string | `"jwtAuthSecret"` |  |
+| sto-core.secrets.smpSharedKubernetesSecrets[0].keys.APP_NG_MANAGER_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| sto-core.secrets.smpSharedKubernetesSecrets[0].keys.APP_PIPELINE_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| sto-core.secrets.smpSharedKubernetesSecrets[0].keys.APP_QWIET_SHARED_SECRET | string | `"jwtIdentityServiceSecret"` |  |
+| sto-core.secrets.smpSharedKubernetesSecrets[0].keys.APP_TOKEN_JWT_SECRET | string | `"jwtIdentityServiceSecret"` |  |
+| sto-core.secrets.smpSharedKubernetesSecrets[0].keys.RESOURCE_HIERARCHY_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| sto-core.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
+| ticket-service.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
+| ticket-service.postgres.image.tag | string | `"14.20-debian"` |  |
+| ticket-service.secrets.smpSharedKubernetesSecrets[0].keys.APP_INTERNAL_TOKEN_JWT_SECRET | string | `"jwtAuthSecret"` |  |
+| ticket-service.secrets.smpSharedKubernetesSecrets[0].keys.APP_NG_MANAGER_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ticket-service.secrets.smpSharedKubernetesSecrets[0].keys.APP_TOKEN_JWT_SECRET | string | `"jwtIdentityServiceSecret"` |  |
+| ticket-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)
