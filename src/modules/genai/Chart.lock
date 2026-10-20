@@ -1,0 +1,9 @@
+dependencies:
+- name: mcp-server-internal
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.181.0
+- name: mcp-server-external
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.161.0
+digest: sha256:9423e4c09c0f12e95e60118df778947ed380d4f3c43fe3282ab5a8aff33a9279
+generated: "2026-10-20T07:04:49.87921856Z"
