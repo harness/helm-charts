@@ -11,6 +11,7 @@ sto-core:
           APP_PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
           APP_QWIET_SHARED_SECRET: jwtIdentityServiceSecret
           APP_TOKEN_JWT_SECRET: jwtIdentityServiceSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
     RHS_ENABLED: "true"
   migrationPostgres:

@@ -23,6 +23,9 @@ global:
   cdc:
     # -- Enable to install Change data capture
     enabled: true
+  debezium:
+    # -- Enable to install the Debezium service (disabled by default)
+    enabled: false
   ccm:
     enabled: false
   # -- Enable to install Continuous Deployment (CD)
@@ -596,7 +599,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.08.89806
+        tag: 26.09.90107
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -759,51 +762,6 @@ pg-upgrade:
       tag: 16.15-bookworm
 data-infra:
   kafka-connect-strimzi:
-    database:
-      postgres:
-        registry:
-          enabled: true
-          hosts:
-            - postgres
-          database: registry_db
-          secrets:
-            kubernetesSecrets:
-              - secretName: "postgres"
-                keys:
-                  POSTGRES_USER: ""
-                  POSTGRES_PASSWORD: "postgres-password"
-      mongo:
-        componentharness:
-          enabled: true
-          protocol: mongodb
-          database: component-harness
-          # Single seed host; replicaSet=rs0 lets the driver discover other members when global.ha is true.
-          hosts:
-            - mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017
-          extraArgs: "replicaSet=rs0&authSource=admin"
-          secrets:
-            kubernetesSecrets:
-              - secretName: harness-secrets
-                keys:
-                  MONGO_USER: mongodbUsername
-              - secretName: mongodb-replicaset-chart
-                keys:
-                  MONGO_PASSWORD: mongodb-root-password
-        sscangharness:
-          enabled: true
-          protocol: mongodb
-          database: harness-cdng
-          hosts:
-            - mongodb-replicaset-chart-0.mongodb-replicaset-chart:27017
-          extraArgs: "replicaSet=rs0&authSource=admin"
-          secrets:
-            kubernetesSecrets:
-              - secretName: harness-secrets
-                keys:
-                  MONGO_USER: mongodbUsername
-              - secretName: mongodb-replicaset-chart
-                keys:
-                  MONGO_PASSWORD: mongodb-root-password
     connectors:
       postgres-registry-async-service:
         enabled: true

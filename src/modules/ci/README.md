@@ -1,6 +1,6 @@
 # ci
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -8,7 +8,50 @@ A Helm chart for Kubernetes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://harness.github.io/helm-ci-manager | ci-manager | 0.7.x |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | ci-manager | 1.161.10 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | ti-service | 1.80.4 |
+
+## Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| ci-manager.config.ENV | string | `"SMP"` |  |
+| ci-manager.config.HARNESS_IMAGE_REPOSITORY | string | `"harnesssecure"` |  |
+| ci-manager.config.REFID_CACHE_IMAGE | string | `"harnesssecure/refid-cache:latest"` |  |
+| ci-manager.config.RHS_ENABLED | string | `"true"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.ANNOTATIONS_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.CACHE_SERVICE_GLOBAL_TOKEN | string | `"cacheServiceToken"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.COVERAGE_SERVICE_TOKEN | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.CVNG_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.GITNESS_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_FULCIO_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_REGISTRY_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.HSA_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.HSQS_AUTH_TOKEN | string | `"jwtSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.IACM_SERVICE_GLOBAL_TOKEN | string | `"stoServiceToken"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.JWT_AUTH_SECRET | string | `"jwtAuthSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.JWT_DATA_HANDLER_SECRET | string | `"jwtDataHandlerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.JWT_IDENTITY_SERVICE_SECRET | string | `"jwtIdentityServiceSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.JWT_RELICX_SECRET | string | `"jwtRelicxSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.LOG_SERVICE_GLOBAL_TOKEN | string | `"logServiceToken"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.MANAGER_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.NEXT_GEN_MANAGER_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.OPA_SERVER_SECRET | string | `"jwtAuthSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.PLATFORM_CONFIG_SERVICE_SECRET | string | `"platformConfigServiceSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.RESOURCE_HIERARCHY_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.SECRET_CONNECTOR_SERVICE_SECRET | string | `"secretConnectorServiceSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.SSCA_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.TICKET_SERVICE_GLOBAL_TOKEN | string | `"stoServiceToken"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.TI_SERVICE_GLOBAL_TOKEN | string | `"tiServiceToken"` |  |
+| ci-manager.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
+| ti-service.config.ENV | string | `"SMP"` |  |
+| ti-service.ingress.objects[0].annotations."nginx.ingress.kubernetes.io/proxy-read-timeout" | string | `"1800"` |  |
+| ti-service.ingress.objects[0].annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$2"` |  |
+| ti-service.ingress.objects[0].name | string | `"ti-service"` |  |
+| ti-service.ingress.objects[0].paths[0].path | string | `"{{ .Values.global.ingress.pathPrefix }}/ti-service(/|$)(.*)"` |  |
+| ti-service.secrets.smpSharedKubernetesSecrets[0].keys.TI_SERVICE_GLOBAL_TOKEN | string | `"tiSvcGlobalToken"` |  |
+| ti-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

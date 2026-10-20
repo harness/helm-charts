@@ -17,6 +17,24 @@ config-service:
     UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
     AUTHZ_SERVICE_SECRET: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
   configService:
+    appConfig:
+      # Enable the auth-lib UserProfile cache (off by default). Without it every
+      # authenticated request re-pages all of the caller's role assignments from
+      # access-control; for large-RBAC principals that heavy, uncached fetch can
+      # starve the JVM and trip liveness probes. The cache serves the resolved
+      # profile for the TTL instead, matching query-service.
+      harness:
+        auth:
+          cache:
+            enabled: true
+            profile:
+              enabled: true
+              ttl-seconds: 300
+              max-size: 2000
+            token-validation:
+              enabled: true
+              ttl-seconds: 300
+              max-size: 2000
     kafka:
       enabled: false
       tlsUserSecret: ""
@@ -37,6 +55,22 @@ schema-service:
     UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
     AUTHZ_SERVICE_SECRET: "IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM"
   schemaService:
+    appConfig:
+      # See config-service note above: enable the auth-lib UserProfile cache so
+      # the per-request role-assignment fetch is served from cache instead of
+      # re-paging access-control on every authenticated call.
+      harness:
+        auth:
+          cache:
+            enabled: true
+            profile:
+              enabled: true
+              ttl-seconds: 300
+              max-size: 2000
+            token-validation:
+              enabled: true
+              ttl-seconds: 300
+              max-size: 2000
     kafka:
       enabled: false
       tlsUserSecret: ""
@@ -52,14 +86,6 @@ onboarding-service:
       key: udpInternalSecret
   secretValues:
     UDP_INTERNAL_SECRET: "x6ee13sGJdtzccBJhgHfMXtMTE37EBJ9wIrXH01OUrOcRfbwPLo5oaSdplXnGlAq"
-  waitForInitContainer:
-    enabled: true
-    image:
-      registry: docker.io
-      repository: harnesssecure/helm-init-container
-      pullPolicy: Always
-      tag: "1.9.0"
-      digest: ""
   onboardingService:
     serviceAccount:
       create: true

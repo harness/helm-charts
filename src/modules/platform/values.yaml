@@ -80,6 +80,7 @@ gateway:
           TI_SVC_GLOBAL_TOKEN: tiSvcGlobalToken
   config:
     ENV: "SMP"
+    ENABLE_BEARER_CACHE: "true"
 harness-manager:
   secrets:
     smpSharedKubernetesSecrets:
@@ -139,6 +140,9 @@ ng-custom-dashboards:
           AUTH_CG_MANAGER_SECRET: jwtNextGenManagerSecret
           AUTH_IDENTITY_SERVICE_SECRET: jwtIdentityServiceSecret
           AUTH_NG_MANAGER_SECRET: jwtNextGenManagerSecret
+          RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    rhsEnabled: "true"
 ng-dashboard-aggregator:
   secrets:
     smpSharedKubernetesSecrets:
@@ -151,6 +155,8 @@ ng-dashboard-aggregator:
           NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
           PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    RHS_ENABLED: "true"
 ng-manager:
   secrets:
     smpSharedKubernetesSecrets:
@@ -342,6 +348,17 @@ change-data-capture:
 next-gen-ui:
   config:
     ENV: "SMP"
+  ingress:
+    objects:
+      # serves the UI at the root path; skipped when CG owns the root ingress
+      - name: harness-ui
+        when:
+          not:
+            key: global.cg.enabled
+        annotations:
+          nginx.ingress.kubernetes.io/use-regex: "true"
+        paths:
+          - path: /(.*)
 platform-ui:
   config:
     ENV: "SMP"
