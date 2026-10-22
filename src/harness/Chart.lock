@@ -19,7 +19,7 @@ dependencies:
   version: 0.48.0
 - name: platform
   repository: https://harness.github.io/helm-charts
-  version: 0.48.0
+  version: 0.48.1
 - name: srm
   repository: https://harness.github.io/helm-charts
   version: 0.48.0
@@ -50,5 +50,5 @@ dependencies:
 - name: genai
   repository: https://harness.github.io/helm-charts
   version: 0.48.0
-digest: sha256:dd7ac21e3e8317e36e5b9b7154dde991735513ca06a2a450f4f67704493f7c96
-generated: "2026-10-20T07:22:28.409607187Z"
+digest: sha256:bad9cd418c1671cb88a93a72671180605d0294e0627618dc53bb6a7df9e19a03
+generated: "2026-10-22T10:47:34.971665296Z"
