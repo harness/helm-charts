@@ -133,6 +133,13 @@ run_verify() {
   log "  Verification saved: $output_file"
 }
 
+run_analyze() {
+  local pod="${1:-$PG_POD}"
+  log "  Running ANALYZE (vacuumdb --analyze-only) on $pod..."
+  kubectl exec -n "$NAMESPACE" "$pod" -- \
+    bash -c "PGPASSWORD=\$(cat \$POSTGRES_PASSWORD_FILE) vacuumdb -U $PG_USER --all --analyze-only --jobs=4" 2>&1 | tail -3 | tee -a "$LOG_FILE"
+}
+
 # --- Comparison report ---
 generate_report() {
   log "Generating comparison report..."
@@ -195,7 +202,7 @@ generate_report() {
           status="PASS"
           passed=$((passed + 1))
         else
-          status="FAIL"
+          status="DIFF"
           failed=$((failed + 1))
         fi
       fi
@@ -206,17 +213,21 @@ generate_report() {
     echo "└──────────────────────────────────────────┴──────────────┴──────────────┴────────┘"
     echo ""
     echo "═══════════════════════════════════════════"
-    echo "  TOTAL: $total | PASS: $passed | FAIL: $failed | SKIP: $skipped"
+    echo "  TOTAL: $total | PASS: $passed | DIFF: $failed | SKIP: $skipped"
 
     if [[ $failed -eq 0 ]]; then
       echo "  RESULT: ✓ ALL CHECKS PASSED"
     else
-      echo "  RESULT: ✗ $failed TABLE(S) HAVE SIGNIFICANT ROW COUNT CHANGES (>5%)"
+      echo "  RESULT: ℹ $failed TABLE(S) SHOW ROW-COUNT DIFFERENCES (>5%) — see note below"
     fi
     echo "═══════════════════════════════════════════"
     echo ""
-    echo "Note: Small differences (<5%) in row counts are expected"
-    echo "      (batch/queue tables, app activity between captures)."
+    echo "Note: pg_upgrade (--link) hard-links your data files into the new"
+    echo "      cluster — it does not rewrite or risk losing table data."
+    echo "      This report compares an approximate row-count statistic"
+    echo "      (refreshed by ANALYZE), not an exact count, so a DIFF does"
+    echo "      not by itself mean data loss. To confirm exactly, run:"
+    echo "        SELECT COUNT(*) FROM <schema>.<table>;"
   } > "$REPORT_FILE"
 
   cat "$REPORT_FILE" | tee -a "$LOG_FILE"
@@ -259,13 +270,6 @@ if [[ "$CURRENT_PG_VERSION" != "$PG_OLD_VERSION" ]]; then
 fi
 
 # -----------------------------------------------
-# Pre-upgrade verification
-# -----------------------------------------------
-log ""
-log "=== PRE-UPGRADE VERIFICATION ==="
-run_verify "$VERIFY_BEFORE"
-
-# -----------------------------------------------
 # Backup confirmation
 # -----------------------------------------------
 prompt_yes_no "Have you taken a backup of PostgreSQL data? (pg_dumpall / volume snapshot / cloud disk snapshot)"
@@ -275,17 +279,25 @@ prompt_yes_no "Have you taken a backup of PostgreSQL data? (pg_dumpall / volume 
 # -----------------------------------------------
 log "Scaling down $PG_STS_NAME in $NAMESPACE..."
 REPLICAS=$(kubectl get sts -n "$NAMESPACE" "$PG_STS_NAME" -o jsonpath='{.status.readyReplicas}' 2>/dev/null || echo "0")
-if [[ "${REPLICAS:-0}" != "0" ]]; then
-  log "  Running CHECKPOINT before scale down..."
-  _pg_exec "$PG_POD" "postgres" "CHECKPOINT;" >/dev/null
-  prompt_yes_no "Scale down $PG_STS_NAME to 0 replicas?"
-  kubectl scale sts -n "$NAMESPACE" "$PG_STS_NAME" --replicas=0
-  log "  Waiting for pod $PG_POD to terminate..."
-  kubectl wait --for=delete pod/"$PG_POD" -n "$NAMESPACE" --timeout=180s 2>/dev/null || true
-  log "  Scale down complete."
-else
-  log "  Already at 0 replicas."
+if [[ "${REPLICAS:-0}" == "0" ]]; then
+  log "  Pod is scaled down. Scaling up to 1 to run pre-upgrade verification..."
+  kubectl scale sts -n "$NAMESPACE" "$PG_STS_NAME" --replicas=1
+  kubectl wait --for=condition=ready pod/"$PG_POD" -n "$NAMESPACE" --timeout=300s
 fi
+
+log "  Running CHECKPOINT before scale down..."
+_pg_exec "$PG_POD" "postgres" "CHECKPOINT;" >/dev/null
+
+log ""
+log "=== PRE-UPGRADE VERIFICATION ==="
+run_analyze "$PG_POD"
+run_verify "$VERIFY_BEFORE"
+
+prompt_yes_no "Scale down $PG_STS_NAME to 0 replicas?"
+kubectl scale sts -n "$NAMESPACE" "$PG_STS_NAME" --replicas=0
+log "  Waiting for pod $PG_POD to terminate..."
+kubectl wait --for=delete pod/"$PG_POD" -n "$NAMESPACE" --timeout=180s 2>/dev/null || true
+log "  Scale down complete."
 
 # -----------------------------------------------
 # Step 1: Create upgrade pod with PVC mounted
@@ -471,8 +483,7 @@ kubectl wait --for=condition=ready pod/"$PG_POD" -n "$NAMESPACE" --timeout=300s
 
 log ""
 log "Running post-upgrade ANALYZE (for query planner)..."
-kubectl exec -n "$NAMESPACE" "$PG_POD" -- \
-  bash -c "PGPASSWORD=\$(cat \$POSTGRES_PASSWORD_FILE) vacuumdb -U $PG_USER --all --analyze-only --jobs=4" 2>&1 | tail -3 | tee -a "$LOG_FILE"
+run_analyze "$PG_POD"
 
 # -----------------------------------------------
 # Post-upgrade verification
