@@ -699,6 +699,11 @@ iacm:
 upgrades:
   versionLookups:
     enabled: true
+db-devops:
+  db-devops-ui:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
 code:
   code-ui:
     affinity: {}
