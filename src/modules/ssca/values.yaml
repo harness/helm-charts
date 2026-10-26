@@ -2,6 +2,13 @@
 # Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
 
 component-analysis-service:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
@@ -16,6 +23,13 @@ component-analysis-service:
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           SSCA_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
 component-service:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
@@ -28,6 +42,13 @@ component-service:
   config:
     EOL_DISABLE_MAVEN_EOL: "true"
 ssca-manager:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets

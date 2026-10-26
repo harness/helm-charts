@@ -2,6 +2,13 @@
 # Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
 
 cv-nextgen:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets

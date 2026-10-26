@@ -2,6 +2,13 @@
 # Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
 
 access-control:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
@@ -47,6 +54,13 @@ access-control:
       repository: "harnesssecure/postgresql"
       tag: "14.20-debian"
 audit-event-streaming:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
@@ -55,12 +69,26 @@ audit-event-streaming:
           PLATFORM_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
 debezium-service:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
         keys:
           MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
 gateway:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
@@ -82,6 +110,13 @@ gateway:
     ENV: "SMP"
     ENABLE_BEARER_CACHE: "true"
 harness-manager:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
@@ -158,6 +193,13 @@ ng-dashboard-aggregator:
   config:
     RHS_ENABLED: "true"
 ng-manager:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
@@ -196,6 +238,13 @@ ng-manager:
     RHS_ENABLED: "true"
   shutdownHooksEnabled: true
 pipeline-service:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
@@ -235,6 +284,13 @@ pipeline-service:
     PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS: "true"
   shutdownHooksEnabled: true
 platform-service:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
@@ -284,6 +340,13 @@ queue-service:
         keys:
           JWT_SECRET: jwtSecret
 resource-hierarchy-service:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
@@ -309,6 +372,13 @@ service-discovery-manager:
   config:
     RHS_ENABLED: "true"
 template-service:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: "1.37.0"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
