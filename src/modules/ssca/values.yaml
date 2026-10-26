@@ -6,8 +6,8 @@ component-analysis-service:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -27,8 +27,8 @@ component-service:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -46,8 +46,8 @@ ssca-manager:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:

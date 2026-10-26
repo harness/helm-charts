@@ -6,8 +6,8 @@ access-control:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -58,8 +58,8 @@ audit-event-streaming:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -73,8 +73,8 @@ debezium-service:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -86,8 +86,8 @@ gateway:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -114,8 +114,8 @@ harness-manager:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -197,8 +197,8 @@ ng-manager:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -242,8 +242,8 @@ pipeline-service:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -288,8 +288,8 @@ platform-service:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -344,8 +344,8 @@ resource-hierarchy-service:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
@@ -376,8 +376,8 @@ template-service:
   jfr:
     image:
       registry: docker.io
-      repository: harnesssecure/ubi
-      tag: "ubi9-minimal-curated"
+      repository: busybox
+      tag: "1.37.0"
       digest: ""
   secrets:
     smpSharedKubernetesSecrets:
