@@ -416,7 +416,7 @@ bootstrap:
       metrics:
         image:
           repository: harnesssecure/redis_exporter
-          tag: 1.93.0-jammy   
+          tag: 1.94.0-jammy   
 change-data-capture:
   config:
     ENV: "SMP"
