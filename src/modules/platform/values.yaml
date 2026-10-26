@@ -412,6 +412,11 @@ bootstrap:
       image:
         repository: "harnesssecure/postgresql"
         tag: "14.20-debian"
+    redis:
+      metrics:
+        image:
+          repository: harnesssecure/redis_exporter
+          tag: 1.93.0-jammy   
 change-data-capture:
   config:
     ENV: "SMP"
