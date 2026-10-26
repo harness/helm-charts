@@ -2,6 +2,13 @@
 # Secret mappings (<ENV_VAR>: <key in harness-shared-secrets>) apply when global.sharedSecrets.enabled=true.
 
 ci-manager:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: harnesssecure/ubi
+      tag: "ubi9-minimal-curated"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets

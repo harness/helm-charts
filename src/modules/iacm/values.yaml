@@ -25,6 +25,13 @@ iac-server:
       repository: "harnesssecure/postgresql"
       tag: "14.20-debian"
 iacm-manager:
+  # JFR init container image
+  jfr:
+    image:
+      registry: docker.io
+      repository: harnesssecure/ubi
+      tag: "ubi9-minimal-curated"
+      digest: ""
   secrets:
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
