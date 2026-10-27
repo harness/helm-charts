@@ -337,8 +337,8 @@
       "images": [
         "docker.io/harnesssecure/config-service-signed:0.1.170",
         "docker.io/harnesssecure/schema-service-signed:0.23.0",
-        "docker.io/harnesssecure/onboarding-service-signed:0.14.11",
-        "docker.io/harnesssecure/query-service-signed:0.66.8",
+        "docker.io/harnesssecure/onboarding-service-signed:0.14.89",
+        "docker.io/harnesssecure/query-service-signed:0.75.3",
         "docker.io/harnesssecure/dashboard-ui-signed:1.89.0"
       ]
     },
