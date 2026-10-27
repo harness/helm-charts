@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.47.2](https://img.shields.io/badge/Version-0.47.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.47.3](https://img.shields.io/badge/Version-0.47.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -335,8 +335,8 @@ harnesssecure/harness_terraform_vm:latest
 ## Unified Data Platform (UDP) Services
 docker.io/harnesssecure/config-service-signed:0.1.170
 docker.io/harnesssecure/schema-service-signed:0.23.0
-docker.io/harnesssecure/onboarding-service-signed:0.14.11
-docker.io/harnesssecure/query-service-signed:0.66.8
+docker.io/harnesssecure/onboarding-service-signed:0.14.89
+docker.io/harnesssecure/query-service-signed:0.75.3
 docker.io/harnesssecure/dashboard-ui-signed:1.89.0
 
 ## Data Infrastructure
