@@ -62,7 +62,7 @@ dependencies:
 - condition: global.unified-data-platform.enabled
   name: unified-data-platform
   repository: https://harness.github.io/helm-charts
-  version: 0.48.0
+  version: 0.48.2
 - condition: global.genai.enabled
   name: genai
   repository: https://harness.github.io/helm-charts
