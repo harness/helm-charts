@@ -23,9 +23,6 @@ global:
   cdc:
     # -- Enable to install Change data capture
     enabled: true
-  debezium:
-    # -- Enable to install the Debezium service (disabled by default)
-    enabled: false
   ccm:
     enabled: false
   # -- Enable to install Continuous Deployment (CD)

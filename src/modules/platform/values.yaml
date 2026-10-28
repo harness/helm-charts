@@ -68,19 +68,6 @@ audit-event-streaming:
           NEXT_GEN_MANAGER_SECRET: jwtNextGenManagerSecret
           PLATFORM_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
-debezium-service:
-  # JFR init container image
-  jfr:
-    image:
-      registry: docker.io
-      repository: busybox
-      tag: "1.37.0"
-      digest: ""
-  secrets:
-    smpSharedKubernetesSecrets:
-      - secretName: harness-shared-secrets
-        keys:
-          MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
 gateway:
   # JFR init container image
   jfr:

@@ -37,7 +37,6 @@ modules:
       - postgresql
       - policy-mgmt
       - smp-service-discovery-server-signed
-      - debezium-service-signed
       - audit-event-streaming-signed
       - queue-service-signed
       - resource-hierarchy-service-signed

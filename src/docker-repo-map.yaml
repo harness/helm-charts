@@ -88,10 +88,6 @@ cv-nextgen:
   image:
     registry: docker.io
     repository: harnesssecure/cv-nextgen-signed
-debezium-service:
-  image:
-    registry: docker.io
-    repository: harnesssecure/debezium-service-signed
 delegate-proxy:
   image:
     registry: docker.io
