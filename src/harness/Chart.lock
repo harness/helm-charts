@@ -1,7 +1,7 @@
 dependencies:
 - name: harness-common
   repository: https://harness.github.io/helm-common
-  version: 1.10.0
+  version: 1.10.2
 - name: ccm
   repository: https://harness.github.io/helm-charts
   version: 0.48.0
@@ -46,9 +46,9 @@ dependencies:
   version: 0.48.0
 - name: unified-data-platform
   repository: https://harness.github.io/helm-charts
-  version: 0.48.0
+  version: 0.48.2
 - name: genai
   repository: https://harness.github.io/helm-charts
   version: 0.48.0
-digest: sha256:bad9cd418c1671cb88a93a72671180605d0294e0627618dc53bb6a7df9e19a03
-generated: "2026-10-22T10:47:34.971665296Z"
+digest: sha256:dd6a2a36f9d96a3b5877ab35ab771e5776671fb3f56ca017493954c3ee95caf3
+generated: "2026-10-28T15:32:31.827460472Z"
