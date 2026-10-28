@@ -180,6 +180,7 @@ global:
   # -- Istio Ingress Settings
   istio:
     enabled: false
+    enableRegexRoutes: true
     gateway:
       create: true
       # -- override the name of gateway
