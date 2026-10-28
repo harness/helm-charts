@@ -65,8 +65,6 @@ dependencies:
 | bootstrap.database.postgresql.image.tag | string | `"14.20-debian"` |  |
 | bootstrap.networking.nginx.controller.config.use-forwarded-headers | string | `"true"` |  |
 | change-data-capture.config.ENV | string | `"SMP"` |  |
-| debezium-service.secrets.smpSharedKubernetesSecrets[0].keys.MANAGER_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
-| debezium-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | gateway.config.ENABLE_BEARER_CACHE | string | `"true"` |  |
 | gateway.config.ENV | string | `"SMP"` |  |
 | gateway.secrets.smpSharedKubernetesSecrets[0].keys.JWT_ADMIN_PORTAL_SECRET | string | `"jwtExternalServiceSecret"` |  |

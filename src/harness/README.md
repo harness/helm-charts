@@ -111,7 +111,6 @@ docker.io/harnesssecure/postgresql:14.20-debian
 docker.io/harnesssecure/postgresql:16.15-bookworm
 docker.io/harnesssecure/policy-mgmt:1.71.0
 docker.io/harnesssecure/smp-service-discovery-server-signed:0.84.0
-docker.io/harnesssecure/debezium-service-signed:1.28.0
 docker.io/harnesssecure/audit-event-streaming-signed:1.117.0
 docker.io/harnesssecure/queue-service-signed:1.16.0
 docker.io/harnesssecure/resource-hierarchy-service-signed:1.60.1
@@ -480,7 +479,6 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | global.database.timescaledb.hosts | list | `["hostname.timescale.com:5432"]` | provide host name for timescaledb |
 | global.dbops | object | `{"enabled":false}` | Enable to install Database Devops (DB Devops) |
 | global.dbopsHelmMigration | object | `{"enabled":true}` | Enable DB DevOps managed migrations (harness-db-migrator) |
-| global.debezium.enabled | bool | `false` | Enable to install the Debezium service (disabled by default) |
 | global.externalSecretsLoader.databases.mongo.databaseRole | string | `""` |  |
 | global.externalSecretsLoader.databases.mongo.engine | string | `""` |  |
 | global.externalSecretsLoader.databases.mongo.overridePath | string | `""` |  |

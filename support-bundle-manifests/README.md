@@ -194,7 +194,6 @@ The manifests are divided into categories based on modules and are present insid
 
 - access-control
 - change-data-capture
-- debezium-service
 - gateway
 - manager
 - log-service
