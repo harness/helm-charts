@@ -20,7 +20,7 @@ dependencies:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | access-control.config.ENV | string | `"SMP"` |  |
-| access-control.config.RHS_ENABLED | string | `"true"` |  |
+| access-control.config.RHS_ENABLED | string | `"false"` |  |
 | access-control.postgresql.image.repository | string | `"harnesssecure/postgresql"` |  |
 | access-control.postgresql.image.tag | string | `"14.20-debian"` |  |
 | access-control.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -82,7 +82,7 @@ dependencies:
 | gateway.secrets.smpSharedKubernetesSecrets[0].keys.TI_SVC_GLOBAL_TOKEN | string | `"tiSvcGlobalToken"` |  |
 | gateway.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | harness-manager.config.ENV | string | `"SMP"` |  |
-| harness-manager.config.RHS_ENABLED | string | `"true"` |  |
+| harness-manager.config.RHS_ENABLED | string | `"false"` |  |
 | harness-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | harness-manager.secrets.smpSharedKubernetesSecrets[0].keys.COMMAND_LIBRARY_PUBLISHING_SECRET | string | `"commandLibraryPublishingSecret"` |  |
 | harness-manager.secrets.smpSharedKubernetesSecrets[0].keys.DELEGATE_SERVICE_MANAGEMENT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -126,7 +126,7 @@ dependencies:
 | next-gen-ui.ingress.objects[0].paths[0].path | string | `"/(.*)"` |  |
 | next-gen-ui.ingress.objects[0].when.not.key | string | `"global.cg.enabled"` |  |
 | ng-auth-ui.config.ENV | string | `"SMP"` |  |
-| ng-custom-dashboards.config.rhsEnabled | string | `"true"` |  |
+| ng-custom-dashboards.config.rhsEnabled | string | `"false"` |  |
 | ng-custom-dashboards.secrets.smpSharedKubernetesSecrets[0].keys.AUTH_ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-custom-dashboards.secrets.smpSharedKubernetesSecrets[0].keys.AUTH_CCM_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-custom-dashboards.secrets.smpSharedKubernetesSecrets[0].keys.AUTH_CG_MANAGER_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -134,7 +134,7 @@ dependencies:
 | ng-custom-dashboards.secrets.smpSharedKubernetesSecrets[0].keys.AUTH_NG_MANAGER_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-custom-dashboards.secrets.smpSharedKubernetesSecrets[0].keys.RESOURCE_HIERARCHY_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-custom-dashboards.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
-| ng-dashboard-aggregator.config.RHS_ENABLED | string | `"true"` |  |
+| ng-dashboard-aggregator.config.RHS_ENABLED | string | `"false"` |  |
 | ng-dashboard-aggregator.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-dashboard-aggregator.secrets.smpSharedKubernetesSecrets[0].keys.JWT_AUTH_SECRET | string | `"jwtAuthSecret"` |  |
 | ng-dashboard-aggregator.secrets.smpSharedKubernetesSecrets[0].keys.JWT_IDENTITY_SERVICE_SECRET | string | `"jwtIdentityServiceSecret"` |  |
@@ -144,7 +144,7 @@ dependencies:
 | ng-dashboard-aggregator.secrets.smpSharedKubernetesSecrets[0].keys.RESOURCE_HIERARCHY_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-dashboard-aggregator.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | ng-manager.config.ENV | string | `"SMP"` |  |
-| ng-manager.config.RHS_ENABLED | string | `"true"` |  |
+| ng-manager.config.RHS_ENABLED | string | `"false"` |  |
 | ng-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-manager.secrets.smpSharedKubernetesSecrets[0].keys.AIMLOPS_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-manager.secrets.smpSharedKubernetesSecrets[0].keys.APPSEC_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -178,7 +178,7 @@ dependencies:
 | ng-manager.shutdownHooksEnabled | bool | `true` |  |
 | pipeline-service.config.ENV | string | `"SMP"` |  |
 | pipeline-service.config.PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS | string | `"true"` |  |
-| pipeline-service.config.RHS_ENABLED | string | `"true"` |  |
+| pipeline-service.config.RHS_ENABLED | string | `"false"` |  |
 | pipeline-service.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | pipeline-service.secrets.smpSharedKubernetesSecrets[0].keys.AISRE_SERVICE_CLIENT_SECRET | string | `"jwtIdentityServiceSecret"` |  |
 | pipeline-service.secrets.smpSharedKubernetesSecrets[0].keys.ANNOTATIONS_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -211,7 +211,7 @@ dependencies:
 | pipeline-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | pipeline-service.shutdownHooksEnabled | bool | `true` |  |
 | platform-service.config.ENV | string | `"SMP"` |  |
-| platform-service.config.RHS_ENABLED | string | `"true"` |  |
+| platform-service.config.RHS_ENABLED | string | `"false"` |  |
 | platform-service.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | platform-service.secrets.smpSharedKubernetesSecrets[0].keys.APPSEC_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | platform-service.secrets.smpSharedKubernetesSecrets[0].keys.CDE_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -236,7 +236,7 @@ dependencies:
 | platform-service.secrets.smpSharedKubernetesSecrets[0].keys.SECRET_CONNECTOR_SERVICE_SECRET | string | `"secretConnectorServiceSecret"` |  |
 | platform-service.secrets.smpSharedKubernetesSecrets[0].keys.TEMPLATE_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | platform-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
-| policy-mgmt.config.RHS_ENABLED | string | `"true"` |  |
+| policy-mgmt.config.RHS_ENABLED | string | `"false"` |  |
 | policy-mgmt.secrets.smpSharedKubernetesSecrets[0].keys.APP_INTERNAL_TOKEN_JWT_SECRET | string | `"jwtAuthSecret"` |  |
 | policy-mgmt.secrets.smpSharedKubernetesSecrets[0].keys.APP_NEXT_GEN_MANAGER_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | policy-mgmt.secrets.smpSharedKubernetesSecrets[0].keys.APP_TOKEN_JWT_SECRET | string | `"jwtIdentityServiceSecret"` |  |
@@ -253,7 +253,7 @@ dependencies:
 | resource-hierarchy-service.secrets.smpSharedKubernetesSecrets[0].keys.RESOURCE_HIERARCHY_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | resource-hierarchy-service.secrets.smpSharedKubernetesSecrets[0].keys.SECRET_CONNECTOR_SERVICE_SECRET | string | `"secretConnectorServiceSecret"` |  |
 | resource-hierarchy-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
-| service-discovery-manager.config.RHS_ENABLED | string | `"true"` |  |
+| service-discovery-manager.config.RHS_ENABLED | string | `"false"` |  |
 | service-discovery-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACL_JWT_SECRET | string | `"jwtIdentityServiceSecret"` |  |
 | service-discovery-manager.secrets.smpSharedKubernetesSecrets[0].keys.JWT_SECRET | string | `"jwtAuthSecret"` |  |
 | service-discovery-manager.secrets.smpSharedKubernetesSecrets[0].keys.LOG_SERVICE_SECRET | string | `"logServiceToken"` |  |
@@ -262,7 +262,7 @@ dependencies:
 | service-discovery-manager.secrets.smpSharedKubernetesSecrets[0].keys.SERVICE_DISCOVERY_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | service-discovery-manager.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | template-service.config.ENV | string | `"SMP"` |  |
-| template-service.config.RHS_ENABLED | string | `"true"` |  |
+| template-service.config.RHS_ENABLED | string | `"false"` |  |
 | template-service.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | template-service.secrets.smpSharedKubernetesSecrets[0].keys.CVNG_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | template-service.secrets.smpSharedKubernetesSecrets[0].keys.HSQS_AUTH_TOKEN | string | `"queueServiceSecret"` |  |

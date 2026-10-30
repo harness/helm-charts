@@ -40,7 +40,7 @@ ci-manager:
           TI_SERVICE_GLOBAL_TOKEN: tiServiceToken
   config:
     ENV: "SMP"
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
     REFID_CACHE_IMAGE: harnesssecure/refid-cache:latest
     HARNESS_IMAGE_REPOSITORY: harnesssecure
 ti-service:

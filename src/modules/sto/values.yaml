@@ -13,7 +13,7 @@ sto-core:
           APP_TOKEN_JWT_SECRET: jwtIdentityServiceSecret
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
   migrationPostgres:
     image:
       repository: "harnesssecure/postgresql"

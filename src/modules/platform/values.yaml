@@ -48,7 +48,7 @@ access-control:
           USER_GROUP_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
     ENV: "SMP"
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
   postgresql:
     image:
       repository: "harnesssecure/postgresql"
@@ -138,7 +138,7 @@ harness-manager:
           jwtZendeskSecret: jwtZendeskSecret
   config:
     ENV: "SMP"
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
   shutdownHooksEnabled: true
 log-service:
   secrets:
@@ -164,7 +164,7 @@ ng-custom-dashboards:
           AUTH_NG_MANAGER_SECRET: jwtNextGenManagerSecret
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
-    rhsEnabled: "true"
+    rhsEnabled: "false"
 ng-dashboard-aggregator:
   secrets:
     smpSharedKubernetesSecrets:
@@ -178,7 +178,7 @@ ng-dashboard-aggregator:
           PIPELINE_SERVICE_SECRET: jwtNextGenManagerSecret
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
 ng-manager:
   # JFR init container image
   jfr:
@@ -222,7 +222,7 @@ ng-manager:
           USER_VERIFICATION_SECRET: userVerificationSecret
   config:
     ENV: "SMP"
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
   shutdownHooksEnabled: true
 pipeline-service:
   # JFR init container image
@@ -267,7 +267,7 @@ pipeline-service:
           TEMPLATE_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
     ENV: "SMP"
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
     PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS: "true"
   shutdownHooksEnabled: true
 platform-service:
@@ -307,7 +307,7 @@ platform-service:
           TEMPLATE_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
     ENV: "SMP"
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
 policy-mgmt:
   secrets:
     smpSharedKubernetesSecrets:
@@ -319,7 +319,7 @@ policy-mgmt:
           HARNESS_SERVICES_PIPELINE_JWT_SECRET: jwtNextGenManagerSecret
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
 queue-service:
   secrets:
     smpSharedKubernetesSecrets:
@@ -357,7 +357,7 @@ service-discovery-manager:
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SERVICE_DISCOVERY_JWT_SECRET: jwtNextGenManagerSecret
   config:
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
 template-service:
   # JFR init container image
   jfr:
@@ -385,7 +385,7 @@ template-service:
           VMS_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
     ENV: "SMP"
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
 bootstrap:
   networking:
     nginx:

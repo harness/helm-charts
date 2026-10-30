@@ -15,7 +15,7 @@ Helm chart for Harness IACM
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| iac-server.config.RHS_ENABLED | string | `"true"` |  |
+| iac-server.config.RHS_ENABLED | string | `"false"` |  |
 | iac-server.createDb.image.repository | string | `"harnesssecure/postgresql"` |  |
 | iac-server.createDb.image.tag | string | `"14.20-debian"` |  |
 | iac-server.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
@@ -30,7 +30,7 @@ Helm chart for Harness IACM
 | iac-server.secrets.smpSharedKubernetesSecrets[0].keys.SERVICE_GLOBAL_TOKEN | string | `"iacmServiceToken"` |  |
 | iac-server.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | iacm-manager.config.HARNESS_IMAGE_REPOSITORY | string | `"harnesssecure"` |  |
-| iacm-manager.config.RHS_ENABLED | string | `"true"` |  |
+| iacm-manager.config.RHS_ENABLED | string | `"false"` |  |
 | iacm-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | iacm-manager.secrets.smpSharedKubernetesSecrets[0].keys.CACHE_SERVICE_GLOBAL_TOKEN | string | `"cacheServiceToken"` |  |
 | iacm-manager.secrets.smpSharedKubernetesSecrets[0].keys.GITNESS_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
