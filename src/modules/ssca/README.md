@@ -34,6 +34,7 @@ A Helm chart for Harness SSCA
 | component-service.secrets.smpSharedKubernetesSecrets[0].keys.POLICY_MGMT_SERVICE_SECRET | string | `"jwtAuthSecret"` |  |
 | component-service.secrets.smpSharedKubernetesSecrets[0].keys.SSCA_MANAGER_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | component-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
+| ssca-manager.config.RHS_ENABLED | string | `"false"` |  |
 | ssca-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ssca-manager.secrets.smpSharedKubernetesSecrets[0].keys.COMPONENT_ANALYSIS_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ssca-manager.secrets.smpSharedKubernetesSecrets[0].keys.COMPONENT_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
