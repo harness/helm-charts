@@ -18,7 +18,7 @@ Helm chart for Harness SRM
 |-----|------|---------|-------------|
 | cv-nextgen.config.ENV | string | `"SMP"` |  |
 | cv-nextgen.config.PIPELINE_SERVICE_CLIENT_BASEURL | string | `"http://pipeline-service:12001/api/"` |  |
-| cv-nextgen.config.RHS_ENABLED | string | `"true"` |  |
+| cv-nextgen.config.RHS_ENABLED | string | `"false"` |  |
 | cv-nextgen.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | cv-nextgen.secrets.smpSharedKubernetesSecrets[0].keys.ET_SERVICE_SECRET | string | `"etServiceSecret"` |  |
 | cv-nextgen.secrets.smpSharedKubernetesSecrets[0].keys.JWT_IDENTITY_SERVICE_SECRET | string | `"jwtIdentityServiceSecret"` |  |

@@ -15,6 +15,6 @@ db-devops-service:
           HARNESS_SERVICES_PLATFORM_JWT_SECRET: jwtNextGenManagerSecret
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
     INDEX_MANAGER_ENABLED: "false"
     DBOPS_MIGRATIONS_ENABLED: "true"
