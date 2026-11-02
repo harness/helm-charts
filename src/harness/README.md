@@ -659,6 +659,7 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | platform.ng-custom-dashboards.nodeSelector | object | `{}` |  |
 | platform.ng-custom-dashboards.tolerations | list | `[]` |  |
 | platform.ng-manager | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | ng-manager (Next Generation Manager) (taints, tolerations, and so on) |
+| platform.resource-hierarchy-service | object | `{"affinity":{},"java":{"memory":"2048m"},"nodeSelector":{},"resources":{"limits":{"memory":"4096Mi"},"requests":{"cpu":"500m","memory":"2048Mi"}},"tolerations":[]}` | resource-hierarchy-service (taints, tolerations, resources, and so on) |
 | platform.pipeline-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on) |
 | platform.platform-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | platform-service (Harness platform-related services) (taints, tolerations, and so on) |
 | platform.scm-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | scm-service (taints, tolerations, and so on) |
