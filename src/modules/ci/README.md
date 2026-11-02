@@ -18,7 +18,7 @@ A Helm chart for Kubernetes
 | ci-manager.config.ENV | string | `"SMP"` |  |
 | ci-manager.config.HARNESS_IMAGE_REPOSITORY | string | `"harnesssecure"` |  |
 | ci-manager.config.REFID_CACHE_IMAGE | string | `"harnesssecure/refid-cache:latest"` |  |
-| ci-manager.config.RHS_ENABLED | string | `"true"` |  |
+| ci-manager.config.RHS_ENABLED | string | `"false"` |  |
 | ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.ANNOTATIONS_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.CACHE_SERVICE_GLOBAL_TOKEN | string | `"cacheServiceToken"` |  |

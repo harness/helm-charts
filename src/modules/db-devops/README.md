@@ -16,7 +16,7 @@ A Helm chart for Harness DB devops
 |-----|------|---------|-------------|
 | db-devops-service.config.DBOPS_MIGRATIONS_ENABLED | string | `"true"` |  |
 | db-devops-service.config.INDEX_MANAGER_ENABLED | string | `"false"` |  |
-| db-devops-service.config.RHS_ENABLED | string | `"true"` |  |
+| db-devops-service.config.RHS_ENABLED | string | `"false"` |  |
 | db-devops-service.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_JWT_BEARER_SECRET | string | `"jwtAuthSecret"` |  |
 | db-devops-service.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | db-devops-service.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_SERVICES_IDENTITY_JWT_SECRET | string | `"jwtIdentityServiceSecret"` |  |

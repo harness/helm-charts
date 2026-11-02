@@ -67,3 +67,5 @@ ssca-manager:
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           SSCA_MANAGER_SERVICE_SECRET: jwtNextGenManagerSecret
+  config:
+    RHS_ENABLED: "false"

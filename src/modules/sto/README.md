@@ -19,7 +19,7 @@ dependencies:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| sto-core.config.RHS_ENABLED | string | `"true"` |  |
+| sto-core.config.RHS_ENABLED | string | `"false"` |  |
 | sto-core.migrationPostgres.image.repository | string | `"harnesssecure/postgresql"` |  |
 | sto-core.migrationPostgres.image.tag | string | `"14.20-debian"` |  |
 | sto-core.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |

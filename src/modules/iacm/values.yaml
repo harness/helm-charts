@@ -15,7 +15,7 @@ iac-server:
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
           SERVICE_GLOBAL_TOKEN: iacmServiceToken
   config:
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
   createDb:
     image:
       repository: "harnesssecure/postgresql"
@@ -56,5 +56,5 @@ iacm-manager:
           TI_SERVICE_GLOBAL_TOKEN: tiSvcGlobalToken
           VERIFICATION_SERVICE_SECRET: verificationServiceSecret
   config:
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
     HARNESS_IMAGE_REPOSITORY: harnesssecure

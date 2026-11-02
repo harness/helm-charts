@@ -31,4 +31,4 @@ ce-nextgen:
           SECRET_CONNECTOR_SERVICE_SECRET: secretConnectorServiceSecret
           RESOURCE_HIERARCHY_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"

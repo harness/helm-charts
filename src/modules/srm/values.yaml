@@ -29,7 +29,7 @@ cv-nextgen:
   config:
     PIPELINE_SERVICE_CLIENT_BASEURL: http://pipeline-service:12001/api/
     ENV: "SMP"
-    RHS_ENABLED: "true"
+    RHS_ENABLED: "false"
 le-nextgen:
   secrets:
     smpSharedKubernetesSecrets:

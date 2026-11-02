@@ -28,7 +28,7 @@ dependencies:
 | batch-processing.secrets.smpSharedKubernetesSecrets[0].keys.PLATFORM_CONFIG_SERVICE_SECRET | string | `"platformConfigServiceSecret"` |  |
 | batch-processing.secrets.smpSharedKubernetesSecrets[0].keys.SECRET_CONNECTOR_SERVICE_SECRET | string | `"secretConnectorServiceSecret"` |  |
 | batch-processing.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
-| ce-nextgen.config.RHS_ENABLED | string | `"true"` |  |
+| ce-nextgen.config.RHS_ENABLED | string | `"false"` |  |
 | ce-nextgen.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ce-nextgen.secrets.smpSharedKubernetesSecrets[0].keys.CE_NEXT_GEN_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ce-nextgen.secrets.smpSharedKubernetesSecrets[0].keys.JWT_AUTH_SECRET | string | `"jwtNextGenManagerSecret"` |  |
