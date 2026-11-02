@@ -168,6 +168,10 @@ global:
     # -- set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local"
     # If not set, internal request routing would happen via global.loadbalancerUrl
     ingressGatewayServiceUrl: ""
+    # -- additional hosts included on every Ingress object alongside global.ingress.hosts, for internal routing via the ingress/gateway service directly (bypassing public LB/DNS)
+    compatibilityHosts:
+      - envoy-gateway-proxy-envoy-gateway
+      - harness-ingress-controller
     objects:
       # -- annotations to be added to ingress Objects
       annotations: {}
