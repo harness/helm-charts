@@ -629,6 +629,19 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+  # -- resource-hierarchy-service (taints, tolerations, resources, and so on)
+  resource-hierarchy-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+    resources:
+      limits:
+        memory: 4096Mi
+      requests:
+        cpu: 500m
+        memory: 2048Mi
+    java:
+      memory: "2048m" 
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
     affinity: {}
