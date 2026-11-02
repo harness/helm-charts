@@ -55,12 +55,15 @@ global:
     # -- Enable to install Harness Infrastructure As Code Management (IACM)
   iacm:
     enabled: false
-    # -- Enable to install Harness Data Platform
+    # -- Enable to install Harness Data Platform. On by default: log-service writes logs to ClickHouse through Kafka.
   data-infra:
-    enabled: false
-    # -- Enable to install kafka
+    enabled: true
+    # -- Enable to install kafka. On by default: log-service writes logs to ClickHouse through Kafka.
   kafka:
-    enabled: false
+    enabled: true
+    # -- Install Kafka Connect (Debezium). Off by default: log-service does not use it.
+    connect:
+      enabled: false
     bootstrapServers: "kafka-platform-kafka-bootstrap:9093"
     schemaRegistryUrl: "http://schema-registry-service:8081"
   # -- Enable to install Artifact Repository (AR)
@@ -75,7 +78,11 @@ global:
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
+      # -- Turns on ClickHouse for CCM and Looker.
       enabled: false
+      # -- Installs the in-cluster ClickHouse server (used by log-service) without turning on CCM or Looker.
+      # Set false only when every ClickHouse consumer points at an external ClickHouse.
+      installed: true
     # -- settings to deploy mongo in-cluster or configure to use external mongo source
     mongo:
       # -- set additional arguments to mongo uri
@@ -608,6 +615,34 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    # Logs are written to both ClickHouse (through Kafka) and the legacy store, and read from
+    # ClickHouse with the legacy store as fallback. Needs global.database.clickhouse.installed,
+    # global.data-infra.enabled and global.kafka.enabled.
+    kafka:
+      enabled: true
+    clickhouse:
+      enabled: true
+      addrs: "clickhouse:9000"
+      tls: false
+      database: "log_service"
+      writeToKafka: true
+      retentionWorkerEnabled: true
+    config:
+      PIPE_LOG_SERVICE_FALLBACK_STRATEGY: "true"
+    secrets:
+      # Helm replaces lists, so the chart's default entries are repeated here.
+      kubernetesSecrets:
+        - secretName: ""
+          keys:
+            LOG_SERVICE_GLOBAL_TOKEN: ""
+            LOG_SERVICE_SECRET: ""
+        - secretName: "minio"
+          keys:
+            LOG_SERVICE_S3_ACCESS_KEY_ID: "root-user"
+            LOG_SERVICE_S3_SECRET_ACCESS_KEY: "root-password"
+        - secretName: "clickhouse"
+          keys:
+            LOG_SERVICE_CLICKHOUSE_PASSWORD: "admin-password"
   looker:
     affinity: {}
     nodeSelector: {}

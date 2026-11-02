@@ -48,6 +48,7 @@ modules:
       - vault-secret-loader
       - ui-signed
       - pg-upgrader
+      - clickhouse
       - name: delegate
         variants: [".minimal", ".minimal-fips"]
         variants_only: true
@@ -237,7 +238,6 @@ modules:
       - event-service-signed
       - ng-ce-ui
       - telescopes-signed
-      - clickhouse
       - ccm-gcp-smp-signed
 
   ce:
