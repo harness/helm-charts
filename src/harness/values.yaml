@@ -641,14 +641,18 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    replicaCount: 2
+    autoscaling:
+      minReplicas: 2
     resources:
       limits:
-        memory: 4096Mi
+        cpu: 4
+        memory: 5120Mi
       requests:
-        cpu: 500m
+        cpu: 2
         memory: 2048Mi
     java:
-      memory: "2048m" 
+      memory: "3584m" 
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
     affinity: {}
