@@ -639,7 +639,6 @@ platform:
       minReplicas: 2
     resources:
       limits:
-        cpu: 4
         memory: 5120Mi
       requests:
         cpu: 2
