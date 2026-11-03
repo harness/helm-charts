@@ -40,7 +40,7 @@ global:
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
-      enabled: false
+      enabled: true
     # -- settings to deploy mongo in-cluster or configure to use external mongo source
     mongo:
       # -- set additional arguments to mongo uri
@@ -422,7 +422,7 @@ platform:
   bootstrap:
     database:
       clickhouse:
-        enabled: false
+        enabled: true
       minio:
         defaultBuckets: "logs"
         fullnameOverride: "minio"

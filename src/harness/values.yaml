@@ -78,11 +78,9 @@ global:
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
-      # -- Turns on ClickHouse for CCM and Looker.
-      enabled: false
-      # -- Installs the in-cluster ClickHouse server (used by log-service) without turning on CCM or Looker.
-      # Set false only when every ClickHouse consumer points at an external ClickHouse.
-      installed: true
+      # -- Installs in-cluster ClickHouse and turns it on for log-service, CCM, and Looker.
+      # Set false only when ClickHouse is external or not used.
+      enabled: true
     # -- settings to deploy mongo in-cluster or configure to use external mongo source
     mongo:
       # -- set additional arguments to mongo uri
@@ -470,7 +468,7 @@ platform:
   bootstrap:
     database:
       clickhouse:
-        enabled: false
+        enabled: true
       minio:
         affinity: {}
         nodeSelector: {}
@@ -616,7 +614,7 @@ platform:
     nodeSelector: {}
     tolerations: []
     # Logs are written to both ClickHouse (through Kafka) and the legacy store, and read from
-    # ClickHouse with the legacy store as fallback. Needs global.database.clickhouse.installed,
+    # ClickHouse with the legacy store as fallback. Needs global.database.clickhouse.enabled,
     # global.data-infra.enabled and global.kafka.enabled.
     kafka:
       enabled: true

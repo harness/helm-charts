@@ -466,9 +466,8 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | global.commonAnnotations | object | `{}` | Add common annotations to all objects |
 | global.commonLabels | object | `{}` | Add common labels to all objects |
 | global.data-infra.enabled | bool | `true` |  |
-| global.database | object | `{"clickhouse":{"enabled":false,"installed":true},"mongo":{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""},"postgres":{"extraArgs":"","hosts":["postgres:5432"],"installed":true,"passwordKey":"password","protocol":"postgres","secretName":"postgres-secret","userKey":"user"},"redis":{"hosts":["<internal-endpoint-with-port>"],"installed":true,"passwordKey":"password","secretName":"redis-user-pass","userKey":"username"},"timescaledb":{"certKey":"cert","certName":"tsdb-cert","hosts":["hostname.timescale.com:5432"],"installed":true,"passwordKey":"password","secretName":"tsdb-secret","sslEnabled":false,"userKey":"username"}}` | provide overrides to use in-cluster database or configure to use external databases |
-| global.database.clickhouse.enabled | bool | `false` | Turns on ClickHouse for CCM and Looker. |
-| global.database.clickhouse.installed | bool | `true` | Installs the in-cluster ClickHouse server (used by log-service) without turning on CCM or Looker. Set false only when every ClickHouse consumer points at an external ClickHouse. |
+| global.database | object | `{"clickhouse":{"enabled":true},"mongo":{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""},"postgres":{"extraArgs":"","hosts":["postgres:5432"],"installed":true,"passwordKey":"password","protocol":"postgres","secretName":"postgres-secret","userKey":"user"},"redis":{"hosts":["<internal-endpoint-with-port>"],"installed":true,"passwordKey":"password","secretName":"redis-user-pass","userKey":"username"},"timescaledb":{"certKey":"cert","certName":"tsdb-cert","hosts":["hostname.timescale.com:5432"],"installed":true,"passwordKey":"password","secretName":"tsdb-secret","sslEnabled":false,"userKey":"username"}}` | provide overrides to use in-cluster database or configure to use external databases |
+| global.database.clickhouse.enabled | bool | `true` | Installs in-cluster ClickHouse and turns it on for log-service, CCM, and Looker. Set false only when ClickHouse is external or not used. |
 | global.database.mongo | object | `{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""}` | settings to deploy mongo in-cluster or configure to use external mongo source |
 | global.database.mongo.extraArgs | string | `""` | set additional arguments to mongo uri |
 | global.database.mongo.hosts | list | `[]` | set the mongo hosts if mongo.installed is set to false |
@@ -593,7 +592,7 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | platform.access-control | object | `{"affinity":{},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
 | platform.access-control.mongoHosts | list | `[]` | - replica3.host.com:27017 |
 | platform.access-control.mongoSSL | object | `{"enabled":false}` | enable mongoSSL for external database connections |
-| platform.bootstrap.database.clickhouse.enabled | bool | `false` |  |
+| platform.bootstrap.database.clickhouse.enabled | bool | `true` |  |
 | platform.bootstrap.database.minio.affinity | object | `{}` |  |
 | platform.bootstrap.database.minio.nodeSelector | object | `{}` |  |
 | platform.bootstrap.database.minio.tolerations | list | `[]` |  |

@@ -129,7 +129,7 @@ platform:
   bootstrap:
     database:
       clickhouse:
-        enabled: false
+        enabled: true
       minio:
         defaultBuckets: "logs"
         fullnameOverride: "minio"
