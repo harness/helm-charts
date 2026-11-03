@@ -4,7 +4,6 @@ docker.io/envoyproxy/ratelimit:f4e76690
 docker.io/envoyproxy/envoy:distroless-v1.38.6
 docker.io/harnesssecure/deploy-crds-job:1.14.0
 docker.io/busybox:1.37.0
-registry.access.redhat.com/ubi8/ubi-minimal:8.9-1029
 docker.io/harnesssecure/ci-scm-signed:1.67.0
 docker.io/harnesssecure/template-service-signed:1.171.0
 docker.io/harnesssecure/platform-service-signed:1.153.0
@@ -14,7 +13,7 @@ docker.io/harnesssecure/nextgenui-signed:1.158.7
 docker.io/harnesssecure/minio:RELEASE.2025-10-15T17-29-55Z-jammy
 docker.io/harnesssecure/log-service-signed:1.56.1
 docker.io/harnesssecure/cdcdata-signed:1.68.0
-docker.io/harnesssecure/accesscontrol-service-signed:1.348.1
+docker.io/harnesssecure/accesscontrol-service-signed:1.348.2
 docker.io/harnesssecure/delegate-proxy-signed:1.10.0
 docker.io/harnesssecure/gateway-signed:1.72.2
 docker.io/harnesssecure/helm-init-container:1.10.0
@@ -34,31 +33,31 @@ docker.io/harnesssecure/queue-service-signed:1.16.0
 docker.io/harnesssecure/resource-hierarchy-service-signed:1.60.1
 docker.io/harnesssecure/service-discovery-collector:0.84.0
 docker.io/harnesssecure/ng-dashboard-aggregator-signed:1.137.0
-docker.io/harnesssecure/redis_exporter:1.93.0-jammy
+docker.io/harnesssecure/redis_exporter:1.94.0-jammy
 docker.io/prometheuscommunity/postgres-exporter:v0.20.1
 docker.io/harnesssecure/mongodb-exporter:0.53.0-jammy
 harnesssecure/vault-secret-loader:1.0.11
 docker.io/harnesssecure/ui-signed:1.36.3
 docker.io/harnesssecure/pg-upgrader:14-to-16
-docker.io/harnesssecure/delegate:26.09.90107.minimal
-docker.io/harnesssecure/delegate:26.09.90107.minimal-fips
+docker.io/harnesssecure/delegate:26.09.90111.minimal
+docker.io/harnesssecure/delegate:26.09.90111.minimal-fips
 
 ### Platform Agents
-docker.io/harnesssecure/delegate:26.09.90107
-docker.io/harnesssecure/delegate:26.09.90107.minimal
-docker.io/harnesssecure/delegate:26.09.90107.minimal-fips
-docker.io/harnesssecure/delegate:26.09.90107-fips
+docker.io/harnesssecure/delegate:26.09.90111
+docker.io/harnesssecure/delegate:26.09.90111.minimal
+docker.io/harnesssecure/delegate:26.09.90111.minimal-fips
+docker.io/harnesssecure/delegate:26.09.90111-fips
 docker.io/harnesssecure/upgrader:1.12.0
 docker.io/harnesssecure/upgrader:1.12.0-fips
 
 ### Dashboard
-docker.io/harnesssecure/looker-signed:1.28.5
+docker.io/harnesssecure/looker-signed:1.28.6
 docker.io/harnesssecure/dashboard-service-signed:1.132.0
 docker.io/harnesssecure/statsd-exporter:5.0-prometheus-busybox-2
 
 ## Continuous Deployment
 docker.io/harnesssecure/gitops-service-signed:1.67.3
-docker.io/harnesssecure/cv-nextgen-signed:1.74.1
+docker.io/harnesssecure/cv-nextgen-signed:1.74.3
 docker.io/harnesssecure/le-nextgen-signed:1.23.1
 docker.io/harnesssecure/srm-ui-signed:1.16.2
 
@@ -222,7 +221,7 @@ harnesssecure/ssca-artifact-signing-plugin:0.69.0
 harnesssecure/ssca-ai-bom-plugin:0.69.0
 
 ## Database DevOps
-docker.io/harnesssecure/db-devops-service-signed:1.118.0
+docker.io/harnesssecure/db-devops-service-signed:1.118.2
 
 ## Code Repository
 docker.io/harnesssecure/code-api-signed:1.106.2
