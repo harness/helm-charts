@@ -468,7 +468,7 @@ platform:
   bootstrap:
     database:
       clickhouse:
-        enabled: true
+        enabled: false
       minio:
         affinity: {}
         nodeSelector: {}

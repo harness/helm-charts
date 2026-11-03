@@ -592,7 +592,7 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | platform.access-control | object | `{"affinity":{},"mongoHosts":[],"mongoSSL":{"enabled":false},"nodeSelector":{},"tolerations":[]}` | Access control settings (taints, tolerations, and so on) |
 | platform.access-control.mongoHosts | list | `[]` | - replica3.host.com:27017 |
 | platform.access-control.mongoSSL | object | `{"enabled":false}` | enable mongoSSL for external database connections |
-| platform.bootstrap.database.clickhouse.enabled | bool | `true` |  |
+| platform.bootstrap.database.clickhouse.enabled | bool | `false` |  |
 | platform.bootstrap.database.minio.affinity | object | `{}` |  |
 | platform.bootstrap.database.minio.nodeSelector | object | `{}` |  |
 | platform.bootstrap.database.minio.tolerations | list | `[]` |  |
