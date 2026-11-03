@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.48.2](https://img.shields.io/badge/Version-0.48.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.48.3](https://img.shields.io/badge/Version-0.48.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -87,7 +87,6 @@ docker.io/envoyproxy/ratelimit:f4e76690
 docker.io/envoyproxy/envoy:distroless-v1.38.6
 docker.io/harnesssecure/deploy-crds-job:1.14.0
 docker.io/busybox:1.37.0
-registry.access.redhat.com/ubi8/ubi-minimal:8.9-1029
 docker.io/harnesssecure/ci-scm-signed:1.67.0
 docker.io/harnesssecure/template-service-signed:1.171.0
 docker.io/harnesssecure/platform-service-signed:1.153.0
@@ -97,7 +96,7 @@ docker.io/harnesssecure/nextgenui-signed:1.158.7
 docker.io/harnesssecure/minio:RELEASE.2025-10-15T17-29-55Z-jammy
 docker.io/harnesssecure/log-service-signed:1.56.1
 docker.io/harnesssecure/cdcdata-signed:1.68.0
-docker.io/harnesssecure/accesscontrol-service-signed:1.348.1
+docker.io/harnesssecure/accesscontrol-service-signed:1.348.2
 docker.io/harnesssecure/delegate-proxy-signed:1.10.0
 docker.io/harnesssecure/gateway-signed:1.72.2
 docker.io/harnesssecure/helm-init-container:1.10.0
@@ -117,31 +116,31 @@ docker.io/harnesssecure/queue-service-signed:1.16.0
 docker.io/harnesssecure/resource-hierarchy-service-signed:1.60.1
 docker.io/harnesssecure/service-discovery-collector:0.84.0
 docker.io/harnesssecure/ng-dashboard-aggregator-signed:1.137.0
-docker.io/harnesssecure/redis_exporter:1.93.0-jammy
+docker.io/harnesssecure/redis_exporter:1.94.0-jammy
 docker.io/prometheuscommunity/postgres-exporter:v0.20.1
 docker.io/harnesssecure/mongodb-exporter:0.53.0-jammy
 harnesssecure/vault-secret-loader:1.0.11
 docker.io/harnesssecure/ui-signed:1.36.3
 docker.io/harnesssecure/pg-upgrader:14-to-16
-docker.io/harnesssecure/delegate:26.09.90107.minimal
-docker.io/harnesssecure/delegate:26.09.90107.minimal-fips
+docker.io/harnesssecure/delegate:26.09.90111.minimal
+docker.io/harnesssecure/delegate:26.09.90111.minimal-fips
 
 ### Platform Agents
-docker.io/harnesssecure/delegate:26.09.90107
-docker.io/harnesssecure/delegate:26.09.90107.minimal
-docker.io/harnesssecure/delegate:26.09.90107.minimal-fips
-docker.io/harnesssecure/delegate:26.09.90107-fips
+docker.io/harnesssecure/delegate:26.09.90111
+docker.io/harnesssecure/delegate:26.09.90111.minimal
+docker.io/harnesssecure/delegate:26.09.90111.minimal-fips
+docker.io/harnesssecure/delegate:26.09.90111-fips
 docker.io/harnesssecure/upgrader:1.12.0
 docker.io/harnesssecure/upgrader:1.12.0-fips
 
 ### Dashboard
-docker.io/harnesssecure/looker-signed:1.28.5
+docker.io/harnesssecure/looker-signed:1.28.6
 docker.io/harnesssecure/dashboard-service-signed:1.132.0
 docker.io/harnesssecure/statsd-exporter:5.0-prometheus-busybox-2
 
 ## Continuous Deployment
 docker.io/harnesssecure/gitops-service-signed:1.67.3
-docker.io/harnesssecure/cv-nextgen-signed:1.74.1
+docker.io/harnesssecure/cv-nextgen-signed:1.74.3
 docker.io/harnesssecure/le-nextgen-signed:1.23.1
 docker.io/harnesssecure/srm-ui-signed:1.16.2
 
@@ -305,7 +304,7 @@ harnesssecure/ssca-artifact-signing-plugin:0.69.0
 harnesssecure/ssca-ai-bom-plugin:0.69.0
 
 ## Database DevOps
-docker.io/harnesssecure/db-devops-service-signed:1.118.0
+docker.io/harnesssecure/db-devops-service-signed:1.118.2
 
 ## Code Repository
 docker.io/harnesssecure/code-api-signed:1.106.2
@@ -523,11 +522,12 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | global.iacm.enabled | bool | `false` |  |
 | global.imagePullSecrets | list | `[]` | Image Pull Secrets List for Harness SMP Images |
 | global.imageRegistry | string | `""` | This private Docker image registry will override any registries that are defined in subcharts. |
-| global.ingress | object | `{"className":"harness","enabled":false,"hosts":["myhost.example.com"],"ingressGatewayServiceUrl":"","objects":{"annotations":{},"grpcRoutes":[],"ingress":[]},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
+| global.ingress | object | `{"className":"harness","compatibilityHosts":["envoy-gateway-proxy-envoy-gateway","harness-ingress-controller"],"enabled":false,"hosts":["myhost.example.com"],"ingressGatewayServiceUrl":"","objects":{"annotations":{},"grpcRoutes":[],"ingress":[]},"tls":{"enabled":true,"secretName":"harness-cert"}}` | - Set `ingress.enabled` to `true` to create Kubernetes *Ingress* objects for Nginx. |
+| global.ingress.compatibilityHosts | list | `["envoy-gateway-proxy-envoy-gateway","harness-ingress-controller"]` | additional hosts included on every Ingress object alongside global.ingress.hosts, for internal routing via the ingress/gateway service directly (bypassing public LB/DNS) |
 | global.ingress.hosts | list | `["myhost.example.com"]` | add global.ingress.ingressGatewayServiceUrl in hosts if global.ingress.ingressGatewayServiceUrl is not empty. |
 | global.ingress.ingressGatewayServiceUrl | string | `""` | set to ingress controller's k8s service FQDN for internal routing. eg "internal-nginx.default.svc.cluster.local" If not set, internal request routing would happen via global.loadbalancerUrl |
 | global.ingress.objects.annotations | object | `{}` | annotations to be added to ingress Objects |
-| global.istio | object | `{"additionalResponseHeaders":[],"enabled":false,"gateway":{"create":true,"name":"","namespace":"","port":443,"protocol":"HTTPS","selector":{"istio":"ingressgateway"}},"hosts":["*"],"istioGatewayServiceUrl":"","strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[],"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
+| global.istio | object | `{"additionalResponseHeaders":[],"enableRegexRoutes":true,"enabled":false,"gateway":{"create":true,"name":"","namespace":"","port":443,"protocol":"HTTPS","selector":{"istio":"ingressgateway"}},"hosts":["*"],"istioGatewayServiceUrl":"","strict":false,"tls":{"credentialName":"harness-cert","minProtocolVersion":"TLSV1_2","mode":"SIMPLE"},"virtualService":{"gateways":[],"hosts":["myhostname.example.com"]}}` | Istio Ingress Settings |
 | global.istio.additionalResponseHeaders | list | `[]` | Additional response headers injected via EnvoyFilter on the Istio gateway. Example: additionalResponseHeaders:   - name: Strict-Transport-Security     value: "max-age=31536000; includeSubDomains"   - name: X-Content-Type-Options     value: nosniff |
 | global.istio.gateway.name | string | `""` | override the name of gateway |
 | global.istio.gateway.namespace | string | `""` | override the name of namespace to deploy gateway |
@@ -648,7 +648,7 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | platform.gateway.affinity | object | `{}` |  |
 | platform.gateway.nodeSelector | object | `{}` |  |
 | platform.gateway.tolerations | list | `[]` |  |
-| platform.harness-manager | object | `{"affinity":{},"featureFlags":{"ADDITIONAL":"UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.09.90107"}},"nodeSelector":{},"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
+| platform.harness-manager | object | `{"affinity":{},"featureFlags":{"ADDITIONAL":"UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.09.90111"}},"nodeSelector":{},"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
 | platform.harness-manager.featureFlags | object | `{"ADDITIONAL":"UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"}` | Feature Flags |
 | platform.harness-manager.featureFlags.ADDITIONAL | string | `"UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"` | Additional Feature Flag (placeholder to add any other featureFlags) |
 | platform.log-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
@@ -661,9 +661,9 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | platform.ng-custom-dashboards.nodeSelector | object | `{}` |  |
 | platform.ng-custom-dashboards.tolerations | list | `[]` |  |
 | platform.ng-manager | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | ng-manager (Next Generation Manager) (taints, tolerations, and so on) |
-| platform.resource-hierarchy-service | object | `{"affinity":{},"autoscaling":{"minReplicas":2},"java":{"memory":"3584m"},"nodeSelector":{},"replicaCount":2,"resources":{"limits":{"memory":"5120Mi"},"requests":{"cpu":2,"memory":"2048Mi"}},"tolerations":[]}` | resource-hierarchy-service (taints, tolerations, resources, and so on) |
 | platform.pipeline-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on) |
 | platform.platform-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | platform-service (Harness platform-related services) (taints, tolerations, and so on) |
+| platform.resource-hierarchy-service | object | `{"affinity":{},"autoscaling":{"minReplicas":2},"java":{"memory":"3584m"},"nodeSelector":{},"replicaCount":2,"resources":{"limits":{"memory":"5120Mi"},"requests":{"cpu":2,"memory":"2048Mi"}},"tolerations":[]}` | resource-hierarchy-service (taints, tolerations, resources, and so on) |
 | platform.scm-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | scm-service (taints, tolerations, and so on) |
 | platform.template-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | template-service (Harness template-related services) (taints, tolerations, and so on) |
 | platform.ui | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | ui (Harness First CG Ui component) (taints, tolerations, and so on) |
