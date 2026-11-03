@@ -17,6 +17,10 @@ A Helm chart for Harness SSCA
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| component-analysis-service.jfr.image.digest | string | `""` |  |
+| component-analysis-service.jfr.image.registry | string | `"docker.io"` |  |
+| component-analysis-service.jfr.image.repository | string | `"busybox"` |  |
+| component-analysis-service.jfr.image.tag | string | `"1.37.0"` |  |
 | component-analysis-service.secrets.smpSharedKubernetesSecrets[0].keys.COMPONENT_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | component-analysis-service.secrets.smpSharedKubernetesSecrets[0].keys.GENAI_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | component-analysis-service.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_CODE_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -28,12 +32,20 @@ A Helm chart for Harness SSCA
 | component-analysis-service.secrets.smpSharedKubernetesSecrets[0].keys.SSCA_MANAGER_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | component-analysis-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | component-service.config.EOL_DISABLE_MAVEN_EOL | string | `"true"` |  |
+| component-service.jfr.image.digest | string | `""` |  |
+| component-service.jfr.image.registry | string | `"docker.io"` |  |
+| component-service.jfr.image.repository | string | `"busybox"` |  |
+| component-service.jfr.image.tag | string | `"1.37.0"` |  |
 | component-service.secrets.smpSharedKubernetesSecrets[0].keys.JWT_AUTH_SECRET | string | `"jwtAuthSecret"` |  |
 | component-service.secrets.smpSharedKubernetesSecrets[0].keys.JWT_IDENTITY_SERVICE_SECRET | string | `"jwtIdentityServiceSecret"` |  |
 | component-service.secrets.smpSharedKubernetesSecrets[0].keys.NG_MANAGER_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | component-service.secrets.smpSharedKubernetesSecrets[0].keys.POLICY_MGMT_SERVICE_SECRET | string | `"jwtAuthSecret"` |  |
 | component-service.secrets.smpSharedKubernetesSecrets[0].keys.SSCA_MANAGER_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | component-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
+| ssca-manager.jfr.image.digest | string | `""` |  |
+| ssca-manager.jfr.image.registry | string | `"docker.io"` |  |
+| ssca-manager.jfr.image.repository | string | `"busybox"` |  |
+| ssca-manager.jfr.image.tag | string | `"1.37.0"` |  |
 | ssca-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ssca-manager.secrets.smpSharedKubernetesSecrets[0].keys.COMPONENT_ANALYSIS_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ssca-manager.secrets.smpSharedKubernetesSecrets[0].keys.COMPONENT_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |

@@ -2,7 +2,7 @@
 
 Helm chart for Harness Platform
 
-![Version: 0.48.1](https://img.shields.io/badge/Version-0.48.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.1](https://img.shields.io/badge/AppVersion-1.16.1-informational?style=flat-square)
+![Version: 0.48.3](https://img.shields.io/badge/Version-0.48.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.1](https://img.shields.io/badge/AppVersion-1.16.1-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ccm
       repository: https://harness.github.io/helm-platform
-      version: 0.48.1
+      version: 0.48.3
 ```
 
 ## Values
@@ -21,6 +21,10 @@ dependencies:
 |-----|------|---------|-------------|
 | access-control.config.ENV | string | `"SMP"` |  |
 | access-control.config.RHS_ENABLED | string | `"false"` |  |
+| access-control.jfr.image.digest | string | `""` |  |
+| access-control.jfr.image.registry | string | `"docker.io"` |  |
+| access-control.jfr.image.repository | string | `"busybox"` |  |
+| access-control.jfr.image.tag | string | `"1.37.0"` |  |
 | access-control.postgresql.image.repository | string | `"harnesssecure/postgresql"` |  |
 | access-control.postgresql.image.tag | string | `"14.20-debian"` |  |
 | access-control.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -57,18 +61,32 @@ dependencies:
 | access-control.secrets.smpSharedKubernetesSecrets[0].keys.USER_CLIENT_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | access-control.secrets.smpSharedKubernetesSecrets[0].keys.USER_GROUP_CLIENT_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | access-control.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
+| audit-event-streaming.jfr.image.digest | string | `""` |  |
+| audit-event-streaming.jfr.image.registry | string | `"docker.io"` |  |
+| audit-event-streaming.jfr.image.repository | string | `"busybox"` |  |
+| audit-event-streaming.jfr.image.tag | string | `"1.37.0"` |  |
 | audit-event-streaming.secrets.smpSharedKubernetesSecrets[0].keys.NEXT_GEN_MANAGER_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | audit-event-streaming.secrets.smpSharedKubernetesSecrets[0].keys.PLATFORM_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | audit-event-streaming.secrets.smpSharedKubernetesSecrets[0].keys.SECRET_CONNECTOR_SERVICE_SECRET | string | `"secretConnectorServiceSecret"` |  |
 | audit-event-streaming.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | bootstrap.database.postgresql.image.repository | string | `"harnesssecure/postgresql"` |  |
 | bootstrap.database.postgresql.image.tag | string | `"14.20-debian"` |  |
+| bootstrap.database.redis.metrics.image.repository | string | `"harnesssecure/redis_exporter"` |  |
+| bootstrap.database.redis.metrics.image.tag | string | `"1.94.0-jammy"` |  |
 | bootstrap.networking.nginx.controller.config.use-forwarded-headers | string | `"true"` |  |
 | change-data-capture.config.ENV | string | `"SMP"` |  |
+| debezium-service.jfr.image.digest | string | `""` |  |
+| debezium-service.jfr.image.registry | string | `"docker.io"` |  |
+| debezium-service.jfr.image.repository | string | `"busybox"` |  |
+| debezium-service.jfr.image.tag | string | `"1.37.0"` |  |
 | debezium-service.secrets.smpSharedKubernetesSecrets[0].keys.MANAGER_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | debezium-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | gateway.config.ENABLE_BEARER_CACHE | string | `"true"` |  |
 | gateway.config.ENV | string | `"SMP"` |  |
+| gateway.jfr.image.digest | string | `""` |  |
+| gateway.jfr.image.registry | string | `"docker.io"` |  |
+| gateway.jfr.image.repository | string | `"busybox"` |  |
+| gateway.jfr.image.tag | string | `"1.37.0"` |  |
 | gateway.secrets.smpSharedKubernetesSecrets[0].keys.JWT_ADMIN_PORTAL_SECRET | string | `"jwtExternalServiceSecret"` |  |
 | gateway.secrets.smpSharedKubernetesSecrets[0].keys.JWT_AUTH_SECRET | string | `"jwtAuthSecret"` |  |
 | gateway.secrets.smpSharedKubernetesSecrets[0].keys.JWT_DATA_HANDLER_SECRET | string | `"jwtDataHandlerSecret"` |  |
@@ -85,6 +103,10 @@ dependencies:
 | gateway.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | harness-manager.config.ENV | string | `"SMP"` |  |
 | harness-manager.config.RHS_ENABLED | string | `"true"` |  |
+| harness-manager.jfr.image.digest | string | `""` |  |
+| harness-manager.jfr.image.registry | string | `"docker.io"` |  |
+| harness-manager.jfr.image.repository | string | `"busybox"` |  |
+| harness-manager.jfr.image.tag | string | `"1.37.0"` |  |
 | harness-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | harness-manager.secrets.smpSharedKubernetesSecrets[0].keys.COMMAND_LIBRARY_PUBLISHING_SECRET | string | `"commandLibraryPublishingSecret"` |  |
 | harness-manager.secrets.smpSharedKubernetesSecrets[0].keys.DELEGATE_SERVICE_MANAGEMENT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -147,6 +169,10 @@ dependencies:
 | ng-dashboard-aggregator.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | ng-manager.config.ENV | string | `"SMP"` |  |
 | ng-manager.config.RHS_ENABLED | string | `"false"` |  |
+| ng-manager.jfr.image.digest | string | `""` |  |
+| ng-manager.jfr.image.registry | string | `"docker.io"` |  |
+| ng-manager.jfr.image.repository | string | `"busybox"` |  |
+| ng-manager.jfr.image.tag | string | `"1.37.0"` |  |
 | ng-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-manager.secrets.smpSharedKubernetesSecrets[0].keys.AIMLOPS_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-manager.secrets.smpSharedKubernetesSecrets[0].keys.APPSEC_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -181,6 +207,10 @@ dependencies:
 | pipeline-service.config.ENV | string | `"SMP"` |  |
 | pipeline-service.config.PUBLISH_ADVISER_EVENT_FOR_CUSTOM_ADVISERS | string | `"true"` |  |
 | pipeline-service.config.RHS_ENABLED | string | `"true"` |  |
+| pipeline-service.jfr.image.digest | string | `""` |  |
+| pipeline-service.jfr.image.registry | string | `"docker.io"` |  |
+| pipeline-service.jfr.image.repository | string | `"busybox"` |  |
+| pipeline-service.jfr.image.tag | string | `"1.37.0"` |  |
 | pipeline-service.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | pipeline-service.secrets.smpSharedKubernetesSecrets[0].keys.AISRE_SERVICE_CLIENT_SECRET | string | `"jwtIdentityServiceSecret"` |  |
 | pipeline-service.secrets.smpSharedKubernetesSecrets[0].keys.ANNOTATIONS_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -214,6 +244,10 @@ dependencies:
 | pipeline-service.shutdownHooksEnabled | bool | `true` |  |
 | platform-service.config.ENV | string | `"SMP"` |  |
 | platform-service.config.RHS_ENABLED | string | `"true"` |  |
+| platform-service.jfr.image.digest | string | `""` |  |
+| platform-service.jfr.image.registry | string | `"docker.io"` |  |
+| platform-service.jfr.image.repository | string | `"busybox"` |  |
+| platform-service.jfr.image.tag | string | `"1.37.0"` |  |
 | platform-service.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | platform-service.secrets.smpSharedKubernetesSecrets[0].keys.APPSEC_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | platform-service.secrets.smpSharedKubernetesSecrets[0].keys.CDE_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -247,6 +281,10 @@ dependencies:
 | policy-mgmt.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | queue-service.secrets.smpSharedKubernetesSecrets[0].keys.JWT_SECRET | string | `"jwtSecret"` |  |
 | queue-service.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
+| resource-hierarchy-service.jfr.image.digest | string | `""` |  |
+| resource-hierarchy-service.jfr.image.registry | string | `"docker.io"` |  |
+| resource-hierarchy-service.jfr.image.repository | string | `"busybox"` |  |
+| resource-hierarchy-service.jfr.image.tag | string | `"1.37.0"` |  |
 | resource-hierarchy-service.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | resource-hierarchy-service.secrets.smpSharedKubernetesSecrets[0].keys.JWT_AUTH_SECRET | string | `"jwtAuthSecret"` |  |
 | resource-hierarchy-service.secrets.smpSharedKubernetesSecrets[0].keys.JWT_IDENTITY_SERVICE_SECRET | string | `"jwtIdentityServiceSecret"` |  |
@@ -265,6 +303,10 @@ dependencies:
 | service-discovery-manager.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | template-service.config.ENV | string | `"SMP"` |  |
 | template-service.config.RHS_ENABLED | string | `"true"` |  |
+| template-service.jfr.image.digest | string | `""` |  |
+| template-service.jfr.image.registry | string | `"docker.io"` |  |
+| template-service.jfr.image.repository | string | `"busybox"` |  |
+| template-service.jfr.image.tag | string | `"1.37.0"` |  |
 | template-service.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | template-service.secrets.smpSharedKubernetesSecrets[0].keys.CVNG_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | template-service.secrets.smpSharedKubernetesSecrets[0].keys.HSQS_AUTH_TOKEN | string | `"queueServiceSecret"` |  |
