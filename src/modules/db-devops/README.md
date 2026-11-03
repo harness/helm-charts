@@ -1,6 +1,6 @@
 # db-devops
 
-![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.48.3](https://img.shields.io/badge/Version-0.48.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 A Helm chart for Harness DB devops
 
@@ -8,7 +8,7 @@ A Helm chart for Harness DB devops
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | db-devops-service | 1.118.0 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | db-devops-service | 1.118.2 |
 
 ## Values
 

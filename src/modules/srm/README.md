@@ -1,6 +1,6 @@
 # srm
 
-![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 0.48.3](https://img.shields.io/badge/Version-0.48.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
 
 Helm chart for Harness SRM
 
@@ -8,7 +8,7 @@ Helm chart for Harness SRM
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | cv-nextgen | 1.74.1 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | cv-nextgen | 1.74.3 |
 | oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | le-nextgen | 1.23.1 |
 | oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | srm-ui | 1.16.2 |
 
@@ -19,6 +19,10 @@ Helm chart for Harness SRM
 | cv-nextgen.config.ENV | string | `"SMP"` |  |
 | cv-nextgen.config.PIPELINE_SERVICE_CLIENT_BASEURL | string | `"http://pipeline-service:12001/api/"` |  |
 | cv-nextgen.config.RHS_ENABLED | string | `"true"` |  |
+| cv-nextgen.jfr.image.digest | string | `""` |  |
+| cv-nextgen.jfr.image.registry | string | `"docker.io"` |  |
+| cv-nextgen.jfr.image.repository | string | `"busybox"` |  |
+| cv-nextgen.jfr.image.tag | string | `"1.37.0"` |  |
 | cv-nextgen.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | cv-nextgen.secrets.smpSharedKubernetesSecrets[0].keys.ET_SERVICE_SECRET | string | `"etServiceSecret"` |  |
 | cv-nextgen.secrets.smpSharedKubernetesSecrets[0].keys.JWT_IDENTITY_SERVICE_SECRET | string | `"jwtIdentityServiceSecret"` |  |
