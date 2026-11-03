@@ -4518,6 +4518,24 @@ entries:
   ci:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2026-11-03T17:46:50.701465151Z"
+    dependencies:
+    - name: ci-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.161.10
+    - condition: global.ti.enabled
+      name: ti-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.80.4
+    description: A Helm chart for Kubernetes
+    digest: 0b37c96dffefc3dc88bacf5a60b16dfdb9586e21b73b3c647d16e471885b5e7a
+    name: ci
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/ci-0.48.3/ci-0.48.3.tgz
+    version: 0.48.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2026-10-20T07:17:49.654451768Z"
     dependencies:
     - name: ci-manager
@@ -23112,6 +23130,23 @@ entries:
   iacm:
   - apiVersion: v2
     appVersion: 0.0.79001
+    created: "2026-11-03T17:46:52.691843582Z"
+    dependencies:
+    - name: iac-server
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.505.3
+    - name: iacm-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.212.2
+    description: Helm chart for Harness IACM
+    digest: 433bea5b739af2289366c57f420e6a3cfb699191ecf000c83fdd449d78ef6695
+    name: iacm
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/iacm-0.48.3/iacm-0.48.3.tgz
+    version: 0.48.3
+  - apiVersion: v2
+    appVersion: 0.0.79001
     created: "2026-10-20T07:17:50.989955679Z"
     dependencies:
     - name: iac-server
@@ -37416,6 +37451,33 @@ entries:
   ssca:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2026-11-03T17:46:54.11118213Z"
+    dependencies:
+    - condition: global.ssca.enabled
+      name: ssca-manager
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.74.5
+    - condition: global.ssca.enabled
+      name: ssca-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.60.2
+    - condition: global.ssca.enabled
+      name: component-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.23.2
+    - condition: global.ssca.enabled
+      name: component-analysis-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.21.1
+    description: A Helm chart for Harness SSCA
+    digest: dc247e1785b8544ceef7fff7ad8ed44596e554bbe4d6ad869ae0d19ab33f4a1b
+    name: ssca
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/ssca-0.48.3/ssca-0.48.3.tgz
+    version: 0.48.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2026-10-20T07:17:52.08056284Z"
     dependencies:
     - condition: global.ssca.enabled
@@ -39194,4 +39256,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/unified-data-platform-0.47.0/unified-data-platform-0.47.0.tgz
     version: 0.47.0
-generated: "2026-11-03T13:15:46.233006128Z"
+generated: "2026-11-03T17:46:54.785908234Z"
