@@ -604,7 +604,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.09.90107
+        tag: 26.09.90111
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -649,7 +649,7 @@ platform:
         cpu: 2
         memory: 2048Mi
     java:
-      memory: "3584m" 
+      memory: "3584m"
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
     affinity: {}
