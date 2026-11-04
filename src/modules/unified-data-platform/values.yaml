@@ -190,9 +190,11 @@ query-service:
               # SMP is single-account. public.ng_users and public.cd_stage_execution have no
               # account column.
               - data-kind: DATA_KIND_ENTITY
-                data-type: "l:udp_native:cd:ng_users"
+                data-type: "platform:ng_user"
               - data-kind: DATA_KIND_VIEW
                 data-type: "cd:ng_users"
+              - data-kind: DATA_KIND_VIEW
+                data-type: "platform:ng_users"
               - data-kind: DATA_KIND_ENTITY
                 data-type: "l:udp_native:cd:cd_stage_execution"
               - data-kind: DATA_KIND_VIEW
