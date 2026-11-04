@@ -192,8 +192,6 @@ query-service:
               - data-kind: DATA_KIND_ENTITY
                 data-type: "platform:ng_user"
               - data-kind: DATA_KIND_VIEW
-                data-type: "cd:ng_users"
-              - data-kind: DATA_KIND_VIEW
                 data-type: "platform:ng_users"
               - data-kind: DATA_KIND_ENTITY
                 data-type: "l:udp_native:cd:cd_stage_execution"
