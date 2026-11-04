@@ -106,3 +106,9 @@ acm:
     HARNESS_SERVICES_OPA_IGNORE: "false"
     HARNESS_SERVICES_OPA_CLIENT_BASEURL: "http://policy-mgmt:3000"
     HARNESS_SERVICES_OPA_CLIENT_SECURE: "false"
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
+      # acm chart defaults to true (SaaS pulls from Docker Hub); SMP must honor global.imageRegistry for airgap.
+      ignoreGlobalImageRegistry: false
