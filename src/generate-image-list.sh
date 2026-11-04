@@ -126,6 +126,25 @@ helm template ${HARNESS_DIR} ${AUTO_ENABLE_FLAGS} ${OVERRIDE_FLAGS} \
         --image-org "${IMAGE_ORG}" \
         --output ${OUTPUT_DIR}/images_raw.txt
 
+# Operator (platform-installer) images are not part of the chart render:
+#   tiw-airgap            -> same version as this harness chart (workflow bundle version)
+#   platform-installer-min -> latest platform-installer-helm chart version
+# Override with TIW_AIRGAP_VERSION / PLATFORM_INSTALLER_VERSION.
+PLATFORM_INSTALLER_CHART=${PLATFORM_INSTALLER_CHART:-oci://harness0.harness.io/oci/platform-installer-helm/platform-installer}
+TIW_AIRGAP_VERSION=${TIW_AIRGAP_VERSION:-$(awk '/^version:/ {print $2}' "${CHART_YAML}" | tr -d "\"'")}
+if [ -z "${PLATFORM_INSTALLER_VERSION:-}" ]; then
+    PLATFORM_INSTALLER_VERSION=$(helm show chart "${PLATFORM_INSTALLER_CHART}" 2>/dev/null | awk '/^version:/ {print $2}' || true)
+fi
+if [ -z "${TIW_AIRGAP_VERSION}" ] || [ -z "${PLATFORM_INSTALLER_VERSION}" ]; then
+    log_error "could not resolve operator image versions (tiw-airgap='${TIW_AIRGAP_VERSION}', platform-installer='${PLATFORM_INSTALLER_VERSION}')"
+    exit 1
+fi
+log_info "Operator images: tiw-airgap:${TIW_AIRGAP_VERSION}, platform-installer-min:${PLATFORM_INSTALLER_VERSION}"
+{
+    echo "docker.io/${IMAGE_ORG}/tiw-airgap:${TIW_AIRGAP_VERSION}"
+    echo "docker.io/${IMAGE_ORG}/platform-installer-min:${PLATFORM_INSTALLER_VERSION}"
+} >> ${OUTPUT_DIR}/images_raw.txt
+
 IMAGE_COUNT=$(wc -l < ${OUTPUT_DIR}/images_raw.txt | tr -d '[:space:]')
 log_info "Generated images_raw.txt with ${IMAGE_COUNT} base images (no variants)"
 
