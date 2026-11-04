@@ -900,7 +900,6 @@ genai:
     nodeSelector: {}
     tolerations: []
   acm:
-    affinity: {}
     autoscaling:
       enabled: false
     nodeSelector: {}
