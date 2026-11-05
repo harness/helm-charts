@@ -197,6 +197,11 @@ query-service:
                 data-type: "l:udp_native:cd:cd_stage_execution"
               - data-kind: DATA_KIND_VIEW
                 data-type: "cd:cd_stage_execution_info"
+              # public.gradle_cache_metrics has no account column.
+              - data-kind: DATA_KIND_ENTITY
+                data-type: "ci:gradle_cache_metrics_raw"
+              - data-kind: DATA_KIND_VIEW
+                data-type: "ci:gradle_cache_metrics"
 
 dashboard-ui:
   image:
