@@ -17,8 +17,8 @@ dependencies:
   name: schema-registry
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.12.2
-# Connect is not used by log-service. Its own flag defaults false so enabling Kafka does not install it.
-- condition: global.kafka.connect.enabled
+# Deploys with Kafka. Connectors stay idle when their source services are not installed.
+- condition: global.kafka.enabled
   name: kafka-connect-strimzi
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.113.1

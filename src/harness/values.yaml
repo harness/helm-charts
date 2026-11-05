@@ -61,9 +61,6 @@ global:
     # -- Enable to install kafka. On by default: log-service writes logs to ClickHouse through Kafka.
   kafka:
     enabled: true
-    # -- Install Kafka Connect (Debezium). Off by default: log-service does not use it.
-    connect:
-      enabled: false
     bootstrapServers: "kafka-platform-kafka-bootstrap:9093"
     schemaRegistryUrl: "http://schema-registry-service:8081"
   # -- Enable to install Artifact Repository (AR)
@@ -684,7 +681,7 @@ platform:
         cpu: 2
         memory: 2048Mi
     java:
-      memory: "3584m" 
+      memory: "3584m"
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
     affinity: {}

@@ -537,7 +537,6 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | global.istio.virtualService.hosts | list | `["myhostname.example.com"]` | add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty. |
 | global.jfr.enabled | bool | `false` |  |
 | global.kafka.bootstrapServers | string | `"kafka-platform-kafka-bootstrap:9093"` |  |
-| global.kafka.connect | object | `{"enabled":false}` | Install Kafka Connect (Debezium). Off by default: log-service does not use it. |
 | global.kafka.enabled | bool | `true` |  |
 | global.kafka.schemaRegistryUrl | string | `"http://schema-registry-service:8081"` |  |
 | global.kubeVersion | string | `""` | set kubernetes version override, unrequired if installing using Helm. |
