@@ -700,6 +700,11 @@ genai:
       targetCPU: 80
       targetMemory: 80
     instances: 2
+    updateStrategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 0
+        maxUnavailable: 1
     resources:
       limits:
         cpu: 1

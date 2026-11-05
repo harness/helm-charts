@@ -996,6 +996,11 @@ genai:
         scaleUp:
           stabilizationWindowSeconds: 120
     instances: 2
+    updateStrategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 0
+        maxUnavailable: 1
     pdb:
       create: "true"
     resources:

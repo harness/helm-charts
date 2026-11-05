@@ -103,6 +103,9 @@ acm:
           HARNESS_SERVICES_TEMPLATE_JWT_SECRET: jwtNextGenManagerSecret
   config:
     ENV: "SMP"
+    # Chart defaults are devspace-style verbose logging; keep SMP quiet (customers can override).
+    ACM_DEBUG: "false"
+    ACM_TRACE: "false"
     HARNESS_SERVICES_OPA_IGNORE: "false"
     HARNESS_SERVICES_OPA_CLIENT_BASEURL: "http://policy-mgmt:3000"
     HARNESS_SERVICES_OPA_CLIENT_SECURE: "false"
