@@ -3,7 +3,7 @@ appVersion: 0.0.1
 dependencies:
 - name: ff-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.1243.0
+  version: 1.1248.0-bt-22128-hhi-fips-ff-server-78841e
 - name: ff-pushpin-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.1148.0

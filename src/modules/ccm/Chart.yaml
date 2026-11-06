@@ -6,22 +6,22 @@ dependencies:
   version: 1.21.0
 - name: anomaly-detection
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.36.0
+  version: 1.42.0-bt-22128-hhi-anomaly-fips-f87c40
 - name: cloud-info
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.19.0
 - name: telescopes
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.10.0
+  version: 1.17.0-bt-22128-hhi-fips-telescopes-d35e3a
 - name: batch-processing
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.105.3
+  version: 1.107.5-bt-25055-hhi-fips-java-0ae807
 - name: ng-ce-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.101.0
 - name: ce-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.107.3
+  version: 1.109.3-bt-25055-hhi-fips-java-0ae807
 description: A Helm chart for Harness Cloud Cost Management (CCM) module
 name: ccm
 type: application

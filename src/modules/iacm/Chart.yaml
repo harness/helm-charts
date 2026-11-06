@@ -3,7 +3,7 @@ appVersion: 0.0.79001
 dependencies:
 - name: iac-server
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.505.3
+  version: 1.529.0-bt-22128-hhi-fips-iac-server-370b17
 - name: iacm-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.212.2

@@ -4,11 +4,11 @@ dependencies:
 - condition: global.ng.enabled
   name: cv-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.74.3
+  version: 1.80.0-bt-22128-hhi-fips-multistage-ffd61b
 - condition: global.ng.enabled
   name: le-nextgen
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.23.1
+  version: 1.28.0-bt-22128-hhi-le-nextgen-fips-cd6be9
 - condition: global.ng.enabled
   name: srm-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
