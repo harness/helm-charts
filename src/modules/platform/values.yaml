@@ -386,6 +386,9 @@ template-service:
   config:
     ENV: "SMP"
     RHS_ENABLED: "true"
+    GLOBAL_TEMPLATE_ENABLED: false
+    BUNDLED_GLOBAL_TEMPLATES_ENABLED: true
+    DEPLOY_MODE: ONPREM
 bootstrap:
   networking:
     nginx:
