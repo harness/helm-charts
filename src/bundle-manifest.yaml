@@ -64,6 +64,15 @@ modules:
       - name: upgrader
         variants: ["-fips"]
 
+  harness-operator:
+    description: "Harness Operator"
+    bundle_type: combined
+    requires: []
+    bucket_path: "harness-operator"
+    images:
+      - tiw-airgap
+      - platform-installer-min
+
   dashboard:
     description: "Dashboard"
     bundle_type: combined
