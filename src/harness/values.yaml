@@ -743,6 +743,13 @@ iacm:
 upgrades:
   versionLookups:
     enabled: true
+db-devops:
+  db-devops-ui:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
 code:
   code-ui:
     affinity: {}

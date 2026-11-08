@@ -585,6 +585,17 @@ unified-data-platform:
       requests:
         cpu: 100m
         memory: 128Mi
+db-devops:
+  db-devops-ui:
+    autoscaling:
+      enabled: false
+    replicaCount: 1
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 0.1
+        memory: 200Mi
 code:
   code-ui:
     autoscaling:
