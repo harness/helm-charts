@@ -821,7 +821,6 @@ iacm:
 
 unified-data-platform:
   config-service:
-    createSmpSecret: true
     autoscaling:
       enabled: true
       minReplicas: 2
@@ -836,10 +835,7 @@ unified-data-platform:
       requests:
         cpu: 1
         memory: 2Gi
-  schema-service:
-    createSmpSecret: true
   onboarding-service:
-    createSmpSecret: true
     autoscaling:
       enabled: true
       minReplicas: 2
@@ -855,7 +851,6 @@ unified-data-platform:
         cpu: 1
         memory: 2Gi
   query-service:
-    createSmpSecret: true
     autoscaling:
       enabled: true
       minReplicas: 2
