@@ -46,6 +46,6 @@ dependencies:
   version: 0.47.0
 - name: unified-data-platform
   repository: https://harness.github.io/helm-charts
-  version: 0.47.3
-digest: sha256:950b6181d1e158a5edf589dd3bb1be376e8e2ac24e2c589633785dd9a4280adb
-generated: "2026-10-27T06:53:32.695430922Z"
+  version: 0.47.4
+digest: sha256:aa6cbc2c2d8bea58f917431b13c2fc546b736175dd8e84ee46559f4b34f63a2b
+generated: "2026-11-10T08:21:46.848384418Z"
