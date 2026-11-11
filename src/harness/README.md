@@ -4,7 +4,7 @@ This readme provides the basic instructions to deploy Harness using a Helm chart
 
 Helm Chart for deploying Harness.
 
-![Version: 0.48.4](https://img.shields.io/badge/Version-0.48.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
+![Version: 0.48.5](https://img.shields.io/badge/Version-0.48.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.80917](https://img.shields.io/badge/AppVersion-1.0.80917-informational?style=flat-square)
 
 For full release notes, go to [Self-Managed Enterprise Edition release notes](https://developer.harness.io/release-notes/self-managed-enterprise-edition).
 
@@ -258,7 +258,7 @@ docker.io/harnesssecure/ff-pushpin-signed:1.1148.0
 docker.io/harnesssecure/ff-pushpin-worker-signed:1.1148.0
 
 ## Cloud Cost Management
-docker.io/harnesssecure/batch-processing-signed:1.105.3
+docker.io/harnesssecure/batch-processing-signed:1.107.5
 docker.io/harnesssecure/ce-anomaly-detection-signed:1.36.0
 docker.io/harnesssecure/ce-cloud-info-signed:1.19.0
 docker.io/harnesssecure/ce-nextgen-signed:1.107.3
