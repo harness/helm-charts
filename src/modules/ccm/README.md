@@ -2,7 +2,7 @@
 
 A Helm chart for Harness Cloud Cost Management (CCM) module
 
-![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.546.0](https://img.shields.io/badge/AppVersion-1.546.0-informational?style=flat-square)
+![Version: 0.48.5](https://img.shields.io/badge/Version-0.48.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.546.0](https://img.shields.io/badge/AppVersion-1.546.0-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ccm
       repository: https://harness.github.io/helm-ccm
-      version: 0.48.0
+      version: 0.48.5
 ```
 
 ## Values
