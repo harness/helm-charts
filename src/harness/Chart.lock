@@ -4,7 +4,7 @@ dependencies:
   version: 1.10.2
 - name: ccm
   repository: https://harness.github.io/helm-charts
-  version: 0.48.0
+  version: 0.48.5
 - name: cd
   repository: https://harness.github.io/helm-charts
   version: 0.48.0
@@ -50,5 +50,5 @@ dependencies:
 - name: genai
   repository: https://harness.github.io/helm-charts
   version: 0.48.0
-digest: sha256:2eb4d08861915b8c8735a0e918c8e216e4f8cbf81001d6a843ff493ee48479a8
-generated: "2026-11-05T16:40:21.358395034Z"
+digest: sha256:583c589878fdf2233ab4c788f07b545a268c6894a1c380300711ccdfd75379c8
+generated: "2026-11-11T11:40:34.171509819Z"
