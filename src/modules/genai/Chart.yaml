@@ -13,4 +13,4 @@ dependencies:
 description: A Helm chart for Harness GenAI
 name: genai
 type: application
-version: 0.48.0
+version: 0.49.0
