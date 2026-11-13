@@ -612,7 +612,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.09.90107
+        tag: 26.10.90313
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -675,6 +675,22 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+  # -- resource-hierarchy-service (taints, tolerations, resources, and so on)
+  resource-hierarchy-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+    replicaCount: 2
+    autoscaling:
+      minReplicas: 2
+    resources:
+      limits:
+        memory: 5120Mi
+      requests:
+        cpu: 2
+        memory: 2048Mi
+    java:
+      memory: "3584m"
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
     affinity: {}
@@ -885,6 +901,11 @@ genai:
     tolerations: []
   mcp-server-external:
     affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+  acm:
     autoscaling:
       enabled: false
     nodeSelector: {}
