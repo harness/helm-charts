@@ -901,3 +901,9 @@ genai:
       enabled: false
     nodeSelector: {}
     tolerations: []
+  ai-agents:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []

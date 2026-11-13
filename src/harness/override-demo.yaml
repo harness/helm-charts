@@ -643,3 +643,17 @@ genai:
       requests:
         cpu: 100m
         memory: 512Mi
+  ai-agents:
+    autoscaling:
+      enabled: false
+      minReplicas: 1
+      maxReplicas: 1
+    replicaCount: 1
+    maxSurge: 0
+    maxUnavailable: 1
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 200m
+        memory: 200Mi
