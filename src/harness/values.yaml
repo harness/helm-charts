@@ -466,15 +466,14 @@ platform:
     database:
       clickhouse:
         enabled: false
-        # Overrides the database chart default (cpu request 12) so the pod schedules
-        # on SMP devspaces. Matches the database chart default in harness-core.
+        # Matches the database chart. Smaller profiles set their own size.
         resources:
           limits:
             cpu: 4
-            memory: "16Gi"
+            memory: 8Gi
           requests:
             cpu: 4
-            memory: "16Gi"
+            memory: 8Gi
       minio:
         affinity: {}
         nodeSelector: {}
