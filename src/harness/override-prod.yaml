@@ -1012,3 +1012,21 @@ genai:
       requests:
         cpu: 100m
         memory: 1Gi
+  ai-agents:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPU: 70
+      targetMemory: 70
+    maxSurge: 0
+    maxUnavailable: 1
+    pdb:
+      create: "true"
+    resources:
+      limits:
+        cpu: 300m
+        memory: 700Mi
+      requests:
+        cpu: 200m
+        memory: 500Mi

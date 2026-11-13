@@ -396,3 +396,4 @@ modules:
       - mcp-server-external-signed
       - acm-signed
       - harness-ai-agent
+      - ai-agents-signed
