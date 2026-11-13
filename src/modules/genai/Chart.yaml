@@ -10,6 +10,9 @@ dependencies:
 - name: acm
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.72.0
+- name: ai-agents
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.4.0
 description: A Helm chart for Harness GenAI
 name: genai
 type: application
