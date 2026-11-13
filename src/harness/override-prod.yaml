@@ -423,6 +423,13 @@ platform:
     database:
       clickhouse:
         enabled: false
+        resources:
+          limits:
+            cpu: 4
+            memory: 8192Mi
+          requests:
+            cpu: 4
+            memory: 8192Mi
       minio:
         defaultBuckets: "logs"
         fullnameOverride: "minio"
