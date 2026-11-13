@@ -466,6 +466,15 @@ platform:
     database:
       clickhouse:
         enabled: false
+        # Overrides the database chart default (cpu request 12) so the pod schedules
+        # on SMP devspaces. Matches the database chart default in harness-core.
+        resources:
+          limits:
+            cpu: 4
+            memory: "16Gi"
+          requests:
+            cpu: 4
+            memory: "16Gi"
       minio:
         affinity: {}
         nodeSelector: {}
@@ -603,7 +612,7 @@ platform:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.10.90313
+        tag: 26.09.90107
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
@@ -666,22 +675,6 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-  # -- resource-hierarchy-service (taints, tolerations, resources, and so on)
-  resource-hierarchy-service:
-    affinity: {}
-    nodeSelector: {}
-    tolerations: []
-    replicaCount: 2
-    autoscaling:
-      minReplicas: 2
-    resources:
-      limits:
-        memory: 5120Mi
-      requests:
-        cpu: 2
-        memory: 2048Mi
-    java:
-      memory: "3584m"
   # -- pipeline-service (Harness pipeline-related services) (taints, tolerations, and so on)
   pipeline-service:
     affinity: {}
@@ -892,11 +885,6 @@ genai:
     tolerations: []
   mcp-server-external:
     affinity: {}
-    autoscaling:
-      enabled: false
-    nodeSelector: {}
-    tolerations: []
-  acm:
     autoscaling:
       enabled: false
     nodeSelector: {}
