@@ -64,6 +64,15 @@ modules:
       - name: upgrader
         variants: ["-fips"]
 
+  harness-operator:
+    description: "Harness Operator"
+    bundle_type: combined
+    requires: []
+    bucket_path: "harness-operator"
+    images:
+      - tiw-airgap
+      - platform-installer-min
+
   dashboard:
     description: "Dashboard"
     bundle_type: combined
@@ -167,7 +176,6 @@ modules:
     parent: sto
     bucket_path: "sto/scanners"
     exclude_full:
-      - cortex-cloud-job-runner
       - docker-content-trust-job-runner
     images:
       - anchore-job-runner
@@ -183,6 +191,7 @@ modules:
       - burp-job-runner
       - checkmarx-job-runner
       - checkov-job-runner
+      - cortex-cloud-job-runner
       - fossa-job-runner
       - github-advanced-security-job-runner
       - gitleaks-job-runner
@@ -385,3 +394,5 @@ modules:
     images:
       - mcp-server-signed
       - mcp-server-external-signed
+      - acm-signed
+      - harness-ai-agent
