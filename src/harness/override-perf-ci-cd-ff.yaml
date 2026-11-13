@@ -57,6 +57,14 @@ platform:
         memory: 6Gi
   bootstrap:
     database:
+      clickhouse:
+        resources:
+          limits:
+            cpu: 4
+            memory: 8Gi
+          requests:
+            cpu: 4
+            memory: 8Gi
       redis:
         redis:
           resources:

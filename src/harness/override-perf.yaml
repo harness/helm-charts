@@ -97,6 +97,16 @@ platform:
             cpu: 10m
             memory: 20Mi
     database:
+      clickhouse:
+        persistence:
+          size: 200Gi
+        resources:
+          limits:
+            cpu: 4
+            memory: 8192Mi
+          requests:
+            cpu: 4
+            memory: 8192Mi
       timescaledb:
         autoscaling:
           enabled: false

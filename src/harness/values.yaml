@@ -466,6 +466,14 @@ platform:
     database:
       clickhouse:
         enabled: false
+        # Matches the database chart. Smaller profiles set their own size.
+        resources:
+          limits:
+            cpu: 4
+            memory: 8Gi
+          requests:
+            cpu: 4
+            memory: 8Gi
       minio:
         affinity: {}
         nodeSelector: {}
