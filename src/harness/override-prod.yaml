@@ -422,7 +422,6 @@ platform:
   bootstrap:
     database:
       clickhouse:
-        enabled: false
         resources:
           limits:
             cpu: 4
@@ -431,9 +430,6 @@ platform:
             cpu: 4
             memory: 8192Mi
       minio:
-        defaultBuckets: "logs"
-        fullnameOverride: "minio"
-        mode: standalone
         affinity: {}
         nodeSelector: {}
         tolerations: []
