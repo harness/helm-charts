@@ -20,3 +20,5 @@ Take the first "yes":
 - The key must exist in the key list in `src/harness/templates/harness-shared-secrets.yaml`.
 - Mappings apply only when `global.sharedSecrets.enabled=true`.
 - `unified-data-platform` uses `secretKeyRef` and is not gated by the flag. It requires `global.sharedSecrets.enabled=true`.
+
+This list is separate from `secrets.kubernetesSecrets`. Helm replaces a list, so a customer override of `kubernetesSecrets` (the usual change when log-service uses the customer's own S3 or GCS bucket) removes every chart entry in that list and leaves this one in place. A second item may name a different secret. log-service does this for `LOG_SERVICE_CLICKHOUSE_PASSWORD`, which is read from secret `clickhouse` key `admin-password` and is not a key in `harness-shared-secrets`. Do not add that password to the `harness-shared-secrets` item, and do not copy `smpSharedKubernetesSecrets` into a customer override just to keep the password: copying the list freezes it and drops later chart additions. An override only needs to replace `kubernetesSecrets` with the bucket credentials.
