@@ -28,6 +28,7 @@ A Helm chart for Harness Unified Data Platform (UDP) services
 | dashboard-ui.image.imagePullSecrets | list | `[]` |  |
 | onboarding-service.createSmpSecret | bool | `true` |  |
 | onboarding-service.image.imagePullSecrets | list | `[]` |  |
+| onboarding-service.onboardingService.appConfig.onboarding-service.provider-groups.include[0].name | string | `"02_smp"` |  |
 | onboarding-service.onboardingService.kafka.enabled | bool | `false` |  |
 | onboarding-service.onboardingService.kafka.tlsTruststoreSecret | string | `""` |  |
 | onboarding-service.onboardingService.kafka.tlsUserSecret | string | `""` |  |
