@@ -142,6 +142,11 @@ harness-manager:
   shutdownHooksEnabled: true
 log-service:
   secrets:
+    # Kept off kubernetesSecrets on purpose. Helm replaces that list, and customers who
+    # point log-service at their own bucket (S3/GCS) supply a new kubernetesSecrets list
+    # and drop the chart's clickhouse entry. This list is separate, so the password
+    # still reaches the pod. The password lives in secret "clickhouse", not in
+    # harness-shared-secrets.
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
         keys:
@@ -150,6 +155,9 @@ log-service:
           LOG_SERVICE_MANAGER_JWT_AUTH_SECRET: jwtNextGenManagerSecret
           LOG_SERVICE_PIPELINE_JWT_AUTH_SECRET: jwtAuthSecret
           LOG_SERVICE_SECRET: jwtNextGenManagerSecret
+      - secretName: clickhouse
+        keys:
+          LOG_SERVICE_CLICKHOUSE_PASSWORD: admin-password
   config:
     ENV: "SMP"
 ng-custom-dashboards:

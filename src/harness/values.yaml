@@ -634,6 +634,12 @@ platform:
       PIPE_LOG_SERVICE_FALLBACK_STRATEGY: "true"
     secrets:
       # Helm replaces lists, so the chart's default entries are repeated here.
+      # The clickhouse entry covers installs that keep this list. A customer who
+      # replaces it to point log-service at their own bucket drops that entry.
+      # The same password is also on log-service.secrets.smpSharedKubernetesSecrets
+      # in src/modules/platform/values.yaml, and that list is not replaced by a
+      # kubernetesSecrets override. When both are set they read secret clickhouse
+      # key admin-password, and kubernetesSecrets wins the tie.
       kubernetesSecrets:
         - secretName: ""
           keys:
