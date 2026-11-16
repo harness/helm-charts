@@ -142,11 +142,8 @@ harness-manager:
   shutdownHooksEnabled: true
 log-service:
   secrets:
-    # Kept off kubernetesSecrets on purpose. Helm replaces that list, and customers who
-    # point log-service at their own bucket (S3/GCS) supply a new kubernetesSecrets list
-    # and drop the chart's clickhouse entry. This list is separate, so the password
-    # still reaches the pod. The password lives in secret "clickhouse", not in
-    # harness-shared-secrets.
+    # clickhouse password kept here, not in kubernetesSecrets, so it survives
+    # a kubernetesSecrets override.
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
         keys:
@@ -160,6 +157,14 @@ log-service:
           LOG_SERVICE_CLICKHOUSE_PASSWORD: admin-password
   config:
     ENV: "SMP"
+looker:
+  # Attach Looker's ClientTrafficPolicy (KeepUnchanged for escaped slashes) to the Looker
+  # listener only; a Gateway-level policy conflicts with the shared one and breaks embed (404).
+  # Listener name must match global.gatewayAPI.additionalListeners.
+  gatewayAPI:
+    policies:
+      clientTraffic:
+        sectionName: https-looker
 ng-custom-dashboards:
   secrets:
     smpSharedKubernetesSecrets:
