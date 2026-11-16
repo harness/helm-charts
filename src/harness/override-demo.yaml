@@ -129,7 +129,6 @@ platform:
   bootstrap:
     database:
       clickhouse:
-        enabled: false
         persistence:
           size: 20Gi
         resources:
@@ -140,9 +139,6 @@ platform:
             cpu: 1
             memory: 2Gi
       minio:
-        defaultBuckets: "logs"
-        fullnameOverride: "minio"
-        mode: standalone
         persistence:
           size: 10Gi
       mongodb:
