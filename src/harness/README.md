@@ -465,9 +465,8 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | global.code | object | `{"enabled":false}` | Enable to install Harness Code services (CODE) |
 | global.commonAnnotations | object | `{}` | Add common annotations to all objects |
 | global.commonLabels | object | `{}` | Add common labels to all objects |
-| global.data-infra.enabled | bool | `true` |  |
-| global.database | object | `{"clickhouse":{"enabled":true},"mongo":{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""},"postgres":{"extraArgs":"","hosts":["postgres:5432"],"installed":true,"passwordKey":"password","protocol":"postgres","secretName":"postgres-secret","userKey":"user"},"redis":{"hosts":["<internal-endpoint-with-port>"],"installed":true,"passwordKey":"password","secretName":"redis-user-pass","userKey":"username"},"timescaledb":{"certKey":"cert","certName":"tsdb-cert","hosts":["hostname.timescale.com:5432"],"installed":true,"passwordKey":"password","secretName":"tsdb-secret","sslEnabled":false,"userKey":"username"}}` | provide overrides to use in-cluster database or configure to use external databases |
-| global.database.clickhouse.enabled | bool | `true` | Installs in-cluster ClickHouse and turns it on for log-service, CCM, and Looker. Set false only when ClickHouse is external or not used. |
+| global.data-infra.enabled | bool | `false` |  |
+| global.database | object | `{"clickhouse":{"enabled":false},"mongo":{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""},"postgres":{"extraArgs":"","hosts":["postgres:5432"],"installed":true,"passwordKey":"password","protocol":"postgres","secretName":"postgres-secret","userKey":"user"},"redis":{"hosts":["<internal-endpoint-with-port>"],"installed":true,"passwordKey":"password","secretName":"redis-user-pass","userKey":"username"},"timescaledb":{"certKey":"cert","certName":"tsdb-cert","hosts":["hostname.timescale.com:5432"],"installed":true,"passwordKey":"password","secretName":"tsdb-secret","sslEnabled":false,"userKey":"username"}}` | provide overrides to use in-cluster database or configure to use external databases |
 | global.database.mongo | object | `{"extraArgs":"","hosts":[],"installed":true,"passwordKey":"","protocol":"mongodb","secretName":"","userKey":""}` | settings to deploy mongo in-cluster or configure to use external mongo source |
 | global.database.mongo.extraArgs | string | `""` | set additional arguments to mongo uri |
 | global.database.mongo.hosts | list | `[]` | set the mongo hosts if mongo.installed is set to false |
@@ -537,7 +536,7 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | global.istio.virtualService.hosts | list | `["myhostname.example.com"]` | add global.istio.istioGatewayServiceUrl in hosts if global.istio.istioGatewayServiceUrl is not empty. |
 | global.jfr.enabled | bool | `false` |  |
 | global.kafka.bootstrapServers | string | `"kafka-platform-kafka-bootstrap:9093"` |  |
-| global.kafka.enabled | bool | `true` |  |
+| global.kafka.enabled | bool | `false` |  |
 | global.kafka.schemaRegistryUrl | string | `"http://schema-registry-service:8081"` |  |
 | global.kubeVersion | string | `""` | set kubernetes version override, unrequired if installing using Helm. |
 | global.license | object | `{"cg":"","ng":""}` | Place the license key, Harness support team will provide these |
@@ -651,7 +650,7 @@ docker.io/harnesssecure/mcp-server-external-signed:1.161.0
 | platform.harness-manager | object | `{"affinity":{},"featureFlags":{"ADDITIONAL":"UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"},"immutable_delegate_docker_image":{"image":{"digest":"","registry":"docker.io","repository":"harnesssecure/delegate","tag":"26.09.90107"}},"nodeSelector":{},"tolerations":{},"upgrader_docker_image":{"image":{"tag":"1.12.0"}}}` | harness-manager (taints, tolerations, and so on) |
 | platform.harness-manager.featureFlags | object | `{"ADDITIONAL":"UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"}` | Feature Flags |
 | platform.harness-manager.featureFlags.ADDITIONAL | string | `"UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"` | Additional Feature Flag (placeholder to add any other featureFlags) |
-| platform.log-service | object | `{"affinity":{},"clickhouse":{"addrs":"clickhouse:9000","database":"log_service","enabled":true,"retentionWorkerEnabled":true,"tls":false,"writeToKafka":true},"config":{"PIPE_LOG_SERVICE_FALLBACK_STRATEGY":"true"},"kafka":{"enabled":true},"nodeSelector":{},"secrets":{"kubernetesSecrets":[{"keys":{"LOG_SERVICE_GLOBAL_TOKEN":"","LOG_SERVICE_SECRET":""},"secretName":""},{"keys":{"LOG_SERVICE_S3_ACCESS_KEY_ID":"root-user","LOG_SERVICE_S3_SECRET_ACCESS_KEY":"root-password"},"secretName":"minio"},{"keys":{"LOG_SERVICE_CLICKHOUSE_PASSWORD":"admin-password"},"secretName":"clickhouse"}]},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
+| platform.log-service | object | `{"affinity":{},"nodeSelector":{},"tolerations":[]}` | log-service (taints, tolerations, and so on) |
 | platform.looker.affinity | object | `{}` |  |
 | platform.looker.nodeSelector | object | `{}` |  |
 | platform.looker.tolerations | list | `[]` |  |

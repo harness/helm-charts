@@ -39,8 +39,6 @@ global:
     enabled: true
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
-    clickhouse:
-      enabled: true
     # -- settings to deploy mongo in-cluster or configure to use external mongo source
     mongo:
       # -- set additional arguments to mongo uri
