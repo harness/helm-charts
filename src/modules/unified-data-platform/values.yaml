@@ -34,6 +34,11 @@ onboarding-service:
     serviceAccount:
       create: true
       name: onboarding-service
+    appConfig:
+      onboarding-service:
+        provider-groups:
+          include:
+            - name: "02_smp"
     kafka:
       enabled: false
       tlsUserSecret: ""
