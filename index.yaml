@@ -39705,6 +39705,37 @@ entries:
   unified-data-platform:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2026-11-17T09:30:38.674343916Z"
+    dependencies:
+    - condition: global.unified-data-platform.enabled
+      name: config-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.1.170
+    - condition: global.unified-data-platform.enabled
+      name: schema-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.23.0
+    - condition: global.unified-data-platform.enabled
+      name: onboarding-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.14.214
+    - condition: global.unified-data-platform.enabled
+      name: query-service
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 0.75.3
+    - condition: global.unified-data-platform.enabled
+      name: dashboard-ui
+      repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+      version: 1.89.0
+    description: A Helm chart for Harness Unified Data Platform (UDP) services
+    digest: 45ecaaa6a0cb32b26407305815d268a238b8ba11046a96ca7db5502b8b138ba2
+    name: unified-data-platform
+    type: application
+    urls:
+    - https://github.com/harness/helm-charts/releases/download/unified-data-platform-0.48.8/unified-data-platform-0.48.8.tgz
+    version: 0.48.8
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2026-11-05T16:35:28.731821509Z"
     dependencies:
     - condition: global.unified-data-platform.enabled
@@ -39951,4 +39982,4 @@ entries:
     urls:
     - https://github.com/harness/helm-charts/releases/download/unified-data-platform-0.47.0/unified-data-platform-0.47.0.tgz
     version: 0.47.0
-generated: "2026-11-17T07:03:43.947818432Z"
+generated: "2026-11-17T09:30:38.676607222Z"
