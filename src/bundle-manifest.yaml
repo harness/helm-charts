@@ -142,6 +142,7 @@ modules:
       - kaniko-acr
       - kaniko-ecr
       - kaniko-gcr
+      - kaniko-gar
       - artifactory
       - gcs
       - cache
