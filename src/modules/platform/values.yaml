@@ -142,8 +142,6 @@ harness-manager:
   shutdownHooksEnabled: true
 log-service:
   secrets:
-    # clickhouse password kept here, not in kubernetesSecrets, so it survives
-    # a kubernetesSecrets override.
     smpSharedKubernetesSecrets:
       - secretName: harness-shared-secrets
         keys:
@@ -152,9 +150,6 @@ log-service:
           LOG_SERVICE_MANAGER_JWT_AUTH_SECRET: jwtNextGenManagerSecret
           LOG_SERVICE_PIPELINE_JWT_AUTH_SECRET: jwtAuthSecret
           LOG_SERVICE_SECRET: jwtNextGenManagerSecret
-      - secretName: clickhouse
-        keys:
-          LOG_SERVICE_CLICKHOUSE_PASSWORD: admin-password
   config:
     ENV: "SMP"
 looker:
