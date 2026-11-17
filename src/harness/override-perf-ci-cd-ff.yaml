@@ -1,7 +1,4 @@
 global:
-  database:
-    clickhouse:
-      enabled: true
   lwd:
     autocud:
       enabled: false
