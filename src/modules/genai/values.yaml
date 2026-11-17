@@ -109,7 +109,6 @@ acm:
     HARNESS_SERVICES_OPA_IGNORE: "false"
     HARNESS_SERVICES_OPA_CLIENT_BASEURL: "http://policy-mgmt:3000"
     HARNESS_SERVICES_OPA_CLIENT_SECURE: "false"
-    DEFAULT_HARNESS_AI_CONTAINER_IMAGE: "harnesssecure/harness-ai-agent:latest"
   postgres:
     image:
       repository: "harnesssecure/postgresql"

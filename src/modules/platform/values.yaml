@@ -428,6 +428,7 @@ change-data-capture:
 next-gen-ui:
   config:
     ENV: "SMP"
+    DEFAULT_HARNESS_AI_CONTAINER_IMAGE: "harnesssecure/harness-ai-agent:latest"
   ingress:
     objects:
       # serves the UI at the root path; skipped when CG owns the root ingress
