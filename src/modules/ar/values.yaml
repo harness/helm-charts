@@ -33,6 +33,10 @@ registry-api:
           HARNESS_SERVICES_SEMANTIC_SEARCH_JWT_SECRET: jwtNextGenManagerSecret
           HARNESS_SERVICES_SSCA_JWT_SECRET: jwtNextGenManagerSecret
           HARNESS_SERVICES_STO_JWT_SECRET: jwtNextGenManagerSecret
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
   config:
     REGISTRY_ENABLE_ES: "false"
     HARNESS_REGISTRY_EVENTS_ARTIFACT_QUARANTINE_STREAM: "ssca_ar_artifact_quarantine"
@@ -74,6 +78,10 @@ registry-async-service:
           HARNESS_SERVICES_NGMANAGER_JWT_SECRET: jwtNextGenManagerSecret
           HARNESS_SERVICES_OPA_CLIENT_JWT_SECRET: jwtAuthSecret
           REGISTRY_ASYNC_SERVICE_JWT_SECRET: jwtNextGenManagerSecret
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
   config:
     REGISTRY_ENABLE_ES: "false"
     KAFKA_CONFLUENT_BOOTSTRAP_SERVER_URLS: "kafka-platform-kafka-bootstrap:9093"
@@ -111,6 +119,10 @@ registry-processor:
           HARNESS_SERVICES_NGMANAGER_JWT_SECRET: jwtNextGenManagerSecret
           HARNESS_SERVICES_OPA_CLIENT_JWT_SECRET: jwtAuthSecret
           REGISTRY_PROCESSOR_JWT_SECRET: jwtNextGenManagerSecret
+  postgres:
+    image:
+      repository: "harnesssecure/postgresql"
+      tag: "14.20-debian"
   config:
     HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
     GITNESS_REGISTRY_POST_PROCESSING_CONCURRENCY: "10"
