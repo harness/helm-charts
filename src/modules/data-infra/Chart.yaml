@@ -16,7 +16,7 @@ dependencies:
 - condition: global.kafka.enabled
   name: schema-registry
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.13.13
+  version: 1.13.16
 - condition: global.kafka.enabled
   name: kafka-connect-strimzi
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
