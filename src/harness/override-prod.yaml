@@ -901,10 +901,10 @@ ar:
       targetMemory: 80
     resources:
       limits:
-        memory: 4096Mi
+        memory: 8192Mi
       requests:
-        cpu: 1
-        memory: 4096Mi
+        cpu: 2
+        memory: 8192Mi
   registry-processor:
     autoscaling:
       enabled: true
@@ -914,10 +914,10 @@ ar:
       targetMemory: 80
     resources:
       limits:
-        memory: 2048Mi
+        memory: 4096Mi
       requests:
-        cpu: 512m
-        memory: 2048Mi
+        cpu: 1
+        memory: 4096Mi
   registry-async-service:
     autoscaling:
       enabled: true
@@ -927,10 +927,10 @@ ar:
       targetMemory: 80
     resources:
       limits:
-        memory: 4096Mi
+        memory: 8192Mi
       requests:
-        cpu: 1
-        memory: 4096Mi
+        cpu: 2
+        memory: 8192Mi
   ipqs-service:
     autoscaling:
       enabled: true
