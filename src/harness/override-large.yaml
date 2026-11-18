@@ -174,10 +174,10 @@ platform:
         redis:
           resources:
             limits:
-              memory: 512Mi
+              memory: 4Gi
             requests:
               cpu: 1.5
-              memory: 512Mi
+              memory: 4Gi
         replicaCount: 3
         sentinel:
           resources:
