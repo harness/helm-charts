@@ -106,6 +106,7 @@ acm:
     # Chart defaults are devspace-style verbose logging; keep SMP quiet (customers can override).
     ACM_DEBUG: "false"
     ACM_TRACE: "false"
+    ACM_AGENT_TEMPLATE_MIGRATION_WORKER_ENABLED: "false"
     HARNESS_SERVICES_OPA_IGNORE: "false"
     HARNESS_SERVICES_OPA_CLIENT_BASEURL: "http://policy-mgmt:3000"
     HARNESS_SERVICES_OPA_CLIENT_SECURE: "false"
