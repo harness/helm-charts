@@ -311,6 +311,10 @@ platform:
       requests:
         cpu: 0.1
         memory: 100Mi
+  fme-proxy:
+    Split-Proxy-Chart:
+      sdkProxyReplicaCount: 1
+      eventsProxyReplicaCount: 0
   platform-ui:
     autoscaling:
       enabled: false

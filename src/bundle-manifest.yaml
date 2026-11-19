@@ -49,6 +49,8 @@ modules:
       - ui-signed
       - pg-upgrader
       - clickhouse
+      - split-proxy
+      - fme-proxy-snapshot
       - name: delegate
         variants: [".minimal", ".minimal-fips"]
         variants_only: true
