@@ -202,6 +202,18 @@ query-service:
                 data-type: "ci:gradle_cache_metrics_raw"
               - data-kind: DATA_KIND_VIEW
                 data-type: "ci:gradle_cache_metrics"
+              # CHAOS-14120: SMP Chaos tag tables have no account column. The chaos:dim_* views
+              # still isolate by account_identifier, taken from the parent row.
+              - data-kind: DATA_KIND_ENTITY
+                data-type: "smp:chaos:experiment_tags"
+              - data-kind: DATA_KIND_ENTITY
+                data-type: "smp:chaos:k8s_infrastructure_tags"
+              - data-kind: DATA_KIND_ENTITY
+                data-type: "smp:chaos:linux_infrastructure_tags"
+              # public.ng_users has no account column, so this view has no tenant field.
+              # platform:ng_user, the entity under it, is already excluded above.
+              - data-kind: DATA_KIND_VIEW
+                data-type: "chaos:dim_users"
 
 dashboard-ui:
   image:
