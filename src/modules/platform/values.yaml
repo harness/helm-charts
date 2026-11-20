@@ -421,10 +421,14 @@ bootstrap:
       image:
         repository: harnesssecure/mongo
         tag: 8.0.34-jammy
+    postgresInitJob:
+      image:
+        repository: harnesssecure/postgresql
+        tag: 14.25-bookworm
     postgresql:
       image:
-        repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
+        repository: harnesssecure/postgresql
+        tag: 14.25-bookworm
     redis:
       metrics:
         image:
