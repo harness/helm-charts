@@ -584,24 +584,17 @@ platform:
                     topologyKey: kubernetes.io/hostname
   # -- fme-proxy (FME Split Proxy, offline SDK source for Harness feature flags). Scheduling keys (affinity, nodeSelector, tolerations) are set under Split-Proxy-Chart.
   fme-proxy:
-    enabled: false
+    enabled: true
     Split-Proxy-Chart:
       affinity: {}
       nodeSelector: {}
       tolerations: []
-      config:
-        # Offline snapshot mode needs no upstream SDK key; only the client key is read, from
-        # harness-shared-secrets (apiKeyKey is unused while snapshot.enabled is true).
-        useSealed: true
-        sealed:
-          secretName: harness-shared-secrets
-          clientApiKeysKey: fmeProxyClientKey
       snapshot:
         enabled: true
         image:
           registry: docker.io
           repository: harnesssecure/fme-proxy-snapshot
-          tag: "0.0.0-placeholder" # placeholder; the unified_build pipeline sets the real tag before render
+          tag: "0.0.0-placeholder"
   gateway:
     affinity: {}
     nodeSelector: {}

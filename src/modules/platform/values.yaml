@@ -432,3 +432,12 @@ platform-ui:
 ng-auth-ui:
   config:
     ENV: "SMP"
+fme-proxy:
+  Split-Proxy-Chart:
+    config:
+      # Offline snapshot mode needs no upstream SDK key; only the client key is read, from
+      # harness-shared-secrets (apiKeyKey is unused while snapshot.enabled is true).
+      useSealed: true
+      sealed:
+        secretName: harness-shared-secrets
+        clientApiKeysKey: fmeProxyClientKey
