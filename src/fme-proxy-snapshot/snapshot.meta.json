@@ -1,0 +1,11 @@
+{
+  "source": "smp-fme-environment",
+  "helmChartsBranch": "FME-21817-fme-proxy-platform",
+  "imageTag": "20261120-f2112499c86d",
+  "proxyImage": "splitsoftware/split-proxy:5.14.0",
+  "generatedAt": "2026-11-20T17:01:43Z",
+  "sha256": "f2112499c86d7f60b3cbc453ce1be77d426d2f2cd4f147f1f845d4374f9c7d9b",
+  "identity": "549c0c4d58c54b6afdd8bd550d396a41e322e90d1bc4aac002fd17d0b0235c6a",
+  "sizeBytes": 8707,
+  "dataImage": "harness0.harness.io/oci/smp-docker/harnesssecure/fme-proxy-snapshot:20261120-f2112499c86d"
+}
