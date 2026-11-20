@@ -594,7 +594,7 @@ platform:
         image:
           registry: docker.io
           repository: harnesssecure/fme-proxy-snapshot
-          tag: "0.0.0-placeholder"
+          tag: "20261120-f2112499c86d"
   gateway:
     affinity: {}
     nodeSelector: {}
