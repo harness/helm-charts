@@ -138,9 +138,6 @@ fme-proxy:
   # Both images are Harness-owned and public on Docker Hub. The proxy stays on splitsoftware/split-proxy
   # for now (not mirrored to harnesssecure); the snapshot data image is published to harnesssecure.
   Split-Proxy-Chart:
-    image:
-      registry: docker.io
-      repository: splitsoftware/split-proxy
     snapshot:
       image:
         registry: docker.io
