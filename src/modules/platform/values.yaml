@@ -52,7 +52,7 @@ access-control:
   postgresql:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
 audit-event-streaming:
   # JFR init container image
   jfr:

@@ -19,11 +19,11 @@ iac-server:
   createDb:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
 iacm-manager:
   # JFR init container image
   jfr:
