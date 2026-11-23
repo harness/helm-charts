@@ -113,6 +113,6 @@ acm:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
       # acm chart defaults to true (SaaS pulls from Docker Hub); SMP must honor global.imageRegistry for airgap.
       ignoreGlobalImageRegistry: false
