@@ -36,7 +36,7 @@ registry-api:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
   config:
     REGISTRY_ENABLE_ES: "false"
     HARNESS_REGISTRY_EVENTS_ARTIFACT_QUARANTINE_STREAM: "ssca_ar_artifact_quarantine"
@@ -81,7 +81,7 @@ registry-async-service:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
   config:
     REGISTRY_ENABLE_ES: "false"
     KAFKA_CONFLUENT_BOOTSTRAP_SERVER_URLS: "kafka-platform-kafka-bootstrap:9093"
@@ -122,7 +122,7 @@ registry-processor:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
   config:
     HARNESS_SERVICES_COMPONENT_SERVICE_IGNORE: "true"
     GITNESS_REGISTRY_POST_PROCESSING_CONCURRENCY: "10"

@@ -33,12 +33,12 @@ code-api:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
   autoai:
     postgres:
       image:
         repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
+        tag: "14.25-bookworm"
 code-githa:
   secrets:
     smpSharedKubernetesSecrets:
@@ -48,7 +48,7 @@ code-githa:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
 code-search:
   secrets:
     smpSharedKubernetesSecrets:
@@ -71,9 +71,9 @@ code-search:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
 code-gitrpc:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"

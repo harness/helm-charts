@@ -15,7 +15,7 @@ batch-processing:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
 ce-nextgen:
   secrets:
     smpSharedKubernetesSecrets:
