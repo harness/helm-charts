@@ -83,7 +83,8 @@ clickhouse-query-cluster:
     enabled: false
   keeper:
     enabled: true
-    name: clickhouse-keeper
+    # Also used as the Keeper cluster name, which the CRD limits to 15 bytes. Keeper resources: chk-ch-keeper-ch-keeper-0-0.
+    name: ch-keeper
     # 1 is enough while no Replicated* tables are used. Chart still requires a Keeper to start.
     replicasCount: 1
     # image:
