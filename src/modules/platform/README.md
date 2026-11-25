@@ -20,7 +20,9 @@ dependencies:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | access-control.config.ENV | string | `"SMP"` |  |
-| access-control.config.RHS_ENABLED | string | `"false"` |  |
+| access-control.config.ORGANIZATION_CLIENT_BASE_URL | string | `"http://resource-hierarchy-service:9009/"` |  |
+| access-control.config.PROJECT_CLIENT_BASE_URL | string | `"http://resource-hierarchy-service:9009/"` |  |
+| access-control.config.RHS_ENABLED | string | `"true"` |  |
 | access-control.postgresql.image.repository | string | `"harnesssecure/postgresql"` |  |
 | access-control.postgresql.image.tag | string | `"14.20-debian"` |  |
 | access-control.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -144,7 +146,7 @@ dependencies:
 | ng-dashboard-aggregator.secrets.smpSharedKubernetesSecrets[0].keys.RESOURCE_HIERARCHY_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-dashboard-aggregator.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | ng-manager.config.ENV | string | `"SMP"` |  |
-| ng-manager.config.RHS_ENABLED | string | `"false"` |  |
+| ng-manager.config.RHS_ENABLED | string | `"true"` |  |
 | ng-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-manager.secrets.smpSharedKubernetesSecrets[0].keys.AIMLOPS_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ng-manager.secrets.smpSharedKubernetesSecrets[0].keys.APPSEC_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
