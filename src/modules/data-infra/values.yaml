@@ -95,6 +95,8 @@ clickhouse-query-cluster:
     # log-service tables are not replicated, so keep 1 replica.
     replicasCount: 1
     hardAntiAffinity: false
+    topologySpreadConstraints:
+      enabled: false
     s3:
       enabled: false
     resources:
