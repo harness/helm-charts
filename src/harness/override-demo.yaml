@@ -129,11 +129,16 @@ platform:
   bootstrap:
     database:
       clickhouse:
-        enabled: false
+        persistence:
+          size: 20Gi
+        resources:
+          limits:
+            cpu: 1
+            memory: 2Gi
+          requests:
+            cpu: 1
+            memory: 2Gi
       minio:
-        defaultBuckets: "logs"
-        fullnameOverride: "minio"
-        mode: standalone
         persistence:
           size: 10Gi
       mongodb:
@@ -509,6 +514,30 @@ data-infra:
       limits:
         cpu: "1"
         memory: "2Gi"
+  clickhouse-query-cluster:
+    keeper:
+      replicasCount: 1
+      resources:
+        requests:
+          cpu: "100m"
+          memory: 512Mi
+        limits:
+          cpu: "500m"
+          memory: 512Mi
+      storage:
+        size: 5Gi
+    cluster:
+      replicasCount: 1
+      resources:
+        requests:
+          cpu: "500m"
+          memory: 4Gi
+        limits:
+          cpu: "2"
+          memory: 4Gi
+      storage:
+        size: 15Gi
+
 unified-data-platform:
   config-service:
     replicaCount: 1
@@ -643,3 +672,17 @@ genai:
       requests:
         cpu: 100m
         memory: 512Mi
+  ai-agents:
+    autoscaling:
+      enabled: false
+      minReplicas: 1
+      maxReplicas: 1
+    replicaCount: 1
+    maxSurge: 0
+    maxUnavailable: 1
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 200m
+        memory: 200Mi

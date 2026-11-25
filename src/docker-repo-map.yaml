@@ -318,6 +318,20 @@ iacm-manager:
   image:
     registry: docker.io
     repository: harnesssecure/iacm-manager-signed
+clickhouse-operator:
+  altinity-clickhouse-operator:
+    operator:
+      image:
+        registry: docker.io
+        repository: harnesssecure/clickhouse-operator-signed
+clickhouse-query-cluster:
+  clickhouseImage:
+    registry: docker.io
+    repository: harnesssecure/clickhouse-server-signed
+  keeper:
+    image:
+      registry: docker.io
+      repository: harnesssecure/clickhouse-keeper-signed
 kafka-operator:
   strimziOperator:
     image:
@@ -397,3 +411,7 @@ acm:
   image:
     registry: docker.io
     repository: harnesssecure/acm-signed
+ai-agents:
+  image:
+    registry: docker.io
+    repository: harnesssecure/ai-agents-signed

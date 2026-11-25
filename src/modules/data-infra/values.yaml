@@ -34,8 +34,78 @@ kafka-operator:
     kafkaInit:
       image:
         repository: harnesssecure/kafka-operator-signed
+  crdUpdate:
+    job:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          cpu: "2"
+          memory: 512Mi
 kafka-platform:
   kafkaDebugPod:
     image:
       registry: docker.io
       repository: harnesssecure/strimzi-kafka-signed
+# ClickHouse (operator based). Independent of global.database.clickhouse (the legacy single-node ClickHouse).
+clickhouse-operator:
+  altinity-clickhouse-operator:
+    imagePullSecrets: []
+    metrics:
+      enabled: false
+    crdHook:
+      enabled: false
+clickhouse-query-cluster:
+  namePrefix: clickhouse
+  imagePullSecrets: []
+  serviceAccount:
+    create: true
+    name: clickhouse-service
+  secrets:
+    clickhouse:
+      secretName: harness-shared-secrets
+      key: clickhouseDefaultPassword
+  # GKE/GCP only features, off in SMP.
+  backups:
+    enabled: false
+  logExport:
+    enabled: false
+  monitoring:
+    enabled: false
+  keeper:
+    enabled: true
+    # Also the Keeper cluster name (CRD limit: 15 bytes).
+    name: ch-keeper
+    replicasCount: 1
+    resources:
+      requests:
+        cpu: "1"
+        memory: 2Gi
+      limits:
+        cpu: "1"
+        memory: 2Gi
+    storage:
+      size: 10Gi
+      storageClassName: ""
+  cluster:
+    name: smp
+    clusterName: clickhouse
+    shardsCount: 1
+    # log-service tables are not replicated, so keep 1 replica.
+    replicasCount: 1
+    hardAntiAffinity: false
+    topologySpreadConstraints:
+      enabled: false
+    s3:
+      enabled: false
+    resources:
+      requests:
+        cpu: "2"
+        memory: 8Gi
+      limits:
+        cpu: "2"
+        memory: 8Gi
+    storage:
+      size: 100Gi
+      storageClassName: ""

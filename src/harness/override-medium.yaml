@@ -135,11 +135,16 @@ platform:
   bootstrap:
     database:
       clickhouse:
-        enabled: false
+        persistence:
+          size: 20Gi
+        resources:
+          limits:
+            cpu: 4
+            memory: 4Gi
+          requests:
+            cpu: 4
+            memory: 4Gi
       minio:
-        defaultBuckets: "logs"
-        fullnameOverride: "minio"
-        mode: standalone
         persistence:
           size: 10Gi
       mongodb:
@@ -168,10 +173,10 @@ platform:
         redis:
           resources:
             limits:
-              memory: 512Mi
+              memory: 2Gi
             requests:
               cpu: 1.5
-              memory: 512Mi
+              memory: 2Gi
         replicaCount: 3
         sentinel:
           resources:
@@ -542,6 +547,29 @@ data-infra:
       limits:
         cpu: 2
         memory: "4Gi"
+  clickhouse-query-cluster:
+    keeper:
+      replicasCount: 1
+      resources:
+        requests:
+          cpu: "500m"
+          memory: 2Gi
+        limits:
+          cpu: "1"
+          memory: 2Gi
+      storage:
+        size: 10Gi
+    cluster:
+      replicasCount: 1
+      resources:
+        requests:
+          cpu: "2"
+          memory: 8Gi
+        limits:
+          cpu: "4"
+          memory: 8Gi
+      storage:
+        size: 60Gi
 
 unified-data-platform:
   config-service:
@@ -602,10 +630,10 @@ ar:
       targetMemory: 80
     resources:
       limits:
-        memory: 2048Mi
+        memory: 4096Mi
       requests:
-        cpu: 512m
-        memory: 2048Mi
+        cpu: 1
+        memory: 4096Mi
   registry-processor:
     autoscaling:
       enabled: true
@@ -615,10 +643,10 @@ ar:
       targetMemory: 80
     resources:
       limits:
-        memory: 1024Mi
+        memory: 2048Mi
       requests:
-        cpu: 256m
-        memory: 1024Mi
+        cpu: 512m
+        memory: 2048Mi
   registry-async-service:
     autoscaling:
       enabled: true
@@ -628,10 +656,10 @@ ar:
       targetMemory: 80
     resources:
       limits:
-        memory: 2048Mi
+        memory: 4096Mi
       requests:
-        cpu: 512m
-        memory: 2048Mi
+        cpu: 1
+        memory: 4096Mi
   ipqs-service:
     autoscaling:
       enabled: false
@@ -702,3 +730,16 @@ genai:
       requests:
         cpu: 100m
         memory: 1Gi
+  ai-agents:
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 2
+    maxSurge: 0
+    maxUnavailable: 1
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 200m
+        memory: 200Mi

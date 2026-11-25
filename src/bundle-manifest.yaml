@@ -365,6 +365,9 @@ modules:
     bundle_type: combined
     requires: [platform]
     bucket_path: "data-infra"
+    exclude_full:
+      - metrics-exporter
+      - kubectl
     images:
       - kafka-operator-signed
       - kafka-operator-crd-updater-signed
@@ -374,6 +377,9 @@ modules:
       - schema-compatibility-signed
       - schema-registry-prometheus-jmx-exporter-signed
       - schema-registry-backup-signed
+      - clickhouse-operator-signed
+      - clickhouse-server-signed
+      - clickhouse-keeper-signed
 
   ar:
     description: "Artifact Registry"
@@ -396,3 +402,5 @@ modules:
       - mcp-server-signed
       - mcp-server-external-signed
       - acm-signed
+      - harness-ai-agent
+      - ai-agents-signed

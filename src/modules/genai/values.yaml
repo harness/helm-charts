@@ -106,13 +106,13 @@ acm:
     # Chart defaults are devspace-style verbose logging; keep SMP quiet (customers can override).
     ACM_DEBUG: "false"
     ACM_TRACE: "false"
+    ACM_AGENT_TEMPLATE_MIGRATION_WORKER_ENABLED: "false"
     HARNESS_SERVICES_OPA_IGNORE: "false"
     HARNESS_SERVICES_OPA_CLIENT_BASEURL: "http://policy-mgmt:3000"
     HARNESS_SERVICES_OPA_CLIENT_SECURE: "false"
-    DEFAULT_HARNESS_AI_CONTAINER_IMAGE: "harnesssecure/harness-ai-agent:latest"
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
       # acm chart defaults to true (SaaS pulls from Docker Hub); SMP must honor global.imageRegistry for airgap.
       ignoreGlobalImageRegistry: false
