@@ -57,10 +57,10 @@ global:
     enabled: false
     # -- Enable to install Harness Data Platform
   data-infra:
-    enabled: false
+    enabled: true
     # -- Enable to install kafka
   kafka:
-    enabled: false
+    enabled: true
     bootstrapServers: "kafka-platform-kafka-bootstrap:9093"
     schemaRegistryUrl: "http://schema-registry-service:8081"
   # -- Operator based ClickHouse (operator and one ClickHouse cluster), deployed through data-infra.
