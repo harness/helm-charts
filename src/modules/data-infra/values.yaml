@@ -59,7 +59,7 @@ clickhouse-operator:
     #     tag: "0.26.2"
     # The wrapper chart defaults this to the SaaS registry secret; SMP uses global.imagePullSecrets.
     imagePullSecrets: []
-clickhouse-ingest-cluster:
+clickhouse-query-cluster:
   namePrefix: clickhouse
   # clickhouseImage:
   #   registry: docker.io

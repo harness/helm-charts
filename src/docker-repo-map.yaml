@@ -324,7 +324,7 @@ clickhouse-operator:
       image:
         registry: docker.io
         repository: harnesssecure/clickhouse-operator-signed
-clickhouse-ingest-cluster:
+clickhouse-query-cluster:
   clickhouseImage:
     registry: docker.io
     repository: harnesssecure/clickhouse-server-signed
