@@ -24,11 +24,11 @@ dependencies:
 - condition: global.clickhouse-service.enabled
   name: clickhouse-operator
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.26.2
+  version: 1.7.0
 - condition: global.clickhouse-service.enabled
   name: clickhouse-ingest-cluster
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.1.25
+  version: 1.12.0
 description: Helm chart for Harness Platform
 name: data-infra
 type: application
