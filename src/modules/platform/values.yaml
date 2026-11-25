@@ -443,6 +443,8 @@ next-gen-ui:
   config:
     ENV: "SMP"
     DEFAULT_HARNESS_AI_CONTAINER_IMAGE: "harnesssecure/harness-ai-agent:latest"
+    # hides the Marketplace tab on the Worker Agents page on SMP; next-gen-ui chart default is "true"
+    MARKETPLACE_AGENTS_ENABLED: "false"
   ingress:
     objects:
       # serves the UI at the root path; skipped when CG owns the root ingress
