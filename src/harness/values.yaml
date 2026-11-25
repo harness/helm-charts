@@ -142,6 +142,8 @@ global:
       userKey: "username"
   # -- High availability: deploy 3 mongodb pods instead of 1. Not recommended for evaluation or POV
   ha: true
+  # -- Need it for fme-proxy to use global imageRegistry and imagePullSecrets
+  ignoreGlobalImageOverrides: false
   # -- This private Docker image registry will override any registries that are defined in subcharts.
   imageRegistry: ""
   # -- Image Pull Secrets List for Harness SMP Images
@@ -582,6 +584,19 @@ platform:
                       matchLabels:
                         control-plane: envoy-gateway
                     topologyKey: kubernetes.io/hostname
+  # -- fme-proxy (FME Split Proxy, offline SDK source for Harness feature flags). Scheduling keys (affinity, nodeSelector, tolerations) are set under Split-Proxy-Chart.
+  fme-proxy:
+    enabled: true
+    Split-Proxy-Chart:
+      affinity: {}
+      nodeSelector: {}
+      tolerations: []
+      snapshot:
+        enabled: true
+        image:
+          registry: docker.io
+          repository: harnesssecure/fme-proxy-snapshot
+          tag: "20261120-f2112499c86d"
   gateway:
     affinity: {}
     nodeSelector: {}
