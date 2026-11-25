@@ -64,7 +64,6 @@ global:
     bootstrapServers: "kafka-platform-kafka-bootstrap:9093"
     schemaRegistryUrl: "http://schema-registry-service:8081"
   # -- Operator based ClickHouse (operator and one ClickHouse cluster), deployed through data-infra.
-  # Independent of global.database.clickhouse (legacy single-node ClickHouse).
   clickhouse-service:
     enabled: true
   # -- Enable to install Artifact Repository (AR)
@@ -620,9 +619,7 @@ platform:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-    # Logs go to ClickHouse (through Kafka) and the legacy store when both are enabled. Needs global.data-infra.enabled,
-    # global.kafka.enabled and global.clickhouse-service.enabled. Uses the operator based ClickHouse
-    # (service clickhouse-smp-lb), not the legacy single-node one.
+    # Needs global.kafka.enabled and global.clickhouse-service.enabled (service clickhouse-smp-lb).
     kafka:
       enabled: true
     clickhouse:

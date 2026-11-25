@@ -514,7 +514,6 @@ data-infra:
       limits:
         cpu: "1"
         memory: "2Gi"
-  # Memory request equals limit; CPU can burst.
   clickhouse-query-cluster:
     keeper:
       replicasCount: 1

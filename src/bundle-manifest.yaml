@@ -365,6 +365,9 @@ modules:
     bundle_type: combined
     requires: [platform]
     bucket_path: "data-infra"
+    exclude_full:
+      - metrics-exporter
+      - kubectl
     images:
       - kafka-operator-signed
       - kafka-operator-crd-updater-signed
