@@ -150,8 +150,10 @@ log-service:
           LOG_SERVICE_MANAGER_JWT_AUTH_SECRET: jwtNextGenManagerSecret
           LOG_SERVICE_PIPELINE_JWT_AUTH_SECRET: jwtAuthSecret
           LOG_SERVICE_SECRET: jwtNextGenManagerSecret
+          LOG_SERVICE_CLICKHOUSE_PASSWORD: clickhouseDefaultPassword
   config:
     ENV: "SMP"
+    PIPE_LOG_SERVICE_FALLBACK_STRATEGY: "true"
 looker:
   # Attach Looker's ClientTrafficPolicy (KeepUnchanged for escaped slashes) to the Looker
   # listener only; a Gateway-level policy conflicts with the shared one and breaks embed (404).

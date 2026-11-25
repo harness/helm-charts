@@ -820,6 +820,32 @@ iacm:
         cpu: 500m
         memory: 500Mi
 
+data-infra:
+  # Memory request equals limit; CPU can burst.
+  clickhouse-ingest-cluster:
+    keeper:
+      replicasCount: 1
+      resources:
+        requests:
+          cpu: "1"
+          memory: 4Gi
+        limits:
+          cpu: "2"
+          memory: 4Gi
+      storage:
+        size: 20Gi
+    cluster:
+      replicasCount: 1
+      resources:
+        requests:
+          cpu: "8"
+          memory: 32Gi
+        limits:
+          cpu: "16"
+          memory: 32Gi
+      storage:
+        size: 300Gi
+
 unified-data-platform:
   config-service:
     autoscaling:

@@ -514,6 +514,31 @@ data-infra:
       limits:
         cpu: "1"
         memory: "2Gi"
+  # Memory request equals limit; CPU can burst.
+  clickhouse-ingest-cluster:
+    keeper:
+      replicasCount: 1
+      resources:
+        requests:
+          cpu: "100m"
+          memory: 512Mi
+        limits:
+          cpu: "500m"
+          memory: 512Mi
+      storage:
+        size: 5Gi
+    cluster:
+      replicasCount: 1
+      resources:
+        requests:
+          cpu: "500m"
+          memory: 4Gi
+        limits:
+          cpu: "2"
+          memory: 4Gi
+      storage:
+        size: 15Gi
+
 unified-data-platform:
   config-service:
     replicaCount: 1

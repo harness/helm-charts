@@ -48,3 +48,77 @@ kafka-platform:
     image:
       registry: docker.io
       repository: harnesssecure/strimzi-kafka-signed
+# ClickHouse (operator based). Independent of global.database.clickhouse (the legacy single-node ClickHouse).
+# The operator and one ClickHouse cluster (1 shard) are installed by global.clickhouse-service.enabled in the umbrella values.
+clickhouse-operator:
+  altinity-clickhouse-operator:
+    # operator:
+    #   image:
+    #     registry: docker.io
+    #     repository: harnesssecure/clickhouse-operator
+    #     tag: "0.26.2"
+    # The wrapper chart defaults this to the SaaS registry secret; SMP uses global.imagePullSecrets.
+    imagePullSecrets: []
+clickhouse-ingest-cluster:
+  namePrefix: clickhouse
+  # clickhouseImage:
+  #   registry: docker.io
+  #   repository: harnesssecure/clickhouse-server
+  #   tag: "25.11.8.25"
+  imagePullSecrets: []
+  serviceAccount:
+    create: true
+    name: clickhouse-service
+  secrets:
+    # Password comes from the umbrella harness-shared-secrets (global.sharedSecrets.enabled must stay true).
+    clickhouse:
+      secretName: harness-shared-secrets
+      key: clickhouseDefaultPassword
+  # GKE/GCP only features, Disabling in SMP by Default.
+  backups:
+    enabled: false
+  logExport:
+    enabled: false
+  monitoring:
+    enabled: false
+  keeper:
+    enabled: true
+    name: clickhouse-keeper
+    # 1 is enough while no Replicated* tables are used. Chart still requires a Keeper to start.
+    replicasCount: 1
+    # image:
+    #   registry: docker.io
+    #   repository: harnesssecure/clickhouse-keeper
+    #   tag: "25.11.8.25"
+    resources:
+      requests:
+        cpu: "1"
+        memory: 2Gi
+      limits:
+        cpu: "1"
+        memory: 2Gi
+    storage:
+      size: 10Gi
+      storageClassName: ""
+  cluster:
+    # CHI name. Resources: svc clickhouse-smp (operator), lb svc clickhouse-smp-lb, sts chi-smp-clickhouse-0-0.
+    # None collide with the legacy single-node ClickHouse (svc clickhouse, sts clickhouse-shard0).
+    name: smp
+    clusterName: clickhouse
+    shardsCount: 1
+    # 1 shard x 1 replica: log-service tables are plain MergeTree (not replicated), so a second
+    # replica would not receive data. Raise only after those tables become Replicated*.
+    replicasCount: 1
+    hardAntiAffinity: false
+    s3:
+      enabled: false
+    resources:
+      requests:
+        cpu: "2"
+        memory: 8Gi
+      limits:
+        cpu: "2"
+        memory: 8Gi
+    storage:
+      size: 100Gi
+      storageClassName: ""

@@ -21,6 +21,14 @@ dependencies:
   name: kafka-connect-strimzi
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
   version: 1.130.2
+- condition: global.clickhouse-service.enabled
+  name: clickhouse-operator
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.26.2
+- condition: global.clickhouse-service.enabled
+  name: clickhouse-ingest-cluster
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 0.1.25
 description: Helm chart for Harness Platform
 name: data-infra
 type: application
