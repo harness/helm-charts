@@ -20,6 +20,8 @@ dependencies:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | access-control.config.ENV | string | `"SMP"` |  |
+| access-control.config.ORGANIZATION_CLIENT_BASE_URL | string | `"http://resource-hierarchy-service:9009/"` |  |
+| access-control.config.PROJECT_CLIENT_BASE_URL | string | `"http://resource-hierarchy-service:9009/"` |  |
 | access-control.config.RHS_ENABLED | string | `"true"` |  |
 | access-control.postgresql.image.repository | string | `"harnesssecure/postgresql"` |  |
 | access-control.postgresql.image.tag | string | `"14.20-debian"` |  |

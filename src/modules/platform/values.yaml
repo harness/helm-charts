@@ -48,6 +48,8 @@ access-control:
           USER_GROUP_CLIENT_SERVICE_SECRET: jwtNextGenManagerSecret
   config:
     ENV: "SMP"
+    ORGANIZATION_CLIENT_BASE_URL: "http://resource-hierarchy-service:9009/"
+    PROJECT_CLIENT_BASE_URL: "http://resource-hierarchy-service:9009/"
     RHS_ENABLED: "true"
   postgresql:
     image:
