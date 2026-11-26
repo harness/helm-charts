@@ -1,9 +1,9 @@
 dependencies:
 - name: iac-server
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.505.3
+  version: 1.524.11
 - name: iacm-manager
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.212.2
-digest: sha256:ebc75fb385e29597a6d28aaa3935be775dcce05f2d20975144c2d9f9b48bf5e4
-generated: "2026-10-20T07:04:52.08349091Z"
+  version: 1.221.3
+digest: sha256:58c454950282705df08c85943f2313d05df4dd7e03a014eafe42ffa6ecd57f52
+generated: "2026-11-26T14:30:08.984393524Z"

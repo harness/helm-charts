@@ -1,18 +1,18 @@
 dependencies:
 - name: config-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.1.170
+  version: 0.1.195
 - name: schema-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.23.0
+  version: 0.30.6
 - name: onboarding-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.14.26
+  version: 0.14.244
 - name: query-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 0.66.8
+  version: 0.90.5
 - name: dashboard-ui
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.89.0
-digest: sha256:98a4d46730a580bb0efaff5e6aabfa6873ab55f0317828bb0884d2d1f6ce9902
-generated: "2026-10-20T07:04:50.397511424Z"
+  version: 1.118.3
+digest: sha256:b14c01b49303cfbf73aa4a10730af2c0d0c1b359f07d02934c6310c3672e93d3
+generated: "2026-11-26T14:29:57.201968379Z"
