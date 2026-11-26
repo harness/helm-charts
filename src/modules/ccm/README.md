@@ -2,7 +2,7 @@
 
 A Helm chart for Harness Cloud Cost Management (CCM) module
 
-![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.546.0](https://img.shields.io/badge/AppVersion-1.546.0-informational?style=flat-square)
+![Version: 0.49.0](https://img.shields.io/badge/Version-0.49.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.546.0](https://img.shields.io/badge/AppVersion-1.546.0-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ccm
       repository: https://harness.github.io/helm-ccm
-      version: 0.48.0
+      version: 0.49.0
 ```
 
 ## Values
@@ -20,7 +20,7 @@ dependencies:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | batch-processing.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
-| batch-processing.postgres.image.tag | string | `"14.20-debian"` |  |
+| batch-processing.postgres.image.tag | string | `"14.25-bookworm"` |  |
 | batch-processing.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | batch-processing.secrets.smpSharedKubernetesSecrets[0].keys.CE_NG_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | batch-processing.secrets.smpSharedKubernetesSecrets[0].keys.NEXT_GEN_MANAGER_SECRET | string | `"jwtNextGenManagerSecret"` |  |
