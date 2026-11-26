@@ -170,6 +170,13 @@ modules:
       - refid-cache
       - name: sto-plugin
         variants: ["-fips"]
+
+  sto-agents:
+    description: "STO Agent Plugins"
+    bundle_type: combined
+    parent: sto
+    bucket_path: "sto/agents"
+    images:
       - fp-triage-pre-plugin
       - fp-triage-post-plugin
       - remediation-pre-plugin
