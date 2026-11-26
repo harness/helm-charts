@@ -1,6 +1,6 @@
 # cd
 
-![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 0.49.0](https://img.shields.io/badge/Version-0.49.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
 
 Helm chart for Harness CD
 
@@ -8,7 +8,7 @@ Helm chart for Harness CD
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | gitops | 1.67.3 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | gitops | 1.70.3 |
 
 ## Values
 

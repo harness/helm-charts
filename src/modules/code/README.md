@@ -1,6 +1,6 @@
 # code
 
-![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.25.0](https://img.shields.io/badge/AppVersion-1.25.0-informational?style=flat-square)
+![Version: 0.49.0](https://img.shields.io/badge/Version-0.49.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.25.0](https://img.shields.io/badge/AppVersion-1.25.0-informational?style=flat-square)
 
 A Helm chart for Harness CODE
 
@@ -8,20 +8,20 @@ A Helm chart for Harness CODE
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | code-api | 1.106.2 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | code-githa | 1.106.0 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | code-gitrpc | 1.106.0 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | code-search | 1.106.0 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | code-ui | 1.80.0 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | code-api | 1.110.2 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | code-githa | 1.110.0 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | code-gitrpc | 1.110.0 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | code-search | 1.110.0 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | code-ui | 1.96.2 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | code-api.autoai.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
-| code-api.autoai.postgres.image.tag | string | `"14.20-debian"` |  |
+| code-api.autoai.postgres.image.tag | string | `"14.25-bookworm"` |  |
 | code-api.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
-| code-api.postgres.image.tag | string | `"14.20-debian"` |  |
+| code-api.postgres.image.tag | string | `"14.25-bookworm"` |  |
 | code-api.secrets.smpSharedKubernetesSecrets[0].keys.GITNESS_REGISTRY_HTTP_SECRET | string | `"gitnessRegistryHttpSecret"` |  |
 | code-api.secrets.smpSharedKubernetesSecrets[0].keys.GITNESS_WEBHOOK_INTERNAL_SECRET | string | `"harnessCodeWebhookSecret"` |  |
 | code-api.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_JWT_BEARER_SECRET | string | `"jwtAuthSecret"` |  |
@@ -48,13 +48,13 @@ A Helm chart for Harness CODE
 | code-api.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_SERVICES_STO_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | code-api.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | code-githa.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
-| code-githa.postgres.image.tag | string | `"14.20-debian"` |  |
+| code-githa.postgres.image.tag | string | `"14.25-bookworm"` |  |
 | code-githa.secrets.smpSharedKubernetesSecrets[0].keys.GITHA_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | code-githa.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | code-gitrpc.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
-| code-gitrpc.postgres.image.tag | string | `"14.20-debian"` |  |
+| code-gitrpc.postgres.image.tag | string | `"14.25-bookworm"` |  |
 | code-search.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
-| code-search.postgres.image.tag | string | `"14.20-debian"` |  |
+| code-search.postgres.image.tag | string | `"14.25-bookworm"` |  |
 | code-search.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | code-search.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_SERVICES_CIMANAGER_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | code-search.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_SERVICES_CODESEARCH_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |

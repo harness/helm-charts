@@ -1,6 +1,6 @@
 # iacm
 
-![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.79001](https://img.shields.io/badge/AppVersion-0.0.79001-informational?style=flat-square)
+![Version: 0.49.0](https://img.shields.io/badge/Version-0.49.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.79001](https://img.shields.io/badge/AppVersion-0.0.79001-informational?style=flat-square)
 
 Helm chart for Harness IACM
 
@@ -8,8 +8,8 @@ Helm chart for Harness IACM
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | iac-server | 1.505.3 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | iacm-manager | 1.212.2 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | iac-server | 1.524.11 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | iacm-manager | 1.221.3 |
 
 ## Values
 
@@ -17,9 +17,9 @@ Helm chart for Harness IACM
 |-----|------|---------|-------------|
 | iac-server.config.RHS_ENABLED | string | `"true"` |  |
 | iac-server.createDb.image.repository | string | `"harnesssecure/postgresql"` |  |
-| iac-server.createDb.image.tag | string | `"14.20-debian"` |  |
+| iac-server.createDb.image.tag | string | `"14.25-bookworm"` |  |
 | iac-server.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
-| iac-server.postgres.image.tag | string | `"14.20-debian"` |  |
+| iac-server.postgres.image.tag | string | `"14.25-bookworm"` |  |
 | iac-server.secrets.smpSharedKubernetesSecrets[0].keys.AUDIT_AUTH_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | iac-server.secrets.smpSharedKubernetesSecrets[0].keys.HARNESS_CODE_AUTH_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | iac-server.secrets.smpSharedKubernetesSecrets[0].keys.NG_MANAGER_AUTH_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -31,6 +31,10 @@ Helm chart for Harness IACM
 | iac-server.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | iacm-manager.config.HARNESS_IMAGE_REPOSITORY | string | `"harnesssecure"` |  |
 | iacm-manager.config.RHS_ENABLED | string | `"true"` |  |
+| iacm-manager.jfr.image.digest | string | `""` |  |
+| iacm-manager.jfr.image.registry | string | `"docker.io"` |  |
+| iacm-manager.jfr.image.repository | string | `"busybox"` |  |
+| iacm-manager.jfr.image.tag | string | `"1.37.0"` |  |
 | iacm-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | iacm-manager.secrets.smpSharedKubernetesSecrets[0].keys.CACHE_SERVICE_GLOBAL_TOKEN | string | `"cacheServiceToken"` |  |
 | iacm-manager.secrets.smpSharedKubernetesSecrets[0].keys.GITNESS_JWT_SECRET | string | `"jwtNextGenManagerSecret"` |  |

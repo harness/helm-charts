@@ -1,6 +1,6 @@
 # ci
 
-![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 0.49.0](https://img.shields.io/badge/Version-0.49.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -8,8 +8,8 @@ A Helm chart for Kubernetes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | ci-manager | 1.161.10 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | ti-service | 1.80.4 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | ci-manager | 1.165.12 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | ti-service | 1.82.2 |
 
 ## Values
 
@@ -19,6 +19,10 @@ A Helm chart for Kubernetes
 | ci-manager.config.HARNESS_IMAGE_REPOSITORY | string | `"harnesssecure"` |  |
 | ci-manager.config.REFID_CACHE_IMAGE | string | `"harnesssecure/refid-cache:latest"` |  |
 | ci-manager.config.RHS_ENABLED | string | `"true"` |  |
+| ci-manager.jfr.image.digest | string | `""` |  |
+| ci-manager.jfr.image.registry | string | `"docker.io"` |  |
+| ci-manager.jfr.image.repository | string | `"busybox"` |  |
+| ci-manager.jfr.image.tag | string | `"1.37.0"` |  |
 | ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.ACCESS_CONTROL_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.ANNOTATIONS_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ci-manager.secrets.smpSharedKubernetesSecrets[0].keys.CACHE_SERVICE_GLOBAL_TOKEN | string | `"cacheServiceToken"` |  |

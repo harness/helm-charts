@@ -2,7 +2,7 @@
 
 Helm chart for Harness STO
 
-![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.79001](https://img.shields.io/badge/AppVersion-0.0.79001-informational?style=flat-square)
+![Version: 0.49.0](https://img.shields.io/badge/Version-0.49.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.79001](https://img.shields.io/badge/AppVersion-0.0.79001-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart to your Helm chart:
 dependencies:
     - name: harness-sto
       repository: https://harness.github.io/helm-sto
-      version: 0.48.0
+      version: 0.49.0
 ```
 
 ## Values
@@ -21,9 +21,9 @@ dependencies:
 |-----|------|---------|-------------|
 | sto-core.config.RHS_ENABLED | string | `"true"` |  |
 | sto-core.migrationPostgres.image.repository | string | `"harnesssecure/postgresql"` |  |
-| sto-core.migrationPostgres.image.tag | string | `"14.20-debian"` |  |
+| sto-core.migrationPostgres.image.tag | string | `"14.25-bookworm"` |  |
 | sto-core.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
-| sto-core.postgres.image.tag | string | `"14.20-debian"` |  |
+| sto-core.postgres.image.tag | string | `"14.25-bookworm"` |  |
 | sto-core.secrets.smpSharedKubernetesSecrets[0].keys.APP_INTERNAL_TOKEN_JWT_SECRET | string | `"jwtAuthSecret"` |  |
 | sto-core.secrets.smpSharedKubernetesSecrets[0].keys.APP_NG_MANAGER_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | sto-core.secrets.smpSharedKubernetesSecrets[0].keys.APP_PIPELINE_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
@@ -32,7 +32,7 @@ dependencies:
 | sto-core.secrets.smpSharedKubernetesSecrets[0].keys.RESOURCE_HIERARCHY_SERVICE_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | sto-core.secrets.smpSharedKubernetesSecrets[0].secretName | string | `"harness-shared-secrets"` |  |
 | ticket-service.postgres.image.repository | string | `"harnesssecure/postgresql"` |  |
-| ticket-service.postgres.image.tag | string | `"14.20-debian"` |  |
+| ticket-service.postgres.image.tag | string | `"14.25-bookworm"` |  |
 | ticket-service.secrets.smpSharedKubernetesSecrets[0].keys.APP_INTERNAL_TOKEN_JWT_SECRET | string | `"jwtAuthSecret"` |  |
 | ticket-service.secrets.smpSharedKubernetesSecrets[0].keys.APP_NG_MANAGER_SECRET | string | `"jwtNextGenManagerSecret"` |  |
 | ticket-service.secrets.smpSharedKubernetesSecrets[0].keys.APP_TOKEN_JWT_SECRET | string | `"jwtIdentityServiceSecret"` |  |
