@@ -171,12 +171,14 @@ modules:
       - name: sto-plugin
         variants: ["-fips"]
 
-  sto-agents:
-    description: "STO Agent Plugins"
+  scs-sto-agents:
+    description: "SCS and STO Agent Plugins"
     bundle_type: combined
     parent: sto
     bucket_path: "sto/agents"
     images:
+      - scs-remediation-agent
+      - scs-remediation-toolchain
       - fp-triage-pre-plugin
       - fp-triage-post-plugin
       - remediation-pre-plugin
@@ -320,8 +322,6 @@ modules:
       - ssca-compliance-plugin
       - ssca-artifact-signing-plugin
       - ssca-ai-bom-plugin
-      - scs-remediation-agent
-      - scs-remediation-toolchain
 
   dbdevops:
     description: "Database DevOps"
