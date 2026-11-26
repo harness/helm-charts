@@ -365,6 +365,10 @@ registry-processor:
   image:
     registry: docker.io
     repository: harnesssecure/registry-processor-signed
+artifact-registry-ui:
+  image:
+    registry: docker.io
+    repository: harnesssecure/artifact-registry-ui-signed
 config-service:
   image:
     registry: docker.io

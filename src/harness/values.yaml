@@ -879,6 +879,12 @@ ar:
       enabled: false
     nodeSelector: {}
     tolerations: []
+  artifact-registry-ui:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
 # SMP does not ship the SaaS haul collector, so OTEL_EXPORTER_OTLP_ENDPOINT is
 # left unset and tracing stays disabled. Customers point either server at their
 # own collector with genai.mcp-server-*.config.OTEL_EXPORTER_OTLP_ENDPOINT.

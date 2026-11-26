@@ -386,6 +386,7 @@ modules:
       - registry-processor-signed
       - ipqs-service-signed
       - ip-data-bundle-ipqs-signed
+      - artifact-registry-ui-signed
 
   genai:
     description: "GenAI"
