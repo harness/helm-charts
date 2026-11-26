@@ -170,6 +170,12 @@ modules:
       - refid-cache
       - name: sto-plugin
         variants: ["-fips"]
+      - fp-triage-pre-plugin
+      - fp-triage-post-plugin
+      - remediation-pre-plugin
+      - remediation-post-plugin
+      - sca-dedup-pre-plugin
+      - sca-dedup-post-plugin
 
   sto-scanners:
     description: "STO Security Scanners"
@@ -307,6 +313,8 @@ modules:
       - ssca-compliance-plugin
       - ssca-artifact-signing-plugin
       - ssca-ai-bom-plugin
+      - scs-remediation-agent
+      - scs-remediation-toolchain
 
   dbdevops:
     description: "Database DevOps"
