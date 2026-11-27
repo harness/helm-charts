@@ -1,15 +1,15 @@
 dependencies:
 - name: registry-api
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.106.2
+  version: 1.123.4
 - name: registry-async-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.63.0
+  version: 1.80.3
 - name: ipqs-service
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.13.0
+  version: 1.15.2
 - name: registry-processor
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.78.0
-digest: sha256:d418721d6a408eb1a36480d5e8e351e0e58d7890cdfe8a9028afd7cd24b6b7ac
-generated: "2026-10-20T07:04:45.364323414Z"
+  version: 1.95.3
+digest: sha256:93ae174ce307dc3fc1c556fc617115aeb0264506e2ad9314effe185a576d882e
+generated: "2026-11-26T14:29:58.398843747Z"

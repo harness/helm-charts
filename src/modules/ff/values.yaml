@@ -17,7 +17,7 @@ ff-service:
     postgres:
       image:
         repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
+        tag: "14.25-bookworm"
   ff-client-server:
     secrets:
       smpSharedKubernetesSecrets:
@@ -33,7 +33,7 @@ ff-service:
     postgres:
       image:
         repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
+        tag: "14.25-bookworm"
   ff-metrics-server:
     secrets:
       smpSharedKubernetesSecrets:
@@ -49,19 +49,19 @@ ff-service:
     postgres:
       image:
         repository: "harnesssecure/postgresql"
-        tag: "14.20-debian"
+        tag: "14.25-bookworm"
 ff-psql-migrations:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
 ff-pushpin-service:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"
 ff-timescale-migrations:
   postgres:
     image:
       repository: "harnesssecure/postgresql"
-      tag: "14.20-debian"
+      tag: "14.25-bookworm"

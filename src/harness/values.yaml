@@ -55,12 +55,12 @@ global:
     # -- Enable to install Harness Infrastructure As Code Management (IACM)
   iacm:
     enabled: false
-    # -- Enable to install Harness Data Platform. On by default: log-service writes logs to ClickHouse through Kafka.
+    # -- Enable to install Harness Data Platform
   data-infra:
-    enabled: true
-    # -- Enable to install kafka. On by default: log-service writes logs to ClickHouse through Kafka.
+    enabled: false
+    # -- Enable to install kafka
   kafka:
-    enabled: true
+    enabled: false
     bootstrapServers: "kafka-platform-kafka-bootstrap:9093"
     schemaRegistryUrl: "http://schema-registry-service:8081"
   # -- Enable to install Artifact Repository (AR)
@@ -75,9 +75,7 @@ global:
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
     clickhouse:
-      # -- Installs in-cluster ClickHouse and turns it on for log-service, CCM, and Looker.
-      # Set false only when ClickHouse is external or not used.
-      enabled: true
+      enabled: false
     # -- settings to deploy mongo in-cluster or configure to use external mongo source
     mongo:
       # -- set additional arguments to mongo uri
@@ -466,6 +464,14 @@ platform:
     database:
       clickhouse:
         enabled: false
+        # Matches the database chart. Smaller profiles set their own size.
+        resources:
+          limits:
+            cpu: 4
+            memory: 8Gi
+          requests:
+            cpu: 4
+            memory: 8Gi
       minio:
         affinity: {}
         nodeSelector: {}
@@ -596,48 +602,20 @@ platform:
     # -- Feature Flags
     featureFlags:
       # -- Additional Feature Flag (placeholder to add any other featureFlags)
-      ADDITIONAL: "UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT"
+      ADDITIONAL: "UDP_ENABLE_DASHBOARDS_2_0,UDP_DISABLE_DASHBOARDS_DATA_EXPORT,UDP_LOOKER_ENABLED"
     nodeSelector: {}
     tolerations: {}
     immutable_delegate_docker_image:
       image:
         registry: docker.io
         repository: harnesssecure/delegate
-        tag: 26.09.90107
+        tag: 26.10.90323
         digest: ""
   # -- log-service (taints, tolerations, and so on)
   log-service:
     affinity: {}
     nodeSelector: {}
     tolerations: []
-    # Logs are written to both ClickHouse (through Kafka) and the legacy store, and read from
-    # ClickHouse with the legacy store as fallback. Needs global.database.clickhouse.enabled,
-    # global.data-infra.enabled and global.kafka.enabled.
-    kafka:
-      enabled: true
-    clickhouse:
-      enabled: true
-      addrs: "clickhouse:9000"
-      tls: false
-      database: "log_service"
-      writeToKafka: true
-      retentionWorkerEnabled: true
-    config:
-      PIPE_LOG_SERVICE_FALLBACK_STRATEGY: "true"
-    secrets:
-      # Helm replaces lists, so the chart's default entries are repeated here.
-      kubernetesSecrets:
-        - secretName: ""
-          keys:
-            LOG_SERVICE_GLOBAL_TOKEN: ""
-            LOG_SERVICE_SECRET: ""
-        - secretName: "minio"
-          keys:
-            LOG_SERVICE_S3_ACCESS_KEY_ID: "root-user"
-            LOG_SERVICE_S3_SECRET_ACCESS_KEY: "root-password"
-        - secretName: "clickhouse"
-          keys:
-            LOG_SERVICE_CLICKHOUSE_PASSWORD: "admin-password"
   looker:
     affinity: {}
     nodeSelector: {}
@@ -807,7 +785,7 @@ pg-upgrade:
     image:
       registry: docker.io
       repository: harnesssecure/postgresql
-      tag: 16.15-bookworm
+      tag: 16.16-bookworm
 data-infra:
   kafka-connect-strimzi:
     connectors:
@@ -897,6 +875,12 @@ genai:
     nodeSelector: {}
     tolerations: []
   acm:
+    autoscaling:
+      enabled: false
+    nodeSelector: {}
+    tolerations: []
+  ai-agents:
+    affinity: {}
     autoscaling:
       enabled: false
     nodeSelector: {}

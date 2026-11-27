@@ -39,8 +39,6 @@ global:
     enabled: true
   # -- provide overrides to use in-cluster database or configure to use external databases
   database:
-    clickhouse:
-      enabled: true
     # -- settings to deploy mongo in-cluster or configure to use external mongo source
     mongo:
       # -- set additional arguments to mongo uri
@@ -422,11 +420,14 @@ platform:
   bootstrap:
     database:
       clickhouse:
-        enabled: false
+        resources:
+          limits:
+            cpu: 4
+            memory: 8192Mi
+          requests:
+            cpu: 4
+            memory: 8192Mi
       minio:
-        defaultBuckets: "logs"
-        fullnameOverride: "minio"
-        mode: standalone
         affinity: {}
         nodeSelector: {}
         tolerations: []
@@ -473,10 +474,10 @@ platform:
         redis:
           resources:
             limits:
-              memory: 2048Mi
+              memory: 4Gi
             requests:
-              cpu: 1
-              memory: 2048Mi
+              cpu: 1.5
+              memory: 4Gi
         replicaCount: 3
         sentinel:
           resources:
@@ -900,10 +901,10 @@ ar:
       targetMemory: 80
     resources:
       limits:
-        memory: 4096Mi
+        memory: 8192Mi
       requests:
-        cpu: 1
-        memory: 4096Mi
+        cpu: 2
+        memory: 8192Mi
   registry-processor:
     autoscaling:
       enabled: true
@@ -913,10 +914,10 @@ ar:
       targetMemory: 80
     resources:
       limits:
-        memory: 2048Mi
+        memory: 4096Mi
       requests:
-        cpu: 512m
-        memory: 2048Mi
+        cpu: 1
+        memory: 4096Mi
   registry-async-service:
     autoscaling:
       enabled: true
@@ -926,10 +927,10 @@ ar:
       targetMemory: 80
     resources:
       limits:
-        memory: 4096Mi
+        memory: 8192Mi
       requests:
-        cpu: 1
-        memory: 4096Mi
+        cpu: 2
+        memory: 8192Mi
   ipqs-service:
     autoscaling:
       enabled: true
@@ -1005,3 +1006,21 @@ genai:
       requests:
         cpu: 100m
         memory: 1Gi
+  ai-agents:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPU: 70
+      targetMemory: 70
+    maxSurge: 0
+    maxUnavailable: 1
+    pdb:
+      create: "true"
+    resources:
+      limits:
+        cpu: 300m
+        memory: 700Mi
+      requests:
+        cpu: 200m
+        memory: 500Mi

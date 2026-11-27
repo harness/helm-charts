@@ -34,6 +34,15 @@ kafka-operator:
     kafkaInit:
       image:
         repository: harnesssecure/kafka-operator-signed
+  crdUpdate:
+    job:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          cpu: "2"
+          memory: 512Mi
 kafka-platform:
   kafkaDebugPod:
     image:

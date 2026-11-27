@@ -142,7 +142,6 @@ modules:
       - kaniko-acr
       - kaniko-ecr
       - kaniko-gcr
-      - kaniko-gar
       - artifactory
       - gcs
       - cache
@@ -396,3 +395,5 @@ modules:
       - mcp-server-signed
       - mcp-server-external-signed
       - acm-signed
+      - harness-ai-agent
+      - ai-agents-signed

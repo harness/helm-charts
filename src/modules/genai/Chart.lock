@@ -1,9 +1,15 @@
 dependencies:
 - name: mcp-server-internal
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.181.0
+  version: 1.203.0
 - name: mcp-server-external
   repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
-  version: 1.161.0
-digest: sha256:9423e4c09c0f12e95e60118df778947ed380d4f3c43fe3282ab5a8aff33a9279
-generated: "2026-10-20T07:04:49.87921856Z"
+  version: 1.183.0
+- name: acm
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.80.0
+- name: ai-agents
+  repository: oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts
+  version: 1.10.0
+digest: sha256:0b8ba309e18f85f93b3653331b925e8d8d3adf9823e60638a49ebb8041a4e30c
+generated: "2026-11-26T14:29:56.169428225Z"

@@ -1,6 +1,6 @@
 # data-infra
 
-![Version: 0.48.0](https://img.shields.io/badge/Version-0.48.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.49.0](https://img.shields.io/badge/Version-0.49.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 Helm chart for Harness Platform
 
@@ -8,11 +8,11 @@ Helm chart for Harness Platform
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | kafka-connect-strimzi | 1.113.1 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | kafka-operator | 1.15.4 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | kafka-platform | 2.12.1 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | kafka-resources | 1.108.0 |
-| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | schema-registry | 1.12.2 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | kafka-connect-strimzi | 1.130.2 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | kafka-operator | 1.20.3 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | kafka-platform | 2.13.3 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | kafka-resources | 1.119.0 |
+| oci://us-west1-docker.pkg.dev/gcr-prod/harness-helm-artifacts | schema-registry | 1.13.17 |
 
 ## Values
 
@@ -22,6 +22,10 @@ Helm chart for Harness Platform
 | kafka-connect-strimzi.connectorConfigEnv.MONGO_SSCA_NG_HARNESS_DB_NAME | string | `"ng-harness"` |  |
 | kafka-connect-strimzi.connectorConfigEnv.POSTGRES_REGISTRY_DB_DATABASENAME | string | `"registry_db"` |  |
 | kafka-connect-strimzi.connectorConfigEnv.POSTGRES_REGISTRY_DB_USER | string | `"postgres"` |  |
+| kafka-operator.crdUpdate.job.resources.limits.cpu | string | `"2"` |  |
+| kafka-operator.crdUpdate.job.resources.limits.memory | string | `"512Mi"` |  |
+| kafka-operator.crdUpdate.job.resources.requests.cpu | string | `"100m"` |  |
+| kafka-operator.crdUpdate.job.resources.requests.memory | string | `"512Mi"` |  |
 | kafka-operator.strimziOperator.cruiseControl.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
 | kafka-operator.strimziOperator.kafka.image.repository | string | `"harnesssecure/strimzi-kafka-signed"` |  |
 | kafka-operator.strimziOperator.kafkaConnect.image.repository | string | `"harnesssecure/strimzi-kafka-connect-signed"` |  |
