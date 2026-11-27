@@ -141,7 +141,6 @@ modules:
       - kaniko
       - kaniko-acr
       - kaniko-ecr
-      - kaniko-gcr
       - artifactory
       - gcs
       - cache
@@ -150,11 +149,9 @@ modules:
       - buildx-acr
       - buildx-ecr
       - buildx-gar
-      - buildx-gcr
       - docker
       - ecr
       - gar
-      - gcr
       - acr
       - har-plugin
 
