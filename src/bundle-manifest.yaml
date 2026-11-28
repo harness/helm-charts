@@ -167,6 +167,21 @@ modules:
       - name: sto-plugin
         variants: ["-fips"]
 
+  scs-sto-agents:
+    description: "SCS and STO Agent Plugins"
+    bundle_type: combined
+    parent: sto
+    bucket_path: "sto/agents"
+    images:
+      - scs-remediation-agent
+      - scs-remediation-toolchain
+      - fp-triage-pre-plugin
+      - fp-triage-post-plugin
+      - remediation-pre-plugin
+      - remediation-post-plugin
+      - sca-dedup-pre-plugin
+      - sca-dedup-post-plugin
+
   sto-scanners:
     description: "STO Security Scanners"
     bundle_type: single
